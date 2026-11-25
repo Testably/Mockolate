@@ -492,6 +492,51 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to An [AsDefault] parameter marks the default value of its type for all mocks of the test case, so it is ambiguous when another [AsDefault] parameter has the same type, and contradicts a [Transient] marker, which keeps the parameter from the other arguments..
+        /// </summary>
+        internal static string Mockolate0011Description {
+            get {
+                return ResourceManager.GetString("Mockolate0011Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The [AsDefault] parameter '{0}' {1}.
+        /// </summary>
+        internal static string Mockolate0011MessageFormat {
+            get {
+                return ResourceManager.GetString("Mockolate0011MessageFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to An [AsDefault] parameter is ambiguous or transient.
+        /// </summary>
+        internal static string Mockolate0011Title {
+            get {
+                return ResourceManager.GetString("Mockolate0011Title", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to has the same type as the [AsDefault] parameter '{0}'.
+        /// </summary>
+        internal static string Mockolate0011SameTypeReason {
+            get {
+                return ResourceManager.GetString("Mockolate0011SameTypeReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to is also marked [Transient].
+        /// </summary>
+        internal static string Mockolate0011TransientReason {
+            get {
+                return ResourceManager.GetString("Mockolate0011TransientReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Add the explicit type '{0}'.
         /// </summary>
         internal static string UnionArgumentCodeFixTitle {

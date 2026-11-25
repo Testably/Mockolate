@@ -24,6 +24,9 @@ internal static partial class Sources
 			                                                          				index => parameters[index].ReflectionInfo is { } reflectionInfo &&
 			                                                          				         global::System.Reflection.CustomAttributeExtensions.IsDefined(reflectionInfo,
 			                                                          					         typeof(global::Mockolate.Integrations.TransientParameterAttribute), false),
+			                                                          				index => parameters[index].ReflectionInfo is { } reflectionInfo &&
+			                                                          				         global::System.Reflection.CustomAttributeExtensions.IsDefined(reflectionInfo,
+			                                                          					         typeof(global::Mockolate.Integrations.AsDefaultParameterAttribute), false),
 			                                                          				Arguments, DefaultBehavior?.Invoke()).Create();
 			                                                          		}
 			                                                          """);

@@ -167,6 +167,63 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments]
+	public async Task AsDefault_ShouldBeReturnedByMembersWithoutSetup(IWarehouse warehouse,
+		[AsDefault] IOrderRepository repository)
+	{
+		bool found = warehouse.TryGetRepository(out IOrderRepository outRepository);
+
+		await That(warehouse.Repository).IsSameAs(repository);
+		await That(warehouse["Dark"]).IsSameAs(repository);
+		await That(warehouse.GetRepository()).IsSameAs(repository);
+		await That(await warehouse.GetRepositoryAsync()).IsSameAs(repository);
+		await That(found).IsFalse();
+		await That(outRepository).IsSameAs(repository);
+	}
+
+	[Test]
+	[AutoMockArguments]
+	public async Task AsDefault_WithSetupOrWrittenValue_ShouldNotBeReturned(IWarehouse warehouse,
+		[AsDefault] IOrderRepository repository, [Transient] IOrderRepository other)
+	{
+		warehouse.Mock.Setup.GetRepository().Returns(other);
+		warehouse["Dark"] = other;
+
+		await That(warehouse.GetRepository()).IsSameAs(other);
+		await That(warehouse["Dark"]).IsSameAs(other);
+		await That(warehouse["Milk"]).IsSameAs(repository);
+	}
+
+	[Test]
+	[AutoMockArguments]
+	public async Task AsDefault_ShouldStillBePassedToTheClassUnderTest(OrderService sut,
+		[AsDefault] IOrderRepository repository)
+	{
+		sut.Ship(5);
+
+		await That(repository.Mock.Verify.Find(5)).Once();
+	}
+
+	[Test]
+	[AutoMockArguments]
+	public async Task WithoutAsDefault_ShouldNotReturnTheParameter(IWarehouse warehouse, IOrderRepository repository)
+		=> await That(warehouse.Repository).IsNotSameAs(repository);
+
+	[Test]
+	[AutoMockArguments(42)]
+	public async Task AsDefault_WithGivenValue_ShouldBeReturnedForItsType([AsDefault] int count, IChocolateStock stock)
+		=> await That(stock.Count).IsEqualTo(42);
+
+	[Test]
+	[AutoMockArguments]
+	public async Task AsDefault_WhenCreatedFromTheDefaultValues_ShouldNotAskForItself([AsDefault] int count,
+		IChocolateStock stock)
+	{
+		await That(count).IsEqualTo(0);
+		await That(stock.Count).IsEqualTo(0);
+	}
+
+	[Test]
+	[AutoMockArguments]
 	public async Task AutoMockArguments_WithTransientParameterOfTheType_ShouldIgnoreItWhenMatching(
 		TransferService sut, IAccount source, IAccount target, [Transient] IAccount other)
 	{

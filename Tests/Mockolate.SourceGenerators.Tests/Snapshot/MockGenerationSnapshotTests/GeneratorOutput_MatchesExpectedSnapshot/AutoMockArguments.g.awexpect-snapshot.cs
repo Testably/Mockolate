@@ -30,6 +30,17 @@ namespace Mockolate.Integrations
 	}
 
 	/// <summary>
+	///     Makes a test parameter the default value of its type for all mocks of the test case.
+	/// </summary>
+	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
+	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	[global::Microsoft.CodeAnalysis.Embedded]
+	internal abstract class AsDefaultParameterAttribute : global::System.Attribute
+	{
+	}
+
+	/// <summary>
 	///     Creates the arguments of one test invocation on demand, so that a class under test receives the arguments of
 	///     the other parameters whatever their order.
 	/// </summary>
@@ -42,8 +53,9 @@ namespace Mockolate.Integrations
 		private readonly global::System.Type[] _types;
 		private readonly string[] _names;
 		private readonly global::System.Func<int, bool> _isTransientParameter;
+		private readonly global::System.Func<int, bool> _isAsDefaultParameter;
 		private readonly object?[] _arguments;
-		private readonly global::Mockolate.MockBehavior? _behavior;
+		private global::Mockolate.MockBehavior? _behavior;
 		private readonly int[] _states;
 		private readonly object?[] _values;
 		private readonly bool?[] _isTransient;
@@ -52,10 +64,12 @@ namespace Mockolate.Integrations
 		/// <param name="types">The types of the parameters of the test method.</param>
 		/// <param name="names">The names of the parameters of the test method.</param>
 		/// <param name="isTransientParameter">Whether the parameter at an index is marked as transient.</param>
+		/// <param name="isAsDefaultParameter">Whether the parameter at an index is marked as the default value of its type.</param>
 		/// <param name="arguments">The given arguments of the first parameters, which are not shared.</param>
 		/// <param name="behavior">The behavior of the created mocks and values.</param>
 		public AutoMockRow(global::System.Reflection.Assembly assembly, global::System.Type[] types, string[] names,
-			global::System.Func<int, bool> isTransientParameter, object?[] arguments, global::Mockolate.MockBehavior? behavior)
+			global::System.Func<int, bool> isTransientParameter, global::System.Func<int, bool> isAsDefaultParameter,
+			object?[] arguments, global::Mockolate.MockBehavior? behavior)
 		{
 			if (arguments.Length > types.Length)
 			{
@@ -67,6 +81,7 @@ namespace Mockolate.Integrations
 			_types = types;
 			_names = names;
 			_isTransientParameter = isTransientParameter;
+			_isAsDefaultParameter = isAsDefaultParameter;
 			_arguments = arguments;
 			_behavior = behavior;
 			_states = new int[types.Length];
@@ -179,10 +194,33 @@ namespace Mockolate.Integrations
 
 			for (int index = 0; index < _types.Length; index++)
 			{
+				if (_isAsDefaultParameter(index))
+				{
+					UseAsDefault(index);
+				}
+			}
+
+			for (int index = 0; index < _types.Length; index++)
+			{
 				GetOrCreate(index);
 			}
 
 			return _values;
+		}
+
+		/// <summary>
+		///     The parameter is created on the first request. While it is being created, the previous default values
+		///     apply, so that its own creation does not recurse.
+		/// </summary>
+		private void UseAsDefault(int index)
+		{
+			global::System.Type type = _types[index];
+			global::Mockolate.MockBehavior previous = _behavior ?? global::Mockolate.MockBehavior.Default;
+			_behavior = previous.WithDefaultValueFor(new global::Mockolate.DefaultValueFactory(
+				candidate => candidate == type,
+				(_, parameters) => _states[index] == 1
+					? previous.DefaultValue.GenerateValue(type, parameters)
+					: GetOrCreate(index)));
 		}
 
 		private object? GetOrCreate(int index)

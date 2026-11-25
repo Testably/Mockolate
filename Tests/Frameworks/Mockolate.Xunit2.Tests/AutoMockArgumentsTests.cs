@@ -44,6 +44,15 @@ public sealed class AutoMockArgumentsTests
 		await That(shippingClient.Mock.Verify.Ship(order)).Never();
 	}
 
+	[Test]
+	public async Task GetData_WithAsDefaultParameter_ShouldReturnItFromTheOtherMocks()
+	{
+		object[] row = GetSingleRow(nameof(AsDefault));
+		IWarehouse warehouse = (IWarehouse)row[0];
+
+		await That(warehouse.Repository).IsSameAs(row[1]);
+	}
+
 	private static object[] GetSingleRow(string methodName)
 	{
 		MethodInfo method = typeof(AutoMockArgumentsTests).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)!;
@@ -63,6 +72,11 @@ public sealed class AutoMockArgumentsTests
 	[AutoMockArguments]
 	private static void Transient(OrderService sut, IOrderRepository repository,
 		[Transient] IShippingClient shippingClient)
+	{
+	}
+
+	[AutoMockArguments]
+	private static void AsDefault(IWarehouse warehouse, [AsDefault] IOrderRepository repository)
 	{
 	}
 }

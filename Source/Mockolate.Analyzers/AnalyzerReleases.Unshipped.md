@@ -6,3 +6,4 @@
  Mockolate0006 | Usage    | Warning  | A null argument for IParameters matches any parameters
  Mockolate0007 | Usage    | Warning  | A matcher is compared as a value
  Mockolate0010 | Usage    | Warning  | A mock test parameter cannot be created
+ Mockolate0011 | Usage    | Warning  | An [AsDefault] parameter is ambiguous or transient

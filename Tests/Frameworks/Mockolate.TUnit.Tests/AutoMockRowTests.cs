@@ -63,15 +63,41 @@ public sealed class AutoMockRowTests
 			{
 				asked.Add(index);
 				return false;
-			}, [], null);
+			}, _ => false, [], null);
 
 		row.Create();
 
 		await That(asked).IsEqualTo([1, 2,]);
 	}
 
+	[Test]
+	public async Task Create_WithAsDefaultParameter_ShouldTakePrecedenceOverTheBehavior()
+	{
+		AutoMockRow row = new(typeof(AutoMockRowTests).Assembly, GetTypes(nameof(AsDefaultCount)),
+			GetNames(nameof(AsDefaultCount)), _ => false, index => index == 0, [42,],
+			MockBehavior.Default.WithDefaultValueFor(() => 7));
+
+		object?[] values = row.Create();
+
+		await That(((IChocolateStock)values[1]!).Count).IsEqualTo(42);
+	}
+
+	[Test]
+	public async Task Create_WithAsDefaultParameterFromTheDefaultValues_ShouldCreateItFromTheBehavior()
+	{
+		AutoMockRow row = new(typeof(AutoMockRowTests).Assembly, GetTypes(nameof(AsDefaultCount)),
+			GetNames(nameof(AsDefaultCount)), _ => false, index => index == 0, [],
+			MockBehavior.Default.WithDefaultValueFor(() => 7));
+
+		object?[] values = row.Create();
+
+		await That(values[0]).IsEqualTo(7);
+		await That(((IChocolateStock)values[1]!).Count).IsEqualTo(7);
+	}
+
 	private static AutoMockRow CreateRow(string methodName, params object?[] arguments)
-		=> new(typeof(AutoMockRowTests).Assembly, GetTypes(methodName), GetNames(methodName), _ => false, arguments, null);
+		=> new(typeof(AutoMockRowTests).Assembly, GetTypes(methodName), GetNames(methodName), _ => false, _ => false,
+			arguments, null);
 
 	private static ParameterInfo[] GetParameters(string methodName)
 		=> typeof(AutoMockRowTests).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)!.GetParameters();
@@ -91,6 +117,10 @@ public sealed class AutoMockRowTests
 	}
 
 	private static void Uncreatable(IUncreatableService service)
+	{
+	}
+
+	private static void AsDefaultCount(int count, IChocolateStock stock)
 	{
 	}
 

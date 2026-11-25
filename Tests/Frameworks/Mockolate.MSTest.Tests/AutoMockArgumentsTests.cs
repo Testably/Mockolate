@@ -89,6 +89,12 @@ public sealed class AutoMockArgumentsTests
 
 	[TestMethod]
 	[AutoMockArguments]
+	public async Task AsDefault_ShouldBeReturnedByMembersWithoutSetup(IWarehouse warehouse,
+		[AsDefault] IOrderRepository repository)
+		=> await That(warehouse.Repository).IsSameAs(repository);
+
+	[TestMethod]
+	[AutoMockArguments]
 	public async Task AutoMockArguments_WithTransientParameter_ShouldNotShareItWithTheClassUnderTest(
 		OrderService sut, IOrderRepository repository, [Transient] IShippingClient shippingClient)
 	{
