@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<UseTUnit>false</UseTUnit>
 		<EnableNUnitRunner>true</EnableNUnitRunner>
 	</PropertyGroup>
 

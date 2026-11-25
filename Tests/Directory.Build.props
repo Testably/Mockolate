@@ -7,12 +7,20 @@
 		<TargetFrameworks>net11.0;net10.0;net8.0;net48</TargetFrameworks>
 	</PropertyGroup>
 
+	<!--
+	    A project that only holds code for the tests sets IsTestProject to false before these props, and a test project
+	    that runs on another test framework sets UseTUnit to false in its project file.
+	-->
+	<PropertyGroup>
+		<IsTestProject Condition="'$(IsTestProject)' == ''">true</IsTestProject>
+		<UseTUnit Condition="'$(UseTUnit)' == ''">true</UseTUnit>
+	</PropertyGroup>
+
 	<PropertyGroup>
 		<LangVersion>latest</LangVersion>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<IsPackable>false</IsPackable>
-		<IsTestProject>true</IsTestProject>
 		<NoWarn>701;1702;CA1845</NoWarn>
 		<!--
 			The .NET 11 SDK writes a runtimeconfig.dev.json (hot reload options, no probing paths) for Debug builds.
@@ -31,8 +39,11 @@
 	    The tests run on TUnit as executables of the Microsoft.Testing.Platform. TUnit discovers them through
 	    reflection instead of its source generator, which keeps the compilation of the large test projects fast.
 	-->
-	<PropertyGroup>
+	<PropertyGroup Condition="'$(IsTestProject)' == 'true'">
 		<OutputType>Exe</OutputType>
+	</PropertyGroup>
+
+	<PropertyGroup>
 		<EnableTUnitSourceGeneration>false</EnableTUnitSourceGeneration>
 		<TUnitImplicitUsings>false</TUnitImplicitUsings>
 		<!-- The polyfills of TUnit clash with the internal polyfills of Mockolate, which the tests can see. -->
@@ -42,8 +53,7 @@
 	<!-- Project references do not import the package props, so make the generator see the property here too. -->
 	<Import Project="$(MSBuildThisFileDirectory)/../Source/Mockolate/build/Mockolate.props"/>
 
-	<ItemGroup>
-		<PackageReference Include="TUnit.Engine"/>
+	<ItemGroup Condition="'$(IsTestProject)' == 'true'">
 		<PackageReference Include="Microsoft.Testing.Extensions.TrxReport"/>
 		<PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage"/>
 		<PackageReference Include="aweXpect"/>
@@ -51,12 +61,14 @@
 		<PackageReference Include="aweXpect.Mockolate"/>
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net48'">
-		<Reference Include="System.Net.Http"/>
+	<!-- Items are evaluated after all properties, so UseTUnit can also be set in the project file. -->
+	<ItemGroup Condition="'$(IsTestProject)' == 'true' And '$(UseTUnit)' == 'true'">
+		<PackageReference Include="TUnit.Engine"/>
+		<Using Include="TUnit.Core"/>
 	</ItemGroup>
 
-	<ItemGroup>
-		<Using Include="TUnit.Core"/>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+		<Reference Include="System.Net.Http"/>
 	</ItemGroup>
 
 </Project>

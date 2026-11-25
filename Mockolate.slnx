@@ -25,6 +25,7 @@
 	<Folder Name="/Tests/Frameworks/">
 		<File Path="Tests/Frameworks/Directory.Build.props" />
 		<File Path="Tests/Frameworks/Directory.Build.targets" />
+		<File Path="Tests/Frameworks/Mockolate.Frameworks.TestHelpers/Directory.Build.props" />
 		<Project Path="Tests/Frameworks/Mockolate.Frameworks.TestHelpers/Mockolate.Frameworks.TestHelpers.csproj" />
 		<Project Path="Tests/Frameworks/Mockolate.NUnit.Tests/Mockolate.NUnit.Tests.csproj" />
 		<Project Path="Tests/Frameworks/Mockolate.TUnit.Tests/Mockolate.TUnit.Tests.csproj" />

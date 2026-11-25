@@ -110,8 +110,9 @@ public sealed class AutoMockArgumentsTests
 		await That(type).IsEqualTo("Dark\n");
 		await That(amount).IsEqualTo(4);
 		await That(stock.ToString()).IsEqualTo("Mockolate.Frameworks.TestHelpers.Domain.IChocolateStock mock");
-		await That(TestContext.Current.Test?.TestDisplayName).IsEqualTo(
-			"Mockolate.Xunit.Tests.AutoMockArgumentsTests.DisplayName_ShouldDescribeTheMocks(type: \"Dark\\n\", amount: 4, stock: Mockolate.Frameworks.TestHelpers.Domain.IChocolateStock mock)");
+		// Runners choose whether the name starts with the class, as the default does, or only with the method, as Rider's does.
+		await That(TestContext.Current.Test?.TestDisplayName).EndsWith(
+			"DisplayName_ShouldDescribeTheMocks(type: \"Dark\\n\", amount: 4, stock: Mockolate.Frameworks.TestHelpers.Domain.IChocolateStock mock)");
 	}
 
 	[Theory]

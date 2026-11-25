@@ -1,64 +1,25 @@
 <Project>
 
-	<!-- The shared test props run every test on TUnit, so the framework tests start from the root props instead and each
-	     test project only references the packages of its own test framework. -->
-	<Import Project="$(MSBuildThisFileDirectory)/../../Directory.Build.props"
-			Condition="Exists('$(MSBuildThisFileDirectory)/../../Directory.Build.props')"/>
+	<Import Project="$(MSBuildThisFileDirectory)/../Directory.Build.props"
+			Condition="Exists('$(MSBuildThisFileDirectory)/../Directory.Build.props')"/>
 
-	<PropertyGroup>
-		<TargetFrameworks>net11.0;net10.0;net8.0;net48</TargetFrameworks>
-		<LangVersion>latest</LangVersion>
-		<ImplicitUsings>disable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<IsPackable>false</IsPackable>
-		<NoWarn>701;1702;CA1845</NoWarn>
-	</PropertyGroup>
-
-	<!-- Every project here is a test project, except the one with the shared types under test. -->
-	<PropertyGroup>
-		<IsFrameworkTestProject Condition="'$(MSBuildProjectName)' != 'Mockolate.Frameworks.TestHelpers'">true</IsFrameworkTestProject>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(IsFrameworkTestProject)' == 'true'">
-		<IsTestProject>true</IsTestProject>
-		<OutputType>Exe</OutputType>
-		<!-- See Tests/Directory.Build.props: VsTest of Stryker finds no tests with a runtimeconfig.dev.json on Linux. -->
-		<GenerateRuntimeConfigDevFile>false</GenerateRuntimeConfigDevFile>
-	</PropertyGroup>
-
-	<!-- Every framework compiles with C# 15, so the switch keeps the classic setup surface tested below net11.0. -->
-	<PropertyGroup Condition="'$(TargetFramework)' != 'net11.0'">
-		<MockolateDisableUnionParameters>true</MockolateDisableUnionParameters>
-	</PropertyGroup>
-
-	<!-- Project references do not import the package props, so make the generator see the property here too. -->
-	<Import Project="$(MSBuildThisFileDirectory)/../../Source/Mockolate/build/Mockolate.props"/>
-
-	<ItemGroup Condition="'$(IsFrameworkTestProject)' == 'true'">
+	<!-- The tests of every test framework share the types under test, the Mockolate references and the usings. -->
+	<ItemGroup Condition="'$(IsTestProject)' == 'true'">
 		<ProjectReference Include="$(MSBuildThisFileDirectory)/../../Source/Mockolate/Mockolate.csproj"/>
 		<ProjectReference Include="$(MSBuildThisFileDirectory)/../../Source/Mockolate.SourceGenerators/Mockolate.SourceGenerators.csproj"
 		                  OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
 		<ProjectReference Include="$(MSBuildThisFileDirectory)/../../Source/Mockolate.Analyzers/Mockolate.Analyzers.csproj"
 		                  PrivateAssets="all" ReferenceOutputAssembly="false" OutputItemType="Analyzer"/>
 		<ProjectReference Include="$(MSBuildThisFileDirectory)/Mockolate.Frameworks.TestHelpers/Mockolate.Frameworks.TestHelpers.csproj"/>
-		<PackageReference Include="Microsoft.Testing.Extensions.TrxReport"/>
-		<PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage"/>
-		<PackageReference Include="aweXpect"/>
-		<PackageReference Include="aweXpect.Chronology"/>
-		<PackageReference Include="aweXpect.Mockolate"/>
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(IsFrameworkTestProject)' == 'true'">
+	<ItemGroup Condition="'$(IsTestProject)' == 'true'">
 		<Using Include="System"/>
 		<Using Include="System.Threading.Tasks"/>
 		<Using Include="Mockolate.Interactions"/>
 		<Using Include="Mockolate.Internals"/>
 		<Using Include="aweXpect"/>
 		<Using Include="aweXpect.Expect" Static="true"/>
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'net48'">
-		<Reference Include="System.Net.Http"/>
 	</ItemGroup>
 
 </Project>
