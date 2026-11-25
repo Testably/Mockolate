@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<UseTUnit>false</UseTUnit>
+		<EnableNUnitRunner>true</EnableNUnitRunner>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="NUnit"/>
+		<PackageReference Include="NUnit3TestAdapter"/>
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,25 @@
+<Project>
+
+	<Import Project="$(MSBuildThisFileDirectory)/../Directory.Build.props"
+			Condition="Exists('$(MSBuildThisFileDirectory)/../Directory.Build.props')"/>
+
+	<!-- The tests of every test framework share the types under test, the Mockolate references and the usings. -->
+	<ItemGroup Condition="'$(IsTestProject)' == 'true'">
+		<ProjectReference Include="$(MSBuildThisFileDirectory)/../../Source/Mockolate/Mockolate.csproj"/>
+		<ProjectReference Include="$(MSBuildThisFileDirectory)/../../Source/Mockolate.SourceGenerators/Mockolate.SourceGenerators.csproj"
+		                  OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+		<ProjectReference Include="$(MSBuildThisFileDirectory)/../../Source/Mockolate.Analyzers/Mockolate.Analyzers.csproj"
+		                  PrivateAssets="all" ReferenceOutputAssembly="false" OutputItemType="Analyzer"/>
+		<ProjectReference Include="$(MSBuildThisFileDirectory)/Mockolate.Frameworks.TestHelpers/Mockolate.Frameworks.TestHelpers.csproj"/>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(IsTestProject)' == 'true'">
+		<Using Include="System"/>
+		<Using Include="System.Threading.Tasks"/>
+		<Using Include="Mockolate.Interactions"/>
+		<Using Include="Mockolate.Internals"/>
+		<Using Include="aweXpect"/>
+		<Using Include="aweXpect.Expect" Static="true"/>
+	</ItemGroup>
+
+</Project>

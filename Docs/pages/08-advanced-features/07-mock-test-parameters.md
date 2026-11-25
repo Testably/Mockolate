@@ -29,7 +29,7 @@ public class VendingMachineTests
 }
 ```
 
-Mockolate generates the attribute for the test framework of your project. The sections below show how to use it with [TUnit](#tunit) and [xUnit](#xunit).
+Mockolate generates the attribute for the test framework of your project. The sections below show how to use it with [TUnit](#tunit), [xUnit](#xunit) and [NUnit](#nunit).
 
 ## What each parameter gets
 
@@ -121,6 +121,24 @@ public async Task Buy_ShouldDispenseTheRequestedChocolate(string type, int amoun
 A project that references both v2 and v3 gets the attribute for v3. With v3, the attribute takes the settings of xUnit's data attributes, such as `Skip`, `Explicit`, `Timeout` and `Traits`. A theory with mocks shows up as one test in the test explorer, with a result for each attribute. xUnit v2 may already create the arguments of the first attribute when it discovers the tests.
 
 xUnit describes the arguments in the name of a test case and disposes them after the test. To describe a mock of a collection interface, such as `ISet<T>`, it may enumerate the mock, and a mock of a disposable interface gets a call to `Dispose`. Both calls count as interactions of the mock. On a strict mock, set up `Dispose`, or xUnit reports a cleanup error.
+
+## NUnit
+
+With [NUnit](https://nunit.org/) 3.7 or later, the attribute is in the `Mockolate.Integrations.NUnit` namespace. Use it instead of `[Test]`, like NUnit's `[TestCase]`:
+
+```csharp
+using Mockolate.Integrations.NUnit;
+
+[AutoMockArguments("Dark", 4)]
+public async Task Buy_ShouldDispenseTheRequestedChocolate(string type, int amount, VendingMachine sut,
+    IChocolateDispenser dispenser)
+```
+
+Mockolate creates the arguments after the `[SetUp]` methods, and `[Repeat]` and `[Retry]` give each run new mocks. With NUnit 4, a last `CancellationToken` parameter gets the token of `[CancelAfter]`.
+
+The name of a test case only shows the given values, e.g. `Buy_ShouldDispenseTheRequestedChocolate("Dark", 4)`. The attribute has none of the settings of `[TestCase]`, such as `ExpectedResult` or `Ignore`; use NUnit's attributes like `[Category]` or `[Ignore]` on the test method instead. A generic test method works when the given values determine its type arguments.
+
+With NUnit 4.5 or later, the `BeforeTestHook` and `AfterTestHook` of an execution hook on the test fixture or the assembly do not run for these tests. Put the hook attribute on the test method instead, but not between two hook attributes: place `[AutoMockArguments]` before or after all of them.
 
 <details>
 <summary>Details and limitations</summary>

@@ -74,6 +74,101 @@ namespace Mockolate.Integrations
 			_isTransient = new bool?[types.Length];
 		}
 
+#if MOCKOLATE_NUNIT
+		/// <summary>
+		///     The name of a test case. It only contains the given arguments, because formatting a mock would call its
+		///     members before the test starts.
+		/// </summary>
+		public static string GetDisplayName(string name, object?[] arguments)
+		{
+			if (arguments.Length == 0)
+			{
+				return name;
+			}
+
+			return $"{name}({string.Join(", ", global::System.Array.ConvertAll(arguments, FormatValue))})";
+		}
+
+		private static string FormatValue(object? value)
+		{
+			global::System.Globalization.CultureInfo culture = global::System.Globalization.CultureInfo.InvariantCulture;
+			switch (value)
+			{
+				case null:
+					return "null";
+				case string text:
+					return $"\"{Escape(text, '"')}\"";
+				case char character:
+					return $"'{Escape(character.ToString(), '\'')}'";
+				case bool flag:
+					return flag ? "true" : "false";
+				case long number:
+					return number.ToString(culture) + "L";
+				case ulong number:
+					return number.ToString(culture) + "UL";
+				case uint number:
+					return number.ToString(culture) + "U";
+				case float number when float.IsNaN(number) || float.IsInfinity(number):
+					return float.IsNaN(number) ? "float.NaN" : number > 0 ? "float.PositiveInfinity" : "float.NegativeInfinity";
+				case float number:
+					return number.ToString("R", culture) + "F";
+				case double number when double.IsNaN(number) || double.IsInfinity(number):
+					return double.IsNaN(number) ? "double.NaN" : number > 0 ? "double.PositiveInfinity" : "double.NegativeInfinity";
+				case double number:
+					return number.ToString("R", culture) + "D";
+				case decimal number:
+					return number.ToString(culture) + "M";
+				case global::System.Array array:
+					string[] items = new string[array.Length];
+					for (int index = 0; index < items.Length; index++)
+					{
+						items[index] = FormatValue(array.GetValue(index));
+					}
+
+					return $"[{string.Join(", ", items)}]";
+				case global::System.Enum enumValue:
+					return $"{enumValue.GetType().Name}.{enumValue}";
+				case global::System.IFormattable formattable:
+					return formattable.ToString(null, culture);
+				default:
+					return value.ToString() ?? "null";
+			}
+		}
+
+		private static string Escape(string text, char quote)
+		{
+			global::System.Text.StringBuilder builder = new global::System.Text.StringBuilder(text.Length);
+			foreach (char character in text)
+			{
+				switch (character)
+				{
+					case '\\': builder.Append("\\\\"); break;
+					case '\0': builder.Append("\\0"); break;
+					case '\n': builder.Append("\\n"); break;
+					case '\r': builder.Append("\\r"); break;
+					case '\t': builder.Append("\\t"); break;
+					default:
+						if (character == quote)
+						{
+							builder.Append('\\').Append(character);
+						}
+						else if (char.IsControl(character))
+						{
+							builder.Append("\\u").Append(((int)character).ToString("x4", global::System.Globalization.CultureInfo.InvariantCulture));
+						}
+						else
+						{
+							builder.Append(character);
+						}
+
+						break;
+				}
+			}
+
+			return builder.ToString();
+		}
+#endif
+
 		public object?[] Create()
 		{
 			for (int index = 0; index < _arguments.Length; index++)

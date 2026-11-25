@@ -1,0 +1,7 @@
+<Project>
+
+	<!-- Project references do not import the targets of the package, which detect the test framework of a project. -->
+	<Import Project="$(MSBuildThisFileDirectory)/../../Source/Mockolate/build/Mockolate.targets"
+	        Condition="'$(IsTestProject)' == 'true'"/>
+
+</Project>

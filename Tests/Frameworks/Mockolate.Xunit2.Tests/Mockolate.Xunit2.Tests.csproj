@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- xUnit v2 has no runner for the Microsoft.Testing.Platform that the build uses, so TUnit runs the tests, which start
+	     the xUnit v2 runner in-process. They are no candidates for a migration to TUnit. -->
+	<PropertyGroup>
+		<NoWarn>$(NoWarn);TUXU0001</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="xunit.core"/>
+		<PackageReference Include="xunit.runner.utility"/>
+	</ItemGroup>
+
+</Project>

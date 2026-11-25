@@ -1,0 +1,11 @@
+<Project>
+
+	<!-- The types under test that the tests of every test framework share; this project holds no tests itself. -->
+	<PropertyGroup>
+		<IsTestProject>false</IsTestProject>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildThisFileDirectory)/../Directory.Build.props"
+			Condition="Exists('$(MSBuildThisFileDirectory)/../Directory.Build.props')"/>
+
+</Project>

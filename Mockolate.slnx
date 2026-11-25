@@ -17,13 +17,20 @@
 		<Project Path="Tests/Mockolate.Internal.Tests/Mockolate.Internal.Tests.csproj" />
 		<Project Path="Tests/Mockolate.SourceGenerators.Tests/Mockolate.SourceGenerators.Tests.csproj" />
 		<Project Path="Tests/Mockolate.Tests/Mockolate.Tests.csproj" />
-		<Project Path="Tests/Mockolate.TUnit.Tests/Mockolate.TUnit.Tests.csproj" />
-		<Project Path="Tests/Mockolate.Xunit.Tests/Mockolate.Xunit.Tests.csproj" />
-		<Project Path="Tests/Mockolate.Xunit2.Tests/Mockolate.Xunit2.Tests.csproj" />
 	</Folder>
 	<Folder Name="/Tests/Aot/">
 		<File Path="Tests/Aot/Directory.Build.props" />
 		<Project Path="Tests/Aot/Mockolate.AotCompatibility.TestApp/Mockolate.AotCompatibility.TestApp.csproj" />
+	</Folder>
+	<Folder Name="/Tests/Frameworks/">
+		<File Path="Tests/Frameworks/Directory.Build.props" />
+		<File Path="Tests/Frameworks/Directory.Build.targets" />
+		<File Path="Tests/Frameworks/Mockolate.Frameworks.TestHelpers/Directory.Build.props" />
+		<Project Path="Tests/Frameworks/Mockolate.Frameworks.TestHelpers/Mockolate.Frameworks.TestHelpers.csproj" />
+		<Project Path="Tests/Frameworks/Mockolate.NUnit.Tests/Mockolate.NUnit.Tests.csproj" />
+		<Project Path="Tests/Frameworks/Mockolate.TUnit.Tests/Mockolate.TUnit.Tests.csproj" />
+		<Project Path="Tests/Frameworks/Mockolate.Xunit.Tests/Mockolate.Xunit.Tests.csproj" />
+		<Project Path="Tests/Frameworks/Mockolate.Xunit2.Tests/Mockolate.Xunit2.Tests.csproj" />
 	</Folder>
 	<Folder Name="/_/">
 		<File Path=".editorconfig" />
