@@ -34,7 +34,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageVersion Include="BenchmarkDotNet" Version="0.15.8"/>
-		<PackageVersion Include="TUnit.Engine" Version="1.86.6"/>
+		<PackageVersion Include="TUnit.Engine" Version="1.87.12"/>
 		<PackageVersion Include="xunit.core" Version="2.9.3"/>
 		<PackageVersion Include="xunit.runner.utility" Version="2.9.3"/>
 		<PackageVersion Include="xunit.v3.mtp-v2" Version="4.0.3"/>
@@ -55,7 +55,7 @@
 		<PackageVersion Include="Moq" Version="4.21.0"/>
 		<PackageVersion Include="NSubstitute" Version="6.2.0"/>
 		<PackageVersion Include="FakeItEasy" Version="9.0.1"/>
-		<PackageVersion Include="TUnit.Mocks" Version="1.86.6"/>
+		<PackageVersion Include="TUnit.Mocks" Version="1.87.12"/>
 		<PackageVersion Include="Imposter" Version="1.0.13"/>
 	</ItemGroup>
 </Project>
