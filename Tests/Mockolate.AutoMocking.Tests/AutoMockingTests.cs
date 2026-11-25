@@ -244,6 +244,17 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
+	public async Task IndexerOfTask_ShouldReturnCompletedTaskWithoutAutoMock()
+	{
+		ITaskIndexer sut = ITaskIndexer.CreateMock();
+
+		Task<IAutoMockChild> result = sut[1];
+
+		await That(result.IsCompleted).IsTrue();
+		await That(await result).IsNull().Because("auto-mocking skips indexers that return a task");
+	}
+
+	[Test]
 	public async Task Initialize_ShouldApplyToAutoMocks()
 	{
 		MockBehavior behavior = MockBehavior.Default.Initialize<IAutoMockChild>(setup => setup.GetValue().Returns(5));
@@ -470,6 +481,11 @@ public sealed class AutoMockingTests
 	{
 		public abstract IAutoMockChild GetAbstract();
 		public virtual IAutoMockChild GetVirtual() => null!;
+	}
+
+	public interface ITaskIndexer
+	{
+		Task<IAutoMockChild> this[int key] { get; }
 	}
 
 	private sealed class NullDefaultValueGenerator : IDefaultValueGenerator

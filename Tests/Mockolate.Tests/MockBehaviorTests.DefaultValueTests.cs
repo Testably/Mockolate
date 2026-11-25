@@ -127,6 +127,71 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
+		public async Task WithIndexerOfFuncReturningItsArgumentType_ShouldReturnTheArgument()
+		{
+			IDefaultValueGeneratorIndexers sut = IDefaultValueGeneratorIndexers.CreateMock();
+
+			Func<string, string> result = sut[1, 2];
+
+			await That(result("foo")).IsEqualTo("foo");
+		}
+
+		[Test]
+		public async Task WithIndexerOfMoreThanFourKeys_ShouldReturnEmptyList()
+		{
+			IDefaultValueGeneratorIndexers sut = IDefaultValueGeneratorIndexers.CreateMock();
+
+			List<int> result = sut[1, 2, 3, 4, 5];
+
+			await That(result).IsEmpty();
+		}
+
+		[Test]
+		public async Task WithIndexerOfMoreThanFourKeys_WhenSetupWithoutValue_ShouldReturnEmptyList()
+		{
+			IDefaultValueGeneratorIndexers sut = IDefaultValueGeneratorIndexers.CreateMock();
+			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
+				.OnGet.Do(() => { });
+
+			List<int> result = sut[1, 2, 3, 4, 5];
+
+			await That(result).IsEmpty();
+		}
+
+		[Test]
+		public async Task WithIndexerOfTaskInt_ShouldReturnCompletedTask()
+		{
+			IDefaultValueGeneratorIndexers sut = IDefaultValueGeneratorIndexers.CreateMock();
+
+			Task<int> result = sut[1];
+
+			await That(result.IsCompleted).IsTrue();
+			await That(result).IsEqualTo(0);
+		}
+
+		[Test]
+		public async Task WithIndexerOfArray_WhenSetupWithoutValue_ShouldReturnEmptyArray()
+		{
+			IDefaultValueGeneratorIndexers sut = IDefaultValueGeneratorIndexers.CreateMock();
+			sut.Mock.Setup[It.IsAny<string>()].OnGet.Do(() => { });
+
+			int[] result = sut["foo"];
+
+			await That(result).IsEmpty();
+		}
+
+		[Test]
+		public async Task WithIndexerOfValueTuple_ShouldReturnValueTupleWithDefaultValues()
+		{
+			IDefaultValueGeneratorIndexers sut = IDefaultValueGeneratorIndexers.CreateMock();
+
+			(int V1, string V2) result = sut["foo", "bar"];
+
+			await That(result.V1).IsEqualTo(0);
+			await That(result.V2).IsEqualTo("");
+		}
+
+		[Test]
 		public async Task WithInt_ShouldReturnZero()
 		{
 			MockBehavior sut = MockBehavior.Default;
@@ -294,6 +359,15 @@ public sealed partial class MockBehaviorTests
 
 			Task<(int, int[], string)> ComplexTask();
 			Type GetMyType();
+		}
+
+		public interface IDefaultValueGeneratorIndexers
+		{
+			Task<int> this[int key] { get; }
+			int[] this[string key] { get; }
+			Func<string, string> this[int key1, int key2] { get; }
+			(int V1, string V2) this[string key1, string key2] { get; }
+			List<int> this[int key1, int key2, int key3, int key4, int key5] { get; }
 		}
 
 		public interface IMyRecursiveService

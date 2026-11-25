@@ -198,7 +198,7 @@ public sealed partial class MockTests
 					          				setup ??= this.MockRegistry.FindIndexerGetterSetup<int, int>(global::Mockolate.Mock.IMyService.MemberId_Indexer_int_Get, index);
 					          				if (this.MockRegistry.Wraps is not global::MyCode.IMyService wraps)
 					          				{
-					          					return this.MockRegistry.GetIndexer<int, int>(setup, index, 0);
+					          					return this.MockRegistry.GetIndexer<int, int>(setup, index, static b => b.DefaultValue.Generate(default(int)!), 0);
 					          				}
 					          				int baseResult = wraps[index];
 					          				return this.MockRegistry.GetIndexer<int, int>(setup, index, baseResult, 0);
@@ -263,7 +263,7 @@ public sealed partial class MockTests
 					          				setup ??= this.MockRegistry.FindIndexerGetterSetup<int, int, bool?>(global::Mockolate.Mock.IMyService.MemberId_Indexer_int_bool__Get, index, isReadOnly);
 					          				if (this.MockRegistry.Wraps is not global::MyCode.IMyService wraps)
 					          				{
-					          					return this.MockRegistry.GetIndexer<int, int, bool?>(setup, index, isReadOnly, 1);
+					          					return this.MockRegistry.GetIndexer<int, int, bool?>(setup, index, isReadOnly, static b => b.DefaultValue.Generate(default(int)!), 1);
 					          				}
 					          				int baseResult = wraps[index, isReadOnly];
 					          				return this.MockRegistry.GetIndexer<int, int, bool?>(setup, index, isReadOnly, baseResult, 1);
@@ -378,7 +378,7 @@ public sealed partial class MockTests
 					          					int baseResult = this.MockRegistry.Wraps is global::MyCode.MyService wraps ? wraps[index] : base[index];
 					          					return this.MockRegistry.GetIndexer<int, int>(setup, index, baseResult, 0);
 					          				}
-					          				return this.MockRegistry.GetIndexer<int, int>(setup, index, 0);
+					          				return this.MockRegistry.GetIndexer<int, int>(setup, index, static b => b.DefaultValue.Generate(default(int)!), 0);
 					          			}
 					          			set
 					          			{
@@ -449,7 +449,7 @@ public sealed partial class MockTests
 					          					int baseResult = base[index, isReadOnly];
 					          					return this.MockRegistry.GetIndexer<int, int, bool>(setup, index, isReadOnly, baseResult, 1);
 					          				}
-					          				return this.MockRegistry.GetIndexer<int, int, bool>(setup, index, isReadOnly, 1);
+					          				return this.MockRegistry.GetIndexer<int, int, bool>(setup, index, isReadOnly, static b => b.DefaultValue.Generate(default(int)!), 1);
 					          			}
 					          		}
 					          """).IgnoringNewlineStyle().And
@@ -515,7 +515,7 @@ public sealed partial class MockTests
 					          					}
 					          				}
 					          				setup ??= this.MockRegistry.FindIndexerGetterSetup<int, string>(global::Mockolate.Mock.MyService__IMyOtherService.MemberId_Indexer_string_Get, someAdditionalIndex);
-					          				return this.MockRegistry.GetIndexer<int, string>(setup, someAdditionalIndex, 3);
+					          				return this.MockRegistry.GetIndexer<int, string>(setup, someAdditionalIndex, static b => b.DefaultValue.Generate(default(int)!), 3);
 					          			}
 					          			set
 					          			{
@@ -635,8 +635,8 @@ public sealed partial class MockTests
 					          				if (this.MockRegistry.Wraps is not global::MyCode.IMyService wraps)
 					          				{
 					          					return setup is null
-					          						? this.MockRegistry.GetIndexerFallback<int>(access, 0)
-					          						: this.MockRegistry.ApplyIndexerSetup<int>(access, setup, 0);
+					          						? this.MockRegistry.GetIndexerFallback<int>(access, static b => b.DefaultValue.Generate(default(int)!), 0)
+					          						: this.MockRegistry.ApplyIndexerSetup<int>(access, setup, static b => b.DefaultValue.Generate(default(int)!), 0);
 					          				}
 					          				int baseResult = wraps[buffer];
 					          				return this.MockRegistry.ApplyIndexerGetter(access, setup, baseResult, 0);
@@ -704,8 +704,8 @@ public sealed partial class MockTests
 					          				if (this.MockRegistry.Wraps is not global::MyCode.IMyService wraps)
 					          				{
 					          					return setup is null
-					          						? this.MockRegistry.GetIndexerFallback<int>(access, 1)
-					          						: this.MockRegistry.ApplyIndexerSetup<int>(access, setup, 1);
+					          						? this.MockRegistry.GetIndexerFallback<int>(access, static b => b.DefaultValue.Generate(default(int)!), 1)
+					          						: this.MockRegistry.ApplyIndexerSetup<int>(access, setup, static b => b.DefaultValue.Generate(default(int)!), 1);
 					          				}
 					          				int baseResult = wraps[values];
 					          				return this.MockRegistry.ApplyIndexerGetter(access, setup, baseResult, 1);

@@ -1944,11 +1944,13 @@ internal static partial class Sources
 
 		void AppendIndexerGetReturn(string indent, string accessVarName, string setupVarName)
 		{
+			string defaultValueGenerator = new StringBuilder("static b => ")
+				.AppendDefaultValueGeneratorFor(property.Type, "b.DefaultValue").ToString();
 			if (typedIndexerGet)
 			{
 				sb.Append(indent).Append("return ");
 				AppendTypedIndexerCall(sb, mockRegistry, "GetIndexer", setupVarName, property.Type,
-					property.IndexerParameters!.Value, null, signatureIndex);
+					property.IndexerParameters!.Value, defaultValueGenerator, signatureIndex);
 				sb.Append(';').AppendLine();
 				return;
 			}
@@ -1956,11 +1958,12 @@ internal static partial class Sources
 			sb.Append(indent).Append("return ").Append(setupVarName).Append(" is null").AppendLine();
 			sb.Append(indent).Append("\t? ").Append(mockRegistry).Append(".GetIndexerFallback<")
 				.AppendTypeOrWrapper(property.Type).Append(">(").Append(accessVarName).Append(", ")
-				.Append(signatureIndex).Append(")")
+				.Append(defaultValueGenerator).Append(", ").Append(signatureIndex).Append(")")
 				.AppendLine();
 			sb.Append(indent).Append("\t: ").Append(mockRegistry).Append(".ApplyIndexerSetup<")
 				.AppendTypeOrWrapper(property.Type).Append(">(").Append(accessVarName).Append(", ")
-				.Append(setupVarName).Append(", ").Append(signatureIndex).Append(");").AppendLine();
+				.Append(setupVarName).Append(", ").Append(defaultValueGenerator).Append(", ")
+				.Append(signatureIndex).Append(");").AppendLine();
 		}
 
 		void AppendIndexerGetWithBaseReturn(string indent, string accessVarName, string setupVarName,

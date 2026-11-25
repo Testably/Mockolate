@@ -1798,7 +1798,7 @@ internal static partial class Mock
 				setup ??= this.MockRegistry.FindIndexerGetterSetup<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild, int>(global::Mockolate.Mock.IAutoMockRoot.MemberId_Indexer_int_Get, key);
 				if (this.MockRegistry.Wraps is not global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot wraps)
 				{
-					return this.MockRegistry.GetIndexer<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild, int>(setup, key, 0);
+					return this.MockRegistry.GetIndexer<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild, int>(setup, key, static b => b.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild)!), 0);
 				}
 				global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild baseResult = wraps[key];
 				return this.MockRegistry.GetIndexer<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild, int>(setup, key, baseResult, 0);
@@ -1848,8 +1848,8 @@ internal static partial class Mock
 				if (this.MockRegistry.Wraps is not global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot wraps)
 				{
 					return setup is null
-						? this.MockRegistry.GetIndexerFallback<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>(access, 1)
-						: this.MockRegistry.ApplyIndexerSetup<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>(access, setup, 1);
+						? this.MockRegistry.GetIndexerFallback<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>(access, static b => b.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild)!), 1)
+						: this.MockRegistry.ApplyIndexerSetup<global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild>(access, setup, static b => b.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild)!), 1);
 				}
 				global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild baseResult = wraps[a, b, c, d, e];
 				return this.MockRegistry.ApplyIndexerGetter(access, setup, baseResult, 1);

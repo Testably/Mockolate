@@ -401,7 +401,7 @@ internal static partial class Mock
 				setup ??= this.MockRegistry.FindIndexerGetterSetup<string, int>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_Indexer_int_Get, i);
 				if (this.MockRegistry.Wraps is not global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps)
 				{
-					return this.MockRegistry.GetIndexer<string, int>(setup, i, 0);
+					return this.MockRegistry.GetIndexer<string, int>(setup, i, static b => b.DefaultValue.Generate(default(string)!), 0);
 				}
 				string baseResult = wraps[i];
 				return this.MockRegistry.GetIndexer<string, int>(setup, i, baseResult, 0);
@@ -451,8 +451,8 @@ internal static partial class Mock
 				if (this.MockRegistry.Wraps is not global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps)
 				{
 					return setup is null
-						? this.MockRegistry.GetIndexerFallback<string>(access, 1)
-						: this.MockRegistry.ApplyIndexerSetup<string>(access, setup, 1);
+						? this.MockRegistry.GetIndexerFallback<string>(access, static b => b.DefaultValue.Generate(default(string)!), 1)
+						: this.MockRegistry.ApplyIndexerSetup<string>(access, setup, static b => b.DefaultValue.Generate(default(string)!), 1);
 				}
 				string baseResult = wraps[a, b, c, d, e];
 				return this.MockRegistry.ApplyIndexerGetter(access, setup, baseResult, 1);
@@ -487,8 +487,8 @@ internal static partial class Mock
 				if (this.MockRegistry.Wraps is not global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps)
 				{
 					return setup is null
-						? this.MockRegistry.GetIndexerFallback<long>(access, 2)
-						: this.MockRegistry.ApplyIndexerSetup<long>(access, setup, 2);
+						? this.MockRegistry.GetIndexerFallback<long>(access, static b => b.DefaultValue.Generate(default(long)!), 2)
+						: this.MockRegistry.ApplyIndexerSetup<long>(access, setup, static b => b.DefaultValue.Generate(default(long)!), 2);
 				}
 				long baseResult = wraps[a, b, c, d, e];
 				return this.MockRegistry.ApplyIndexerGetter(access, setup, baseResult, 2);
@@ -542,7 +542,7 @@ internal static partial class Mock
 				setup ??= this.MockRegistry.FindIndexerGetterSetup<string, double>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_Indexer_double_Get, key);
 				if (this.MockRegistry.Wraps is not global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps)
 				{
-					return this.MockRegistry.GetIndexer<string, double>(setup, key, 4);
+					return this.MockRegistry.GetIndexer<string, double>(setup, key, static b => b.DefaultValue.Generate(default(string)!), 4);
 				}
 				string baseResult = wraps[key];
 				return this.MockRegistry.GetIndexer<string, double>(setup, key, baseResult, 4);

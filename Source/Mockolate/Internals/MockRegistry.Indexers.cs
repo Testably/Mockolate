@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Mockolate.Exceptions;
 using Mockolate.Interactions;
@@ -175,21 +176,23 @@ public partial class MockRegistry
 	/// <typeparam name="T1">The type of indexer parameter 1.</typeparam>
 	/// <param name="setup">The matching indexer setup, or <see langword="null" />.</param>
 	/// <param name="parameter1">The value of indexer parameter 1.</param>
+	/// <param name="defaultValueGenerator">Cached factory invoked with the active <see cref="MockBehavior" /> when a default value is needed.</param>
 	/// <param name="signatureIndex">Index into the mock's indexer-signature table (emitted by the source generator).</param>
 	/// <returns>The value of the indexer.</returns>
 	/// <exception cref="MockNotSetupException"><paramref name="setup" /> is <see langword="null" />, <see cref="MockBehavior.ThrowWhenNotSetup" /> is <see langword="true" /> and no value was stored.</exception>
-	public TValue GetIndexer<TValue, T1>(IndexerSetup<TValue, T1>? setup, T1 parameter1, int signatureIndex)
+	public TValue GetIndexer<TValue, T1>(IndexerSetup<TValue, T1>? setup, T1 parameter1,
+		Func<MockBehavior, TValue> defaultValueGenerator, int signatureIndex)
 	{
 		if (setup is not null && setup.GetType() != typeof(IndexerSetup<TValue, T1>))
 		{
-			return ApplyIndexerSetup<TValue>(new IndexerGetterAccess<T1>(parameter1), setup, signatureIndex);
+			return ApplyIndexerSetup<TValue>(new IndexerGetterAccess<T1>(parameter1), setup, defaultValueGenerator, signatureIndex);
 		}
 
 		IndexerValueStorage<TValue> leaf = Setup.Indexers.GetOrCreateStorage<TValue>(signatureIndex)
 			.GetOrAddChild(parameter1);
 		if (setup is not null)
 		{
-			return setup.GetResult(leaf, parameter1, Behavior);
+			return setup.GetResult(leaf, parameter1, Behavior, defaultValueGenerator);
 		}
 
 		if (leaf.HasValue)
@@ -203,7 +206,7 @@ public partial class MockRegistry
 				$"{new IndexerGetterAccess<T1>(parameter1)} was accessed without prior setup.");
 		}
 
-		TValue value = AutoMocks.Or(Behavior, Behavior.DefaultValue.GenerateTyped<TValue>(), leaf);
+		TValue value = AutoMocks.Or(Behavior, defaultValueGenerator(Behavior), leaf);
 		leaf.Store(value);
 		return value;
 	}
@@ -254,21 +257,23 @@ public partial class MockRegistry
 	/// <param name="setup">The matching indexer setup, or <see langword="null" />.</param>
 	/// <param name="parameter1">The value of indexer parameter 1.</param>
 	/// <param name="parameter2">The value of indexer parameter 2.</param>
+	/// <param name="defaultValueGenerator">Cached factory invoked with the active <see cref="MockBehavior" /> when a default value is needed.</param>
 	/// <param name="signatureIndex">Index into the mock's indexer-signature table (emitted by the source generator).</param>
 	/// <returns>The value of the indexer.</returns>
 	/// <exception cref="MockNotSetupException"><paramref name="setup" /> is <see langword="null" />, <see cref="MockBehavior.ThrowWhenNotSetup" /> is <see langword="true" /> and no value was stored.</exception>
-	public TValue GetIndexer<TValue, T1, T2>(IndexerSetup<TValue, T1, T2>? setup, T1 parameter1, T2 parameter2, int signatureIndex)
+	public TValue GetIndexer<TValue, T1, T2>(IndexerSetup<TValue, T1, T2>? setup, T1 parameter1, T2 parameter2,
+		Func<MockBehavior, TValue> defaultValueGenerator, int signatureIndex)
 	{
 		if (setup is not null && setup.GetType() != typeof(IndexerSetup<TValue, T1, T2>))
 		{
-			return ApplyIndexerSetup<TValue>(new IndexerGetterAccess<T1, T2>(parameter1, parameter2), setup, signatureIndex);
+			return ApplyIndexerSetup<TValue>(new IndexerGetterAccess<T1, T2>(parameter1, parameter2), setup, defaultValueGenerator, signatureIndex);
 		}
 
 		IndexerValueStorage<TValue> leaf = Setup.Indexers.GetOrCreateStorage<TValue>(signatureIndex)
 			.GetOrAddChild(parameter1).GetOrAddChild(parameter2);
 		if (setup is not null)
 		{
-			return setup.GetResult(leaf, parameter1, parameter2, Behavior);
+			return setup.GetResult(leaf, parameter1, parameter2, Behavior, defaultValueGenerator);
 		}
 
 		if (leaf.HasValue)
@@ -282,7 +287,7 @@ public partial class MockRegistry
 				$"{new IndexerGetterAccess<T1, T2>(parameter1, parameter2)} was accessed without prior setup.");
 		}
 
-		TValue value = AutoMocks.Or(Behavior, Behavior.DefaultValue.GenerateTyped<TValue>(), leaf);
+		TValue value = AutoMocks.Or(Behavior, defaultValueGenerator(Behavior), leaf);
 		leaf.Store(value);
 		return value;
 	}
@@ -337,21 +342,23 @@ public partial class MockRegistry
 	/// <param name="parameter1">The value of indexer parameter 1.</param>
 	/// <param name="parameter2">The value of indexer parameter 2.</param>
 	/// <param name="parameter3">The value of indexer parameter 3.</param>
+	/// <param name="defaultValueGenerator">Cached factory invoked with the active <see cref="MockBehavior" /> when a default value is needed.</param>
 	/// <param name="signatureIndex">Index into the mock's indexer-signature table (emitted by the source generator).</param>
 	/// <returns>The value of the indexer.</returns>
 	/// <exception cref="MockNotSetupException"><paramref name="setup" /> is <see langword="null" />, <see cref="MockBehavior.ThrowWhenNotSetup" /> is <see langword="true" /> and no value was stored.</exception>
-	public TValue GetIndexer<TValue, T1, T2, T3>(IndexerSetup<TValue, T1, T2, T3>? setup, T1 parameter1, T2 parameter2, T3 parameter3, int signatureIndex)
+	public TValue GetIndexer<TValue, T1, T2, T3>(IndexerSetup<TValue, T1, T2, T3>? setup, T1 parameter1, T2 parameter2, T3 parameter3,
+		Func<MockBehavior, TValue> defaultValueGenerator, int signatureIndex)
 	{
 		if (setup is not null && setup.GetType() != typeof(IndexerSetup<TValue, T1, T2, T3>))
 		{
-			return ApplyIndexerSetup<TValue>(new IndexerGetterAccess<T1, T2, T3>(parameter1, parameter2, parameter3), setup, signatureIndex);
+			return ApplyIndexerSetup<TValue>(new IndexerGetterAccess<T1, T2, T3>(parameter1, parameter2, parameter3), setup, defaultValueGenerator, signatureIndex);
 		}
 
 		IndexerValueStorage<TValue> leaf = Setup.Indexers.GetOrCreateStorage<TValue>(signatureIndex)
 			.GetOrAddChild(parameter1).GetOrAddChild(parameter2).GetOrAddChild(parameter3);
 		if (setup is not null)
 		{
-			return setup.GetResult(leaf, parameter1, parameter2, parameter3, Behavior);
+			return setup.GetResult(leaf, parameter1, parameter2, parameter3, Behavior, defaultValueGenerator);
 		}
 
 		if (leaf.HasValue)
@@ -365,7 +372,7 @@ public partial class MockRegistry
 				$"{new IndexerGetterAccess<T1, T2, T3>(parameter1, parameter2, parameter3)} was accessed without prior setup.");
 		}
 
-		TValue value = AutoMocks.Or(Behavior, Behavior.DefaultValue.GenerateTyped<TValue>(), leaf);
+		TValue value = AutoMocks.Or(Behavior, defaultValueGenerator(Behavior), leaf);
 		leaf.Store(value);
 		return value;
 	}
@@ -424,21 +431,23 @@ public partial class MockRegistry
 	/// <param name="parameter2">The value of indexer parameter 2.</param>
 	/// <param name="parameter3">The value of indexer parameter 3.</param>
 	/// <param name="parameter4">The value of indexer parameter 4.</param>
+	/// <param name="defaultValueGenerator">Cached factory invoked with the active <see cref="MockBehavior" /> when a default value is needed.</param>
 	/// <param name="signatureIndex">Index into the mock's indexer-signature table (emitted by the source generator).</param>
 	/// <returns>The value of the indexer.</returns>
 	/// <exception cref="MockNotSetupException"><paramref name="setup" /> is <see langword="null" />, <see cref="MockBehavior.ThrowWhenNotSetup" /> is <see langword="true" /> and no value was stored.</exception>
-	public TValue GetIndexer<TValue, T1, T2, T3, T4>(IndexerSetup<TValue, T1, T2, T3, T4>? setup, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, int signatureIndex)
+	public TValue GetIndexer<TValue, T1, T2, T3, T4>(IndexerSetup<TValue, T1, T2, T3, T4>? setup, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4,
+		Func<MockBehavior, TValue> defaultValueGenerator, int signatureIndex)
 	{
 		if (setup is not null && setup.GetType() != typeof(IndexerSetup<TValue, T1, T2, T3, T4>))
 		{
-			return ApplyIndexerSetup<TValue>(new IndexerGetterAccess<T1, T2, T3, T4>(parameter1, parameter2, parameter3, parameter4), setup, signatureIndex);
+			return ApplyIndexerSetup<TValue>(new IndexerGetterAccess<T1, T2, T3, T4>(parameter1, parameter2, parameter3, parameter4), setup, defaultValueGenerator, signatureIndex);
 		}
 
 		IndexerValueStorage<TValue> leaf = Setup.Indexers.GetOrCreateStorage<TValue>(signatureIndex)
 			.GetOrAddChild(parameter1).GetOrAddChild(parameter2).GetOrAddChild(parameter3).GetOrAddChild(parameter4);
 		if (setup is not null)
 		{
-			return setup.GetResult(leaf, parameter1, parameter2, parameter3, parameter4, Behavior);
+			return setup.GetResult(leaf, parameter1, parameter2, parameter3, parameter4, Behavior, defaultValueGenerator);
 		}
 
 		if (leaf.HasValue)
@@ -452,7 +461,7 @@ public partial class MockRegistry
 				$"{new IndexerGetterAccess<T1, T2, T3, T4>(parameter1, parameter2, parameter3, parameter4)} was accessed without prior setup.");
 		}
 
-		TValue value = AutoMocks.Or(Behavior, Behavior.DefaultValue.GenerateTyped<TValue>(), leaf);
+		TValue value = AutoMocks.Or(Behavior, defaultValueGenerator(Behavior), leaf);
 		leaf.Store(value);
 		return value;
 	}
