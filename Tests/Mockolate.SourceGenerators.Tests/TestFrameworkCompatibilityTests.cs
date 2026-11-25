@@ -89,14 +89,11 @@ public sealed class TestFrameworkCompatibilityTests
 	}
 
 	[Test]
-	[Arguments("3.7.0", "netstandard1.6", false)]
-	[Arguments("4.0.0", "net6.0", true)]
-	public async Task NUnit_WithOldestSupportedVersions_ShouldCompile(string version, string framework, bool isNUnit4)
+	[Arguments("3.7.0", "netstandard1.6")]
+	[Arguments("4.0.0", "net6.0")]
+	public async Task NUnit_WithOldestSupportedVersions_ShouldCompile(string version, string framework)
 	{
-		string[] diagnostics = Compile(
-			isNUnit4
-				? ["MOCKOLATE_TEST_FRAMEWORK", "MOCKOLATE_NUNIT", "MOCKOLATE_NUNIT4",]
-				: ["MOCKOLATE_TEST_FRAMEWORK", "MOCKOLATE_NUNIT",],
+		string[] diagnostics = Compile(["MOCKOLATE_TEST_FRAMEWORK", "MOCKOLATE_NUNIT",],
 			[Path.Combine("nunit", version, "lib", framework, "nunit.framework.dll"),],
 			"""
 			using Mockolate.Integrations.NUnit;

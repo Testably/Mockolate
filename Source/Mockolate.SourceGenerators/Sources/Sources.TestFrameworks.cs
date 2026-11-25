@@ -341,7 +341,7 @@ internal static partial class Sources
 	///     and creates them right before the test method runs, also in a repeated or retried test.
 	/// </remarks>
 	public static string AutoMockArgumentsForNUnit()
-		=> AutoMockArgumentsAttribute("MOCKOLATE_NUNIT", "NUnit", "NUnit runs a test on a thread of its own,",
+		=> AutoMockArgumentsAttribute("MOCKOLATE_NUNIT", "NUnit", "NUnit can run a test method on another thread than its set-up,",
 			"global::NUnit.Framework.NUnitAttribute, global::NUnit.Framework.Interfaces.ITestBuilder, global::NUnit.Framework.Interfaces.IImplyFixture, global::NUnit.Framework.Interfaces.IWrapTestMethod",
 			ParameterInfoArguments + """
 			   		private static readonly global::System.Runtime.CompilerServices.ConditionalWeakTable<object?[], object?[]> GivenArguments = new();
@@ -352,14 +352,13 @@ internal static partial class Sources
 			   		{
 			   			global::System.Reflection.ParameterInfo[] parameters = method.MethodInfo.GetParameters();
 			   			int parameterCount = parameters.Length;
-			   #if MOCKOLATE_NUNIT4
 			   			// NUnit 4 passes its own token to a last CancellationToken parameter that gets no argument.
-			   			if (parameterCount > Arguments.Length &&
+			   			if (typeof(global::NUnit.Framework.NUnitAttribute).Assembly.GetName().Version?.Major >= 4 &&
+			   			    parameterCount > Arguments.Length &&
 			   			    parameters[parameterCount - 1].ParameterType == typeof(global::System.Threading.CancellationToken))
 			   			{
 			   				parameterCount--;
 			   			}
-			   #endif
 			   			global::NUnit.Framework.Internal.TestCaseParameters testCase;
 			   			if (Arguments.Length > parameterCount)
 			   			{
@@ -379,9 +378,12 @@ internal static partial class Sources
 			   				new global::NUnit.Framework.Internal.Builders.NUnitTestCaseBuilder().BuildTestMethod(method, suite, testCase);
 			   			test.Name = global::Mockolate.Integrations.AutoMockRow.GetDisplayName(method.Name, Arguments);
 			   			test.FullName = $"{suite?.FullName ?? method.TypeInfo.FullName}.{test.Name}";
-			   			// A test case that is not runnable can share an empty argument array with others.
-			   			GivenArguments.Remove(test.Arguments);
-			   			GivenArguments.Add(test.Arguments, Arguments);
+			   			// A test case that is not runnable has no arguments with NUnit before 3.13, and shares an empty array otherwise.
+			   			if (test.Arguments is { Length: > 0, } reservedArguments)
+			   			{
+			   				GivenArguments.Add(reservedArguments, Arguments);
+			   			}
+
 			   			yield return test;
 			   		}
 
@@ -389,14 +391,50 @@ internal static partial class Sources
 			   		///     Every <c>AutoMockArguments</c> attribute on the method wraps each of its test cases, so a command that already
 			   		///     creates the arguments is kept as it is.
 			   		/// </summary>
+			   		/// <remarks>
+			   		///     The command of the test method itself is replaced, so that the arguments are created right before the method
+			   		///     runs and other wrappers, such as the execution hooks of NUnit 4.5, still get a command of the test method.
+			   		/// </remarks>
 			   		public global::NUnit.Framework.Internal.Commands.TestCommand Wrap(
 			   			global::NUnit.Framework.Internal.Commands.TestCommand command)
-			   			=> command is CreateArgumentsCommand ? command : new CreateArgumentsCommand(command);
+			   			=> command switch
+			   			{
+			   				CreateArgumentsTestMethodCommand or CreateArgumentsCommand => command,
+			   				global::NUnit.Framework.Internal.Commands.TestMethodCommand { Test: global::NUnit.Framework.Internal.TestMethod test, } =>
+			   					new CreateArgumentsTestMethodCommand(test),
+			   				_ => new CreateArgumentsCommand(command),
+			   			};
 
 			   		/// <summary>
-			   		///     Creates the arguments of the test right before the test method runs, after the set-up and again for every
-			   		///     repeated or retried run.
+			   		///     Creates the arguments of the test after the set-up, again for every repeated or retried run.
 			   		/// </summary>
+			   		private static void CreateArguments(global::NUnit.Framework.Internal.Test test)
+			   		{
+			   			if (test is global::NUnit.Framework.Internal.TestMethod testMethod &&
+			   			    GivenArguments.TryGetValue(testMethod.Arguments, out object?[]? given))
+			   			{
+			   				// The method of the test is the constructed one of a generic test method. A last parameter without an
+			   				// argument gets the token of NUnit 4.
+			   				global::System.Reflection.ParameterInfo[] parameters = testMethod.Method.MethodInfo.GetParameters();
+			   				global::System.Array.Resize(ref parameters, testMethod.Arguments.Length);
+			   				object?[] values = CreateArguments(parameters, given);
+			   				// The given arguments keep the conversions of NUnit.
+			   				global::System.Array.Copy(values, given.Length, testMethod.Arguments, given.Length, values.Length - given.Length);
+			   			}
+			   		}
+
+			   		private sealed class CreateArgumentsTestMethodCommand(global::NUnit.Framework.Internal.TestMethod testMethod)
+			   			: global::NUnit.Framework.Internal.Commands.TestMethodCommand(testMethod)
+			   		{
+			   			/// <inheritdoc />
+			   			public override global::NUnit.Framework.Internal.TestResult Execute(
+			   				global::NUnit.Framework.Internal.TestExecutionContext context)
+			   			{
+			   				CreateArguments(Test);
+			   				return base.Execute(context);
+			   			}
+			   		}
+
 			   		private sealed class CreateArgumentsCommand(global::NUnit.Framework.Internal.Commands.TestCommand innerCommand)
 			   			: global::NUnit.Framework.Internal.Commands.DelegatingTestCommand(innerCommand)
 			   		{
@@ -404,18 +442,7 @@ internal static partial class Sources
 			   			public override global::NUnit.Framework.Internal.TestResult Execute(
 			   				global::NUnit.Framework.Internal.TestExecutionContext context)
 			   			{
-			   				if (Test is global::NUnit.Framework.Internal.TestMethod test &&
-			   				    GivenArguments.TryGetValue(test.Arguments, out object?[]? given))
-			   				{
-			   					// The method of the test is the constructed one of a generic test method. A last parameter without an
-			   					// argument gets the token of NUnit 4.
-			   					global::System.Reflection.ParameterInfo[] parameters = test.Method.MethodInfo.GetParameters();
-			   					global::System.Array.Resize(ref parameters, test.Arguments.Length);
-			   					object?[] values = CreateArguments(parameters, given);
-			   					// The given arguments keep the conversions of NUnit.
-			   					global::System.Array.Copy(values, given.Length, test.Arguments, given.Length, values.Length - given.Length);
-			   				}
-
+			   				CreateArguments(Test);
 			   				return innerCommand.Execute(context);
 			   			}
 			   		}

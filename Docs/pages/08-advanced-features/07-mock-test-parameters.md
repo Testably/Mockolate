@@ -136,7 +136,9 @@ public async Task Buy_ShouldDispenseTheRequestedChocolate(string type, int amoun
 
 Mockolate creates the arguments after the `[SetUp]` methods, and `[Repeat]` and `[Retry]` give each run new mocks. With NUnit 4, a last `CancellationToken` parameter gets the token of `[CancelAfter]`.
 
-The name of a test case only shows the given values, e.g. `Buy_ShouldDispenseTheRequestedChocolate("Dark", 4)`. The attribute has none of the settings of `[TestCase]`, such as `ExpectedResult` or `Ignore`; use NUnit's attributes like `[Category]` or `[Ignore]` on the test method instead.
+The name of a test case only shows the given values, e.g. `Buy_ShouldDispenseTheRequestedChocolate("Dark", 4)`. The attribute has none of the settings of `[TestCase]`, such as `ExpectedResult` or `Ignore`; use NUnit's attributes like `[Category]` or `[Ignore]` on the test method instead. A generic test method works when the given values determine its type arguments.
+
+With NUnit 4.5 or later, execution hooks on the test fixture or the assembly do not run for these tests, because NUnit only applies them to test methods without such an attribute of their own. Put the hook attribute on the test method instead.
 
 <details>
 <summary>Details and limitations</summary>

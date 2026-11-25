@@ -8,6 +8,7 @@ using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using NUnit.Framework.Internal;
 using NUnit.Framework.Internal.Commands;
+using NUnit.Framework.Internal.ExecutionHooks;
 
 namespace Mockolate.NUnit.Tests;
 
@@ -151,6 +152,35 @@ public sealed class AutoMockArgumentsTests
 	public async Task SealedClassParameter_WhoseConstructorCanFail_ShouldBeCreated(FailingService sut)
 		=> await That(sut).IsNotNull();
 
+	[AutoMockArguments]
+	[RecordingHook]
+	public async Task ExecutionHook_AfterTheAttribute_ShouldRunAndGetTheArguments(IOrderRepository repository)
+	{
+		await That(repository).IsNotNull();
+		await That(RecordingHookAttribute.LastTest).IsEqualTo(TestContext.CurrentContext.Test.Name);
+	}
+
+	[RecordingHook]
+	[AutoMockArguments]
+	public async Task ExecutionHook_BeforeTheAttribute_ShouldRunAndGetTheArguments(IOrderRepository repository)
+	{
+		await That(repository).IsNotNull();
+		await That(RecordingHookAttribute.LastTest).IsEqualTo(TestContext.CurrentContext.Test.Name);
+	}
+
+	[Test]
+	public async Task Wrap_WithTheCommandOfTheTestMethod_ShouldReplaceItWithOneThatCreatesTheArguments()
+	{
+		AutoMockArgumentsAttribute attribute = new();
+		TestMethod test = attribute.BuildFrom(new MethodWrapper(typeof(BuildTargets), nameof(BuildTargets.WithFailingService)), null)
+			.Single();
+
+		TestCommand command = attribute.Wrap(new TestMethodCommand(test));
+
+		await That(command).Is<TestMethodCommand>();
+		await That(new AutoMockArgumentsAttribute().Wrap(command)).IsSameAs(command);
+	}
+
 	[Test]
 	public async Task Wrap_WhenTheCommandAlreadyCreatesTheArguments_ShouldKeepIt()
 	{
@@ -251,7 +281,7 @@ public enum Flavor
 
 public sealed class FailingService
 {
-	[ThreadStatic] public static bool FailOnThisThread;
+	[ThreadStatic] internal static bool FailOnThisThread;
 
 	public FailingService(IOrderRepository repository)
 	{
@@ -273,4 +303,16 @@ internal sealed class ResultCommand(Test test) : TestCommand(test)
 {
 	public override TestResult Execute(TestExecutionContext context)
 		=> Test.MakeTestResult();
+}
+
+/// <summary>
+///     An execution hook of NUnit 4.5 or later, which only accepts the command of the test method.
+/// </summary>
+[AttributeUsage(AttributeTargets.Method)]
+public sealed class RecordingHookAttribute : ExecutionHookAttribute
+{
+	[ThreadStatic] internal static string? LastTest;
+
+	public override void BeforeTestHook(HookData hookData)
+		=> LastTest = TestContext.CurrentContext.Test.Name;
 }
