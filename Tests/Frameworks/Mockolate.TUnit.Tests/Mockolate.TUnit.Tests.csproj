@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- TUnit must discover the generated attribute through its source generator, and on .NET Framework its polyfill of
+	     ModuleInitializerAttribute must not clash with Mockolate's. -->
+	<PropertyGroup>
+		<EnableTUnitSourceGeneration>true</EnableTUnitSourceGeneration>
+		<EnableTUnitPolyfills>true</EnableTUnitPolyfills>
+		<TUnitImplicitUsings>false</TUnitImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="TUnit.Engine"/>
+		<Using Include="TUnit.Core"/>
+	</ItemGroup>
+
+</Project>

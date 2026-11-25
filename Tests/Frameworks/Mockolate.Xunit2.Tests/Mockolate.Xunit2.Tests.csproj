@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- xUnit v2 has no runner for the Microsoft.Testing.Platform that the build uses, so TUnit runs the tests, which start
+	     the xUnit v2 runner in-process. They are no candidates for a migration to TUnit. TUnit discovers them through
+	     reflection, and its polyfills would clash with the internal polyfills of Mockolate. -->
+	<PropertyGroup>
+		<NoWarn>$(NoWarn);TUXU0001</NoWarn>
+		<EnableTUnitSourceGeneration>false</EnableTUnitSourceGeneration>
+		<EnableTUnitPolyfills>false</EnableTUnitPolyfills>
+		<TUnitImplicitUsings>false</TUnitImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="TUnit.Engine"/>
+		<PackageReference Include="xunit.core"/>
+		<PackageReference Include="xunit.runner.utility"/>
+		<Using Include="TUnit.Core"/>
+	</ItemGroup>
+
+</Project>

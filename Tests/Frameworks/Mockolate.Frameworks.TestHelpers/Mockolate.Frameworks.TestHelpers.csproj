@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- The types under test that the tests of every test framework share. -->
+
+</Project>
