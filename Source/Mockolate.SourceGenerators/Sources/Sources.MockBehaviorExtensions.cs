@@ -453,6 +453,34 @@ internal static partial class Sources
 		          		public T[,,,] Generate<T>(T[,,,] nullValue, params object?[] parameters)
 		          			=> new T[,,,] { };
 
+		          		/// <summary>
+		          		///     Generates a function that returns its argument, such as an options callback, with
+		          		///     the <paramref name="parameters" /> for context.
+		          		/// </summary>
+		          		public global::System.Func<T, T> Generate<T>(global::System.Func<T, T> nullValue, params object?[] parameters)
+		          		{
+		          			if (generator.GenerateValue(typeof(global::System.Func<T, T>), parameters) is global::System.Func<T, T> value)
+		          			{
+		          				return value;
+		          			}
+
+		          			return static value => value;
+		          		}
+
+		          		/// <summary>
+		          		///     Generates an action that does nothing, such as a configure callback, with
+		          		///     the <paramref name="parameters" /> for context.
+		          		/// </summary>
+		          		public global::System.Action<T> Generate<T>(global::System.Action<T> nullValue, params object?[] parameters)
+		          		{
+		          			if (generator.GenerateValue(typeof(global::System.Action<T>), parameters) is global::System.Action<T> value)
+		          			{
+		          				return value;
+		          			}
+
+		          			return static _ => { };
+		          		}
+
 		          """).AppendLine();
 		if (includeAsyncEnumerable)
 		{

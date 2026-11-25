@@ -53,6 +53,49 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
+		public async Task WithAction_ShouldReturnActionThatDoesNothing()
+		{
+			IDefaultValueGeneratorProperties sut = IDefaultValueGeneratorProperties.CreateMock();
+
+			Action<List<int>> result = sut.Configure;
+
+			List<int> values = [1,];
+			result(values);
+			await That(values).IsEqualTo([1,]);
+		}
+
+		[Test]
+		public async Task WithFuncReturningItsArgumentType_ShouldReturnTheArgument()
+		{
+			IDefaultValueGeneratorProperties sut = IDefaultValueGeneratorProperties.CreateMock();
+
+			Func<string, string> result = sut.Options;
+
+			await That(result("foo")).IsEqualTo("foo");
+		}
+
+		[Test]
+		public async Task WithFuncReturningItsArgumentType_WhenRegistered_ShouldReturnTheRegisteredValue()
+		{
+			Func<string, string> registered = value => value + "bar";
+			MockBehavior sut = MockBehavior.Default.WithDefaultValueFor(() => registered);
+
+			Func<string, string> result = sut.DefaultValue.Generate(default(Func<string, string>)!);
+
+			await That(result).IsSameAs(registered);
+		}
+
+		[Test]
+		public async Task WithFuncReturningOtherType_ShouldReturnNull()
+		{
+			MockBehavior sut = MockBehavior.Default;
+
+			Func<string, int> result = sut.DefaultValue.Generate(default(Func<string, int>)!);
+
+			await That(result).IsNull();
+		}
+
+		[Test]
 		public async Task WithHttpResponseMessage_ShouldReturnEmptyResponseWithNotImplementedStatusCode()
 		{
 			IDefaultValueGeneratorProperties sut = IDefaultValueGeneratorProperties.CreateMock();
@@ -246,6 +289,8 @@ public sealed partial class MockBehaviorTests
 			ValueTask<int[]> IntArrayValueTask { get; }
 			IMyRecursiveService RecursiveService { get; }
 			HttpResponseMessage HttpResponseMessage { get; }
+			Func<string, string> Options { get; }
+			Action<List<int>> Configure { get; }
 
 			Task<(int, int[], string)> ComplexTask();
 			Type GetMyType();

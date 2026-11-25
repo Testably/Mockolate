@@ -151,6 +151,11 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments]
+	public async Task AutoMockArguments_WithOptionsDelegates_ShouldUseTheDefaultOptions(ChocolateFactory sut)
+		=> await That(sut.Options.Flavor).IsEqualTo("Dark");
+
+	[Test]
+	[AutoMockArguments]
 	public async Task AutoMockArguments_WithSeveralParametersOfTheType_ShouldMatchThemByName(TransferService sut,
 		IAccount target, IAccount source)
 	{
