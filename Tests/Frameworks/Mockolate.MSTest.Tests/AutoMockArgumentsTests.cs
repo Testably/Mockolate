@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -127,7 +128,7 @@ public sealed class AutoMockArgumentsTests
 		AutoMockArgumentsAttribute attribute = new(1, 2);
 		MethodInfo method = typeof(DataTargets).GetMethod(nameof(DataTargets.OneParameter))!;
 
-		void Act() => attribute.GetData(method).ToList();
+		List<object?[]> Act() => attribute.GetData(method).ToList();
 
 		await That(Act).Throws<MockException>()
 			.WithMessage("AutoMockArguments has 2 arguments, but the test method has only 1 parameters.");
