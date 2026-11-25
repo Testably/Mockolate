@@ -1063,6 +1063,7 @@ public partial class MockGeneratorTests
 			"AutoMockArguments.Xunit2.g.cs",
 			"AutoMockArguments.Xunit3.g.cs",
 			"AutoMockArguments.NUnit.g.cs",
+			"AutoMockArguments.MSTest.g.cs",
 			"Mock.AsExtensions.g.cs",
 			"MockBehaviorExtensions.g.cs",
 			"Mock.IMyInterface1.g.cs",
@@ -1683,6 +1684,7 @@ public partial class MockGeneratorTests
 				"AutoMockArguments.Xunit2.g.cs",
 				"AutoMockArguments.Xunit3.g.cs",
 				"AutoMockArguments.NUnit.g.cs",
+				"AutoMockArguments.MSTest.g.cs",
 				"MockBehaviorExtensions.g.cs",
 			]).InAnyOrder().IgnoringCase(),
 			That(result.Diagnostics).IsEmpty()
@@ -1756,6 +1758,7 @@ public partial class MockGeneratorTests
 			"AutoMockArguments.Xunit2.g.cs",
 			"AutoMockArguments.Xunit3.g.cs",
 			"AutoMockArguments.NUnit.g.cs",
+			"AutoMockArguments.MSTest.g.cs",
 			"MockBehaviorExtensions.g.cs",
 			"Mock.IMyInterface1.g.cs",
 		]).InAnyOrder();

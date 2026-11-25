@@ -17,6 +17,11 @@
 			                           Condition="'%(ReferencePath.Filename)' == 'xunit.v3.core' And ('%(ReferencePath.NuGetPackageVersion)' == '' Or $([MSBuild]::VersionGreaterThanOrEquals('%(ReferencePath.NuGetPackageVersion)', '1.0.0')))"/>
 			<_MockolateNUnitReference Include="@(ReferencePath)"
 			                          Condition="'%(ReferencePath.Filename)' == 'nunit.framework' And ('%(ReferencePath.NuGetPackageVersion)' == '' Or $([MSBuild]::VersionGreaterThanOrEquals('%(ReferencePath.NuGetPackageVersion)', '3.7.0')))"/>
+			<!-- MSTest v4 renamed the assembly that v1 to v3 share, so for v3 only a known version of 3.7 or later counts. -->
+			<_MockolateMSTest4Reference Include="@(ReferencePath)"
+			                            Condition="'%(ReferencePath.Filename)' == 'MSTest.TestFramework'"/>
+			<_MockolateMSTest3Reference Include="@(ReferencePath)"
+			                            Condition="'%(ReferencePath.Filename)' == 'Microsoft.VisualStudio.TestPlatform.TestFramework' And '%(ReferencePath.NuGetPackageVersion)' != '' And $([MSBuild]::VersionGreaterThanOrEquals('%(ReferencePath.NuGetPackageVersion)', '3.7.0'))"/>
 		</ItemGroup>
 		<PropertyGroup Condition="'@(_MockolateTUnitReference)' != ''">
 			<DefineConstants>$(DefineConstants);MOCKOLATE_TEST_FRAMEWORK;MOCKOLATE_TUNIT</DefineConstants>
@@ -29,6 +34,12 @@
 		</PropertyGroup>
 		<PropertyGroup Condition="'@(_MockolateNUnitReference)' != ''">
 			<DefineConstants>$(DefineConstants);MOCKOLATE_TEST_FRAMEWORK;MOCKOLATE_NUNIT</DefineConstants>
+		</PropertyGroup>
+		<PropertyGroup Condition="'@(_MockolateMSTest4Reference)' != ''">
+			<DefineConstants>$(DefineConstants);MOCKOLATE_TEST_FRAMEWORK;MOCKOLATE_MSTEST</DefineConstants>
+		</PropertyGroup>
+		<PropertyGroup Condition="'@(_MockolateMSTest3Reference)' != ''">
+			<DefineConstants>$(DefineConstants);MOCKOLATE_TEST_FRAMEWORK;MOCKOLATE_MSTEST;MOCKOLATE_MSTEST3</DefineConstants>
 		</PropertyGroup>
 	</Target>
 

@@ -32,7 +32,7 @@ Target frameworks per test project:
 
 | Project | Frameworks |
 |---|---|
-| `Mockolate.Tests`, `Mockolate.Internal.Tests`, `Mockolate.ExampleTests`, `Mockolate.TUnit.Tests` | `net11.0` (union mode); `net10.0`, `net8.0` and `net48` (Windows only) in classic mode |
+| `Mockolate.Tests`, `Mockolate.Internal.Tests`, `Mockolate.ExampleTests` and the projects in `Tests/Frameworks` | `net11.0` (union mode); `net10.0`, `net8.0` and `net48` (Windows only) in classic mode |
 | `Mockolate.SourceGenerators.Tests` | `net11.0`, `net10.0` (compiles against `MinimumRoslynVersion`, without the snapshot and union tests) |
 | `Mockolate.Analyzers.Tests` | `net11.0` |
 | `Build.Tests` | `net10.0` |
@@ -50,7 +50,7 @@ A newer language feature can compile for `net10.0` and fail for `net48`; build o
 | `Source/Mockolate.SourceGenerators` | `Mockolate.SourceGenerators.Tests`, `Mockolate.Tests` (it compiles the generated mocks; `net11.0` for union mode and `net10.0` for classic mode) |
 | `Source/Mockolate.Analyzers*` | `Mockolate.Analyzers.Tests` |
 | Usage examples | `Mockolate.ExampleTests` |
-| `AutoMockArguments` attributes (`Sources.TestFrameworks*.cs`, `Mockolate.targets`) | `Mockolate.TUnit.Tests`, `Mockolate.SourceGenerators.Tests` |
+| `AutoMockArguments` attributes (`Sources.TestFrameworks*.cs`, `Mockolate.targets`) | the projects in `Tests/Frameworks`, `Mockolate.SourceGenerators.Tests` |
 | `Pipeline/BenchmarkReport.cs` | `Build.Tests` |
 | Generated code or reflection-sensitive library code | also the `AotSmokeTests` target |
 
@@ -136,7 +136,7 @@ Reports go to `Artifacts/Stryker`, the Markdown body of the PR comment to `Artif
 | Target | Purpose |
 |---|---|
 | `Compile` | Restore and build the solution with the GitVersion-derived version |
-| `UnitTests` | Run `Build.Tests`, `Mockolate.Tests`, `Mockolate.Internal.Tests`, `Mockolate.Analyzers.Tests`, `Mockolate.SourceGenerators.Tests`, `Mockolate.ExampleTests` and `Mockolate.TUnit.Tests` for each framework (`net48` only on Windows), with a TRX and a Cobertura coverage file per project and framework in `TestResults` |
+| `UnitTests` | Run `Build.Tests`, `Mockolate.Tests`, `Mockolate.Internal.Tests`, `Mockolate.Analyzers.Tests`, `Mockolate.SourceGenerators.Tests`, `Mockolate.ExampleTests` and the projects in `Tests/Frameworks` for each framework (`net48` only on Windows), with a TRX and a Cobertura coverage file per project and framework in `TestResults` |
 | `CodeCoverage` | `UnitTests` plus a ReportGenerator SonarQube report in `TestResults/reports` |
 | `ApiChecks` | Run `Mockolate.Api.Tests` |
 | `AotSmokeTests` | Run the AOT smoke test app from the compiled output and published with Native AOT |

@@ -111,6 +111,54 @@ public sealed class TestFrameworkCompatibilityTests
 		await That(diagnostics).IsEmpty();
 	}
 
+	[Test]
+	[Arguments("3.7.0", "Microsoft.VisualStudio.TestPlatform.TestFramework.dll", true)]
+	[Arguments("4.0.0", "MSTest.TestFramework.dll", false)]
+	public async Task MSTest_WithOldestSupportedVersions_ShouldCompile(string version, string assembly, bool isMSTest3)
+	{
+		string[] diagnostics = Compile(
+			isMSTest3
+				? ["MOCKOLATE_TEST_FRAMEWORK", "MOCKOLATE_MSTEST", "MOCKOLATE_MSTEST3",]
+				: ["MOCKOLATE_TEST_FRAMEWORK", "MOCKOLATE_MSTEST",],
+			[Path.Combine("mstest.testframework", version, "lib", "netstandard2.0", assembly),],
+			"""
+			using Mockolate.Integrations.MSTest;
+
+			namespace Compatibility
+			{
+				public class Tests
+				{
+					[global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethod]
+					[AutoMockArguments("Dark")]
+					public void Buy(string type, IChocolateDispenser dispenser, [Transient] IChocolateDispenser other) { }
+				}
+			}
+			""");
+
+		await That(diagnostics).IsEmpty();
+	}
+
+	[Test]
+	public async Task MSTest_BeforeTheOldestSupportedVersion_ShouldLackTheApi()
+	{
+		string[] diagnostics = Compile(["MOCKOLATE_TEST_FRAMEWORK", "MOCKOLATE_MSTEST", "MOCKOLATE_MSTEST3",],
+			[
+				Path.Combine("mstest.testframework", "3.6.0", "lib", "netstandard2.0",
+					"Microsoft.VisualStudio.TestPlatform.TestFramework.dll"),
+			],
+			"""
+			namespace Compatibility
+			{
+				public class Tests
+				{
+				}
+			}
+			""");
+
+		await That(diagnostics).Contains(diagnostic => diagnostic.Contains("ITestDataSourceUnfoldingCapability"))
+			.Because("Mockolate.targets only defines MOCKOLATE_MSTEST3 from MSTest 3.7, the first version with this API");
+	}
+
 	/// <summary>
 	///     Runs the generator on the <paramref name="source" /> with the <paramref name="constants" /> that
 	///     <c>Mockolate.targets</c> defines, and returns the errors and warnings of the compilation.

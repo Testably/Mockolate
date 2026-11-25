@@ -24,6 +24,7 @@
 		<PackageDownload Include="xunit.extensibility.core" Version="[2.0.0]"/>
 		<PackageDownload Include="xunit.abstractions" Version="[2.0.0]"/>
 		<PackageDownload Include="NUnit" Version="[3.7.0];[4.0.0]"/>
+		<PackageDownload Include="MSTest.TestFramework" Version="[3.6.0];[3.7.0];[4.0.0]"/>
 		<AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
 			<_Parameter1>NuGetPackageRoot</_Parameter1>
 			<_Parameter2>$(NuGetPackageRoot)</_Parameter2>
