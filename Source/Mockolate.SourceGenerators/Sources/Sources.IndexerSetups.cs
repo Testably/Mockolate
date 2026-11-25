@@ -1089,9 +1089,9 @@ internal static partial class Sources
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
 
-		// GetResult(behavior) - no-closure entry point used by the generated mock indexer body
-		sb.Append("\t\t/// <inheritdoc cref=\"global::Mockolate.Setup.IndexerSetup.GetResult{TResult}(global::Mockolate.Interactions.IndexerAccess, global::Mockolate.MockBehavior)\" />").AppendLine();
-		sb.Append("\t\tpublic override TResult GetResult<TResult>(global::Mockolate.Interactions.IndexerAccess access, global::Mockolate.MockBehavior behavior)").AppendLine();
+		// GetResult(Func<MockBehavior, TResult> defaultValueGenerator) - no-closure entry point used by the generated mock indexer body
+		sb.Append("\t\t/// <inheritdoc cref=\"global::Mockolate.Setup.IndexerSetup.GetResult{TResult}(global::Mockolate.Interactions.IndexerAccess, global::Mockolate.MockBehavior, global::System.Func{global::Mockolate.MockBehavior, TResult})\" />").AppendLine();
+		sb.Append("\t\tpublic override TResult GetResult<TResult>(global::Mockolate.Interactions.IndexerAccess access, global::Mockolate.MockBehavior behavior, global::System.Func<global::Mockolate.MockBehavior, TResult> defaultValueGenerator)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tif (!TryExtractParameters(access");
 		for (int i = 1; i <= numberOfParameters; i++)
@@ -1101,7 +1101,7 @@ internal static partial class Sources
 
 		sb.Append("))").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\treturn behavior.DefaultValue.Generate(default(TResult)!);").AppendLine();
+		sb.Append("\t\t\t\treturn defaultValueGenerator(behavior);").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.AppendLine();
 		sb.Append("\t\t\tTValue currentValue;").AppendLine();
@@ -1116,14 +1116,14 @@ internal static partial class Sources
 		sb.Append("\t\t\telse").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
 		sb.Append(autoMocking
-			? "\t\t\t\tcurrentValue = TryCast(global::Mockolate.Internals.AutoMocks.Or(behavior, behavior.DefaultValue.Generate(default(TValue)!), access), out TValue casted, behavior) ? casted : default!;"
-			: "\t\t\t\tcurrentValue = TryCast(behavior.DefaultValue.Generate(default(TValue)!), out TValue casted, behavior) ? casted : default!;").AppendLine();
+			? "\t\t\t\tcurrentValue = TryCast(global::Mockolate.Internals.AutoMocks.Or(behavior, defaultValueGenerator(behavior), access), out TValue casted, behavior) ? casted : default!;"
+			: "\t\t\t\tcurrentValue = TryCast(defaultValueGenerator(behavior), out TValue casted, behavior) ? casted : default!;").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.AppendLine();
 		sb.Append("\t\t\tcurrentValue = ExecuteGetterCallbacks(").Append(parameters).Append(", currentValue);").AppendLine();
 		sb.Append("\t\t\tcurrentValue = ExecuteReturnCallbacks(").Append(parameters).Append(", currentValue);").AppendLine();
 		sb.Append("\t\t\taccess.StoreValue(currentValue);").AppendLine();
-		sb.Append("\t\t\treturn TryCast(currentValue, out TResult result, behavior) ? result : behavior.DefaultValue.Generate(default(TResult)!);").AppendLine();
+		sb.Append("\t\t\treturn TryCast(currentValue, out TResult result, behavior) ? result : defaultValueGenerator(behavior);").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
 

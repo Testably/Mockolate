@@ -457,7 +457,7 @@ public sealed partial class SetupIndexerTests
 
 			void Act()
 			{
-				registry.GetIndexerFallback<string>(access, -1);
+				registry.GetIndexerFallback<string>(access, static _ => "", -1);
 			}
 
 			await That(Act).Throws<ArgumentOutOfRangeException>()

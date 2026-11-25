@@ -494,14 +494,16 @@ public partial class MockRegistry
 	/// <summary>
 	///     Handles the no-matching-setup fallback for an indexer getter: returns any previously stored value, throws
 	///     when <see cref="MockBehavior.ThrowWhenNotSetup" /> is <see langword="true" />, or otherwise stores and
-	///     returns the <see cref="MockBehavior.DefaultValue" />.
+	///     returns the value of the <paramref name="defaultValueGenerator" />.
 	/// </summary>
 	/// <typeparam name="TResult">The indexer's value type.</typeparam>
 	/// <param name="access">The indexer access whose arguments identify the record.</param>
+	/// <param name="defaultValueGenerator">Cached factory invoked with the active <see cref="MockBehavior" /> when a default value is needed.</param>
 	/// <param name="signatureIndex">Index into the mock's indexer-signature table (emitted by the source generator).</param>
 	/// <returns>The stored value, or the freshly generated default.</returns>
 	/// <exception cref="MockNotSetupException"><see cref="MockBehavior.ThrowWhenNotSetup" /> is <see langword="true" /> and no value was previously stored for this access.</exception>
-	public TResult GetIndexerFallback<TResult>(IndexerAccess access, int signatureIndex)
+	public TResult GetIndexerFallback<TResult>(IndexerAccess access, Func<MockBehavior, TResult> defaultValueGenerator,
+		int signatureIndex)
 	{
 		access.AttachStorage(Setup.Indexers.GetOrCreateStorage<TResult>(signatureIndex));
 		if (access.TryFindStoredValue(out TResult stored))
@@ -514,7 +516,7 @@ public partial class MockRegistry
 			throw new MockNotSetupException($"{access} was accessed without prior setup.");
 		}
 
-		TResult value = AutoMocks.Or(Behavior, Behavior.DefaultValue.GenerateTyped<TResult>(), access);
+		TResult value = AutoMocks.Or(Behavior, defaultValueGenerator(Behavior), access);
 		access.StoreValue(value);
 		return value;
 	}
@@ -526,12 +528,14 @@ public partial class MockRegistry
 	/// <typeparam name="TResult">The indexer's value type.</typeparam>
 	/// <param name="access">The indexer access whose arguments identify the record.</param>
 	/// <param name="setup">The previously matched indexer setup.</param>
+	/// <param name="defaultValueGenerator">Cached factory invoked with the active <see cref="MockBehavior" /> when a default value is needed.</param>
 	/// <param name="signatureIndex">Index into the mock's indexer-signature table (emitted by the source generator).</param>
 	/// <returns>The value produced by the setup.</returns>
-	public TResult ApplyIndexerSetup<TResult>(IndexerAccess access, IndexerSetup setup, int signatureIndex)
+	public TResult ApplyIndexerSetup<TResult>(IndexerAccess access, IndexerSetup setup,
+		Func<MockBehavior, TResult> defaultValueGenerator, int signatureIndex)
 	{
 		access.AttachStorage(Setup.Indexers.GetOrCreateStorage<TResult>(signatureIndex));
-		return setup.GetResult<TResult>(access, Behavior);
+		return setup.GetResult(access, Behavior, defaultValueGenerator);
 	}
 
 	/// <summary>

@@ -680,12 +680,12 @@ namespace Mockolate.Setup
 			return TryCast(currentValue, out TResult result, behavior) ? result : baseValue;
 		}
 
-		/// <inheritdoc cref="global::Mockolate.Setup.IndexerSetup.GetResult{TResult}(global::Mockolate.Interactions.IndexerAccess, global::Mockolate.MockBehavior)" />
-		public override TResult GetResult<TResult>(global::Mockolate.Interactions.IndexerAccess access, global::Mockolate.MockBehavior behavior)
+		/// <inheritdoc cref="global::Mockolate.Setup.IndexerSetup.GetResult{TResult}(global::Mockolate.Interactions.IndexerAccess, global::Mockolate.MockBehavior, global::System.Func{global::Mockolate.MockBehavior, TResult})" />
+		public override TResult GetResult<TResult>(global::Mockolate.Interactions.IndexerAccess access, global::Mockolate.MockBehavior behavior, global::System.Func<global::Mockolate.MockBehavior, TResult> defaultValueGenerator)
 		{
 			if (!TryExtractParameters(access, out T1 p1, out T2 p2, out T3 p3, out T4 p4, out T5 p5))
 			{
-				return behavior.DefaultValue.Generate(default(TResult)!);
+				return defaultValueGenerator(behavior);
 			}
 
 			TValue currentValue;
@@ -699,13 +699,13 @@ namespace Mockolate.Setup
 			}
 			else
 			{
-				currentValue = TryCast(behavior.DefaultValue.Generate(default(TValue)!), out TValue casted, behavior) ? casted : default!;
+				currentValue = TryCast(defaultValueGenerator(behavior), out TValue casted, behavior) ? casted : default!;
 			}
 
 			currentValue = ExecuteGetterCallbacks(p1, p2, p3, p4, p5, currentValue);
 			currentValue = ExecuteReturnCallbacks(p1, p2, p3, p4, p5, currentValue);
 			access.StoreValue(currentValue);
-			return TryCast(currentValue, out TResult result, behavior) ? result : behavior.DefaultValue.Generate(default(TResult)!);
+			return TryCast(currentValue, out TResult result, behavior) ? result : defaultValueGenerator(behavior);
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Setup.IndexerSetup.GetResult{TResult}(global::Mockolate.Interactions.IndexerAccess, global::Mockolate.MockBehavior, global::System.Func{TResult})" />

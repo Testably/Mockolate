@@ -232,7 +232,7 @@ public sealed class MockRegistryTests
 
 			void Act()
 			{
-				registry.ApplyIndexerSetup<string>(access, setup, -1);
+				registry.ApplyIndexerSetup<string>(access, setup, static _ => "", -1);
 			}
 
 			await That(Act).Throws<ArgumentOutOfRangeException>()
@@ -384,8 +384,8 @@ public sealed class MockRegistryTests
 			IndexerGetterAccess<int> access1 = new(1);
 			IndexerGetterAccess<int> access2 = new(1);
 
-			int first = registry.GetIndexerFallback<int>(access1, 0);
-			int second = registry.GetIndexerFallback<int>(access2, 0);
+			int first = registry.GetIndexerFallback<int>(access1, static b => b.DefaultValue.Generate(0), 0);
+			int second = registry.GetIndexerFallback<int>(access2, static b => b.DefaultValue.Generate(0), 0);
 
 			await That(first).IsEqualTo(1);
 			await That(second).IsEqualTo(1);
@@ -452,7 +452,7 @@ public sealed class MockRegistryTests
 
 			void Act()
 			{
-				registry.GetIndexerFallback<int>(access, 0);
+				registry.GetIndexerFallback<int>(access, static b => b.DefaultValue.Generate(0), 0);
 			}
 
 			await That(Act).Throws<MockNotSetupException>()
@@ -469,7 +469,7 @@ public sealed class MockRegistryTests
 			IndexerGetterAccess<int> getterAccess = new(1);
 
 			registry.ApplyIndexerSetter(setterAccess, null, 42, 0);
-			int result = registry.GetIndexerFallback<int>(getterAccess, 0);
+			int result = registry.GetIndexerFallback<int>(getterAccess, static b => b.DefaultValue.Generate(0), 0);
 
 			await That(result).IsEqualTo(42);
 			await That(counter).IsEqualTo(0);

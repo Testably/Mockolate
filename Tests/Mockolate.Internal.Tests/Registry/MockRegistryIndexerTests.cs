@@ -98,7 +98,7 @@ public sealed class MockRegistryIndexerTests
 
 		void Act()
 		{
-			registry.GetIndexer<string, int>(null, 1, 0);
+			registry.GetIndexer<string, int>(null, 1, static _ => "", 0);
 		}
 
 		await That(Act).Throws<MockNotSetupException>()
@@ -111,7 +111,7 @@ public sealed class MockRegistryIndexerTests
 		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
 
 		registry.SetIndexer<string, int>(null, 1, "foo", 0);
-		string result = registry.GetIndexer<string, int>(null, 1, 0);
+		string result = registry.GetIndexer<string, int>(null, 1, static _ => "", 0);
 
 		await That(result).IsEqualTo("foo");
 	}
@@ -121,7 +121,7 @@ public sealed class MockRegistryIndexerTests
 		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
 		DerivedSetup1 setup = new(registry);
 
-		string result = registry.GetIndexer<string, int>(setup, 1, 0);
+		string result = registry.GetIndexer<string, int>(setup, 1, static _ => "", 0);
 
 		await That(result).IsEqualTo("derived");
 	}
@@ -154,7 +154,7 @@ public sealed class MockRegistryIndexerTests
 		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
 		DerivedSetup2 setup = new(registry);
 
-		string result = registry.GetIndexer<string, int, int>(setup, 1, 2, 0);
+		string result = registry.GetIndexer<string, int, int>(setup, 1, 2, static _ => "", 0);
 
 		await That(result).IsEqualTo("derived");
 	}
@@ -187,7 +187,7 @@ public sealed class MockRegistryIndexerTests
 		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
 		DerivedSetup3 setup = new(registry);
 
-		string result = registry.GetIndexer<string, int, int, int>(setup, 1, 2, 3, 0);
+		string result = registry.GetIndexer<string, int, int, int>(setup, 1, 2, 3, static _ => "", 0);
 
 		await That(result).IsEqualTo("derived");
 	}
@@ -220,7 +220,7 @@ public sealed class MockRegistryIndexerTests
 		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
 		DerivedSetup4 setup = new(registry);
 
-		string result = registry.GetIndexer<string, int, int, int, int>(setup, 1, 2, 3, 4, 0);
+		string result = registry.GetIndexer<string, int, int, int, int>(setup, 1, 2, 3, 4, static _ => "", 0);
 
 		await That(result).IsEqualTo("derived");
 	}
@@ -253,7 +253,8 @@ public sealed class MockRegistryIndexerTests
 	{
 		public object? LastValue { get; private set; }
 
-		public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior)
+		public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior,
+			Func<MockBehavior, TResult> defaultValueGenerator)
 			=> (TResult)(object)"derived";
 
 		public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior, TResult baseValue)
@@ -270,7 +271,8 @@ public sealed class MockRegistryIndexerTests
 	{
 		public object? LastValue { get; private set; }
 
-		public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior)
+		public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior,
+			Func<MockBehavior, TResult> defaultValueGenerator)
 			=> (TResult)(object)"derived";
 
 		public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior, TResult baseValue)
@@ -288,7 +290,8 @@ public sealed class MockRegistryIndexerTests
 	{
 		public object? LastValue { get; private set; }
 
-		public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior)
+		public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior,
+			Func<MockBehavior, TResult> defaultValueGenerator)
 			=> (TResult)(object)"derived";
 
 		public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior, TResult baseValue)
@@ -307,7 +310,8 @@ public sealed class MockRegistryIndexerTests
 	{
 		public object? LastValue { get; private set; }
 
-		public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior)
+		public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior,
+			Func<MockBehavior, TResult> defaultValueGenerator)
 			=> (TResult)(object)"derived";
 
 		public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior, TResult baseValue)

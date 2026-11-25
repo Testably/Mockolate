@@ -64,14 +64,20 @@ public abstract class IndexerSetup : IInteractiveIndexerSetup
 	public abstract TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior, TResult baseValue);
 
 	/// <summary>
-	///     Runs the getter flow for <paramref name="access" />, materializing the default value from
-	///     <paramref name="behavior" /> inline when no stored value or initialization is present.
+	///     Runs the getter flow for <paramref name="access" />, materializing the default value with the
+	///     <paramref name="defaultValueGenerator" /> when no stored value or initialization is present.
 	/// </summary>
+	/// <remarks>
+	///     The source generator emits a <c>static</c> lambda for the <paramref name="defaultValueGenerator" />, so that
+	///     the typed default value of the indexer's declared type is used without a closure allocation.
+	/// </remarks>
 	/// <typeparam name="TResult">The indexer's value type.</typeparam>
 	/// <param name="access">The recorded access whose arguments identify the slot.</param>
-	/// <param name="behavior">The mock's active behavior (also provides the default value factory).</param>
+	/// <param name="behavior">The mock's active behavior.</param>
+	/// <param name="defaultValueGenerator">Cached factory invoked with the <paramref name="behavior" /> when a default value is needed.</param>
 	/// <returns>The resolved getter value.</returns>
-	public abstract TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior);
+	public abstract TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior,
+		Func<MockBehavior, TResult> defaultValueGenerator);
 
 	/// <summary>
 	///     Runs the getter flow for <paramref name="access" /> using <paramref name="defaultValueGenerator" /> as the
@@ -599,12 +605,13 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 		return TryCast(currentValue, out TResult result, behavior) ? result : baseValue;
 	}
 
-	/// <inheritdoc cref="IndexerSetup.GetResult{TResult}(IndexerAccess, MockBehavior)" />
-	public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior)
+	/// <inheritdoc cref="IndexerSetup.GetResult{TResult}(IndexerAccess, MockBehavior, Func{MockBehavior, TResult})" />
+	public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior,
+		Func<MockBehavior, TResult> defaultValueGenerator)
 	{
 		if (!TryExtractParameter(access, out T1 p1))
 		{
-			return behavior.DefaultValue.GenerateTyped<TResult>();
+			return defaultValueGenerator(behavior);
 		}
 
 		TValue currentValue;
@@ -618,7 +625,7 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 		}
 		else
 		{
-			currentValue = TryCast(AutoMocks.Or(behavior, behavior.DefaultValue.GenerateTyped<TValue>(), access), out TValue casted, behavior)
+			currentValue = TryCast(AutoMocks.Or(behavior, defaultValueGenerator(behavior), access), out TValue casted, behavior)
 				? casted
 				: default!;
 		}
@@ -628,7 +635,7 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 		access.StoreValue(currentValue);
 		return TryCast(currentValue, out TResult result, behavior)
 			? result
-			: behavior.DefaultValue.GenerateTyped<TResult>();
+			: defaultValueGenerator(behavior);
 	}
 
 	/// <inheritdoc cref="IndexerSetup.GetResult{TResult}(IndexerAccess, MockBehavior, Func{TResult})" />
@@ -678,7 +685,8 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 		ExecuteSetterCallbacks(p1, resultValue);
 	}
 
-	internal TValue GetResult(IndexerValueStorage<TValue> leaf, T1 p1, MockBehavior behavior)
+	internal TValue GetResult(IndexerValueStorage<TValue> leaf, T1 p1, MockBehavior behavior,
+		Func<MockBehavior, TValue> defaultValueGenerator)
 	{
 		TValue currentValue;
 		if (leaf.HasValue)
@@ -691,7 +699,7 @@ public class IndexerSetup<TValue, T1>(MockRegistry mockRegistry, IParameterMatch
 		}
 		else
 		{
-			currentValue = AutoMocks.Or(behavior, behavior.DefaultValue.GenerateTyped<TValue>(), leaf);
+			currentValue = AutoMocks.Or(behavior, defaultValueGenerator(behavior), leaf);
 		}
 
 		currentValue = ExecuteGetterCallbacks(p1, currentValue);
@@ -1548,12 +1556,13 @@ public class IndexerSetup<TValue, T1, T2>(
 		return TryCast(currentValue, out TResult result, behavior) ? result : baseValue;
 	}
 
-	/// <inheritdoc cref="IndexerSetup.GetResult{TResult}(IndexerAccess, MockBehavior)" />
-	public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior)
+	/// <inheritdoc cref="IndexerSetup.GetResult{TResult}(IndexerAccess, MockBehavior, Func{MockBehavior, TResult})" />
+	public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior,
+		Func<MockBehavior, TResult> defaultValueGenerator)
 	{
 		if (!TryExtractParameters(access, out T1 p1, out T2 p2))
 		{
-			return behavior.DefaultValue.GenerateTyped<TResult>();
+			return defaultValueGenerator(behavior);
 		}
 
 		TValue currentValue;
@@ -1567,7 +1576,7 @@ public class IndexerSetup<TValue, T1, T2>(
 		}
 		else
 		{
-			currentValue = TryCast(AutoMocks.Or(behavior, behavior.DefaultValue.GenerateTyped<TValue>(), access), out TValue casted, behavior)
+			currentValue = TryCast(AutoMocks.Or(behavior, defaultValueGenerator(behavior), access), out TValue casted, behavior)
 				? casted
 				: default!;
 		}
@@ -1577,7 +1586,7 @@ public class IndexerSetup<TValue, T1, T2>(
 		access.StoreValue(currentValue);
 		return TryCast(currentValue, out TResult result, behavior)
 			? result
-			: behavior.DefaultValue.GenerateTyped<TResult>();
+			: defaultValueGenerator(behavior);
 	}
 
 	/// <inheritdoc cref="IndexerSetup.GetResult{TResult}(IndexerAccess, MockBehavior, Func{TResult})" />
@@ -1627,7 +1636,8 @@ public class IndexerSetup<TValue, T1, T2>(
 		ExecuteSetterCallbacks(p1, p2, resultValue);
 	}
 
-	internal TValue GetResult(IndexerValueStorage<TValue> leaf, T1 p1, T2 p2, MockBehavior behavior)
+	internal TValue GetResult(IndexerValueStorage<TValue> leaf, T1 p1, T2 p2, MockBehavior behavior,
+		Func<MockBehavior, TValue> defaultValueGenerator)
 	{
 		TValue currentValue;
 		if (leaf.HasValue)
@@ -1640,7 +1650,7 @@ public class IndexerSetup<TValue, T1, T2>(
 		}
 		else
 		{
-			currentValue = AutoMocks.Or(behavior, behavior.DefaultValue.GenerateTyped<TValue>(), leaf);
+			currentValue = AutoMocks.Or(behavior, defaultValueGenerator(behavior), leaf);
 		}
 
 		currentValue = ExecuteGetterCallbacks(p1, p2, currentValue);
@@ -2514,12 +2524,13 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 		return TryCast(currentValue, out TResult result, behavior) ? result : baseValue;
 	}
 
-	/// <inheritdoc cref="IndexerSetup.GetResult{TResult}(IndexerAccess, MockBehavior)" />
-	public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior)
+	/// <inheritdoc cref="IndexerSetup.GetResult{TResult}(IndexerAccess, MockBehavior, Func{MockBehavior, TResult})" />
+	public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior,
+		Func<MockBehavior, TResult> defaultValueGenerator)
 	{
 		if (!TryExtractParameters(access, out T1 p1, out T2 p2, out T3 p3))
 		{
-			return behavior.DefaultValue.GenerateTyped<TResult>();
+			return defaultValueGenerator(behavior);
 		}
 
 		TValue currentValue;
@@ -2533,7 +2544,7 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 		}
 		else
 		{
-			currentValue = TryCast(AutoMocks.Or(behavior, behavior.DefaultValue.GenerateTyped<TValue>(), access), out TValue casted, behavior)
+			currentValue = TryCast(AutoMocks.Or(behavior, defaultValueGenerator(behavior), access), out TValue casted, behavior)
 				? casted
 				: default!;
 		}
@@ -2543,7 +2554,7 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 		access.StoreValue(currentValue);
 		return TryCast(currentValue, out TResult result, behavior)
 			? result
-			: behavior.DefaultValue.GenerateTyped<TResult>();
+			: defaultValueGenerator(behavior);
 	}
 
 	/// <inheritdoc cref="IndexerSetup.GetResult{TResult}(IndexerAccess, MockBehavior, Func{TResult})" />
@@ -2593,7 +2604,8 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 		ExecuteSetterCallbacks(p1, p2, p3, resultValue);
 	}
 
-	internal TValue GetResult(IndexerValueStorage<TValue> leaf, T1 p1, T2 p2, T3 p3, MockBehavior behavior)
+	internal TValue GetResult(IndexerValueStorage<TValue> leaf, T1 p1, T2 p2, T3 p3, MockBehavior behavior,
+		Func<MockBehavior, TValue> defaultValueGenerator)
 	{
 		TValue currentValue;
 		if (leaf.HasValue)
@@ -2606,7 +2618,7 @@ public class IndexerSetup<TValue, T1, T2, T3>(
 		}
 		else
 		{
-			currentValue = AutoMocks.Or(behavior, behavior.DefaultValue.GenerateTyped<TValue>(), leaf);
+			currentValue = AutoMocks.Or(behavior, defaultValueGenerator(behavior), leaf);
 		}
 
 		currentValue = ExecuteGetterCallbacks(p1, p2, p3, currentValue);
@@ -3490,12 +3502,13 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 		return TryCast(currentValue, out TResult result, behavior) ? result : baseValue;
 	}
 
-	/// <inheritdoc cref="IndexerSetup.GetResult{TResult}(IndexerAccess, MockBehavior)" />
-	public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior)
+	/// <inheritdoc cref="IndexerSetup.GetResult{TResult}(IndexerAccess, MockBehavior, Func{MockBehavior, TResult})" />
+	public override TResult GetResult<TResult>(IndexerAccess access, MockBehavior behavior,
+		Func<MockBehavior, TResult> defaultValueGenerator)
 	{
 		if (!TryExtractParameters(access, out T1 p1, out T2 p2, out T3 p3, out T4 p4))
 		{
-			return behavior.DefaultValue.GenerateTyped<TResult>();
+			return defaultValueGenerator(behavior);
 		}
 
 		TValue currentValue;
@@ -3509,7 +3522,7 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 		}
 		else
 		{
-			currentValue = TryCast(AutoMocks.Or(behavior, behavior.DefaultValue.GenerateTyped<TValue>(), access), out TValue casted, behavior)
+			currentValue = TryCast(AutoMocks.Or(behavior, defaultValueGenerator(behavior), access), out TValue casted, behavior)
 				? casted
 				: default!;
 		}
@@ -3519,7 +3532,7 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 		access.StoreValue(currentValue);
 		return TryCast(currentValue, out TResult result, behavior)
 			? result
-			: behavior.DefaultValue.GenerateTyped<TResult>();
+			: defaultValueGenerator(behavior);
 	}
 
 	/// <inheritdoc cref="IndexerSetup.GetResult{TResult}(IndexerAccess, MockBehavior, Func{TResult})" />
@@ -3569,7 +3582,8 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 		ExecuteSetterCallbacks(p1, p2, p3, p4, resultValue);
 	}
 
-	internal TValue GetResult(IndexerValueStorage<TValue> leaf, T1 p1, T2 p2, T3 p3, T4 p4, MockBehavior behavior)
+	internal TValue GetResult(IndexerValueStorage<TValue> leaf, T1 p1, T2 p2, T3 p3, T4 p4, MockBehavior behavior,
+		Func<MockBehavior, TValue> defaultValueGenerator)
 	{
 		TValue currentValue;
 		if (leaf.HasValue)
@@ -3582,7 +3596,7 @@ public class IndexerSetup<TValue, T1, T2, T3, T4>(
 		}
 		else
 		{
-			currentValue = AutoMocks.Or(behavior, behavior.DefaultValue.GenerateTyped<TValue>(), leaf);
+			currentValue = AutoMocks.Or(behavior, defaultValueGenerator(behavior), leaf);
 		}
 
 		currentValue = ExecuteGetterCallbacks(p1, p2, p3, p4, currentValue);
