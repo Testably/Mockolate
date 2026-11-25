@@ -42,7 +42,8 @@ internal static partial class Sources
 		          		/// </summary>
 		          		/// <remarks>
 		          		///     Un-configured members return the generator-provided default value (empty strings/collections, completed
-		          		///     <see cref="global::System.Threading.Tasks.Task" />s, <see langword="null" /> otherwise), base-class
+		          		///     <see cref="global::System.Threading.Tasks.Task" />s, an identity <see cref="global::System.Func{T, TResult}" />
+		          		///     for <c>Func&lt;T, T&gt;</c>, a no-op <see cref="global::System.Action{T}" />, <see langword="null" /> otherwise), base-class
 		          		///     implementations run for class mocks, and every invocation is recorded for later verification.
 		          		///     <para />
 		          		///     Chain <c>SkippingBaseClass()</c>, <c>ThrowingWhenNotSetup()</c>, <c>SkippingInteractionRecording()</c>,
@@ -464,7 +465,7 @@ internal static partial class Sources
 		          				return value;
 		          			}
 
-		          			return static value => value;
+		          			return static argument => argument;
 		          		}
 
 		          		/// <summary>

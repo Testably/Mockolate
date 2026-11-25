@@ -30,7 +30,8 @@ internal static partial class Mock
 		/// </summary>
 		/// <remarks>
 		///     Un-configured members return the generator-provided default value (empty strings/collections, completed
-		///     <see cref="global::System.Threading.Tasks.Task">Task</see>s, <see langword="null" /> otherwise), base-class
+		///     <see cref="global::System.Threading.Tasks.Task">Task</see>s, an identity <see cref="global::System.Func{T, TResult}">Func&lt;T, TResult&gt;</see>
+		///     for <c>Func&lt;T, T&gt;</c>, a no-op <see cref="global::System.Action{T}">Action&lt;T&gt;</see>, <see langword="null" /> otherwise), base-class
 		///     implementations run for class mocks, and every invocation is recorded for later verification.
 		///     <para />
 		///     Chain <c>SkippingBaseClass()</c>, <c>ThrowingWhenNotSetup()</c>, <c>SkippingInteractionRecording()</c>,
@@ -369,6 +370,34 @@ internal static class DefaultValueGeneratorExtensions
 		/// </summary>
 		public T[,,,] Generate<T>(T[,,,] nullValue, params object?[] parameters)
 			=> new T[,,,] { };
+
+		/// <summary>
+		///     Generates a function that returns its argument, such as an options callback, with
+		///     the <paramref name="parameters" /> for context.
+		/// </summary>
+		public global::System.Func<T, T> Generate<T>(global::System.Func<T, T> nullValue, params object?[] parameters)
+		{
+			if (generator.GenerateValue(typeof(global::System.Func<T, T>), parameters) is global::System.Func<T, T> value)
+			{
+				return value;
+			}
+
+			return static argument => argument;
+		}
+
+		/// <summary>
+		///     Generates an action that does nothing, such as a configure callback, with
+		///     the <paramref name="parameters" /> for context.
+		/// </summary>
+		public global::System.Action<T> Generate<T>(global::System.Action<T> nullValue, params object?[] parameters)
+		{
+			if (generator.GenerateValue(typeof(global::System.Action<T>), parameters) is global::System.Action<T> value)
+			{
+				return value;
+			}
+
+			return static _ => { };
+		}
 
 		/// <summary>
 		///     Generates an empty async enumerable of <typeparamref name="T" />, with
