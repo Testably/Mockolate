@@ -182,6 +182,41 @@ public sealed class AutoMockArgumentsTests
 	}
 
 	[Test]
+	public async Task Wrap_WithTheCommandOfTheTestMethod_ShouldCreateTheArgumentsBeforeTheMethodRuns()
+	{
+		AutoMockArgumentsAttribute attribute = new();
+		TestMethod test = attribute.BuildFrom(new MethodWrapper(typeof(BuildTargets), nameof(BuildTargets.WithFailingService)), null)
+			.Single();
+		TestCommand command = attribute.Wrap(new TestMethodCommand(test));
+
+		command.Execute(CreateContext(test));
+
+		await That(test.Arguments[0]).Is<FailingService>();
+	}
+
+	[Test]
+	public async Task Wrap_WithASubclassOfTheTestMethodCommand_ShouldKeepIt()
+	{
+		AutoMockArgumentsAttribute attribute = new();
+		TestMethod test = attribute.BuildFrom(new MethodWrapper(typeof(BuildTargets), nameof(BuildTargets.WithFailingService)), null)
+			.Single();
+		CountingTestMethodCommand foreign = new(test);
+		TestCommand command = attribute.Wrap(foreign);
+
+		command.Execute(CreateContext(test));
+
+		await That(foreign.Executions).IsEqualTo(1);
+		await That(test.Arguments[0]).Is<FailingService>();
+	}
+
+	private static TestExecutionContext CreateContext(Test test)
+		=> new()
+		{
+			CurrentTest = test,
+			CurrentResult = test.MakeTestResult(),
+		};
+
+	[Test]
 	public async Task Wrap_WhenTheCommandAlreadyCreatesTheArguments_ShouldKeepIt()
 	{
 		AutoMockArgumentsAttribute attribute = new();
@@ -315,4 +350,18 @@ public sealed class RecordingHookAttribute : ExecutionHookAttribute
 
 	public override void BeforeTestHook(HookData hookData)
 		=> LastTest = TestContext.CurrentContext.Test.Name;
+}
+
+/// <summary>
+///     The command of the test method as another attribute could replace it, which counts its executions.
+/// </summary>
+internal sealed class CountingTestMethodCommand(TestMethod testMethod) : TestMethodCommand(testMethod)
+{
+	public int Executions { get; private set; }
+
+	public override TestResult Execute(TestExecutionContext context)
+	{
+		Executions++;
+		return base.Execute(context);
+	}
 }

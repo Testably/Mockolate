@@ -120,7 +120,9 @@ namespace Mockolate.Integrations.NUnit
 			=> command switch
 			{
 				CreateArgumentsTestMethodCommand or CreateArgumentsCommand => command,
-				global::NUnit.Framework.Internal.Commands.TestMethodCommand { Test: global::NUnit.Framework.Internal.TestMethod test, } =>
+				// A subclass of another attribute runs code of its own, so only the command of NUnit is replaced.
+				global::NUnit.Framework.Internal.Commands.TestMethodCommand { Test: global::NUnit.Framework.Internal.TestMethod test, }
+					when command.GetType() == typeof(global::NUnit.Framework.Internal.Commands.TestMethodCommand) =>
 					new CreateArgumentsTestMethodCommand(test),
 				_ => new CreateArgumentsCommand(command),
 			};
