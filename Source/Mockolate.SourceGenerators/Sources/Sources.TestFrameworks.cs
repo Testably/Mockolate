@@ -14,6 +14,8 @@ internal static partial class Sources
 	                                              				global::System.Array.ConvertAll(parameters, parameter => parameter.Name ?? ""),
 	                                              				index => global::System.Reflection.CustomAttributeExtensions.IsDefined(parameters[index],
 	                                              					typeof(global::Mockolate.Integrations.TransientParameterAttribute), false),
+	                                              				index => global::System.Reflection.CustomAttributeExtensions.IsDefined(parameters[index],
+	                                              					typeof(global::Mockolate.Integrations.AsDefaultParameterAttribute), false),
 	                                              				arguments, DefaultBehavior?.Invoke()).Create();
 
 
@@ -55,6 +57,17 @@ internal static partial class Sources
 		                              	}
 
 		                              	/// <summary>
+		                              	///     Makes a test parameter the default value of its type for all mocks of the test case.
+		                              	/// </summary>
+		                              	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
+		                              	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+		                              	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+		                              	[global::Microsoft.CodeAnalysis.Embedded]
+		                              	internal abstract class AsDefaultParameterAttribute : global::System.Attribute
+		                              	{
+		                              	}
+
+		                              	/// <summary>
 		                              	///     Creates the arguments of one test invocation on demand, so that a class under test receives the arguments of
 		                              	///     the other parameters whatever their order.
 		                              	/// </summary>
@@ -67,8 +80,9 @@ internal static partial class Sources
 		                              		private readonly global::System.Type[] _types;
 		                              		private readonly string[] _names;
 		                              		private readonly global::System.Func<int, bool> _isTransientParameter;
+		                              		private readonly global::System.Func<int, bool> _isAsDefaultParameter;
 		                              		private readonly object?[] _arguments;
-		                              		private readonly global::Mockolate.MockBehavior? _behavior;
+		                              		private global::Mockolate.MockBehavior? _behavior;
 		                              		private readonly int[] _states;
 		                              		private readonly object?[] _values;
 		                              		private readonly bool?[] _isTransient;
@@ -77,10 +91,12 @@ internal static partial class Sources
 		                              		/// <param name="types">The types of the parameters of the test method.</param>
 		                              		/// <param name="names">The names of the parameters of the test method.</param>
 		                              		/// <param name="isTransientParameter">Whether the parameter at an index is marked as transient.</param>
+		                              		/// <param name="isAsDefaultParameter">Whether the parameter at an index is marked as the default value of its type.</param>
 		                              		/// <param name="arguments">The given arguments of the first parameters, which are not shared.</param>
 		                              		/// <param name="behavior">The behavior of the created mocks and values.</param>
 		                              		public AutoMockRow(global::System.Reflection.Assembly assembly, global::System.Type[] types, string[] names,
-		                              			global::System.Func<int, bool> isTransientParameter, object?[] arguments, global::Mockolate.MockBehavior? behavior)
+		                              			global::System.Func<int, bool> isTransientParameter, global::System.Func<int, bool> isAsDefaultParameter,
+		                              			object?[] arguments, global::Mockolate.MockBehavior? behavior)
 		                              		{
 		                              			if (arguments.Length > types.Length)
 		                              			{
@@ -92,6 +108,7 @@ internal static partial class Sources
 		                              			_types = types;
 		                              			_names = names;
 		                              			_isTransientParameter = isTransientParameter;
+		                              			_isAsDefaultParameter = isAsDefaultParameter;
 		                              			_arguments = arguments;
 		                              			_behavior = behavior;
 		                              			_states = new int[types.Length];
@@ -204,10 +221,33 @@ internal static partial class Sources
 
 		                              			for (int index = 0; index < _types.Length; index++)
 		                              			{
+		                              				if (_isAsDefaultParameter(index))
+		                              				{
+		                              					UseAsDefault(index);
+		                              				}
+		                              			}
+
+		                              			for (int index = 0; index < _types.Length; index++)
+		                              			{
 		                              				GetOrCreate(index);
 		                              			}
 
 		                              			return _values;
+		                              		}
+
+		                              		/// <summary>
+		                              		///     The parameter is created on the first request. While it is being created, the previous default values
+		                              		///     apply, so that its own creation does not recurse.
+		                              		/// </summary>
+		                              		private void UseAsDefault(int index)
+		                              		{
+		                              			global::System.Type type = _types[index];
+		                              			global::Mockolate.MockBehavior previous = _behavior ?? global::Mockolate.MockBehavior.Default;
+		                              			_behavior = previous.WithDefaultValueFor(new global::Mockolate.DefaultValueFactory(
+		                              				candidate => candidate == type,
+		                              				(_, parameters) => _states[index] == 1
+		                              					? previous.DefaultValue.GenerateValue(type, parameters)
+		                              					: GetOrCreate(index)));
 		                              		}
 
 		                              		private object? GetOrCreate(int index)
@@ -306,7 +346,8 @@ internal static partial class Sources
 		                                	///     test can set up and verify the mock that the class under test uses. When several test parameters have the type,
 		                                	///     the one with the name of the constructor parameter (ignoring case) is used; a value type or string is only
 		                                	///     shared with a constructor parameter of its name. The given arguments and a <see cref="TransientAttribute" />
-		                                	///     parameter are not shared. Each attribute on a method is one test case.
+		                                	///     parameter are not shared. An <see cref="AsDefaultAttribute" /> parameter is the default value of its type for
+		                                	///     all mocks. Each attribute on a method is one test case.
 		                                	/// </remarks>
 		                                	[global::System.AttributeUsage(global::System.AttributeTargets.Method, AllowMultiple = true)]
 		                                	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -350,6 +391,18 @@ internal static partial class Sources
 		                                	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 		                                	[global::Microsoft.CodeAnalysis.Embedded]
 		                                	internal sealed class TransientAttribute : global::Mockolate.Integrations.TransientParameterAttribute
+		                                	{
+		                                	}
+
+		                                	/// <summary>
+		                                	///     Makes the test parameter the default value of its exact type for all mocks that
+		                                	///     <see cref="AutoMockArgumentsAttribute" /> creates for the test case, so that their members without a setup
+		                                	///     return it, also wrapped in a task.
+		                                	/// </summary>
+		                                	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
+		                                	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+		                                	[global::Microsoft.CodeAnalysis.Embedded]
+		                                	internal sealed class AsDefaultAttribute : global::Mockolate.Integrations.AsDefaultParameterAttribute
 		                                	{
 		                                	}
 		                                }

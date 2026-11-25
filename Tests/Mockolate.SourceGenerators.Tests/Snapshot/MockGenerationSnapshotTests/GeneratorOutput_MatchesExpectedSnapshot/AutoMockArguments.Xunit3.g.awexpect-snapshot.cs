@@ -22,7 +22,8 @@ namespace Mockolate.Integrations.Xunit
 	///     test can set up and verify the mock that the class under test uses. When several test parameters have the type,
 	///     the one with the name of the constructor parameter (ignoring case) is used; a value type or string is only
 	///     shared with a constructor parameter of its name. The given arguments and a <see cref="TransientAttribute">TransientAttribute</see>
-	///     parameter are not shared. Each attribute on a method is one test case.
+	///     parameter are not shared. An <see cref="AsDefaultAttribute">AsDefaultAttribute</see> parameter is the default value of its type for
+	///     all mocks. Each attribute on a method is one test case.
 	/// </remarks>
 	[global::System.AttributeUsage(global::System.AttributeTargets.Method, AllowMultiple = true)]
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -62,6 +63,8 @@ namespace Mockolate.Integrations.Xunit
 				global::System.Array.ConvertAll(parameters, parameter => parameter.Name ?? ""),
 				index => global::System.Reflection.CustomAttributeExtensions.IsDefined(parameters[index],
 					typeof(global::Mockolate.Integrations.TransientParameterAttribute), false),
+				index => global::System.Reflection.CustomAttributeExtensions.IsDefined(parameters[index],
+					typeof(global::Mockolate.Integrations.AsDefaultParameterAttribute), false),
 				arguments, DefaultBehavior?.Invoke()).Create();
 
 		/// <inheritdoc />
@@ -88,6 +91,18 @@ namespace Mockolate.Integrations.Xunit
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 	[global::Microsoft.CodeAnalysis.Embedded]
 	internal sealed class TransientAttribute : global::Mockolate.Integrations.TransientParameterAttribute
+	{
+	}
+
+	/// <summary>
+	///     Makes the test parameter the default value of its exact type for all mocks that
+	///     <see cref="AutoMockArgumentsAttribute">AutoMockArgumentsAttribute</see> creates for the test case, so that their members without a setup
+	///     return it, also wrapped in a task.
+	/// </summary>
+	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	[global::Microsoft.CodeAnalysis.Embedded]
+	internal sealed class AsDefaultAttribute : global::Mockolate.Integrations.AsDefaultParameterAttribute
 	{
 	}
 }

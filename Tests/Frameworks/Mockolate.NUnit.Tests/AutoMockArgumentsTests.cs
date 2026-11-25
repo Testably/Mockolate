@@ -90,6 +90,11 @@ public sealed class AutoMockArgumentsTests
 	public async Task DefaultBehavior_AssignedInModuleInitializer_ShouldApplyToTheArguments(ConfiguredValue value)
 		=> await That(value.Id).IsEqualTo(42);
 
+	[AutoMockArguments]
+	public async Task AsDefault_ShouldBeReturnedByMembersWithoutSetup(IWarehouse warehouse,
+		[AsDefault] IOrderRepository repository)
+		=> await That(warehouse.Repository).IsSameAs(repository);
+
 	[AutoMockArguments("Hello {0}", 4L)]
 	public async Task TestName_ShouldContainTheGivenArgumentsAsTheyAre(string text, long amount,
 		IOrderRepository repository)

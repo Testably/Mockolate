@@ -76,6 +76,26 @@ public async Task Buy_ShouldNotUseAnotherDispenser(VendingMachine sut, [Transien
 }
 ```
 
+## Return a parameter from the other mocks
+
+Mark a parameter with `[AsDefault]` to make it the [default value](../04-create-mocks.md#default-values) of its type for all mocks of the test case. Their properties, methods and indexers without a setup return it, also wrapped in a `Task<T>` or `ValueTask<T>`, and so do their `out` parameters:
+
+```csharp
+public interface IVendingMachine
+{
+    IChocolateDispenser Dispenser { get; }
+}
+
+[Test]
+[AutoMockArguments]
+public async Task Dispenser_ShouldBeTheMockOfTheTest(IVendingMachine machine, [AsDefault] IChocolateDispenser dispenser)
+{
+    await That(machine.Dispenser).IsSameAs(dispenser);
+}
+```
+
+A setup, a value written to a property or indexer, and `ThrowWhenNotSetup` still take precedence. The parameter only replaces the default value of its exact type, e.g. not of an interface that `IChocolateDispenser` implements, and it wins over the default values of the [behavior](#configure-the-mocks) for that type. Every member of the type returns the same instance, also a method that creates a new one in the real implementation or an indexer for every key; set up such a member when it needs other instances. The parameter is still passed to the constructor of a class under test.
+
 ## Configure the mocks
 
 Assign `AutoMockArgumentsAttribute.DefaultBehavior` to choose the [behavior](../04-create-mocks.md#customizing-mock-behavior) of the mocks and the default values, for example with a default value generator backed by a library like AutoFixture. Assign it in a module initializer, so that it is set before the first test case is created:
@@ -92,7 +112,11 @@ internal static class MockolateConfiguration
 }
 ```
 
-## TUnit
+## Test frameworks
+
+The attribute is in a namespace of its test framework and works like that framework's own data attributes.
+
+### TUnit
 
 With [TUnit](https://tunit.dev/) 1.0 or later, the attribute is in the `Mockolate.Integrations.TUnit` namespace. Use it on a `[Test]`, like TUnit's `[Arguments]`:
 
@@ -105,7 +129,7 @@ public async Task Buy_ShouldDispenseTheRequestedChocolate(string type, int amoun
     IChocolateDispenser dispenser)
 ```
 
-## xUnit
+### xUnit
 
 With [xUnit](https://xunit.net/) v3 or v2, the attribute is in the `Mockolate.Integrations.Xunit` namespace. Use it on a `[Theory]`, like xUnit's `[InlineData]`:
 
@@ -122,7 +146,7 @@ A project that references both v2 and v3 gets the attribute for v3. With v3, the
 
 xUnit describes the arguments in the name of a test case and disposes them after the test. To describe a mock of a collection interface, such as `ISet<T>`, it may enumerate the mock, and a mock of a disposable interface gets a call to `Dispose`. Both calls count as interactions of the mock. On a strict mock, set up `Dispose`, or xUnit reports a cleanup error.
 
-## NUnit
+### NUnit
 
 With [NUnit](https://nunit.org/) 3.7 or later, the attribute is in the `Mockolate.Integrations.NUnit` namespace. Use it instead of `[Test]`, like NUnit's `[TestCase]`:
 
@@ -140,7 +164,7 @@ The name of a test case only shows the given values, e.g. `Buy_ShouldDispenseThe
 
 With NUnit 4.5 or later, the `BeforeTestHook` and `AfterTestHook` of an execution hook on the test fixture or the assembly do not run for these tests. Put the hook attribute on the test method instead, but not between two hook attributes: place `[AutoMockArguments]` before or after all of them.
 
-## MSTest
+### MSTest
 
 With [MSTest](https://learn.microsoft.com/dotnet/core/testing/unit-testing-mstest-intro) 3.7 or later, the attribute is in the `Mockolate.Integrations.MSTest` namespace. Use it on a `[TestMethod]`, like MSTest's `[DataRow]`:
 

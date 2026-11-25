@@ -19,6 +19,16 @@ public class MockDataSourceAnalyzerTests
 	                                     public sealed class OtherAttribute : System.Attribute;
 	                                     """;
 
+	private const string Markers = """
+	                               namespace Mockolate.Integrations
+	                               {
+	                                   public abstract class AsDefaultParameterAttribute : System.Attribute;
+	                                   public abstract class TransientParameterAttribute : System.Attribute;
+	                                   public sealed class AsDefaultAttribute : AsDefaultParameterAttribute;
+	                                   public sealed class TransientAttribute : TransientParameterAttribute;
+	                               }
+	                               """;
+
 	[Test]
 	public async Task WhenParametersCanBeCreated_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
@@ -468,5 +478,39 @@ public class MockDataSourceAnalyzerTests
 			      {{DataAttribute}}
 			  }
 			  """
+		);
+
+	[Test]
+	public async Task WhenAsDefaultParametersHaveTheSameTypeOrAreTransient_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  #nullable enable
+			  namespace MyCode
+			  {
+			      using Mockolate.Integrations;
+
+			      public interface IDep { }
+
+			      public class Tests
+			      {
+			          [Data]
+			          public void Test([AsDefault] IDep a, [AsDefault] IDep? {|#0:b|}, [AsDefault, Transient] int {|#1:c|}) { }
+
+			          [Data]
+			          public void Valid([AsDefault] IDep a, [AsDefault] int b, [AsDefault] int? c, [Transient] IDep d) { }
+
+			          [Other]
+			          public void NoDataSource([AsDefault] IDep a, [AsDefault] IDep b) { }
+			      }
+
+			      {{DataAttribute}}
+			  }
+
+			  {{Markers}}
+			  """,
+			Verifier.Diagnostic(MockDataSourceAnalyzer.AsDefaultParameterRule).WithLocation(0)
+				.WithArguments("b", "has the same type as the [AsDefault] parameter 'a'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.AsDefaultParameterRule).WithLocation(1)
+				.WithArguments("c", "is also marked [Transient]")
 		);
 }

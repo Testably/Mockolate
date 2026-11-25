@@ -38,10 +38,26 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		new LocalizableResourceString(nameof(Resources.Mockolate0010Description),
 			Resources.ResourceManager, typeof(Resources)));
 
+	/// <summary>
+	///     An <c>[AsDefault]</c> test parameter with the type of another one, or that is also <c>[Transient]</c>.
+	/// </summary>
+	public static readonly DiagnosticDescriptor AsDefaultParameterRule = new(
+		"Mockolate0011",
+		new LocalizableResourceString(nameof(Resources.Mockolate0011Title),
+			Resources.ResourceManager, typeof(Resources)),
+		new LocalizableResourceString(nameof(Resources.Mockolate0011MessageFormat),
+			Resources.ResourceManager, typeof(Resources)),
+		"Usage",
+		DiagnosticSeverity.Warning,
+		true,
+		new LocalizableResourceString(nameof(Resources.Mockolate0011Description),
+			Resources.ResourceManager, typeof(Resources)));
+
 	/// <inheritdoc cref="DiagnosticAnalyzer.SupportedDiagnostics" />
 	public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
 	[
 		UnsupportedParameterRule,
+		AsDefaultParameterRule,
 	];
 
 	/// <inheritdoc cref="DiagnosticAnalyzer.Initialize(AnalysisContext)" />
@@ -79,7 +95,52 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 					parameter.Name, parameter.Type.ToDisplayString(), reason));
 			}
 		}
+
+		if (context.Symbol is IMethodSymbol { PartialDefinitionPart: null, } testMethod &&
+		    testMethod.GetAttributes().Any(IsMockDataSourceAttribute))
+		{
+			ReportAsDefaultParameters(context, testMethod.Parameters);
+		}
 	}
+
+	private static void ReportAsDefaultParameters(SymbolAnalysisContext context,
+		ImmutableArray<IParameterSymbol> parameters)
+	{
+		List<IParameterSymbol> asDefaultParameters = [];
+		foreach (IParameterSymbol parameter in parameters.Where(parameter =>
+			         HasMarker(parameter, "AsDefaultParameterAttribute")))
+		{
+			string? reason = GetAsDefaultReason(parameter, asDefaultParameters);
+			asDefaultParameters.Add(parameter);
+			if (reason is not null && parameter.Locations.FirstOrDefault() is { IsInSource: true, } location)
+			{
+				context.ReportDiagnostic(Diagnostic.Create(AsDefaultParameterRule, location, parameter.Name, reason));
+			}
+		}
+	}
+
+	private static string? GetAsDefaultReason(IParameterSymbol parameter, List<IParameterSymbol> asDefaultParameters)
+	{
+		if (HasMarker(parameter, "TransientParameterAttribute"))
+		{
+			return Resources.Mockolate0011TransientReason;
+		}
+
+		return asDefaultParameters.FirstOrDefault(other =>
+			SymbolEqualityComparer.Default.Equals(other.Type, parameter.Type)) is { } other
+			? string.Format(CultureInfo.InvariantCulture, Resources.Mockolate0011SameTypeReason, other.Name)
+			: null;
+	}
+
+	private static bool HasMarker(IParameterSymbol parameter, string markerName)
+		=> parameter.GetAttributes().Any(attribute => attribute.AttributeClass?.BaseType is
+		{
+			ContainingNamespace:
+			{
+				Name: "Integrations",
+				ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, },
+			},
+		} marker && marker.Name == markerName);
 
 	/// <summary>
 	///     Why Mockolate cannot create a value of the <paramref name="type" />, or <see langword="null" /> when it can or

@@ -259,6 +259,22 @@ public class ChocolateTests<TFlavor>
 
 The rule fires for a type parameter or a type that contains one, a type that the generated code cannot access, a file-local, obsolete or experimental type, a type nested in a generic type, an interface, delegate or abstract class that cannot be mocked (see [Mockolate0002](#mockolate0002)), has static abstract members or a member its mock cannot implement or, for an abstract class, has neither a public or protected constructor that can be called without arguments nor a single one with the most parameters, a type argument or array element that the generated code cannot use, and a generic class or a class without a single accessible constructor with the most parameters. Types of the `System`, `Microsoft` and `Windows` namespaces are never reported, because the test framework often passes them as arguments. For a reported parameter whose type the generated factory can name, a default value generator of the behavior can still provide a value.
 
+## Mockolate0011
+
+**An `[AsDefault]` parameter that is ambiguous or transient.**
+
+An [`[AsDefault]`](08-advanced-features/07-mock-test-parameters.md#return-a-parameter-from-the-other-mocks) parameter is the default value of its type for all mocks of the test case. Two of them with the same type are ambiguous, and a `[Transient]` marker contradicts it:
+
+```csharp
+[Test]
+[AutoMockArguments]
+public void Buy_ShouldUseTheDispenser(IVendingMachine machine, [AsDefault] IChocolateDispenser dispenser,
+    // Mockolate0011: The [AsDefault] parameter 'other' has the same type as the [AsDefault] parameter 'dispenser'
+    [AsDefault] IChocolateDispenser other) { }
+```
+
+Remove the marker from all but one parameter of each type, and remove either `[AsDefault]` or `[Transient]` from a parameter that has both.
+
 ## Explicit types for union parameters
 
 With [union parameters](06-parameter-matching.md#union-parameters-c-15), a collection expression, a target-typed `new(…)` or a value that relies on a user-defined implicit conversion does not compile as a `Setup` or `Verify` argument (CS1503, CS1729 or CS9174). The included code fix adds the parameter type:
