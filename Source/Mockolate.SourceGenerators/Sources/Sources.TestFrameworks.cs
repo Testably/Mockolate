@@ -99,7 +99,7 @@ internal static partial class Sources
 		                              			_isTransient = new bool?[types.Length];
 		                              		}
 
-		                              #if MOCKOLATE_NUNIT
+		                              #if MOCKOLATE_NUNIT || MOCKOLATE_MSTEST
 		                              		/// <summary>
 		                              		///     The name of a test case. It only contains the given arguments, because formatting a mock would call its
 		                              		///     members before the test starts.

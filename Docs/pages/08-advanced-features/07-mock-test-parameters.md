@@ -29,7 +29,7 @@ public class VendingMachineTests
 }
 ```
 
-Mockolate generates the attribute for the test framework of your project. The sections below show how to use it with [TUnit](#tunit), [xUnit](#xunit) and [NUnit](#nunit).
+Mockolate generates the attribute for the test framework of your project. The sections below show how to use it with [TUnit](#tunit), [xUnit](#xunit), [NUnit](#nunit) and [MSTest](#mstest).
 
 ## What each parameter gets
 
@@ -140,10 +140,28 @@ The name of a test case only shows the given values, e.g. `Buy_ShouldDispenseThe
 
 With NUnit 4.5 or later, the `BeforeTestHook` and `AfterTestHook` of an execution hook on the test fixture or the assembly do not run for these tests. Put the hook attribute on the test method instead, but not between two hook attributes: place `[AutoMockArguments]` before or after all of them.
 
+## MSTest
+
+With [MSTest](https://learn.microsoft.com/dotnet/core/testing/unit-testing-mstest-intro) 3.7 or later, the attribute is in the `Mockolate.Integrations.MSTest` namespace. Use it on a `[TestMethod]`, like MSTest's `[DataRow]`:
+
+```csharp
+using Mockolate.Integrations.MSTest;
+
+[TestMethod]
+[AutoMockArguments("Dark", 4)]
+public async Task Buy_ShouldDispenseTheRequestedChocolate(string type, int amount, VendingMachine sut,
+    IChocolateDispenser dispenser)
+```
+
+The name of a test case only shows the given values, e.g. `Buy_ShouldDispenseTheRequestedChocolate("Dark", 4)`.
+
+With MSTest 4, add `[assembly: TestDataSourceOptions(TestDataSourceUnfoldingStrategy.Fold)]` to the test project, or set `[TestMethod(UnfoldingStrategy = TestDataSourceUnfoldingStrategy.Fold)]` on a test method. Then MSTest creates the arguments when the test runs, and `[Retry]` gets new mocks for every attempt. Otherwise, depending on the version of MSTest and the test runner, MSTest may create them already when it discovers the tests, run the test with a copy of values that are not mocks, or reuse the mocks of a failed attempt. With MSTest 3, the attribute always creates the arguments when the test runs.
+
 <details>
 <summary>Details and limitations</summary>
 
 - Set `<MockolateTestFrameworkIntegration>false</MockolateTestFrameworkIntegration>` in the project file to skip the attribute.
+- Mockolate recognizes MSTest 3 only through its NuGet package, because earlier versions use the same assembly name.
 - A test parameter matches a constructor parameter of exactly its type. A constructor parameter of type `IChocolateDispenser` does not receive a test parameter of a type that derives from it.
 - A constructor parameter of a delegate or abstract class type only gets a mock from a test parameter of that type.
 - When two classes under test depend on each other, only the first of the two test parameters receives the other one; the second gets a new instance or its default value.

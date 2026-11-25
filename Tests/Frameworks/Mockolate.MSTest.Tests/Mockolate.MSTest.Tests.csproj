@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<UseTUnit>false</UseTUnit>
+		<EnableMSTestRunner>true</EnableMSTestRunner>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MSTest.TestAdapter"/>
+		<PackageReference Include="MSTest.TestFramework"/>
+	</ItemGroup>
+
+</Project>

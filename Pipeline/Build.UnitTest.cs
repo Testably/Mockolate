@@ -26,6 +26,7 @@ partial class Build
 		Solution.Tests.Frameworks.Mockolate_TUnit_Tests,
 		Solution.Tests.Frameworks.Mockolate_Xunit_Tests,
 		Solution.Tests.Frameworks.Mockolate_Xunit2_Tests,
+		Solution.Tests.Frameworks.Mockolate_MSTest_Tests,
 		Solution.Tests.Frameworks.Mockolate_NUnit_Tests,
 	];
 
