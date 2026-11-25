@@ -142,6 +142,7 @@ When no setup matches, the mock returns:
 - an empty string for `string`,
 - a completed task for `Task`, `Task<T>`, `ValueTask` and `ValueTask<T>`,
 - a tuple with recursively defaulted values for tuples,
+- a function that returns its argument for `Func<T, T>` and an action that does nothing for `Action<T>`, so that an options callback like `Func<ChocolateOptions, ChocolateOptions>` keeps the default options,
 - `default(T)` for value types and `null` for other reference types.
 
 You can register custom factories per type using `.WithDefaultValueFor<T>()`:
@@ -395,7 +396,7 @@ Every constructor parameter gets an argument, by the first rule that applies:
 - A **mockable interface** gets a new mock with the same behavior, even when the parameter is optional or nullable.
 - A **`params` parameter** gets an empty collection, and an **optional parameter** its declared default value.
 - A **nullable parameter** gets `null`.
-- **Any other parameter** gets a value from the [default values](#default-values) of the behavior: a value registered with `WithDefaultValueFor` or a default value generator, for example one backed by a library like AutoFixture, and otherwise `""` for a `string`, an empty collection or the default of a value type. Without a value for a reference type, the creation fails with a `MockException`.
+- **Any other parameter** gets a value from the [default values](#default-values) of the behavior: a value registered with `WithDefaultValueFor` or a default value generator, for example one backed by a library like AutoFixture, and otherwise `""` for a `string`, an empty collection, a callback that keeps the options for `Func<T, T>` or `Action<T>`, or the default of a value type. Without a value for a reference type, the creation fails with a `MockException`.
 
 `ConstructorArgument<T>()` returns the argument of the parameter declared with type `T`, or else the only argument that converts to `T`. When several match, pass the name of the parameter: `sut.Mock.ConstructorArgument<IChocolateDispenser>("source")`.
 
