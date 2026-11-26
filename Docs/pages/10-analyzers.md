@@ -275,6 +275,40 @@ public void Buy_ShouldUseTheDispenser(IVendingMachine machine, [AsDefault] IChoc
 
 Remove the marker from all but one parameter of each type, and remove either `[AsDefault]` or `[Transient]` from a parameter that has both.
 
+## Mockolate1001
+
+**IDE0060 is suppressed for an `[AsDefault]` parameter.**
+
+[IDE0060](https://learn.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/ide0060) reports a parameter that the method does not use. An [`[AsDefault]`](08-advanced-features/07-mock-test-parameters.md#return-a-parameter-from-the-other-mocks) parameter of a test with `AutoMockArguments` is used anyway, because the other mocks return it, so Mockolate suppresses IDE0060 for it:
+
+```csharp
+[Test]
+[AutoMockArguments]
+public async Task Buy_WithoutStock_ShouldFail(VendingMachine sut,
+    [AsDefault] IChocolateDispenser dispenser) // no IDE0060
+{
+    await That(sut.Buy("Dark", 4)).IsEqualTo("Sold out");
+}
+```
+
+Other unused parameters still get the diagnostic, also one that is only passed to the constructor of a class under test.
+
+## Mockolate1002
+
+**xUnit1026 is suppressed for an `[AsDefault]` parameter.**
+
+The xUnit analyzers report [xUnit1026](https://xunit.net/xunit.analyzers/rules/xUnit1026) for a theory parameter that the test method does not use. For the same reason as with [Mockolate1001](#mockolate1001), Mockolate suppresses the warning for an `[AsDefault]` parameter, but not for other unused parameters:
+
+```csharp
+[Theory]
+[AutoMockArguments]
+public async Task Buy_WithoutStock_ShouldFail(VendingMachine sut,
+    [AsDefault] IChocolateDispenser dispenser) // no xUnit1026
+{
+    await That(sut.Buy("Dark", 4)).IsEqualTo("Sold out");
+}
+```
+
 ## Explicit types for union parameters
 
 With [union parameters](06-parameter-matching.md#union-parameters-c-15), a collection expression, a target-typed `new(…)` or a value that relies on a user-defined implicit conversion does not compile as a `Setup` or `Verify` argument (CS1503, CS1729 or CS9174). The included code fix adds the parameter type:

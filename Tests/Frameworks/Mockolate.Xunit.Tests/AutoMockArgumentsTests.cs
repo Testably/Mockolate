@@ -77,6 +77,12 @@ public sealed class AutoMockArgumentsTests
 
 	[Theory]
 	[AutoMockArguments]
+	public async Task AsDefault_WhenNotUsedInTheTest_ShouldNotReportItAsUnused(IWarehouse warehouse,
+		[AsDefault] IOrderRepository repository)
+		=> await That(warehouse.GetRepository()).IsSameAs(warehouse.Repository);
+
+	[Theory]
+	[AutoMockArguments]
 	public async Task AutoMockArguments_WithTransientParameter_ShouldNotShareItWithTheClassUnderTest(
 		OrderService sut, IOrderRepository repository, [Transient] IShippingClient shippingClient)
 	{

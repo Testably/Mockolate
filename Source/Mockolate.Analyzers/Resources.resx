@@ -308,6 +308,9 @@
 		<value>is also marked [Transient]</value>
 		<comment>Completes Mockolate0011MessageFormat.</comment>
 	</data>
+	<data name="AsDefaultSuppressionJustification" xml:space="preserve">
+		<value>The [AsDefault] parameter is returned by the other mocks of the test case.</value>
+	</data>
 	<data name="UnionArgumentCodeFixTitle" xml:space="preserve">
 		<value>Add the explicit type '{0}'</value>
 		<comment>The title of the code fix for an argument that cannot convert to a union-typed setup or verify parameter.</comment>

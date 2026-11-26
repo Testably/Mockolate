@@ -132,7 +132,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			: null;
 	}
 
-	private static bool HasMarker(IParameterSymbol parameter, string markerName)
+	internal static bool HasMarker(IParameterSymbol parameter, string markerName)
 		=> parameter.GetAttributes().Any(attribute => attribute.AttributeClass?.BaseType is
 		{
 			ContainingNamespace:
@@ -455,7 +455,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		return arguments.Values.Length;
 	}
 
-	private static bool IsMockDataSourceAttribute(AttributeData attribute)
+	internal static bool IsMockDataSourceAttribute(AttributeData attribute)
 		=> attribute.AttributeClass is { } attributeClass &&
 		   attributeClass.AllInterfaces.Any(@interface => @interface is
 		   {
