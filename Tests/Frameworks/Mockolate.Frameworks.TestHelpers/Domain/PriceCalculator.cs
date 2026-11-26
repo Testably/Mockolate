@@ -6,7 +6,7 @@ public class PriceCalculator(DiscountRule rule, ITaxCalculator taxCalculator)
 
 	public decimal GetPrice(decimal amount)
 	{
-		decimal discounted = amount * (100m - rule.Percentage) / 100m;
+		decimal discounted = amount * (100m - Rule.Percentage) / 100m;
 		return discounted + taxCalculator.GetTax(discounted);
 	}
 }

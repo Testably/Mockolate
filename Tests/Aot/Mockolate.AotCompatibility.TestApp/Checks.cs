@@ -308,18 +308,14 @@ internal static class Checks
 		}),
 		new("a ValueFrom AutoMockArguments parameter reads a private static property that the trimmer keeps", () =>
 		{
-			System.Reflection.ParameterInfo parameter = typeof(MockDataSourceTargets)
-				.GetMethod(nameof(MockDataSourceTargets.FromMember),
-					System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic)!
-				.GetParameters()[0];
+			System.Reflection.ParameterInfo parameter =
+				new Func<string, string>(MockDataSourceTargets.FromMember).Method.GetParameters()[0];
 			return Equal(AutoMockRow.GetValueFrom(parameter)?.Invoke(), (object?)"Lobby");
 		}),
 		new("a ValueFrom AutoMockArguments parameter of a nested test class reads a property that the trimmer keeps", () =>
 		{
-			System.Reflection.ParameterInfo parameter = typeof(MockDataSourceTargets.Nested)
-				.GetMethod(nameof(MockDataSourceTargets.Nested.FromMember),
-					System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic)!
-				.GetParameters()[0];
+			System.Reflection.ParameterInfo parameter =
+				new Func<string, string>(MockDataSourceTargets.Nested.FromNestedMember).Method.GetParameters()[0];
 			return Equal(AutoMockRow.GetValueFrom(parameter)?.Invoke(), (object?)"Hall");
 		}),
 		new("CreateMock with an out parameter creates a sealed class with mocked dependencies", () =>

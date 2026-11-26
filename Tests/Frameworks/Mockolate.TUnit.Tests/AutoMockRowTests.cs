@@ -407,7 +407,9 @@ public sealed class AutoMockRowTests
 
 	private static int Throwing => throw new InvalidOperationException("member failed");
 
+#pragma warning disable CA1822 // Mark members as static
 	private int InstanceValue => 1;
+#pragma warning restore CA1822
 
 	public interface IUncreatableService;
 
@@ -430,7 +432,9 @@ public sealed class AutoMockRowTests
 	{
 		private static new string Hidden => "derived";
 
+#pragma warning disable CA1822 // Mark members as static
 		private new string Shadowed => "derived";
+#pragma warning restore CA1822
 
 		public static void FromShadowed([ValueFrom(nameof(Shadowed))] string value)
 		{

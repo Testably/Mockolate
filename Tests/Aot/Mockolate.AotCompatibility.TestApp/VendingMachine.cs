@@ -61,7 +61,7 @@ public static class MockDataSourceTargets
 	internal static class Nested
 	{
 		[MockArguments]
-		internal static string FromMember([ValueFrom(nameof(Hall))] string location) => location;
+		internal static string FromNestedMember([ValueFrom(nameof(Hall))] string location) => location;
 
 		private static string Hall => "Hall";
 	}

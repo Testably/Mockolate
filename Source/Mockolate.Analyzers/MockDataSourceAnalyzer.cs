@@ -107,7 +107,25 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 
 	private static void AnalyzeSymbol(SymbolAnalysisContext context)
 	{
-		(IEnumerable<IParameterSymbol> Parameters, int CreatedFrom, int ValueFromAfter) analyzed = context.Symbol switch
+		(IEnumerable<IParameterSymbol> parameters, int createdFrom, int valueFromAfter) = GetAnalyzedParameters(context.Symbol);
+		foreach (IParameterSymbol parameter in parameters)
+		{
+			if (parameter.Locations.FirstOrDefault() is { IsInSource: true, } location)
+			{
+				AnalyzeParameter(context, parameter, location, createdFrom, valueFromAfter);
+			}
+		}
+
+		if (context.Symbol is IMethodSymbol { PartialDefinitionPart: null, } testMethod &&
+		    testMethod.GetAttributes().Any(IsMockDataSourceAttribute))
+		{
+			ReportAsDefaultParameters(context, testMethod.Parameters);
+		}
+	}
+
+	private static (IEnumerable<IParameterSymbol> Parameters, int CreatedFrom, int ValueFromAfter) GetAnalyzedParameters(
+		ISymbol symbol)
+		=> symbol switch
 		{
 			// A partial method has two symbols with the same attributes; only the definition reports.
 			IMethodSymbol { PartialDefinitionPart: not null, } => ([], 0, 0),
@@ -125,55 +143,45 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 				type.GetAttributes().Where(IsMockDataSourceAttribute).Max(GetSuppliedArgumentCount)),
 			_ => ([], 0, 0),
 		};
-		foreach (IParameterSymbol parameter in analyzed.Parameters)
+
+	private static void AnalyzeParameter(SymbolAnalysisContext context, IParameterSymbol parameter, Location location,
+		int createdFrom, int valueFromAfter)
+	{
+		// Mockolate does not create a [ValueFrom] parameter, so neither Mockolate0010 nor Mockolate0012 applies.
+		if (GetValueFromAttribute(parameter) is { } valueFrom)
 		{
-			if (parameter.Locations.FirstOrDefault() is not { IsInSource: true, } location)
+			string? valueFromReason = parameter.Ordinal < valueFromAfter
+				? Resources.Mockolate0013GivenArgumentReason
+				: GetValueFromReason(parameter, valueFrom, context.Compilation);
+			if (valueFromReason is not null)
 			{
-				continue;
+				context.ReportDiagnostic(Diagnostic.Create(ValueFromParameterRule, location, parameter.Name,
+					valueFromReason));
 			}
 
-			// Mockolate does not create a [ValueFrom] parameter, so neither Mockolate0010 nor Mockolate0012 applies.
-			if (GetValueFromAttribute(parameter) is { } valueFrom)
-			{
-				string? valueFromReason = parameter.Ordinal < analyzed.ValueFromAfter
-					? Resources.Mockolate0013GivenArgumentReason
-					: GetValueFromReason(parameter, valueFrom, context.Compilation);
-				if (valueFromReason is not null)
-				{
-					context.ReportDiagnostic(Diagnostic.Create(ValueFromParameterRule, location, parameter.Name,
-						valueFromReason));
-				}
-
-				continue;
-			}
-
-			if (parameter.Ordinal < analyzed.CreatedFrom)
-			{
-				continue;
-			}
-
-			bool isDeferred = HasMarker(parameter, "DeferredParameterAttribute");
-			ITypeSymbol? deferredType = isDeferred ? GetFuncResultType(parameter.Type) : null;
-			// A [Deferred] Func<T> creates its T, so T must be creatable like a parameter of that type.
-			ITypeSymbol createdType = deferredType ?? parameter.Type;
-			if (GetReason(createdType.WithNullableAnnotation(NullableAnnotation.NotAnnotated), context.Compilation)
-			    is { } reason)
-			{
-				context.ReportDiagnostic(Diagnostic.Create(UnsupportedParameterRule, location,
-					parameter.Name, createdType.ToDisplayString(), reason));
-			}
-
-			if (isDeferred && GetDeferredReason(parameter, deferredType) is { } deferredReason)
-			{
-				context.ReportDiagnostic(Diagnostic.Create(DeferredParameterRule, location, parameter.Name,
-					deferredReason));
-			}
+			return;
 		}
 
-		if (context.Symbol is IMethodSymbol { PartialDefinitionPart: null, } testMethod &&
-		    testMethod.GetAttributes().Any(IsMockDataSourceAttribute))
+		if (parameter.Ordinal < createdFrom)
 		{
-			ReportAsDefaultParameters(context, testMethod.Parameters);
+			return;
+		}
+
+		bool isDeferred = HasMarker(parameter, "DeferredParameterAttribute");
+		ITypeSymbol? deferredType = isDeferred ? GetFuncResultType(parameter.Type) : null;
+		// A [Deferred] Func<T> creates its T, so T must be creatable like a parameter of that type.
+		ITypeSymbol createdType = deferredType ?? parameter.Type;
+		if (GetReason(createdType.WithNullableAnnotation(NullableAnnotation.NotAnnotated), context.Compilation)
+		    is { } reason)
+		{
+			context.ReportDiagnostic(Diagnostic.Create(UnsupportedParameterRule, location,
+				parameter.Name, createdType.ToDisplayString(), reason));
+		}
+
+		if (isDeferred && GetDeferredReason(parameter, deferredType) is { } deferredReason)
+		{
+			context.ReportDiagnostic(Diagnostic.Create(DeferredParameterRule, location, parameter.Name,
+				deferredReason));
 		}
 	}
 
