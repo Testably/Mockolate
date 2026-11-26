@@ -40,6 +40,6 @@ dispenser.Mock.Setup.TotalDispensed
 
 :::
 
-Members without a setup fall back to the mock's [`MockBehavior`](../04-create-mocks.md#customizing-mock-behavior):
+Members without a setup fall back to the mock's [`MockBehavior`](../03-create-mocks.md#customizing-mock-behavior):
 methods return default values, and properties and indexers store the values written to them. You can also pass the
-setups directly to [`CreateMock`](../04-create-mocks.md#setups-during-creation).
+setups directly to [`CreateMock`](../03-create-mocks.md#setups-during-creation).

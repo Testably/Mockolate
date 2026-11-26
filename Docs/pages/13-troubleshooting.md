@@ -63,15 +63,15 @@ await That(machine.Mock).IsEqualTo(4);
 
 ### `.Implementing<T>()` has no effect on my mock
 
-`.Implementing<T>()` returns a new mock and leaves the original one unchanged. Keep the returned reference, and reach the setups of the additional interface with `Mock.As<T>()`. See [Implementing additional interfaces](./04-create-mocks.md#implementing-additional-interfaces).
+`.Implementing<T>()` returns a new mock and leaves the original one unchanged. Keep the returned reference, and reach the setups of the additional interface with `Mock.As<T>()`. See [Implementing additional interfaces](./03-create-mocks.md#implementing-additional-interfaces).
 
 ## Setups and default values
 
 ### A member without setup returns a value instead of failing
 
-By default, a mock never fails for a missing setup. Methods return a [default value](./04-create-mocks.md#default-values) (`false`, `0`, an empty string, an empty collection, a completed task, or `null` for other reference types), and properties and indexers store the values written to them. A method that returns an interface or a class therefore returns `null` until you set it up.
+By default, a mock never fails for a missing setup. Methods return a [default value](./03-create-mocks.md#default-values) (`false`, `0`, an empty string, an empty collection, a completed task, or `null` for other reference types), and properties and indexers store the values written to them. A method that returns an interface or a class therefore returns `null` until you set it up.
 
-To fail on every call without a matching setup, create the mock with [`ThrowingWhenNotSetup()`](./04-create-mocks.md#customizing-mock-behavior). To change the default value of a type, use `WithDefaultValueFor<T>(…)`.
+To fail on every call without a matching setup, create the mock with [`ThrowingWhenNotSetup()`](./03-create-mocks.md#customizing-mock-behavior). To change the default value of a type, use `WithDefaultValueFor<T>(…)`.
 
 ### A strict mock throws `MockNotSetupException`
 
@@ -96,7 +96,7 @@ When several setups match a call, the one defined last wins. A general setup def
 
 ### My class mock runs the real implementation
 
-A class mock can only override `virtual` and `abstract` members. Other members always run the real implementation (see [members that are not mocked](#members-that-are-not-mocked)). A virtual member also calls the base class implementation when a setup matches; the setup's return value takes precedence. Use [`SkippingBaseClass()`](./04-create-mocks.md#customizing-mock-behavior) to turn the base class calls off.
+A class mock can only override `virtual` and `abstract` members. Other members always run the real implementation (see [members that are not mocked](#members-that-are-not-mocked)). A virtual member also calls the base class implementation when a setup matches; the setup's return value takes precedence. Use [`SkippingBaseClass()`](./03-create-mocks.md#customizing-mock-behavior) to turn the base class calls off.
 
 ## Verifications
 
@@ -131,6 +131,15 @@ When the count is lower than you expect, check:
 
 A mock created with `SkippingInteractionRecording()` records nothing, so every verification on it throws a `MockException`.
 
+## Mocks as test parameters
+
+### The build fails because of `ModuleInitializerAttribute`
+
+[`[AutoMockArguments]`](./04-mocks-as-test-parameters.md) needs a `ModuleInitializerAttribute`. On .NET Framework and .NET Standard, Mockolate declares it when neither the project, a referenced assembly, TUnit nor PolySharp does. When Mockolate guesses wrong, the attribute is declared twice or not at all:
+
+- **Another source generator declares it as well**: set `<MockolateUnionAttributePolyfills>ModuleInitializerAttribute</MockolateUnionAttributePolyfills>` in the project file, so that Mockolate leaves it to that generator.
+- **The project excludes the analyzer assets of TUnit** (`ExcludeAssets="analyzers"`), so that the source generator of TUnit does not declare it: set `<EnableTUnitPolyfills>false</EnableTUnitPolyfills>`, so that Mockolate declares it.
+
 ## Limitations
 
 Mockolate generates mocks at compile time, so it can only override what C# lets a derived class override, and only what your test assembly can access. The generator skips what it cannot mock; the analyzers report most of these cases.
@@ -151,7 +160,7 @@ Mockolate generates mocks at compile time, so it can only override what C# lets 
 
 These members keep their real behavior, or throw, and get no `Setup` or `Verify` members:
 
-- **Non-virtual members of a class** cannot be overridden and always run the real implementation. If the class implements them for an interface, [`.Implementing<T>()`](./04-create-mocks.md#implementing-additional-interfaces) makes the calls through the interface mockable.
+- **Non-virtual members of a class** cannot be overridden and always run the real implementation. If the class implements them for an interface, [`.Implementing<T>()`](./03-create-mocks.md#implementing-additional-interfaces) makes the calls through the interface mockable.
 - **Sealed members** (`sealed override`) cannot be overridden either.
 - **Static members of a class** cannot be virtual. `static abstract` and `static virtual` interface members are supported on .NET 8 or later; see [Static interface members](./08-advanced-features/02-static-interface-members.md).
 - **`internal` and `private protected` virtual members** declared in another assembly are only overridden when that assembly grants your test assembly `InternalsVisibleTo`.

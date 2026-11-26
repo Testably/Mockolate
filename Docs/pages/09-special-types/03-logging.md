@@ -110,7 +110,7 @@ When `Log` is non-virtual or sealed, or is implemented explicitly, the mock cann
 
 ## Logger factories
 
-A mocked `ILoggerFactory` returns one logger mock per category from `CreateLogger`, unless `CreateLogger` has a setup. This also applies to mocks created with `ThrowingWhenNotSetup()` or with `WithDefaultValueFor<ILogger>(…)`, which unlike for [other members](../04-create-mocks.md#default-values) does not change what `CreateLogger` returns. The loggers use the behavior of the factory, and the factory verifies the log calls of all of them:
+A mocked `ILoggerFactory` returns one logger mock per category from `CreateLogger`, unless `CreateLogger` has a setup. This also applies to mocks created with `ThrowingWhenNotSetup()` or with `WithDefaultValueFor<ILogger>(…)`, which unlike for [other members](../03-create-mocks.md#default-values) does not change what `CreateLogger` returns. The loggers use the behavior of the factory, and the factory verifies the log calls of all of them:
 
 ```csharp
 ILoggerFactory loggerFactory = ILoggerFactory.CreateMock();

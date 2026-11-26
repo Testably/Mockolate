@@ -48,7 +48,7 @@ reached through its `Mock` property:
 | `Mock.SetupStatic`, `Mock.VerifyStatic`, …                   | The same for static interface members. See [Static interface members](../08-advanced-features/02-static-interface-members.md). |
 | `Mock.InScenario(…)`, `Mock.TransitionTo(…)`                 | Switch between sets of setups. See [Scenarios](../08-advanced-features/06-scenarios.md).                          |
 | `Mock.Monitor()`, `Mock.ClearAllInteractions()`              | Limit which interactions are counted. See [Monitor interactions](../08-advanced-features/04-monitor-interactions.md). |
-| `Mock.As<T>()`                                               | Reach an additional interface. See [Create mocks](../04-create-mocks.md#implementing-additional-interfaces).  |
+| `Mock.As<T>()`                                               | Reach an additional interface. See [Create mocks](../03-create-mocks.md#implementing-additional-interfaces).  |
 
 The generated setup and verification members mirror the members of the mocked type, so a typo or a wrong argument type
 is a compile error instead of a runtime exception.
@@ -61,7 +61,7 @@ Each call to the mock goes through the same steps:
 2. Mockolate looks for a **matching setup**. A setup matches when every argument satisfies its
    [parameter matcher](../06-parameter-matching.md). If several setups match, the one defined **last** wins.
    The setup's callbacks run, and its return value or exception is used.
-3. Without a matching setup, the mock falls back to its [`MockBehavior`](../04-create-mocks.md#customizing-mock-behavior):
+3. Without a matching setup, the mock falls back to its [`MockBehavior`](../03-create-mocks.md#customizing-mock-behavior):
    - methods return a **default value**: `false`, `0`, an empty string, an empty collection, a completed task, or
      `null` for other reference types;
    - properties and indexers behave like **normal storage**: reading returns the value that was last written, or the
@@ -117,7 +117,7 @@ dispenser.Mock.Setup.TotalDispensed.OnSet.Do(newValue => Console.WriteLine(newVa
 
 A class mock also calls the **base class implementation** of a virtual member, even when a setup matches. The setup's
 return value takes precedence; the base class result is used only when no setup provides one. Use
-[`SkippingBaseClass()`](../04-create-mocks.md#customizing-mock-behavior) to turn the base class calls off.
+[`SkippingBaseClass()`](../03-create-mocks.md#customizing-mock-behavior) to turn the base class calls off.
 
 :::
 

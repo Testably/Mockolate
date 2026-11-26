@@ -88,7 +88,7 @@ dispenser.Mock.Setup.Dispense("White", It.IsAny<int>())
 
 Class mocks call the base class implementation of a virtual method, and use its return value when the setup does not
 provide one. Use `.SkippingBaseClass()` on a setup to prevent this for a single method, or
-[`MockBehavior.SkippingBaseClass()`](../04-create-mocks.md#customizing-mock-behavior) for the whole mock.
+[`MockBehavior.SkippingBaseClass()`](../03-create-mocks.md#customizing-mock-behavior) for the whole mock.
 
 :::tip
 

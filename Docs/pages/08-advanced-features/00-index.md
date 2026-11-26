@@ -1,10 +1,10 @@
 ---
-description: Advanced Mockolate features for protected and static members, callbacks, monitors, strict checks, scenarios and mock test parameters.
+description: Advanced Mockolate features for protected and static members, callbacks, monitors, strict checks and scenarios.
 ---
 
 # Advanced features
 
-The basics of [creating](../04-create-mocks.md), [setting up](../05-setup/01-methods.md) and
+The basics of [creating](../03-create-mocks.md), [setting up](../05-setup/01-methods.md) and
 [verifying](../07-verify-interactions.md) mocks cover most tests. The following features help in the remaining cases:
 
 | Feature                                                                    | Use it when you want to …                                                       |
@@ -15,7 +15,6 @@ The basics of [creating](../04-create-mocks.md), [setting up](../05-setup/01-met
 | [Monitor interactions](04-monitor-interactions.md)                         | only verify the interactions within a scope, or reset the recorded interactions |
 | [Check for unexpected interactions](05-check-for-unexpected-interactions.md) | make sure every interaction was verified, or every setup was used            |
 | [Scenarios](06-scenarios.md)                                               | switch between sets of setups, for collaborators with an internal state         |
-| [Mock test parameters](07-mock-test-parameters.md)                         | let the test framework pass the class under test and its mocks as parameters    |
 
 For example, [scenarios](06-scenarios.md) let a dispenser with a `Refill` method behave differently before and after a refill:
 
