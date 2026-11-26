@@ -463,6 +463,11 @@ internal static class Helpers
 				{
 					return SpecialGenericType.ReadOnlySpan;
 				}
+
+				if (typeSymbol is INamedTypeSymbol { Name: "Tuple", Arity: > 0, })
+				{
+					return SpecialGenericType.Tuple;
+				}
 			}
 			else if (typeSymbol.ContainingNamespace is { Name: "Tasks", ContainingNamespace.Name: "Threading", } &&
 			         typeSymbol.ContainingNamespace.ContainingNamespace?.ContainingNamespace.Name == "System" &&
@@ -553,6 +558,14 @@ internal static class Helpers
 		}
 	}
 
+	/// <summary>
+	///     The constructor of an eight element <see cref="System.Tuple" /> throws when its last element is no tuple.
+	/// </summary>
+	private static bool IsConstructibleTuple(Type type)
+		=> type.SpecialGenericType == SpecialGenericType.Tuple &&
+		   (type.GenericTypeParameters!.Value.Count < 8 ||
+		    IsConstructibleTuple(type.GenericTypeParameters.Value.ElementAt(7)));
+
 	extension(StringBuilder sb)
 	{
 		/// <remarks>
@@ -560,8 +573,8 @@ internal static class Helpers
 		///     looks for a cancellation token, or is <see langword="null" /> to use the <paramref name="suffix" />.
 		///     <para />
 		///     The <paramref name="autoMock" /> returns the code before and after the default value of an auto-mockable
-		///     type (also the result type of a task), that replaces a <see langword="null" /> with an auto-mock, or
-		///     <see langword="null" /> when the type gets no auto-mock.
+		///     type (also the result type of a task or an element of a tuple), that replaces a <see langword="null" />
+		///     with an auto-mock, or <see langword="null" /> when the type gets no auto-mock.
 		/// </remarks>
 		public StringBuilder AppendDefaultValueGeneratorFor(Type type,
 			string defaultValueName, string suffix = "", string? taskSuffix = null,
@@ -576,23 +589,96 @@ internal static class Helpers
 
 			if (type.TupleTypes is not null)
 			{
-				sb.Append("(");
-				bool first = true;
-				foreach (Type? genericType in type.TupleTypes.Value)
+				sb.Append("(").AppendTupleFactoryValue(type, defaultValueName, suffix, true).Append(" ?? ");
+				switch (type.TupleTypes.Value.Count)
 				{
-					if (!first)
-					{
-						sb.Append(", ");
-					}
-
-					first = false;
-					sb.AppendDefaultValueGeneratorFor(genericType, defaultValueName, suffix, taskSuffix);
+					case 0:
+						sb.Append("default(").Append(type.Fullname).Append(")");
+						break;
+					case 1:
+						// A single element in parentheses is no tuple literal.
+						sb.Append("new ").Append(type.Fullname).Append("(");
+						sb.AppendTupleElementDefaultValues(type.TupleTypes.Value, defaultValueName, suffix, taskSuffix,
+							autoMock);
+						sb.Append(")");
+						break;
+					default:
+						sb.Append("(");
+						sb.AppendTupleElementDefaultValues(type.TupleTypes.Value, defaultValueName, suffix, taskSuffix,
+							autoMock);
+						sb.Append(")");
+						break;
 				}
 
 				sb.Append(")");
 				return sb;
 			}
 
+			if (IsConstructibleTuple(type))
+			{
+				sb.Append("(").AppendTupleFactoryValue(type, defaultValueName, suffix, false)
+					.Append(" ?? new ").Append(type.Fullname.TrimEnd('?')).Append("(");
+				sb.AppendTupleElementDefaultValues(type.GenericTypeParameters!.Value, defaultValueName, suffix,
+					taskSuffix, autoMock);
+				sb.Append("))");
+				return sb;
+			}
+
+			return sb.AppendGeneratedDefaultValueFor(type, defaultValueName, suffix, taskSuffix, autoMock);
+		}
+
+		/// <summary>
+		///     The value of a factory for the tuple <paramref name="type" />, or <see langword="null" />, so that the
+		///     factory takes precedence over the tuple of default values.
+		/// </summary>
+		/// <remarks>
+		///     The probe avoids collecting the arguments when no factory can match.
+		/// </remarks>
+		private StringBuilder AppendTupleFactoryValue(Type type, string defaultValueName, string suffix,
+			bool isValueTuple)
+		{
+			string generateWithoutArguments = isValueTuple
+				? $"{defaultValueName}.GenerateOrNull<{type.Fullname}>("
+				: $"{defaultValueName}.Generate(default({type.Fullname})!";
+			string argumentSeparator = isValueTuple ? "" : ", ";
+			sb.Append("(").Append(defaultValueName).Append(".Probe<").Append(type.Fullname)
+				.Append(">() switch { global::Mockolate.Internals.DefaultValueSource.None => null, ");
+			if (!string.IsNullOrWhiteSpace(suffix))
+			{
+				sb.Append("global::Mockolate.Internals.DefaultValueSource.WithoutArguments => ")
+					.Append(generateWithoutArguments).Append("), ");
+				sb.Append("_ => ").Append(generateWithoutArguments).Append(argumentSeparator).Append(suffix)
+					.Append(") })");
+			}
+			else
+			{
+				sb.Append("_ => ").Append(generateWithoutArguments).Append(") })");
+			}
+
+			return sb;
+		}
+
+		private void AppendTupleElementDefaultValues(EquatableArray<Type> elementTypes,
+			string defaultValueName, string suffix, string? taskSuffix,
+			Func<Type, (string Prefix, string Suffix)?>? autoMock)
+		{
+			bool first = true;
+			foreach (Type? elementType in elementTypes)
+			{
+				if (!first)
+				{
+					sb.Append(", ");
+				}
+
+				first = false;
+				sb.AppendDefaultValueGeneratorFor(elementType, defaultValueName, suffix, taskSuffix, autoMock);
+			}
+		}
+
+		private StringBuilder AppendGeneratedDefaultValueFor(Type type,
+			string defaultValueName, string suffix, string? taskSuffix,
+			Func<Type, (string Prefix, string Suffix)?>? autoMock)
+		{
 			// The arguments are only collected for a type that binds to the general Generate<T> overload, and
 			// only when the generator may have a value for it.
 			bool isLazy = !string.IsNullOrWhiteSpace(suffix) && type.ElementType is null &&

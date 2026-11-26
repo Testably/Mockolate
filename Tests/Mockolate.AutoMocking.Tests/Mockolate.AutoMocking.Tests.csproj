@@ -13,6 +13,7 @@
 
 	<ItemGroup>
 		<Compile Include="..\Mockolate.Tests\GeneratorCoverage\IAutoMockRoot.cs" Link="GeneratorCoverage\IAutoMockRoot.cs"/>
+		<Compile Include="..\Mockolate.Tests\GeneratorCoverage\IAutoMockTuples.cs" Link="GeneratorCoverage\IAutoMockTuples.cs"/>
 		<Compile Include="..\Mockolate.Tests\GeneratorCoverage\Packet.cs" Link="GeneratorCoverage\Packet.cs"/>
 		<Compile Include="..\Mockolate.Tests\TestHelpers\Usings.cs" Link="TestHelpers\Usings.cs"/>
 	</ItemGroup>

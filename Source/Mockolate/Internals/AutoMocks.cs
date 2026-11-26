@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Mockolate.Interactions;
 
 namespace Mockolate.Internals;
@@ -20,6 +21,14 @@ namespace Mockolate.Internals;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static class AutoMocks
 {
+	private static readonly Type[] TupleDefinitions =
+	[
+		typeof(ValueTuple<>), typeof(ValueTuple<,>), typeof(ValueTuple<,,>), typeof(ValueTuple<,,,>),
+		typeof(ValueTuple<,,,,>), typeof(ValueTuple<,,,,,>), typeof(ValueTuple<,,,,,,>), typeof(ValueTuple<,,,,,,,>),
+		typeof(Tuple<>), typeof(Tuple<,>), typeof(Tuple<,,>), typeof(Tuple<,,,>),
+		typeof(Tuple<,,,,>), typeof(Tuple<,,,,,>), typeof(Tuple<,,,,,,>), typeof(Tuple<,,,,,,,>),
+	];
+
 	/// <summary>
 	///     Returns the <paramref name="behavior" /> that creates its auto-mocks with the <paramref name="factory" />.
 	/// </summary>
@@ -70,7 +79,8 @@ public static class AutoMocks
 	/// </summary>
 	/// <remarks>
 	///     The caller stores the returned value for the key; sharing the first auto-mock makes concurrent first reads of
-	///     the key return the same configurable mock.
+	///     the key return the same configurable mock. A tuple <paramref name="value" /> with an interface element is shared
+	///     as well, because its elements can be auto-mocks.
 	/// </remarks>
 	/// <typeparam name="TValue">The value type of the indexer.</typeparam>
 	/// <param name="behavior">The behavior of the mock that needs the value; the auto-mock uses it as well.</param>
@@ -80,7 +90,7 @@ public static class AutoMocks
 	public static TValue Or<TValue>(MockBehavior behavior, TValue value, IndexerAccess access)
 	{
 		TValue result = Or(behavior, value);
-		return value is null && result is not null && access.GetOrCreateLeaf<TValue>() is { } leaf
+		return IsShared(behavior, value, result) && access.GetOrCreateLeaf<TValue>() is { } leaf
 			? leaf.ShareAutoMock(result)
 			: result;
 	}
@@ -88,9 +98,44 @@ public static class AutoMocks
 	internal static TValue Or<TValue>(MockBehavior behavior, TValue value, IndexerValueStorage<TValue> leaf)
 	{
 		TValue result = Or(behavior, value);
-		return value is null && result is not null ? leaf.ShareAutoMock(result) : result;
+		return IsShared(behavior, value, result) ? leaf.ShareAutoMock(result) : result;
 	}
 
 	internal static object? Create(Type type, MockBehavior behavior)
 		=> behavior.AutoMockFactory?.Invoke(type, behavior);
+
+	private static bool IsShared<TValue>(MockBehavior behavior, TValue value, TValue result)
+		=> value is null
+			? result is not null
+			: TupleShape<TValue>.CanHoldAutoMocks && behavior.AutoMockFactory is not null && !behavior.SkipAutoMocking;
+
+	/// <summary>
+	///     Whether the <paramref name="type" /> is a tuple with an interface element, also in a nested tuple or task.
+	/// </summary>
+	private static bool IsTupleWithInterface(Type type)
+		=> type.IsGenericType && Array.IndexOf(TupleDefinitions, type.GetGenericTypeDefinition()) >= 0 &&
+		   Array.Exists(type.GetGenericArguments(), HasInterface);
+
+	private static bool HasInterface(Type type)
+	{
+		if (type.IsInterface)
+		{
+			return true;
+		}
+
+		if (!type.IsGenericType)
+		{
+			return false;
+		}
+
+		Type definition = type.GetGenericTypeDefinition();
+		return definition == typeof(Task<>) || definition.FullName == "System.Threading.Tasks.ValueTask`1"
+			? HasInterface(type.GetGenericArguments()[0])
+			: IsTupleWithInterface(type);
+	}
+
+	private static class TupleShape<TValue>
+	{
+		public static readonly bool CanHoldAutoMocks = IsTupleWithInterface(typeof(TValue));
+	}
 }

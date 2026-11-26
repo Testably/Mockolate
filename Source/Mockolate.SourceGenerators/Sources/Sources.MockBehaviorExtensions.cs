@@ -533,6 +533,14 @@ internal static partial class Sources
 		          		}
 
 		          		/// <summary>
+		          		///     Generates a default value of type <typeparamref name="T" />, with the <paramref name="parameters" />
+		          		///     for context, or returns <see langword="null" /> when the generator has no value for it.
+		          		/// </summary>
+		          		public T? GenerateOrNull<T>(params object?[] parameters)
+		          			where T : struct
+		          			=> generator.GenerateValue(typeof(T), parameters) is T value ? value : null;
+
+		          		/// <summary>
 		          		///     Tells how the generator produces the default value of type <typeparamref name="T" />, so that the
 		          		///     invocation parameters are only collected when they are needed.
 		          		/// </summary>

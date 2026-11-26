@@ -1944,8 +1944,10 @@ internal static partial class Sources
 
 		void AppendIndexerGetReturn(string indent, string accessVarName, string setupVarName)
 		{
+			// The registry replaces a null value with an auto-mock, but not the elements of a tuple.
 			string defaultValueGenerator = new StringBuilder("static b => ")
-				.AppendDefaultValueGeneratorFor(property.Type, "b.DefaultValue").ToString();
+				.AppendDefaultValueGeneratorFor(property.Type, "b.DefaultValue",
+					autoMock: IsTuple(property.Type) ? PropertyAutoMock(autoMocking, "b") : null).ToString();
 			if (typedIndexerGet)
 			{
 				sb.Append(indent).Append("return ");
@@ -7307,6 +7309,9 @@ internal static partial class Sources
 	private static bool IsTypedRecordingEligibleEvent(Event @event)
 		=> !@event.IsStatic;
 
+	private static bool IsTuple(Type type)
+		=> type.TupleTypes is not null || type.SpecialGenericType == SpecialGenericType.Tuple;
+
 	/// <summary>
 	///     A property stores its first default value, so the auto-mock needs no cache of its own.
 	/// </summary>
@@ -7319,15 +7324,30 @@ internal static partial class Sources
 				: null;
 
 	/// <summary>
-	///     A method keeps its auto-mock in the registry, keyed by the member id.
+	///     A method keeps its auto-mock in the registry, keyed by the member id and, for the elements of a tuple, by the
+	///     index of the auto-mock within the return value, so that each element has its own mock.
 	/// </summary>
 	private static Func<Type, (string Prefix, string Suffix)?>? MethodAutoMock(AutoMockingOptions? autoMocking,
 		string mockRegistry, string memberIdRef)
-		=> autoMocking is null
-			? null
-			: type => autoMocking.CanReturnAutoMock(type)
-				? ($"{mockRegistry}.AutoMockOr<{type.Fullname}>({memberIdRef}, ", ")")
-				: null;
+	{
+		if (autoMocking is null)
+		{
+			return null;
+		}
+
+		int element = 0;
+		return type =>
+		{
+			if (!autoMocking.CanReturnAutoMock(type))
+			{
+				return null;
+			}
+
+			string elementArgument = element == 0 ? "" : $"{element}, ";
+			element++;
+			return ($"{mockRegistry}.AutoMockOr<{type.Fullname}>({memberIdRef}, {elementArgument}", ")");
+		};
+	}
 
 	/// <summary>
 	///     Lets the mock create the auto-mocks of this assembly, so that their <c>Mock</c> property works here, and

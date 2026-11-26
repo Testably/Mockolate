@@ -1497,7 +1497,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), this.MockRegistry.Behavior.DefaultValue.Generate(default(string)!));
+			return methodSetup?.TryGetReturnValue(out var returnValue) == true ? returnValue : ((this.MockRegistry.Behavior.DefaultValue.Probe<(int Code, string Msg)>() switch { global::Mockolate.Internals.DefaultValueSource.None => null, _ => this.MockRegistry.Behavior.DefaultValue.GenerateOrNull<(int Code, string Msg)>() }) ?? (this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), this.MockRegistry.Behavior.DefaultValue.Generate(default(string)!)));
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetNullable()" />

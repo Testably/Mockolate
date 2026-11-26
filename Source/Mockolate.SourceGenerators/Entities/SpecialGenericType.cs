@@ -7,4 +7,5 @@ internal enum SpecialGenericType
 	ReadOnlySpan,
 	Task,
 	ValueTask,
+	Tuple,
 }

@@ -141,7 +141,7 @@ When no setup matches, the mock returns:
 - an empty sequence for `IAsyncEnumerable<T>`, whose enumeration throws an `OperationCanceledException` when the first `CancellationToken` among the arguments is canceled,
 - an empty string for `string`,
 - a completed task for `Task`, `Task<T>`, `ValueTask` and `ValueTask<T>`,
-- a tuple with recursively defaulted values for tuples,
+- a tuple with recursively defaulted values for value tuples and `Tuple<…>`, except for an eight element `Tuple<…>` whose last element is no `Tuple<…>`,
 - a function that returns its argument for `Func<T, T>` and an action that does nothing for `Action<T>`, so that an options callback like `Func<ChocolateOptions, ChocolateOptions>` keeps the default options,
 - `default(T)` for value types and `null` for other reference types.
 
@@ -162,6 +162,8 @@ MockBehavior behavior = MockBehavior.Default
         type => type == typeof(int) || type == typeof(long),
         (type, _) => Convert.ChangeType(-1, type)));
 ```
+
+A factory that matches a tuple type provides the whole tuple instead of the tuple of default values. This applies to `.WithDefaultValueFor<(string Type, int Amount)>(() => ("Dark", 1))` and to a `DefaultValueFactory` whose predicate matches the tuple type, e.g. `type => type.IsValueType`.
 
 For full control, implement `IDefaultValueGenerator` and pass it to the `MockBehavior(IDefaultValueGenerator)` constructor, or replace the generator of an existing behavior with `.WithDefaultValueGenerator(…)`. Factories registered with `WithDefaultValueFor` are kept and take precedence over the generator, in whichever order you call the methods.
 
@@ -219,12 +221,13 @@ Both lists also apply to the nested namespaces, e.g. listing `Sdk` also covers `
 <summary>Details and limitations</summary>
 
 - A method or property that returns a `Task<T>` or `ValueTask<T>` of an interface returns a completed task with an auto-mock. On .NET Framework and .NET Standard, a `ValueTask<T>` keeps returning `default`.
+- A member that returns a tuple, e.g. `(int Stock, IChocolateDispenser Dispenser)` or `Tuple<int, IChocolateDispenser>`, returns an auto-mock for each interface element, also in a nested tuple and in a tuple wrapped in a `Task<T>` or `ValueTask<T>`. Each element has its own auto-mock, also when two elements have the same type. A `WithDefaultValueFor` factory for the tuple type takes precedence over the elements. A nullable value tuple, e.g. `(int, IChocolateDispenser)?`, returns `null`.
 - The base class implementation of a class mock also takes precedence, and `ThrowingWhenNotSetup()` still throws. A `WithDefaultValueFor` factory that returns `null` counts as no value, so the member returns an auto-mock instead.
 - The auto-mock is created when the member computes its default value, so `Initialize<T>(…)` can run for an auto-mock that the member never returns, e.g. when a setup provides the value of a property.
 - The property applies to the project whose `CreateMock` creates the mock: mocks created in a project without the property return no auto-mocks.
 - `Directory.Build.props` is read before the Mockolate package sets the default included namespaces, so `$(MockolateAutoMockingIncludedNamespaces)` is still empty there: a list set there replaces the default, and an empty value there does not turn the default off. Set the list in the project file or in `Directory.Build.targets` instead.
 - An interface that members return in several spellings, e.g. `IRepository<string?>` and `IRepository<string>`, gets one auto-mock whose `Mock` property accepts every spelling, unless the project creates a mock of one spelling with `CreateMock`.
-- The generator skips interfaces whose mock would not compile cleanly, e.g. interfaces that are inaccessible, obsolete or experimental, nested in a generic type, have static abstract members or a member named `CreateMock`, or use pointers or unsupported ref structs. It also skips interfaces in the global namespace, `out` parameters, interfaces inside tuples and indexers that return a task. Such members still return `null`, or a task with a `null` result; set them up yourself or register a factory with `WithDefaultValueFor`.
+- The generator skips interfaces whose mock would not compile cleanly, e.g. interfaces that are inaccessible, obsolete or experimental, nested in a generic type, have static abstract members or a member named `CreateMock`, or use pointers or unsupported ref structs. It also skips interfaces in the global namespace, `out` parameters and indexers that return a task. Such members still return `null`, or a task with a `null` result; set them up yourself or register a factory with `WithDefaultValueFor`.
 - With the property, the generator discovers the auto-mocks again when you edit a file that declares one of the mocked or returned types, so with many mocked interfaces the IDE may take longer to update the generated code after such an edit. Edits in other files, e.g. in your tests, reuse the auto-mocks.
 
 </details>

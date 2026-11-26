@@ -176,6 +176,7 @@ public sealed class AutoMockArgumentsTests
 		await That(warehouse["Dark"]).IsSameAs(repository);
 		await That(warehouse.GetRepository()).IsSameAs(repository);
 		await That(await warehouse.GetRepositoryAsync()).IsSameAs(repository);
+		await That(warehouse.GetStock().Repository).IsSameAs(repository);
 		await That(found).IsFalse();
 		await That(outRepository).IsSameAs(repository);
 	}

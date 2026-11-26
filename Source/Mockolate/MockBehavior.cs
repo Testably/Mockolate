@@ -100,7 +100,8 @@ public record MockBehavior : IMockBehaviorAccess
 	///     <see langword="false" /> (default value), a method, property, indexer or delegate whose return type is such an
 	///     interface (for methods and properties also wrapped in a <see cref="System.Threading.Tasks.Task{TResult}" /> or
 	///     <c>ValueTask&lt;TResult&gt;</c>) returns a mock of that interface with the same <see cref="MockBehavior" />
-	///     when no setup and no default value factory provides a value. A method, property or delegate creates the mock
+	///     when no setup and no default value factory provides a value. Each interface element of a tuple return value,
+	///     also of a nested tuple, gets a mock as well. A method, property or delegate creates the mock
 	///     once, an indexer once per key, so it can be configured after the first call through its own <c>Mock</c>
 	///     property. Interfaces in the <c>System</c>, <c>Microsoft</c> and <c>Windows</c> namespaces are not mocked
 	///     automatically.
