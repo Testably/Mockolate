@@ -7,3 +7,4 @@
  Mockolate0007 | Usage    | Warning  | A matcher is compared as a value
  Mockolate0010 | Usage    | Warning  | A mock test parameter cannot be created
  Mockolate0011 | Usage    | Warning  | An [AsDefault] parameter is ambiguous or invalid
+ Mockolate0012 | Usage    | Warning  | A [Deferred] parameter is invalid

@@ -335,6 +335,103 @@ public sealed class MockDataSourceTests
 	}
 
 	[Test]
+	public async Task TryCreateDeferred_WithFuncOfAClass_ShouldCreateANewInstanceWithTheResolvedArgumentsOnEachCall()
+	{
+		IMockDataDependency dependency = IMockDataDependency.CreateMock();
+		int resolved = 0;
+
+		bool result = MockDataSource.TryCreateDeferred(Assembly, typeof(Func<MockDataSealedService>), null,
+			(Type type, string _, out object? value) =>
+			{
+				resolved++;
+				value = dependency;
+				return type == typeof(IMockDataDependency);
+			}, out object? value);
+		Func<MockDataSealedService> create = (Func<MockDataSealedService>)value!;
+		int resolvedBeforeTheCall = resolved;
+		MockDataSealedService first = create();
+		MockDataSealedService second = create();
+
+		await That(result).IsTrue();
+		await That(resolvedBeforeTheCall).IsEqualTo(0);
+		await That(first).IsNotSameAs(second);
+		await That(first.Dependency).IsSameAs(dependency);
+		await That(second.Dependency).IsSameAs(dependency);
+	}
+
+	[Test]
+	public async Task TryCreateDeferred_WithFuncOfAnInterface_ShouldCreateANewMockWithTheBehaviorOnEachCall()
+	{
+		bool result = MockDataSource.TryCreateDeferred(Assembly, typeof(Func<IMockDataDeferredDependency>),
+			MockBehavior.Default.WithDefaultValueFor(() => 7), NoArgument, out object? value);
+		Func<IMockDataDeferredDependency> create = (Func<IMockDataDeferredDependency>)value!;
+		IMockDataDeferredDependency first = create();
+		IMockDataDeferredDependency second = create();
+
+		await That(result).IsTrue();
+		await That(first).IsNotSameAs(second);
+		await That(first.GetValue()).IsEqualTo(7);
+	}
+
+	[Test]
+	public async Task TryCreateDeferred_WithFuncOfAValue_ShouldUseTheDefaultValuesOfTheBehavior()
+	{
+		MockDataSource.TryCreateDeferred(Assembly, typeof(Func<int>), MockBehavior.Default.WithDefaultValueFor(() => 3),
+			NoArgument, out object? value);
+
+		await That(((Func<int>)value!)()).IsEqualTo(3);
+	}
+
+	[Test]
+	public async Task TryCreateDeferred_WhenNoValueCanBeCreated_ShouldThrowWhenCalled()
+	{
+		MockDataSource.TryCreateDeferred(Assembly, typeof(Func<Uri>), null, NoArgument, out object? value);
+
+		void Act()
+			=> ((Func<Uri>)value!)();
+
+		await That(Act).Throws<MockException>().WithMessage("Mockolate cannot create a value of type 'System.Uri'.");
+	}
+
+	[Test]
+	[Arguments(typeof(Func<System.Text.StringBuilder>))]
+	[Arguments(typeof(MockDataInner))]
+	public async Task TryCreateDeferred_WithTypeThatIsNoDeferredFunc_ShouldReturnFalse(Type type)
+	{
+		bool result = MockDataSource.TryCreateDeferred(Assembly, type, null, NoArgument, out object? value);
+
+		await That(result).IsFalse();
+		await That(value).IsNull();
+	}
+
+	[Test]
+	public async Task TryCreateDeferred_WithAssemblyWithoutGeneratedCode_ShouldReturnFalse()
+	{
+		bool result = MockDataSource.TryCreateDeferred(typeof(string).Assembly, typeof(Func<MockDataSealedService>),
+			null, NoArgument, out object? value);
+
+		await That(result).IsFalse();
+		await That(value).IsNull();
+	}
+
+	[Test]
+	public async Task TryCreateDeferred_WithNullArguments_ShouldThrowArgumentNullException()
+	{
+		void ActWithoutAssembly()
+			=> MockDataSource.TryCreateDeferred(null!, typeof(Func<MockDataInner>), null, NoArgument, out _);
+
+		void ActWithoutType()
+			=> MockDataSource.TryCreateDeferred(Assembly, null!, null, NoArgument, out _);
+
+		void ActWithoutResolve()
+			=> MockDataSource.TryCreateDeferred(Assembly, typeof(Func<MockDataInner>), null, null!, out _);
+
+		await That(ActWithoutAssembly).Throws<ArgumentNullException>().WithParamName("assembly");
+		await That(ActWithoutType).Throws<ArgumentNullException>().WithParamName("delegateType");
+		await That(ActWithoutResolve).Throws<ArgumentNullException>().WithParamName("resolve");
+	}
+
+	[Test]
 	[MockArguments]
 	public async Task MockArguments_ShouldFillEveryParameter(MockDataService service, IMockDataDependency dependency,
 		MockDataAbstractDependency abstractDependency)

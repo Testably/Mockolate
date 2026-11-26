@@ -53,6 +53,20 @@ public sealed class AutoMockArgumentsTests
 		await That(warehouse.Repository).IsSameAs(row[1]);
 	}
 
+	[Test]
+	public async Task GetData_WithDeferredParameter_ShouldCreateTheClassUnderTestWithTheSetupsOfTheTest()
+	{
+		object[] row = GetSingleRow(nameof(Deferred));
+		Func<StockIndicator> createSut = (Func<StockIndicator>)row[0];
+		IChocolateStock stock = (IChocolateStock)row[1];
+		stock.Mock.Setup.Count.Returns(5);
+
+		StockIndicator sut = createSut();
+
+		await That(sut.IsAvailable).IsTrue();
+		await That(sut.Stock).IsSameAs(stock);
+	}
+
 	private static object[] GetSingleRow(string methodName)
 	{
 		MethodInfo method = typeof(AutoMockArgumentsTests).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)!;
@@ -77,6 +91,11 @@ public sealed class AutoMockArgumentsTests
 
 	[AutoMockArguments]
 	private static void AsDefault(IWarehouse warehouse, [AsDefault] IOrderRepository repository)
+	{
+	}
+
+	[AutoMockArguments]
+	private static void Deferred([Deferred] Func<StockIndicator> createSut, IChocolateStock stock)
 	{
 	}
 }

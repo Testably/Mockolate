@@ -55,6 +55,19 @@ public sealed class AutoMockRowTests
 	}
 
 	[Test]
+	public async Task Create_WithDeferredParameterThatIsNoFunc_ShouldThrow()
+	{
+		AutoMockRow row = new(typeof(AutoMockRowTests).Assembly, GetTypes(nameof(Uncreatable)),
+			GetNames(nameof(Uncreatable)), _ => false, _ => true, _ => null, [], null);
+
+		void Act()
+			=> row.Create();
+
+		await That(Act).Throws<MockException>()
+			.WithMessage("Mockolate cannot create the [Deferred] parameter 'service' of type 'Mockolate.TUnit.Tests.AutoMockRowTests+IUncreatableService'. Only a Func<T> of a type that Mockolate can create can be deferred.");
+	}
+
+	[Test]
 	public async Task Create_ShouldOnlyAskForTheTransientMarkerOfParametersOfAMatchingType()
 	{
 		List<int> asked = [];
@@ -63,7 +76,7 @@ public sealed class AutoMockRowTests
 			{
 				asked.Add(index);
 				return false;
-			}, _ => null, [], null);
+			}, _ => false, _ => null, [], null);
 
 		row.Create();
 
@@ -74,7 +87,7 @@ public sealed class AutoMockRowTests
 	public async Task Create_WithAsDefaultParameter_ShouldTakePrecedenceOverTheBehavior()
 	{
 		AutoMockRow row = new(typeof(AutoMockRowTests).Assembly, GetTypes(nameof(AsDefaultCount)),
-			GetNames(nameof(AsDefaultCount)), _ => false, index => index == 0 ? Type.EmptyTypes : null, [42,],
+			GetNames(nameof(AsDefaultCount)), _ => false, _ => false, index => index == 0 ? Type.EmptyTypes : null, [42,],
 			MockBehavior.Default.WithDefaultValueFor(() => 7));
 
 		object?[] values = row.Create();
@@ -86,7 +99,7 @@ public sealed class AutoMockRowTests
 	public async Task Create_WithAsDefaultParameterFromTheDefaultValues_ShouldCreateItFromTheBehavior()
 	{
 		AutoMockRow row = new(typeof(AutoMockRowTests).Assembly, GetTypes(nameof(AsDefaultCount)),
-			GetNames(nameof(AsDefaultCount)), _ => false, index => index == 0 ? Type.EmptyTypes : null, [],
+			GetNames(nameof(AsDefaultCount)), _ => false, _ => false, index => index == 0 ? Type.EmptyTypes : null, [],
 			MockBehavior.Default.WithDefaultValueFor(() => 7));
 
 		object?[] values = row.Create();
@@ -99,7 +112,7 @@ public sealed class AutoMockRowTests
 	public async Task Create_WithAsDefaultTypeThatIsNotAssignable_ShouldThrow()
 	{
 		AutoMockRow row = new(typeof(AutoMockRowTests).Assembly, GetTypes(nameof(AsDefaultCount)),
-			GetNames(nameof(AsDefaultCount)), _ => false, index => index == 0 ? [typeof(string),] : null, [], null);
+			GetNames(nameof(AsDefaultCount)), _ => false, _ => false, index => index == 0 ? [typeof(string),] : null, [], null);
 
 		void Act()
 			=> row.Create();
@@ -112,7 +125,7 @@ public sealed class AutoMockRowTests
 	public async Task Create_WithNullAsDefaultType_ShouldThrow()
 	{
 		AutoMockRow row = new(typeof(AutoMockRowTests).Assembly, GetTypes(nameof(AsDefaultCount)),
-			GetNames(nameof(AsDefaultCount)), _ => false, index => index == 0 ? [null!,] : null, [], null);
+			GetNames(nameof(AsDefaultCount)), _ => false, _ => false, index => index == 0 ? [null!,] : null, [], null);
 
 		void Act()
 			=> row.Create();
@@ -122,7 +135,7 @@ public sealed class AutoMockRowTests
 	}
 
 	private static AutoMockRow CreateRow(string methodName, params object?[] arguments)
-		=> new(typeof(AutoMockRowTests).Assembly, GetTypes(methodName), GetNames(methodName), _ => false, _ => null,
+		=> new(typeof(AutoMockRowTests).Assembly, GetTypes(methodName), GetNames(methodName), _ => false, _ => false, _ => null,
 			arguments, null);
 
 	private static ParameterInfo[] GetParameters(string methodName)

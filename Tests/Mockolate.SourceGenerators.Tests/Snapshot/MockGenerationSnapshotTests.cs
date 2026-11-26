@@ -175,7 +175,7 @@ public sealed partial class MockGenerationSnapshotTests
             Snapshot: true),
         new(
             "MockDataSources_CanBeCreated",
-            ["MockDataSourceTargets.cs",],
+            ["MockDataSourceTargets.cs", "DeferredParameterAttribute.cs",],
             """
             object?[] values = MockDataSourceTargets.Create(null!, null!, null!, null!, null!, null!, null!, null!, null!, null!, null!, null!, "", 0);
             """,

@@ -28,6 +28,8 @@ public class MockDataSourceAnalyzerTests
 	                                   public sealed class AsDefaultAttribute<T1> : AsDefaultParameterAttribute;
 	                                   public sealed class AsDefaultAttribute<T1, T2> : AsDefaultParameterAttribute;
 	                                   public sealed class TransientAttribute : TransientParameterAttribute;
+	                                   public abstract class DeferredParameterAttribute : System.Attribute;
+	                                   public sealed class DeferredAttribute : DeferredParameterAttribute;
 	                               }
 	                               """;
 
@@ -480,6 +482,75 @@ public class MockDataSourceAnalyzerTests
 			      {{DataAttribute}}
 			  }
 			  """
+		);
+
+	[Test]
+	public async Task WhenDeferredFuncCreatesATypeThatCannotBeCreated_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  #nullable enable
+			  namespace MyCode
+			  {
+			      using System;
+			      using Mockolate.Integrations;
+
+			      public interface IDep { int Get(); }
+			      public sealed class Generic<T>;
+			      public class Svc(IDep dep);
+
+			      public class Tests
+			      {
+			          [Data]
+			          public void Test([Deferred] Func<Generic<int>> {|#0:a|}, Func<Generic<int>> b) { }
+
+			          [Data]
+			          public void Valid([Deferred] Func<Svc> a, [Deferred] Func<IDep> b, [Deferred] Func<int> c) { }
+			      }
+
+			      {{DataAttribute}}
+			  }
+
+			  {{Markers}}
+			  """,
+			Verifier.Diagnostic(MockDataSourceAnalyzer.UnsupportedParameterRule).WithLocation(0)
+				.WithArguments("a", "MyCode.Generic<int>", "it is a generic class")
+		);
+
+	[Test]
+	public async Task WhenDeferredParameterIsNoFuncOrAlsoAsDefaultOrTransient_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  #nullable enable
+			  namespace MyCode
+			  {
+			      using System;
+			      using Mockolate.Integrations;
+
+			      public interface IDep { int Get(); }
+
+			      public class Tests
+			      {
+			          [Data]
+			          public void Test([Deferred] IDep {|#0:a|}, [Deferred] Func<int, IDep> {|#1:b|},
+			              [Deferred, AsDefault] Func<IDep> {|#2:c|}, [Deferred, Transient] Func<IDep> {|#3:d|}) { }
+
+			          [Other]
+			          public void NoDataSource([Deferred] IDep a) { }
+			      }
+
+			      {{DataAttribute}}
+			  }
+
+			  {{Markers}}
+			  """,
+			Verifier.Diagnostic(MockDataSourceAnalyzer.DeferredParameterRule).WithLocation(0)
+				.WithArguments("a", "is not a Func<T>"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.DeferredParameterRule).WithLocation(1)
+				.WithArguments("b", "is not a Func<T>"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.DeferredParameterRule).WithLocation(2)
+				.WithArguments("c", "is also marked [AsDefault]"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.DeferredParameterRule).WithLocation(3)
+				.WithArguments("d", "is also marked [Transient], which has no effect")
 		);
 
 	[Test]

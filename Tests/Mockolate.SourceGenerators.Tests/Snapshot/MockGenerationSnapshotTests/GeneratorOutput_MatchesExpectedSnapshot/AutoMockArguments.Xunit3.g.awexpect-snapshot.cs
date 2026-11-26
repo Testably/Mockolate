@@ -64,6 +64,8 @@ namespace Mockolate.Integrations.Xunit
 				global::System.Array.ConvertAll(parameters, parameter => parameter.Name ?? ""),
 				index => global::System.Reflection.CustomAttributeExtensions.IsDefined(parameters[index],
 					typeof(global::Mockolate.Integrations.TransientParameterAttribute), false),
+				index => global::System.Reflection.CustomAttributeExtensions.IsDefined(parameters[index],
+					typeof(global::Mockolate.Integrations.DeferredParameterAttribute), false),
 				index => global::Mockolate.Integrations.AutoMockRow.GetAsDefaultTypes(parameters[index]),
 				arguments, DefaultBehavior?.Invoke()).Create();
 
@@ -91,6 +93,19 @@ namespace Mockolate.Integrations.Xunit
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 	[global::Microsoft.CodeAnalysis.Embedded]
 	internal sealed class TransientAttribute : global::Mockolate.Integrations.TransientParameterAttribute
+	{
+	}
+
+	/// <summary>
+	///     Makes a <see cref="global::System.Func{TResult}">Func&lt;TResult&gt;</see> test parameter create a new value of its result type
+	///     each time the test calls it, like <see cref="AutoMockArgumentsAttribute">AutoMockArgumentsAttribute</see> creates a parameter of that type,
+	///     with the arguments of the other parameters. The test can set up these mocks before it creates the class
+	///     under test. The parameter is not shared with the classes under test.
+	/// </summary>
+	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	[global::Microsoft.CodeAnalysis.Embedded]
+	internal sealed class DeferredAttribute : global::Mockolate.Integrations.DeferredParameterAttribute
 	{
 	}
 

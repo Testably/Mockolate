@@ -555,6 +555,60 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to is also marked [AsDefault].
+        /// </summary>
+        internal static string Mockolate0012AsDefaultReason {
+            get {
+                return ResourceManager.GetString("Mockolate0012AsDefaultReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to A [Deferred] parameter must be a Func&lt;T&gt;, whose calls each create a new T. It is never shared with the classes under test, so [Transient] has no effect, and the mocks cannot return it as the default value of a type, so it cannot be [AsDefault]..
+        /// </summary>
+        internal static string Mockolate0012Description {
+            get {
+                return ResourceManager.GetString("Mockolate0012Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The [Deferred] parameter &apos;{0}&apos; {1}.
+        /// </summary>
+        internal static string Mockolate0012MessageFormat {
+            get {
+                return ResourceManager.GetString("Mockolate0012MessageFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to is not a Func&lt;T&gt;.
+        /// </summary>
+        internal static string Mockolate0012NotAFuncReason {
+            get {
+                return ResourceManager.GetString("Mockolate0012NotAFuncReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to A [Deferred] parameter is invalid.
+        /// </summary>
+        internal static string Mockolate0012Title {
+            get {
+                return ResourceManager.GetString("Mockolate0012Title", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to is also marked [Transient], which has no effect.
+        /// </summary>
+        internal static string Mockolate0012TransientReason {
+            get {
+                return ResourceManager.GetString("Mockolate0012TransientReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Add the explicit type '{0}'.
         /// </summary>
         internal static string UnionArgumentCodeFixTitle {

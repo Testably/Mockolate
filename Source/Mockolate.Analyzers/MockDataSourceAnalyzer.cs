@@ -55,11 +55,28 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		new LocalizableResourceString(nameof(Resources.Mockolate0011Description),
 			Resources.ResourceManager, typeof(Resources)));
 
+	/// <summary>
+	///     A <c>[Deferred]</c> test parameter that is not a <c>Func&lt;T&gt;</c>, or that is also <c>[AsDefault]</c> or
+	///     <c>[Transient]</c>.
+	/// </summary>
+	public static readonly DiagnosticDescriptor DeferredParameterRule = new(
+		"Mockolate0012",
+		new LocalizableResourceString(nameof(Resources.Mockolate0012Title),
+			Resources.ResourceManager, typeof(Resources)),
+		new LocalizableResourceString(nameof(Resources.Mockolate0012MessageFormat),
+			Resources.ResourceManager, typeof(Resources)),
+		"Usage",
+		DiagnosticSeverity.Warning,
+		true,
+		new LocalizableResourceString(nameof(Resources.Mockolate0012Description),
+			Resources.ResourceManager, typeof(Resources)));
+
 	/// <inheritdoc cref="DiagnosticAnalyzer.SupportedDiagnostics" />
 	public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
 	[
 		UnsupportedParameterRule,
 		AsDefaultParameterRule,
+		DeferredParameterRule,
 	];
 
 	/// <inheritdoc cref="DiagnosticAnalyzer.Initialize(AnalysisContext)" />
@@ -89,12 +106,26 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		};
 		foreach (IParameterSymbol parameter in parameters)
 		{
-			if (parameter.Locations.FirstOrDefault() is { IsInSource: true, } location &&
-			    GetReason(parameter.Type.WithNullableAnnotation(NullableAnnotation.NotAnnotated), context.Compilation)
-				    is { } reason)
+			if (parameter.Locations.FirstOrDefault() is not { IsInSource: true, } location)
+			{
+				continue;
+			}
+
+			bool isDeferred = HasMarker(parameter, "DeferredParameterAttribute");
+			ITypeSymbol? deferredType = isDeferred ? GetFuncResultType(parameter.Type) : null;
+			// A [Deferred] Func<T> creates its T, so T must be creatable like a parameter of that type.
+			ITypeSymbol createdType = deferredType ?? parameter.Type;
+			if (GetReason(createdType.WithNullableAnnotation(NullableAnnotation.NotAnnotated), context.Compilation)
+			    is { } reason)
 			{
 				context.ReportDiagnostic(Diagnostic.Create(UnsupportedParameterRule, location,
-					parameter.Name, parameter.Type.ToDisplayString(), reason));
+					parameter.Name, createdType.ToDisplayString(), reason));
+			}
+
+			if (isDeferred && GetDeferredReason(parameter, deferredType) is { } deferredReason)
+			{
+				context.ReportDiagnostic(Diagnostic.Create(DeferredParameterRule, location, parameter.Name,
+					deferredReason));
 			}
 		}
 
@@ -196,6 +227,32 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		       (source.OriginalDefinition.SpecialType != SpecialType.System_Nullable_T ||
 		        destination.SpecialType is SpecialType.System_Object or SpecialType.System_ValueType);
 	}
+
+	private static string? GetDeferredReason(IParameterSymbol parameter, ITypeSymbol? deferredType)
+	{
+		if (deferredType is null)
+		{
+			return Resources.Mockolate0012NotAFuncReason;
+		}
+
+		if (HasMarker(parameter, "AsDefaultParameterAttribute"))
+		{
+			return Resources.Mockolate0012AsDefaultReason;
+		}
+
+		return HasMarker(parameter, "TransientParameterAttribute") ? Resources.Mockolate0012TransientReason : null;
+	}
+
+	/// <summary>
+	///     Mirror of <c>GetDeferredType</c> of the source generator: the <c>T</c> of a <c>System.Func&lt;T&gt;</c>.
+	/// </summary>
+	private static ITypeSymbol? GetFuncResultType(ITypeSymbol type)
+		=> type is INamedTypeSymbol
+		{
+			Name: "Func", Arity: 1, ContainingNamespace: { Name: "System", ContainingNamespace.IsGlobalNamespace: true, },
+		} func
+			? func.TypeArguments[0]
+			: null;
 
 	internal static bool HasMarker(IParameterSymbol parameter, string markerName)
 		=> parameter.GetAttributes().Any(attribute => IsMarker(attribute, markerName));

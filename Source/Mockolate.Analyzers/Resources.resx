@@ -312,6 +312,27 @@
 		<value>is also marked [Transient]</value>
 		<comment>Completes Mockolate0011MessageFormat.</comment>
 	</data>
+	<data name="Mockolate0012Description" xml:space="preserve">
+		<value>A [Deferred] parameter must be a Func&lt;T&gt;, whose calls each create a new T. It is never shared with the classes under test, so [Transient] has no effect, and the mocks cannot return it as the default value of a type, so it cannot be [AsDefault].</value>
+	</data>
+	<data name="Mockolate0012MessageFormat" xml:space="preserve">
+		<value>The [Deferred] parameter '{0}' {1}</value>
+	</data>
+	<data name="Mockolate0012Title" xml:space="preserve">
+		<value>A [Deferred] parameter is invalid</value>
+	</data>
+	<data name="Mockolate0012NotAFuncReason" xml:space="preserve">
+		<value>is not a Func&lt;T&gt;</value>
+		<comment>Completes Mockolate0012MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0012AsDefaultReason" xml:space="preserve">
+		<value>is also marked [AsDefault]</value>
+		<comment>Completes Mockolate0012MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0012TransientReason" xml:space="preserve">
+		<value>is also marked [Transient], which has no effect</value>
+		<comment>Completes Mockolate0012MessageFormat.</comment>
+	</data>
 	<data name="AsDefaultSuppressionJustification" xml:space="preserve">
 		<value>The other mocks of the test case may return the [AsDefault] parameter.</value>
 		<comment>The justification of the suppressions Mockolate1001 (IDE0060) and Mockolate1002 (xUnit1026).</comment>

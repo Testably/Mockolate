@@ -22,6 +22,7 @@ namespace Mockolate.Internals;
 public static class MockDataSourceRegistry
 {
 	private static readonly ConditionalWeakTable<Assembly, MockDataSourceFactory> Factories = new();
+	private static readonly ConditionalWeakTable<Assembly, MockDataSourceFactory> DeferredFactories = new();
 	private static readonly MockolateLock Lock = new();
 	private static readonly MockDataSourceFactory None = NoValue;
 
@@ -30,11 +31,21 @@ public static class MockDataSourceRegistry
 	///     same assembly replaces the first.
 	/// </summary>
 	public static void Register(Assembly assembly, MockDataSourceFactory factory)
+		=> Register(assembly, factory, None);
+
+	/// <summary>
+	///     Registers the <paramref name="factory" /> and the <paramref name="deferredFactory" />, which creates the
+	///     delegates of <c>[Deferred]</c> parameters, of the <paramref name="assembly" />; a second registration for the
+	///     same assembly replaces the first.
+	/// </summary>
+	public static void Register(Assembly assembly, MockDataSourceFactory factory, MockDataSourceFactory deferredFactory)
 	{
 		lock (Lock)
 		{
 			Factories.Remove(assembly);
 			Factories.Add(assembly, factory);
+			DeferredFactories.Remove(assembly);
+			DeferredFactories.Add(assembly, deferredFactory);
 		}
 	}
 
@@ -61,6 +72,9 @@ public static class MockDataSourceRegistry
 
 	internal static bool TryGet(Assembly assembly, [NotNullWhen(true)] out MockDataSourceFactory? factory)
 		=> Factories.TryGetValue(assembly, out factory);
+
+	internal static MockDataSourceFactory GetDeferred(Assembly assembly)
+		=> DeferredFactories.TryGetValue(assembly, out MockDataSourceFactory? factory) ? factory : None;
 
 	/// <summary>
 	///     The factory of the <paramref name="assembly" />, or one that creates nothing, which is remembered so that the

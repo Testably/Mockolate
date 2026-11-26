@@ -15,14 +15,16 @@ internal static partial class Sources
 	/// <summary>
 	///     Creates the <c>MockDataSourceFactory</c> for the <paramref name="classes" />, the
 	///     <paramref name="mockedTypes" />, the <paramref name="valueOrMockTypes" /> and the
-	///     <paramref name="valueTypes" />, which a module initializer registers.
+	///     <paramref name="valueTypes" />, and the one for the <c>Func&lt;T&gt;</c> of the <paramref name="deferredTypes" />,
+	///     which a module initializer registers.
 	/// </summary>
 	/// <remarks>
 	///     The factory lives in a file-local class, so that neither its registration nor its name reach the users of
 	///     <c>Mock</c>.
 	/// </remarks>
 	public static string MockDataSources(EquatableArray<DataSourceClass> classes, EquatableArray<string> mockedTypes,
-		EquatableArray<string> valueOrMockTypes, EquatableArray<string> valueTypes, bool emitModuleInitializerPolyfill)
+		EquatableArray<string> valueOrMockTypes, EquatableArray<string> valueTypes, EquatableArray<string> deferredTypes,
+		bool emitModuleInitializerPolyfill)
 	{
 		DataSourceClass[] classArray = classes.AsArray();
 		Dictionary<string, int> classIndices = new(StringComparer.Ordinal);
@@ -68,8 +70,8 @@ internal static partial class Sources
 		sb.Append("#pragma warning disable CA2255, CS0436 // Module initializers in libraries; the polyfill next to an imported attribute").AppendLine();
 		sb.Append("\t\t[global::System.Runtime.CompilerServices.ModuleInitializer]").AppendLine();
 		sb.Append("\t\tinternal static void Register()").AppendLine();
-		sb.Append("\t\t\t=> global::Mockolate.Internals.MockDataSourceRegistry.Register(typeof(MockDataSourceRegistration).Assembly, Create);")
-			.AppendLine();
+		sb.Append("\t\t\t=> global::Mockolate.Internals.MockDataSourceRegistry.Register(typeof(MockDataSourceRegistration).Assembly, Create")
+			.Append(deferredTypes.Count > 0 ? ", CreateDeferred" : "").Append(");").AppendLine();
 		sb.Append("#pragma warning restore CA2255, CS0436").AppendLine();
 		sb.AppendLine();
 		sb.Append("\t\tprivate static bool Create(global::System.Type type, global::Mockolate.MockBehavior? behavior, global::Mockolate.Internals.MockArgumentResolver resolve, out object? value)")
@@ -122,6 +124,11 @@ internal static partial class Sources
 		sb.Append("\t\t\tvalue = null;").AppendLine();
 		sb.Append("\t\t\treturn false;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
+		if (deferredTypes.Count > 0)
+		{
+			AppendDeferredFactory(sb, deferredTypes);
+		}
+
 		for (int i = 0; i < classArray.Length; i++)
 		{
 			DataSourceClass dataSourceClass = classArray[i];
@@ -246,6 +253,39 @@ internal static partial class Sources
 
 		static string TryCreateValue(string type, string variable)
 			=> $"IsValue(behavior ?? global::Mockolate.MockBehavior.Default, static mockolateBehavior => mockolateBehavior.DefaultValue.Generate(default({type})!), out {type} {variable})";
+	}
+
+	/// <summary>
+	///     The factory of the <c>Func&lt;T&gt;</c> of each of the <paramref name="deferredTypes" />, whose calls create a
+	///     new <c>T</c> with the behavior and the arguments of the test case.
+	/// </summary>
+	private static void AppendDeferredFactory(StringBuilder sb, EquatableArray<string> deferredTypes)
+	{
+		sb.AppendLine();
+		sb.Append("\t\tprivate static bool CreateDeferred(global::System.Type type, global::Mockolate.MockBehavior? behavior, global::Mockolate.Internals.MockArgumentResolver resolve, out object? value)")
+			.AppendLine();
+		sb.Append("\t\t{").AppendLine();
+		foreach (string deferredType in deferredTypes)
+		{
+			sb.Append("\t\t\tif (type == typeof(global::System.Func<").Append(deferredType).Append(">))").AppendLine();
+			sb.Append("\t\t\t{").AppendLine();
+			sb.Append("\t\t\t\tvalue = new global::System.Func<").Append(deferredType).Append(">(() => CreateNew<")
+				.Append(deferredType).Append(">(behavior, resolve));").AppendLine();
+			sb.Append("\t\t\t\treturn true;").AppendLine();
+			sb.Append("\t\t\t}").AppendLine();
+			sb.AppendLine();
+		}
+
+		sb.Append("\t\t\tvalue = null;").AppendLine();
+		sb.Append("\t\t\treturn false;").AppendLine();
+		sb.Append("\t\t}").AppendLine();
+		sb.AppendLine();
+		sb.Append("\t\tprivate static T CreateNew<T>(global::Mockolate.MockBehavior? behavior, global::Mockolate.Internals.MockArgumentResolver resolve)")
+			.AppendLine();
+		sb.Append("\t\t\t=> Create(typeof(T), behavior, resolve, out object? value)").AppendLine();
+		sb.Append("\t\t\t\t? (T)value!").AppendLine();
+		sb.Append("\t\t\t\t: throw new global::Mockolate.Exceptions.MockException($\"Mockolate cannot create a value of type '{typeof(T)}'.\");")
+			.AppendLine();
 	}
 
 	/// <summary>

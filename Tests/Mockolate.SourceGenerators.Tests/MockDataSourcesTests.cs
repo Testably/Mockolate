@@ -1151,6 +1151,89 @@ public sealed class MockDataSourcesTests
 		}
 	}
 
+	[Test]
+	public async Task DeferredFunc_ShouldRegisterAFactoryOnlyForTheMarkerOfMockolate()
+	{
+		GeneratorResult result = Generator.Run($$"""
+		                                         #nullable enable
+		                                         using System;
+		                                         using MyCode;
+
+		                                         namespace Mockolate.Integrations
+		                                         {
+		                                             public abstract class DeferredParameterAttribute : Attribute;
+		                                         }
+
+		                                         namespace Other
+		                                         {
+		                                             public abstract class DeferredParameterAttribute : Attribute;
+		                                         }
+
+		                                         namespace MyCode
+		                                         {
+		                                             public sealed class DeferredAttribute : Mockolate.Integrations.DeferredParameterAttribute;
+		                                             public sealed class OtherAttribute : Other.DeferredParameterAttribute;
+		                                             public interface IDeferred { int Get(); }
+		                                             public interface IOther { int Get(); }
+
+		                                             public class Tests
+		                                             {
+		                                                 [Data]
+		                                                 public void Test([Deferred] Func<IDeferred> create, [Other] Func<IOther> other,
+		                                                     [Deferred] Func<int, IOther> withArgument) { }
+		                                             }
+
+		                                             public class Program
+		                                             {
+		                                                 public static void Main(string[] args)
+		                                                 {
+		                                                 }
+		                                             }
+		                                         }
+
+		                                         {{DataAttribute}}
+		                                         """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["MockDataSources.g.cs"])
+			.Contains("Register(typeof(MockDataSourceRegistration).Assembly, Create, CreateDeferred);").And
+			.Contains("type == typeof(global::MyCode.IDeferred)").And
+			.Contains("type == typeof(global::System.Func<global::MyCode.IDeferred>)").And
+			.Contains("value = new global::System.Func<global::MyCode.IDeferred>(").And
+			.DoesNotContain("new global::System.Func<global::MyCode.IOther>").And
+			.DoesNotContain("new global::System.Func<int, global::MyCode.IOther>");
+	}
+
+	[Test]
+	public async Task Register_WithoutDeferredFactory_ShouldReplaceTheDeferredFactoryOfTheAssembly()
+	{
+		Assembly assembly = Generator.CompileAndLoad("namespace MyCode { public class Empty; }",
+			LanguageVersion.CSharp14);
+
+		MockDataSourceRegistry.Register(assembly, CreateNothing, CreateDeferred);
+		bool withDeferredFactory = MockDataSource.TryCreateDeferred(assembly, typeof(string), null, NoArgument,
+			out object? deferred);
+		MockDataSourceRegistry.Register(assembly, CreateNothing);
+		bool withoutDeferredFactory = MockDataSource.TryCreateDeferred(assembly, typeof(string), null, NoArgument,
+			out _);
+
+		await That(withDeferredFactory).IsTrue();
+		await That(deferred).IsEqualTo("deferred");
+		await That(withoutDeferredFactory).IsFalse();
+
+		static bool CreateNothing(System.Type type, MockBehavior? behavior, MockArgumentResolver resolve, out object? value)
+		{
+			value = null;
+			return false;
+		}
+
+		static bool CreateDeferred(System.Type type, MockBehavior? behavior, MockArgumentResolver resolve, out object? value)
+		{
+			value = "deferred";
+			return true;
+		}
+	}
+
 	private static bool NoArgument(System.Type type, string parameterName, out object? value)
 	{
 		value = null;
@@ -1164,7 +1247,7 @@ public sealed class MockDataSourcesTests
 	{
 		string source = Sources.Sources.MockDataSources(new EquatableArray<DataSourceClass>([]),
 			new EquatableArray<string>(["global::MyCode.IDep",]), new EquatableArray<string>([]),
-			new EquatableArray<string>([]), emitPolyfill);
+			new EquatableArray<string>([]), new EquatableArray<string>([]), emitPolyfill);
 
 		await That(source.Contains("internal sealed class ModuleInitializerAttribute")).IsEqualTo(emitPolyfill);
 	}
