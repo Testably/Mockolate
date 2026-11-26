@@ -140,6 +140,40 @@ public sealed partial class MockTests
 			}
 
 			[Test]
+			public async Task GenericOverloads_WithTheSameNumberOfTypeParameters_ShouldShareOneParametersOverload()
+			{
+				GeneratorResult result = Generator
+					.Run("""
+					     using System.Threading;
+					     using System.Threading.Tasks;
+					     using Mockolate;
+
+					     namespace MyCode;
+					     public class Program
+					     {
+					         public static void Main(string[] args)
+					         {
+					     		_ = ISender.CreateMock();
+					         }
+					     }
+
+					     public interface IRequest<out TResponse> { }
+
+					     public interface ISender
+					     {
+					         Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = default);
+					         Task Send<TRequest>(TRequest request, CancellationToken cancellationToken = default) where TRequest : class;
+					     }
+					     """);
+
+				await That(result.Diagnostics).IsEmpty()
+					.Because("an IParameters overload per method would differ only in the names of their type parameters");
+				await That(result.Sources["Mock.ISender.g.cs"])
+					.DoesNotContain("Send<TResponse>(global::Mockolate.Parameters.IParameters parameters)").And
+					.DoesNotContain("Send<TRequest>(global::Mockolate.Parameters.IParameters parameters)");
+			}
+
+			[Test]
 			public async Task Generic_WithoutConstraints_ShouldNotHaveWhereClause()
 			{
 				GeneratorResult result = Generator

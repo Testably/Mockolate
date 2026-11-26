@@ -4510,7 +4510,7 @@ internal static partial class Sources
 		}
 
 		List<IGrouping<string, Method>> methodGroups =
-			@class.AllMethods().Where((Func<Method, bool>)MethodPredicate).GroupBy(m => m.Name).ToList();
+			@class.AllMethods().Where((Func<Method, bool>)MethodPredicate).GroupBy(GetParametersOverloadKey).ToList();
 		foreach (IGrouping<string, Method>? methodGroup in methodGroups)
 		{
 			if (methodGroup.Count() == 1)
@@ -4699,6 +4699,17 @@ internal static partial class Sources
 	}
 
 #pragma warning disable S107 // Methods should not have too many parameters
+	/// <summary>
+	///     Groups the methods whose <c>IParameters</c> overloads would share a signature: the same name and number of type
+	///     parameters, whatever the names of the type parameters (e.g. <c>Send&lt;TResponse&gt;</c> and
+	///     <c>Send&lt;TRequest&gt;</c>).
+	/// </summary>
+	private static string GetParametersOverloadKey(Method method)
+	{
+		int index = method.Name.IndexOf('<');
+		return index < 0 ? method.Name : $"{method.Name.Substring(0, index)}`{method.GenericParameters?.Count}";
+	}
+
 	private static void AppendMethodSetupDefinition(StringBuilder sb, Class @class, Method method,
 		bool useParameters, string? methodNameOverride = null, bool[]? valueFlags = null,
 		bool hasOverloadResolutionPriority = false, bool perElementParams = false, bool forwardsLoneNull = false,
@@ -5030,7 +5041,7 @@ internal static partial class Sources
 		}
 
 		List<IGrouping<string, Method>> methodGroups =
-			@class.AllMethods().Where((Func<Method, bool>)MethodPredicate).GroupBy(m => m.Name).ToList();
+			@class.AllMethods().Where((Func<Method, bool>)MethodPredicate).GroupBy(GetParametersOverloadKey).ToList();
 		foreach (IGrouping<string, Method>? methodGroup in methodGroups)
 		{
 			if (methodGroup.Count() == 1)
@@ -6534,7 +6545,7 @@ internal static partial class Sources
 		}
 
 		List<IGrouping<string, Method>> methodGroups =
-			@class.AllMethods().Where((Func<Method, bool>)MethodPredicate).GroupBy(m => m.Name).ToList();
+			@class.AllMethods().Where((Func<Method, bool>)MethodPredicate).GroupBy(GetParametersOverloadKey).ToList();
 		foreach (IGrouping<string, Method>? methodGroup in methodGroups)
 		{
 			if (methodGroup.Count() == 1)
@@ -6862,7 +6873,7 @@ internal static partial class Sources
 		}
 
 		List<IGrouping<string, Method>> methodGroups =
-			@class.AllMethods().Where((Func<Method, bool>)MethodPredicate).GroupBy(m => m.Name).ToList();
+			@class.AllMethods().Where((Func<Method, bool>)MethodPredicate).GroupBy(GetParametersOverloadKey).ToList();
 		foreach (IGrouping<string, Method>? methodGroup in methodGroups)
 		{
 			if (methodGroup.Count() == 1)
