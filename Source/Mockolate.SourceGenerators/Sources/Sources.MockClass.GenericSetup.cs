@@ -198,8 +198,46 @@ internal static partial class Sources
 		}
 	}
 
-	private static string GetGenericParameterMatch(MethodParameter parameter, string parameterType)
-		=> $"global::Mockolate.CovariantParameterAdapter<{parameterType}>.Wrap({parameter.Name} ?? global::Mockolate.Internals.Matchers.IsNull<{parameterType}>())";
+	/// <summary>
+	///     The types of the parameters of the generic overload of a facade method, which takes a matcher of any type, e.g.
+	///     <c>It.IsAny&lt;int&gt;()</c>, for each parameter that depends on a type argument; <see langword="null" /> when
+	///     no parameter depends on one.
+	/// </summary>
+	private static (string[] ParameterTypes, string TypeParameters)? GetGenericMatcherOverload(Method method,
+		string[] parameterTypes)
+	{
+		MethodParameter[] parameters = method.Parameters.AsArray();
+		List<int> indices = Enumerable.Range(0, parameters.Length)
+			.Where(index => method.UsesTypeParameter(parameters[index].Type))
+			.ToList();
+		if (indices.Count == 0)
+		{
+			return null;
+		}
+
+		string[] names = indices
+			.Select(index => parameters[index].Name.TrimStart('@'))
+			.Select(name => "T" + char.ToUpperInvariant(name[0]) + name.Substring(1))
+			.ToArray();
+		if (names.Distinct().Count() != names.Length)
+		{
+			names = names.Select((name, i) => name + (i + 1)).ToArray();
+		}
+
+		string[] types = (string[])parameterTypes.Clone();
+		for (int i = 0; i < indices.Count; i++)
+		{
+			types[indices[i]] = names[i];
+		}
+
+		return (types, string.Join(", ", names));
+	}
+
+	private static string GetGenericParameterMatch(Method method, MethodParameter parameter, string parameterType,
+		bool isMatcherOverload)
+		=> isMatcherOverload && method.UsesTypeParameter(parameter.Type)
+			? $"new global::Mockolate.CovariantParameterAdapter<object?>((global::Mockolate.Parameters.IParameter?){parameter.Name} ?? global::Mockolate.Internals.Matchers.IsNull<object?>())"
+			: $"global::Mockolate.CovariantParameterAdapter<{parameterType}>.Wrap({parameter.Name} ?? global::Mockolate.Internals.Matchers.IsNull<{parameterType}>())";
 
 	private static string GetGenericParameterNames(Method method)
 		=> string.Concat(method.Parameters.Select(parameter => $", \"{parameter.Name.TrimStart('@')}\""));
@@ -229,13 +267,23 @@ internal static partial class Sources
 				sb.AppendLine();
 			}
 
-			sb.AppendXmlSummary(method.Parameters.Count == 0
+			string methodSummary = method.Parameters.Count == 0
 				? $"Setup for the method {method.XmlDocReference} for any type argument."
-				: $"Setup for the method {method.XmlDocReference} for any type argument with the given {GetGenericParameterReferences(method)}.");
+				: $"Setup for the method {method.XmlDocReference} for any type argument with the given {GetGenericParameterReferences(method)}.";
+			sb.AppendXmlSummary(methodSummary);
 			sb.Append("\t\t").Append(setupInterface).Append(' ').Append(GetGenericFacadeName(method)).Append('(');
 			AppendGenericFacadeParameters(sb, method, parameterTypes);
 			sb.Append(");").AppendLine();
 			sb.AppendLine();
+			if (GetGenericMatcherOverload(method, parameterTypes) is (string[] matcherTypes, string typeParameters))
+			{
+				sb.AppendXmlSummary(methodSummary);
+				sb.Append("\t\t").Append(setupInterface).Append(' ').Append(GetGenericFacadeName(method)).Append('<')
+					.Append(typeParameters).Append(">(");
+				AppendGenericFacadeParameters(sb, method, matcherTypes);
+				sb.Append(");").AppendLine();
+				sb.AppendLine();
+			}
 		}
 
 		sb.Append("\t}").AppendLine();
@@ -264,23 +312,39 @@ internal static partial class Sources
 				AppendRegisterGenericSetup(sb, mockRegistryName, memberIdRef, "methodSetup", scenario);
 			}
 
-			sb.Append("\t\t/// <inheritdoc />").AppendLine();
-			sb.Append("\t\t").Append(setupInterface).Append(' ').Append(facadeName).Append('.')
-				.Append(GetGenericFacadeName(method)).Append('(');
-			AppendGenericFacadeParameters(sb, method, parameterTypes);
-			sb.Append(')').AppendLine();
-			sb.Append("\t\t{").AppendLine();
-			sb.Append("\t\t\tvar ").Append(methodSetup).Append(" = new ").Append(setupType)
-				.Append(".WithParameterCollectionForAnyTypeArguments(this.").Append(mockRegistryName).Append(", ")
-				.Append(GetGenericSetupName(method));
-			int index = 0;
-			foreach (MethodParameter parameter in method.Parameters)
+			AppendSetup(parameterTypes, null);
+			if (GetGenericMatcherOverload(method, parameterTypes) is (string[] matcherTypes, string typeParameters))
 			{
-				sb.Append(", ").Append(GetGenericParameterMatch(parameter, parameterTypes[index++]));
+				AppendSetup(matcherTypes, typeParameters);
 			}
 
-			sb.Append(");").AppendLine();
-			AppendRegisterGenericSetup(sb, mockRegistryName, memberIdRef, methodSetup, scenario);
+			void AppendSetup(string[] signatureTypes, string? genericTypeParameters)
+			{
+				sb.Append("\t\t/// <inheritdoc />").AppendLine();
+				sb.Append("\t\t").Append(setupInterface).Append(' ').Append(facadeName).Append('.')
+					.Append(GetGenericFacadeName(method));
+				if (genericTypeParameters is not null)
+				{
+					sb.Append('<').Append(genericTypeParameters).Append('>');
+				}
+
+				sb.Append('(');
+				AppendGenericFacadeParameters(sb, method, signatureTypes);
+				sb.Append(')').AppendLine();
+				sb.Append("\t\t{").AppendLine();
+				sb.Append("\t\t\tvar ").Append(methodSetup).Append(" = new ").Append(setupType)
+					.Append(".WithParameterCollectionForAnyTypeArguments(this.").Append(mockRegistryName).Append(", ")
+					.Append(GetGenericSetupName(method));
+				int index = 0;
+				foreach (MethodParameter parameter in method.Parameters)
+				{
+					sb.Append(", ").Append(GetGenericParameterMatch(method, parameter, parameterTypes[index++],
+						genericTypeParameters is not null));
+				}
+
+				sb.Append(");").AppendLine();
+				AppendRegisterGenericSetup(sb, mockRegistryName, memberIdRef, methodSetup, scenario);
+			}
 		}
 	}
 
@@ -316,14 +380,24 @@ internal static partial class Sources
 				sb.AppendLine();
 			}
 
-			sb.AppendXmlSummary(method.Parameters.Count == 0
+			string methodSummary = method.Parameters.Count == 0
 				? $"Validates the invocations for the method {method.XmlDocReference} for any type argument."
-				: $"Validates the invocations for the method {method.XmlDocReference} for any type argument with the given {GetGenericParameterReferences(method)}.");
+				: $"Validates the invocations for the method {method.XmlDocReference} for any type argument with the given {GetGenericParameterReferences(method)}.";
+			sb.AppendXmlSummary(methodSummary);
 			sb.Append("\t\tglobal::Mockolate.Verify.VerificationResult<").Append(resultName).Append("> ")
 				.Append(GetGenericFacadeName(method)).Append('(');
 			AppendGenericFacadeParameters(sb, method, parameterTypes);
 			sb.Append(");").AppendLine();
 			sb.AppendLine();
+			if (GetGenericMatcherOverload(method, parameterTypes) is (string[] matcherTypes, string typeParameters))
+			{
+				sb.AppendXmlSummary(methodSummary);
+				sb.Append("\t\tglobal::Mockolate.Verify.VerificationResult<").Append(resultName).Append("> ")
+					.Append(GetGenericFacadeName(method)).Append('<').Append(typeParameters).Append(">(");
+				AppendGenericFacadeParameters(sb, method, matcherTypes);
+				sb.Append(");").AppendLine();
+				sb.AppendLine();
+			}
 		}
 
 		sb.Append("\t}").AppendLine();
@@ -351,41 +425,58 @@ internal static partial class Sources
 				sb.AppendLine();
 			}
 
-			sb.Append("\t\t/// <inheritdoc />").AppendLine();
-			sb.Append("\t\tglobal::Mockolate.Verify.VerificationResult<").Append(resultName).Append("> ")
-				.Append(facadeName).Append('.').Append(GetGenericFacadeName(method)).Append('(');
-			AppendGenericFacadeParameters(sb, method, parameterTypes);
-			sb.Append(')').AppendLine();
-			sb.Append("\t\t{").AppendLine();
-			StringBuilder predicate = new();
-			int index = 0;
-			foreach (MethodParameter parameter in method.Parameters)
+			AppendVerify(parameterTypes, null);
+			if (GetGenericMatcherOverload(method, parameterTypes) is (string[] matcherTypes, string typeParameters))
 			{
-				string match = Helpers.GetUniqueLocalVariableName($"match{index + 1}", method.Parameters);
-				sb.Append("\t\t\tglobal::Mockolate.Parameters.IParameterMatch<").Append(parameterTypes[index])
-					.Append("> ").Append(match).Append(" = ").Append(GetGenericParameterMatch(parameter, parameterTypes[index]))
-					.Append(';').AppendLine();
-				if (index > 0)
-				{
-					predicate.Append(" && ");
-				}
-
-				predicate.Append("global::Mockolate.Internals.GenericMethodInvocations.Matches(").Append(match)
-					.Append(", ").Append(invocation).Append(", ").Append(index).Append(')');
-				index++;
+				AppendVerify(matcherTypes, typeParameters);
 			}
 
-			sb.Append("\t\t\treturn this.").Append(mockRegistryName).Append(".VerifyGenericMethod<").Append(resultName)
-				.Append(">(this, ").Append(GetGenericSetupName(method)).Append(", ")
-				.Append(method.Parameters.Count).Append(", ")
-				.Append(method.Parameters.Count == 0 ? "static " : "").Append(invocation).Append(" => ")
-				.Append(method.Parameters.Count == 0 ? "true" : predicate.ToString()).Append(", () => $\"")
-				.Append(method.Name).Append('(')
-				.Append(string.Join(", ", method.Parameters.Select(parameter
-					=> $"{{(global::Mockolate.Internals.ValueFormatter.Format((object?){parameter.Name}))}}")))
-				.Append(")\");").AppendLine();
-			sb.Append("\t\t}").AppendLine();
-			sb.AppendLine();
+			void AppendVerify(string[] signatureTypes, string? genericTypeParameters)
+			{
+				sb.Append("\t\t/// <inheritdoc />").AppendLine();
+				sb.Append("\t\tglobal::Mockolate.Verify.VerificationResult<").Append(resultName).Append("> ")
+					.Append(facadeName).Append('.').Append(GetGenericFacadeName(method));
+				if (genericTypeParameters is not null)
+				{
+					sb.Append('<').Append(genericTypeParameters).Append('>');
+				}
+
+				sb.Append('(');
+				AppendGenericFacadeParameters(sb, method, signatureTypes);
+				sb.Append(')').AppendLine();
+				sb.Append("\t\t{").AppendLine();
+				StringBuilder predicate = new();
+				int index = 0;
+				foreach (MethodParameter parameter in method.Parameters)
+				{
+					string match = Helpers.GetUniqueLocalVariableName($"match{index + 1}", method.Parameters);
+					sb.Append("\t\t\tglobal::Mockolate.Parameters.IParameterMatch<").Append(parameterTypes[index])
+						.Append("> ").Append(match).Append(" = ")
+						.Append(GetGenericParameterMatch(method, parameter, parameterTypes[index],
+							genericTypeParameters is not null))
+						.Append(';').AppendLine();
+					if (index > 0)
+					{
+						predicate.Append(" && ");
+					}
+
+					predicate.Append("global::Mockolate.Internals.GenericMethodInvocations.Matches(").Append(match)
+						.Append(", ").Append(invocation).Append(", ").Append(index).Append(')');
+					index++;
+				}
+
+				sb.Append("\t\t\treturn this.").Append(mockRegistryName).Append(".VerifyGenericMethod<").Append(resultName)
+					.Append(">(this, ").Append(GetGenericSetupName(method)).Append(", ")
+					.Append(method.Parameters.Count).Append(", ")
+					.Append(method.Parameters.Count == 0 ? "static " : "").Append(invocation).Append(" => ")
+					.Append(method.Parameters.Count == 0 ? "true" : predicate.ToString()).Append(", () => $\"")
+					.Append(method.Name).Append('(')
+					.Append(string.Join(", ", method.Parameters.Select(parameter
+						=> $"{{(global::Mockolate.Internals.ValueFormatter.Format((object?){parameter.Name}))}}")))
+					.Append(")\");").AppendLine();
+				sb.Append("\t\t}").AppendLine();
+				sb.AppendLine();
+			}
 		}
 	}
 

@@ -175,7 +175,7 @@ A matcher for a nullable type with a non-nullable type argument, such as `Setup.
 
 #### Any type argument
 
-A setup or verification on `Setup` or `Verify` applies to one type argument. To match every type argument, use `SetupGeneric` and `VerifyGeneric`. They offer each generic method without its type parameters: a parameter whose type depends on a type parameter takes a matcher for `object`, which is checked against the value of the call, and the other parameters keep their types. Generic constraints do not apply.
+A setup or verification on `Setup` or `Verify` applies to one type argument. To match every type argument, use `SetupGeneric` and `VerifyGeneric`. They offer each generic method without its type parameters: a parameter whose type depends on a type parameter takes a matcher of any type, which is checked against the value of the call, and the other parameters keep their types. Generic constraints do not apply.
 
 ```csharp
 public interface IChocolateSerializer
@@ -193,12 +193,11 @@ serializer.Write(42);
 
 await That(Act).Throws<FormatException>();
 await That(serializer.Mock.VerifyGeneric.Write(It.IsAny<string>())).Once();
+await That(serializer.Mock.VerifyGeneric.Write(It.IsAny<int>())).Once();
 await That(serializer.Mock.VerifyGeneric.Write(Match.AnyParameters())).Twice();
 ```
 
-A setup for any type argument returns no value: use it to throw or to run a callback, and set up the specific type argument to return a value. When a setup for a specific type argument and a setup for any type argument both match a call, the most recently defined one wins.
-
-A matcher for a value type, such as `It.IsAny<int>()`, does not convert to a matcher for `object`; use `It.Satisfies<object>(value => value is int)` instead.
+A setup for any type argument returns no value: use it to throw or to run a callback, and set up the specific type argument to return a value. When a setup for a specific type argument and a setup for any type argument both match a call, the most recently defined one wins. Its callbacks receive the values of these parameters as `object`.
 
 `SetupProtectedGeneric` and `VerifyProtectedGeneric` do the same for the protected generic methods of a class mock. `InScenario(...)` offers `SetupGeneric` for a scenario, and a monitor from `Monitor()` offers `VerifyGeneric` for the monitored calls.
 

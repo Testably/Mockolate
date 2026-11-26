@@ -38,6 +38,75 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
+	public async Task SetupGeneric_ShouldMatchValueTypesWithATypedMatcher()
+	{
+		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
+		List<object?> received = [];
+		List<int> matched = [];
+		sut.Mock.SetupGeneric.Plain(It.IsAny<int>().Do(value => matched.Add(value))).Do(value => received.Add(value));
+
+		sut.Plain(1);
+		sut.Plain(2L);
+		sut.Plain("a");
+		sut.Plain<object>(3);
+
+		await That(received).IsEqualTo([1, 3,])
+			.Because("the matcher is checked against the boxed value, whatever the type argument");
+		await That(matched).IsEqualTo([1, 3,]);
+		await That(sut.Mock.VerifyGeneric.Plain(It.IsAny<int>())).Twice();
+		await That(sut.Mock.VerifyGeneric.Plain(It.Is(1))).Once();
+		await That(sut.Mock.VerifyGeneric.Plain(It.IsAny<long>())).Once();
+	}
+
+	[Test]
+	public async Task SetupGeneric_WithTypedMatchersOfSeveralParameters_ShouldMatchEachParameter()
+	{
+		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
+		List<string> received = [];
+		sut.Mock.SetupGeneric.Pair(It.IsAny<string>(), It.IsAny<int>()).Do((key, value) => received.Add($"{key}={value}"));
+		sut.Mock.SetupGeneric.Struct(It.IsAny<double>()).Throws<InvalidOperationException>();
+
+		sut.Pair("a", 1);
+		sut.Pair("b", "x");
+		sut.Pair(1, 1);
+		void ActDouble() => sut.Struct(2.5);
+		sut.Struct(1);
+
+		await That(received).IsEqualTo(["a=1",]);
+		await That(ActDouble).Throws<InvalidOperationException>();
+		await That(sut.Mock.VerifyGeneric.Pair(It.IsAny<int>(), It.IsAny<int>())).Once();
+		await That(sut.Mock.VerifyGeneric.Struct(It.IsAny<int>())).Once();
+	}
+
+	[Test]
+	public async Task SetupGeneric_WithATypedMatcherOfANullableValueType_ShouldMatchNull()
+	{
+		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
+		int count = 0;
+		sut.Mock.SetupGeneric.Plain(It.IsNull<int?>()).Do(() => count++);
+
+		sut.Plain<int?>(null);
+		sut.Plain<int?>(1);
+
+		await That(count).IsEqualTo(1);
+		await That(sut.Mock.VerifyGeneric.Plain(It.IsAny<int?>())).Twice();
+	}
+
+	[Test]
+	public async Task SetupGeneric_WithTypedMatchersOfParametersWhoseNamesDifferInCase_ShouldMatchEachParameter()
+	{
+		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
+		int count = 0;
+		sut.Mock.SetupGeneric.Cased(It.IsAny<int>(), It.Is(2)).Do(() => count++);
+
+		sut.Cased(1, 2);
+		sut.Cased(2, 1);
+
+		await That(count).IsEqualTo(1);
+		await That(sut.Mock.VerifyGeneric.Cased(It.IsAny<int>(), It.IsAny<int>())).Twice();
+	}
+
+	[Test]
 	public async Task SetupGeneric_ShouldKeepTheTypeOfAParameterThatDoesNotDependOnATypeArgument()
 	{
 		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
