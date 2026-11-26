@@ -53,6 +53,7 @@ An `IIncrementalGenerator` (`MockGenerator.cs`, `netstandard2.0`).
 | `Mockolate0001` | `UseVerificationAnalyzer` | A verification result must be used (code fix: `UseVerificationCodeFixProvider`) |
 | `Mockolate0002` | `MockabilityAnalyzer` | The type passed to `CreateMock()` or `Implementing<T>()` must be mockable |
 | `Mockolate0003` | `MockabilityAnalyzer` | A ref struct is used in a shape without setup surface, or the compilation lacks .NET 9 or C# 13 (descriptor declared in the analyzer instead of `Rules.cs` to avoid RS2002) |
+| `Mockolate1001`, `Mockolate1002` | `AsDefaultSuppressor` | Suppresses IDE0060 and xUnit1026 for an unused `[AsDefault]` parameter of a test with a mock data source attribute |
 
 ## How the Pieces Connect
 

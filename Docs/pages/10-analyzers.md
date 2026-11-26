@@ -279,15 +279,15 @@ Remove the marker from all but one parameter of each type, and remove either `[A
 
 **IDE0060 is suppressed for an `[AsDefault]` parameter.**
 
-[IDE0060](https://learn.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/ide0060) reports a parameter that the method does not use. An [`[AsDefault]`](08-advanced-features/07-mock-test-parameters.md#return-a-parameter-from-the-other-mocks) parameter of a test with `AutoMockArguments` is used anyway, because the other mocks return it, so Mockolate suppresses IDE0060 for it:
+[IDE0060](https://learn.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/ide0060) reports a parameter that the method does not use. An [`[AsDefault]`](08-advanced-features/07-mock-test-parameters.md#return-a-parameter-from-the-other-mocks) parameter of a test with `AutoMockArguments` may be used without the test method referencing it, because the other mocks can return it, here `machine.Dispenser`, so Mockolate suppresses IDE0060 for it:
 
 ```csharp
 [Test]
 [AutoMockArguments]
-public async Task Buy_WithoutStock_ShouldFail(VendingMachine sut,
+public async Task Dispense_WithoutSetup_ShouldFail(IVendingMachine machine,
     [AsDefault] IChocolateDispenser dispenser) // no IDE0060
 {
-    await That(sut.Buy("Dark", 4)).IsEqualTo("Sold out");
+    await That(machine.Dispenser.Dispense("Dark", 4)).IsFalse();
 }
 ```
 
@@ -302,10 +302,10 @@ The xUnit analyzers report [xUnit1026](https://xunit.net/xunit.analyzers/rules/x
 ```csharp
 [Theory]
 [AutoMockArguments]
-public async Task Buy_WithoutStock_ShouldFail(VendingMachine sut,
+public async Task Dispense_WithoutSetup_ShouldFail(IVendingMachine machine,
     [AsDefault] IChocolateDispenser dispenser) // no xUnit1026
 {
-    await That(sut.Buy("Dark", 4)).IsEqualTo("Sold out");
+    await That(machine.Dispenser.Dispense("Dark", 4)).IsFalse();
 }
 ```
 

@@ -36,7 +36,7 @@ public static class Rules
 
 	/// <summary>
 	///     The unused parameter diagnostics (IDE0060 and xUnit1026) that are suppressed for an <c>[AsDefault]</c>
-	///     parameter, which the other mocks return.
+	///     parameter, which the other mocks may return.
 	/// </summary>
 	public static readonly ImmutableArray<SuppressionDescriptor> AsDefaultSuppressions =
 	[

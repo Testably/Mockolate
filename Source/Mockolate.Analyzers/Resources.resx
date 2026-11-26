@@ -309,7 +309,8 @@
 		<comment>Completes Mockolate0011MessageFormat.</comment>
 	</data>
 	<data name="AsDefaultSuppressionJustification" xml:space="preserve">
-		<value>The [AsDefault] parameter is returned by the other mocks of the test case.</value>
+		<value>The other mocks of the test case may return the [AsDefault] parameter.</value>
+		<comment>The justification of the suppressions Mockolate1001 (IDE0060) and Mockolate1002 (xUnit1026).</comment>
 	</data>
 	<data name="UnionArgumentCodeFixTitle" xml:space="preserve">
 		<value>Add the explicit type '{0}'</value>

@@ -60,7 +60,7 @@ namespace Mockolate.Analyzers {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The [AsDefault] parameter is returned by the other mocks of the test case..
+        ///   Looks up a localized string similar to The other mocks of the test case may return the [AsDefault] parameter..
         /// </summary>
         internal static string AsDefaultSuppressionJustification {
             get {

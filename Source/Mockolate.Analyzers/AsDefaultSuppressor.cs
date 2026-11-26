@@ -9,7 +9,7 @@ namespace Mockolate.Analyzers;
 /// <summary>
 ///     A suppressor that silences the unused parameter diagnostics IDE0060 and xUnit1026 for an <c>[AsDefault]</c>
 ///     parameter of a test method with an attribute that implements <c>Mockolate.Internals.IMockDataSource</c>,
-///     because the other mocks of the test case return the parameter.
+///     because the other mocks of the test case may return the parameter.
 /// </summary>
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public sealed class AsDefaultSuppressor : DiagnosticSuppressor
