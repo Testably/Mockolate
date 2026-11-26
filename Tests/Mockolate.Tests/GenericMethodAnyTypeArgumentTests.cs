@@ -367,6 +367,125 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
+	public async Task ParameterNamesOfGeneratedLocals_ShouldNotClash()
+	{
+		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
+		int count = 0;
+		sut.Mock.SetupGeneric.Collide(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<object>()).Do(() => count++);
+
+		sut.Collide("a", "b", "c");
+		sut.Collide(1, 2, 3);
+
+		await That(count).IsEqualTo(1);
+		await That(sut.Mock.VerifyGeneric.Collide(It.IsAny<object>(), It.IsAny<object>(), It.IsAny<object>())).Twice();
+	}
+
+	[Test]
+	public async Task OverloadsWithAnotherNumberOfTypeParameters_ShouldBeToldApart()
+	{
+		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
+		IVoidMethodSetupWithCallback<object?> one = sut.Mock.SetupGeneric.Arity(It.IsAny<object>());
+		IVoidMethodSetupWithCallback<int> two = sut.Mock.SetupGeneric.Arity(It.IsAny<int>());
+
+		sut.Arity<string, string>(5);
+
+		await That(sut.Mock.VerifyGeneric.Arity(It.IsAny<object>())).Never()
+			.Because("the call has two type arguments, unlike the overload with one type parameter");
+		await That(sut.Mock.VerifyGeneric.Arity(It.IsAny<int>())).Once();
+		await That(sut.Mock.VerifySetup(one)).Never();
+		await That(sut.Mock.VerifySetup(two)).Once();
+	}
+
+	[Test]
+	public async Task OverloadsThatDifferInANullableValueType_ShouldBothBeOffered()
+	{
+		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
+
+		sut.Nullable<string>(1);
+		sut.Nullable<string>((int?)null);
+
+		await That(sut.Mock.VerifyGeneric.Nullable(It.IsAny<int>())).Once();
+		await That(sut.Mock.VerifyGeneric.Nullable(It.Is<int?>(null))).Once();
+	}
+
+	[Test]
+	public async Task Combination_WithAnotherNameForTheTypeParameter_ShouldApplyTheSetup()
+	{
+		GenericMethodAnyTypeArgumentImplementor sut = GenericMethodAnyTypeArgumentImplementor.CreateMock()
+			.Implementing<IGenericMethodAnyTypeArgumentImplemented>();
+		sut.Mock.As<IGenericMethodAnyTypeArgumentImplemented>().SetupGeneric.Generic(Match.AnyParameters())
+			.Throws<InvalidOperationException>();
+
+		void Act() => ((IGenericMethodAnyTypeArgumentImplemented)sut).Generic(1);
+
+		await That(Act).Throws<InvalidOperationException>()
+			.Because("the name of a setup for any type argument does not depend on the names of the type parameters");
+	}
+
+	[Test]
+	public async Task SetupProtectedGeneric_ShouldSetUpAndVerifyEveryTypeArgument()
+	{
+		GenericMethodAnyTypeArgumentBase sut = GenericMethodAnyTypeArgumentBase.CreateMock();
+		sut.Mock.SetupProtectedGeneric.Protected(It.IsAny<string>()).Throws<InvalidOperationException>();
+
+		void Act() => sut.CallProtected("a");
+		int result = sut.CallProtected(1);
+
+		await That(Act).Throws<InvalidOperationException>();
+		await That(result).IsEqualTo(42);
+		await That(sut.Mock.VerifyProtectedGeneric.Protected(Match.AnyParameters())).Twice();
+		await That(sut.Mock.VerifyProtectedGeneric.Protected(It.IsAny<string>())).Once();
+	}
+
+	[Test]
+	public async Task SetupGeneric_InScenario_ShouldOnlyApplyInTheScenario()
+	{
+		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
+		List<string> received = [];
+		sut.Mock.InScenario("special").SetupGeneric.Plain(Match.AnyParameters()).Do(() => received.Add("special"));
+		sut.Mock.SetupGeneric.Plain(Match.AnyParameters()).Do(() => received.Add("default"));
+
+		sut.Plain("a");
+		sut.Mock.TransitionTo("special");
+		sut.Plain(1);
+
+		await That(received).IsEqualTo(["default", "special",]);
+	}
+
+	[Test]
+	public async Task SetupProtectedGeneric_InScenario_ShouldOnlyApplyInTheScenario()
+	{
+		GenericMethodAnyTypeArgumentBase sut = GenericMethodAnyTypeArgumentBase.CreateMock();
+		sut.Mock.InScenario("special").SetupProtectedGeneric.Protected(Match.AnyParameters())
+			.Throws<InvalidOperationException>();
+
+		int result = sut.CallProtected("a");
+		sut.Mock.TransitionTo("special");
+		void Act() => sut.CallProtected("a");
+
+		await That(result).IsEqualTo(42);
+		await That(Act).Throws<InvalidOperationException>();
+	}
+
+	[Test]
+	public async Task VerifyGeneric_OnAMonitor_ShouldOnlyCountTheMonitoredCalls()
+	{
+		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
+		global::Mockolate.Monitor.MockMonitor<global::Mockolate.Mock.IMockVerifyForIGenericMethodAnyTypeArgument> monitor =
+			sut.Mock.Monitor();
+
+		sut.Plain("a");
+		using (monitor.Run())
+		{
+			sut.Plain("b");
+			sut.Plain(1);
+		}
+
+		await That(monitor.VerifyGeneric.Plain(Match.AnyParameters())).Twice();
+		await That(monitor.VerifyGeneric.Plain(It.IsAny<string>())).Once();
+	}
+
+	[Test]
 	public async Task VerifyGeneric_WhenVerificationFails_ShouldDescribeTheMatcher()
 	{
 		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();

@@ -247,18 +247,15 @@ public abstract class VoidMethodSetup : MethodSetup,
 	/// </summary>
 	public class WithParameterCollectionForAnyTypeArguments : WithParameterCollection, IGenericMethodSetup
 	{
-		private readonly string _namePrefix;
-
 		/// <inheritdoc cref="VoidMethodSetup" />
 		public WithParameterCollectionForAnyTypeArguments(MockRegistry mockRegistry, string name)
 			: base(mockRegistry, name)
 		{
-			_namePrefix = GenericMethodInvocations.GetNamePrefix(name);
 		}
 
 		/// <inheritdoc cref="MethodSetup.MatchesInteraction(IMethodInteraction)" />
 		protected override bool MatchesInteraction(IMethodInteraction interaction)
-			=> GenericMethodInvocations.TryGetInvocation(interaction, _namePrefix, 0, out _);
+			=> GenericMethodInvocations.TryGetInvocation(interaction, Name, 0, out _);
 	}
 }
 
@@ -629,19 +626,16 @@ public abstract class VoidMethodSetup<T1> : MethodSetup,
 	/// </summary>
 	public class WithParametersForAnyTypeArguments : WithParameters, IGenericMethodSetup
 	{
-		private readonly string _namePrefix;
-
 		/// <inheritdoc cref="VoidMethodSetup{T1}" />
 		public WithParametersForAnyTypeArguments(MockRegistry mockRegistry, string name, IParameters parameters,
 			string parameterName1)
 			: base(mockRegistry, name, parameters, parameterName1)
 		{
-			_namePrefix = GenericMethodInvocations.GetNamePrefix(name);
 		}
 
 		/// <inheritdoc cref="MethodSetup.MatchesInteraction(IMethodInteraction)" />
 		protected override bool MatchesInteraction(IMethodInteraction interaction)
-			=> GenericMethodInvocations.TryGetInvocation(interaction, _namePrefix, 1, out IMethodInvocationParameters invocation) &&
+			=> GenericMethodInvocations.TryGetInvocation(interaction, Name, 1, out IMethodInvocationParameters invocation) &&
 			   GenericMethodInvocations.TryGetValue(invocation, 0, out T1 p1Value) &&
 			   Matches(p1Value);
 	}
@@ -652,19 +646,16 @@ public abstract class VoidMethodSetup<T1> : MethodSetup,
 	/// </summary>
 	public class WithParameterCollectionForAnyTypeArguments : WithParameterCollection, IGenericMethodSetup
 	{
-		private readonly string _namePrefix;
-
 		/// <inheritdoc cref="VoidMethodSetup{T1}" />
 		public WithParameterCollectionForAnyTypeArguments(MockRegistry mockRegistry, string name,
 			IParameterMatch<T1> parameter1)
 			: base(mockRegistry, name, parameter1)
 		{
-			_namePrefix = GenericMethodInvocations.GetNamePrefix(name);
 		}
 
 		/// <inheritdoc cref="MethodSetup.MatchesInteraction(IMethodInteraction)" />
 		protected override bool MatchesInteraction(IMethodInteraction interaction)
-			=> GenericMethodInvocations.TryGetInvocation(interaction, _namePrefix, 1, out IMethodInvocationParameters invocation) &&
+			=> GenericMethodInvocations.TryGetInvocation(interaction, Name, 1, out IMethodInvocationParameters invocation) &&
 			   GenericMethodInvocations.TryGetValue(invocation, 0, out T1 p1Value) &&
 			   Matches(p1Value);
 	}
@@ -1057,19 +1048,16 @@ public abstract class VoidMethodSetup<T1, T2> : MethodSetup,
 	/// </summary>
 	public class WithParametersForAnyTypeArguments : WithParameters, IGenericMethodSetup
 	{
-		private readonly string _namePrefix;
-
 		/// <inheritdoc cref="VoidMethodSetup{T1, T2}" />
 		public WithParametersForAnyTypeArguments(MockRegistry mockRegistry, string name, IParameters parameters,
 			string parameterName1, string parameterName2)
 			: base(mockRegistry, name, parameters, parameterName1, parameterName2)
 		{
-			_namePrefix = GenericMethodInvocations.GetNamePrefix(name);
 		}
 
 		/// <inheritdoc cref="MethodSetup.MatchesInteraction(IMethodInteraction)" />
 		protected override bool MatchesInteraction(IMethodInteraction interaction)
-			=> GenericMethodInvocations.TryGetInvocation(interaction, _namePrefix, 2, out IMethodInvocationParameters invocation) &&
+			=> GenericMethodInvocations.TryGetInvocation(interaction, Name, 2, out IMethodInvocationParameters invocation) &&
 			   GenericMethodInvocations.TryGetValue(invocation, 0, out T1 p1Value) &&
 			   GenericMethodInvocations.TryGetValue(invocation, 1, out T2 p2Value) &&
 			   Matches(p1Value, p2Value);
@@ -1081,19 +1069,16 @@ public abstract class VoidMethodSetup<T1, T2> : MethodSetup,
 	/// </summary>
 	public class WithParameterCollectionForAnyTypeArguments : WithParameterCollection, IGenericMethodSetup
 	{
-		private readonly string _namePrefix;
-
 		/// <inheritdoc cref="VoidMethodSetup{T1, T2}" />
 		public WithParameterCollectionForAnyTypeArguments(MockRegistry mockRegistry, string name,
 			IParameterMatch<T1> parameter1, IParameterMatch<T2> parameter2)
 			: base(mockRegistry, name, parameter1, parameter2)
 		{
-			_namePrefix = GenericMethodInvocations.GetNamePrefix(name);
 		}
 
 		/// <inheritdoc cref="MethodSetup.MatchesInteraction(IMethodInteraction)" />
 		protected override bool MatchesInteraction(IMethodInteraction interaction)
-			=> GenericMethodInvocations.TryGetInvocation(interaction, _namePrefix, 2, out IMethodInvocationParameters invocation) &&
+			=> GenericMethodInvocations.TryGetInvocation(interaction, Name, 2, out IMethodInvocationParameters invocation) &&
 			   GenericMethodInvocations.TryGetValue(invocation, 0, out T1 p1Value) &&
 			   GenericMethodInvocations.TryGetValue(invocation, 1, out T2 p2Value) &&
 			   Matches(p1Value, p2Value);
@@ -1504,19 +1489,16 @@ public abstract class VoidMethodSetup<T1, T2, T3> : MethodSetup,
 	/// </summary>
 	public class WithParametersForAnyTypeArguments : WithParameters, IGenericMethodSetup
 	{
-		private readonly string _namePrefix;
-
 		/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3}" />
 		public WithParametersForAnyTypeArguments(MockRegistry mockRegistry, string name, IParameters parameters,
 			string parameterName1, string parameterName2, string parameterName3)
 			: base(mockRegistry, name, parameters, parameterName1, parameterName2, parameterName3)
 		{
-			_namePrefix = GenericMethodInvocations.GetNamePrefix(name);
 		}
 
 		/// <inheritdoc cref="MethodSetup.MatchesInteraction(IMethodInteraction)" />
 		protected override bool MatchesInteraction(IMethodInteraction interaction)
-			=> GenericMethodInvocations.TryGetInvocation(interaction, _namePrefix, 3, out IMethodInvocationParameters invocation) &&
+			=> GenericMethodInvocations.TryGetInvocation(interaction, Name, 3, out IMethodInvocationParameters invocation) &&
 			   GenericMethodInvocations.TryGetValue(invocation, 0, out T1 p1Value) &&
 			   GenericMethodInvocations.TryGetValue(invocation, 1, out T2 p2Value) &&
 			   GenericMethodInvocations.TryGetValue(invocation, 2, out T3 p3Value) &&
@@ -1529,19 +1511,16 @@ public abstract class VoidMethodSetup<T1, T2, T3> : MethodSetup,
 	/// </summary>
 	public class WithParameterCollectionForAnyTypeArguments : WithParameterCollection, IGenericMethodSetup
 	{
-		private readonly string _namePrefix;
-
 		/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3}" />
 		public WithParameterCollectionForAnyTypeArguments(MockRegistry mockRegistry, string name,
 			IParameterMatch<T1> parameter1, IParameterMatch<T2> parameter2, IParameterMatch<T3> parameter3)
 			: base(mockRegistry, name, parameter1, parameter2, parameter3)
 		{
-			_namePrefix = GenericMethodInvocations.GetNamePrefix(name);
 		}
 
 		/// <inheritdoc cref="MethodSetup.MatchesInteraction(IMethodInteraction)" />
 		protected override bool MatchesInteraction(IMethodInteraction interaction)
-			=> GenericMethodInvocations.TryGetInvocation(interaction, _namePrefix, 3, out IMethodInvocationParameters invocation) &&
+			=> GenericMethodInvocations.TryGetInvocation(interaction, Name, 3, out IMethodInvocationParameters invocation) &&
 			   GenericMethodInvocations.TryGetValue(invocation, 0, out T1 p1Value) &&
 			   GenericMethodInvocations.TryGetValue(invocation, 1, out T2 p2Value) &&
 			   GenericMethodInvocations.TryGetValue(invocation, 2, out T3 p3Value) &&
@@ -1967,19 +1946,16 @@ public abstract class VoidMethodSetup<T1, T2, T3, T4> : MethodSetup,
 	/// </summary>
 	public class WithParametersForAnyTypeArguments : WithParameters, IGenericMethodSetup
 	{
-		private readonly string _namePrefix;
-
 		/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3, T4}" />
 		public WithParametersForAnyTypeArguments(MockRegistry mockRegistry, string name, IParameters parameters,
 			string parameterName1, string parameterName2, string parameterName3, string parameterName4)
 			: base(mockRegistry, name, parameters, parameterName1, parameterName2, parameterName3, parameterName4)
 		{
-			_namePrefix = GenericMethodInvocations.GetNamePrefix(name);
 		}
 
 		/// <inheritdoc cref="MethodSetup.MatchesInteraction(IMethodInteraction)" />
 		protected override bool MatchesInteraction(IMethodInteraction interaction)
-			=> GenericMethodInvocations.TryGetInvocation(interaction, _namePrefix, 4, out IMethodInvocationParameters invocation) &&
+			=> GenericMethodInvocations.TryGetInvocation(interaction, Name, 4, out IMethodInvocationParameters invocation) &&
 			   GenericMethodInvocations.TryGetValue(invocation, 0, out T1 p1Value) &&
 			   GenericMethodInvocations.TryGetValue(invocation, 1, out T2 p2Value) &&
 			   GenericMethodInvocations.TryGetValue(invocation, 2, out T3 p3Value) &&
@@ -1993,20 +1969,17 @@ public abstract class VoidMethodSetup<T1, T2, T3, T4> : MethodSetup,
 	/// </summary>
 	public class WithParameterCollectionForAnyTypeArguments : WithParameterCollection, IGenericMethodSetup
 	{
-		private readonly string _namePrefix;
-
 		/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3, T4}" />
 		public WithParameterCollectionForAnyTypeArguments(MockRegistry mockRegistry, string name,
 			IParameterMatch<T1> parameter1, IParameterMatch<T2> parameter2, IParameterMatch<T3> parameter3,
 			IParameterMatch<T4> parameter4)
 			: base(mockRegistry, name, parameter1, parameter2, parameter3, parameter4)
 		{
-			_namePrefix = GenericMethodInvocations.GetNamePrefix(name);
 		}
 
 		/// <inheritdoc cref="MethodSetup.MatchesInteraction(IMethodInteraction)" />
 		protected override bool MatchesInteraction(IMethodInteraction interaction)
-			=> GenericMethodInvocations.TryGetInvocation(interaction, _namePrefix, 4, out IMethodInvocationParameters invocation) &&
+			=> GenericMethodInvocations.TryGetInvocation(interaction, Name, 4, out IMethodInvocationParameters invocation) &&
 			   GenericMethodInvocations.TryGetValue(invocation, 0, out T1 p1Value) &&
 			   GenericMethodInvocations.TryGetValue(invocation, 1, out T2 p2Value) &&
 			   GenericMethodInvocations.TryGetValue(invocation, 2, out T3 p3Value) &&

@@ -90,20 +90,22 @@ public partial class MockRegistry
 	/// </summary>
 	/// <typeparam name="T">The verification facade type; returned to the caller so chaining can continue.</typeparam>
 	/// <param name="subject">The verification facade the result is bound to.</param>
-	/// <param name="genericMethodName">The name of the open generic method (e.g. <c>"Send&lt;T&gt;"</c>).</param>
+	/// <param name="genericMethodName">
+	///     The name of the open generic method with a comma for each further type parameter (e.g.
+	///     <c>"Send&lt;,&gt;"</c>).
+	/// </param>
 	/// <param name="parameterCount">The number of parameters of the method.</param>
 	/// <param name="predicate">Argument predicate applied to each call of the method.</param>
 	/// <param name="expectation">Factory producing the expectation description used in failure messages.</param>
 	public VerificationResult<T> VerifyGenericMethod<T>(T subject, string genericMethodName, int parameterCount,
 		Func<IMethodInvocationParameters, bool> predicate, Func<string> expectation)
 	{
-		string prefix = GenericMethodInvocations.GetNamePrefix(genericMethodName);
 		return new VerificationResult<T>(subject, Interactions, Predicate, InvokedMethodExpectation(expectation));
 
 		[DebuggerNonUserCode]
 		bool Predicate(IInteraction interaction)
 		{
-			return GenericMethodInvocations.TryGetInvocation(interaction, prefix, parameterCount,
+			return GenericMethodInvocations.TryGetInvocation(interaction, genericMethodName, parameterCount,
 				       out IMethodInvocationParameters invocation) &&
 			       predicate(invocation);
 		}

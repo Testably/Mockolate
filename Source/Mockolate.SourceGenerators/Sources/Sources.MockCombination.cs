@@ -173,7 +173,7 @@ internal static partial class Sources
 
 		string[]? adapterIgnoredNames = GetAdapterIgnoredNames(allMemberClasses);
 		string? adapterClearHook = GetAdapterClearHook(allMemberClasses);
-		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, adapterIgnoredNames, adapterClearHook, constructorArgumentsName, @class.DisplayString, HasGenericFacadeMethods(@class));
+		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, adapterIgnoredNames, adapterClearHook, constructorArgumentsName, @class.DisplayString, HasGenericFacadeMethods(@class, MemberType.Public), HasGenericFacadeMethods(@class, MemberType.Protected));
 		foreach ((string additionalInterfaceName, Class additionalInterface) in additionalInterfaces)
 		{
 			ImplementMockForInterface(sb, mockRegistryName, additionalInterfaceName,
@@ -182,7 +182,7 @@ internal static partial class Sources
 				false /* Interfaces cannot have protected events */,
 				additionalInterface.AllMethods().Any(x => x.IsStatic) || additionalInterface.AllProperties().Any(x => x.IsStatic),
 				additionalInterface.AllEvents().Any(x => x.IsStatic),
-				adapterIgnoredNames, adapterClearHook, hasGenericMethods: HasGenericFacadeMethods(additionalInterface));
+				adapterIgnoredNames, adapterClearHook, hasGenericMethods: HasGenericFacadeMethods(additionalInterface, MemberType.Public));
 		}
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();

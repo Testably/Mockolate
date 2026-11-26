@@ -873,21 +873,17 @@ internal static partial class Sources
 			sb.Append("\t\tinternal class ").Append(className).Append(" : ").Append(baseClassName)
 				.Append(", global::Mockolate.Internals.IGenericMethodSetup").AppendLine();
 			sb.Append("\t\t{").AppendLine();
-			sb.Append("\t\t\tprivate readonly string _namePrefix;").AppendLine();
-			sb.AppendLine();
 			sb.Append("\t\t\t/// <inheritdoc cref=\"VoidMethodSetup{").Append(typeParams).Append("}\" />").AppendLine();
 			sb.Append("\t\t\tpublic ").Append(className)
 				.Append("(global::Mockolate.Internals.MockRegistry mockRegistry, string name").Append(constructorParameters)
 				.Append(')').AppendLine();
 			sb.Append("\t\t\t\t: base(mockRegistry, name").Append(constructorArguments).Append(')').AppendLine();
 			sb.Append("\t\t\t{").AppendLine();
-			sb.Append("\t\t\t\t_namePrefix = global::Mockolate.Internals.GenericMethodInvocations.GetNamePrefix(name);")
-				.AppendLine();
 			sb.Append("\t\t\t}").AppendLine();
 			sb.AppendLine();
 			sb.Append("\t\t\t/// <inheritdoc cref=\"global::Mockolate.Setup.MethodSetup.MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction)\" />").AppendLine();
 			sb.Append("\t\t\tprotected override bool MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction interaction)").AppendLine();
-			sb.Append("\t\t\t\t=> global::Mockolate.Internals.GenericMethodInvocations.TryGetInvocation(interaction, _namePrefix, ")
+			sb.Append("\t\t\t\t=> global::Mockolate.Internals.GenericMethodInvocations.TryGetInvocation(interaction, Name, ")
 				.Append(numberOfParameters).Append(", out global::Mockolate.Internals.IMethodInvocationParameters invocation)");
 			for (int i = 1; i <= numberOfParameters; i++)
 			{

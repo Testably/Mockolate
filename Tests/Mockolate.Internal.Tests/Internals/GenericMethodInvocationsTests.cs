@@ -7,32 +7,40 @@ namespace Mockolate.Internal.Tests.Internals;
 public sealed class GenericMethodInvocationsTests
 {
 	[Test]
-	[Arguments("Ns.IFoo.Send<T>", "Ns.IFoo.Send<")]
-	[Arguments("Ns.IFoo<int>.Send<T1, T2>", "Ns.IFoo<int>.Send<")]
-	public async Task GetNamePrefix_ShouldEndAfterTheLastAngleBracket(string genericMethodName, string expected)
-	{
-		string prefix = GenericMethodInvocations.GetNamePrefix(genericMethodName);
-
-		await That(prefix).IsEqualTo(expected);
-	}
-
-	[Test]
-	public async Task TryGetInvocation_ShouldRequireTheNamePrefixAndTheParameterCount()
+	public async Task TryGetInvocation_ShouldRequireTheNameAndTheParameterCount()
 	{
 		MethodInvocation<int, string> invocation = new("Ns.IFoo.Send<System.Int32>", 1, "a");
 
-		bool matching = GenericMethodInvocations.TryGetInvocation(invocation, "Ns.IFoo.Send<", 2,
+		bool matching = GenericMethodInvocations.TryGetInvocation(invocation, "Ns.IFoo.Send<>", 2,
 			out IMethodInvocationParameters result);
-		bool otherName = GenericMethodInvocations.TryGetInvocation(invocation, "Ns.IFoo.Get<", 2, out _);
-		bool otherCount = GenericMethodInvocations.TryGetInvocation(invocation, "Ns.IFoo.Send<", 1, out _);
-		bool noMethod = GenericMethodInvocations.TryGetInvocation(new PropertyGetterAccess("Ns.IFoo.Send<"),
-			"Ns.IFoo.Send<", 0, out _);
+		bool otherName = GenericMethodInvocations.TryGetInvocation(invocation, "Ns.IFoo.Get<>", 2, out _);
+		bool otherCount = GenericMethodInvocations.TryGetInvocation(invocation, "Ns.IFoo.Send<>", 1, out _);
+		bool noMethod = GenericMethodInvocations.TryGetInvocation(new PropertyGetterAccess("Ns.IFoo.Send<>"),
+			"Ns.IFoo.Send<>", 0, out _);
 
 		await That(matching).IsTrue();
 		await That(result).IsSameAs(invocation);
 		await That(otherName).IsFalse();
 		await That(otherCount).IsFalse();
 		await That(noMethod).IsFalse();
+	}
+
+	[Test]
+	[Arguments("Ns.IFoo.Send<System.Int32>", "Ns.IFoo.Send<>", true)]
+	[Arguments("Ns.IFoo.Send<System.Int32, System.String>", "Ns.IFoo.Send<>", false)]
+	[Arguments("Ns.IFoo.Send<System.Int32, System.String>", "Ns.IFoo.Send<,>", true)]
+	[Arguments("Ns.IFoo.Send<System.Collections.Generic.Dictionary`2[System.Int32,System.String]>", "Ns.IFoo.Send<>", true)]
+	[Arguments("Ns.IFoo<System.Int32, System.String>.Send<System.Int32>", "Ns.IFoo<System.Int32, System.String>.Send<>", true)]
+	[Arguments("Ns.IFoo.Send<", "Ns.IFoo.Send<>", false)]
+	public async Task TryGetInvocation_ShouldCountTheTypeArgumentsOfTheMethod(string name, string genericMethodName,
+		bool expected)
+	{
+		MethodInvocation<int> invocation = new(name, 1);
+
+		bool result = GenericMethodInvocations.TryGetInvocation(invocation, genericMethodName, 1, out _);
+
+		await That(result).IsEqualTo(expected)
+			.Because("a comma inside the name of a generic type argument does not separate type arguments");
 	}
 
 	[Test]

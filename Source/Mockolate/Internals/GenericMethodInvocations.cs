@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel;
 using Mockolate.Interactions;
 using Mockolate.Parameters;
@@ -6,30 +5,28 @@ using Mockolate.Parameters;
 namespace Mockolate.Internals;
 
 /// <summary>
-///     Recognizes the recorded calls of a generic method for any type argument: their names start with the name of the
-///     open method up to the last <c>&lt;</c>, as the type arguments of the method follow it and those of a generic
-///     containing type precede it.
+///     Recognizes the recorded calls of a generic method for any type argument.
 /// </summary>
 /// <remarks>
+///     The name of the open method marks each type parameter with a comma, e.g. <c>Ns.IFoo.Send&lt;,&gt;</c> for two
+///     type parameters. A call is recorded with the type arguments in their place, e.g.
+///     <c>Ns.IFoo.Send&lt;System.String, System.Int32&gt;</c>, so its name starts with the name of the open method up to
+///     the last <c>&lt;</c>, as the type arguments of a generic containing type precede it, and lists as many type
+///     arguments.
+///     <para />
 ///     This type is public only so that generated code can use it; it is not intended to be used directly.
 /// </remarks>
 [EditorBrowsable(EditorBrowsableState.Never)]
 public static class GenericMethodInvocations
 {
 	/// <summary>
-	///     Gets the start of the names of the calls of the open generic method <paramref name="genericMethodName" />.
+	///     Checks whether <paramref name="interaction" /> is a call of the open generic method
+	///     <paramref name="genericMethodName" /> with <paramref name="parameterCount" /> parameters.
 	/// </summary>
-	public static string GetNamePrefix(string genericMethodName)
-		=> genericMethodName.Substring(0, genericMethodName.LastIndexOf('<') + 1);
-
-	/// <summary>
-	///     Checks whether <paramref name="interaction" /> is a call with <paramref name="parameterCount" /> parameters
-	///     whose name starts with <paramref name="namePrefix" />.
-	/// </summary>
-	public static bool TryGetInvocation(IInteraction interaction, string namePrefix, int parameterCount,
+	public static bool TryGetInvocation(IInteraction interaction, string genericMethodName, int parameterCount,
 		out IMethodInvocationParameters invocation)
 	{
-		if (interaction is IMethodInteraction method && method.Name.StartsWith(namePrefix, StringComparison.Ordinal) &&
+		if (interaction is IMethodInteraction method && IsCallOf(method.Name, genericMethodName) &&
 		    interaction is IMethodInvocationParameters parameters && parameters.ParameterCount == parameterCount)
 		{
 			invocation = parameters;
@@ -38,6 +35,27 @@ public static class GenericMethodInvocations
 
 		invocation = null!;
 		return false;
+	}
+
+	private static bool IsCallOf(string name, string genericMethodName)
+	{
+		int prefixLength = genericMethodName.LastIndexOf('<') + 1;
+		if (name.Length <= prefixLength ||
+		    string.CompareOrdinal(name, 0, genericMethodName, 0, prefixLength) != 0)
+		{
+			return false;
+		}
+
+		int typeArgumentCount = 1;
+		for (int i = prefixLength; i < name.Length - 1; i++)
+		{
+			if (name[i] == ',' && name[i + 1] == ' ')
+			{
+				typeArgumentCount++;
+			}
+		}
+
+		return typeArgumentCount == genericMethodName.Length - prefixLength;
 	}
 
 	/// <summary>

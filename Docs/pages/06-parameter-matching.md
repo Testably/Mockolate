@@ -200,7 +200,9 @@ A setup for any type argument returns no value: use it to throw or to run a call
 
 A matcher for a value type, such as `It.IsAny<int>()`, does not convert to a matcher for `object`; use `It.Satisfies<object>(value => value is int)` instead.
 
-`SetupGeneric` and `VerifyGeneric` leave out protected and static methods, methods with `ref`, `out`, `in` or `params` parameters, and overloads that would share a signature without their type parameters.
+`SetupProtectedGeneric` and `VerifyProtectedGeneric` do the same for the protected generic methods of a class mock. `InScenario(...)` offers `SetupGeneric` for a scenario, and a monitor from `Monitor()` offers `VerifyGeneric` for the monitored calls.
+
+The generic entry points leave out static methods, methods with `ref`, `out`, `in` or `params` parameters, and overloads that would share a signature without their type parameters.
 
 ## String matching
 

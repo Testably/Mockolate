@@ -6,7 +6,9 @@ namespace Mockolate.Tests.GeneratorCoverage;
 ///     Generic methods of every arity, which <c>SetupGeneric</c> and <c>VerifyGeneric</c> offer for any type argument:
 ///     a parameter that depends on a type argument is matched as <see langword="object" />, any other keeps its type, and
 ///     constraints do not apply. Above four parameters the setups are generated, also the setup without a return value
-///     for a method that returns one. Overloads whose counterparts would share a signature are left out.
+///     for a method that returns one. Overloads whose counterparts would share a signature are left out, but not those
+///     that differ in a nullable value type, and calls of overloads with another number of type parameters are told
+///     apart. Parameter names do not clash with the names of the generated locals.
 /// </summary>
 public interface IGenericMethodAnyTypeArgument
 {
@@ -26,4 +28,9 @@ public interface IGenericMethodAnyTypeArgument
 	void Four<T>(T first, T second, T third, T fourth);
 	int Five<T>(T first, int second, int third, int fourth, string fifth);
 	void Six<T>(T first, T second, T third, T fourth, T fifth, T sixth);
+	void Collide<T>(T methodSetup, T invocation, T match1);
+	void Arity<T>(T value);
+	void Arity<T1, T2>(int value);
+	void Nullable<T>(int value);
+	void Nullable<T>(int? value);
 }

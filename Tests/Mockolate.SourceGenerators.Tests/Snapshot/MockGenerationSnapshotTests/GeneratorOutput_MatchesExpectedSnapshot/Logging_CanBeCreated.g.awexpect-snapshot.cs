@@ -234,14 +234,14 @@ internal static partial class Mock
 							methodSetup = t_methodSetup;
 							break;
 						}
-						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.VoidMethodSetup<object?> g_methodSetup && g_methodSetup.Name == "global::Microsoft.Extensions.Logging.ILogger.BeginScope<TState>" && g_methodSetup.Matches((object?)state))
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.VoidMethodSetup<object?> g_methodSetup && g_methodSetup.Name == "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>" && g_methodSetup.Matches((object?)state))
 						{
 							genericMethodSetup = g_methodSetup;
 							break;
 						}
 					}
 				}
-				if (methodSetup is null && genericMethodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.MethodSetup>(global::Mockolate.Mock.ILogger.MemberId_BeginScope_TState_, name_methodSetup, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<TState>") is { } fallback_methodSetup)
+				if (methodSetup is null && genericMethodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.MethodSetup>(global::Mockolate.Mock.ILogger.MemberId_BeginScope_TState_, name_methodSetup, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>") is { } fallback_methodSetup)
 				{
 					foreach (global::Mockolate.Setup.MethodSetup s_methodSetup in fallback_methodSetup)
 					{
@@ -250,7 +250,7 @@ internal static partial class Mock
 							methodSetup = t_methodSetup;
 							break;
 						}
-						if (s_methodSetup is global::Mockolate.Setup.VoidMethodSetup<object?> g_methodSetup && g_methodSetup.Name == "global::Microsoft.Extensions.Logging.ILogger.BeginScope<TState>" && g_methodSetup.Matches((object?)state))
+						if (s_methodSetup is global::Mockolate.Setup.VoidMethodSetup<object?> g_methodSetup && g_methodSetup.Name == "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>" && g_methodSetup.Matches((object?)state))
 						{
 							genericMethodSetup = g_methodSetup;
 							break;
@@ -260,14 +260,14 @@ internal static partial class Mock
 			}
 			else
 			{
-				foreach (global::Mockolate.Setup.MethodSetup s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.MethodSetup>(name_methodSetup, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<TState>"))
+				foreach (global::Mockolate.Setup.MethodSetup s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.MethodSetup>(name_methodSetup, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>"))
 				{
 					if (s_methodSetup is global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState> t_methodSetup && t_methodSetup.Name == name_methodSetup && t_methodSetup.Matches(state))
 					{
 						methodSetup = t_methodSetup;
 						break;
 					}
-					if (s_methodSetup is global::Mockolate.Setup.VoidMethodSetup<object?> g_methodSetup && g_methodSetup.Name == "global::Microsoft.Extensions.Logging.ILogger.BeginScope<TState>" && g_methodSetup.Matches((object?)state))
+					if (s_methodSetup is global::Mockolate.Setup.VoidMethodSetup<object?> g_methodSetup && g_methodSetup.Name == "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>" && g_methodSetup.Matches((object?)state))
 					{
 						genericMethodSetup = g_methodSetup;
 						break;
@@ -405,26 +405,6 @@ internal static partial class Mock
 
 		#endregion IMockSetupForILogger
 
-		#region IMockGenericSetupForILogger
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForILogger.BeginScope(global::Mockolate.Parameters.IParameters parameters)
-		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParametersForAnyTypeArguments(this.MockRegistry, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<TState>", parameters, "state");
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger.MemberId_BeginScope_TState_, methodSetup);
-			return methodSetup;
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForILogger.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
-		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<TState>", global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger.MemberId_BeginScope_TState_, methodSetup);
-			return methodSetup;
-		}
-
-		#endregion IMockGenericSetupForILogger
-
 		#region IMockVerifyForILogger
 
 		/// <inheritdoc />
@@ -506,24 +486,44 @@ internal static partial class Mock
 		}
 		#endregion IMockVerifyForILogger
 
+		#region IMockGenericSetupForILogger
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForILogger.BeginScope(global::Mockolate.Parameters.IParameters parameters)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParametersForAnyTypeArguments(this.MockRegistry, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>", parameters, "state");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger.MemberId_BeginScope_TState_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForILogger.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>", global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger.MemberId_BeginScope_TState_, methodSetup);
+			return methodSetup;
+		}
+
+		#endregion IMockGenericSetupForILogger
+
 		#region IMockGenericVerifyForILogger
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger> IMockGenericVerifyForILogger.BeginScope(global::Mockolate.Parameters.IParameters parameters)
-			=> this.MockRegistry.VerifyGenericMethod<IMockVerifyForILogger>(this, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<TState>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(parameters, invocation, "state"), () => $"BeginScope<TState>({parameters})");
+			=> this.MockRegistry.VerifyGenericMethod<IMockVerifyForILogger>(this, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(parameters, invocation, "state"), () => $"BeginScope<TState>({parameters})");
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger> IMockGenericVerifyForILogger.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
 		{
 			global::Mockolate.Parameters.IParameterMatch<object?> match1 = global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>());
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForILogger>(this, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<TState>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForILogger>(this, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		}
 
 		#endregion IMockGenericVerifyForILogger
 	}
 
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	private sealed class VerifyMonitorILogger(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyForILogger, global::Mockolate.Internals.IMockAdapterAccess
+	private sealed class VerifyMonitorILogger(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyForILogger, IMockGenericVerifyForILogger, global::Mockolate.Internals.IMockAdapterAccess
 	{
 		private global::Mockolate.Internals.MockRegistry MockRegistry { get; } = mockRegistry;
 
@@ -630,10 +630,25 @@ internal static partial class Mock
 				(__match1?.Matches(__i.Parameter1) ?? global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(state, __i.Parameter1)), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		}
 		#endregion IMockVerifyForILogger
+
+		#region IMockGenericVerifyForILogger
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger> IMockGenericVerifyForILogger.BeginScope(global::Mockolate.Parameters.IParameters parameters)
+			=> this.MockRegistry.VerifyGenericMethod<IMockVerifyForILogger>(this, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(parameters, invocation, "state"), () => $"BeginScope<TState>({parameters})");
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger> IMockGenericVerifyForILogger.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
+		{
+			global::Mockolate.Parameters.IParameterMatch<object?> match1 = global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>());
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForILogger>(this, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
+		}
+
+		#endregion IMockGenericVerifyForILogger
 	}
 
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	private sealed class MockInScenarioForILogger : global::Mockolate.Mock.IMockInScenarioForILogger, global::Mockolate.Mock.IMockSetupForILogger, global::Mockolate.Internals.IMockAdapterAccess
+	private sealed class MockInScenarioForILogger : global::Mockolate.Mock.IMockInScenarioForILogger, global::Mockolate.Mock.IMockSetupForILogger, IMockGenericSetupForILogger, global::Mockolate.Internals.IMockAdapterAccess
 	{
 		private global::Mockolate.Internals.MockRegistry MockRegistry { get; }
 		private string _scenarioName;
@@ -669,6 +684,10 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		global::Mockolate.Mock.IMockSetupForILogger global::Mockolate.Mock.IMockInScenarioForILogger.Setup
+			=> this;
+
+		/// <inheritdoc />
+		global::Mockolate.Mock.IMockGenericSetupForILogger global::Mockolate.Mock.IMockInScenarioForILogger.SetupGeneric
 			=> this;
 
 		#region IMockSetupForILogger
@@ -773,6 +792,26 @@ internal static partial class Mock
 		}
 
 		#endregion IMockSetupForILogger
+
+		#region IMockGenericSetupForILogger
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForILogger.BeginScope(global::Mockolate.Parameters.IParameters parameters)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParametersForAnyTypeArguments(this.MockRegistry, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>", parameters, "state");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger.MemberId_BeginScope_TState_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForILogger.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>", global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger.MemberId_BeginScope_TState_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		#endregion IMockGenericSetupForILogger
 	}
 
 	/// <summary>
@@ -904,6 +943,11 @@ internal static partial class Mock
 		///     Set up the mock of <see cref="global::Microsoft.Extensions.Logging.ILogger">ILogger</see> within the scenario scope.
 		/// </summary>
 		IMockSetupForILogger Setup { get; }
+
+		/// <summary>
+		///     Set up generic methods of the mock of <see cref="global::Microsoft.Extensions.Logging.ILogger">ILogger</see> for any type argument within the scenario scope.
+		/// </summary>
+		IMockGenericSetupForILogger SetupGeneric { get; }
 	}
 
 	/// <summary>
@@ -1118,7 +1162,6 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> BeginScope(global::Mockolate.Parameters.IParameter<object?>? state);
 
 	}
-
 	/// <summary>
 	///     Verify interactions with the generic methods of the mock of <see cref="global::Microsoft.Extensions.Logging.ILogger">ILogger</see> for any type argument.
 	/// </summary>
@@ -1135,7 +1178,6 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger> BeginScope(global::Mockolate.Parameters.IParameter<object?>? state);
 
 	}
-
 }
 /// <summary>
 ///     Mock extensions for <see cref="global::Microsoft.Extensions.Logging.ILogger">ILogger</see>.
@@ -1155,6 +1197,7 @@ internal static partial class MockExtensionsForILogger
 		///     <list type="bullet"><br />
 		///       <item><description><c>Setup</c> - configure how members respond when invoked (<c>Returns</c>, <c>Throws</c>, <c>Do</c>, <c>InitializeWith</c>, ...).</description></item><br />
 		///       <item><description><c>Verify</c> - assert how often (and in which order) members were invoked.</description></item><br />
+		///       <item><description><c>SetupGeneric</c> / <c>VerifyGeneric</c> (and <c>SetupProtectedGeneric</c> / <c>VerifyProtectedGeneric</c>) - target generic methods for any type argument.</description></item><br />
 		///       <item><description><c>InScenario</c> / <c>TransitionTo</c> - scope setups and behavior to a named scenario and switch between scenarios.</description></item><br />
 		///       <item><description><c>Monitor</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
 		///       <item><description><c>VerifySetup</c> - verify how often a specific setup matched.</description></item><br />
@@ -1283,6 +1326,16 @@ internal static partial class MockExtensionsForILogger
 			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");
 		}
 
+	}
+
+	/// <inheritdoc cref="MockExtensionsForILogger" />
+	extension(global::Mockolate.Monitor.MockMonitor<global::Mockolate.Mock.IMockVerifyForILogger> monitor)
+	{
+		/// <summary>
+		///     Asserts how often generic methods of the mock of <see cref="global::Microsoft.Extensions.Logging.ILogger">ILogger</see> were invoked with any type argument while the monitor was running.
+		/// </summary>
+		public global::Mockolate.Mock.IMockGenericVerifyForILogger VerifyGeneric
+			=> (global::Mockolate.Mock.IMockGenericVerifyForILogger)monitor.Verify;
 	}
 
 	/// <inheritdoc cref="MockExtensionsForILogger" />
@@ -2568,14 +2621,14 @@ internal static partial class Mock
 							methodSetup = t_methodSetup;
 							break;
 						}
-						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.VoidMethodSetup<object?> g_methodSetup && g_methodSetup.Name == "global::Microsoft.Extensions.Logging.ILogger.BeginScope<TState>" && g_methodSetup.Matches((object?)state))
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.VoidMethodSetup<object?> g_methodSetup && g_methodSetup.Name == "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>" && g_methodSetup.Matches((object?)state))
 						{
 							genericMethodSetup = g_methodSetup;
 							break;
 						}
 					}
 				}
-				if (methodSetup is null && genericMethodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.MethodSetup>(global::Mockolate.Mock.ILogger_Program.MemberId_BeginScope_TState_, name_methodSetup, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<TState>") is { } fallback_methodSetup)
+				if (methodSetup is null && genericMethodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.MethodSetup>(global::Mockolate.Mock.ILogger_Program.MemberId_BeginScope_TState_, name_methodSetup, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>") is { } fallback_methodSetup)
 				{
 					foreach (global::Mockolate.Setup.MethodSetup s_methodSetup in fallback_methodSetup)
 					{
@@ -2584,7 +2637,7 @@ internal static partial class Mock
 							methodSetup = t_methodSetup;
 							break;
 						}
-						if (s_methodSetup is global::Mockolate.Setup.VoidMethodSetup<object?> g_methodSetup && g_methodSetup.Name == "global::Microsoft.Extensions.Logging.ILogger.BeginScope<TState>" && g_methodSetup.Matches((object?)state))
+						if (s_methodSetup is global::Mockolate.Setup.VoidMethodSetup<object?> g_methodSetup && g_methodSetup.Name == "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>" && g_methodSetup.Matches((object?)state))
 						{
 							genericMethodSetup = g_methodSetup;
 							break;
@@ -2594,14 +2647,14 @@ internal static partial class Mock
 			}
 			else
 			{
-				foreach (global::Mockolate.Setup.MethodSetup s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.MethodSetup>(name_methodSetup, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<TState>"))
+				foreach (global::Mockolate.Setup.MethodSetup s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.MethodSetup>(name_methodSetup, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>"))
 				{
 					if (s_methodSetup is global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState> t_methodSetup && t_methodSetup.Name == name_methodSetup && t_methodSetup.Matches(state))
 					{
 						methodSetup = t_methodSetup;
 						break;
 					}
-					if (s_methodSetup is global::Mockolate.Setup.VoidMethodSetup<object?> g_methodSetup && g_methodSetup.Name == "global::Microsoft.Extensions.Logging.ILogger.BeginScope<TState>" && g_methodSetup.Matches((object?)state))
+					if (s_methodSetup is global::Mockolate.Setup.VoidMethodSetup<object?> g_methodSetup && g_methodSetup.Name == "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>" && g_methodSetup.Matches((object?)state))
 					{
 						genericMethodSetup = g_methodSetup;
 						break;
@@ -2739,26 +2792,6 @@ internal static partial class Mock
 
 		#endregion IMockSetupForILogger_Program
 
-		#region IMockGenericSetupForILogger_Program
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForILogger_Program.BeginScope(global::Mockolate.Parameters.IParameters parameters)
-		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParametersForAnyTypeArguments(this.MockRegistry, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<TState>", parameters, "state");
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger_Program.MemberId_BeginScope_TState_, methodSetup);
-			return methodSetup;
-		}
-
-		/// <inheritdoc />
-		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForILogger_Program.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
-		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<TState>", global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
-			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger_Program.MemberId_BeginScope_TState_, methodSetup);
-			return methodSetup;
-		}
-
-		#endregion IMockGenericSetupForILogger_Program
-
 		#region IMockVerifyForILogger_Program
 
 		/// <inheritdoc />
@@ -2840,24 +2873,44 @@ internal static partial class Mock
 		}
 		#endregion IMockVerifyForILogger_Program
 
+		#region IMockGenericSetupForILogger_Program
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForILogger_Program.BeginScope(global::Mockolate.Parameters.IParameters parameters)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParametersForAnyTypeArguments(this.MockRegistry, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>", parameters, "state");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger_Program.MemberId_BeginScope_TState_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForILogger_Program.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>", global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger_Program.MemberId_BeginScope_TState_, methodSetup);
+			return methodSetup;
+		}
+
+		#endregion IMockGenericSetupForILogger_Program
+
 		#region IMockGenericVerifyForILogger_Program
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program> IMockGenericVerifyForILogger_Program.BeginScope(global::Mockolate.Parameters.IParameters parameters)
-			=> this.MockRegistry.VerifyGenericMethod<IMockVerifyForILogger_Program>(this, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<TState>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(parameters, invocation, "state"), () => $"BeginScope<TState>({parameters})");
+			=> this.MockRegistry.VerifyGenericMethod<IMockVerifyForILogger_Program>(this, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(parameters, invocation, "state"), () => $"BeginScope<TState>({parameters})");
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program> IMockGenericVerifyForILogger_Program.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
 		{
 			global::Mockolate.Parameters.IParameterMatch<object?> match1 = global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>());
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForILogger_Program>(this, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<TState>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForILogger_Program>(this, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		}
 
 		#endregion IMockGenericVerifyForILogger_Program
 	}
 
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	private sealed class VerifyMonitorILogger_Program(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyForILogger_Program, global::Mockolate.Internals.IMockAdapterAccess
+	private sealed class VerifyMonitorILogger_Program(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyForILogger_Program, IMockGenericVerifyForILogger_Program, global::Mockolate.Internals.IMockAdapterAccess
 	{
 		private global::Mockolate.Internals.MockRegistry MockRegistry { get; } = mockRegistry;
 
@@ -2964,10 +3017,25 @@ internal static partial class Mock
 				(__match1?.Matches(__i.Parameter1) ?? global::System.Collections.Generic.EqualityComparer<TState>.Default.Equals(state, __i.Parameter1)), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		}
 		#endregion IMockVerifyForILogger_Program
+
+		#region IMockGenericVerifyForILogger_Program
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program> IMockGenericVerifyForILogger_Program.BeginScope(global::Mockolate.Parameters.IParameters parameters)
+			=> this.MockRegistry.VerifyGenericMethod<IMockVerifyForILogger_Program>(this, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(parameters, invocation, "state"), () => $"BeginScope<TState>({parameters})");
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program> IMockGenericVerifyForILogger_Program.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
+		{
+			global::Mockolate.Parameters.IParameterMatch<object?> match1 = global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>());
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForILogger_Program>(this, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
+		}
+
+		#endregion IMockGenericVerifyForILogger_Program
 	}
 
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	private sealed class MockInScenarioForILogger_Program : global::Mockolate.Mock.IMockInScenarioForILogger_Program, global::Mockolate.Mock.IMockSetupForILogger_Program, global::Mockolate.Internals.IMockAdapterAccess
+	private sealed class MockInScenarioForILogger_Program : global::Mockolate.Mock.IMockInScenarioForILogger_Program, global::Mockolate.Mock.IMockSetupForILogger_Program, IMockGenericSetupForILogger_Program, global::Mockolate.Internals.IMockAdapterAccess
 	{
 		private global::Mockolate.Internals.MockRegistry MockRegistry { get; }
 		private string _scenarioName;
@@ -3003,6 +3071,10 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		global::Mockolate.Mock.IMockSetupForILogger_Program global::Mockolate.Mock.IMockInScenarioForILogger_Program.Setup
+			=> this;
+
+		/// <inheritdoc />
+		global::Mockolate.Mock.IMockGenericSetupForILogger_Program global::Mockolate.Mock.IMockInScenarioForILogger_Program.SetupGeneric
 			=> this;
 
 		#region IMockSetupForILogger_Program
@@ -3107,6 +3179,26 @@ internal static partial class Mock
 		}
 
 		#endregion IMockSetupForILogger_Program
+
+		#region IMockGenericSetupForILogger_Program
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForILogger_Program.BeginScope(global::Mockolate.Parameters.IParameters parameters)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParametersForAnyTypeArguments(this.MockRegistry, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>", parameters, "state");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger_Program.MemberId_BeginScope_TState_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForILogger_Program.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>", global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ILogger_Program.MemberId_BeginScope_TState_, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		#endregion IMockGenericSetupForILogger_Program
 	}
 
 	/// <summary>
@@ -3238,6 +3330,11 @@ internal static partial class Mock
 		///     Set up the mock of <see cref="global::Microsoft.Extensions.Logging.ILogger{TCategoryName}">ILogger&lt;Program&gt;</see> within the scenario scope.
 		/// </summary>
 		IMockSetupForILogger_Program Setup { get; }
+
+		/// <summary>
+		///     Set up generic methods of the mock of <see cref="global::Microsoft.Extensions.Logging.ILogger{TCategoryName}">ILogger&lt;Program&gt;</see> for any type argument within the scenario scope.
+		/// </summary>
+		IMockGenericSetupForILogger_Program SetupGeneric { get; }
 	}
 
 	/// <summary>
@@ -3452,7 +3549,6 @@ internal static partial class Mock
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> BeginScope(global::Mockolate.Parameters.IParameter<object?>? state);
 
 	}
-
 	/// <summary>
 	///     Verify interactions with the generic methods of the mock of <see cref="global::Microsoft.Extensions.Logging.ILogger{TCategoryName}">ILogger&lt;Program&gt;</see> for any type argument.
 	/// </summary>
@@ -3469,7 +3565,6 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForILogger_Program> BeginScope(global::Mockolate.Parameters.IParameter<object?>? state);
 
 	}
-
 }
 /// <summary>
 ///     Mock extensions for <see cref="global::Microsoft.Extensions.Logging.ILogger{TCategoryName}">ILogger&lt;Program&gt;</see>.
@@ -3489,6 +3584,7 @@ internal static partial class MockExtensionsForILogger_Program
 		///     <list type="bullet"><br />
 		///       <item><description><c>Setup</c> - configure how members respond when invoked (<c>Returns</c>, <c>Throws</c>, <c>Do</c>, <c>InitializeWith</c>, ...).</description></item><br />
 		///       <item><description><c>Verify</c> - assert how often (and in which order) members were invoked.</description></item><br />
+		///       <item><description><c>SetupGeneric</c> / <c>VerifyGeneric</c> (and <c>SetupProtectedGeneric</c> / <c>VerifyProtectedGeneric</c>) - target generic methods for any type argument.</description></item><br />
 		///       <item><description><c>InScenario</c> / <c>TransitionTo</c> - scope setups and behavior to a named scenario and switch between scenarios.</description></item><br />
 		///       <item><description><c>Monitor</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
 		///       <item><description><c>VerifySetup</c> - verify how often a specific setup matched.</description></item><br />
@@ -3617,6 +3713,16 @@ internal static partial class MockExtensionsForILogger_Program
 			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");
 		}
 
+	}
+
+	/// <inheritdoc cref="MockExtensionsForILogger_Program" />
+	extension(global::Mockolate.Monitor.MockMonitor<global::Mockolate.Mock.IMockVerifyForILogger_Program> monitor)
+	{
+		/// <summary>
+		///     Asserts how often generic methods of the mock of <see cref="global::Microsoft.Extensions.Logging.ILogger{TCategoryName}">ILogger&lt;Program&gt;</see> were invoked with any type argument while the monitor was running.
+		/// </summary>
+		public global::Mockolate.Mock.IMockGenericVerifyForILogger_Program VerifyGeneric
+			=> (global::Mockolate.Mock.IMockGenericVerifyForILogger_Program)monitor.Verify;
 	}
 
 	/// <inheritdoc cref="MockExtensionsForILogger_Program" />

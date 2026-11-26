@@ -30,8 +30,8 @@ internal static partial class Sources
 		bool hasStaticMembers = @class.IsInterface && (@class.AllMethods().Any(method => method.IsStatic) || @class.AllProperties().Any(property => property.IsStatic));
 		bool hasProtectedEvents = !@class.IsInterface && @class.AllEvents().Any(@event => @event.IsProtected);
 		bool hasProtectedMembers = !@class.IsInterface && (@class.AllMethods().Any(method => method.IsProtected) || @class.AllProperties().Any(property => property.IsProtected));
-		List<(Method Method, string[] ParameterTypes)> genericMethods = GetGenericFacadeMethods(@class);
-		bool hasGenericMethods = genericMethods.Count > 0;
+		bool hasGenericMethods = HasGenericFacadeMethods(@class, MemberType.Public);
+		bool hasProtectedGenericMethods = HasGenericFacadeMethods(@class, MemberType.Protected);
 		string setupType = hasProtectedMembers ? $"IMockSetupInitializationFor{name}" : $"global::Mockolate.Mock.IMockSetupFor{name}";
 		string mockRegistryName = @class.GetUniqueName("MockRegistry", "MockolateMockRegistry");
 		Class[] memberIdClasses = new Class[1 + hiddenBaseInterfaces.Length];
@@ -98,10 +98,7 @@ internal static partial class Sources
 
 		sb.Append(", IMockVerifyFor").Append(name);
 
-		if (hasGenericMethods)
-		{
-			sb.Append(", IMockGenericSetupFor").Append(name).Append(", IMockGenericVerifyFor").Append(name);
-		}
+		AppendGenericFacadeInterfaces(sb, @class, name);
 
 		if (hasProtectedMembers || hasProtectedEvents)
 		{
@@ -194,7 +191,7 @@ internal static partial class Sources
 
 		string[]? adapterIgnoredNames = GetAdapterIgnoredNames([@class,]);
 		string? adapterClearHook = GetAdapterClearHook([@class,]);
-		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, adapterIgnoredNames, adapterClearHook, constructorArgumentsName, @class.DisplayString, hasGenericMethods);
+		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, adapterIgnoredNames, adapterClearHook, constructorArgumentsName, @class.DisplayString, hasGenericMethods, hasProtectedGenericMethods);
 
 		foreach ((string Name, Class Class) hiddenBase in hiddenBaseInterfaces)
 		{
@@ -204,7 +201,7 @@ internal static partial class Sources
 				false /* interfaces have no protected events */,
 				hiddenBase.Class.AllMethods().Any(x => x.IsStatic) || hiddenBase.Class.AllProperties().Any(x => x.IsStatic),
 				hiddenBase.Class.AllEvents().Any(x => x.IsStatic),
-				adapterIgnoredNames, adapterClearHook, hasGenericMethods: HasGenericFacadeMethods(hiddenBase.Class));
+				adapterIgnoredNames, adapterClearHook, hasGenericMethods: HasGenericFacadeMethods(hiddenBase.Class, MemberType.Public));
 		}
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
@@ -282,15 +279,6 @@ internal static partial class Sources
 			sb.AppendLine();
 			ImplementSetupInterface(sb, hiddenBase.Class, mockRegistryName, $"IMockSetupFor{hiddenBase.Name}", MemberType.Public, memberIds, memberIdPrefix, hasOverloadResolutionPriority, useUnionOverloads: useUnionOverloads);
 			sb.Append("\t\t#endregion IMockSetupFor").Append(hiddenBase.Name).AppendLine();
-		}
-
-		if (hasGenericMethods)
-		{
-			sb.AppendLine();
-			sb.Append("\t\t#region IMockGenericSetupFor").Append(name).AppendLine();
-			sb.AppendLine();
-			ImplementGenericSetupInterface(sb, genericMethods, name, mockRegistryName, memberIds, memberIdPrefix);
-			sb.Append("\t\t#endregion IMockGenericSetupFor").Append(name).AppendLine();
 		}
 
 		#endregion Mock.Setup
@@ -374,15 +362,7 @@ internal static partial class Sources
 			sb.Append("\t\t#endregion IMockVerifyFor").Append(hiddenBase.Name).AppendLine();
 		}
 
-		if (hasGenericMethods)
-		{
-			sb.AppendLine();
-			sb.Append("\t\t#region IMockGenericVerifyFor").Append(name).AppendLine();
-			sb.AppendLine();
-			ImplementGenericVerifyInterface(sb, genericMethods, name, mockRegistryName);
-			sb.Append("\t\t#endregion IMockGenericVerifyFor").Append(name).AppendLine();
-		}
-
+		ImplementGenericFacade(sb, @class, name, mockRegistryName, memberIds, memberIdPrefix);
 		foreach ((string Name, Class Class) hiddenBase in hiddenBaseInterfaces)
 		{
 			ImplementGenericFacade(sb, hiddenBase.Class, hiddenBase.Name, mockRegistryName, memberIds, memberIdPrefix);
@@ -402,6 +382,11 @@ internal static partial class Sources
 #endif
 		sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 		sb.Append("\tprivate sealed class VerifyMonitor").Append(name).Append("(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyFor").Append(name);
+		if (hasGenericMethods)
+		{
+			sb.Append(", ").Append(GetGenericVerifyFacadeName(MemberType.Public, name));
+		}
+
 		AppendAdapterAccessDeclaration(sb, [@class,]);
 		sb.AppendLine();
 		sb.Append("\t{").AppendLine();
@@ -412,11 +397,12 @@ internal static partial class Sources
 		sb.AppendLine();
 
 		ImplementVerifyInterface(sb, @class, mockRegistryName, $"IMockVerifyFor{name}", MemberType.Public, memberIds, memberIdPrefix, hasOverloadResolutionPriority, useUnionOverloads: useUnionOverloads);
-		
+
 		sb.Append("\t\t#endregion IMockVerifyFor").Append(name).AppendLine();
+		ImplementGenericVerifyFacade(sb, @class, name, MemberType.Public, mockRegistryName);
 		sb.Append("\t}").AppendLine();
 		sb.AppendLine();
-		
+
 		#endregion VerifyMonitor
 
 		#region MockInScenarioForXXX
@@ -429,6 +415,14 @@ internal static partial class Sources
 		if (hasProtectedMembers)
 		{
 			sb.Append(", global::Mockolate.Mock.IMockProtectedSetupFor").Append(name);
+		}
+
+		foreach (MemberType memberType in new[] { MemberType.Public, MemberType.Protected, })
+		{
+			if (HasGenericFacadeMethods(@class, memberType))
+			{
+				sb.Append(", ").Append(GetGenericSetupFacadeName(memberType, name));
+			}
 		}
 
 		AppendAdapterAccessDeclaration(sb, [@class,]);
@@ -456,6 +450,22 @@ internal static partial class Sources
 			sb.AppendLine();
 		}
 
+		if (hasGenericMethods)
+		{
+			sb.Append("\t\t/// <inheritdoc />").AppendLine();
+			sb.Append("\t\tglobal::Mockolate.Mock.").Append(GetGenericSetupFacadeName(MemberType.Public, name)).Append(" global::Mockolate.Mock.IMockInScenarioFor").Append(name).Append(".SetupGeneric").AppendLine();
+			sb.Append("\t\t\t=> this;").AppendLine();
+			sb.AppendLine();
+		}
+
+		if (hasProtectedGenericMethods)
+		{
+			sb.Append("\t\t/// <inheritdoc />").AppendLine();
+			sb.Append("\t\tglobal::Mockolate.Mock.").Append(GetGenericSetupFacadeName(MemberType.Protected, name)).Append(" global::Mockolate.Mock.IMockInScenarioFor").Append(name).Append(".SetupProtectedGeneric").AppendLine();
+			sb.Append("\t\t\t=> this;").AppendLine();
+			sb.AppendLine();
+		}
+
 		sb.Append("\t\t#region IMockSetupFor").Append(name).AppendLine();
 		sb.AppendLine();
 		
@@ -469,13 +479,15 @@ internal static partial class Sources
 			sb.AppendLine();
 			
 			ImplementSetupInterface(sb, @class, mockRegistryName, $"IMockProtectedSetupFor{name}", MemberType.Protected, memberIds, memberIdPrefix, hasOverloadResolutionPriority, "this._scenarioName", useUnionOverloads);
-			
+
 			sb.Append("\t\t#endregion IMockProtectedSetupFor").Append(name).AppendLine();
 		}
 
+		ImplementGenericSetupFacade(sb, @class, name, MemberType.Public, mockRegistryName, memberIds, memberIdPrefix, "this._scenarioName");
+		ImplementGenericSetupFacade(sb, @class, name, MemberType.Protected, mockRegistryName, memberIds, memberIdPrefix, "this._scenarioName");
 		sb.Append("\t}").AppendLine();
 		sb.AppendLine();
-		
+
 		#endregion MockInScenarioForXXX
 
 		#region Mock Interfaces
@@ -515,6 +527,14 @@ internal static partial class Sources
 			sb.AppendXmlSummary($"Configures how generic methods of the mock of {classReference} respond when invoked with any type argument.");
 			sb.AppendXmlRemarks(["Parameters whose type depends on a type argument are matched as <see langword=\"object\" /> against the runtime value. A setup of a specific type argument and a setup for any type argument both apply; the most recently defined matching one wins.",]);
 			sb.Append("\t\tIMockGenericSetupFor").Append(name).Append(" SetupGeneric { get; }").AppendLine();
+			sb.AppendLine();
+		}
+
+		if (hasProtectedGenericMethods)
+		{
+			sb.AppendXmlSummary($"Configures how <see langword=\"protected\" /> generic methods of the mock of {classReference} respond when invoked with any type argument.");
+			sb.AppendXmlRemarks(["Same semantics as <see cref=\"SetupGeneric\" />, for the generic methods that <see cref=\"SetupProtected\" /> offers.",]);
+			sb.Append("\t\t").Append(GetGenericSetupFacadeName(MemberType.Protected, name)).Append(" SetupProtectedGeneric { get; }").AppendLine();
 			sb.AppendLine();
 		}
 
@@ -597,6 +617,14 @@ internal static partial class Sources
 			sb.AppendLine();
 		}
 
+		if (hasProtectedGenericMethods)
+		{
+			sb.AppendXmlSummary($"Asserts how often <see langword=\"protected\" /> generic methods of the mock of {classReference} were invoked with any type argument.");
+			sb.AppendXmlRemarks(["Same semantics as <see cref=\"VerifyGeneric\" />, for the generic methods that <see cref=\"VerifyProtected\" /> offers.",]);
+			sb.Append("\t\t").Append(GetGenericVerifyFacadeName(MemberType.Protected, name)).Append(" VerifyProtectedGeneric { get; }").AppendLine();
+			sb.AppendLine();
+		}
+
 		sb.AppendXmlSummary("Verifies how often a specific method setup was matched by actual invocations.");
 		sb.AppendXmlRemarks(["Useful when you want to verify &quot;this <em>particular</em> setup was hit N times&quot; without re-stating the matchers. Chain the usual count terminators (<c>Once()</c>, <c>AtLeastOnce()</c>, <c>Exactly(n)</c>, ...) on the returned result.",]);
 		sb.AppendXmlParam("setup", "The setup previously registered through <see cref=\"Setup\" /> (typically returned from a <c>Returns(...)</c>/<c>Throws(...)</c> call).");
@@ -658,6 +686,20 @@ internal static partial class Sources
 			sb.AppendLine();
 			sb.AppendXmlSummary($"Set up protected members of the mock of {classReference} within the scenario scope.");
 			sb.Append("\t\tIMockProtectedSetupFor").Append(name).Append(" SetupProtected { get; }").AppendLine();
+		}
+
+		if (hasGenericMethods)
+		{
+			sb.AppendLine();
+			sb.AppendXmlSummary($"Set up generic methods of the mock of {classReference} for any type argument within the scenario scope.");
+			sb.Append("\t\t").Append(GetGenericSetupFacadeName(MemberType.Public, name)).Append(" SetupGeneric { get; }").AppendLine();
+		}
+
+		if (hasProtectedGenericMethods)
+		{
+			sb.AppendLine();
+			sb.AppendXmlSummary($"Set up protected generic methods of the mock of {classReference} for any type argument within the scenario scope.");
+			sb.Append("\t\t").Append(GetGenericSetupFacadeName(MemberType.Protected, name)).Append(" SetupProtectedGeneric { get; }").AppendLine();
 		}
 
 		sb.Append("\t}").AppendLine();
@@ -820,12 +862,7 @@ internal static partial class Sources
 
 		#endregion IMockStaticVerifyForXXX
 
-		if (hasGenericMethods)
-		{
-			sb.AppendLine();
-			DefineGenericSetupInterface(sb, genericMethods, name, classReference);
-			DefineGenericVerifyInterface(sb, genericMethods, name, classReference);
-		}
+		DefineGenericFacadeInterfaces(sb, @class, name, classReference);
 
 		#endregion Mock Interfaces
 
@@ -886,6 +923,11 @@ internal static partial class Sources
 		if (hasStaticMembers || hasStaticEvents)
 		{
 			mockPropertyRemarks.Add("  <item><description><c>SetupStatic</c> / <c>VerifyStatic</c> / <c>RaiseStatic</c> - target <see langword=\"static\" /> members on interface mocks.</description></item>");
+		}
+
+		if (hasGenericMethods || hasProtectedGenericMethods)
+		{
+			mockPropertyRemarks.Add("  <item><description><c>SetupGeneric</c> / <c>VerifyGeneric</c> (and <c>SetupProtectedGeneric</c> / <c>VerifyProtectedGeneric</c>) - target generic methods for any type argument.</description></item>");
 		}
 
 		mockPropertyRemarks.Add("  <item><description><c>InScenario</c> / <c>TransitionTo</c> - scope setups and behavior to a named scenario and switch between scenarios.</description></item>");
@@ -1226,6 +1268,18 @@ internal static partial class Sources
 		sb.Append("\t}").AppendLine();
 		sb.AppendLine();
 
+		if (hasGenericMethods)
+		{
+			sb.Append("\t/// <inheritdoc cref=\"MockExtensionsFor").Append(name).Append("\" />").AppendLine();
+			sb.Append("\textension(global::Mockolate.Monitor.MockMonitor<global::Mockolate.Mock.IMockVerifyFor").Append(name).Append("> monitor)").AppendLine();
+			sb.Append("\t{").AppendLine();
+			sb.AppendXmlSummary($"Asserts how often generic methods of the mock of {classReference} were invoked with any type argument while the monitor was running.");
+			sb.Append("\t\tpublic global::Mockolate.Mock.").Append(GetGenericVerifyFacadeName(MemberType.Public, name)).Append(" VerifyGeneric").AppendLine();
+			sb.Append("\t\t\t=> (global::Mockolate.Mock.").Append(GetGenericVerifyFacadeName(MemberType.Public, name)).Append(")monitor.Verify;").AppendLine();
+			sb.Append("\t}").AppendLine();
+			sb.AppendLine();
+		}
+
 		#endregion Mock Type extensions
 
 		#region MockBehavior extensions
@@ -1349,7 +1403,7 @@ internal static partial class Sources
 	private static void ImplementMockForInterface(StringBuilder sb, string mockRegistryName, string name,
 		bool hasEvents, bool hasProtectedMembers, bool hasProtectedEvents, bool hasStaticMembers, bool hasStaticEvents,
 		string[]? adapterIgnoredNames, string? adapterClearHook, string? constructorArgumentsName = null,
-		string? classDisplay = null, bool hasGenericMethods = false)
+		string? classDisplay = null, bool hasGenericMethods = false, bool hasProtectedGenericMethods = false)
 	{
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
@@ -1386,6 +1440,18 @@ internal static partial class Sources
 			sb.Append("\t\t/// <inheritdoc />").AppendLine();
 			sb.Append("\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
 			sb.Append("\t\tIMockGenericVerifyFor").Append(name).Append(" IMockFor").Append(name).Append(".VerifyGeneric").AppendLine();
+			sb.Append("\t\t\t=> this;").AppendLine();
+		}
+
+		if (hasProtectedGenericMethods)
+		{
+			sb.Append("\t\t/// <inheritdoc />").AppendLine();
+			sb.Append("\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
+			sb.Append("\t\t").Append(GetGenericSetupFacadeName(MemberType.Protected, name)).Append(" IMockFor").Append(name).Append(".SetupProtectedGeneric").AppendLine();
+			sb.Append("\t\t\t=> this;").AppendLine();
+			sb.Append("\t\t/// <inheritdoc />").AppendLine();
+			sb.Append("\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
+			sb.Append("\t\t").Append(GetGenericVerifyFacadeName(MemberType.Protected, name)).Append(" IMockFor").Append(name).Append(".VerifyProtectedGeneric").AppendLine();
 			sb.Append("\t\t\t=> this;").AppendLine();
 		}
 
