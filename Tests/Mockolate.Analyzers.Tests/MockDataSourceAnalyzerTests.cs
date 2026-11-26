@@ -24,7 +24,9 @@ public class MockDataSourceAnalyzerTests
 	                               {
 	                                   public abstract class AsDefaultParameterAttribute : System.Attribute;
 	                                   public abstract class TransientParameterAttribute : System.Attribute;
-	                                   public sealed class AsDefaultAttribute : AsDefaultParameterAttribute;
+	                                   public sealed class AsDefaultAttribute(params System.Type[] types) : AsDefaultParameterAttribute;
+	                                   public sealed class AsDefaultAttribute<T1> : AsDefaultParameterAttribute;
+	                                   public sealed class AsDefaultAttribute<T1, T2> : AsDefaultParameterAttribute;
 	                                   public sealed class TransientAttribute : TransientParameterAttribute;
 	                               }
 	                               """;
@@ -509,8 +511,110 @@ public class MockDataSourceAnalyzerTests
 			  {{Markers}}
 			  """,
 			Verifier.Diagnostic(MockDataSourceAnalyzer.AsDefaultParameterRule).WithLocation(0)
-				.WithArguments("b", "has the same type as the [AsDefault] parameter 'a'"),
+				.WithArguments("b", "is used for 'MyCode.IDep' like the [AsDefault] parameter 'a'"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.AsDefaultParameterRule).WithLocation(1)
 				.WithArguments("c", "is also marked [Transient]")
+		);
+
+	[Test]
+	public async Task WhenAsDefaultParametersShareADeclaredType_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  #nullable enable
+			  namespace MyCode
+			  {
+			      using Mockolate.Integrations;
+
+			      public interface IDep { }
+			      public interface IOther { }
+			      public sealed class Fake : IDep, IOther { }
+
+			      public class Tests
+			      {
+			          [Data]
+			          public void SameDeclaredType([AsDefault(typeof(IDep))] Fake a, [AsDefault<IOther, IDep>] Fake {|#0:b|}) { }
+
+			          [Data]
+			          public void DeclaredTypeOfAnother([AsDefault] IDep a, [AsDefault<IDep>] Fake {|#1:b|}) { }
+
+			          [Data]
+			          public void SameOwnType([AsDefault] Fake a, [AsDefault(typeof(IDep))] Fake {|#2:b|}) { }
+
+			          [Data]
+			          public void Valid([AsDefault(typeof(IDep))] Fake a, [AsDefault<IOther>] IOther? b, IDep c) { }
+			      }
+
+			      {{DataAttribute}}
+			  }
+
+			  {{Markers}}
+			  """,
+			Verifier.Diagnostic(MockDataSourceAnalyzer.AsDefaultParameterRule).WithLocation(0)
+				.WithArguments("b", "is used for 'MyCode.Fake' like the [AsDefault] parameter 'a'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.AsDefaultParameterRule).WithLocation(1)
+				.WithArguments("b", "is used for 'MyCode.IDep' like the [AsDefault] parameter 'a'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.AsDefaultParameterRule).WithLocation(2)
+				.WithArguments("b", "is used for 'MyCode.Fake' like the [AsDefault] parameter 'a'")
+		);
+
+	[Test]
+	public async Task WhenAsDefaultParameterIsNotAssignableToADeclaredType_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  #nullable enable
+			  namespace MyCode
+			  {
+			      using Mockolate.Integrations;
+
+			      public interface IDep { }
+			      public sealed class Fake : IDep { }
+
+			      public class Tests
+			      {
+			          [Data]
+			          public void Test([AsDefault(typeof(IDep), typeof(string))] Fake {|#0:a|}, [AsDefault<IDep>] int {|#1:b|},
+			              [AsDefault<long?>] int {|#2:c|}, [AsDefault<System.IComparable>] int? {|#3:d|},
+			              [AsDefault(typeof(IDep), null)] Fake {|#4:e|}) { }
+
+			          [Data]
+			          public void Valid([AsDefault(typeof(IDep), typeof(object))] Fake a,
+			              [AsDefault<System.IComparable>] int b, [AsDefault(typeof(long?))] long c,
+			              [AsDefault(null)] string d) { }
+
+			          [Data]
+			          public void ValidNullable([AsDefault<object>] int? a) { }
+
+			          [Data]
+			          public void ValidNullableValueType([AsDefault<System.ValueType>] int? a) { }
+
+			          [Data]
+			          public void ValidForeignAttribute([AsDefault, Other.Foreign(typeof(string))] IDep a) { }
+			      }
+
+			      {{DataAttribute}}
+			  }
+
+			  namespace Other
+			  {
+			      public abstract class AsDefaultParameterAttribute : System.Attribute;
+
+			      public sealed class ForeignAttribute : AsDefaultParameterAttribute
+			      {
+			          public ForeignAttribute(System.Type type) { }
+			      }
+			  }
+
+			  {{Markers}}
+			  """,
+			Verifier.Diagnostic(MockDataSourceAnalyzer.AsDefaultParameterRule).WithLocation(0)
+				.WithArguments("a", "is not assignable to 'string'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.AsDefaultParameterRule).WithLocation(1)
+				.WithArguments("b", "is not assignable to 'MyCode.IDep'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.AsDefaultParameterRule).WithLocation(2)
+				.WithArguments("c", "is not assignable to 'long?'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.AsDefaultParameterRule).WithLocation(3)
+				.WithArguments("d", "is not assignable to 'System.IComparable'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.AsDefaultParameterRule).WithLocation(4)
+				.WithArguments("e", "is not assignable to 'null'")
 		);
 }

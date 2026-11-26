@@ -292,17 +292,21 @@
 		<comment>Completes Mockolate0010MessageFormat. {0} is the member.</comment>
 	</data>
 	<data name="Mockolate0011Description" xml:space="preserve">
-		<value>An [AsDefault] parameter marks the default value of its type for all mocks of the test case, so it is ambiguous when another [AsDefault] parameter has the same type, and contradicts a [Transient] marker, which keeps the parameter from the other arguments.</value>
+		<value>An [AsDefault] parameter marks the default value of its type and of the types of the attribute for all mocks of the test case, so it is ambiguous when another [AsDefault] parameter is used for one of these types, must be assignable to each of them, and contradicts a [Transient] marker, which keeps the parameter from the other arguments.</value>
 	</data>
 	<data name="Mockolate0011MessageFormat" xml:space="preserve">
 		<value>The [AsDefault] parameter '{0}' {1}</value>
 	</data>
 	<data name="Mockolate0011Title" xml:space="preserve">
-		<value>An [AsDefault] parameter is ambiguous or transient</value>
+		<value>An [AsDefault] parameter is ambiguous or invalid</value>
 	</data>
 	<data name="Mockolate0011SameTypeReason" xml:space="preserve">
-		<value>has the same type as the [AsDefault] parameter '{0}'</value>
-		<comment>Completes Mockolate0011MessageFormat. {0} is the other parameter.</comment>
+		<value>is used for '{1}' like the [AsDefault] parameter '{0}'</value>
+		<comment>Completes Mockolate0011MessageFormat. {0} is the other parameter, {1} the type of both.</comment>
+	</data>
+	<data name="Mockolate0011NotAssignableReason" xml:space="preserve">
+		<value>is not assignable to '{0}'</value>
+		<comment>Completes Mockolate0011MessageFormat. {0} is a type of the attribute.</comment>
 	</data>
 	<data name="Mockolate0011TransientReason" xml:space="preserve">
 		<value>is also marked [Transient]</value>

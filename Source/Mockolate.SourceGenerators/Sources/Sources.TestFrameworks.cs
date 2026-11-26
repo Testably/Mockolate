@@ -14,8 +14,7 @@ internal static partial class Sources
 	                                              				global::System.Array.ConvertAll(parameters, parameter => parameter.Name ?? ""),
 	                                              				index => global::System.Reflection.CustomAttributeExtensions.IsDefined(parameters[index],
 	                                              					typeof(global::Mockolate.Integrations.TransientParameterAttribute), false),
-	                                              				index => global::System.Reflection.CustomAttributeExtensions.IsDefined(parameters[index],
-	                                              					typeof(global::Mockolate.Integrations.AsDefaultParameterAttribute), false),
+	                                              				index => global::Mockolate.Integrations.AutoMockRow.GetAsDefaultTypes(parameters[index]),
 	                                              				arguments, DefaultBehavior?.Invoke()).Create();
 
 
@@ -57,7 +56,8 @@ internal static partial class Sources
 		                              	}
 
 		                              	/// <summary>
-		                              	///     Makes a test parameter the default value of its type for all mocks of the test case.
+		                              	///     Makes a test parameter the default value of its type and of the <see cref="Types" /> for all mocks of the
+		                              	///     test case.
 		                              	/// </summary>
 		                              	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
 		                              	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
@@ -65,6 +65,16 @@ internal static partial class Sources
 		                              	[global::Microsoft.CodeAnalysis.Embedded]
 		                              	internal abstract class AsDefaultParameterAttribute : global::System.Attribute
 		                              	{
+		                              		/// <param name="types">The other types for which the test parameter is used.</param>
+		                              		protected AsDefaultParameterAttribute(global::System.Type[]? types)
+		                              		{
+		                              			Types = types ?? global::System.Type.EmptyTypes;
+		                              		}
+
+		                              		/// <summary>
+		                              		///     The other types for which the test parameter is used, besides its own type.
+		                              		/// </summary>
+		                              		public global::System.Type[] Types { get; }
 		                              	}
 
 		                              	/// <summary>
@@ -80,22 +90,27 @@ internal static partial class Sources
 		                              		private readonly global::System.Type[] _types;
 		                              		private readonly string[] _names;
 		                              		private readonly global::System.Func<int, bool> _isTransientParameter;
-		                              		private readonly global::System.Func<int, bool> _isAsDefaultParameter;
+		                              		private readonly global::System.Func<int, global::System.Type[]?> _getAsDefaultTypes;
 		                              		private readonly object?[] _arguments;
 		                              		private global::Mockolate.MockBehavior? _behavior;
 		                              		private readonly int[] _states;
 		                              		private readonly object?[] _values;
 		                              		private readonly bool?[] _isTransient;
+		                              		private readonly global::System.Type[]?[] _asDefaultTypes;
 
 		                              		/// <param name="assembly">The test assembly, whose generated code creates the parameters.</param>
 		                              		/// <param name="types">The types of the parameters of the test method.</param>
 		                              		/// <param name="names">The names of the parameters of the test method.</param>
 		                              		/// <param name="isTransientParameter">Whether the parameter at an index is marked as transient.</param>
-		                              		/// <param name="isAsDefaultParameter">Whether the parameter at an index is marked as the default value of its type.</param>
+		                              		/// <param name="getAsDefaultTypes">
+		                              		///     The other types of which the parameter at an index is the default value, or <see langword="null" /> when it
+		                              		///     is not the default value of its own type either.
+		                              		/// </param>
 		                              		/// <param name="arguments">The given arguments of the first parameters, which are not shared.</param>
 		                              		/// <param name="behavior">The behavior of the created mocks and values.</param>
 		                              		public AutoMockRow(global::System.Reflection.Assembly assembly, global::System.Type[] types, string[] names,
-		                              			global::System.Func<int, bool> isTransientParameter, global::System.Func<int, bool> isAsDefaultParameter,
+		                              			global::System.Func<int, bool> isTransientParameter,
+		                              			global::System.Func<int, global::System.Type[]?> getAsDefaultTypes,
 		                              			object?[] arguments, global::Mockolate.MockBehavior? behavior)
 		                              		{
 		                              			if (arguments.Length > types.Length)
@@ -108,12 +123,34 @@ internal static partial class Sources
 		                              			_types = types;
 		                              			_names = names;
 		                              			_isTransientParameter = isTransientParameter;
-		                              			_isAsDefaultParameter = isAsDefaultParameter;
+		                              			_getAsDefaultTypes = getAsDefaultTypes;
 		                              			_arguments = arguments;
 		                              			_behavior = behavior;
 		                              			_states = new int[types.Length];
 		                              			_values = new object?[types.Length];
 		                              			_isTransient = new bool?[types.Length];
+		                              			_asDefaultTypes = new global::System.Type[]?[types.Length];
+		                              		}
+
+		                              		/// <summary>
+		                              		///     The other types of all <see cref="AsDefaultParameterAttribute" />s of the <paramref name="parameter" />, or
+		                              		///     <see langword="null" /> when it has none.
+		                              		/// </summary>
+		                              		public static global::System.Type[]? GetAsDefaultTypes(global::System.Reflection.ParameterInfo parameter)
+		                              		{
+		                              			object[] attributes = parameter.GetCustomAttributes(typeof(AsDefaultParameterAttribute), false);
+		                              			if (attributes.Length == 0)
+		                              			{
+		                              				return null;
+		                              			}
+
+		                              			global::System.Collections.Generic.List<global::System.Type> types = new();
+		                              			foreach (AsDefaultParameterAttribute attribute in attributes)
+		                              			{
+		                              				types.AddRange(attribute.Types);
+		                              			}
+
+		                              			return types.ToArray();
 		                              		}
 
 		                              #if MOCKOLATE_NUNIT || MOCKOLATE_MSTEST
@@ -221,9 +258,20 @@ internal static partial class Sources
 
 		                              			for (int index = 0; index < _types.Length; index++)
 		                              			{
-		                              				if (_isAsDefaultParameter(index))
+		                              				if (_getAsDefaultTypes(index) is { } otherTypes)
 		                              				{
-		                              					UseAsDefault(index);
+		                              					_asDefaultTypes[index] = otherTypes;
+		                              					UseAsDefault(index, _types[index]);
+		                              					foreach (global::System.Type? otherType in otherTypes)
+		                              					{
+		                              						if (otherType is null || !otherType.IsAssignableFrom(_types[index]))
+		                              						{
+		                              							throw new global::Mockolate.Exceptions.MockException(
+		                              								$"The [AsDefault] parameter '{_names[index]}' of type '{_types[index]}' is not assignable to '{otherType?.ToString() ?? "null"}'.");
+		                              						}
+
+		                              						UseAsDefault(index, otherType);
+		                              					}
 		                              				}
 		                              			}
 
@@ -239,9 +287,8 @@ internal static partial class Sources
 		                              		///     The parameter is created on the first request. While it is being created, the previous default values
 		                              		///     apply, so that its own creation does not recurse.
 		                              		/// </summary>
-		                              		private void UseAsDefault(int index)
+		                              		private void UseAsDefault(int index, global::System.Type type)
 		                              		{
-		                              			global::System.Type type = _types[index];
 		                              			global::Mockolate.MockBehavior previous = _behavior ?? global::Mockolate.MockBehavior.Default;
 		                              			_behavior = previous.WithDefaultValueFor(new global::Mockolate.DefaultValueFactory(
 		                              				candidate => candidate == type,
@@ -276,16 +323,20 @@ internal static partial class Sources
 		                              			=> index < _arguments.Length || (_isTransient[index] ??= _isTransientParameter(index));
 
 		                              		/// <summary>
-		                              		///     The shared test parameter of the <paramref name="type" />; the <paramref name="parameterName" /> of the
-		                              		///     constructor parameter decides between several of them, and must match for a value type or a string. A
-		                              		///     parameter that is being created is no candidate, so that two classes can depend on each other's type.
+		                              		///     The shared test parameter of the <paramref name="type" />, or the [AsDefault] parameter for it; the
+		                              		///     <paramref name="parameterName" /> of the constructor parameter decides between several of them, and must
+		                              		///     match for a value type or a string. A parameter that is being created is no candidate, so that two classes
+		                              		///     can depend on each other's type.
 		                              		/// </summary>
 		                              		private bool TryResolve(global::System.Type type, string parameterName, int requester, out object? value)
 		                              		{
 		                              			global::System.Collections.Generic.List<int> candidates = new();
 		                              			for (int index = 0; index < _types.Length; index++)
 		                              			{
-		                              				if (index != requester && _states[index] != 1 && _types[index] == type && !IsTransient(index))
+		                              				if (index != requester && _states[index] != 1 &&
+		                              				    (_types[index] == type || (_asDefaultTypes[index] is { } otherTypes &&
+		                              				                               global::System.Array.IndexOf(otherTypes, type) >= 0)) &&
+		                              				    !IsTransient(index))
 		                              				{
 		                              					candidates.Add(index);
 		                              				}
@@ -346,8 +397,9 @@ internal static partial class Sources
 		                                	///     test can set up and verify the mock that the class under test uses. When several test parameters have the type,
 		                                	///     the one with the name of the constructor parameter (ignoring case) is used; a value type or string is only
 		                                	///     shared with a constructor parameter of its name. The given arguments and a <see cref="TransientAttribute" />
-		                                	///     parameter are not shared. An <see cref="AsDefaultAttribute" /> parameter is the default value of its type for
-		                                	///     all mocks. Each attribute on a method is one test case.
+		                                	///     parameter are not shared. An <see cref="AsDefaultAttribute" /> parameter is the default value of its type and
+		                                	///     of the types it names for all mocks, and is also shared with constructor dependencies of the types it names.
+		                                	///     Each attribute on a method is one test case.
 		                                	/// </remarks>
 		                                	[global::System.AttributeUsage(global::System.AttributeTargets.Method, AllowMultiple = true)]
 		                                	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -395,16 +447,81 @@ internal static partial class Sources
 		                                	}
 
 		                                	/// <summary>
-		                                	///     Makes the test parameter the default value of its exact type for all mocks that
-		                                	///     <see cref="AutoMockArgumentsAttribute" /> creates for the test case, so that their members without a setup
-		                                	///     return it, also wrapped in a task.
+		                                	///     Makes the test parameter the default value of its exact type and of the given <c>types</c> for all mocks
+		                                	///     that <see cref="AutoMockArgumentsAttribute" /> creates for the test case, so that their members without a
+		                                	///     setup return it, also wrapped in a task. A constructor parameter of one of the given <c>types</c> receives
+		                                	///     it, like one of its own type.
 		                                	/// </summary>
 		                                	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
 		                                	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 		                                	[global::Microsoft.CodeAnalysis.Embedded]
 		                                	internal sealed class AsDefaultAttribute : global::Mockolate.Integrations.AsDefaultParameterAttribute
 		                                	{
+		                                		/// <param name="types">The other types for which the test parameter is used, e.g. the interfaces it implements.</param>
+		                                		public AsDefaultAttribute(params global::System.Type[]? types) : base(types)
+		                                		{
+		                                		}
 		                                	}
+		                                #if NET7_0_OR_GREATER
+
+		                                	/// <inheritdoc cref="AsDefaultAttribute" />
+		                                	/// <typeparam name="T1">Another type for which the test parameter is used.</typeparam>
+		                                	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
+		                                	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+		                                	[global::Microsoft.CodeAnalysis.Embedded]
+		                                	internal sealed class AsDefaultAttribute<T1> : global::Mockolate.Integrations.AsDefaultParameterAttribute
+		                                	{
+		                                		/// <inheritdoc cref="AsDefaultAttribute{T1}" />
+		                                		public AsDefaultAttribute() : base(new[] { typeof(T1), })
+		                                		{
+		                                		}
+		                                	}
+
+		                                	/// <inheritdoc cref="AsDefaultAttribute" />
+		                                	/// <typeparam name="T1">Another type for which the test parameter is used.</typeparam>
+		                                	/// <typeparam name="T2">Another type for which the test parameter is used.</typeparam>
+		                                	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
+		                                	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+		                                	[global::Microsoft.CodeAnalysis.Embedded]
+		                                	internal sealed class AsDefaultAttribute<T1, T2> : global::Mockolate.Integrations.AsDefaultParameterAttribute
+		                                	{
+		                                		/// <inheritdoc cref="AsDefaultAttribute{T1, T2}" />
+		                                		public AsDefaultAttribute() : base(new[] { typeof(T1), typeof(T2), })
+		                                		{
+		                                		}
+		                                	}
+
+		                                	/// <inheritdoc cref="AsDefaultAttribute" />
+		                                	/// <typeparam name="T1">Another type for which the test parameter is used.</typeparam>
+		                                	/// <typeparam name="T2">Another type for which the test parameter is used.</typeparam>
+		                                	/// <typeparam name="T3">Another type for which the test parameter is used.</typeparam>
+		                                	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
+		                                	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+		                                	[global::Microsoft.CodeAnalysis.Embedded]
+		                                	internal sealed class AsDefaultAttribute<T1, T2, T3> : global::Mockolate.Integrations.AsDefaultParameterAttribute
+		                                	{
+		                                		/// <inheritdoc cref="AsDefaultAttribute{T1, T2, T3}" />
+		                                		public AsDefaultAttribute() : base(new[] { typeof(T1), typeof(T2), typeof(T3), })
+		                                		{
+		                                		}
+		                                	}
+
+		                                	/// <inheritdoc cref="AsDefaultAttribute" />
+		                                	/// <typeparam name="T1">Another type for which the test parameter is used.</typeparam>
+		                                	/// <typeparam name="T2">Another type for which the test parameter is used.</typeparam>
+		                                	/// <typeparam name="T3">Another type for which the test parameter is used.</typeparam>
+		                                	/// <typeparam name="T4">Another type for which the test parameter is used.</typeparam>
+		                                	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
+		                                	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+		                                	[global::Microsoft.CodeAnalysis.Embedded]
+		                                	internal sealed class AsDefaultAttribute<T1, T2, T3, T4> : global::Mockolate.Integrations.AsDefaultParameterAttribute
+		                                	{
+		                                		/// <inheritdoc cref="AsDefaultAttribute{T1, T2, T3, T4}" />
+		                                		public AsDefaultAttribute() : base(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4), })
+		                                		{
+		                                		}
+		                                	}
+		                                #endif
 		                                }
 		                                #nullable disable
 		                                #endif

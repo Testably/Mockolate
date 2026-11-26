@@ -501,7 +501,7 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to An [AsDefault] parameter marks the default value of its type for all mocks of the test case, so it is ambiguous when another [AsDefault] parameter has the same type, and contradicts a [Transient] marker, which keeps the parameter from the other arguments..
+        ///   Looks up a localized string similar to An [AsDefault] parameter marks the default value of its type and of the types of the attribute for all mocks of the test case, so it is ambiguous when another [AsDefault] parameter is used for one of these types, must be assignable to each of them, and contradicts a [Transient] marker, which keeps the parameter from the other arguments..
         /// </summary>
         internal static string Mockolate0011Description {
             get {
@@ -519,7 +519,7 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to An [AsDefault] parameter is ambiguous or transient.
+        ///   Looks up a localized string similar to An [AsDefault] parameter is ambiguous or invalid.
         /// </summary>
         internal static string Mockolate0011Title {
             get {
@@ -528,7 +528,16 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to has the same type as the [AsDefault] parameter '{0}'.
+        ///   Looks up a localized string similar to is not assignable to '{0}'.
+        /// </summary>
+        internal static string Mockolate0011NotAssignableReason {
+            get {
+                return ResourceManager.GetString("Mockolate0011NotAssignableReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to is used for '{1}' like the [AsDefault] parameter '{0}'.
         /// </summary>
         internal static string Mockolate0011SameTypeReason {
             get {

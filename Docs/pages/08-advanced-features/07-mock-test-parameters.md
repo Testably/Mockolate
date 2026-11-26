@@ -94,7 +94,40 @@ public async Task Dispenser_ShouldBeTheMockOfTheTest(IVendingMachine machine, [A
 }
 ```
 
-A setup, a value written to a property or indexer, and `ThrowWhenNotSetup` still take precedence. The parameter only replaces the default value of its exact type, e.g. not of an interface that `IChocolateDispenser` implements, and it wins over the default values of the [behavior](#configure-the-mocks) for that type. Every member of the type returns the same instance, also a method that creates a new one in the real implementation or an indexer for every key; set up such a member when it needs other instances. The parameter is still passed to the constructor of a class under test. When the test method does not use it, it gets no [IDE0060](../10-analyzers.md#mockolate1001) diagnostic.
+A setup, a value written to a property or indexer, and `ThrowWhenNotSetup` still take precedence. The parameter only replaces the default value of its exact type, e.g. not of an interface that `IChocolateDispenser` implements unless you [name the interface](#use-a-fake-for-its-interfaces), and it wins over the default values of the [behavior](#configure-the-mocks) for that type. Every member of the type returns the same instance, also a method that creates a new one in the real implementation or an indexer for every key; set up such a member when it needs other instances. The parameter is still passed to the constructor of a class under test. When the test method does not use it, it gets no [IDE0060](../10-analyzers.md#mockolate1001) diagnostic.
+
+## Use a fake for its interfaces
+
+A test parameter only fills constructor parameters of exactly its type. To use a hand-written fake or another test double for an interface that it implements, name the interface in `[AsDefault<T>]`:
+
+```csharp
+public sealed class FakeChocolateDispenser : IChocolateDispenser
+{
+    public List<string> Dispensed { get; } = [];
+
+    public bool Dispense(string type, int amount)
+    {
+        Dispensed.Add(type);
+        return true;
+    }
+}
+
+[Test]
+[AutoMockArguments]
+public async Task Buy_ShouldUseTheFake(VendingMachine sut,
+    [AsDefault<IChocolateDispenser>] FakeChocolateDispenser dispenser)
+{
+    sut.Buy("Dark", 4);
+
+    await That(dispenser.Dispensed).IsEqualTo(["Dark"]);
+}
+```
+
+The parameter is then used for its own type and for each named type: constructor parameters of these types receive it, and it is the [default value](#return-a-parameter-from-the-other-mocks) of these types for all mocks of the test case. Name up to four types, e.g. `[AsDefault<IChocolateDispenser, IDisposable>]`.
+
+The generic attribute needs .NET 7 or later, because .NET Framework cannot read generic attributes. On .NET Framework, or for more than four types, pass the types as arguments: `[AsDefault(typeof(IChocolateDispenser))]`.
+
+When another test parameter has a named type, a constructor parameter of that type gets the one with its name, like with [several test parameters of a type](#what-each-parameter-gets). The [Mockolate0011](../10-analyzers.md#mockolate0011) analyzer reports a parameter that is not assignable to a named type, and two `[AsDefault]` parameters for the same type.
 
 Without `[AsDefault]`, a member of a mock that returns an interface returns `null`, or a task with a `null` result for e.g. `Task<IChocolateDispenser> GetDispenserAsync()` of a dependency, and the class under test fails with a `NullReferenceException`. Set the `MockolateAutoMocking` build property to let such members return a mock instead (see [Auto-mocking](../04-create-mocks.md#auto-mocking)), and keep `[AsDefault]` for the members whose instance the test needs.
 
@@ -188,8 +221,8 @@ With MSTest 4, add `[assembly: TestDataSourceOptions(TestDataSourceUnfoldingStra
 
 - Set `<MockolateTestFrameworkIntegration>false</MockolateTestFrameworkIntegration>` in the project file to skip the attribute.
 - Mockolate recognizes MSTest 3 only through its NuGet package, because earlier versions use the same assembly name.
-- A test parameter matches a constructor parameter of exactly its type. A constructor parameter of type `IChocolateDispenser` does not receive a test parameter of a type that derives from it.
-- A constructor parameter of a delegate or abstract class type only gets a mock from a test parameter of that type.
+- A test parameter matches a constructor parameter of exactly its type. A constructor parameter of type `IChocolateDispenser` does not receive a test parameter of a type that derives from it, unless that parameter [names the interface](#use-a-fake-for-its-interfaces) with `[AsDefault<IChocolateDispenser>]`.
+- A constructor parameter of a delegate or abstract class type only gets a mock from a test parameter of that type, or the parameter that [names the type](#use-a-fake-for-its-interfaces) in `[AsDefault<T>]`.
 - When two classes under test depend on each other, only the first of the two test parameters receives the other one; the second gets a new instance or its default value.
 - The given values must have the types of the parameters, e.g. `4` for an `int` and `4L` for a `long`. `[AutoMockArguments(null)]` passes `null` to the first parameter. A single array, e.g. `[AutoMockArguments(new object[] { "Dark", 4 })]` or `[AutoMockArguments(new[] { "Dark", "White" })]`, passes its elements as the values; to pass the array itself, wrap it, e.g. `[AutoMockArguments(new object[] { new[] { "Dark", "White" } })]`.
 - The [Mockolate0010](../10-analyzers.md#mockolate0010) analyzer reports parameters that Mockolate cannot create, such as `IRepository<T>` in a generic test.

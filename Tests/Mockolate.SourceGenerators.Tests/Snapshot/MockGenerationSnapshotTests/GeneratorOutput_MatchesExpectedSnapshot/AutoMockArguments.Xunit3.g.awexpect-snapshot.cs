@@ -22,8 +22,9 @@ namespace Mockolate.Integrations.Xunit
 	///     test can set up and verify the mock that the class under test uses. When several test parameters have the type,
 	///     the one with the name of the constructor parameter (ignoring case) is used; a value type or string is only
 	///     shared with a constructor parameter of its name. The given arguments and a <see cref="TransientAttribute">TransientAttribute</see>
-	///     parameter are not shared. An <see cref="AsDefaultAttribute">AsDefaultAttribute</see> parameter is the default value of its type for
-	///     all mocks. Each attribute on a method is one test case.
+	///     parameter are not shared. An <see cref="AsDefaultAttribute">AsDefaultAttribute</see> parameter is the default value of its type and
+	///     of the types it names for all mocks, and is also shared with constructor dependencies of the types it names.
+	///     Each attribute on a method is one test case.
 	/// </remarks>
 	[global::System.AttributeUsage(global::System.AttributeTargets.Method, AllowMultiple = true)]
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -63,8 +64,7 @@ namespace Mockolate.Integrations.Xunit
 				global::System.Array.ConvertAll(parameters, parameter => parameter.Name ?? ""),
 				index => global::System.Reflection.CustomAttributeExtensions.IsDefined(parameters[index],
 					typeof(global::Mockolate.Integrations.TransientParameterAttribute), false),
-				index => global::System.Reflection.CustomAttributeExtensions.IsDefined(parameters[index],
-					typeof(global::Mockolate.Integrations.AsDefaultParameterAttribute), false),
+				index => global::Mockolate.Integrations.AutoMockRow.GetAsDefaultTypes(parameters[index]),
 				arguments, DefaultBehavior?.Invoke()).Create();
 
 		/// <inheritdoc />
@@ -95,16 +95,81 @@ namespace Mockolate.Integrations.Xunit
 	}
 
 	/// <summary>
-	///     Makes the test parameter the default value of its exact type for all mocks that
-	///     <see cref="AutoMockArgumentsAttribute">AutoMockArgumentsAttribute</see> creates for the test case, so that their members without a setup
-	///     return it, also wrapped in a task.
+	///     Makes the test parameter the default value of its exact type and of the given <c>types</c> for all mocks
+	///     that <see cref="AutoMockArgumentsAttribute">AutoMockArgumentsAttribute</see> creates for the test case, so that their members without a
+	///     setup return it, also wrapped in a task. A constructor parameter of one of the given <c>types</c> receives
+	///     it, like one of its own type.
 	/// </summary>
 	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 	[global::Microsoft.CodeAnalysis.Embedded]
 	internal sealed class AsDefaultAttribute : global::Mockolate.Integrations.AsDefaultParameterAttribute
 	{
+		/// <param name="types">The other types for which the test parameter is used, e.g. the interfaces it implements.</param>
+		public AsDefaultAttribute(params global::System.Type[]? types) : base(types)
+		{
+		}
 	}
+#if NET7_0_OR_GREATER
+
+	/// <inheritdoc cref="AsDefaultAttribute" />
+	/// <typeparam name="T1">Another type for which the test parameter is used.</typeparam>
+	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	[global::Microsoft.CodeAnalysis.Embedded]
+	internal sealed class AsDefaultAttribute<T1> : global::Mockolate.Integrations.AsDefaultParameterAttribute
+	{
+		/// <inheritdoc cref="AsDefaultAttribute{T1}" />
+		public AsDefaultAttribute() : base(new[] { typeof(T1), })
+		{
+		}
+	}
+
+	/// <inheritdoc cref="AsDefaultAttribute" />
+	/// <typeparam name="T1">Another type for which the test parameter is used.</typeparam>
+	/// <typeparam name="T2">Another type for which the test parameter is used.</typeparam>
+	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	[global::Microsoft.CodeAnalysis.Embedded]
+	internal sealed class AsDefaultAttribute<T1, T2> : global::Mockolate.Integrations.AsDefaultParameterAttribute
+	{
+		/// <inheritdoc cref="AsDefaultAttribute{T1, T2}" />
+		public AsDefaultAttribute() : base(new[] { typeof(T1), typeof(T2), })
+		{
+		}
+	}
+
+	/// <inheritdoc cref="AsDefaultAttribute" />
+	/// <typeparam name="T1">Another type for which the test parameter is used.</typeparam>
+	/// <typeparam name="T2">Another type for which the test parameter is used.</typeparam>
+	/// <typeparam name="T3">Another type for which the test parameter is used.</typeparam>
+	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	[global::Microsoft.CodeAnalysis.Embedded]
+	internal sealed class AsDefaultAttribute<T1, T2, T3> : global::Mockolate.Integrations.AsDefaultParameterAttribute
+	{
+		/// <inheritdoc cref="AsDefaultAttribute{T1, T2, T3}" />
+		public AsDefaultAttribute() : base(new[] { typeof(T1), typeof(T2), typeof(T3), })
+		{
+		}
+	}
+
+	/// <inheritdoc cref="AsDefaultAttribute" />
+	/// <typeparam name="T1">Another type for which the test parameter is used.</typeparam>
+	/// <typeparam name="T2">Another type for which the test parameter is used.</typeparam>
+	/// <typeparam name="T3">Another type for which the test parameter is used.</typeparam>
+	/// <typeparam name="T4">Another type for which the test parameter is used.</typeparam>
+	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	[global::Microsoft.CodeAnalysis.Embedded]
+	internal sealed class AsDefaultAttribute<T1, T2, T3, T4> : global::Mockolate.Integrations.AsDefaultParameterAttribute
+	{
+		/// <inheritdoc cref="AsDefaultAttribute{T1, T2, T3, T4}" />
+		public AsDefaultAttribute() : base(new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4), })
+		{
+		}
+	}
+#endif
 }
 #nullable disable
 #endif

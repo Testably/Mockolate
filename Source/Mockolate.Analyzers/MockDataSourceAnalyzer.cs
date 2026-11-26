@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Mockolate.SourceGenerators.Internals;
 
@@ -39,7 +40,8 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			Resources.ResourceManager, typeof(Resources)));
 
 	/// <summary>
-	///     An <c>[AsDefault]</c> test parameter with the type of another one, or that is also <c>[Transient]</c>.
+	///     An <c>[AsDefault]</c> test parameter that is used for a type of another one, that is not assignable to one of
+	///     its types, or that is also <c>[Transient]</c>.
 	/// </summary>
 	public static readonly DiagnosticDescriptor AsDefaultParameterRule = new(
 		"Mockolate0011",
@@ -106,12 +108,14 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 	private static void ReportAsDefaultParameters(SymbolAnalysisContext context,
 		ImmutableArray<IParameterSymbol> parameters)
 	{
-		List<IParameterSymbol> asDefaultParameters = [];
+		List<(IParameterSymbol Parameter, ITypeSymbol[] Types)> asDefaultParameters = [];
 		foreach (IParameterSymbol parameter in parameters.Where(parameter =>
 			         HasMarker(parameter, "AsDefaultParameterAttribute")))
 		{
-			string? reason = GetAsDefaultReason(parameter, asDefaultParameters);
-			asDefaultParameters.Add(parameter);
+			ITypeSymbol?[] otherTypes = GetAsDefaultTypes(parameter);
+			ITypeSymbol[] types = [parameter.Type, ..otherTypes.OfType<ITypeSymbol>(),];
+			string? reason = GetAsDefaultReason(parameter, otherTypes, types, asDefaultParameters, context.Compilation);
+			asDefaultParameters.Add((parameter, types));
 			if (reason is not null && parameter.Locations.FirstOrDefault() is { IsInSource: true, } location)
 			{
 				context.ReportDiagnostic(Diagnostic.Create(AsDefaultParameterRule, location, parameter.Name, reason));
@@ -119,28 +123,92 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		}
 	}
 
-	private static string? GetAsDefaultReason(IParameterSymbol parameter, List<IParameterSymbol> asDefaultParameters)
+	private static string? GetAsDefaultReason(IParameterSymbol parameter, ITypeSymbol?[] otherTypes,
+		ITypeSymbol[] types, List<(IParameterSymbol Parameter, ITypeSymbol[] Types)> asDefaultParameters,
+		Compilation compilation)
 	{
 		if (HasMarker(parameter, "TransientParameterAttribute"))
 		{
 			return Resources.Mockolate0011TransientReason;
 		}
 
-		return asDefaultParameters.FirstOrDefault(other =>
-			SymbolEqualityComparer.Default.Equals(other.Type, parameter.Type)) is { } other
-			? string.Format(CultureInfo.InvariantCulture, Resources.Mockolate0011SameTypeReason, other.Name)
-			: null;
+		foreach (ITypeSymbol? otherType in otherTypes)
+		{
+			if (otherType is null || !IsAssignable(parameter.Type, otherType, compilation))
+			{
+				return string.Format(CultureInfo.InvariantCulture, Resources.Mockolate0011NotAssignableReason,
+					otherType?.ToDisplayString() ?? "null");
+			}
+		}
+
+		foreach ((IParameterSymbol other, ITypeSymbol[] otherParameterTypes) in asDefaultParameters)
+		{
+			if (types.FirstOrDefault(type => otherParameterTypes.Contains(type, SymbolEqualityComparer.Default)) is
+			    { } sharedType)
+			{
+				return string.Format(CultureInfo.InvariantCulture, Resources.Mockolate0011SameTypeReason,
+					other.Name, sharedType.WithNullableAnnotation(NullableAnnotation.NotAnnotated).ToDisplayString());
+			}
+		}
+
+		return null;
+	}
+
+	/// <summary>
+	///     The types of the generic <c>[AsDefault&lt;T1, …&gt;]</c> attributes and the <see langword="typeof" /> arguments
+	///     of the non-generic ones, with <see langword="null" /> for a <see langword="null" /> argument.
+	/// </summary>
+	private static ITypeSymbol?[] GetAsDefaultTypes(IParameterSymbol parameter)
+		=> parameter.GetAttributes()
+			.Where(attribute => IsMarker(attribute, "AsDefaultParameterAttribute"))
+			.SelectMany(attribute => attribute.AttributeClass!.IsGenericType
+				? attribute.AttributeClass.TypeArguments.Cast<ITypeSymbol?>()
+				: attribute.ConstructorArguments
+					.Where(argument => argument.Kind == TypedConstantKind.Array && !argument.IsNull)
+					.SelectMany(argument => argument.Values)
+					.Select(value => value.Value as ITypeSymbol))
+			.ToArray();
+
+	/// <summary>
+	///     Mirrors <c>Type.IsAssignableFrom</c>, which the test parameters are checked with at runtime: it knows no
+	///     lifted conversion like <c>int</c> to <c>long?</c>, and a <c>Nullable&lt;T&gt;</c> implements no interfaces.
+	/// </summary>
+	private static bool IsAssignable(ITypeSymbol source, ITypeSymbol destination, Compilation compilation)
+	{
+		Conversion conversion = compilation.ClassifyConversion(source, destination);
+		if (conversion.IsIdentity || (conversion.IsImplicit && conversion.IsReference))
+		{
+			return true;
+		}
+
+		if (!conversion.IsImplicit)
+		{
+			return false;
+		}
+
+		if (conversion.IsNullable)
+		{
+			return destination is INamedTypeSymbol { OriginalDefinition.SpecialType: SpecialType.System_Nullable_T, } nullable &&
+			       SymbolEqualityComparer.Default.Equals(nullable.TypeArguments[0], source);
+		}
+
+		return conversion.IsBoxing &&
+		       (source.OriginalDefinition.SpecialType != SpecialType.System_Nullable_T ||
+		        destination.SpecialType is SpecialType.System_Object or SpecialType.System_ValueType);
 	}
 
 	internal static bool HasMarker(IParameterSymbol parameter, string markerName)
-		=> parameter.GetAttributes().Any(attribute => attribute.AttributeClass?.BaseType is
+		=> parameter.GetAttributes().Any(attribute => IsMarker(attribute, markerName));
+
+	private static bool IsMarker(AttributeData attribute, string markerName)
+		=> attribute.AttributeClass?.BaseType is
 		{
 			ContainingNamespace:
 			{
 				Name: "Integrations",
 				ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, },
 			},
-		} marker && marker.Name == markerName);
+		} marker && marker.Name == markerName;
 
 	/// <summary>
 	///     Why Mockolate cannot create a value of the <paramref name="type" />, or <see langword="null" /> when it can or

@@ -287,7 +287,7 @@ internal static class Checks
 		{
 			object?[] values = new AutoMockRow(typeof(Checks).Assembly,
 				[typeof(string), typeof(VendingMachine), typeof(IChocolateDispenser),],
-				["type", "sut", "dispenser",], _ => false, _ => false, ["Dark",], null).Create();
+				["type", "sut", "dispenser",], _ => false, _ => null, ["Dark",], null).Create();
 			VendingMachine machine = (VendingMachine)values[1]!;
 			IChocolateDispenser dispenser = (IChocolateDispenser)values[2]!;
 			dispenser.Mock.Setup.Dispense(It.Is("Dark"), It.IsAny<int>()).Returns(true);
