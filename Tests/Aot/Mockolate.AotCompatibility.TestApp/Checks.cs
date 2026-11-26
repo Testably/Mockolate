@@ -287,12 +287,24 @@ internal static class Checks
 		{
 			object?[] values = new AutoMockRow(typeof(Checks).Assembly,
 				[typeof(string), typeof(VendingMachine), typeof(IChocolateDispenser),],
-				["type", "sut", "dispenser",], _ => false, _ => null, ["Dark",], null).Create();
+				["type", "sut", "dispenser",], _ => false, _ => false, _ => null, ["Dark",], null).Create();
 			VendingMachine machine = (VendingMachine)values[1]!;
 			IChocolateDispenser dispenser = (IChocolateDispenser)values[2]!;
 			dispenser.Mock.Setup.Dispense(It.Is("Dark"), It.IsAny<int>()).Returns(true);
 			return Equal((values[0], machine.Buy("Dark", 1), ReferenceEquals(machine.Counter.Dispenser, dispenser)),
 				((object?)"Dark", true, true));
+		}),
+		new("a deferred AutoMockArguments parameter creates the class under test with the parameter mocks when called", () =>
+		{
+			object?[] values = new AutoMockRow(typeof(Checks).Assembly,
+				[typeof(Func<VendingMachine>), typeof(IChocolateDispenser),],
+				["createSut", "dispenser",], _ => false, index => index == 0, _ => null, [], null).Create();
+			IChocolateDispenser dispenser = (IChocolateDispenser)values[1]!;
+			dispenser.Mock.Setup.Dispense(It.Is("Dark"), It.IsAny<int>()).Returns(true);
+			Func<VendingMachine> createSut = (Func<VendingMachine>)values[0]!;
+			VendingMachine first = createSut();
+			return Equal((first.Buy("Dark", 1), ReferenceEquals(first.Counter.Dispenser, dispenser),
+				ReferenceEquals(first, createSut())), (true, true, false));
 		}),
 		new("CreateMock with an out parameter creates a sealed class with mocked dependencies", () =>
 		{

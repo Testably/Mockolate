@@ -198,6 +198,7 @@ internal static partial class MockGeneratorHelpers
 			ToFullNames(targets.MockedTypes, compilation),
 			ToFullNames(targets.ValueOrMockTypes, compilation),
 			ToFullNames(targets.ValueTypes, compilation),
+			ToFullNames(targets.DeferredTypes, compilation),
 			new EquatableArray<MockClass>(targets.TypesToMock
 				.SelectMany(type => CreateDependencyMockClasses(type, compilation))
 				.ToArray()),
@@ -241,14 +242,28 @@ internal static partial class MockGeneratorHelpers
 		CancellationToken cancellationToken)
 	{
 		Compilation compilation = semanticModel.Compilation;
-		DataSourceTargets targets = new([], [], [], [], []);
+		DataSourceTargets targets = new([], [], [], [], [], []);
 		List<INamedTypeSymbol> pending = [];
 		foreach (IParameterSymbol parameter in
 		         GetDataSourceParameters(semanticModel.GetDeclaredSymbol(node, cancellationToken)))
 		{
 			ITypeSymbol parameterType = parameter.Type.WithDynamicAsObject(compilation)
 				.WithNullableAnnotation(NullableAnnotation.NotAnnotated);
-			switch (GetDataSourceParameterKind(parameterType, compilation))
+			// A [Deferred] Func<T> creates its T when the test calls it, so T is filled like a parameter instead.
+			ITypeSymbol? deferredType = GetDeferredType(parameter, parameterType);
+			if (deferredType is not null)
+			{
+				parameterType = deferredType.WithDynamicAsObject(compilation)
+					.WithNullableAnnotation(NullableAnnotation.NotAnnotated);
+			}
+
+			DataSourceParameterKind kind = GetDataSourceParameterKind(parameterType, compilation);
+			if (deferredType is not null && kind != DataSourceParameterKind.None)
+			{
+				targets.DeferredTypes.Add(parameterType);
+			}
+
+			switch (kind)
 			{
 				case DataSourceParameterKind.Mock when parameterType is INamedTypeSymbol { TypeKind: TypeKind.Class, } mockedClass:
 					pending.Add(mockedClass);
@@ -586,10 +601,33 @@ internal static partial class MockGeneratorHelpers
 		Value,
 	}
 
+	/// <summary>
+	///     The <c>T</c> of a <c>Func&lt;T&gt;</c> <paramref name="parameter" /> with a <c>[Deferred]</c> attribute, or
+	///     <see langword="null" /> for any other parameter.
+	/// </summary>
+	internal static ITypeSymbol? GetDeferredType(IParameterSymbol parameter, ITypeSymbol parameterType)
+		=> parameterType is INamedTypeSymbol
+		   {
+			   Name: "Func", Arity: 1,
+			   ContainingNamespace: { Name: "System", ContainingNamespace.IsGlobalNamespace: true, },
+		   } func &&
+		   parameter.GetAttributes().Any(attribute => attribute.AttributeClass?.BaseType is
+		   {
+			   Name: "DeferredParameterAttribute",
+			   ContainingNamespace:
+			   {
+				   Name: "Integrations",
+				   ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, },
+			   },
+		   })
+			? func.TypeArguments[0]
+			: null;
+
 	private sealed record DataSourceTargets(
 		List<DataSourceClass> Classes,
 		List<ITypeSymbol> MockedTypes,
 		List<ITypeSymbol> ValueOrMockTypes,
 		List<ITypeSymbol> ValueTypes,
+		List<ITypeSymbol> DeferredTypes,
 		List<ITypeSymbol> TypesToMock);
 }

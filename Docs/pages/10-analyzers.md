@@ -277,6 +277,24 @@ public void Buy_ShouldUseTheDispenser(IVendingMachine machine, [AsDefault] IChoc
 
 Use each type in only one `[AsDefault]` parameter, name only types that the parameter implements or derives from, and remove either `[AsDefault]` or `[Transient]` from a parameter that has both.
 
+## Mockolate0012
+
+**A `[Deferred]` parameter that is invalid.**
+
+A [`[Deferred]`](08-advanced-features/07-mock-test-parameters.md#create-the-class-under-test-in-the-test) parameter must be a `Func<T>`, whose calls each create a new `T`. Mockolate cannot create any other type for it, so the test fails at runtime. The delegate is never passed to a class under test, so `[Transient]` has no effect, and the mocks cannot return it, so it cannot be `[AsDefault]`:
+
+```csharp
+[Test]
+[AutoMockArguments]
+public void Buy_ShouldDispenseTheChocolate(
+    // Mockolate0012: The [Deferred] parameter 'sut' is not a Func<T>
+    [Deferred] VendingMachine sut,
+    // Mockolate0012: The [Deferred] parameter 'createDispenser' is also marked [AsDefault]
+    [Deferred, AsDefault] Func<IChocolateDispenser> createDispenser) { }
+```
+
+Declare the parameter as a `Func<T>` of the type to create, and remove `[AsDefault]` and `[Transient]` from it. [Mockolate0010](#mockolate0010) reports a `T` that Mockolate cannot create.
+
 ## Mockolate1001
 
 **IDE0060 is suppressed for an `[AsDefault]` parameter.**

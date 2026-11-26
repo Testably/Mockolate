@@ -18,7 +18,7 @@ namespace Mockolate
 #pragma warning disable CA2255, CS0436 // Module initializers in libraries; the polyfill next to an imported attribute
 		[global::System.Runtime.CompilerServices.ModuleInitializer]
 		internal static void Register()
-			=> global::Mockolate.Internals.MockDataSourceRegistry.Register(typeof(MockDataSourceRegistration).Assembly, Create);
+			=> global::Mockolate.Internals.MockDataSourceRegistry.Register(typeof(MockDataSourceRegistration).Assembly, Create, CreateDeferred);
 #pragma warning restore CA2255, CS0436
 
 		private static bool Create(global::System.Type type, global::Mockolate.MockBehavior? behavior, global::Mockolate.Internals.MockArgumentResolver resolve, out object? value)
@@ -131,6 +131,12 @@ namespace Mockolate
 				return true;
 			}
 
+			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.IMockDataDeferredDependency))
+			{
+				value = global::Mockolate.Tests.GeneratorCoverage.IMockDataDeferredDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);
+				return true;
+			}
+
 			if (type == typeof(global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency))
 			{
 				value = global::Mockolate.Tests.GeneratorCoverage.IMockDataDependency.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);
@@ -147,6 +153,13 @@ namespace Mockolate
 			{
 				value = IsValue(behavior ?? global::Mockolate.MockBehavior.Default, static mockolateBehavior => mockolateBehavior.DefaultValue.Generate(default(global::System.IServiceProvider)!), out global::System.IServiceProvider createdValue) ? createdValue : global::System.IServiceProvider.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default);
 				return true;
+			}
+
+			if (type == typeof(global::System.Uri))
+			{
+				bool created = IsValue(behavior ?? global::Mockolate.MockBehavior.Default, static mockolateBehavior => mockolateBehavior.DefaultValue.Generate(default(global::System.Uri)!), out global::System.Uri createdValue);
+				value = createdValue;
+				return created;
 			}
 
 			if (type == typeof(int))
@@ -173,6 +186,41 @@ namespace Mockolate
 			value = null;
 			return false;
 		}
+
+		private static bool CreateDeferred(global::System.Type type, global::Mockolate.MockBehavior? behavior, global::Mockolate.Internals.MockArgumentResolver resolve, out object? value)
+		{
+			if (type == typeof(global::System.Func<global::Mockolate.Tests.GeneratorCoverage.IMockDataDeferredDependency>))
+			{
+				value = new global::System.Func<global::Mockolate.Tests.GeneratorCoverage.IMockDataDeferredDependency>(() => CreateNew<global::Mockolate.Tests.GeneratorCoverage.IMockDataDeferredDependency>(behavior, resolve));
+				return true;
+			}
+
+			if (type == typeof(global::System.Func<global::Mockolate.Tests.GeneratorCoverage.MockDataSealedService>))
+			{
+				value = new global::System.Func<global::Mockolate.Tests.GeneratorCoverage.MockDataSealedService>(() => CreateNew<global::Mockolate.Tests.GeneratorCoverage.MockDataSealedService>(behavior, resolve));
+				return true;
+			}
+
+			if (type == typeof(global::System.Func<global::System.Uri>))
+			{
+				value = new global::System.Func<global::System.Uri>(() => CreateNew<global::System.Uri>(behavior, resolve));
+				return true;
+			}
+
+			if (type == typeof(global::System.Func<int>))
+			{
+				value = new global::System.Func<int>(() => CreateNew<int>(behavior, resolve));
+				return true;
+			}
+
+			value = null;
+			return false;
+		}
+
+		private static T CreateNew<T>(global::Mockolate.MockBehavior? behavior, global::Mockolate.Internals.MockArgumentResolver resolve)
+			=> Create(typeof(T), behavior, resolve, out object? value)
+				? (T)value!
+				: throw new global::Mockolate.Exceptions.MockException($"Mockolate cannot create a value of type '{typeof(T)}'.");
 
 		private static global::Mockolate.Tests.GeneratorCoverage.MockDataAbstractDependency Create0(global::Mockolate.MockBehavior? behavior, global::Mockolate.Internals.MockArgumentResolver resolve, CreationPath? path)
 		{

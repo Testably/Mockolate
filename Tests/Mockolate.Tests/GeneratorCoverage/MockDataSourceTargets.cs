@@ -28,6 +28,14 @@ public interface IMockDataConstructorDependency;
 public interface IMockDataClassDependency;
 
 /// <summary>
+///     Only a <c>[Deferred]</c> <see cref="Func{TResult}" /> asks for it, so only the deferred factory creates it.
+/// </summary>
+public interface IMockDataDeferredDependency
+{
+	int GetValue();
+}
+
+/// <summary>
 ///     A class whose concrete constructor dependency is created with the same resolver.
 /// </summary>
 public class MockDataService(
@@ -202,4 +210,13 @@ public static class MockDataSourceTargets
 
 	[DerivedMockData]
 	public static object Derived(MockDataDerivedTarget target) => target;
+
+	[MockData]
+	public static object Deferred([MockDataDeferred] Func<MockDataSealedService> createService,
+		[MockDataDeferred] Func<IMockDataDeferredDependency> createDependency, [MockDataDeferred] Func<int> createNumber,
+		[MockDataDeferred] Func<Uri> createAddress,
+#pragma warning disable Mockolate0012 // The generator treats it like any other parameter, which the snapshot shows.
+		[MockDataDeferred] MockDataInner notAFunc)
+#pragma warning restore Mockolate0012
+		=> (createService, createDependency, createNumber, createAddress, notAFunc);
 }

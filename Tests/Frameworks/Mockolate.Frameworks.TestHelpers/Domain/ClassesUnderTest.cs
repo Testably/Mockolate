@@ -8,6 +8,12 @@ public class DiscountService(ITaxCalculator taxCalculator)
 		=> amount + taxCalculator.GetTax(amount) - GetDiscount();
 }
 
+public sealed class StockIndicator(IChocolateStock stock)
+{
+	public bool IsAvailable { get; } = stock.Count > 0;
+	public IChocolateStock Stock { get; } = stock;
+}
+
 public sealed class SealedOrderService(IOrderRepository repository)
 {
 	public IOrderRepository Repository { get; } = repository;

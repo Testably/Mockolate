@@ -131,6 +131,38 @@ When another test parameter has a named type, a constructor parameter of that ty
 
 Without `[AsDefault]`, a member of a mock that returns an interface returns `null`, or a task with a `null` result for e.g. `Task<IChocolateDispenser> GetDispenserAsync()` of a dependency, and the class under test fails with a `NullReferenceException`. Set the `MockolateAutoMocking` build property to let such members return a mock instead (see [Auto-mocking](../04-create-mocks.md#auto-mocking)), and keep `[AsDefault]` for the members whose instance the test needs.
 
+## Create the class under test in the test
+
+Mockolate creates the parameters before the test runs, so a constructor that reads from its dependencies only sees mocks without setups. Mark a `Func<T>` parameter with `[Deferred]` to create the class under test after your setups instead:
+
+```csharp
+public interface IChocolateStock
+{
+    int Count(string type);
+}
+
+public class ChocolateDisplay(IChocolateStock stock)
+{
+    public bool IsSoldOut { get; } = stock.Count("Dark") == 0;
+}
+
+[Test]
+[AutoMockArguments]
+public async Task IsSoldOut_WhenDarkChocolateIsInStock_ShouldBeFalse([Deferred] Func<ChocolateDisplay> createSut,
+    IChocolateStock stock)
+{
+    stock.Mock.Setup.Count("Dark").Returns(5);
+
+    ChocolateDisplay sut = createSut();
+
+    await That(sut.IsSoldOut).IsFalse();
+}
+```
+
+Each call creates a new instance, exactly like a parameter of type `T`: a class under test receives the other test parameters as its constructor arguments, and the `[AsDefault]` parameters and the [behavior](#configure-the-mocks) apply. An exception of the constructor reaches the test, so you can assert it with `await That(() => createSut()).Throws<InvalidOperationException>()`. `T` can be any type that a parameter can have, e.g. `[Deferred] Func<IChocolateStock>` creates a new mock on each call.
+
+The test framework does not dispose what the delegate creates, so dispose it in the test, e.g. with `using ChocolateDisplay sut = createSut();`. The delegate is not passed to the constructor of a class under test. The [Mockolate0012](../10-analyzers.md#mockolate0012) analyzer reports a `[Deferred]` parameter that is not a `Func<T>`, or that is also `[AsDefault]` or `[Transient]`. Without `[Deferred]`, a `Func<T>` parameter gets a [default value](../04-create-mocks.md#default-values) like other framework types.
+
 ## Configure the mocks
 
 Assign `AutoMockArgumentsAttribute.DefaultBehavior` to choose the [behavior](../04-create-mocks.md#customizing-mock-behavior) of the mocks and the default values, for example with a default value generator backed by a library like AutoFixture. Assign it in a module initializer, so that it is set before the first test case is created:

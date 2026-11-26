@@ -293,6 +293,56 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments]
+	public async Task Deferred_ShouldCreateTheClassUnderTestWithTheSetupsOfTheTest(
+		[Deferred] Func<StockIndicator> createSut, IChocolateStock stock)
+	{
+		stock.Mock.Setup.Count.Returns(5);
+
+		StockIndicator sut = createSut();
+
+		await That(sut.IsAvailable).IsTrue();
+		await That(sut.Stock).IsSameAs(stock);
+	}
+
+	[Test]
+	[AutoMockArguments]
+	public async Task Deferred_WhenTheConstructorThrows_ShouldThrowWhenCalled(
+		[Deferred] Func<StockIndicator> createSut, IChocolateStock stock)
+	{
+		stock.Mock.Setup.Count.Throws<InvalidOperationException>();
+
+		void Act()
+			=> createSut();
+
+		await That(Act).Throws<InvalidOperationException>();
+	}
+
+	[Test]
+	[AutoMockArguments]
+	public async Task Deferred_ShouldCreateANewInstanceOnEachCall([Deferred] Func<StockIndicator> createSut,
+		IChocolateStock stock)
+	{
+		StockIndicator first = createSut();
+		StockIndicator second = createSut();
+
+		await That(first).IsNotSameAs(second);
+		await That(second.Stock).IsSameAs(stock);
+	}
+
+	[Test]
+	[AutoMockArguments(3)]
+	public async Task Deferred_WithInterface_ShouldCreateANewMockWithTheBehaviorOnEachCall([AsDefault] int count,
+		[Deferred] Func<IChocolateStock> createStock)
+	{
+		IChocolateStock first = createStock();
+		IChocolateStock second = createStock();
+
+		await That(first).IsNotSameAs(second);
+		await That(first.Count).IsEqualTo(3);
+	}
+
+	[Test]
+	[AutoMockArguments]
 	public async Task AutoMockArguments_WithTransientParameterOfTheType_ShouldIgnoreItWhenMatching(
 		TransferService sut, IAccount source, IAccount target, [Transient] IAccount other)
 	{

@@ -34,8 +34,17 @@ public sealed class SealedVendingMachine(IChocolateDispenser dispenser, string l
 [AttributeUsage(AttributeTargets.Method)]
 public sealed class MockArgumentsAttribute : Attribute, IMockDataSource;
 
+/// <summary>
+///     A <c>[Deferred]</c> marker like that of a test framework integration.
+/// </summary>
+internal sealed class DeferredAttribute : Mockolate.Integrations.DeferredParameterAttribute;
+
 public static class MockDataSourceTargets
 {
 	[MockArguments]
 	public static bool Buy(VendingMachine sut, IChocolateDispenser dispenser, string type) => sut.Buy(type, 1) && dispenser.Stock > 0;
+
+	[MockArguments]
+	internal static VendingMachine CreateLater([Deferred] Func<VendingMachine> createSut, IChocolateDispenser dispenser)
+		=> createSut();
 }

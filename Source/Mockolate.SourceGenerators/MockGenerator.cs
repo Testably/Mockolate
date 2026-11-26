@@ -153,13 +153,14 @@ public class MockGenerator : IIncrementalGenerator
 				.OrderBy(dataSourceClass => dataSourceClass.ClassFullName, StringComparer.Ordinal)
 				.ToArray()));
 
-		IncrementalValueProvider<(EquatableArray<string> Mocked, EquatableArray<string> ValueOrMock, EquatableArray<string> Value)>
+		IncrementalValueProvider<(EquatableArray<string> Mocked, EquatableArray<string> ValueOrMock, EquatableArray<string> Value, EquatableArray<string> Deferred)>
 			dataSourceTypes = dataSourceCreations
 				.Collect()
 				.Select(static (source, _) => (
 					SortedDistinct(source.SelectMany(creation => creation.MockedTypes)),
 					SortedDistinct(source.SelectMany(creation => creation.ValueOrMockTypes)),
-					SortedDistinct(source.SelectMany(creation => creation.ValueTypes))));
+					SortedDistinct(source.SelectMany(creation => creation.ValueTypes)),
+					SortedDistinct(source.SelectMany(creation => creation.DeferredTypes))));
 
 		// Like the union attributes, the attribute may come from another generator, which Mockolate cannot see: one that
 		// MockolateUnionAttributePolyfills names, PolySharp or the generator of TUnit.
@@ -202,13 +203,14 @@ public class MockGenerator : IIncrementalGenerator
 			static (spc, source) =>
 			{
 				((EquatableArray<DataSourceClass> classes,
-						(EquatableArray<string> Mocked, EquatableArray<string> ValueOrMock, EquatableArray<string> Value) types),
+						(EquatableArray<string> Mocked, EquatableArray<string> ValueOrMock, EquatableArray<string> Value,
+						EquatableArray<string> Deferred) types),
 					bool moduleInitializer) = source.Left;
 				if (classes.Count > 0 || types.Mocked.Count > 0 || types.ValueOrMock.Count > 0 || types.Value.Count > 0)
 				{
 					spc.AddSource("MockDataSources.g.cs",
 						ToSource(Sources.Sources.MockDataSources(classes, types.Mocked, types.ValueOrMock, types.Value,
-							!moduleInitializer), source.Right));
+							types.Deferred, !moduleInitializer), source.Right));
 				}
 			});
 

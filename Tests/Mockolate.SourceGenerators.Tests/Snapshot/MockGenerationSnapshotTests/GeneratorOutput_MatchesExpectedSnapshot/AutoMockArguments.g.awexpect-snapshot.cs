@@ -30,6 +30,18 @@ namespace Mockolate.Integrations
 	}
 
 	/// <summary>
+	///     Makes a <see cref="global::System.Func{TResult}">Func&lt;TResult&gt;</see> test parameter create a new value of its result type
+	///     each time it is called.
+	/// </summary>
+	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
+	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	[global::Microsoft.CodeAnalysis.Embedded]
+	internal abstract class DeferredParameterAttribute : global::System.Attribute
+	{
+	}
+
+	/// <summary>
 	///     Makes a test parameter the default value of its type and of the <see cref="Types">Types</see> for all mocks of the
 	///     test case.
 	/// </summary>
@@ -64,6 +76,7 @@ namespace Mockolate.Integrations
 		private readonly global::System.Type[] _types;
 		private readonly string[] _names;
 		private readonly global::System.Func<int, bool> _isTransientParameter;
+		private readonly global::System.Func<int, bool> _isDeferredParameter;
 		private readonly global::System.Func<int, global::System.Type[]?> _getAsDefaultTypes;
 		private readonly object?[] _arguments;
 		private global::Mockolate.MockBehavior? _behavior;
@@ -76,6 +89,7 @@ namespace Mockolate.Integrations
 		/// <param name="types">The types of the parameters of the test method.</param>
 		/// <param name="names">The names of the parameters of the test method.</param>
 		/// <param name="isTransientParameter">Whether the parameter at an index is marked as transient.</param>
+		/// <param name="isDeferredParameter">Whether the parameter at an index is marked as deferred.</param>
 		/// <param name="getAsDefaultTypes">
 		///     The other types of which the parameter at an index is the default value, or <see langword="null" /> when it
 		///     is not the default value of its own type either.
@@ -84,6 +98,7 @@ namespace Mockolate.Integrations
 		/// <param name="behavior">The behavior of the created mocks and values.</param>
 		public AutoMockRow(global::System.Reflection.Assembly assembly, global::System.Type[] types, string[] names,
 			global::System.Func<int, bool> isTransientParameter,
+			global::System.Func<int, bool> isDeferredParameter,
 			global::System.Func<int, global::System.Type[]?> getAsDefaultTypes,
 			object?[] arguments, global::Mockolate.MockBehavior? behavior)
 		{
@@ -97,6 +112,7 @@ namespace Mockolate.Integrations
 			_types = types;
 			_names = names;
 			_isTransientParameter = isTransientParameter;
+			_isDeferredParameter = isDeferredParameter;
 			_getAsDefaultTypes = getAsDefaultTypes;
 			_arguments = arguments;
 			_behavior = behavior;
@@ -279,9 +295,21 @@ namespace Mockolate.Integrations
 			}
 
 			_states[index] = 1;
-			if (!global::Mockolate.Internals.MockDataSource.TryCreate(_assembly, _types[index], _behavior,
-				    (global::System.Type type, string parameterName, out object? value) =>
-					    TryResolve(type, parameterName, index, out value), out object? created))
+			global::Mockolate.Internals.MockArgumentResolver resolve =
+				(global::System.Type type, string parameterName, out object? value) =>
+					TryResolve(type, parameterName, index, out value);
+			object? created;
+			if (_isDeferredParameter(index))
+			{
+				if (!global::Mockolate.Internals.MockDataSource.TryCreateDeferred(_assembly, _types[index], _behavior,
+					    resolve, out created))
+				{
+					throw new global::Mockolate.Exceptions.MockException(
+						$"Mockolate cannot create the [Deferred] parameter '{_names[index]}' of type '{_types[index]}'. Only a Func<T> of a type that Mockolate can create can be deferred.");
+				}
+			}
+			else if (!global::Mockolate.Internals.MockDataSource.TryCreate(_assembly, _types[index], _behavior,
+				         resolve, out created))
 			{
 				throw new global::Mockolate.Exceptions.MockException(
 					$"Mockolate cannot create the parameter '{_names[index]}' of type '{_types[index]}'. Pass it as an argument, or register a default value for its type through AutoMockArgumentsAttribute.DefaultBehavior.");
@@ -293,8 +321,10 @@ namespace Mockolate.Integrations
 		}
 
 		// Given arguments are not shared: a value like 4 would otherwise reach every int of every class under test.
+		// Neither is a deferred factory, which is not a mock that the test can set up.
 		private bool IsTransient(int index)
-			=> index < _arguments.Length || (_isTransient[index] ??= _isTransientParameter(index));
+			=> index < _arguments.Length ||
+			   (_isTransient[index] ??= _isTransientParameter(index) || _isDeferredParameter(index));
 
 		/// <summary>
 		///     The shared test parameter of the <paramref name="type" />, or the [AsDefault] parameter for it; the

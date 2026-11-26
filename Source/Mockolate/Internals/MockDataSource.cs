@@ -63,6 +63,54 @@ public static class MockDataSource
 			throw new ArgumentNullException(nameof(resolve));
 		}
 
+		return GetFactory(assembly)(type, behavior, resolve, out value);
+	}
+
+	/// <summary>
+	///     Creates the delegate of a <c>[Deferred]</c> parameter of the <paramref name="delegateType" />, such as
+	///     <c>Func&lt;T&gt;</c>, with the code generated into the <paramref name="assembly" />: each call of the delegate
+	///     creates a new value of the type it returns, like <see cref="TryCreate" />.
+	/// </summary>
+	/// <param name="assembly">The assembly that declares the member whose parameter is created.</param>
+	/// <param name="delegateType">The type of the delegate to create.</param>
+	/// <param name="behavior">
+	///     The behavior of the values that the delegate creates, or <see langword="null" /> for
+	///     <c>MockBehavior.Default</c>.
+	/// </param>
+	/// <param name="resolve">Supplies the constructor arguments that must not be new mocks, when the delegate is called.</param>
+	/// <param name="value">The created delegate.</param>
+	/// <returns>
+	///     <see langword="true" /> when the generated code of the <paramref name="assembly" /> can create a delegate of
+	///     <paramref name="delegateType" />.
+	/// </returns>
+	/// <exception cref="ArgumentNullException">
+	///     The <paramref name="assembly" />, the <paramref name="delegateType" /> or the <paramref name="resolve" /> is
+	///     <see langword="null" />.
+	/// </exception>
+	public static bool TryCreateDeferred(Assembly assembly, Type delegateType, MockBehavior? behavior,
+		MockArgumentResolver resolve, out object? value)
+	{
+		if (assembly is null)
+		{
+			throw new ArgumentNullException(nameof(assembly));
+		}
+
+		if (delegateType is null)
+		{
+			throw new ArgumentNullException(nameof(delegateType));
+		}
+
+		if (resolve is null)
+		{
+			throw new ArgumentNullException(nameof(resolve));
+		}
+
+		GetFactory(assembly);
+		return MockDataSourceRegistry.GetDeferred(assembly)(delegateType, behavior, resolve, out value);
+	}
+
+	private static MockDataSourceFactory GetFactory(Assembly assembly)
+	{
 		if (!MockDataSourceRegistry.TryGet(assembly, out MockDataSourceFactory? factory))
 		{
 			// Test frameworks read the attributes from metadata, which does not run the module initializer.
@@ -70,6 +118,6 @@ public static class MockDataSource
 			factory = MockDataSourceRegistry.GetOrRegisterNone(assembly);
 		}
 
-		return factory(type, behavior, resolve, out value);
+		return factory;
 	}
 }

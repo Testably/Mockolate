@@ -143,6 +143,15 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
+		public async Task Equals_WithDifferingDeferredType_IsFalse()
+		{
+			DataSourceCreation a = Create("global::A.Sut", "string");
+			DataSourceCreation b = Create("global::A.Sut", "string", deferredType: "global::A.Other");
+
+			await That(a.Equals(b)).IsFalse();
+		}
+
+		[Test]
 		public async Task Equals_WithDifferingIsMockedLast_IsFalse()
 		{
 			DataSourceCreation a = Create("global::A.Sut", "string");
@@ -171,7 +180,7 @@ public sealed class MockGeneratorEqualityTests
 
 		private static DataSourceCreation Create(string className, string parameterType, bool isCreatable = false,
 			bool isMockedLast = false, string mockedType = "global::A.IDependency", string valueType = "int",
-			int start = 1, bool isMock = false)
+			int start = 1, bool isMock = false, string deferredType = "global::A.Sut")
 			=> new(
 				new EquatableArray<DataSourceClass>([
 					new DataSourceClass(className, new EquatableArray<DataSourceParameter>([
@@ -181,6 +190,7 @@ public sealed class MockGeneratorEqualityTests
 				new EquatableArray<string>([mockedType,]),
 				new EquatableArray<string>(["global::System.IServiceProvider",]),
 				new EquatableArray<string>([valueType,]),
+				new EquatableArray<string>([deferredType,]),
 				new EquatableArray<MockClass>([]),
 				new CreateMockLocation("File.cs", start, 2));
 	}

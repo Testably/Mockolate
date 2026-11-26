@@ -87,6 +87,30 @@ public sealed class AutoMockArgumentsTests
 	}
 
 	[AutoMockArguments]
+	public async Task Deferred_ShouldCreateTheClassUnderTestWithTheSetupsOfTheTest(
+		[Deferred] Func<StockIndicator> createSut, IChocolateStock stock)
+	{
+		stock.Mock.Setup.Count.Returns(5);
+
+		StockIndicator sut = createSut();
+
+		await That(sut.IsAvailable).IsTrue();
+		await That(sut.Stock).IsSameAs(stock);
+	}
+
+	[AutoMockArguments]
+	public async Task Deferred_WhenTheConstructorThrows_ShouldThrowWhenCalled(
+		[Deferred] Func<StockIndicator> createSut, IChocolateStock stock)
+	{
+		stock.Mock.Setup.Count.Throws<InvalidOperationException>();
+
+		void Act()
+			=> createSut();
+
+		await That(Act).Throws<InvalidOperationException>();
+	}
+
+	[AutoMockArguments]
 	public async Task DefaultBehavior_AssignedInModuleInitializer_ShouldApplyToTheArguments(ConfiguredValue value)
 		=> await That(value.Id).IsEqualTo(42);
 
