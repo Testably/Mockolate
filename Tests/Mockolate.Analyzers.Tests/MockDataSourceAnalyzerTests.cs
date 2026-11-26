@@ -572,15 +572,36 @@ public class MockDataSourceAnalyzerTests
 			      public class Tests
 			      {
 			          [Data]
-			          public void Test([AsDefault(typeof(IDep), typeof(string))] Fake {|#0:a|}, [AsDefault<IDep>] int {|#1:b|}) { }
+			          public void Test([AsDefault(typeof(IDep), typeof(string))] Fake {|#0:a|}, [AsDefault<IDep>] int {|#1:b|},
+			              [AsDefault<long?>] int {|#2:c|}, [AsDefault<System.IComparable>] int? {|#3:d|},
+			              [AsDefault(typeof(IDep), null)] Fake {|#4:e|}) { }
 
 			          [Data]
 			          public void Valid([AsDefault(typeof(IDep), typeof(object))] Fake a,
 			              [AsDefault<System.IComparable>] int b, [AsDefault(typeof(long?))] long c,
 			              [AsDefault(null)] string d) { }
+
+			          [Data]
+			          public void ValidNullable([AsDefault<object>] int? a) { }
+
+			          [Data]
+			          public void ValidNullableValueType([AsDefault<System.ValueType>] int? a) { }
+
+			          [Data]
+			          public void ValidForeignAttribute([AsDefault, Other.Foreign(typeof(string))] IDep a) { }
 			      }
 
 			      {{DataAttribute}}
+			  }
+
+			  namespace Other
+			  {
+			      public abstract class AsDefaultParameterAttribute : System.Attribute;
+
+			      public sealed class ForeignAttribute : AsDefaultParameterAttribute
+			      {
+			          public ForeignAttribute(System.Type type) { }
+			      }
 			  }
 
 			  {{Markers}}
@@ -588,6 +609,12 @@ public class MockDataSourceAnalyzerTests
 			Verifier.Diagnostic(MockDataSourceAnalyzer.AsDefaultParameterRule).WithLocation(0)
 				.WithArguments("a", "is not assignable to 'string'"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.AsDefaultParameterRule).WithLocation(1)
-				.WithArguments("b", "is not assignable to 'MyCode.IDep'")
+				.WithArguments("b", "is not assignable to 'MyCode.IDep'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.AsDefaultParameterRule).WithLocation(2)
+				.WithArguments("c", "is not assignable to 'long?'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.AsDefaultParameterRule).WithLocation(3)
+				.WithArguments("d", "is not assignable to 'System.IComparable'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.AsDefaultParameterRule).WithLocation(4)
+				.WithArguments("e", "is not assignable to 'null'")
 		);
 }

@@ -112,8 +112,8 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		foreach (IParameterSymbol parameter in parameters.Where(parameter =>
 			         HasMarker(parameter, "AsDefaultParameterAttribute")))
 		{
-			ITypeSymbol[] otherTypes = GetAsDefaultTypes(parameter);
-			ITypeSymbol[] types = [parameter.Type, ..otherTypes,];
+			ITypeSymbol?[] otherTypes = GetAsDefaultTypes(parameter);
+			ITypeSymbol[] types = [parameter.Type, ..otherTypes.OfType<ITypeSymbol>(),];
 			string? reason = GetAsDefaultReason(parameter, otherTypes, types, asDefaultParameters, context.Compilation);
 			asDefaultParameters.Add((parameter, types));
 			if (reason is not null && parameter.Locations.FirstOrDefault() is { IsInSource: true, } location)
@@ -123,7 +123,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		}
 	}
 
-	private static string? GetAsDefaultReason(IParameterSymbol parameter, ITypeSymbol[] otherTypes,
+	private static string? GetAsDefaultReason(IParameterSymbol parameter, ITypeSymbol?[] otherTypes,
 		ITypeSymbol[] types, List<(IParameterSymbol Parameter, ITypeSymbol[] Types)> asDefaultParameters,
 		Compilation compilation)
 	{
@@ -132,10 +132,13 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			return Resources.Mockolate0011TransientReason;
 		}
 
-		if (otherTypes.FirstOrDefault(type => !IsAssignable(parameter.Type, type, compilation)) is { } unassignable)
+		foreach (ITypeSymbol? otherType in otherTypes)
 		{
-			return string.Format(CultureInfo.InvariantCulture, Resources.Mockolate0011NotAssignableReason,
-				unassignable.ToDisplayString());
+			if (otherType is null || !IsAssignable(parameter.Type, otherType, compilation))
+			{
+				return string.Format(CultureInfo.InvariantCulture, Resources.Mockolate0011NotAssignableReason,
+					otherType?.ToDisplayString() ?? "null");
+			}
 		}
 
 		foreach ((IParameterSymbol other, ITypeSymbol[] otherParameterTypes) in asDefaultParameters)
@@ -153,37 +156,59 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 
 	/// <summary>
 	///     The types of the generic <c>[AsDefault&lt;T1, …&gt;]</c> attributes and the <see langword="typeof" /> arguments
-	///     of the non-generic ones.
+	///     of the non-generic ones, with <see langword="null" /> for a <see langword="null" /> argument.
 	/// </summary>
-	private static ITypeSymbol[] GetAsDefaultTypes(IParameterSymbol parameter)
+	private static ITypeSymbol?[] GetAsDefaultTypes(IParameterSymbol parameter)
 		=> parameter.GetAttributes()
-			.Where(attribute => attribute.AttributeClass?.BaseType?.Name == "AsDefaultParameterAttribute")
+			.Where(attribute => IsMarker(attribute, "AsDefaultParameterAttribute"))
 			.SelectMany(attribute => attribute.AttributeClass!.IsGenericType
-				? attribute.AttributeClass.TypeArguments
+				? attribute.AttributeClass.TypeArguments.Cast<ITypeSymbol?>()
 				: attribute.ConstructorArguments
 					.Where(argument => argument.Kind == TypedConstantKind.Array && !argument.IsNull)
 					.SelectMany(argument => argument.Values)
-					.Select(value => value.Value)
-					.OfType<ITypeSymbol>())
+					.Select(value => value.Value as ITypeSymbol))
 			.ToArray();
 
-	// Mirrors Type.IsAssignableFrom, which the test parameters are checked with at runtime.
+	/// <summary>
+	///     Mirrors <c>Type.IsAssignableFrom</c>, which the test parameters are checked with at runtime: it knows no
+	///     lifted conversion like <c>int</c> to <c>long?</c>, and a <c>Nullable&lt;T&gt;</c> implements no interfaces.
+	/// </summary>
 	private static bool IsAssignable(ITypeSymbol source, ITypeSymbol destination, Compilation compilation)
 	{
 		Conversion conversion = compilation.ClassifyConversion(source, destination);
-		return conversion.IsIdentity ||
-		       (conversion.IsImplicit && (conversion.IsReference || conversion.IsBoxing || conversion.IsNullable));
+		if (conversion.IsIdentity || (conversion.IsImplicit && conversion.IsReference))
+		{
+			return true;
+		}
+
+		if (!conversion.IsImplicit)
+		{
+			return false;
+		}
+
+		if (conversion.IsNullable)
+		{
+			return destination is INamedTypeSymbol { OriginalDefinition.SpecialType: SpecialType.System_Nullable_T, } nullable &&
+			       SymbolEqualityComparer.Default.Equals(nullable.TypeArguments[0], source);
+		}
+
+		return conversion.IsBoxing &&
+		       (source.OriginalDefinition.SpecialType != SpecialType.System_Nullable_T ||
+		        destination.SpecialType is SpecialType.System_Object or SpecialType.System_ValueType);
 	}
 
 	internal static bool HasMarker(IParameterSymbol parameter, string markerName)
-		=> parameter.GetAttributes().Any(attribute => attribute.AttributeClass?.BaseType is
+		=> parameter.GetAttributes().Any(attribute => IsMarker(attribute, markerName));
+
+	private static bool IsMarker(AttributeData attribute, string markerName)
+		=> attribute.AttributeClass?.BaseType is
 		{
 			ContainingNamespace:
 			{
 				Name: "Integrations",
 				ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, },
 			},
-		} marker && marker.Name == markerName);
+		} marker && marker.Name == markerName;
 
 	/// <summary>
 	///     Why Mockolate cannot create a value of the <paramref name="type" />, or <see langword="null" /> when it can or

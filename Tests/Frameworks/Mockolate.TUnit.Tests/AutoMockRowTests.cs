@@ -108,6 +108,19 @@ public sealed class AutoMockRowTests
 			.WithMessage("The [AsDefault] parameter 'count' of type 'System.Int32' is not assignable to 'System.String'.");
 	}
 
+	[Test]
+	public async Task Create_WithNullAsDefaultType_ShouldThrow()
+	{
+		AutoMockRow row = new(typeof(AutoMockRowTests).Assembly, GetTypes(nameof(AsDefaultCount)),
+			GetNames(nameof(AsDefaultCount)), _ => false, index => index == 0 ? [null!,] : null, [], null);
+
+		void Act()
+			=> row.Create();
+
+		await That(Act).Throws<MockException>()
+			.WithMessage("The [AsDefault] parameter 'count' of type 'System.Int32' is not assignable to 'null'.");
+	}
+
 	private static AutoMockRow CreateRow(string methodName, params object?[] arguments)
 		=> new(typeof(AutoMockRowTests).Assembly, GetTypes(methodName), GetNames(methodName), _ => false, _ => null,
 			arguments, null);

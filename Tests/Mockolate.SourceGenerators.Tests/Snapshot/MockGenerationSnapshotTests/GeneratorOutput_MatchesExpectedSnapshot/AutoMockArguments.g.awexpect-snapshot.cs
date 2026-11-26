@@ -236,12 +236,12 @@ namespace Mockolate.Integrations
 				{
 					_asDefaultTypes[index] = otherTypes;
 					UseAsDefault(index, _types[index]);
-					foreach (global::System.Type otherType in otherTypes)
+					foreach (global::System.Type? otherType in otherTypes)
 					{
-						if (!otherType.IsAssignableFrom(_types[index]))
+						if (otherType is null || !otherType.IsAssignableFrom(_types[index]))
 						{
 							throw new global::Mockolate.Exceptions.MockException(
-								$"The [AsDefault] parameter '{_names[index]}' of type '{_types[index]}' is not assignable to '{otherType}'.");
+								$"The [AsDefault] parameter '{_names[index]}' of type '{_types[index]}' is not assignable to '{otherType?.ToString() ?? "null"}'.");
 						}
 
 						UseAsDefault(index, otherType);

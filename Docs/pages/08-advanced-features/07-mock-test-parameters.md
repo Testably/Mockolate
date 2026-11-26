@@ -220,7 +220,7 @@ With MSTest 4, add `[assembly: TestDataSourceOptions(TestDataSourceUnfoldingStra
 - Set `<MockolateTestFrameworkIntegration>false</MockolateTestFrameworkIntegration>` in the project file to skip the attribute.
 - Mockolate recognizes MSTest 3 only through its NuGet package, because earlier versions use the same assembly name.
 - A test parameter matches a constructor parameter of exactly its type. A constructor parameter of type `IChocolateDispenser` does not receive a test parameter of a type that derives from it, unless that parameter [names the interface](#use-a-fake-for-its-interfaces) with `[AsDefault<IChocolateDispenser>]`.
-- A constructor parameter of a delegate or abstract class type only gets a mock from a test parameter of that type.
+- A constructor parameter of a delegate or abstract class type only gets a mock from a test parameter of that type, or the parameter that [names the type](#use-a-fake-for-its-interfaces) in `[AsDefault<T>]`.
 - When two classes under test depend on each other, only the first of the two test parameters receives the other one; the second gets a new instance or its default value.
 - The given values must have the types of the parameters, e.g. `4` for an `int` and `4L` for a `long`. `[AutoMockArguments(null)]` passes `null` to the first parameter. A single array, e.g. `[AutoMockArguments(new object[] { "Dark", 4 })]` or `[AutoMockArguments(new[] { "Dark", "White" })]`, passes its elements as the values; to pass the array itself, wrap it, e.g. `[AutoMockArguments(new object[] { new[] { "Dark", "White" } })]`.
 - The [Mockolate0010](../10-analyzers.md#mockolate0010) analyzer reports parameters that Mockolate cannot create, such as `IRepository<T>` in a generic test.

@@ -22,8 +22,9 @@ namespace Mockolate.Integrations.MSTest
 	///     test can set up and verify the mock that the class under test uses. When several test parameters have the type,
 	///     the one with the name of the constructor parameter (ignoring case) is used; a value type or string is only
 	///     shared with a constructor parameter of its name. The given arguments and a <see cref="TransientAttribute">TransientAttribute</see>
-	///     parameter are not shared. An <see cref="AsDefaultAttribute">AsDefaultAttribute</see> parameter is the default value of its type for
-	///     all mocks. Each attribute on a method is one test case.
+	///     parameter are not shared. An <see cref="AsDefaultAttribute">AsDefaultAttribute</see> parameter is the default value of its type and
+	///     of the types it names for all mocks, and is also shared with constructor dependencies of the types it names.
+	///     Each attribute on a method is one test case.
 	/// </remarks>
 	[global::System.AttributeUsage(global::System.AttributeTargets.Method, AllowMultiple = true)]
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]

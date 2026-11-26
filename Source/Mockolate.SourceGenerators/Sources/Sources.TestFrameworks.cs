@@ -262,12 +262,12 @@ internal static partial class Sources
 		                              				{
 		                              					_asDefaultTypes[index] = otherTypes;
 		                              					UseAsDefault(index, _types[index]);
-		                              					foreach (global::System.Type otherType in otherTypes)
+		                              					foreach (global::System.Type? otherType in otherTypes)
 		                              					{
-		                              						if (!otherType.IsAssignableFrom(_types[index]))
+		                              						if (otherType is null || !otherType.IsAssignableFrom(_types[index]))
 		                              						{
 		                              							throw new global::Mockolate.Exceptions.MockException(
-		                              								$"The [AsDefault] parameter '{_names[index]}' of type '{_types[index]}' is not assignable to '{otherType}'.");
+		                              								$"The [AsDefault] parameter '{_names[index]}' of type '{_types[index]}' is not assignable to '{otherType?.ToString() ?? "null"}'.");
 		                              						}
 
 		                              						UseAsDefault(index, otherType);
@@ -397,8 +397,9 @@ internal static partial class Sources
 		                                	///     test can set up and verify the mock that the class under test uses. When several test parameters have the type,
 		                                	///     the one with the name of the constructor parameter (ignoring case) is used; a value type or string is only
 		                                	///     shared with a constructor parameter of its name. The given arguments and a <see cref="TransientAttribute" />
-		                                	///     parameter are not shared. An <see cref="AsDefaultAttribute" /> parameter is the default value of its type for
-		                                	///     all mocks. Each attribute on a method is one test case.
+		                                	///     parameter are not shared. An <see cref="AsDefaultAttribute" /> parameter is the default value of its type and
+		                                	///     of the types it names for all mocks, and is also shared with constructor dependencies of the types it names.
+		                                	///     Each attribute on a method is one test case.
 		                                	/// </remarks>
 		                                	[global::System.AttributeUsage(global::System.AttributeTargets.Method, AllowMultiple = true)]
 		                                	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
