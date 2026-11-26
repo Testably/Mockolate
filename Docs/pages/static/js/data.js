@@ -1854,6 +1854,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -2165,7 +2171,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -2480,7 +2487,8 @@ window.BENCHMARK_DATA = {
           215.79214677810668,
           161.7766109784444,
           166.3056304136912,
-          120.73125391801199
+          120.73125391801199,
+          119.92764404614766
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -2750,6 +2758,7 @@ window.BENCHMARK_DATA = {
           792,
           792,
           792,
+          800,
           800,
           800,
           800,
@@ -3123,7 +3132,8 @@ window.BENCHMARK_DATA = {
           105911.01254882812,
           36017.183589680986,
           35846.83229573568,
-          29498.216670445032
+          29498.216670445032,
+          29150.00072806222
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3443,6 +3453,7 @@ window.BENCHMARK_DATA = {
           9056,
           9046,
           9046,
+          9055,
           9055
         ],
         "borderColor": "#A052B0",
@@ -3766,7 +3777,8 @@ window.BENCHMARK_DATA = {
           4753.87364654541,
           3200.1622314453125,
           3308.9321484883626,
-          2357.06848852975
+          2357.06848852975,
+          2289.3693136487686
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -3927,6 +3939,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -4409,7 +4422,8 @@ window.BENCHMARK_DATA = {
           4813.115668233236,
           2931.0956871032713,
           2952.7193331400554,
-          2407.4829922993977
+          2407.4829922993977,
+          2305.9601142883303
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4729,6 +4743,7 @@ window.BENCHMARK_DATA = {
           6930,
           6924,
           6924,
+          6930,
           6930
         ],
         "borderColor": "#4A6FA5",
@@ -5052,7 +5067,8 @@ window.BENCHMARK_DATA = {
           205.65821503003437,
           166.36340764590673,
           176.9443994363149,
-          122.49064871470134
+          122.49064871470134,
+          125.29844304231497
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -5218,6 +5234,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -5695,7 +5712,8 @@ window.BENCHMARK_DATA = {
           359.5506464322408,
           288.35980400672327,
           308.46339689890544,
-          218.24470843587602
+          218.24470843587602,
+          219.48010164040787
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -6006,6 +6024,7 @@ window.BENCHMARK_DATA = {
           2056,
           2056,
           2056,
+          1352,
           1352,
           1352,
           1352,
@@ -7883,6 +7902,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -8194,7 +8219,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -8509,7 +8535,8 @@ window.BENCHMARK_DATA = {
           135.1260802745819,
           114.66394570240608,
           96.97321979488645,
-          152.2817485491435
+          152.2817485491435,
+          162.9172441959381
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -8779,6 +8806,7 @@ window.BENCHMARK_DATA = {
           704,
           704,
           704,
+          712,
           712,
           712,
           712,
@@ -9152,7 +9180,8 @@ window.BENCHMARK_DATA = {
           9367.061117989677,
           10481.206921386718,
           7999.469079589844,
-          15086.226582845053
+          15086.226582845053,
+          15005.905691964286
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9472,6 +9501,7 @@ window.BENCHMARK_DATA = {
           12761,
           12761,
           12760,
+          12761,
           12761
         ],
         "borderColor": "#A052B0",
@@ -9795,7 +9825,8 @@ window.BENCHMARK_DATA = {
           3723.400959601769,
           4197.916184997559,
           3265.4006711324055,
-          5673.979794311524
+          5673.979794311524,
+          5614.7139165242515
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -9956,6 +9987,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -10438,7 +10470,8 @@ window.BENCHMARK_DATA = {
           107662.64005533855,
           195026.16438802084,
           116027.04922250602,
-          225161.3074951172
+          225161.3074951172,
+          214112.81040736608
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10758,7 +10791,8 @@ window.BENCHMARK_DATA = {
           15578,
           15619,
           15619,
-          15620
+          15620,
+          15586
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11081,7 +11115,8 @@ window.BENCHMARK_DATA = {
           163.24946994781493,
           147.0018174489339,
           115.4383892416954,
-          173.9708777109782
+          173.9708777109782,
+          182.3372925122579
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -11222,6 +11257,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -11724,7 +11760,8 @@ window.BENCHMARK_DATA = {
           154.65855582555136,
           121.67976348216717,
           118.03978411356609,
-          166.53590534283563
+          166.53590534283563,
+          171.35302532513936
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -11858,6 +11895,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -13912,6 +13950,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -14223,7 +14267,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -14538,7 +14583,8 @@ window.BENCHMARK_DATA = {
           472.3360902150472,
           259.82728614807127,
           349.43116654668535,
-          442.0624965985616
+          442.0624965985616,
+          557.7930192629497
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -14828,6 +14874,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1824,
           1824,
           1824,
           1824,
@@ -15181,7 +15228,8 @@ window.BENCHMARK_DATA = {
           520943.1697265625,
           144796.78343098957,
           408313.6661551339,
-          176475.89306640625
+          176475.89306640625,
+          537359.1577148438
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -15501,7 +15549,8 @@ window.BENCHMARK_DATA = {
           38571,
           38487,
           38491,
-          38540
+          38540,
+          38459
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -15824,7 +15873,8 @@ window.BENCHMARK_DATA = {
           207962.38352864582,
           37925.46397986779,
           117194.13990129743,
-          60268.18602701823
+          60268.18602701823,
+          212676.8556640625
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16144,7 +16194,8 @@ window.BENCHMARK_DATA = {
           28156,
           28162,
           28160,
-          28086
+          28086,
+          28100
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16467,7 +16518,8 @@ window.BENCHMARK_DATA = {
           243305.32036884016,
           52991.205078125,
           146225.08178710938,
-          67410.5003568209
+          67410.5003568209,
+          246464.38943917412
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -16787,7 +16839,8 @@ window.BENCHMARK_DATA = {
           30273,
           30276,
           30273,
-          30247
+          30247,
+          30259
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17110,7 +17163,8 @@ window.BENCHMARK_DATA = {
           308.0095133781433,
           188.0263753959111,
           270.8360982577006,
-          309.5057589326586
+          309.5057589326586,
+          337.93372256415233
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -17430,6 +17484,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1216,
           1216
         ],
         "borderColor": "#E84393",
@@ -17549,7 +17604,8 @@ window.BENCHMARK_DATA = {
           627.48759988149,
           370.4595143953959,
           500.65932909647626,
-          560.434897104899
+          560.434897104899,
+          672.0344102541605
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -17656,6 +17712,7 @@ window.BENCHMARK_DATA = {
           2856,
           2856,
           2856,
+          2208,
           2208,
           2208,
           2208,
@@ -19533,6 +19590,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -19844,7 +19907,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -20159,7 +20223,8 @@ window.BENCHMARK_DATA = {
           1234.891068394979,
           860.6683570998056,
           1039.9871504465739,
-          1141.7571006188025
+          1141.7571006188025,
+          1321.4010650634766
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -20449,6 +20514,7 @@ window.BENCHMARK_DATA = {
           2616,
           2616,
           2616,
+          2760,
           2760,
           2760,
           2760,
@@ -20802,7 +20868,8 @@ window.BENCHMARK_DATA = {
           530378.2444196428,
           151087.85053362165,
           415305.6032877604,
-          207330.8228062221
+          207330.8228062221,
+          552595.6530598958
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -21122,7 +21189,8 @@ window.BENCHMARK_DATA = {
           48142,
           48088,
           48079,
-          48233
+          48233,
+          47024
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -21445,7 +21513,8 @@ window.BENCHMARK_DATA = {
           224599.3751220703,
           43865.30788748605,
           130271.41447566106,
-          78649.94272460937
+          78649.94272460937,
+          235813.60996791295
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -21765,7 +21834,8 @@ window.BENCHMARK_DATA = {
           41271,
           41269,
           41271,
-          41204
+          41204,
+          41215
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -22088,7 +22158,8 @@ window.BENCHMARK_DATA = {
           264187.9581054688,
           58707.6939819336,
           164338.6767752511,
-          84791.88112967355
+          84791.88112967355,
+          279624.97783203126
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -22408,7 +22479,8 @@ window.BENCHMARK_DATA = {
           49926,
           49924,
           49930,
-          49922
+          49922,
+          49926
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -22731,7 +22803,8 @@ window.BENCHMARK_DATA = {
           764.4769683984609,
           466.3442090988159,
           665.7509554545085,
-          682.5534753799438
+          682.5534753799438,
+          820.6012293497721
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -23051,6 +23124,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2296,
           2296
         ],
         "borderColor": "#E84393",
@@ -23170,7 +23244,8 @@ window.BENCHMARK_DATA = {
           2484.6513282775877,
           1396.1916957855224,
           2001.7915911356608,
-          1945.0233210245767
+          1945.0233210245767,
+          2437.177668162755
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -23277,6 +23352,7 @@ window.BENCHMARK_DATA = {
           5568,
           5568,
           5568,
+          5248,
           5248,
           5248,
           5248,
@@ -25154,6 +25230,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -25465,7 +25547,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -25780,7 +25863,8 @@ window.BENCHMARK_DATA = {
           101.35360884666443,
           105.32381798539843,
           100.92755147389003,
-          103.56269155343374
+          103.56269155343374,
+          168.80678820610046
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -26070,6 +26154,7 @@ window.BENCHMARK_DATA = {
           608,
           608,
           608,
+          592,
           592,
           592,
           592,
@@ -26423,7 +26508,8 @@ window.BENCHMARK_DATA = {
           3321.2265988863433,
           3517.9348613194056,
           3423.5599658672627,
-          3552.5534304105317
+          3552.5534304105317,
+          4156.630689348493
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -26713,6 +26799,7 @@ window.BENCHMARK_DATA = {
           14902,
           14914,
           14906,
+          6552,
           6552,
           6552,
           6552,
@@ -27066,7 +27153,8 @@ window.BENCHMARK_DATA = {
           4063.31756401062,
           4481.867284334623,
           4388.72914995466,
-          4335.540897623698
+          4335.540897623698,
+          5644.793058268229
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -27356,6 +27444,7 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9320,
+          9816,
           9816,
           9816,
           9816,
@@ -27709,7 +27798,8 @@ window.BENCHMARK_DATA = {
           3272.085812632243,
           3571.789421898978,
           3468.6989282461313,
-          3314.0301246643066
+          3314.0301246643066,
+          3804.993462195763
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -28029,7 +28119,8 @@ window.BENCHMARK_DATA = {
           7517,
           7517,
           7517,
-          7517
+          7517,
+          7510
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -28352,7 +28443,8 @@ window.BENCHMARK_DATA = {
           147.25941467285156,
           162.3332611492702,
           150.37923405965168,
-          158.18384901682535
+          158.18384901682535,
+          228.75238806860787
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -28642,6 +28734,7 @@ window.BENCHMARK_DATA = {
           728,
           728,
           728,
+          808,
           808,
           808,
           808,
@@ -28995,7 +29088,8 @@ window.BENCHMARK_DATA = {
           270.707469020571,
           285.13029776300704,
           261.37855478922523,
-          289.9855634689331
+          289.9855634689331,
+          417.38041631992047
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -29306,6 +29400,7 @@ window.BENCHMARK_DATA = {
           2136,
           2136,
           2136,
+          1424,
           1424,
           1424,
           1424,
@@ -31183,6 +31278,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -31494,7 +31595,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -31809,7 +31911,8 @@ window.BENCHMARK_DATA = {
           271.37760562163135,
           290.11320659092496,
           276.6279029112596,
-          277.0312080383301
+          277.0312080383301,
+          416.731437587738
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -32099,6 +32202,7 @@ window.BENCHMARK_DATA = {
           1112,
           1112,
           1112,
+          1096,
           1096,
           1096,
           1096,
@@ -32452,7 +32556,8 @@ window.BENCHMARK_DATA = {
           4629.359664372036,
           5172.0580321091875,
           4742.624724251883,
-          4987.44593556722
+          4987.44593556722,
+          6258.361608378093
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -32742,6 +32847,7 @@ window.BENCHMARK_DATA = {
           18901,
           18906,
           18883,
+          10536,
           10536,
           10536,
           10536,
@@ -33095,7 +33201,8 @@ window.BENCHMARK_DATA = {
           6218.864045950083,
           6429.273015848796,
           6118.256213378906,
-          6942.225806681315
+          6942.225806681315,
+          8181.491906302316
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -33412,6 +33519,7 @@ window.BENCHMARK_DATA = {
           12840,
           12841,
           12841,
+          12840,
           12840,
           12840,
           12840,
@@ -33738,7 +33846,8 @@ window.BENCHMARK_DATA = {
           5808.2100214640295,
           6183.999078478132,
           5639.464856974284,
-          6211.7902183532715
+          6211.7902183532715,
+          7541.389224751791
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -34058,7 +34167,8 @@ window.BENCHMARK_DATA = {
           15754,
           15754,
           15754,
-          15754
+          15754,
+          15748
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -34381,7 +34491,8 @@ window.BENCHMARK_DATA = {
           291.7926801613399,
           323.36644554138184,
           303.4289749145508,
-          300.2932983807155
+          300.2932983807155,
+          435.59479772127594
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -34671,6 +34782,7 @@ window.BENCHMARK_DATA = {
           1088,
           1088,
           1088,
+          1168,
           1168,
           1168,
           1168,
@@ -35024,7 +35136,8 @@ window.BENCHMARK_DATA = {
           898.4322985331218,
           1463.9857871191841,
           904.2795262654622,
-          923.060737101237
+          923.060737101237,
+          1376.698780332293
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -35335,6 +35448,7 @@ window.BENCHMARK_DATA = {
           3888,
           3888,
           3888,
+          3288,
           3288,
           3288,
           3288,
@@ -37212,6 +37326,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -37523,7 +37643,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -37838,7 +37959,8 @@ window.BENCHMARK_DATA = {
           212.46057826677958,
           266.0454115867615,
           253.03983971277873,
-          196.0327411379133
+          196.0327411379133,
+          268.67255268096926
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -38108,6 +38230,7 @@ window.BENCHMARK_DATA = {
           912,
           912,
           912,
+          920,
           920,
           920,
           920,
@@ -38481,7 +38604,8 @@ window.BENCHMARK_DATA = {
           8312.680851527623,
           11203.010840782752,
           6977.88102722168,
-          7907.649483816965
+          7907.649483816965,
+          10747.039692179362
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -38801,7 +38925,8 @@ window.BENCHMARK_DATA = {
           10569,
           10569,
           10456,
-          10569
+          10569,
+          10568
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -39124,7 +39249,8 @@ window.BENCHMARK_DATA = {
           5691.0648259480795,
           7896.069271850586,
           5224.28925374349,
-          5549.399272373745
+          5549.399272373745,
+          7507.796708243234
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -39444,7 +39570,8 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11664,
-          11664
+          11664,
+          11688
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -39767,7 +39894,8 @@ window.BENCHMARK_DATA = {
           5822.121360233852,
           8162.894196573893,
           4893.68721110026,
-          5758.869413248698
+          5758.869413248698,
+          8015.099302164714
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -40087,7 +40215,8 @@ window.BENCHMARK_DATA = {
           11196,
           11196,
           11191,
-          11276
+          11276,
+          11196
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -40410,7 +40539,8 @@ window.BENCHMARK_DATA = {
           143.52726243336994,
           172.4575637238366,
           168.55095705986022,
-          133.8126651128133
+          133.8126651128133,
+          176.7934296766917
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -40576,6 +40706,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -41053,7 +41184,8 @@ window.BENCHMARK_DATA = {
           318.932615852356,
           377.539900970459,
           348.98263141087125,
-          297.6866084098816
+          297.6866084098816,
+          375.55407797495525
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -41364,6 +41496,7 @@ window.BENCHMARK_DATA = {
           1672,
           1672,
           1672,
+          1464,
           1464,
           1464,
           1464,
@@ -43241,6 +43374,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -43552,7 +43691,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -43867,7 +44007,8 @@ window.BENCHMARK_DATA = {
           514.6480708489051,
           617.9253086090088,
           591.8085977554322,
-          482.20709807078043
+          482.20709807078043,
+          617.1589823404948
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -44137,6 +44278,7 @@ window.BENCHMARK_DATA = {
           1776,
           1776,
           1776,
+          1784,
           1784,
           1784,
           1784,
@@ -44510,7 +44652,8 @@ window.BENCHMARK_DATA = {
           13178.062104361397,
           17170.17140197754,
           11574.742658342633,
-          12309.858692423502
+          12309.858692423502,
+          17588.568619791666
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -44830,6 +44973,7 @@ window.BENCHMARK_DATA = {
           18505,
           18505,
           17384,
+          18505,
           18505
         ],
         "borderColor": "#A052B0",
@@ -45153,7 +45297,8 @@ window.BENCHMARK_DATA = {
           13151.9385693868,
           16820.088392991285,
           11938.130631510418,
-          12739.531595083383
+          12739.531595083383,
+          18162.325125558036
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -45473,7 +45618,8 @@ window.BENCHMARK_DATA = {
           21529,
           21529,
           21528,
-          21529
+          21529,
+          21553
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -45796,7 +45942,8 @@ window.BENCHMARK_DATA = {
           14113.044198843148,
           19312.83673967634,
           13168.000295003256,
-          13121.736768595378
+          13121.736768595378,
+          19471.400793457033
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -46116,7 +46263,8 @@ window.BENCHMARK_DATA = {
           30785,
           30785,
           30780,
-          30866
+          30866,
+          30785
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -46439,7 +46587,8 @@ window.BENCHMARK_DATA = {
           266.17827701568604,
           339.34672889709475,
           342.5323420592717,
-          249.95581112589156
+          249.95581112589156,
+          346.3904828071594
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -46605,6 +46754,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -47082,7 +47232,8 @@ window.BENCHMARK_DATA = {
           1081.605715887887,
           1366.9028981526692,
           1285.320257949829,
-          1022.6349455969674
+          1022.6349455969674,
+          1362.6917471204486
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -47393,6 +47544,7 @@ window.BENCHMARK_DATA = {
           4024,
           4024,
           4024,
+          3600,
           3600,
           3600,
           3600,
@@ -49270,6 +49422,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -49581,7 +49739,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -49896,7 +50055,8 @@ window.BENCHMARK_DATA = {
           13.846581935882568,
           13.934917336702346,
           9.142337224880855,
-          15.04701583981514
+          15.04701583981514,
+          20.75904298424721
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -50126,6 +50286,7 @@ window.BENCHMARK_DATA = {
           160,
           160,
           160,
+          136,
           136,
           136,
           136,
@@ -50539,7 +50700,8 @@ window.BENCHMARK_DATA = {
           95.05953775246938,
           74.72053589991161,
           56.18081803321839,
-          86.83701458147594
+          86.83701458147594,
+          115.9825302532741
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -50705,6 +50867,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -51182,7 +51345,8 @@ window.BENCHMARK_DATA = {
           28.010947291056315,
           24.86454887787501,
           16.364700440565745,
-          25.46861721078555
+          25.46861721078555,
+          34.699280416965486
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -51316,6 +51480,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -51825,7 +51990,8 @@ window.BENCHMARK_DATA = {
           897.4045628865559,
           830.3575370152791,
           721.6333285845243,
-          1293.4061707716721
+          1293.4061707716721,
+          1109.4188270568848
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -51986,6 +52152,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -52468,7 +52635,8 @@ window.BENCHMARK_DATA = {
           1297.5005824406942,
           1077.4029444285802,
           1005.6283444722493,
-          1874.149743593656
+          1874.149743593656,
+          1647.0199310302735
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -52629,6 +52797,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -53111,7 +53280,8 @@ window.BENCHMARK_DATA = {
           1077.3464946746826,
           951.0903097561428,
           895.8111021041871,
-          1641.9597777048746
+          1641.9597777048746,
+          1323.718696721395
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -53431,7 +53601,8 @@ window.BENCHMARK_DATA = {
           2751,
           2750,
           2755,
-          2755
+          2755,
+          2751
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -54201,6 +54372,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -54329,7 +54506,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -54461,7 +54639,8 @@ window.BENCHMARK_DATA = {
           1704.509644644601,
           1616.7793215433755,
           2178.2014337267196,
-          2260.600209917341
+          2260.600209917341,
+          2374.998563639323
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -54564,6 +54743,7 @@ window.BENCHMARK_DATA = {
           5248,
           5248,
           5248,
+          5264,
           5264,
           5264,
           5264,
@@ -54738,7 +54918,8 @@ window.BENCHMARK_DATA = {
           1891.5677961621966,
           1828.649032320295,
           2479.7910919189453,
-          2337.44921875
+          2337.44921875,
+          2383.1785691579184
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -54875,6 +55056,7 @@ window.BENCHMARK_DATA = {
           7385,
           7384,
           7384,
+          7385,
           7385
         ],
         "borderColor": "#E84393",
@@ -55015,7 +55197,8 @@ window.BENCHMARK_DATA = {
           3456.7498170216877,
           3174.9905921936033,
           4407.580347188314,
-          4368.937303270613
+          4368.937303270613,
+          4556.818067823137
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -55143,6 +55326,7 @@ window.BENCHMARK_DATA = {
           17360,
           17360,
           17360,
+          10920,
           10920,
           10920,
           10920,
@@ -55292,7 +55476,8 @@ window.BENCHMARK_DATA = {
           1032459.9196213942,
           784437.3136160715,
           1071992.7820870536,
-          1427414.337890625
+          1427414.337890625,
+          1398781.7488839286
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -55429,7 +55614,8 @@ window.BENCHMARK_DATA = {
           92397,
           92059,
           92108,
-          92157
+          92157,
+          92102
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -55569,7 +55755,8 @@ window.BENCHMARK_DATA = {
           270780.0781598772,
           249893.91081891741,
           345427.2945963542,
-          310174.6292317708
+          310174.6292317708,
+          314597.8455636161
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -55706,6 +55893,7 @@ window.BENCHMARK_DATA = {
           54382,
           54356,
           54356,
+          54382,
           54382
         ],
         "borderColor": "#5E2750",
@@ -55846,7 +56034,8 @@ window.BENCHMARK_DATA = {
           307335.16940104164,
           284715.50920758926,
           383656.90208333335,
-          356554.2703125
+          356554.2703125,
+          354929.1214192708
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -55983,7 +56172,8 @@ window.BENCHMARK_DATA = {
           65479,
           65590,
           65540,
-          65398
+          65398,
+          65408
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -56639,6 +56829,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -56748,7 +56944,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -56861,7 +57058,8 @@ window.BENCHMARK_DATA = {
           19760.922065147988,
           20211.839512416296,
           19692.60942195012,
-          20395.378232683455
+          20395.378232683455,
+          28589.944303240096
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -56949,6 +57147,7 @@ window.BENCHMARK_DATA = {
           56552,
           56552,
           56552,
+          56536,
           56536,
           56536,
           56536,
@@ -57100,7 +57299,8 @@ window.BENCHMARK_DATA = {
           17668.67021531325,
           17930.42742047991,
           17792.361644199915,
-          18196.488657633465
+          18196.488657633465,
+          23907.776700701033
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -57188,6 +57388,7 @@ window.BENCHMARK_DATA = {
           40688,
           40688,
           40688,
+          40768,
           40768,
           40768,
           40768,
@@ -57339,7 +57540,8 @@ window.BENCHMARK_DATA = {
           63002.28606305803,
           66494.0923421224,
           63866.311165945874,
-          67128.90493977864
+          67128.90493977864,
+          102704.43668619792
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -57448,6 +57650,7 @@ window.BENCHMARK_DATA = {
           203633,
           203633,
           203633,
+          178353,
           178353,
           178353,
           178353,
@@ -57578,7 +57781,8 @@ window.BENCHMARK_DATA = {
           148405.00691731772,
           159277.5037109375,
           152081.55436197916,
-          162352.0725003756
+          162352.0725003756,
+          200961.70108468193
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -57696,7 +57900,8 @@ window.BENCHMARK_DATA = {
           423564,
           423564,
           423564,
-          423563
+          423563,
+          423539
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -57817,7 +58022,8 @@ window.BENCHMARK_DATA = {
           203732.38048502605,
           212031.2556233724,
           221101.0142578125,
-          225213.66693987165
+          225213.66693987165,
+          256580.73076923078
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -57935,7 +58141,8 @@ window.BENCHMARK_DATA = {
           378536,
           378537,
           378537,
-          378536
+          378536,
+          378516
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -58056,7 +58263,8 @@ window.BENCHMARK_DATA = {
           297547.8755859375,
           289715.87799479166,
           287108.03252704325,
-          300854.76533203124
+          300854.76533203124,
+          389563.8512486049
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -58174,7 +58382,8 @@ window.BENCHMARK_DATA = {
           943722,
           943722,
           943722,
-          943722
+          943722,
+          943883
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -58830,6 +59039,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -58939,7 +59154,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -59052,7 +59268,8 @@ window.BENCHMARK_DATA = {
           34061.449263509116,
           39682.10617769681,
           39495.02932035006,
-          33156.968359375
+          33156.968359375,
+          41439.44621930803
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -59141,6 +59358,7 @@ window.BENCHMARK_DATA = {
           96824,
           96824,
           96825,
+          96824,
           96824,
           96824,
           96824,
@@ -59291,7 +59509,8 @@ window.BENCHMARK_DATA = {
           13839.794982910156,
           18240.97706298828,
           19342.119831630163,
-          13219.250620160785
+          13219.250620160785,
+          17691.1697652181
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -59409,6 +59628,7 @@ window.BENCHMARK_DATA = {
           32641,
           32641,
           32640,
+          32641,
           32641
         ],
         "borderColor": "#E84393",
@@ -59530,7 +59750,8 @@ window.BENCHMARK_DATA = {
           78640.68298339844,
           103032.15944010417,
           100424.18435058594,
-          75428.73037484977
+          75428.73037484977,
+          101544.98090820313
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -59640,6 +59861,7 @@ window.BENCHMARK_DATA = {
           242489,
           242489,
           218304,
+          218305,
           218305,
           218305,
           218305,
@@ -59769,7 +59991,8 @@ window.BENCHMARK_DATA = {
           564674.5137469952,
           685554.2063151042,
           437369.7131184896,
-          515190.7733561198
+          515190.7733561198,
+          728020.5530598959
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -59887,7 +60110,8 @@ window.BENCHMARK_DATA = {
           836541,
           836541,
           724445,
-          836540
+          836540,
+          836541
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -60008,7 +60232,8 @@ window.BENCHMARK_DATA = {
           856362.3897879465,
           1016306.89609375,
           712573.058733259,
-          812798.9796875
+          812798.9796875,
+          1116419.4839564732
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -60126,7 +60351,8 @@ window.BENCHMARK_DATA = {
           1139702,
           1139704,
           1139621,
-          1139702
+          1139702,
+          1139728
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -60247,7 +60473,8 @@ window.BENCHMARK_DATA = {
           1095555.1756417411,
           1358851.9022042411,
           900168.7604817708,
-          1000376.1417317708
+          1000376.1417317708,
+          1352268.5171875
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -60365,7 +60592,8 @@ window.BENCHMARK_DATA = {
           2194291,
           2194291,
           2194285,
-          2194405
+          2194405,
+          2194291
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -61021,6 +61249,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -61130,7 +61364,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -61243,7 +61478,8 @@ window.BENCHMARK_DATA = {
           83981.82299397787,
           66565.27900913784,
           71572.07450984075,
-          81538.05549316407
+          81538.05549316407,
+          86534.22516276041
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -61360,6 +61596,7 @@ window.BENCHMARK_DATA = {
           105721,
           105721,
           105720,
+          105721,
           105721,
           105721
         ],
@@ -61482,7 +61719,8 @@ window.BENCHMARK_DATA = {
           49623.60603550502,
           27804.860194614954,
           42935.678330485025,
-          42459.91342366536
+          42459.91342366536,
+          53060.662866210936
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -61600,7 +61838,8 @@ window.BENCHMARK_DATA = {
           121101,
           121101,
           121101,
-          121097
+          121097,
+          121101
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -61721,7 +61960,8 @@ window.BENCHMARK_DATA = {
           1346023.722265625,
           586553.7105189732,
           1047783.4874441965,
-          846424.1893229167
+          846424.1893229167,
+          1333982.706640625
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -61839,7 +62079,8 @@ window.BENCHMARK_DATA = {
           1048406,
           1048315,
           1048326,
-          1048356
+          1048356,
+          936385
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -61960,7 +62201,8 @@ window.BENCHMARK_DATA = {
           1748822.727689303,
           882405.9927083333,
           1396690.9588448661,
-          1307481.4086216518
+          1307481.4086216518,
+          1957172.208705357
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -62078,7 +62320,8 @@ window.BENCHMARK_DATA = {
           1515916,
           1515916,
           1515916,
-          1515722
+          1515722,
+          1515860
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -62199,7 +62442,8 @@ window.BENCHMARK_DATA = {
           1582842.7109375,
           798403.2682756697,
           1238842.537484976,
-          1178749.1172626202
+          1178749.1172626202,
+          1785963.2679966518
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -62317,7 +62561,8 @@ window.BENCHMARK_DATA = {
           2221384,
           2221398,
           2221424,
-          2221357
+          2221357,
+          2221384
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -62436,7 +62681,8 @@ window.BENCHMARK_DATA = {
           187112.71474609376,
           105947.54272460938,
           138286.7858014788,
-          144496.48473307292
+          144496.48473307292,
+          170627.2737141927
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -62543,6 +62789,7 @@ window.BENCHMARK_DATA = {
           300785,
           300785,
           300785,
+          299545,
           299545,
           299545,
           299545,
@@ -63160,6 +63407,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -63261,7 +63514,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -63366,7 +63620,8 @@ window.BENCHMARK_DATA = {
           1035.1045987055852,
           349.3204319636027,
           445.4541661898295,
-          429.25976280065686
+          429.25976280065686,
+          539.6290727342878
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -63426,6 +63681,7 @@ window.BENCHMARK_DATA = {
           1536,
           1536,
           1536,
+          1544,
           1544,
           1544,
           1544,
@@ -63589,7 +63845,8 @@ window.BENCHMARK_DATA = {
           265.4391918182373,
           238.32802060672216,
           290.41166095733644,
-          248.30818066230188
+          248.30818066230188,
+          312.65892435709634
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -63601,6 +63858,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1088,
           1088,
           1088,
           1088,
@@ -63812,7 +64070,8 @@ window.BENCHMARK_DATA = {
           522.2508529027303,
           427.2533897253183,
           499.03723017374676,
-          463.9460042953491
+          463.9460042953491,
+          592.0045954386393
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -63913,6 +64172,7 @@ window.BENCHMARK_DATA = {
           1856,
           1856,
           1856,
+          1784,
           1784,
           1784,
           1784,
@@ -64035,7 +64295,8 @@ window.BENCHMARK_DATA = {
           114127.3291015625,
           71287.87799479166,
           116390.2333170573,
-          114949.44174804687
+          114949.44174804687,
+          48707.13546048678
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -64145,7 +64406,8 @@ window.BENCHMARK_DATA = {
           10030,
           10030,
           10030,
-          10030
+          10030,
+          10009
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -64258,7 +64520,8 @@ window.BENCHMARK_DATA = {
           7630.971982515775,
           5855.090524400984,
           7670.590300423758,
-          7672.886978149414
+          7672.886978149414,
+          7277.7517298380535
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -64368,7 +64631,8 @@ window.BENCHMARK_DATA = {
           10416,
           10416,
           10248,
-          10248
+          10248,
+          10416
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -64481,7 +64745,8 @@ window.BENCHMARK_DATA = {
           7511.406002044678,
           5550.813359396799,
           7623.472314453125,
-          7391.320948282878
+          7391.320948282878,
+          6158.090111287435
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -64591,7 +64856,8 @@ window.BENCHMARK_DATA = {
           11854,
           11854,
           11854,
-          11854
+          11854,
+          11848
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -65199,6 +65465,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -65300,7 +65572,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -65405,7 +65678,8 @@ window.BENCHMARK_DATA = {
           1589.463660176595,
           1337.9880104064941,
           1602.1863450368246,
-          1502.5082731246948
+          1502.5082731246948,
+          1890.4589426858086
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -65465,6 +65739,7 @@ window.BENCHMARK_DATA = {
           4008,
           4008,
           4008,
+          4016,
           4016,
           4016,
           4016,
@@ -65628,7 +65903,8 @@ window.BENCHMARK_DATA = {
           1081.7069481531778,
           875.4844682693481,
           1038.067237218221,
-          912.9420511539166
+          912.9420511539166,
+          1131.8618569691976
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -65640,6 +65916,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2960,
           2960,
           2960,
           2960,
@@ -65851,7 +66128,8 @@ window.BENCHMARK_DATA = {
           3367.1632415771483,
           2665.424570628575,
           3152.777202606201,
-          3041.8993304116384
+          3041.8993304116384,
+          3585.8989194234214
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -65952,6 +66230,7 @@ window.BENCHMARK_DATA = {
           8672,
           8672,
           8672,
+          8600,
           8600,
           8600,
           8600,
@@ -66074,7 +66353,8 @@ window.BENCHMARK_DATA = {
           132021.96266392298,
           82921.8276936849,
           130103.0396484375,
-          129934.49528620794
+          129934.49528620794,
+          66959.59423014322
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -66184,7 +66464,8 @@ window.BENCHMARK_DATA = {
           25115,
           25114,
           25115,
-          25115
+          25115,
+          25109
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -66297,7 +66578,8 @@ window.BENCHMARK_DATA = {
           25535.711041259765,
           18540.8226449149,
           23033.385570819562,
-          24592.203987630208
+          24592.203987630208,
+          20557.529083251953
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -66407,7 +66689,8 @@ window.BENCHMARK_DATA = {
           25665,
           25665,
           23481,
-          25497
+          25497,
+          25664
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -66520,7 +66803,8 @@ window.BENCHMARK_DATA = {
           28307.612431452824,
           22290.585091145833,
           28264.100814819336,
-          26979.505810546874
+          26979.505810546874,
+          25991.247224934898
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -66630,7 +66914,8 @@ window.BENCHMARK_DATA = {
           55216,
           55216,
           55216,
-          55216
+          55216,
+          55213
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -67238,6 +67523,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -67339,7 +67630,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -67444,7 +67736,8 @@ window.BENCHMARK_DATA = {
           121324.09898158482,
           100665.27464948382,
           125974.97986778847,
-          118552.40483398437
+          118552.40483398437,
+          153405.50458984374
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -67549,6 +67842,7 @@ window.BENCHMARK_DATA = {
           273297,
           273297,
           273296,
+          273297,
           273297,
           273297,
           273297,
@@ -67667,7 +67961,8 @@ window.BENCHMARK_DATA = {
           82447.48881022136,
           71227.0803548177,
           87785.56739908854,
-          75671.37399727957
+          75671.37399727957,
+          95555.27026367188
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -67777,7 +68072,8 @@ window.BENCHMARK_DATA = {
           208883,
           208883,
           208883,
-          208883
+          208883,
+          208881
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -67890,7 +68186,8 @@ window.BENCHMARK_DATA = {
           304636.0193359375,
           256149.31295572917,
           305723.92811802455,
-          288767.60313197545
+          288767.60313197545,
+          328754.85423177085
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -67995,6 +68292,7 @@ window.BENCHMARK_DATA = {
           707722,
           707722,
           707721,
+          707722,
           707722,
           707722,
           707722,
@@ -68113,7 +68411,8 @@ window.BENCHMARK_DATA = {
           1611989.4953962055,
           1224181.4559151786,
           1502064.2592075893,
-          1504999.5054408482
+          1504999.5054408482,
+          1284734.9830729167
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -68223,7 +68522,8 @@ window.BENCHMARK_DATA = {
           1692680,
           1692680,
           1692680,
-          1692680
+          1692680,
+          1692567
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -68336,7 +68636,8 @@ window.BENCHMARK_DATA = {
           1985716.0069010416,
           1430239.6010366587,
           1693876.746940104,
-          1855134.730859375
+          1855134.730859375,
+          1432543.583203125
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -68446,7 +68747,8 @@ window.BENCHMARK_DATA = {
           1692911,
           1692895,
           1468916,
-          1692727
+          1692727,
+          1692753
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -68559,7 +68861,8 @@ window.BENCHMARK_DATA = {
           2955166.2198660714,
           2404488.474609375,
           2957368.8697916665,
-          2733142.340401786
+          2733142.340401786,
+          2518174.6221354166
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -68669,7 +68972,8 @@ window.BENCHMARK_DATA = {
           4803387,
           4803387,
           4803387,
-          4803387
+          4803387,
+          4803183
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -69073,6 +69377,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -69140,7 +69450,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -69211,7 +69522,8 @@ window.BENCHMARK_DATA = {
           225.56488660971323,
           194.52779529889423,
           325.64769728978473,
-          478.86051729747226
+          478.86051729747226,
+          387.6882049696786
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -69237,6 +69549,7 @@ window.BENCHMARK_DATA = {
           1016,
           1016,
           1016,
+          1024,
           1024,
           1024,
           1024,
@@ -69366,7 +69679,8 @@ window.BENCHMARK_DATA = {
           319.79970744939953,
           269.85313286100114,
           454.15480831691195,
-          343.4283457438151
+          343.4283457438151,
+          506.2030523935954
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -69378,6 +69692,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1616,
           1616,
           1616,
           1616,
@@ -69521,7 +69836,8 @@ window.BENCHMARK_DATA = {
           584.4406142915998,
           504.55586907068886,
           852.9062779744467,
-          647.7858153751919
+          647.7858153751919,
+          917.9673766408648
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -69588,6 +69904,7 @@ window.BENCHMARK_DATA = {
           4464,
           4464,
           4464,
+          2632,
           2632,
           2632,
           2632,
@@ -69676,7 +69993,8 @@ window.BENCHMARK_DATA = {
           106752.68714192709,
           93438.49147251675,
           270339.48573521205,
-          206404.27952223556
+          206404.27952223556,
+          149393.9546549479
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -69752,7 +70070,8 @@ window.BENCHMARK_DATA = {
           23313,
           23313,
           23526,
-          23302
+          23302,
+          23246
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -69831,7 +70150,8 @@ window.BENCHMARK_DATA = {
           8899.304025268555,
           7865.658172607422,
           14354.555716881385,
-          11383.569526163737
+          11383.569526163737,
+          14110.169225056967
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -69907,7 +70227,8 @@ window.BENCHMARK_DATA = {
           19553,
           19853,
           19742,
-          19741
+          19741,
+          19745
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -69986,7 +70307,8 @@ window.BENCHMARK_DATA = {
           6525.665944925944,
           5785.557794698079,
           10257.976852416992,
-          8045.6490427653
+          8045.6490427653,
+          9238.467520577567
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -70062,7 +70384,8 @@ window.BENCHMARK_DATA = {
           14332,
           14332,
           14444,
-          14332
+          14332,
+          14324
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -70466,6 +70789,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -70533,7 +70862,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -70604,7 +70934,8 @@ window.BENCHMARK_DATA = {
           1040.4036056200664,
           919.6461121241251,
           1598.0069358008247,
-          1217.996322631836
+          1217.996322631836,
+          1617.357726233346
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -70630,6 +70961,7 @@ window.BENCHMARK_DATA = {
           3032,
           3032,
           3032,
+          3040,
           3040,
           3040,
           3040,
@@ -70759,7 +71091,8 @@ window.BENCHMARK_DATA = {
           1006.5288763682048,
           907.7103659766061,
           1537.3117210388184,
-          1131.7875677744548
+          1131.7875677744548,
+          1576.7337198893229
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -70771,6 +71104,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          3488,
           3488,
           3488,
           3488,
@@ -70914,7 +71248,8 @@ window.BENCHMARK_DATA = {
           2957.360635317289,
           2663.036182657878,
           4641.595280456543,
-          3315.7292205810545
+          3315.7292205810545,
+          4522.59931233724
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -70981,6 +71316,7 @@ window.BENCHMARK_DATA = {
           10536,
           10536,
           10536,
+          9440,
           9440,
           9440,
           9440,
@@ -71069,7 +71405,8 @@ window.BENCHMARK_DATA = {
           124902.38824869791,
           110777.87562779018,
           313920.99972098216,
-          243415.5216471354
+          243415.5216471354,
+          194065.57685546874
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -71145,7 +71482,8 @@ window.BENCHMARK_DATA = {
           41153,
           41152,
           41378,
-          41155
+          41155,
+          41147
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -71224,7 +71562,8 @@ window.BENCHMARK_DATA = {
           15470.166132609049,
           14196.13916015625,
           27457.174612862724,
-          20798.454526774087
+          20798.454526774087,
+          25622.298264567056
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -71300,7 +71639,8 @@ window.BENCHMARK_DATA = {
           30101,
           31439,
           31336,
-          32328
+          32328,
+          31315
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -71379,7 +71719,8 @@ window.BENCHMARK_DATA = {
           25529.280904134113,
           22893.40029471261,
           42174.24682210286,
-          31409.935017903645
+          31409.935017903645,
+          37459.749459402905
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -71455,7 +71796,8 @@ window.BENCHMARK_DATA = {
           60496,
           60496,
           60607,
-          60496
+          60496,
+          60493
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -71859,6 +72201,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -71926,7 +72274,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -71997,7 +72346,8 @@ window.BENCHMARK_DATA = {
           91305.08790471003,
           84620.30660807292,
           137397.85024414063,
-          105848.86397879464
+          105848.86397879464,
+          140653.80461774554
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -72073,7 +72423,8 @@ window.BENCHMARK_DATA = {
           224801,
           224800,
           224801,
-          224800
+          224800,
+          224801
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -72152,7 +72503,8 @@ window.BENCHMARK_DATA = {
           77321.74618326823,
           69671.60904947917,
           113519.99068777902,
-          87234.56697300503
+          87234.56697300503,
+          122821.54380580357
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -72227,6 +72579,7 @@ window.BENCHMARK_DATA = {
           209409,
           209408,
           209408,
+          209409,
           209409,
           209409
         ],
@@ -72307,7 +72660,8 @@ window.BENCHMARK_DATA = {
           251792.75841346153,
           226239.92822265625,
           397958.85087890626,
-          287287.53020833334
+          287287.53020833334,
+          383762.90684291295
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -72382,6 +72736,7 @@ window.BENCHMARK_DATA = {
           653538,
           653538,
           653537,
+          653538,
           653538,
           653538
         ],
@@ -72462,7 +72817,8 @@ window.BENCHMARK_DATA = {
           2358706.5278645833,
           2128782.5206473214,
           4088071.4563802085,
-          3298527.573660714
+          3298527.573660714,
+          3239334.821875
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -72538,7 +72894,8 @@ window.BENCHMARK_DATA = {
           1936397,
           1936410,
           1936640,
-          1936410
+          1936410,
+          1936119
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -72617,7 +72974,8 @@ window.BENCHMARK_DATA = {
           745931.427734375,
           753237.9048828125,
           1338448.5893880208,
-          1048728.3822866587
+          1048728.3822866587,
+          1073606.779575893
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -72693,7 +73051,8 @@ window.BENCHMARK_DATA = {
           1118985,
           1231591,
           1231501,
-          1343690
+          1343690,
+          1229256
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -72772,7 +73131,8 @@ window.BENCHMARK_DATA = {
           2633856.0831473214,
           2165118.947005208,
           4024026.69921875,
-          2980754.279166667
+          2980754.279166667,
+          3600097.128645833
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -72848,7 +73208,8 @@ window.BENCHMARK_DATA = {
           5051810,
           5052209,
           5052369,
-          5051810
+          5051810,
+          5051646
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -73252,6 +73613,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Thu Nov 26 19:47:06 2026 \u002B0100",
         "message": "feat: add [Deferred] to create a Func\u003CT\u003E test parameter\u0027s value when the test calls it (#1141)"
+      },
+      {
+        "sha": "664120e93c6e8d35dc8791aa16fc87a1b83c62df",
+        "author": "Valentin Breu\u00DF",
+        "date": "Thu Nov 26 20:07:54 2026 \u002B0100",
+        "message": "docs: move mock test parameters next to creating mocks and restructure the page (#1143)"
       }
     ],
     "labels": [
@@ -73319,7 +73686,8 @@ window.BENCHMARK_DATA = {
       "f2b9c47b",
       "ec2e92c8",
       "41be7858",
-      "25d7c949"
+      "25d7c949",
+      "664120e9"
     ],
     "datasets": [
       {
@@ -73390,7 +73758,8 @@ window.BENCHMARK_DATA = {
           2886.9067319234214,
           2678.007393391927,
           2587.5882041931154,
-          3713.1026323954266
+          3713.1026323954266,
+          1799.3438084920247
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -73416,6 +73785,7 @@ window.BENCHMARK_DATA = {
           2280,
           2280,
           2280,
+          2288,
           2288,
           2288,
           2288,
@@ -73545,7 +73915,8 @@ window.BENCHMARK_DATA = {
           2338.5914424015928,
           2441.896640232631,
           2335.7326369652383,
-          3146.631175994873
+          3146.631175994873,
+          1691.0021555973933
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -73557,6 +73928,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2288,
           2288,
           2288,
           2288,
@@ -73700,7 +74072,8 @@ window.BENCHMARK_DATA = {
           2779.2335079738073,
           2840.0276489257812,
           2728.171301621657,
-          3670.43862101237
+          3670.43862101237,
+          1966.4785759265606
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -73767,6 +74140,7 @@ window.BENCHMARK_DATA = {
           3344,
           3344,
           3344,
+          2912,
           2912,
           2912,
           2912,
@@ -73855,7 +74229,8 @@ window.BENCHMARK_DATA = {
           10155.67372240339,
           10337.215227567232,
           9748.646624051607,
-          12962.098997933525
+          12962.098997933525,
+          6780.444393920899
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -73926,6 +74301,7 @@ window.BENCHMARK_DATA = {
           11048,
           11048,
           11049,
+          11048,
           11048,
           11048,
           11048,
@@ -74010,7 +74386,8 @@ window.BENCHMARK_DATA = {
           9087.444949340821,
           9166.571573893229,
           8394.090507507324,
-          11579.20344543457
+          11579.20344543457,
+          5799.275006103516
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -74086,7 +74463,8 @@ window.BENCHMARK_DATA = {
           14632,
           15025,
           14633,
-          14632
+          14632,
+          14633
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -74165,7 +74543,8 @@ window.BENCHMARK_DATA = {
           9527.421191914877,
           9085.833454386393,
           8797.409015110561,
-          11897.656591142926
+          11897.656591142926,
+          5982.810943310077
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -74241,7 +74620,8 @@ window.BENCHMARK_DATA = {
           14614,
           14620,
           14620,
-          14614
+          14614,
+          14620
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
