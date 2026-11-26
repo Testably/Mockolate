@@ -112,6 +112,64 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		}
 
 		[Test]
+		public async Task WithMemberId_ShouldYieldItsBucketBeforeOtherBuckets()
+		{
+			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			FakeMethodSetup otherSetup = new("foo");
+			FakeMethodSetup olderSetup = new("foo");
+			FakeMethodSetup newerSetup = new("bar");
+			registry.SetupMethod(1, otherSetup);
+			registry.SetupMethod(2, olderSetup);
+			registry.SetupMethod(2, newerSetup);
+			registry.SetupMethod(3, new FakeMethodSetup("baz"));
+
+			List<MethodSetup> setups = registry.GetMethodSetups<MethodSetup>(2, "foo", "bar").ToList();
+
+			await That(setups).IsEqualTo([newerSetup, olderSetup, otherSetup,]);
+		}
+
+		[Test]
+		public async Task WithMemberIdAndActiveScenario_ShouldYieldScopedSetupsThenItsBucketThenOtherBuckets()
+		{
+			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			FakeMethodSetup otherSetup = new("foo");
+			FakeMethodSetup memberSetup = new("foo");
+			FakeMethodSetup scopedSetup = new("foo");
+			registry.SetupMethod(1, otherSetup);
+			registry.SetupMethod(2, memberSetup);
+			registry.Setup.GetOrCreateScenario("a").Methods.Add(scopedSetup);
+			registry.TransitionTo("a");
+
+			List<MethodSetup> setups = registry.GetMethodSetups<MethodSetup>(2, "foo", null).ToList();
+
+			await That(setups).IsEqualTo([scopedSetup, memberSetup, otherSetup,]);
+		}
+
+		[Test]
+		public async Task WithMemberIdOutsideTheSnapshot_ShouldYieldTheOtherBuckets()
+		{
+			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			FakeMethodSetup setup = new("foo");
+			registry.SetupMethod(1, setup);
+
+			List<MethodSetup> setups = registry.GetMethodSetups<MethodSetup>(1000, "foo", null).ToList();
+
+			await That(setups).IsEqualTo([setup,]);
+		}
+
+		[Test]
+		public async Task WithMemberIdAndNoSnapshot_ShouldYieldTheGlobalDictSetups()
+		{
+			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			FakeMethodSetup setup = new("foo");
+			registry.Setup.Methods.Add(setup);
+
+			List<MethodSetup> setups = registry.GetMethodSetups<MethodSetup>(2, "foo", null).ToList();
+
+			await That(setups).IsEqualTo([setup,]);
+		}
+
+		[Test]
 		public async Task WithSnapshotSetupOnly_YieldsSnapshotSetup()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));

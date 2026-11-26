@@ -20,6 +20,17 @@ internal static class Helpers
 		typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
 		genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters);
 
+	/// <summary>
+	///     <see cref="TypeDisplayFormat" /> without the nullable annotations of reference types, at any depth, which do not
+	///     tell signatures apart.
+	/// </summary>
+	public static SymbolDisplayFormat TypeIdentityDisplayFormat { get; } = new(
+		miscellaneousOptions: SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers |
+		                      SymbolDisplayMiscellaneousOptions.UseSpecialTypes,
+		globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Included,
+		typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+		genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters);
+
 	public static SymbolDisplayFormat TypeDisplayShortFormat { get; } = new(
 		miscellaneousOptions: SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers |
 		                      SymbolDisplayMiscellaneousOptions.UseSpecialTypes |

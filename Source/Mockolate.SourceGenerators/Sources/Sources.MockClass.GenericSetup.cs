@@ -34,11 +34,7 @@ internal static partial class Sources
 	/// </remarks>
 	private static string GetGenericFacadeSignature(Method method)
 		=> GetGenericFacadeName(method) + "(" + string.Join(",", method.Parameters.Select(parameter
-			=> method.UsesTypeParameter(parameter.Type)
-				? "object"
-				: parameter.Type.IsValueType
-					? parameter.Type.Fullname
-					: parameter.Type.Fullname.TrimEnd('?'))) + ")";
+			=> method.UsesTypeParameter(parameter.Type) ? "object" : parameter.Type.IdentityName)) + ")";
 
 	private static bool HasGenericFacadeMethods(Class @class, MemberType memberType)
 		=> GetGenericFacadeMethods(@class, memberType).Count > 0;
@@ -214,14 +210,21 @@ internal static partial class Sources
 			return null;
 		}
 
+		HashSet<string> usedNames = new(parameters.Select(parameter => parameter.Name.TrimStart('@')));
 		string[] names = indices
 			.Select(index => parameters[index].Name.TrimStart('@'))
-			.Select(name => "T" + char.ToUpperInvariant(name[0]) + name.Substring(1))
+			.Select(name =>
+			{
+				string candidate = "T" + char.ToUpperInvariant(name[0]) + name.Substring(1);
+				string unique = candidate;
+				for (int suffix = 1; !usedNames.Add(unique); suffix++)
+				{
+					unique = candidate + suffix;
+				}
+
+				return unique;
+			})
 			.ToArray();
-		if (names.Distinct().Count() != names.Length)
-		{
-			names = names.Select((name, i) => name + (i + 1)).ToArray();
-		}
 
 		string[] types = (string[])parameterTypes.Clone();
 		for (int i = 0; i < indices.Count; i++)
@@ -554,7 +557,7 @@ internal static partial class Sources
 		sb.Append(indent).Append("else").AppendLine();
 		sb.Append(indent).Append('{').AppendLine();
 		AppendLoop(indent + "\t",
-			$"{mockRegistry}.GetMethodSetups<global::Mockolate.Setup.MethodSetup>({nameVar}, {genericSetupName})");
+			$"{mockRegistry}.GetMethodSetups<global::Mockolate.Setup.MethodSetup>({memberIdRef}, {nameVar}, {genericSetupName})");
 		sb.Append(indent).Append('}').AppendLine();
 
 		void AppendLoop(string loopIndent, string setups)

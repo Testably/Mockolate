@@ -140,7 +140,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task GenericOverloads_WithTheSameNumberOfTypeParameters_ShouldShareOneParametersOverload()
+			public async Task GenericOverloads_WithTheSameNumberOfTypeParameters_ShouldGetNoParametersOverload()
 			{
 				GeneratorResult result = Generator
 					.Run("""
@@ -169,8 +169,10 @@ public sealed partial class MockTests
 				await That(result.Diagnostics).IsEmpty()
 					.Because("an IParameters overload per method would differ only in the names of their type parameters");
 				await That(result.Sources["Mock.ISender.g.cs"])
-					.DoesNotContain("Send<TResponse>(global::Mockolate.Parameters.IParameters parameters)").And
-					.DoesNotContain("Send<TRequest>(global::Mockolate.Parameters.IParameters parameters)");
+					.DoesNotContain("Send<TResponse>(global::Mockolate.Parameters.IParameters").And
+					.DoesNotContain("Send<TRequest>(global::Mockolate.Parameters.IParameters").And
+					.Contains("Send<TResponse>(global::Mockolate.Parameters.IParameter<global::MyCode.IRequest<TResponse>>")
+					.Because("the overloads keep their other setups");
 			}
 
 			[Test]
@@ -204,6 +206,45 @@ public sealed partial class MockTests
 					.Exactly(1).And
 					.DoesNotContain(" Renamed(global::")
 					.Because("a named parameter match could not tell which name applies");
+			}
+
+			[Test]
+			public async Task SetupGeneric_WithOverloadsThatDifferOnlyInNestedNullableAnnotations_ShouldOfferThemOnce()
+			{
+				GeneratorResult result = Generator
+					.Run("""
+					     #nullable enable
+					     using System.Collections.Generic;
+					     using Mockolate;
+
+					     namespace MyCode;
+					     public class Program
+					     {
+					         public static void Main(string[] args)
+					         {
+					     		_ = IMyService.CreateMock();
+					         }
+					     }
+
+					     public interface IMyService
+					     {
+					         void Annotated<T>(T value, List<string?> names);
+					         void Annotated<T>(T[] value, List<string> names);
+					         void Nested<T>(T value, List<int?> numbers);
+					         void Nested<T>(T[] value, List<int> numbers);
+					     }
+					     """);
+
+				await That(result.Diagnostics).IsEmpty()
+					.Because("nullable annotations of reference types do not tell signatures apart");
+				await That(result.Sources["Mock.IMyService.g.cs"])
+					.Contains("IVoidMethodSetupWithCallback<object?, global::System.Collections.Generic.List<string?>> Annotated(global::Mockolate.Parameters.IParameter<object?>? value")
+					.Exactly(1).And
+					.Contains("IVoidMethodSetupWithCallback<object?, global::System.Collections.Generic.List<int?>> Nested(global::Mockolate.Parameters.IParameter<object?>? value")
+					.Exactly(1).And
+					.Contains("IVoidMethodSetupWithCallback<object?, global::System.Collections.Generic.List<int>> Nested(global::Mockolate.Parameters.IParameter<object?>? value")
+					.Exactly(1)
+					.Because("a nullable value type is another type");
 			}
 
 			[Test]

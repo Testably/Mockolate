@@ -108,6 +108,20 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
+	public async Task SetupGeneric_WithTypedMatchers_WhenAParameterIsNamedLikeTheTypeParameter_ShouldMatchEachParameter()
+	{
+		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
+		int count = 0;
+		sut.Mock.SetupGeneric.Prefixed(It.IsAny<int>(), It.Is(2)).Do(() => count++);
+
+		sut.Prefixed(1, 2);
+		sut.Prefixed("a", 2);
+
+		await That(count).IsEqualTo(1);
+		await That(sut.Mock.VerifyGeneric.Prefixed(It.IsAny<string>(), It.IsAny<int>())).Once();
+	}
+
+	[Test]
 	public async Task SetupGeneric_ShouldKeepTheTypeOfAParameterThatDoesNotDependOnATypeArgument()
 	{
 		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
@@ -496,6 +510,23 @@ public sealed class GenericMethodAnyTypeArgumentTests
 		await That(sut.Mock.VerifyGeneric.Send(Match.AnyParameters())).Exactly(3);
 		await That(sut.Mock.VerifyGeneric.Send(It.IsAny<IntRequest>(), It.IsAny<CancellationToken>())).Twice();
 		await That(sut.Mock.VerifySetup(setup)).Twice();
+	}
+
+	[Test]
+	public async Task OverloadsThatShareTheSignatureOnTheFacade_InAnotherScenario_ShouldStillLetTheLatestSetupWin()
+	{
+		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
+		List<string> received = [];
+		sut.Mock.SetupGeneric.Overloaded(Match.AnyParameters()).Do(() => received.Add("any"));
+		sut.Mock.Setup.Overloaded<int>(It.IsAny<object>()).Do(() => received.Add("specific of the second"));
+		sut.Mock.Setup.Overloaded<int>(It.IsAny<int>()).Do(() => received.Add("specific of the first"));
+		sut.Mock.TransitionTo("other");
+
+		sut.Overloaded<int>((object)"a");
+		sut.Overloaded<int>(1);
+
+		await That(received).IsEqualTo(["specific of the second", "specific of the first",])
+			.Because("a scenario without setups falls back to the default scope, where the latest matching setup wins");
 	}
 
 	[Test]

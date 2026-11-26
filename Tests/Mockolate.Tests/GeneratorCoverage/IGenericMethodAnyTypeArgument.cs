@@ -9,7 +9,7 @@ namespace Mockolate.Tests.GeneratorCoverage;
 ///     for a method that returns one. Overloads whose counterparts would share a signature are offered once, but not those
 ///     that differ in a nullable value type, and calls of overloads with another number of type parameters are told
 ///     apart. Parameter names do not clash with the names of the generated locals, nor, when they differ only in case,
-///     with each other in the type parameters of the overload that takes matchers of any type.
+///     with each other or with other parameters in the type parameters of the overload that takes matchers of any type.
 /// </summary>
 public interface IGenericMethodAnyTypeArgument
 {
@@ -35,4 +35,5 @@ public interface IGenericMethodAnyTypeArgument
 	void Nullable<T>(int value);
 	void Nullable<T>(int? value);
 	void Cased<T>(T value, T Value);
+	void Prefixed<T>(T foo, int TFoo);
 }

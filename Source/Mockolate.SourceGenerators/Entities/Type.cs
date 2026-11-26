@@ -8,6 +8,7 @@ internal record Type
 	private Type(string fullname)
 	{
 		Fullname = fullname;
+		IdentityName = fullname;
 		DisplayName = fullname;
 	}
 
@@ -18,6 +19,7 @@ internal record Type
 		{
 			CanBeNullable = typeSymbol.NullableAnnotation == NullableAnnotation.Annotated;
 			Fullname = CanBeNullable ? "object?" : "object";
+			IdentityName = "object";
 			DisplayName = Fullname;
 			Namespace = "System";
 			SpecialType = SpecialType.System_Object;
@@ -28,6 +30,9 @@ internal record Type
 
 		// Removes '*' from multi-dimensional array types
 		Fullname = typeSymbol.ToQualifiedDisplayString(Helpers.TypeDisplayFormat).Replace("*", "");
+		IdentityName = Fullname.IndexOf('?') < 0
+			? Fullname
+			: typeSymbol.ToQualifiedDisplayString(Helpers.TypeIdentityDisplayFormat).Replace("*", "");
 		DisplayName = typeSymbol.ToDisplayString(Helpers.TypeDisplayShortFormat).Replace("*", "");
 		Namespace = typeSymbol.ContainingNamespace?.ToString();
 		if (typeSymbol is INamedTypeSymbol namedTypeSymbol)
@@ -140,6 +145,12 @@ internal record Type
 	internal static Type Void { get; } = new("void");
 
 	public string Fullname { get; }
+
+	/// <summary>
+	///     The <see cref="Fullname" /> without the nullable annotations of reference types, at any depth, so that two
+	///     types are the same in a signature exactly when their identity names are equal.
+	/// </summary>
+	public string IdentityName { get; }
 
 	public string DisplayName { get; }
 

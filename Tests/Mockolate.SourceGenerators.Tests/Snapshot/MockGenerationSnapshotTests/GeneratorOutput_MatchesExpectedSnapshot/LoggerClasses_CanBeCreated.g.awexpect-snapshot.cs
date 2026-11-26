@@ -192,7 +192,7 @@ internal static partial class Mock
 			}
 			else
 			{
-				foreach (global::Mockolate.Setup.MethodSetup s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.MethodSetup>(name_methodSetup, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>"))
+				foreach (global::Mockolate.Setup.MethodSetup s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.MethodSetup>(global::Mockolate.Mock.ConcreteLogger.MemberId_BeginScope_TState_, name_methodSetup, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>"))
 				{
 					if (s_methodSetup is global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState> t_methodSetup && t_methodSetup.Name == name_methodSetup && t_methodSetup.Matches(state))
 					{
@@ -1743,7 +1743,7 @@ internal static partial class Mock
 			}
 			else
 			{
-				foreach (global::Mockolate.Setup.MethodSetup s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.MethodSetup>(name_methodSetup, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>"))
+				foreach (global::Mockolate.Setup.MethodSetup s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.MethodSetup>(global::Mockolate.Mock.LeafLogger.MemberId_BeginScope_TState_, name_methodSetup, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>"))
 				{
 					if (s_methodSetup is global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState> t_methodSetup && t_methodSetup.Name == name_methodSetup && t_methodSetup.Matches(state))
 					{

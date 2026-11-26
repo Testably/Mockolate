@@ -260,7 +260,7 @@ internal static partial class Mock
 			}
 			else
 			{
-				foreach (global::Mockolate.Setup.MethodSetup s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.MethodSetup>(name_methodSetup, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>"))
+				foreach (global::Mockolate.Setup.MethodSetup s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.MethodSetup>(global::Mockolate.Mock.ILogger.MemberId_BeginScope_TState_, name_methodSetup, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>"))
 				{
 					if (s_methodSetup is global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState> t_methodSetup && t_methodSetup.Name == name_methodSetup && t_methodSetup.Matches(state))
 					{
@@ -2687,7 +2687,7 @@ internal static partial class Mock
 			}
 			else
 			{
-				foreach (global::Mockolate.Setup.MethodSetup s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.MethodSetup>(name_methodSetup, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>"))
+				foreach (global::Mockolate.Setup.MethodSetup s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.MethodSetup>(global::Mockolate.Mock.ILogger_Program.MemberId_BeginScope_TState_, name_methodSetup, "global::Microsoft.Extensions.Logging.ILogger.BeginScope<>"))
 				{
 					if (s_methodSetup is global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState> t_methodSetup && t_methodSetup.Name == name_methodSetup && t_methodSetup.Matches(state))
 					{
