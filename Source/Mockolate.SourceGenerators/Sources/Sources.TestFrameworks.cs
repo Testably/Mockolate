@@ -17,6 +17,7 @@ internal static partial class Sources
 	                                              				index => global::System.Reflection.CustomAttributeExtensions.IsDefined(parameters[index],
 	                                              					typeof(global::Mockolate.Integrations.DeferredParameterAttribute), false),
 	                                              				index => global::Mockolate.Integrations.AutoMockRow.GetAsDefaultTypes(parameters[index]),
+	                                              				index => global::Mockolate.Integrations.AutoMockRow.GetValueFrom(parameters[index]),
 	                                              				arguments, DefaultBehavior?.Invoke()).Create();
 
 
@@ -92,6 +93,28 @@ internal static partial class Sources
 		                              	}
 
 		                              	/// <summary>
+		                              	///     Takes the value of a test parameter from a static property or parameterless static method of the test
+		                              	///     class.
+		                              	/// </summary>
+		                              	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
+		                              	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+		                              	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+		                              	[global::Microsoft.CodeAnalysis.Embedded]
+		                              	internal abstract class ValueFromParameterAttribute : global::System.Attribute
+		                              	{
+		                              		/// <param name="memberName">The name of the static property or parameterless static method.</param>
+		                              		protected ValueFromParameterAttribute(string memberName)
+		                              		{
+		                              			MemberName = memberName;
+		                              		}
+
+		                              		/// <summary>
+		                              		///     The name of the static property or parameterless static method of the test class.
+		                              		/// </summary>
+		                              		public string MemberName { get; }
+		                              	}
+
+		                              	/// <summary>
 		                              	///     Creates the arguments of one test invocation on demand, so that a class under test receives the arguments of
 		                              	///     the other parameters whatever their order.
 		                              	/// </summary>
@@ -106,6 +129,7 @@ internal static partial class Sources
 		                              		private readonly global::System.Func<int, bool> _isTransientParameter;
 		                              		private readonly global::System.Func<int, bool> _isDeferredParameter;
 		                              		private readonly global::System.Func<int, global::System.Type[]?> _getAsDefaultTypes;
+		                              		private readonly global::System.Func<int, global::System.Func<object?>?> _getValueFrom;
 		                              		private readonly object?[] _arguments;
 		                              		private global::Mockolate.MockBehavior? _behavior;
 		                              		private readonly int[] _states;
@@ -122,12 +146,17 @@ internal static partial class Sources
 		                              		///     The other types of which the parameter at an index is the default value, or <see langword="null" /> when it
 		                              		///     is not the default value of its own type either.
 		                              		/// </param>
+		                              		/// <param name="getValueFrom">
+		                              		///     The member that provides the value of the parameter at an index, or <see langword="null" /> when
+		                              		///     Mockolate creates it.
+		                              		/// </param>
 		                              		/// <param name="arguments">The given arguments of the first parameters, which are not shared.</param>
 		                              		/// <param name="behavior">The behavior of the created mocks and values.</param>
 		                              		public AutoMockRow(global::System.Reflection.Assembly assembly, global::System.Type[] types, string[] names,
 		                              			global::System.Func<int, bool> isTransientParameter,
 		                              			global::System.Func<int, bool> isDeferredParameter,
 		                              			global::System.Func<int, global::System.Type[]?> getAsDefaultTypes,
+		                              			global::System.Func<int, global::System.Func<object?>?> getValueFrom,
 		                              			object?[] arguments, global::Mockolate.MockBehavior? behavior)
 		                              		{
 		                              			if (arguments.Length > types.Length)
@@ -142,6 +171,7 @@ internal static partial class Sources
 		                              			_isTransientParameter = isTransientParameter;
 		                              			_isDeferredParameter = isDeferredParameter;
 		                              			_getAsDefaultTypes = getAsDefaultTypes;
+		                              			_getValueFrom = getValueFrom;
 		                              			_arguments = arguments;
 		                              			_behavior = behavior;
 		                              			_states = new int[types.Length];
@@ -169,6 +199,98 @@ internal static partial class Sources
 		                              			}
 
 		                              			return types.ToArray();
+		                              		}
+
+		                              		/// <summary>
+		                              		///     Reads the static property or calls the parameterless static method of the test class that the
+		                              		///     <see cref="ValueFromParameterAttribute" /> of the <paramref name="parameter" /> names, or
+		                              		///     <see langword="null" /> when it has none.
+		                              		/// </summary>
+		                              		public static global::System.Func<object?>? GetValueFrom(global::System.Reflection.ParameterInfo parameter)
+		                              		{
+		                              			object[] attributes = parameter.GetCustomAttributes(typeof(ValueFromParameterAttribute), false);
+		                              			if (attributes.Length == 0)
+		                              			{
+		                              				return null;
+		                              			}
+
+		                              			string memberName = ((ValueFromParameterAttribute)attributes[0]).MemberName;
+		                              			global::System.Type? testClass = parameter.Member.DeclaringType;
+		                              			if (testClass is { ContainsGenericParameters: true, })
+		                              			{
+		                              				throw new global::Mockolate.Exceptions.MockException(
+		                              					$"The [ValueFrom] parameter '{parameter.Name}' cannot read '{memberName}', because the test framework does not provide the type arguments of the generic test class '{testClass}'.");
+		                              			}
+
+		                              			if (FindValueMember(testClass, memberName) is not { } member)
+		                              			{
+		                              				throw new global::Mockolate.Exceptions.MockException(
+		                              					$"The [ValueFrom] parameter '{parameter.Name}' needs a static property or parameterless static method '{memberName}' in '{testClass}'.");
+		                              			}
+
+		                              			return () =>
+		                              			{
+		                              				object? value;
+		                              				try
+		                              				{
+		                              					value = member.Invoke(null, null);
+		                              				}
+		                              				catch (global::System.Reflection.TargetInvocationException exception) when (exception.InnerException is not null)
+		                              				{
+		                              					global::System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(exception.InnerException).Throw();
+		                              					throw;
+		                              				}
+
+		                              				if (value is not null && !parameter.ParameterType.IsInstanceOfType(value))
+		                              				{
+		                              					throw new global::Mockolate.Exceptions.MockException(
+		                              						$"The member '{memberName}' of '{testClass}' returned a '{value.GetType()}', which is not assignable to the [ValueFrom] parameter '{parameter.Name}' of type '{parameter.ParameterType}'.");
+		                              				}
+
+		                              				return value;
+		                              			};
+		                              		}
+
+		                              		/// <summary>
+		                              		///     The getter of the property or the parameterless method named <paramref name="memberName" /> of the
+		                              		///     <paramref name="testClass" /> or the first of its base classes that declares a non-private one, like C#
+		                              		///     name lookup, or <see langword="null" /> when there is none or it is not static.
+		                              		/// </summary>
+		                              #if NET5_0_OR_GREATER
+		                              		[global::System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessage("Trimming", "IL2070",
+		                              			Justification = "The generated module initializer keeps the properties and methods of every test class with a [ValueFrom] parameter.")]
+		                              		[global::System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessage("Trimming", "IL2075",
+		                              			Justification = "The generated module initializer keeps the properties and methods of every test class with a [ValueFrom] parameter.")]
+		                              #endif
+		                              		private static global::System.Reflection.MethodInfo? FindValueMember(global::System.Type? testClass, string memberName)
+		                              		{
+		                              			const global::System.Reflection.BindingFlags flags = global::System.Reflection.BindingFlags.Static |
+		                              			                                                     global::System.Reflection.BindingFlags.Instance |
+		                              			                                                     global::System.Reflection.BindingFlags.Public |
+		                              			                                                     global::System.Reflection.BindingFlags.NonPublic |
+		                              			                                                     global::System.Reflection.BindingFlags.DeclaredOnly;
+		                              			for (global::System.Type? type = testClass; type is not null; type = type.BaseType)
+		                              			{
+		                              				foreach (global::System.Reflection.PropertyInfo property in type.GetProperties(flags))
+		                              				{
+		                              					if (property.Name == memberName && property.GetMethod is { } getter &&
+		                              					    property.GetIndexParameters().Length == 0 && (type == testClass || !getter.IsPrivate))
+		                              					{
+		                              						return getter.IsStatic ? getter : null;
+		                              					}
+		                              				}
+
+		                              				foreach (global::System.Reflection.MethodInfo method in type.GetMethods(flags))
+		                              				{
+		                              					if (method.Name == memberName && !method.IsSpecialName && !method.IsGenericMethodDefinition &&
+		                              					    method.GetParameters().Length == 0 && (type == testClass || !method.IsPrivate))
+		                              					{
+		                              						return method.IsStatic ? method : null;
+		                              					}
+		                              				}
+		                              			}
+
+		                              			return null;
 		                              		}
 
 		                              #if MOCKOLATE_NUNIT || MOCKOLATE_MSTEST
@@ -327,7 +449,11 @@ internal static partial class Sources
 		                              				(global::System.Type type, string parameterName, out object? value) =>
 		                              					TryResolve(type, parameterName, index, out value);
 		                              			object? created;
-		                              			if (_isDeferredParameter(index))
+		                              			if (_getValueFrom(index) is { } valueFrom)
+		                              			{
+		                              				created = valueFrom();
+		                              			}
+		                              			else if (_isDeferredParameter(index))
 		                              			{
 		                              				if (!global::Mockolate.Internals.MockDataSource.TryCreateDeferred(_assembly, _types[index], _behavior,
 		                              					    resolve, out created))
@@ -489,6 +615,22 @@ internal static partial class Sources
 		                                	[global::Microsoft.CodeAnalysis.Embedded]
 		                                	internal sealed class DeferredAttribute : global::Mockolate.Integrations.DeferredParameterAttribute
 		                                	{
+		                                	}
+
+		                                	/// <summary>
+		                                	///     Takes the value of the test parameter from a static property or parameterless static method of the test
+		                                	///     class, once per test case, instead of letting <see cref="AutoMockArgumentsAttribute" /> create it. The
+		                                	///     value is shared with the classes under test like a created parameter.
+		                                	/// </summary>
+		                                	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
+		                                	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+		                                	[global::Microsoft.CodeAnalysis.Embedded]
+		                                	internal sealed class ValueFromAttribute : global::Mockolate.Integrations.ValueFromParameterAttribute
+		                                	{
+		                                		/// <param name="memberName">The name of the static property or parameterless static method, e.g. <c>nameof(Rule)</c>.</param>
+		                                		public ValueFromAttribute(string memberName) : base(memberName)
+		                                		{
+		                                		}
 		                                	}
 
 		                                	/// <summary>

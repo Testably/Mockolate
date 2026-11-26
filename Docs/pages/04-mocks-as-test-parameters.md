@@ -122,6 +122,47 @@ public async Task Buy_ShouldDispenseTheRequestedChocolate(string type, int amoun
 
 The values are only passed to the test method. A class under test does not receive them as constructor arguments, even when the names match.
 
+## Take a value from a member
+
+The values of the attribute must be constants, so an object such as a configuration with `required` or `init` properties cannot be passed. Mark the parameter with `[ValueFrom]` and name a static property or method of the test class that returns it:
+
+```csharp
+public sealed class Discount
+{
+    public required string Type { get; init; }
+    public required decimal Percentage { get; init; }
+}
+
+public interface IChocolatePrices
+{
+    decimal GetPrice(string type);
+}
+
+public class ChocolateCashier(Discount discount, IChocolatePrices prices)
+{
+    public decimal GetPrice(string type)
+        => type == discount.Type ? prices.GetPrice(type) * (100 - discount.Percentage) / 100 : prices.GetPrice(type);
+}
+
+[Test]
+[AutoMockArguments]
+public async Task GetPrice_ShouldApplyTheDiscount(ChocolateCashier sut, IChocolatePrices prices,
+    [ValueFrom(nameof(TenPercentOffDark))] Discount discount)
+{
+    prices.Mock.Setup.GetPrice(discount.Type).Returns(20m);
+
+    await That(sut.GetPrice(discount.Type)).IsEqualTo(18m);
+}
+
+private static Discount TenPercentOffDark => new() { Type = "Dark", Percentage = 10m };
+```
+
+- The member is a static property or a static method without parameters of the test class or one of its base classes. Mockolate reads it once per test case, so a property or method that creates the value gives each test case its own instance. A field is not supported, because it would share one instance with all test cases.
+- The class under test receives the value like a parameter that Mockolate creates. Combine it with [`[Transient]`](#keep-a-mock-out-of-the-class-under-test) to keep it from the class under test, or with [`[AsDefault]`](#return-the-same-instance-from-every-mock) to let the mocks return it.
+- The values of the attribute still fill the first parameters, so a `[ValueFrom]` parameter comes after them.
+
+The [Mockolate0013](10-analyzers.md#mockolate0013) analyzer reports a member that does not exist, is not static, is a field or has a type that is not assignable to the parameter.
+
 ## Keep a mock out of the class under test
 
 Mark a parameter with `[Transient]` to get a mock that the class under test does not receive:
@@ -270,6 +311,7 @@ TUnit needs nothing beyond the [setup](#set-up-your-test-framework). The other f
 - The name of a test case only shows the given values, e.g. `Buy_ShouldDispenseTheRequestedChocolate("Dark", 4)`.
 - The attribute has none of the settings of `[TestCase]`, such as `ExpectedResult` or `Ignore`. Use NUnit's attributes like `[Category]` or `[Ignore]` on the test method instead.
 - A generic test method works when the given values determine its type arguments.
+- [`[ValueFrom]`](#take-a-value-from-a-member) is not NUnit's `[ValueSource]`: it takes one value for the parameter in each test case instead of a test case for each element of a collection.
 - With NUnit 4.5 or later, the `BeforeTestHook` and `AfterTestHook` of an execution hook on the test fixture or the assembly do not run for these tests. Put the hook attribute on the test method instead, but not between two hook attributes: place `[AutoMockArguments]` before or after all of them.
 
 ### MSTest
@@ -283,6 +325,7 @@ TUnit needs nothing beyond the [setup](#set-up-your-test-framework). The other f
 
 - Set `<MockolateTestFrameworkIntegration>false</MockolateTestFrameworkIntegration>` in the project file to skip the attribute.
 - A constructor parameter of a delegate or abstract class type only gets a mock from a test parameter of that type.
+- With TUnit, a [`[ValueFrom]`](#take-a-value-from-a-member) parameter does not work in a generic test class, because TUnit does not pass the type arguments of the class to the attribute.
 - When two classes under test depend on each other, only the first of the two test parameters receives the other one; the second gets a new instance or its default value.
 - The given values must have the types of the parameters, e.g. `4` for an `int` and `4L` for a `long`. `[AutoMockArguments(null)]` passes `null` to the first parameter. A single array, e.g. `[AutoMockArguments(new object[] { "Dark", 4 })]` or `[AutoMockArguments(new[] { "Dark", "White" })]`, passes its elements as the values; to pass the array itself, wrap it, e.g. `[AutoMockArguments(new object[] { new[] { "Dark", "White" } })]`.
 - On .NET Framework and .NET Standard, the attribute needs a `ModuleInitializerAttribute`. When the build reports it as missing or declared twice, see [Troubleshooting](13-troubleshooting.md#the-build-fails-because-of-moduleinitializerattribute).

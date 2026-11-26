@@ -36,6 +36,14 @@ public interface IMockDataDeferredDependency
 }
 
 /// <summary>
+///     Only a <c>[ValueFrom]</c> parameter asks for it, so no mock is generated for it.
+/// </summary>
+public interface IMockDataValueFromOnly
+{
+	int GetValue();
+}
+
+/// <summary>
 ///     A class whose concrete constructor dependency is created with the same resolver.
 /// </summary>
 public class MockDataService(
@@ -219,4 +227,17 @@ public static class MockDataSourceTargets
 		[MockDataDeferred] MockDataInner notAFunc)
 #pragma warning restore Mockolate0012
 		=> (createService, createDependency, createNumber, createAddress, notAFunc);
+
+	[MockData]
+	public static object ValueFrom([MockDataValueFrom(nameof(ValueFromOnly))] IMockDataValueFromOnly value) => value;
+
+	private static IMockDataValueFromOnly ValueFromOnly => null!;
+
+	public static class Nested
+	{
+		[MockData]
+		public static object ValueFrom([MockDataValueFrom(nameof(ValueFromOnly))] IMockDataValueFromOnly value) => value;
+
+		private static IMockDataValueFromOnly ValueFromOnly => null!;
+	}
 }

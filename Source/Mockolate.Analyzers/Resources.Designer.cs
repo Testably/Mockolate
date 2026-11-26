@@ -609,6 +609,87 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to is also marked [Deferred].
+        /// </summary>
+        internal static string Mockolate0013DeferredReason {
+            get {
+                return ResourceManager.GetString("Mockolate0013DeferredReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to A [ValueFrom] parameter takes its value from a static property or parameterless static method of the test class or a non-private one of its base classes, whose type must be assignable to the parameter. A field is not supported, because it would share one instance with all test cases. A given argument of the attribute replaces the value, and a [Deferred] marker contradicts it..
+        /// </summary>
+        internal static string Mockolate0013Description {
+            get {
+                return ResourceManager.GetString("Mockolate0013Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to names the field &apos;{0}&apos; of &apos;{1}&apos;; use a property or method, so that each test case gets a new value.
+        /// </summary>
+        internal static string Mockolate0013FieldReason {
+            get {
+                return ResourceManager.GetString("Mockolate0013FieldReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to gets a given argument of the attribute, which replaces the value.
+        /// </summary>
+        internal static string Mockolate0013GivenArgumentReason {
+            get {
+                return ResourceManager.GetString("Mockolate0013GivenArgumentReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The [ValueFrom] parameter &apos;{0}&apos; {1}.
+        /// </summary>
+        internal static string Mockolate0013MessageFormat {
+            get {
+                return ResourceManager.GetString("Mockolate0013MessageFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to names &apos;{0}&apos; of type &apos;{1}&apos;, which is not assignable to &apos;{2}&apos;.
+        /// </summary>
+        internal static string Mockolate0013NotAssignableReason {
+            get {
+                return ResourceManager.GetString("Mockolate0013NotAssignableReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to names no static property or parameterless static method &apos;{0}&apos; of &apos;{1}&apos;.
+        /// </summary>
+        internal static string Mockolate0013NotFoundReason {
+            get {
+                return ResourceManager.GetString("Mockolate0013NotFoundReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to names &apos;{0}&apos;, which is not static.
+        /// </summary>
+        internal static string Mockolate0013NotStaticReason {
+            get {
+                return ResourceManager.GetString("Mockolate0013NotStaticReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to A [ValueFrom] parameter is invalid.
+        /// </summary>
+        internal static string Mockolate0013Title {
+            get {
+                return ResourceManager.GetString("Mockolate0013Title", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Add the explicit type '{0}'.
         /// </summary>
         internal static string UnionArgumentCodeFixTitle {

@@ -287,7 +287,7 @@ internal static class Checks
 		{
 			object?[] values = new AutoMockRow(typeof(Checks).Assembly,
 				[typeof(string), typeof(VendingMachine), typeof(IChocolateDispenser),],
-				["type", "sut", "dispenser",], _ => false, _ => false, _ => null, ["Dark",], null).Create();
+				["type", "sut", "dispenser",], _ => false, _ => false, _ => null, _ => null, ["Dark",], null).Create();
 			VendingMachine machine = (VendingMachine)values[1]!;
 			IChocolateDispenser dispenser = (IChocolateDispenser)values[2]!;
 			dispenser.Mock.Setup.Dispense(It.Is("Dark"), It.IsAny<int>()).Returns(true);
@@ -298,13 +298,29 @@ internal static class Checks
 		{
 			object?[] values = new AutoMockRow(typeof(Checks).Assembly,
 				[typeof(Func<VendingMachine>), typeof(IChocolateDispenser),],
-				["createSut", "dispenser",], _ => false, index => index == 0, _ => null, [], null).Create();
+				["createSut", "dispenser",], _ => false, index => index == 0, _ => null, _ => null, [], null).Create();
 			IChocolateDispenser dispenser = (IChocolateDispenser)values[1]!;
 			dispenser.Mock.Setup.Dispense(It.Is("Dark"), It.IsAny<int>()).Returns(true);
 			Func<VendingMachine> createSut = (Func<VendingMachine>)values[0]!;
 			VendingMachine first = createSut();
 			return Equal((first.Buy("Dark", 1), ReferenceEquals(first.Counter.Dispenser, dispenser),
 				ReferenceEquals(first, createSut())), (true, true, false));
+		}),
+		new("a ValueFrom AutoMockArguments parameter reads a private static property that the trimmer keeps", () =>
+		{
+			System.Reflection.ParameterInfo parameter = typeof(MockDataSourceTargets)
+				.GetMethod(nameof(MockDataSourceTargets.FromMember),
+					System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic)!
+				.GetParameters()[0];
+			return Equal(AutoMockRow.GetValueFrom(parameter)?.Invoke(), (object?)"Lobby");
+		}),
+		new("a ValueFrom AutoMockArguments parameter of a nested test class reads a property that the trimmer keeps", () =>
+		{
+			System.Reflection.ParameterInfo parameter = typeof(MockDataSourceTargets.Nested)
+				.GetMethod(nameof(MockDataSourceTargets.Nested.FromMember),
+					System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic)!
+				.GetParameters()[0];
+			return Equal(AutoMockRow.GetValueFrom(parameter)?.Invoke(), (object?)"Hall");
 		}),
 		new("CreateMock with an out parameter creates a sealed class with mocked dependencies", () =>
 		{

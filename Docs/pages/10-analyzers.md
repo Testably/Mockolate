@@ -295,6 +295,30 @@ public void Buy_ShouldDispenseTheChocolate(
 
 Declare the parameter as a `Func<T>` of the type to create, and remove `[AsDefault]` and `[Transient]` from it. [Mockolate0010](#mockolate0010) reports a `T` that Mockolate cannot create.
 
+## Mockolate0013
+
+**A `[ValueFrom]` parameter that is invalid.**
+
+A [`[ValueFrom]`](04-mocks-as-test-parameters.md#take-a-value-from-a-member) parameter takes its value from a static property or a static method without parameters of the test class or one of its base classes, whose type must be assignable to the parameter. Otherwise, the test fails at runtime:
+
+```csharp
+public class DiscountTests
+{
+    [Test]
+    [AutoMockArguments]
+    public void GetPrice_ShouldApplyTheDiscount(
+        // Mockolate0013: The [ValueFrom] parameter 'discount' names 'Text' of type 'string', which is not assignable to 'Discount'
+        [ValueFrom(nameof(Text))] Discount discount,
+        // Mockolate0013: The [ValueFrom] parameter 'other' names the field 'Shared' of 'DiscountTests'; use a property or method, so that each test case gets a new value
+        [ValueFrom(nameof(Shared))] Discount other) { }
+
+    private static string Text => "Dark";
+    private static readonly Discount Shared = new() { Type = "Dark", Percentage = 10m };
+}
+```
+
+The rule also fires for a member that does not exist or is not static, for a parameter that is also `[Deferred]`, whose delegate Mockolate creates, and for a parameter that gets a value of the attribute, which replaces the value of the member. Name a static property or method that returns the type of the parameter, and turn a field into a property, e.g. `private static Discount Shared => new() { … };`.
+
 ## Mockolate1001
 
 **IDE0060 is suppressed for an `[AsDefault]` parameter.**

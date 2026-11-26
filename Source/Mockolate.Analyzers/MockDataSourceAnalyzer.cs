@@ -71,12 +71,29 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		new LocalizableResourceString(nameof(Resources.Mockolate0012Description),
 			Resources.ResourceManager, typeof(Resources)));
 
+	/// <summary>
+	///     A <c>[ValueFrom]</c> test parameter whose member is missing, not static, a field or of another type, or that is
+	///     also <c>[Deferred]</c> or gets a given argument.
+	/// </summary>
+	public static readonly DiagnosticDescriptor ValueFromParameterRule = new(
+		"Mockolate0013",
+		new LocalizableResourceString(nameof(Resources.Mockolate0013Title),
+			Resources.ResourceManager, typeof(Resources)),
+		new LocalizableResourceString(nameof(Resources.Mockolate0013MessageFormat),
+			Resources.ResourceManager, typeof(Resources)),
+		"Usage",
+		DiagnosticSeverity.Warning,
+		true,
+		new LocalizableResourceString(nameof(Resources.Mockolate0013Description),
+			Resources.ResourceManager, typeof(Resources)));
+
 	/// <inheritdoc cref="DiagnosticAnalyzer.SupportedDiagnostics" />
 	public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
 	[
 		UnsupportedParameterRule,
 		AsDefaultParameterRule,
 		DeferredParameterRule,
+		ValueFromParameterRule,
 	];
 
 	/// <inheritdoc cref="DiagnosticAnalyzer.Initialize(AnalysisContext)" />
@@ -90,23 +107,47 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 
 	private static void AnalyzeSymbol(SymbolAnalysisContext context)
 	{
-		IEnumerable<IParameterSymbol> parameters = context.Symbol switch
+		(IEnumerable<IParameterSymbol> Parameters, int CreatedFrom, int ValueFromAfter) analyzed = context.Symbol switch
 		{
 			// A partial method has two symbols with the same attributes; only the definition reports.
-			IMethodSymbol { PartialDefinitionPart: not null, } => [],
-			// Mockolate does not create the first parameters, for which every attribute supplies a value.
-			IMethodSymbol method when method.GetAttributes().Any(IsMockDataSourceAttribute) => method.Parameters
-				.Skip(method.GetAttributes().Where(IsMockDataSourceAttribute).Min(GetSuppliedArgumentCount)),
+			IMethodSymbol { PartialDefinitionPart: not null, } => ([], 0, 0),
+			// Mockolate does not create the first parameters, for which every attribute supplies a value, and an
+			// attribute that supplies one replaces the value of a [ValueFrom] parameter.
+			IMethodSymbol method when method.GetAttributes().Any(IsMockDataSourceAttribute) => (method.Parameters,
+				method.GetAttributes().Where(IsMockDataSourceAttribute).Min(GetSuppliedArgumentCount),
+				method.GetAttributes().Where(IsMockDataSourceAttribute).Max(GetSuppliedArgumentCount)),
 			// A constructor with an attribute of its own, such as [method: …] on a primary constructor, reports itself.
-			INamedTypeSymbol type when type.GetAttributes().Any(IsMockDataSourceAttribute) => type.InstanceConstructors
+			INamedTypeSymbol type when type.GetAttributes().Any(IsMockDataSourceAttribute) => (type.InstanceConstructors
 				.Where(constructor => !constructor.IsImplicitlyDeclared &&
 				                      !constructor.GetAttributes().Any(IsMockDataSourceAttribute))
 				.SelectMany(constructor => constructor.Parameters),
-			_ => [],
+				0,
+				type.GetAttributes().Where(IsMockDataSourceAttribute).Max(GetSuppliedArgumentCount)),
+			_ => ([], 0, 0),
 		};
-		foreach (IParameterSymbol parameter in parameters)
+		foreach (IParameterSymbol parameter in analyzed.Parameters)
 		{
 			if (parameter.Locations.FirstOrDefault() is not { IsInSource: true, } location)
+			{
+				continue;
+			}
+
+			// Mockolate does not create a [ValueFrom] parameter, so neither Mockolate0010 nor Mockolate0012 applies.
+			if (GetValueFromAttribute(parameter) is { } valueFrom)
+			{
+				string? valueFromReason = parameter.Ordinal < analyzed.ValueFromAfter
+					? Resources.Mockolate0013GivenArgumentReason
+					: GetValueFromReason(parameter, valueFrom, context.Compilation);
+				if (valueFromReason is not null)
+				{
+					context.ReportDiagnostic(Diagnostic.Create(ValueFromParameterRule, location, parameter.Name,
+						valueFromReason));
+				}
+
+				continue;
+			}
+
+			if (parameter.Ordinal < analyzed.CreatedFrom)
 			{
 				continue;
 			}
@@ -135,6 +176,64 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			ReportAsDefaultParameters(context, testMethod.Parameters);
 		}
 	}
+
+	private static AttributeData? GetValueFromAttribute(IParameterSymbol parameter)
+		=> parameter.GetAttributes().FirstOrDefault(attribute => IsMarker(attribute, "ValueFromParameterAttribute"));
+
+	/// <summary>
+	///     Mirrors <c>AutoMockRow.FindValueMember</c>, which looks up a static property or parameterless static method of the
+	///     type that declares the parameter, including the non-private ones of its base types.
+	/// </summary>
+	private static string? GetValueFromReason(IParameterSymbol parameter, AttributeData attribute,
+		Compilation compilation)
+	{
+		if (HasMarker(parameter, "DeferredParameterAttribute"))
+		{
+			return Resources.Mockolate0013DeferredReason;
+		}
+
+		INamedTypeSymbol testClass = parameter.ContainingSymbol.ContainingType;
+		string memberName = attribute.ConstructorArguments.FirstOrDefault().Value as string ?? "";
+		ISymbol[] members = new ITypeSymbol[] { testClass, }.Concat(GetBaseTypes(testClass))
+			.SelectMany(type => type.GetMembers(memberName)
+				.Where(member => SymbolEqualityComparer.Default.Equals(type, testClass) ||
+				                 (GetValueAccessor(member) ?? member).DeclaredAccessibility != Accessibility.Private))
+			.ToArray();
+		ISymbol? valueMember = members.FirstOrDefault(member => GetValueAccessor(member) is not null);
+		if (valueMember is null)
+		{
+			return string.Format(CultureInfo.InvariantCulture,
+				members.Any(member => member is IFieldSymbol)
+					? Resources.Mockolate0013FieldReason
+					: Resources.Mockolate0013NotFoundReason,
+				memberName, testClass.ToDisplayString());
+		}
+
+		if (!valueMember.IsStatic)
+		{
+			return string.Format(CultureInfo.InvariantCulture, Resources.Mockolate0013NotStaticReason, memberName);
+		}
+
+		ITypeSymbol memberType = valueMember is IPropertySymbol property
+			? property.Type
+			: ((IMethodSymbol)valueMember).ReturnType;
+		return IsAssignable(memberType, parameter.Type, compilation)
+			? null
+			: string.Format(CultureInfo.InvariantCulture, Resources.Mockolate0013NotAssignableReason, memberName,
+				memberType.ToDisplayString(), parameter.Type.ToDisplayString());
+	}
+
+	/// <summary>
+	///     The method that reads a value from the <paramref name="member" />: the getter of a property or a parameterless
+	///     method, or <see langword="null" /> for any other member.
+	/// </summary>
+	private static IMethodSymbol? GetValueAccessor(ISymbol member)
+		=> member switch
+		{
+			IPropertySymbol { IsIndexer: false, GetMethod: { } getter, } => getter,
+			IMethodSymbol { MethodKind: MethodKind.Ordinary, Parameters.Length: 0, Arity: 0, } method => method,
+			_ => null,
+		};
 
 	private static void ReportAsDefaultParameters(SymbolAnalysisContext context,
 		ImmutableArray<IParameterSymbol> parameters)

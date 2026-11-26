@@ -99,6 +99,19 @@ public sealed class AutoMockArgumentsTests
 	}
 
 	[AutoMockArguments]
+	public async Task ValueFrom_ShouldPassTheValueToTheClassUnderTest(PriceCalculator sut,
+		[ValueFrom(nameof(TenPercentOff))] DiscountRule rule)
+	{
+		await That(sut.Rule).IsSameAs(rule);
+		await That(rule.Percentage).IsEqualTo(10m);
+	}
+
+	private static DiscountRule TenPercentOff => new()
+	{
+		Percentage = 10m,
+	};
+
+	[AutoMockArguments]
 	public async Task Deferred_WhenTheConstructorThrows_ShouldThrowWhenCalled(
 		[Deferred] Func<StockIndicator> createSut, IChocolateStock stock)
 	{

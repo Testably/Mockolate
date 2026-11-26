@@ -39,6 +39,11 @@ public sealed class MockArgumentsAttribute : Attribute, IMockDataSource;
 /// </summary>
 internal sealed class DeferredAttribute : Mockolate.Integrations.DeferredParameterAttribute;
 
+/// <summary>
+///     A <c>[ValueFrom]</c> marker like that of a test framework integration.
+/// </summary>
+internal sealed class ValueFromAttribute(string memberName) : Mockolate.Integrations.ValueFromParameterAttribute(memberName);
+
 public static class MockDataSourceTargets
 {
 	[MockArguments]
@@ -47,4 +52,17 @@ public static class MockDataSourceTargets
 	[MockArguments]
 	internal static VendingMachine CreateLater([Deferred] Func<VendingMachine> createSut, IChocolateDispenser dispenser)
 		=> createSut();
+
+	[MockArguments]
+	internal static string FromMember([ValueFrom(nameof(Lobby))] string location) => location;
+
+	private static string Lobby => "Lobby";
+
+	internal static class Nested
+	{
+		[MockArguments]
+		internal static string FromMember([ValueFrom(nameof(Hall))] string location) => location;
+
+		private static string Hall => "Hall";
+	}
 }

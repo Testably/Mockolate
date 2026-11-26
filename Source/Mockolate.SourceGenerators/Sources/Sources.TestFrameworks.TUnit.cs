@@ -30,6 +30,9 @@ internal static partial class Sources
 			                                                          				index => parameters[index].ReflectionInfo is { } reflectionInfo
 			                                                          					? global::Mockolate.Integrations.AutoMockRow.GetAsDefaultTypes(reflectionInfo)
 			                                                          					: null,
+			                                                          				index => parameters[index].ReflectionInfo is { } reflectionInfo
+			                                                          					? global::Mockolate.Integrations.AutoMockRow.GetValueFrom(reflectionInfo)
+			                                                          					: null,
 			                                                          				Arguments, DefaultBehavior?.Invoke()).Create();
 			                                                          		}
 			                                                          """);

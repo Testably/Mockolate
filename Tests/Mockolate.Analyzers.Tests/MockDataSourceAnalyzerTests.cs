@@ -30,6 +30,8 @@ public class MockDataSourceAnalyzerTests
 	                                   public sealed class TransientAttribute : TransientParameterAttribute;
 	                                   public abstract class DeferredParameterAttribute : System.Attribute;
 	                                   public sealed class DeferredAttribute : DeferredParameterAttribute;
+	                                   public abstract class ValueFromParameterAttribute(string memberName) : System.Attribute;
+	                                   public sealed class ValueFromAttribute(string memberName) : ValueFromParameterAttribute(memberName);
 	                               }
 	                               """;
 
@@ -551,6 +553,156 @@ public class MockDataSourceAnalyzerTests
 				.WithArguments("c", "is also marked [AsDefault]"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.DeferredParameterRule).WithLocation(3)
 				.WithArguments("d", "is also marked [Transient], which has no effect")
+		);
+
+	[Test]
+	public async Task WhenValueFromNamesAValidMember_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  #nullable enable
+			  namespace MyCode
+			  {
+			      using Mockolate.Integrations;
+
+			      public interface IDep { int Get(); }
+			      public sealed class Generic<T>;
+			      public sealed class Rule { public required string Code { get; init; } }
+
+			      public class BaseTests
+			      {
+			          protected static IDep InheritedDep => null!;
+			      }
+
+			      public class Tests : BaseTests
+			      {
+			          [Data]
+			          public void Test([ValueFrom(nameof(CreateRule))] Rule a, [ValueFrom(nameof(GenericValue))] Generic<int> b,
+			              [ValueFrom(nameof(InheritedDep))] IDep c, [ValueFrom(nameof(Number))] int? d,
+			              [ValueFrom(nameof(Boxed))] object e, [ValueFrom(nameof(CreateRule))] Rule? f,
+			              [AsDefault, ValueFrom(nameof(InheritedDep))] IDep g,
+			              [Transient, ValueFrom(nameof(GenericValue))] Generic<int> h) { }
+
+			          private static Rule CreateRule() => new() { Code = "a", };
+			          private static Rule CreateRule(int value) => new() { Code = "b", };
+			          private static Generic<int> GenericValue => new();
+			          private static int Number => 1;
+			          private static int Boxed => 1;
+			      }
+
+			      {{DataAttribute}}
+			  }
+
+			  {{Markers}}
+			  """
+		);
+
+	[Test]
+	public async Task WhenValueFromNamesAnInvalidMember_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  #nullable enable
+			  namespace MyCode
+			  {
+			      using System;
+			      using Mockolate.Integrations;
+
+			      public interface IDep { int Get(); }
+
+			      public class BaseTests
+			      {
+			          private static IDep PrivateBaseDep => null!;
+			          protected static IDep PrivateGetterDep { private get => null!; set { } }
+			          protected static IDep HiddenDep => null!;
+			      }
+
+			      public class Tests : BaseTests
+			      {
+			          [Data]
+			          public void Test([ValueFrom("Missing")] IDep {|#0:a|}, [ValueFrom(nameof(Field))] IDep {|#1:b|},
+			              [ValueFrom(nameof(Instance))] IDep {|#2:c|}, [ValueFrom(nameof(Text))] IDep {|#3:d|},
+			              [ValueFrom(nameof(WithParameter))] IDep {|#4:e|}, [ValueFrom("PrivateBaseDep")] IDep {|#5:f|},
+			              [ValueFrom(nameof(Nothing))] IDep {|#6:g|}, [ValueFrom(nameof(Dep)), Deferred] Func<IDep> {|#7:h|},
+			              [ValueFrom("PrivateGetterDep")] IDep {|#8:i|}, [ValueFrom(nameof(HiddenDep))] IDep {|#9:j|}) { }
+
+			          private new IDep HiddenDep => null!;
+
+			          [Other]
+			          public void NoDataSource([ValueFrom("Missing")] IDep a) { }
+
+			          public static readonly IDep Field = null!;
+			          private IDep Instance => null!;
+			          private static string Text => "";
+			          private static IDep WithParameter(int value) => null!;
+			          private static void Nothing() { }
+			          private static IDep Dep => null!;
+			      }
+
+			      {{DataAttribute}}
+			  }
+
+			  {{Markers}}
+			  """,
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(0)
+				.WithArguments("a", "names no static property or parameterless static method 'Missing' of 'MyCode.Tests'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(1)
+				.WithArguments("b", "names the field 'Field' of 'MyCode.Tests'; use a property or method, so that each test case gets a new value"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(2)
+				.WithArguments("c", "names 'Instance', which is not static"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(3)
+				.WithArguments("d", "names 'Text' of type 'string', which is not assignable to 'MyCode.IDep'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(4)
+				.WithArguments("e", "names no static property or parameterless static method 'WithParameter' of 'MyCode.Tests'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(5)
+				.WithArguments("f", "names no static property or parameterless static method 'PrivateBaseDep' of 'MyCode.Tests'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(6)
+				.WithArguments("g", "names 'Nothing' of type 'void', which is not assignable to 'MyCode.IDep'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(7)
+				.WithArguments("h", "is also marked [Deferred]"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(8)
+				.WithArguments("i", "names no static property or parameterless static method 'PrivateGetterDep' of 'MyCode.Tests'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(9)
+				.WithArguments("j", "names 'HiddenDep', which is not static")
+		);
+
+	[Test]
+	public async Task WhenValueFromParameterGetsAGivenArgument_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  #nullable enable
+			  namespace MyCode
+			  {
+			      using Mockolate.Integrations;
+
+			      public class Tests
+			      {
+			          [ArgsData(1)]
+			          [ArgsData]
+			          public void Test([ValueFrom("Missing")] int {|#0:a|}, [ValueFrom(nameof(Number))] int b) { }
+
+			          private static int Number => 1;
+			      }
+
+			      [ArgsData(1)]
+			      public class ClassTests
+			      {
+			          public ClassTests([ValueFrom(nameof(Number))] int {|#1:a|}, [ValueFrom(nameof(Number))] int b) { }
+
+			          private static int Number => 1;
+			      }
+
+			      [System.AttributeUsage(System.AttributeTargets.Method | System.AttributeTargets.Class, AllowMultiple = true)]
+			      public sealed class ArgsDataAttribute : System.Attribute, Mockolate.Internals.IMockDataSource
+			      {
+			          public ArgsDataAttribute(params object?[]? arguments) { }
+			      }
+			  }
+
+			  {{Markers}}
+			  """,
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(0)
+				.WithArguments("a", "gets a given argument of the attribute, which replaces the value"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(1)
+				.WithArguments("a", "gets a given argument of the attribute, which replaces the value")
 		);
 
 	[Test]

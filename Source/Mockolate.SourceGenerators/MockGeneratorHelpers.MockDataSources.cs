@@ -199,6 +199,10 @@ internal static partial class MockGeneratorHelpers
 			ToFullNames(targets.ValueOrMockTypes, compilation),
 			ToFullNames(targets.ValueTypes, compilation),
 			ToFullNames(targets.DeferredTypes, compilation),
+			new EquatableArray<string>(targets.ValueFromClasses
+				.Select(type => $"\"{ToMetadataName(type)}\", \"{compilation.AssemblyName}\"")
+				.Distinct()
+				.ToArray()),
 			new EquatableArray<MockClass>(targets.TypesToMock
 				.SelectMany(type => CreateDependencyMockClasses(type, compilation))
 				.ToArray()),
@@ -209,6 +213,15 @@ internal static partial class MockGeneratorHelpers
 				.Select(type => ToFullName(Normalize(type, compilation)))
 				.Distinct()
 				.ToArray());
+
+		// The trimmer reads the type name of a DynamicDependency in the documentation ID format, which separates nested types with a dot.
+		static string ToMetadataName(INamespaceOrTypeSymbol symbol)
+			=> symbol switch
+			{
+				INamedTypeSymbol { ContainingType: { } containingType, } => $"{ToMetadataName(containingType)}.{symbol.MetadataName}",
+				{ ContainingNamespace.IsGlobalNamespace: false, } => $"{ToMetadataName(symbol.ContainingNamespace)}.{symbol.MetadataName}",
+				_ => symbol.MetadataName,
+			};
 	}
 
 	/// <summary>
@@ -242,11 +255,22 @@ internal static partial class MockGeneratorHelpers
 		CancellationToken cancellationToken)
 	{
 		Compilation compilation = semanticModel.Compilation;
-		DataSourceTargets targets = new([], [], [], [], [], []);
+		DataSourceTargets targets = new([], [], [], [], [], [], []);
 		List<INamedTypeSymbol> pending = [];
 		foreach (IParameterSymbol parameter in
 		         GetDataSourceParameters(semanticModel.GetDeclaredSymbol(node, cancellationToken)))
 		{
+			// The value comes from a member of the test class, which the trimmer must keep for the reflection that reads it.
+			if (HasValueFrom(parameter))
+			{
+				if (parameter.ContainingSymbol.ContainingType is { } testClass)
+				{
+					targets.ValueFromClasses.Add(testClass);
+				}
+
+				continue;
+			}
+
 			ITypeSymbol parameterType = parameter.Type.WithDynamicAsObject(compilation)
 				.WithNullableAnnotation(NullableAnnotation.NotAnnotated);
 			// A [Deferred] Func<T> creates its T when the test calls it, so T is filled like a parameter instead.
@@ -623,11 +647,23 @@ internal static partial class MockGeneratorHelpers
 			? func.TypeArguments[0]
 			: null;
 
+	private static bool HasValueFrom(IParameterSymbol parameter)
+		=> parameter.GetAttributes().Any(attribute => attribute.AttributeClass?.BaseType is
+		{
+			Name: "ValueFromParameterAttribute",
+			ContainingNamespace:
+			{
+				Name: "Integrations",
+				ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, },
+			},
+		});
+
 	private sealed record DataSourceTargets(
 		List<DataSourceClass> Classes,
 		List<ITypeSymbol> MockedTypes,
 		List<ITypeSymbol> ValueOrMockTypes,
 		List<ITypeSymbol> ValueTypes,
 		List<ITypeSymbol> DeferredTypes,
+		List<INamedTypeSymbol> ValueFromClasses,
 		List<ITypeSymbol> TypesToMock);
 }

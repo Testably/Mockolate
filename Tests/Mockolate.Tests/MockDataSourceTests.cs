@@ -304,6 +304,16 @@ public sealed class MockDataSourceTests
 	}
 
 	[Test]
+	public async Task TryCreate_WithTypeOfValueFromParameterOnly_ShouldReturnFalse()
+	{
+		bool result = MockDataSource.TryCreate(Assembly, typeof(IMockDataValueFromOnly), null, NoArgument,
+			out object? value);
+
+		await That(result).IsFalse().Because("a [ValueFrom] parameter takes its value from a member, so the generator creates no factory for its type");
+		await That(value).IsNull();
+	}
+
+	[Test]
 	public async Task TryCreate_WithAssemblyWithoutGeneratedCode_ShouldReturnFalseEveryTime()
 	{
 		bool first = MockDataSource.TryCreate(typeof(string).Assembly, typeof(MockDataInner), null, NoArgument,
