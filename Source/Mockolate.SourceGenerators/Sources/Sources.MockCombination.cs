@@ -104,6 +104,7 @@ internal static partial class Sources
 		}
 
 		sb.Append(", IMockVerifyFor").Append(name);
+		AppendGenericFacadeInterfaces(sb, @class, name);
 		if (hasProtectedMembers || hasProtectedEvents)
 		{
 			sb.Append(", IMockProtectedVerifyFor").Append(name);
@@ -137,6 +138,7 @@ internal static partial class Sources
 			}
 
 			sb.Append(", IMockVerifyFor").Append(additional.Name);
+			AppendGenericFacadeInterfaces(sb, additional.Class, additional.Name);
 			if (additionalHasStaticMembers || additionalHasStaticEvents)
 			{
 				sb.Append(", IMockStaticVerifyFor").Append(additional.Name);
@@ -171,7 +173,7 @@ internal static partial class Sources
 
 		string[]? adapterIgnoredNames = GetAdapterIgnoredNames(allMemberClasses);
 		string? adapterClearHook = GetAdapterClearHook(allMemberClasses);
-		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, adapterIgnoredNames, adapterClearHook, constructorArgumentsName, @class.DisplayString);
+		ImplementMockForInterface(sb, mockRegistryName, name, hasEvents, hasProtectedMembers, hasProtectedEvents, hasStaticMembers, hasStaticEvents, adapterIgnoredNames, adapterClearHook, constructorArgumentsName, @class.DisplayString, HasGenericFacadeMethods(@class));
 		foreach ((string additionalInterfaceName, Class additionalInterface) in additionalInterfaces)
 		{
 			ImplementMockForInterface(sb, mockRegistryName, additionalInterfaceName,
@@ -180,7 +182,7 @@ internal static partial class Sources
 				false /* Interfaces cannot have protected events */,
 				additionalInterface.AllMethods().Any(x => x.IsStatic) || additionalInterface.AllProperties().Any(x => x.IsStatic),
 				additionalInterface.AllEvents().Any(x => x.IsStatic),
-				adapterIgnoredNames, adapterClearHook);
+				adapterIgnoredNames, adapterClearHook, hasGenericMethods: HasGenericFacadeMethods(additionalInterface));
 		}
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
@@ -402,6 +404,12 @@ internal static partial class Sources
 				
 				sb.Append("\t\t#endregion IMockStaticVerifyFor").Append(item.Name).AppendLine();
 			}
+		}
+
+		ImplementGenericFacade(sb, @class, name, mockRegistryName, memberIds, memberIdPrefix);
+		foreach ((string Name, Class Class) item in additionalInterfaces)
+		{
+			ImplementGenericFacade(sb, item.Class, item.Name, mockRegistryName, memberIds, memberIdPrefix);
 		}
 
 		#endregion Verify implementation

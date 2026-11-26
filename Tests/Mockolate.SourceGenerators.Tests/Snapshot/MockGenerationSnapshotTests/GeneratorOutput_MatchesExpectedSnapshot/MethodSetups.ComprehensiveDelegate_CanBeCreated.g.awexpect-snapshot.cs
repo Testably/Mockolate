@@ -622,7 +622,7 @@ namespace Mockolate.Interactions
 	///     An invocation of a method with 6 parameters <paramref name="parameter1"/>, <paramref name="parameter2"/>, <paramref name="parameter3"/>, <paramref name="parameter4"/>, <paramref name="parameter5"/> and <paramref name="parameter6"/>.
 	/// </summary>
 	[global::System.Diagnostics.DebuggerDisplay("{ToString()}")]
-	internal class MethodInvocation<T1, T2, T3, T4, T5, T6>(string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5, T6 parameter6) : IMethodInteraction
+	internal class MethodInvocation<T1, T2, T3, T4, T5, T6>(string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5, T6 parameter6) : IMethodInteraction, global::Mockolate.Internals.IMethodInvocationParameters
 	{
 		/// <summary>
 		///     The name of the method.
@@ -652,6 +652,18 @@ namespace Mockolate.Interactions
 		///     The 6th parameter value of the method.
 		/// </summary>
 		public T6 Parameter6 { get; } = parameter6;
+		int global::Mockolate.Internals.IMethodInvocationParameters.ParameterCount => 6;
+		object? global::Mockolate.Internals.IMethodInvocationParameters.GetParameterValueAt(int index)
+			=> index switch
+			{
+				0 => Parameter1,
+				1 => Parameter2,
+				2 => Parameter3,
+				3 => Parameter4,
+				4 => Parameter5,
+				5 => Parameter6,
+				_ => null,
+			};
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
 		{

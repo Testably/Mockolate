@@ -19,7 +19,7 @@ internal static partial class Mock
 	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 	internal class ConcreteLogger :
-		global::Mockolate.Tests.GeneratorCoverage.ConcreteLogger, IMockForConcreteLogger, IMockSetupForConcreteLogger, IMockVerifyForConcreteLogger,
+		global::Mockolate.Tests.GeneratorCoverage.ConcreteLogger, IMockForConcreteLogger, IMockSetupForConcreteLogger, IMockVerifyForConcreteLogger, IMockGenericSetupForConcreteLogger, IMockGenericVerifyForConcreteLogger,
 		global::Mockolate.IMock, global::Mockolate.Internals.IMockAdapterAccess
 	{
 		internal const int MemberId_BeginScope_TState_ = 0;
@@ -59,6 +59,14 @@ internal static partial class Mock
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		IMockSetupForConcreteLogger IMockForConcreteLogger.Setup
+			=> this;
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		IMockGenericSetupForConcreteLogger IMockForConcreteLogger.SetupGeneric
+			=> this;
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		IMockGenericVerifyForConcreteLogger IMockForConcreteLogger.VerifyGeneric
 			=> this;
 		/// <inheritdoc />
 		IMockInScenarioForConcreteLogger IMockForConcreteLogger.InScenario(string scenario)
@@ -144,28 +152,39 @@ internal static partial class Mock
 			where TState : default
 		{
 			global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState>? methodSetup = null;
+			global::Mockolate.Setup.VoidMethodSetup<object?>? genericMethodSetup = null;
+			string name_methodSetup = $"global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<{typeof(TState)}>";
 			if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
 			{
 				global::Mockolate.Setup.MethodSetup[]? snapshot_methodSetup = this.MockRegistry.GetMethodSetupSnapshot(global::Mockolate.Mock.ConcreteLogger.MemberId_BeginScope_TState_);
-				string name_methodSetup = $"global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<{typeof(TState)}>";
 				if (snapshot_methodSetup is not null)
 				{
 					for (int i_methodSetup = snapshot_methodSetup.Length - 1; i_methodSetup >= 0; i_methodSetup--)
 					{
-						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState> s_methodSetup && s_methodSetup.Name == name_methodSetup && s_methodSetup.Matches(state))
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState> t_methodSetup && t_methodSetup.Name == name_methodSetup && t_methodSetup.Matches(state))
 						{
-							methodSetup = s_methodSetup;
+							methodSetup = t_methodSetup;
+							break;
+						}
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.VoidMethodSetup<object?> g_methodSetup && g_methodSetup.Name == "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<TState>" && g_methodSetup.Matches((object?)state))
+						{
+							genericMethodSetup = g_methodSetup;
 							break;
 						}
 					}
 				}
-				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState>>(global::Mockolate.Mock.ConcreteLogger.MemberId_BeginScope_TState_, name_methodSetup) is { } fallback_methodSetup)
+				if (methodSetup is null && genericMethodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.MethodSetup>(global::Mockolate.Mock.ConcreteLogger.MemberId_BeginScope_TState_, name_methodSetup, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<TState>") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState> s_methodSetup in fallback_methodSetup)
+					foreach (global::Mockolate.Setup.MethodSetup s_methodSetup in fallback_methodSetup)
 					{
-						if (s_methodSetup.Matches(state))
+						if (s_methodSetup is global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState> t_methodSetup && t_methodSetup.Name == name_methodSetup && t_methodSetup.Matches(state))
 						{
-							methodSetup = s_methodSetup;
+							methodSetup = t_methodSetup;
+							break;
+						}
+						if (s_methodSetup is global::Mockolate.Setup.VoidMethodSetup<object?> g_methodSetup && g_methodSetup.Name == "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<TState>" && g_methodSetup.Matches((object?)state))
+						{
+							genericMethodSetup = g_methodSetup;
 							break;
 						}
 					}
@@ -173,11 +192,16 @@ internal static partial class Mock
 			}
 			else
 			{
-				foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState>>($"global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<{typeof(TState)}>"))
+				foreach (global::Mockolate.Setup.MethodSetup s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.MethodSetup>(name_methodSetup, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<TState>"))
 				{
-					if (s_methodSetup.Matches(state))
+					if (s_methodSetup is global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState> t_methodSetup && t_methodSetup.Name == name_methodSetup && t_methodSetup.Matches(state))
 					{
-						methodSetup = s_methodSetup;
+						methodSetup = t_methodSetup;
+						break;
+					}
+					if (s_methodSetup is global::Mockolate.Setup.VoidMethodSetup<object?> g_methodSetup && g_methodSetup.Name == "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<TState>" && g_methodSetup.Matches((object?)state))
+					{
+						genericMethodSetup = g_methodSetup;
 						break;
 					}
 				}
@@ -195,7 +219,7 @@ internal static partial class Mock
 					wrappedResult = wraps.BeginScope<TState>(state);
 					hasWrappedResult = true;
 				}
-				if (!(methodSetup?.SkipBaseClass(this.MockRegistry.Behavior) ?? this.MockRegistry.Behavior.SkipBaseClass) && !hasWrappedResult)
+				if (!(methodSetup?.SkipBaseClass(this.MockRegistry.Behavior) ?? genericMethodSetup?.SkipBaseClass(this.MockRegistry.Behavior) ?? this.MockRegistry.Behavior.SkipBaseClass) && !hasWrappedResult)
 				{
 					wrappedResult = base.BeginScope<TState>(state);
 					hasWrappedResult = true;
@@ -204,6 +228,7 @@ internal static partial class Mock
 			finally
 			{
 				methodSetup?.TriggerCallbacks(state);
+				genericMethodSetup?.TriggerCallbacks((object?)state);
 			}
 			if (methodSetup?.HasReturnCallbacks != true && hasWrappedResult)
 			{
@@ -395,6 +420,26 @@ internal static partial class Mock
 
 		#endregion IMockSetupForConcreteLogger
 
+		#region IMockGenericSetupForConcreteLogger
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForConcreteLogger.BeginScope(global::Mockolate.Parameters.IParameters parameters)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParametersForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<TState>", parameters, "state");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ConcreteLogger.MemberId_BeginScope_TState_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForConcreteLogger.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<TState>", global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ConcreteLogger.MemberId_BeginScope_TState_, methodSetup);
+			return methodSetup;
+		}
+
+		#endregion IMockGenericSetupForConcreteLogger
+
 		#region IMockVerifyForConcreteLogger
 
 		/// <inheritdoc />
@@ -475,6 +520,21 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<global::System.Exception?>.Default.Equals(exception, __i.Parameter4)) && 
 				(global::System.Collections.Generic.EqualityComparer<global::System.Func<TState, global::System.Exception?, string>>.Default.Equals(formatter, __i.Parameter5)), () => $"Log<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)eventId))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)state))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)exception))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)formatter))})");
 		#endregion IMockVerifyForConcreteLogger
+
+		#region IMockGenericVerifyForConcreteLogger
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForConcreteLogger> IMockGenericVerifyForConcreteLogger.BeginScope(global::Mockolate.Parameters.IParameters parameters)
+			=> this.MockRegistry.VerifyGenericMethod<IMockVerifyForConcreteLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<TState>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(parameters, invocation, "state"), () => $"BeginScope<TState>({parameters})");
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForConcreteLogger> IMockGenericVerifyForConcreteLogger.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
+		{
+			global::Mockolate.Parameters.IParameterMatch<object?> match1 = global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>());
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForConcreteLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<TState>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
+		}
+
+		#endregion IMockGenericVerifyForConcreteLogger
 	}
 
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -748,6 +808,14 @@ internal static partial class Mock
 		IMockSetupForConcreteLogger Setup { get; }
 
 		/// <summary>
+		///     Configures how generic methods of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConcreteLogger">ConcreteLogger</see> respond when invoked with any type argument.
+		/// </summary>
+		/// <remarks>
+		///     Parameters whose type depends on a type argument are matched as <see langword="object" /> against the runtime value. A setup of a specific type argument and a setup for any type argument both apply; the most recently defined matching one wins.
+		/// </remarks>
+		IMockGenericSetupForConcreteLogger SetupGeneric { get; }
+
+		/// <summary>
 		///     Opens a named scenario scope on the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConcreteLogger">ConcreteLogger</see> so that additional setups can be registered for that scenario.
 		/// </summary>
 		/// <remarks>
@@ -787,6 +855,14 @@ internal static partial class Mock
 		///     Chain <c>Then(...)</c> to assert an ordered sequence of calls. A failing assertion throws a <see cref="global::Mockolate.Exceptions.MockVerificationException">MockVerificationException</see>.
 		/// </remarks>
 		IMockVerifyForConcreteLogger Verify { get; }
+
+		/// <summary>
+		///     Asserts how often generic methods of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConcreteLogger">ConcreteLogger</see> were invoked with any type argument.
+		/// </summary>
+		/// <remarks>
+		///     Same terminators and modifiers as <see cref="Verify">Verify</see>; parameters whose type depends on a type argument are matched as <see langword="object" /> against the runtime value.
+		/// </remarks>
+		IMockGenericVerifyForConcreteLogger VerifyGeneric { get; }
 
 		/// <summary>
 		///     Verifies how often a specific method setup was matched by actual invocations.
@@ -1040,6 +1116,41 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForConcreteLogger> Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, global::Mockolate.Parameters.IParameter<TState>? state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter);
 
 	}
+
+	/// <summary>
+	///     Set up the generic methods of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConcreteLogger">ConcreteLogger</see> for any type argument.
+	/// </summary>
+	internal interface IMockGenericSetupForConcreteLogger
+	{
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope{TState}(TState)">BeginScope&lt;TState&gt;(TState)</see> for any type argument with the given <paramref name="parameters" />.
+		/// </summary>
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> BeginScope(global::Mockolate.Parameters.IParameters parameters);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope{TState}(TState)">BeginScope&lt;TState&gt;(TState)</see> for any type argument with the given <paramref name="state" />.
+		/// </summary>
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> BeginScope(global::Mockolate.Parameters.IParameter<object?>? state);
+
+	}
+
+	/// <summary>
+	///     Verify interactions with the generic methods of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ConcreteLogger">ConcreteLogger</see> for any type argument.
+	/// </summary>
+	internal interface IMockGenericVerifyForConcreteLogger
+	{
+		/// <summary>
+		///     Validates the invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope{TState}(TState)">BeginScope&lt;TState&gt;(TState)</see> for any type argument with the given <paramref name="parameters" />.
+		/// </summary>
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForConcreteLogger> BeginScope(global::Mockolate.Parameters.IParameters parameters);
+
+		/// <summary>
+		///     Validates the invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope{TState}(TState)">BeginScope&lt;TState&gt;(TState)</see> for any type argument with the given <paramref name="state" />.
+		/// </summary>
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForConcreteLogger> BeginScope(global::Mockolate.Parameters.IParameter<object?>? state);
+
+	}
+
 }
 /// <summary>
 ///     Mock extensions for <see cref="global::Mockolate.Tests.GeneratorCoverage.ConcreteLogger">ConcreteLogger</see>.
@@ -1366,7 +1477,7 @@ internal static partial class Mock
 	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 	internal class LeafLogger :
-		global::Mockolate.Tests.GeneratorCoverage.LeafLogger, IMockForLeafLogger, IMockSetupForLeafLogger, IMockVerifyForLeafLogger,
+		global::Mockolate.Tests.GeneratorCoverage.LeafLogger, IMockForLeafLogger, IMockSetupForLeafLogger, IMockVerifyForLeafLogger, IMockGenericSetupForLeafLogger, IMockGenericVerifyForLeafLogger,
 		global::Mockolate.IMock, global::Mockolate.Internals.IMockAdapterAccess
 	{
 		internal const int MemberId_BeginScope_TState_ = 0;
@@ -1406,6 +1517,14 @@ internal static partial class Mock
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
 		IMockSetupForLeafLogger IMockForLeafLogger.Setup
+			=> this;
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		IMockGenericSetupForLeafLogger IMockForLeafLogger.SetupGeneric
+			=> this;
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		IMockGenericVerifyForLeafLogger IMockForLeafLogger.VerifyGeneric
 			=> this;
 		/// <inheritdoc />
 		IMockInScenarioForLeafLogger IMockForLeafLogger.InScenario(string scenario)
@@ -1491,28 +1610,39 @@ internal static partial class Mock
 			where TState : default
 		{
 			global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState>? methodSetup = null;
+			global::Mockolate.Setup.VoidMethodSetup<object?>? genericMethodSetup = null;
+			string name_methodSetup = $"global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<{typeof(TState)}>";
 			if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
 			{
 				global::Mockolate.Setup.MethodSetup[]? snapshot_methodSetup = this.MockRegistry.GetMethodSetupSnapshot(global::Mockolate.Mock.LeafLogger.MemberId_BeginScope_TState_);
-				string name_methodSetup = $"global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<{typeof(TState)}>";
 				if (snapshot_methodSetup is not null)
 				{
 					for (int i_methodSetup = snapshot_methodSetup.Length - 1; i_methodSetup >= 0; i_methodSetup--)
 					{
-						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState> s_methodSetup && s_methodSetup.Name == name_methodSetup && s_methodSetup.Matches(state))
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState> t_methodSetup && t_methodSetup.Name == name_methodSetup && t_methodSetup.Matches(state))
 						{
-							methodSetup = s_methodSetup;
+							methodSetup = t_methodSetup;
+							break;
+						}
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.VoidMethodSetup<object?> g_methodSetup && g_methodSetup.Name == "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<TState>" && g_methodSetup.Matches((object?)state))
+						{
+							genericMethodSetup = g_methodSetup;
 							break;
 						}
 					}
 				}
-				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState>>(global::Mockolate.Mock.LeafLogger.MemberId_BeginScope_TState_, name_methodSetup) is { } fallback_methodSetup)
+				if (methodSetup is null && genericMethodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.MethodSetup>(global::Mockolate.Mock.LeafLogger.MemberId_BeginScope_TState_, name_methodSetup, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<TState>") is { } fallback_methodSetup)
 				{
-					foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState> s_methodSetup in fallback_methodSetup)
+					foreach (global::Mockolate.Setup.MethodSetup s_methodSetup in fallback_methodSetup)
 					{
-						if (s_methodSetup.Matches(state))
+						if (s_methodSetup is global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState> t_methodSetup && t_methodSetup.Name == name_methodSetup && t_methodSetup.Matches(state))
 						{
-							methodSetup = s_methodSetup;
+							methodSetup = t_methodSetup;
+							break;
+						}
+						if (s_methodSetup is global::Mockolate.Setup.VoidMethodSetup<object?> g_methodSetup && g_methodSetup.Name == "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<TState>" && g_methodSetup.Matches((object?)state))
+						{
+							genericMethodSetup = g_methodSetup;
 							break;
 						}
 					}
@@ -1520,11 +1650,16 @@ internal static partial class Mock
 			}
 			else
 			{
-				foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState>>($"global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<{typeof(TState)}>"))
+				foreach (global::Mockolate.Setup.MethodSetup s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.MethodSetup>(name_methodSetup, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<TState>"))
 				{
-					if (s_methodSetup.Matches(state))
+					if (s_methodSetup is global::Mockolate.Setup.ReturnMethodSetup<global::System.IDisposable?, TState> t_methodSetup && t_methodSetup.Name == name_methodSetup && t_methodSetup.Matches(state))
 					{
-						methodSetup = s_methodSetup;
+						methodSetup = t_methodSetup;
+						break;
+					}
+					if (s_methodSetup is global::Mockolate.Setup.VoidMethodSetup<object?> g_methodSetup && g_methodSetup.Name == "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<TState>" && g_methodSetup.Matches((object?)state))
+					{
+						genericMethodSetup = g_methodSetup;
 						break;
 					}
 				}
@@ -1542,7 +1677,7 @@ internal static partial class Mock
 					wrappedResult = wraps.BeginScope<TState>(state);
 					hasWrappedResult = true;
 				}
-				if (!(methodSetup?.SkipBaseClass(this.MockRegistry.Behavior) ?? this.MockRegistry.Behavior.SkipBaseClass) && !hasWrappedResult)
+				if (!(methodSetup?.SkipBaseClass(this.MockRegistry.Behavior) ?? genericMethodSetup?.SkipBaseClass(this.MockRegistry.Behavior) ?? this.MockRegistry.Behavior.SkipBaseClass) && !hasWrappedResult)
 				{
 					wrappedResult = base.BeginScope<TState>(state);
 					hasWrappedResult = true;
@@ -1551,6 +1686,7 @@ internal static partial class Mock
 			finally
 			{
 				methodSetup?.TriggerCallbacks(state);
+				genericMethodSetup?.TriggerCallbacks((object?)state);
 			}
 			if (methodSetup?.HasReturnCallbacks != true && hasWrappedResult)
 			{
@@ -1742,6 +1878,26 @@ internal static partial class Mock
 
 		#endregion IMockSetupForLeafLogger
 
+		#region IMockGenericSetupForLeafLogger
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForLeafLogger.BeginScope(global::Mockolate.Parameters.IParameters parameters)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParametersForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<TState>", parameters, "state");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.LeafLogger.MemberId_BeginScope_TState_, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForLeafLogger.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
+		{
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<TState>", global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.LeafLogger.MemberId_BeginScope_TState_, methodSetup);
+			return methodSetup;
+		}
+
+		#endregion IMockGenericSetupForLeafLogger
+
 		#region IMockVerifyForLeafLogger
 
 		/// <inheritdoc />
@@ -1822,6 +1978,21 @@ internal static partial class Mock
 				(global::System.Collections.Generic.EqualityComparer<global::System.Exception?>.Default.Equals(exception, __i.Parameter4)) && 
 				(global::System.Collections.Generic.EqualityComparer<global::System.Func<TState, global::System.Exception?, string>>.Default.Equals(formatter, __i.Parameter5)), () => $"Log<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)logLevel))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)eventId))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)state))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)exception))}, {(global::Mockolate.Internals.ValueFormatter.Format((object?)formatter))})");
 		#endregion IMockVerifyForLeafLogger
+
+		#region IMockGenericVerifyForLeafLogger
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> IMockGenericVerifyForLeafLogger.BeginScope(global::Mockolate.Parameters.IParameters parameters)
+			=> this.MockRegistry.VerifyGenericMethod<IMockVerifyForLeafLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<TState>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(parameters, invocation, "state"), () => $"BeginScope<TState>({parameters})");
+
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> IMockGenericVerifyForLeafLogger.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
+		{
+			global::Mockolate.Parameters.IParameterMatch<object?> match1 = global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>());
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForLeafLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<TState>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
+		}
+
+		#endregion IMockGenericVerifyForLeafLogger
 	}
 
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -2095,6 +2266,14 @@ internal static partial class Mock
 		IMockSetupForLeafLogger Setup { get; }
 
 		/// <summary>
+		///     Configures how generic methods of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.LeafLogger">LeafLogger</see> respond when invoked with any type argument.
+		/// </summary>
+		/// <remarks>
+		///     Parameters whose type depends on a type argument are matched as <see langword="object" /> against the runtime value. A setup of a specific type argument and a setup for any type argument both apply; the most recently defined matching one wins.
+		/// </remarks>
+		IMockGenericSetupForLeafLogger SetupGeneric { get; }
+
+		/// <summary>
 		///     Opens a named scenario scope on the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.LeafLogger">LeafLogger</see> so that additional setups can be registered for that scenario.
 		/// </summary>
 		/// <remarks>
@@ -2134,6 +2313,14 @@ internal static partial class Mock
 		///     Chain <c>Then(...)</c> to assert an ordered sequence of calls. A failing assertion throws a <see cref="global::Mockolate.Exceptions.MockVerificationException">MockVerificationException</see>.
 		/// </remarks>
 		IMockVerifyForLeafLogger Verify { get; }
+
+		/// <summary>
+		///     Asserts how often generic methods of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.LeafLogger">LeafLogger</see> were invoked with any type argument.
+		/// </summary>
+		/// <remarks>
+		///     Same terminators and modifiers as <see cref="Verify">Verify</see>; parameters whose type depends on a type argument are matched as <see langword="object" /> against the runtime value.
+		/// </remarks>
+		IMockGenericVerifyForLeafLogger VerifyGeneric { get; }
 
 		/// <summary>
 		///     Verifies how often a specific method setup was matched by actual invocations.
@@ -2387,6 +2574,41 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> Log<TState>(global::Microsoft.Extensions.Logging.LogLevel logLevel, global::Microsoft.Extensions.Logging.EventId eventId, global::Mockolate.Parameters.IParameter<TState>? state, global::System.Exception? exception, global::System.Func<TState, global::System.Exception?, string> formatter);
 
 	}
+
+	/// <summary>
+	///     Set up the generic methods of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.LeafLogger">LeafLogger</see> for any type argument.
+	/// </summary>
+	internal interface IMockGenericSetupForLeafLogger
+	{
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope{TState}(TState)">BeginScope&lt;TState&gt;(TState)</see> for any type argument with the given <paramref name="parameters" />.
+		/// </summary>
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> BeginScope(global::Mockolate.Parameters.IParameters parameters);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope{TState}(TState)">BeginScope&lt;TState&gt;(TState)</see> for any type argument with the given <paramref name="state" />.
+		/// </summary>
+		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> BeginScope(global::Mockolate.Parameters.IParameter<object?>? state);
+
+	}
+
+	/// <summary>
+	///     Verify interactions with the generic methods of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.LeafLogger">LeafLogger</see> for any type argument.
+	/// </summary>
+	internal interface IMockGenericVerifyForLeafLogger
+	{
+		/// <summary>
+		///     Validates the invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope{TState}(TState)">BeginScope&lt;TState&gt;(TState)</see> for any type argument with the given <paramref name="parameters" />.
+		/// </summary>
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> BeginScope(global::Mockolate.Parameters.IParameters parameters);
+
+		/// <summary>
+		///     Validates the invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope{TState}(TState)">BeginScope&lt;TState&gt;(TState)</see> for any type argument with the given <paramref name="state" />.
+		/// </summary>
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> BeginScope(global::Mockolate.Parameters.IParameter<object?>? state);
+
+	}
+
 }
 /// <summary>
 ///     Mock extensions for <see cref="global::Mockolate.Tests.GeneratorCoverage.LeafLogger">LeafLogger</see>.

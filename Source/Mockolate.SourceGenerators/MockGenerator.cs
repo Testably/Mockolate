@@ -801,6 +801,10 @@ public class MockGenerator : IIncrementalGenerator
 				if (m.Parameters.Count > 4)
 				{
 					set.Add(new MethodSetupKey(m.Parameters.Count, m.ReturnType == Type.Void));
+					if (Sources.Sources.HasGenericFacadeShape(m))
+					{
+						set.Add(new MethodSetupKey(m.Parameters.Count, true));
+					}
 				}
 			}
 

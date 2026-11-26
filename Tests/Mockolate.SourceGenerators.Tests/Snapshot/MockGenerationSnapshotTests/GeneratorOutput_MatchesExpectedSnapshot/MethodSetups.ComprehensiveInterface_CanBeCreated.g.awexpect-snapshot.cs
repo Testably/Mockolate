@@ -1069,6 +1069,53 @@ namespace Mockolate.Setup
 				}
 			}
 		}
+
+		/// <summary>Setup for a generic method with 5 parameters, for any type argument, matching against <see cref="global::Mockolate.Parameters.IParameters">IParameters</see>.</summary>
+		internal class WithParametersForAnyTypeArguments : WithParameters, global::Mockolate.Internals.IGenericMethodSetup
+		{
+			private readonly string _namePrefix;
+
+			/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3, T4, T5}" />
+			public WithParametersForAnyTypeArguments(global::Mockolate.Internals.MockRegistry mockRegistry, string name, global::Mockolate.Parameters.IParameters parameters, string parameterName1, string parameterName2, string parameterName3, string parameterName4, string parameterName5)
+				: base(mockRegistry, name, parameters, parameterName1, parameterName2, parameterName3, parameterName4, parameterName5)
+			{
+				_namePrefix = global::Mockolate.Internals.GenericMethodInvocations.GetNamePrefix(name);
+			}
+
+			/// <inheritdoc cref="global::Mockolate.Setup.MethodSetup.MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction)" />
+			protected override bool MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction interaction)
+				=> global::Mockolate.Internals.GenericMethodInvocations.TryGetInvocation(interaction, _namePrefix, 5, out global::Mockolate.Internals.IMethodInvocationParameters invocation) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 0, out T1 p1Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 1, out T2 p2Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 2, out T3 p3Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 3, out T4 p4Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 4, out T5 p5Value) &&
+				   Matches(p1Value, p2Value, p3Value, p4Value, p5Value);
+		}
+
+		/// <summary>Setup for a generic method with 5 parameters, for any type argument, matching against individual <see cref="global::Mockolate.Parameters.IParameterMatch{T}">IParameterMatch&lt;T&gt;</see>.</summary>
+		internal class WithParameterCollectionForAnyTypeArguments : WithParameterCollection, global::Mockolate.Internals.IGenericMethodSetup
+		{
+			private readonly string _namePrefix;
+
+			/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3, T4, T5}" />
+			public WithParameterCollectionForAnyTypeArguments(global::Mockolate.Internals.MockRegistry mockRegistry, string name, global::Mockolate.Parameters.IParameterMatch<T1> parameter1, global::Mockolate.Parameters.IParameterMatch<T2> parameter2, global::Mockolate.Parameters.IParameterMatch<T3> parameter3, global::Mockolate.Parameters.IParameterMatch<T4> parameter4, global::Mockolate.Parameters.IParameterMatch<T5> parameter5)
+				: base(mockRegistry, name, parameter1, parameter2, parameter3, parameter4, parameter5)
+			{
+				_namePrefix = global::Mockolate.Internals.GenericMethodInvocations.GetNamePrefix(name);
+			}
+
+			/// <inheritdoc cref="global::Mockolate.Setup.MethodSetup.MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction)" />
+			protected override bool MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction interaction)
+				=> global::Mockolate.Internals.GenericMethodInvocations.TryGetInvocation(interaction, _namePrefix, 5, out global::Mockolate.Internals.IMethodInvocationParameters invocation) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 0, out T1 p1Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 1, out T2 p2Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 2, out T3 p3Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 3, out T4 p4Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 4, out T5 p5Value) &&
+				   Matches(p1Value, p2Value, p3Value, p4Value, p5Value);
+		}
+
 	}
 
 
@@ -1588,6 +1635,57 @@ namespace Mockolate.Setup
 				}
 			}
 		}
+
+		/// <summary>Setup for a generic method with 7 parameters, for any type argument, matching against <see cref="global::Mockolate.Parameters.IParameters">IParameters</see>.</summary>
+		internal class WithParametersForAnyTypeArguments : WithParameters, global::Mockolate.Internals.IGenericMethodSetup
+		{
+			private readonly string _namePrefix;
+
+			/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3, T4, T5, T6, T7}" />
+			public WithParametersForAnyTypeArguments(global::Mockolate.Internals.MockRegistry mockRegistry, string name, global::Mockolate.Parameters.IParameters parameters, string parameterName1, string parameterName2, string parameterName3, string parameterName4, string parameterName5, string parameterName6, string parameterName7)
+				: base(mockRegistry, name, parameters, parameterName1, parameterName2, parameterName3, parameterName4, parameterName5, parameterName6, parameterName7)
+			{
+				_namePrefix = global::Mockolate.Internals.GenericMethodInvocations.GetNamePrefix(name);
+			}
+
+			/// <inheritdoc cref="global::Mockolate.Setup.MethodSetup.MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction)" />
+			protected override bool MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction interaction)
+				=> global::Mockolate.Internals.GenericMethodInvocations.TryGetInvocation(interaction, _namePrefix, 7, out global::Mockolate.Internals.IMethodInvocationParameters invocation) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 0, out T1 p1Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 1, out T2 p2Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 2, out T3 p3Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 3, out T4 p4Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 4, out T5 p5Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 5, out T6 p6Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 6, out T7 p7Value) &&
+				   Matches(p1Value, p2Value, p3Value, p4Value, p5Value, p6Value, p7Value);
+		}
+
+		/// <summary>Setup for a generic method with 7 parameters, for any type argument, matching against individual <see cref="global::Mockolate.Parameters.IParameterMatch{T}">IParameterMatch&lt;T&gt;</see>.</summary>
+		internal class WithParameterCollectionForAnyTypeArguments : WithParameterCollection, global::Mockolate.Internals.IGenericMethodSetup
+		{
+			private readonly string _namePrefix;
+
+			/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3, T4, T5, T6, T7}" />
+			public WithParameterCollectionForAnyTypeArguments(global::Mockolate.Internals.MockRegistry mockRegistry, string name, global::Mockolate.Parameters.IParameterMatch<T1> parameter1, global::Mockolate.Parameters.IParameterMatch<T2> parameter2, global::Mockolate.Parameters.IParameterMatch<T3> parameter3, global::Mockolate.Parameters.IParameterMatch<T4> parameter4, global::Mockolate.Parameters.IParameterMatch<T5> parameter5, global::Mockolate.Parameters.IParameterMatch<T6> parameter6, global::Mockolate.Parameters.IParameterMatch<T7> parameter7)
+				: base(mockRegistry, name, parameter1, parameter2, parameter3, parameter4, parameter5, parameter6, parameter7)
+			{
+				_namePrefix = global::Mockolate.Internals.GenericMethodInvocations.GetNamePrefix(name);
+			}
+
+			/// <inheritdoc cref="global::Mockolate.Setup.MethodSetup.MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction)" />
+			protected override bool MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction interaction)
+				=> global::Mockolate.Internals.GenericMethodInvocations.TryGetInvocation(interaction, _namePrefix, 7, out global::Mockolate.Internals.IMethodInvocationParameters invocation) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 0, out T1 p1Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 1, out T2 p2Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 2, out T3 p3Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 3, out T4 p4Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 4, out T5 p5Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 5, out T6 p6Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 6, out T7 p7Value) &&
+				   Matches(p1Value, p2Value, p3Value, p4Value, p5Value, p6Value, p7Value);
+		}
+
 	}
 
 
@@ -2841,6 +2939,77 @@ namespace Mockolate.Setup
 				}
 			}
 		}
+
+		/// <summary>Setup for a generic method with 17 parameters, for any type argument, matching against <see cref="global::Mockolate.Parameters.IParameters">IParameters</see>.</summary>
+		internal class WithParametersForAnyTypeArguments : WithParameters, global::Mockolate.Internals.IGenericMethodSetup
+		{
+			private readonly string _namePrefix;
+
+			/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17}" />
+			public WithParametersForAnyTypeArguments(global::Mockolate.Internals.MockRegistry mockRegistry, string name, global::Mockolate.Parameters.IParameters parameters, string parameterName1, string parameterName2, string parameterName3, string parameterName4, string parameterName5, string parameterName6, string parameterName7, string parameterName8, string parameterName9, string parameterName10, string parameterName11, string parameterName12, string parameterName13, string parameterName14, string parameterName15, string parameterName16, string parameterName17)
+				: base(mockRegistry, name, parameters, parameterName1, parameterName2, parameterName3, parameterName4, parameterName5, parameterName6, parameterName7, parameterName8, parameterName9, parameterName10, parameterName11, parameterName12, parameterName13, parameterName14, parameterName15, parameterName16, parameterName17)
+			{
+				_namePrefix = global::Mockolate.Internals.GenericMethodInvocations.GetNamePrefix(name);
+			}
+
+			/// <inheritdoc cref="global::Mockolate.Setup.MethodSetup.MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction)" />
+			protected override bool MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction interaction)
+				=> global::Mockolate.Internals.GenericMethodInvocations.TryGetInvocation(interaction, _namePrefix, 17, out global::Mockolate.Internals.IMethodInvocationParameters invocation) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 0, out T1 p1Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 1, out T2 p2Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 2, out T3 p3Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 3, out T4 p4Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 4, out T5 p5Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 5, out T6 p6Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 6, out T7 p7Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 7, out T8 p8Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 8, out T9 p9Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 9, out T10 p10Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 10, out T11 p11Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 11, out T12 p12Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 12, out T13 p13Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 13, out T14 p14Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 14, out T15 p15Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 15, out T16 p16Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 16, out T17 p17Value) &&
+				   Matches(p1Value, p2Value, p3Value, p4Value, p5Value, p6Value, p7Value, p8Value, p9Value, p10Value, p11Value, p12Value, p13Value, p14Value, p15Value, p16Value, p17Value);
+		}
+
+		/// <summary>Setup for a generic method with 17 parameters, for any type argument, matching against individual <see cref="global::Mockolate.Parameters.IParameterMatch{T}">IParameterMatch&lt;T&gt;</see>.</summary>
+		internal class WithParameterCollectionForAnyTypeArguments : WithParameterCollection, global::Mockolate.Internals.IGenericMethodSetup
+		{
+			private readonly string _namePrefix;
+
+			/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17}" />
+			public WithParameterCollectionForAnyTypeArguments(global::Mockolate.Internals.MockRegistry mockRegistry, string name, global::Mockolate.Parameters.IParameterMatch<T1> parameter1, global::Mockolate.Parameters.IParameterMatch<T2> parameter2, global::Mockolate.Parameters.IParameterMatch<T3> parameter3, global::Mockolate.Parameters.IParameterMatch<T4> parameter4, global::Mockolate.Parameters.IParameterMatch<T5> parameter5, global::Mockolate.Parameters.IParameterMatch<T6> parameter6, global::Mockolate.Parameters.IParameterMatch<T7> parameter7, global::Mockolate.Parameters.IParameterMatch<T8> parameter8, global::Mockolate.Parameters.IParameterMatch<T9> parameter9, global::Mockolate.Parameters.IParameterMatch<T10> parameter10, global::Mockolate.Parameters.IParameterMatch<T11> parameter11, global::Mockolate.Parameters.IParameterMatch<T12> parameter12, global::Mockolate.Parameters.IParameterMatch<T13> parameter13, global::Mockolate.Parameters.IParameterMatch<T14> parameter14, global::Mockolate.Parameters.IParameterMatch<T15> parameter15, global::Mockolate.Parameters.IParameterMatch<T16> parameter16, global::Mockolate.Parameters.IParameterMatch<T17> parameter17)
+				: base(mockRegistry, name, parameter1, parameter2, parameter3, parameter4, parameter5, parameter6, parameter7, parameter8, parameter9, parameter10, parameter11, parameter12, parameter13, parameter14, parameter15, parameter16, parameter17)
+			{
+				_namePrefix = global::Mockolate.Internals.GenericMethodInvocations.GetNamePrefix(name);
+			}
+
+			/// <inheritdoc cref="global::Mockolate.Setup.MethodSetup.MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction)" />
+			protected override bool MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction interaction)
+				=> global::Mockolate.Internals.GenericMethodInvocations.TryGetInvocation(interaction, _namePrefix, 17, out global::Mockolate.Internals.IMethodInvocationParameters invocation) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 0, out T1 p1Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 1, out T2 p2Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 2, out T3 p3Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 3, out T4 p4Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 4, out T5 p5Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 5, out T6 p6Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 6, out T7 p7Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 7, out T8 p8Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 8, out T9 p9Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 9, out T10 p10Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 10, out T11 p11Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 11, out T12 p12Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 12, out T13 p13Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 13, out T14 p14Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 14, out T15 p15Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 15, out T16 p16Value) &&
+				   global::Mockolate.Internals.GenericMethodInvocations.TryGetValue(invocation, 16, out T17 p17Value) &&
+				   Matches(p1Value, p2Value, p3Value, p4Value, p5Value, p6Value, p7Value, p8Value, p9Value, p10Value, p11Value, p12Value, p13Value, p14Value, p15Value, p16Value, p17Value);
+		}
+
 	}
 
 }
@@ -3013,7 +3182,7 @@ namespace Mockolate.Interactions
 	///     An invocation of a method with 5 parameters <paramref name="parameter1"/>, <paramref name="parameter2"/>, <paramref name="parameter3"/>, <paramref name="parameter4"/> and <paramref name="parameter5"/>.
 	/// </summary>
 	[global::System.Diagnostics.DebuggerDisplay("{ToString()}")]
-	internal class MethodInvocation<T1, T2, T3, T4, T5>(string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5) : IMethodInteraction
+	internal class MethodInvocation<T1, T2, T3, T4, T5>(string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5) : IMethodInteraction, global::Mockolate.Internals.IMethodInvocationParameters
 	{
 		/// <summary>
 		///     The name of the method.
@@ -3039,6 +3208,17 @@ namespace Mockolate.Interactions
 		///     The 5th parameter value of the method.
 		/// </summary>
 		public T5 Parameter5 { get; } = parameter5;
+		int global::Mockolate.Internals.IMethodInvocationParameters.ParameterCount => 5;
+		object? global::Mockolate.Internals.IMethodInvocationParameters.GetParameterValueAt(int index)
+			=> index switch
+			{
+				0 => Parameter1,
+				1 => Parameter2,
+				2 => Parameter3,
+				3 => Parameter4,
+				4 => Parameter5,
+				_ => null,
+			};
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
 		{
@@ -3054,7 +3234,7 @@ namespace Mockolate.Interactions
 	///     An invocation of a method with 7 parameters <paramref name="parameter1"/>, <paramref name="parameter2"/>, <paramref name="parameter3"/>, <paramref name="parameter4"/>, <paramref name="parameter5"/>, <paramref name="parameter6"/> and <paramref name="parameter7"/>.
 	/// </summary>
 	[global::System.Diagnostics.DebuggerDisplay("{ToString()}")]
-	internal class MethodInvocation<T1, T2, T3, T4, T5, T6, T7>(string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5, T6 parameter6, T7 parameter7) : IMethodInteraction
+	internal class MethodInvocation<T1, T2, T3, T4, T5, T6, T7>(string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5, T6 parameter6, T7 parameter7) : IMethodInteraction, global::Mockolate.Internals.IMethodInvocationParameters
 	{
 		/// <summary>
 		///     The name of the method.
@@ -3088,6 +3268,19 @@ namespace Mockolate.Interactions
 		///     The 7th parameter value of the method.
 		/// </summary>
 		public T7 Parameter7 { get; } = parameter7;
+		int global::Mockolate.Internals.IMethodInvocationParameters.ParameterCount => 7;
+		object? global::Mockolate.Internals.IMethodInvocationParameters.GetParameterValueAt(int index)
+			=> index switch
+			{
+				0 => Parameter1,
+				1 => Parameter2,
+				2 => Parameter3,
+				3 => Parameter4,
+				4 => Parameter5,
+				5 => Parameter6,
+				6 => Parameter7,
+				_ => null,
+			};
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
 		{
@@ -3103,7 +3296,7 @@ namespace Mockolate.Interactions
 	///     An invocation of a method with 17 parameters <paramref name="parameter1"/>, <paramref name="parameter2"/>, <paramref name="parameter3"/>, <paramref name="parameter4"/>, <paramref name="parameter5"/>, <paramref name="parameter6"/>, <paramref name="parameter7"/>, <paramref name="parameter8"/>, <paramref name="parameter9"/>, <paramref name="parameter10"/>, <paramref name="parameter11"/>, <paramref name="parameter12"/>, <paramref name="parameter13"/>, <paramref name="parameter14"/>, <paramref name="parameter15"/>, <paramref name="parameter16"/> and <paramref name="parameter17"/>.
 	/// </summary>
 	[global::System.Diagnostics.DebuggerDisplay("{ToString()}")]
-	internal class MethodInvocation<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5, T6 parameter6, T7 parameter7, T8 parameter8, T9 parameter9, T10 parameter10, T11 parameter11, T12 parameter12, T13 parameter13, T14 parameter14, T15 parameter15, T16 parameter16, T17 parameter17) : IMethodInteraction
+	internal class MethodInvocation<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>(string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5, T6 parameter6, T7 parameter7, T8 parameter8, T9 parameter9, T10 parameter10, T11 parameter11, T12 parameter12, T13 parameter13, T14 parameter14, T15 parameter15, T16 parameter16, T17 parameter17) : IMethodInteraction, global::Mockolate.Internals.IMethodInvocationParameters
 	{
 		/// <summary>
 		///     The name of the method.
@@ -3177,6 +3370,29 @@ namespace Mockolate.Interactions
 		///     The 17th parameter value of the method.
 		/// </summary>
 		public T17 Parameter17 { get; } = parameter17;
+		int global::Mockolate.Internals.IMethodInvocationParameters.ParameterCount => 17;
+		object? global::Mockolate.Internals.IMethodInvocationParameters.GetParameterValueAt(int index)
+			=> index switch
+			{
+				0 => Parameter1,
+				1 => Parameter2,
+				2 => Parameter3,
+				3 => Parameter4,
+				4 => Parameter5,
+				5 => Parameter6,
+				6 => Parameter7,
+				7 => Parameter8,
+				8 => Parameter9,
+				9 => Parameter10,
+				10 => Parameter11,
+				11 => Parameter12,
+				12 => Parameter13,
+				13 => Parameter14,
+				14 => Parameter15,
+				15 => Parameter16,
+				16 => Parameter17,
+				_ => null,
+			};
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
 		{
