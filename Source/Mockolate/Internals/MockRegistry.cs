@@ -204,13 +204,30 @@ public partial class MockRegistry
 	/// <param name="value">The default value the behavior produced for the method.</param>
 	/// <returns>The <paramref name="value" /> or the auto-mock.</returns>
 	public TResult AutoMockOr<TResult>(int memberId, TResult value)
+		=> AutoMockOr(memberId, 0, value);
+
+	/// <summary>
+	///     Returns <paramref name="value" />, or, when it is <see langword="null" /> and
+	///     <see cref="MockBehavior.SkipAutoMocking" /> is not set, the auto-mock of <typeparamref name="TResult" /> for
+	///     the <paramref name="element" /> of the return value of the method with the given <paramref name="memberId" />.
+	/// </summary>
+	/// <remarks>
+	///     Each interface element of a tuple return value has its own auto-mock, so that two elements of the same type
+	///     return different mocks.
+	/// </remarks>
+	/// <typeparam name="TResult">The type of the element.</typeparam>
+	/// <param name="memberId">The generator-emitted member id of the method.</param>
+	/// <param name="element">The generator-emitted index of the element within the return value.</param>
+	/// <param name="value">The default value the behavior produced for the element.</param>
+	/// <returns>The <paramref name="value" /> or the auto-mock.</returns>
+	public TResult AutoMockOr<TResult>(int memberId, int element, TResult value)
 	{
 		if (value is not null || Behavior.SkipAutoMocking)
 		{
 			return value;
 		}
 
-		return Setup.GetOrAddAutoMock(memberId, typeof(TResult), Behavior) is TResult mock ? mock : value;
+		return Setup.GetOrAddAutoMock(memberId, element, typeof(TResult), Behavior) is TResult mock ? mock : value;
 	}
 
 	private ScenarioState GetOrCreateScenarioState()

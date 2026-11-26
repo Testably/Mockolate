@@ -1055,6 +1055,36 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
+	public async Task TupleElements_ShouldBeMocked()
+	{
+		GeneratorResult result = Run("""
+		                             using System;
+		                             using System.Threading.Tasks;
+
+		                             namespace MyCode
+		                             {
+		                                 public interface IMyInterface1
+		                                 {
+		                                     Task<(int Stock, IMyInterface2 Value)> MyMethod();
+		                                     Tuple<int, Tuple<IMyInterface3>> MyProperty { get; }
+		                                 }
+
+		                                 public interface IMyInterface2;
+
+		                                 public interface IMyInterface3;
+		                             }
+		                             """, "IMyInterface1");
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources)
+			.ContainsKey("Mock.IMyInterface2.g.cs").And
+			.ContainsKey("Mock.IMyInterface3.g.cs");
+		await That(result.Sources["Mock.IMyInterface1.g.cs"])
+			.Contains("AutoMockOr<global::MyCode.IMyInterface2>(").And
+			.Contains("new global::System.Tuple<int, global::System.Tuple<global::MyCode.IMyInterface3>>(");
+	}
+
+	[Test]
 	public async Task WithBuildProperty_ShouldMockReturnTypesTransitively()
 	{
 		GeneratorResult result = Run("""

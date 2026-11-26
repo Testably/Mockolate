@@ -463,6 +463,11 @@ internal static class Helpers
 				{
 					return SpecialGenericType.ReadOnlySpan;
 				}
+
+				if (typeSymbol is INamedTypeSymbol { Name: "Tuple", Arity: > 0, })
+				{
+					return SpecialGenericType.Tuple;
+				}
 			}
 			else if (typeSymbol.ContainingNamespace is { Name: "Tasks", ContainingNamespace.Name: "Threading", } &&
 			         typeSymbol.ContainingNamespace.ContainingNamespace?.ContainingNamespace.Name == "System" &&
@@ -560,8 +565,8 @@ internal static class Helpers
 		///     looks for a cancellation token, or is <see langword="null" /> to use the <paramref name="suffix" />.
 		///     <para />
 		///     The <paramref name="autoMock" /> returns the code before and after the default value of an auto-mockable
-		///     type (also the result type of a task), that replaces a <see langword="null" /> with an auto-mock, or
-		///     <see langword="null" /> when the type gets no auto-mock.
+		///     type (also the result type of a task or an element of a tuple), that replaces a <see langword="null" />
+		///     with an auto-mock, or <see langword="null" /> when the type gets no auto-mock.
 		/// </remarks>
 		public StringBuilder AppendDefaultValueGeneratorFor(Type type,
 			string defaultValueName, string suffix = "", string? taskSuffix = null,
@@ -577,22 +582,48 @@ internal static class Helpers
 			if (type.TupleTypes is not null)
 			{
 				sb.Append("(");
-				bool first = true;
-				foreach (Type? genericType in type.TupleTypes.Value)
-				{
-					if (!first)
-					{
-						sb.Append(", ");
-					}
-
-					first = false;
-					sb.AppendDefaultValueGeneratorFor(genericType, defaultValueName, suffix, taskSuffix);
-				}
-
+				sb.AppendTupleElementDefaultValues(type.TupleTypes.Value, defaultValueName, suffix, taskSuffix, autoMock);
 				sb.Append(")");
 				return sb;
 			}
 
+			if (type.SpecialGenericType == SpecialGenericType.Tuple)
+			{
+				// A factory for the tuple type takes precedence over the tuple of default values.
+				sb.Append("(").AppendGeneratedDefaultValueFor(type, defaultValueName, suffix, taskSuffix, autoMock)
+					.Append(" ?? new ").Append(type.Fullname.TrimEnd('?')).Append("(");
+				sb.AppendTupleElementDefaultValues(type.GenericTypeParameters!.Value, defaultValueName, suffix,
+					taskSuffix, autoMock);
+				sb.Append("))");
+				return sb;
+			}
+
+			return sb.AppendGeneratedDefaultValueFor(type, defaultValueName, suffix, taskSuffix, autoMock);
+		}
+
+		private StringBuilder AppendTupleElementDefaultValues(EquatableArray<Type> elementTypes,
+			string defaultValueName, string suffix, string? taskSuffix,
+			Func<Type, (string Prefix, string Suffix)?>? autoMock)
+		{
+			bool first = true;
+			foreach (Type? elementType in elementTypes)
+			{
+				if (!first)
+				{
+					sb.Append(", ");
+				}
+
+				first = false;
+				sb.AppendDefaultValueGeneratorFor(elementType, defaultValueName, suffix, taskSuffix, autoMock);
+			}
+
+			return sb;
+		}
+
+		private StringBuilder AppendGeneratedDefaultValueFor(Type type,
+			string defaultValueName, string suffix, string? taskSuffix,
+			Func<Type, (string Prefix, string Suffix)?>? autoMock)
+		{
 			// The arguments are only collected for a type that binds to the general Generate<T> overload, and
 			// only when the generator may have a value for it.
 			bool isLazy = !string.IsNullOrWhiteSpace(suffix) && type.ElementType is null &&

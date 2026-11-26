@@ -374,6 +374,152 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
+	public async Task Tuple_ConcurrentFirstAccess_ShouldReturnTheSameMocks()
+	{
+		const int threads = 8;
+		for (int iteration = 0; iteration < 50; iteration++)
+		{
+			IAutoMockTuples sut = IAutoMockTuples.CreateMock();
+			(IAutoMockTupleElement Property, IAutoMockTupleElement Indexer, IAutoMockTupleElement ReferenceIndexer,
+				IAutoMockTupleElement Method)[] results = await RunConcurrently(threads,
+				() => (sut.Pair.Element, sut[1].Element, sut["a"].Item2, sut.GetReferenceTuple().Item2));
+
+			await That(results.All(r => ReferenceEquals(r.Property, results[0].Property) &&
+			                            ReferenceEquals(r.Indexer, results[0].Indexer) &&
+			                            ReferenceEquals(r.ReferenceIndexer, results[0].ReferenceIndexer) &&
+			                            ReferenceEquals(r.Method, results[0].Method))).IsTrue()
+				.Because($"concurrent first reads must not create different auto-mocks (iteration {iteration})");
+		}
+	}
+
+	[Test]
+	public async Task Tuple_Indexer_ShouldReturnSameMockPerKey()
+	{
+		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
+
+		IAutoMockTupleElement first = sut[1].Element;
+		IAutoMockTupleElement second = sut[1].Element;
+		IAutoMockTupleElement otherKey = sut[2].Element;
+
+		await That(first).IsNotNull();
+		await That(second).IsSameAs(first);
+		await That(otherKey).IsNotSameAs(first).Because("an indexer stores its value per key");
+	}
+
+	[Test]
+	public async Task Tuple_LongTuples_ShouldReturnMockForTheEighthElement()
+	{
+		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
+
+		IAutoMockTupleElement valueTupleElement = sut.GetLongValueTuple().Eighth;
+		IAutoMockTupleElement referenceTupleElement = sut.GetLongReferenceTuple().Rest.Item1;
+
+		await That(valueTupleElement).IsNotNull();
+		await That(referenceTupleElement).IsNotNull();
+	}
+
+	[Test]
+	public async Task Tuple_Method_ShouldReturnSameConfigurableMock()
+	{
+		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
+
+		(await sut.GetPairAsync()).Element.Mock.Setup.GetValue().Returns(3);
+		(int stock, IAutoMockTupleElement element) = await sut.GetPairAsync();
+
+		await That(stock).IsEqualTo(0);
+		await That(element.GetValue()).IsEqualTo(3);
+	}
+
+	[Test]
+	public async Task Tuple_Nested_ShouldReturnDifferentMocks()
+	{
+		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
+
+		((int _, IAutoMockTupleElement inner), IAutoMockTupleElement outer) = sut.GetNested();
+
+		await That(inner).IsNotNull();
+		await That(outer).IsNotNull();
+		await That(outer).IsNotSameAs(inner);
+		await That(sut.GetNested().Inner.Element).IsSameAs(inner);
+		await That(sut.GetNested().Outer).IsSameAs(outer);
+	}
+
+	[Test]
+	public async Task Tuple_Property_ShouldReturnSameMock()
+	{
+		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
+
+		IAutoMockTupleElement first = sut.Pair.Element;
+		IAutoMockTupleElement second = sut.Pair.Element;
+
+		await That(first).IsNotNull();
+		await That(second).IsSameAs(first);
+	}
+
+	[Test]
+	public async Task Tuple_ReferenceTuple_ShouldReturnSameMock()
+	{
+		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
+
+		Tuple<int, IAutoMockTupleElement> first = sut.GetReferenceTuple();
+		Tuple<int, IAutoMockTupleElement> second = sut.GetReferenceTuple();
+		IAutoMockTupleElement fromIndexer = sut["a"].Item2;
+
+		await That(first.Item2).IsNotNull();
+		await That(second.Item2).IsSameAs(first.Item2);
+		await That(fromIndexer).IsNotNull();
+		await That(sut["a"].Item2).IsSameAs(fromIndexer);
+	}
+
+	[Test]
+	public async Task Tuple_TwoElementsOfTheSameType_ShouldReturnDifferentMocks()
+	{
+		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
+
+		(IAutoMockTupleElement first, IAutoMockTupleElement second) = sut.GetTwo();
+
+		await That(first).IsNotNull();
+		await That(second).IsNotNull();
+		await That(second).IsNotSameAs(first).Because("each element has its own auto-mock");
+		await That(sut.GetTwo().Second).IsSameAs(second);
+	}
+
+	[Test]
+	public async Task Tuple_WhenSetup_ShouldReturnTheSetupValue()
+	{
+		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
+		sut.Mock.Setup.GetReferenceTuple().Returns(Tuple.Create(1, (IAutoMockTupleElement)null!));
+
+		Tuple<int, IAutoMockTupleElement> result = sut.GetReferenceTuple();
+
+		await That(result.Item1).IsEqualTo(1);
+		await That(result.Item2).IsNull();
+	}
+
+	[Test]
+	public async Task Tuple_WhenSkippingAutoMocking_ShouldReturnNullElements()
+	{
+		IAutoMockTuples sut = IAutoMockTuples.CreateMock(MockBehavior.Default.SkippingAutoMocking());
+
+		await That(sut.GetTwo().First).IsNull();
+		await That(sut.Pair.Element).IsNull();
+		await That(sut[1].Element).IsNull();
+		await That(sut.GetReferenceTuple().Item2).IsNull();
+	}
+
+	[Test]
+	public async Task Tuple_WithDefaultValueFor_ShouldPreferTheFactory()
+	{
+		IAutoMockTupleElement expected = IAutoMockTupleElement.CreateMock();
+		IAutoMockTuples sut = IAutoMockTuples.CreateMock(MockBehavior.Default.WithDefaultValueFor(() => expected));
+
+		await That(sut.GetTwo().First).IsSameAs(expected);
+		await That(sut.Pair.Element).IsSameAs(expected);
+		await That(sut[1].Element).IsSameAs(expected);
+		await That(sut.GetReferenceTuple().Item2).IsSameAs(expected);
+	}
+
+	[Test]
 	public async Task ThrowingWhenNotSetup_ShouldStillThrow()
 	{
 		IAutoMockRoot sut = IAutoMockRoot.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());

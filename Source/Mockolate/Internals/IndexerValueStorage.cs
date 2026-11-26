@@ -84,8 +84,8 @@ internal sealed class IndexerValueStorage<TValue> : IndexerValueStorage
 	}
 
 	/// <summary>
-	///     Returns the auto-mock that was first created for this key, so that concurrent first reads of the key all
-	///     return the same configurable mock.
+	///     Returns the auto-mock (or the tuple with auto-mocks) that was first created for this key, so that concurrent
+	///     first reads of the key all return the same configurable mock.
 	/// </summary>
 	internal TValue ShareAutoMock(TValue autoMock)
 		=> (TValue)(Interlocked.CompareExchange(ref _autoMock, autoMock, null) ?? autoMock)!;

@@ -192,6 +192,18 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
+		public async Task WithIndexerOfTuple_ShouldReturnTupleWithDefaultValues()
+		{
+			IDefaultValueGeneratorIndexers sut = IDefaultValueGeneratorIndexers.CreateMock();
+
+			Tuple<int, string> result = sut["foo", 1];
+
+			await That(result.Item1).IsEqualTo(0);
+			await That(result.Item2).IsEqualTo("");
+			await That(sut["foo", 1]).IsSameAs(result);
+		}
+
+		[Test]
 		public async Task WithInt_ShouldReturnZero()
 		{
 			MockBehavior sut = MockBehavior.Default;
@@ -312,6 +324,53 @@ public sealed partial class MockBehaviorTests
 #endif
 
 		[Test]
+		public async Task WithTuple_ShouldReturnTupleWithDefaultValues()
+		{
+			IDefaultValueGeneratorProperties sut = IDefaultValueGeneratorProperties.CreateMock();
+
+			Tuple<int, string> result = sut.ReferenceTuple;
+			Tuple<int, string>? nullableResult = sut.NullableReferenceTuple;
+
+			await That(result.Item1).IsEqualTo(0);
+			await That(result.Item2).IsEqualTo("");
+			await That(nullableResult).IsNotNull();
+		}
+
+		[Test]
+		public async Task WithTuple_WhenRegistered_ShouldReturnTheRegisteredValue()
+		{
+			Tuple<int, string> registered = Tuple.Create(1, "registered");
+			IDefaultValueGeneratorProperties sut =
+				IDefaultValueGeneratorProperties.CreateMock(MockBehavior.Default.WithDefaultValueFor(() => registered));
+
+			Tuple<int, string> result = sut.ReferenceTuple;
+
+			await That(result).IsSameAs(registered);
+		}
+
+		[Test]
+		public async Task WithTuple8_ShouldReturnTupleWithDefaultValues()
+		{
+			IDefaultValueGeneratorProperties sut = IDefaultValueGeneratorProperties.CreateMock();
+
+			Tuple<int, string, int, string, int, string, int, Tuple<string>> result = sut.ReferenceTuple8;
+
+			await That(result.Item7).IsEqualTo(0);
+			await That(result.Rest.Item1).IsEqualTo("");
+		}
+
+		[Test]
+		public async Task WithTupleInTask_ShouldReturnTupleWithDefaultValues()
+		{
+			IDefaultValueGeneratorProperties sut = IDefaultValueGeneratorProperties.CreateMock();
+
+			Tuple<int, int[]> result = await sut.ReferenceTupleTask();
+
+			await That(result.Item1).IsEqualTo(0);
+			await That(result.Item2).IsEmpty();
+		}
+
+		[Test]
 		public async Task WithValueTuple_ShouldReturnValueTupleWithDefaultValues()
 		{
 			IDefaultValueGeneratorProperties sut = IDefaultValueGeneratorProperties.CreateMock();
@@ -348,6 +407,9 @@ public sealed partial class MockBehaviorTests
 			IEnumerable<int> IEnumerableOfInt { get; }
 			(int V1, string V2) NamedValueTuple { get; }
 			(int, string, int, string, int, string, int, string) ValueTuple8 { get; }
+			Tuple<int, string> ReferenceTuple { get; }
+			Tuple<int, string>? NullableReferenceTuple { get; }
+			Tuple<int, string, int, string, int, string, int, Tuple<string>> ReferenceTuple8 { get; }
 			Task<int> IntTask { get; }
 			Task<int[]> IntArrayTask { get; }
 			ValueTask<int> IntValueTask { get; }
@@ -358,6 +420,7 @@ public sealed partial class MockBehaviorTests
 			Action<List<int>> Configure { get; }
 
 			Task<(int, int[], string)> ComplexTask();
+			Task<Tuple<int, int[]>> ReferenceTupleTask();
 			Type GetMyType();
 		}
 
@@ -367,6 +430,7 @@ public sealed partial class MockBehaviorTests
 			int[] this[string key] { get; }
 			Func<string, string> this[int key1, int key2] { get; }
 			(int V1, string V2) this[string key1, string key2] { get; }
+			Tuple<int, string> this[string key1, int key2] { get; }
 			List<int> this[int key1, int key2, int key3, int key4, int key5] { get; }
 		}
 

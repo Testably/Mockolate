@@ -17,13 +17,14 @@ namespace Mockolate.Setup;
 internal partial class MockSetups : MockScenarioSetup
 {
 	private static readonly object NoAutoMock = new();
-	private ConcurrentDictionary<(int MemberId, Type Type), object>? _autoMocks;
+	private ConcurrentDictionary<(int MemberId, int Element, Type Type), object>? _autoMocks;
 
 	internal Dictionary<string, MockScenarioSetup>? Scenarios { get; private set; }
 
 	/// <summary>
-	///     Returns the auto-mock of the <paramref name="type" /> cached for <paramref name="memberId" />, or creates and
-	///     caches one, so that the member keeps returning the same configurable mock.
+	///     Returns the auto-mock of the <paramref name="type" /> cached for the <paramref name="element" /> of
+	///     <paramref name="memberId" />, or creates and caches one, so that the member keeps returning the same
+	///     configurable mock.
 	/// </summary>
 	/// <remarks>
 	///     The mock is created outside of any lock, because creating it runs user callbacks (e.g. of
@@ -32,18 +33,18 @@ internal partial class MockSetups : MockScenarioSetup
 	///     part of the key, because mocks that share their setups (e.g. an <c>HttpClient</c> and its handler) number
 	///     their members independently.
 	/// </remarks>
-	public object? GetOrAddAutoMock(int memberId, Type type, MockBehavior behavior)
+	public object? GetOrAddAutoMock(int memberId, int element, Type type, MockBehavior behavior)
 	{
-		ConcurrentDictionary<(int MemberId, Type Type), object>? autoMocks = Volatile.Read(ref _autoMocks);
+		ConcurrentDictionary<(int MemberId, int Element, Type Type), object>? autoMocks = Volatile.Read(ref _autoMocks);
 		if (autoMocks is null)
 		{
-			ConcurrentDictionary<(int MemberId, Type Type), object> created = new();
+			ConcurrentDictionary<(int MemberId, int Element, Type Type), object> created = new();
 			autoMocks = Interlocked.CompareExchange(ref _autoMocks, created, null) ?? created;
 		}
 
-		if (!autoMocks.TryGetValue((memberId, type), out object? stored))
+		if (!autoMocks.TryGetValue((memberId, element, type), out object? stored))
 		{
-			stored = autoMocks.GetOrAdd((memberId, type), AutoMocks.Create(type, behavior) ?? NoAutoMock);
+			stored = autoMocks.GetOrAdd((memberId, element, type), AutoMocks.Create(type, behavior) ?? NoAutoMock);
 		}
 
 		return ReferenceEquals(stored, NoAutoMock) ? null : stored;

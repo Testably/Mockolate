@@ -542,8 +542,28 @@ internal static partial class MockGeneratorHelpers
 			                  Helpers.HasAccessibleSignature(member, sourceAssembly)));
 	}
 
-	private static ITypeSymbol UnwrapTask(ITypeSymbol typeSymbol)
-		=> typeSymbol is INamedTypeSymbol
+	/// <summary>
+	///     The types whose default value can be an auto-mock when a member returns <paramref name="typeSymbol" />: the
+	///     type itself, or the result type of a task and the elements of a tuple, also nested.
+	/// </summary>
+	private static IEnumerable<ITypeSymbol> GetAutoMockCandidates(ITypeSymbol typeSymbol)
+	{
+		if (typeSymbol is not INamedTypeSymbol { IsGenericType: true, } named)
+		{
+			return [typeSymbol,];
+		}
+
+		if (named.IsTupleType)
+		{
+			return named.TupleElements.SelectMany(element => GetAutoMockCandidates(element.Type));
+		}
+
+		if (named.GetSpecialType() == SpecialGenericType.Tuple)
+		{
+			return named.TypeArguments.SelectMany(GetAutoMockCandidates);
+		}
+
+		return named is
 		{
 			TypeArguments.Length: 1,
 			Name: "Task" or "ValueTask",
@@ -555,9 +575,10 @@ internal static partial class MockGeneratorHelpers
 					Name: "Threading", ContainingNamespace: { Name: "System", ContainingNamespace.IsGlobalNamespace: true, },
 				},
 			},
-		} task
-			? task.TypeArguments[0]
-			: typeSymbol;
+		}
+			? GetAutoMockCandidates(named.TypeArguments[0])
+			: [typeSymbol,];
+	}
 
 	private static IEnumerable<INamedTypeSymbol> GetAutoMockableReturnTypes(ITypeSymbol typeSymbol,
 		IAssemblySymbol sourceAssembly, AutoMockingOptions options, AutoMockDependencies? dependencies,
@@ -571,20 +592,23 @@ internal static partial class MockGeneratorHelpers
 				IPropertySymbol { GetMethod: not null, } property => property.Type,
 				_ => null,
 			};
-			if (returnType is null || UnwrapTask(returnType) is not INamedTypeSymbol candidate)
+			if (returnType is null)
 			{
 				continue;
 			}
 
-			// Whether a candidate is discovered depends on its members, unless its own declaration rejects it.
-			if (IsAutoMockable(candidate) && CanDiscoverNamespace(candidate, options))
+			foreach (INamedTypeSymbol candidate in GetAutoMockCandidates(returnType).OfType<INamedTypeSymbol>())
 			{
-				dependencies?.Add(candidate, true, cancellationToken);
-			}
+				// Whether a candidate is discovered depends on its members, unless its own declaration rejects it.
+				if (IsAutoMockable(candidate) && CanDiscoverNamespace(candidate, options))
+				{
+					dependencies?.Add(candidate, true, cancellationToken);
+				}
 
-			if (CanBeDiscovered(candidate, sourceAssembly, options))
-			{
-				yield return candidate;
+				if (CanBeDiscovered(candidate, sourceAssembly, options))
+				{
+					yield return candidate;
+				}
 			}
 		}
 	}

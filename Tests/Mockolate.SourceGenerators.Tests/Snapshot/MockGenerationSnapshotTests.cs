@@ -84,6 +84,14 @@ public sealed partial class MockGenerationSnapshotTests
             AutoMocking: true,
             Snapshot: true),
         new(
+            "AutoMockTuples_CanBeCreated",
+            ["IAutoMockTuples.cs",],
+            """
+            IAutoMockTuples sut = IAutoMockTuples.CreateMock();
+            """,
+            [],
+            AutoMocking: true),
+        new(
             "BaseClass_WithMultipleAdditionalInterfaces_CanBeCreated",
             ["ComprehensiveAbstractClass.cs", "MyAbstractBase.cs", "ICombinationMockA.cs", "ICombinationMockB.cs",],
             """
