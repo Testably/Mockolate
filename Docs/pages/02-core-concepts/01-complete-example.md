@@ -66,7 +66,7 @@ dispenser.Mock.Verify["Dark"].Set(It.IsAny<int>()).Twice();
 
 The individual features are described in detail on the following pages:
 
-- [Create mocks](../04-create-mocks.md)
+- [Create mocks](../03-create-mocks.md)
 - Setup of [methods](../05-setup/01-methods.md), [properties](../05-setup/02-properties.md), [indexers](../05-setup/03-indexers.md)
   and [events](../05-setup/04-events.md)
 - [Parameter matching](../06-parameter-matching.md)

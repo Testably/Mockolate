@@ -403,6 +403,8 @@ Every constructor parameter gets an argument, by the first rule that applies:
 
 `ConstructorArgument<T>()` returns the argument of the parameter declared with type `T`, or else the only argument that converts to `T`. When several match, pass the name of the parameter: `sut.Mock.ConstructorArgument<IChocolateDispenser>("source")`.
 
+To skip this arrange code in every test, declare the class under test and its dependencies as [parameters of the test method](04-mocks-as-test-parameters.md).
+
 ### Sealed classes and records
 
 A sealed class or a record cannot be mocked. Pass an `out` parameter to `CreateMock` to create a **real instance** whose constructor receives mocks. The required `out` parameter shows that the result is not a mock, so it has no `Mock` property and its members cannot be set up:

@@ -11,7 +11,7 @@ using Mockolate;
 using Mockolate.Verify;
 ```
 
-## [Create](../04-create-mocks.md)
+## [Create](../03-create-mocks.md)
 
 ```csharp
 IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -20,6 +20,14 @@ ChocolateDispenser classMock = ChocolateDispenser.CreateMock(["constructor", "ar
 IChocolateDispenser spy = IChocolateDispenser.CreateMock().Wrapping(realDispenser);
 IChocolateDispenser multi = IChocolateDispenser.CreateMock().Implementing<ILemonadeDispenser>();
 VendingMachine sut = VendingMachine.CreateMock(); // fills the constructor with mocks
+```
+
+## [Mocks as test parameters](../04-mocks-as-test-parameters.md)
+
+```csharp
+[Test]
+[AutoMockArguments] // sut receives the dispenser of the test
+public async Task Buy_ShouldDispense(VendingMachine sut, IChocolateDispenser dispenser) { }
 ```
 
 ## [Set up methods](../05-setup/01-methods.md)

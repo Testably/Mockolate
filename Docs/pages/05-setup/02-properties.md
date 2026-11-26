@@ -5,7 +5,7 @@ description: Initialize properties, set up return values and register getter and
 # Properties
 
 Without a setup, a property of a mock behaves like an auto-property: the getter returns the value that was last
-written, or the [default value](../04-create-mocks.md#default-values). Use `dispenser.Mock.Setup.PropertyName` to
+written, or the [default value](../03-create-mocks.md#default-values). Use `dispenser.Mock.Setup.PropertyName` to
 change this.
 
 ## Initialization
@@ -17,7 +17,7 @@ changes the value and the getter returns the last value set:
 dispenser.Mock.Setup.TotalDispensed.InitializeWith(42);
 ```
 
-On a mock created with [`ThrowingWhenNotSetup()`](../04-create-mocks.md#customizing-mock-behavior), every property
+On a mock created with [`ThrowingWhenNotSetup()`](../03-create-mocks.md#customizing-mock-behavior), every property
 access without a setup throws. Use `Register()` to allow access without providing a value:
 
 ```csharp
@@ -70,7 +70,7 @@ dispenser.Mock.Setup.TotalDispensed
 ## Class mocks
 
 Use `.SkippingBaseClass()` to prevent calls to the base class implementation for a single property, or
-[`MockBehavior.SkippingBaseClass()`](../04-create-mocks.md#customizing-mock-behavior) for the whole mock.
+[`MockBehavior.SkippingBaseClass()`](../03-create-mocks.md#customizing-mock-behavior) for the whole mock.
 
 ## Properties with only one accessor
 

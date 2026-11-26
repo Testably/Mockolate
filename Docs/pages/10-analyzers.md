@@ -112,7 +112,7 @@ or later and C# 13 or later. Upgrade the target framework or `<LangVersion>` to 
 
 A `virtual` member of a mocked class keeps working: the mock forwards the call to the wrapped instance, or to the base
 class implementation, so there is nothing to fix. The forwarded call ignores the
-[`MockBehavior`](04-create-mocks.md#customizing-mock-behavior) settings, because there is no setup to apply them to, and
+[`MockBehavior`](03-create-mocks.md#customizing-mock-behavior) settings, because there is no setup to apply them to, and
 it is not recorded.
 
 Interface members, `abstract` members, `init` accessors and `ref`-returning methods have nothing to forward to. These
@@ -240,7 +240,7 @@ The message says which of these fixes applies. For an explicit `params` array, i
 
 **A mock test parameter that cannot be created.**
 
-[`AutoMockArguments`](08-advanced-features/07-mock-test-parameters.md) fills the parameters of a test method. An interface, delegate or abstract class asks for a mock, and a concrete class for an instance with mocked dependencies. When Mockolate cannot create such a type and the default values of the behavior provide no value, the attribute cannot fill the parameter and the test fails at runtime:
+[`AutoMockArguments`](04-mocks-as-test-parameters.md) fills the parameters of a test method. An interface, delegate or abstract class asks for a mock, and a concrete class for an instance with mocked dependencies. When Mockolate cannot create such a type and the default values of the behavior provide no value, the attribute cannot fill the parameter and the test fails at runtime:
 
 ```csharp
 public interface IChocolateRepository<TFlavor>
@@ -263,7 +263,7 @@ The rule fires for a type parameter or a type that contains one, a type that the
 
 **An `[AsDefault]` parameter that is ambiguous or invalid.**
 
-An [`[AsDefault]`](08-advanced-features/07-mock-test-parameters.md#return-a-parameter-from-the-other-mocks) parameter is the default value of its type and of the [types it names](08-advanced-features/07-mock-test-parameters.md#use-a-fake-for-its-interfaces) for all mocks of the test case. Two of them for the same type are ambiguous, the parameter must be assignable to each named type, and a `[Transient]` marker contradicts it:
+An [`[AsDefault]`](04-mocks-as-test-parameters.md#return-the-same-instance-from-every-mock) parameter is the default value of its type and of the [types it names](04-mocks-as-test-parameters.md#use-a-fake-for-an-interface) for all mocks of the test case. Two of them for the same type are ambiguous, the parameter must be assignable to each named type, and a `[Transient]` marker contradicts it:
 
 ```csharp
 [Test]
@@ -281,7 +281,7 @@ Use each type in only one `[AsDefault]` parameter, name only types that the para
 
 **A `[Deferred]` parameter that is invalid.**
 
-A [`[Deferred]`](08-advanced-features/07-mock-test-parameters.md#create-the-class-under-test-in-the-test) parameter must be a `Func<T>`, whose calls each create a new `T`. Mockolate cannot create any other type for it, so the test fails at runtime. The delegate is never passed to a class under test, so `[Transient]` has no effect, and the mocks cannot return it, so it cannot be `[AsDefault]`:
+A [`[Deferred]`](04-mocks-as-test-parameters.md#create-the-class-under-test-in-the-test) parameter must be a `Func<T>`, whose calls each create a new `T`. Mockolate cannot create any other type for it, so the test fails at runtime. The delegate is never passed to a class under test, so `[Transient]` has no effect, and the mocks cannot return it, so it cannot be `[AsDefault]`:
 
 ```csharp
 [Test]
@@ -299,7 +299,7 @@ Declare the parameter as a `Func<T>` of the type to create, and remove `[AsDefau
 
 **IDE0060 is suppressed for an `[AsDefault]` parameter.**
 
-[IDE0060](https://learn.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/ide0060) reports a parameter that the method does not use. An [`[AsDefault]`](08-advanced-features/07-mock-test-parameters.md#return-a-parameter-from-the-other-mocks) parameter of a test with `AutoMockArguments` may be used without the test method referencing it, because the other mocks can return it, here `machine.Dispenser`, so Mockolate suppresses IDE0060 for it:
+[IDE0060](https://learn.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/ide0060) reports a parameter that the method does not use. An [`[AsDefault]`](04-mocks-as-test-parameters.md#return-the-same-instance-from-every-mock) parameter of a test with `AutoMockArguments` may be used without the test method referencing it, because the other mocks can return it, here `machine.Dispenser`, so Mockolate suppresses IDE0060 for it:
 
 ```csharp
 [Test]

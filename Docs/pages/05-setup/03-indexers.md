@@ -6,7 +6,7 @@ description: Initialize indexers, set up return values and register getter and s
 
 Indexers are set up like [properties](02-properties.md), but take a value or a
 [parameter matcher](../06-parameter-matching.md) for each key. Without a setup, an indexer stores the values written
-to it per key, and returns the [default value](../04-create-mocks.md#default-values) for keys that were never written.
+to it per key, and returns the [default value](../03-create-mocks.md#default-values) for keys that were never written.
 
 ```csharp
 dispenser.Mock.Setup[It.IsAny<string>()]
@@ -78,7 +78,7 @@ When several setups match the same key, the one defined last wins.
 ## Class mocks
 
 Use `.SkippingBaseClass()` to prevent calls to the base class implementation for a single indexer, or
-[`MockBehavior.SkippingBaseClass()`](../04-create-mocks.md#customizing-mock-behavior) for the whole mock.
+[`MockBehavior.SkippingBaseClass()`](../03-create-mocks.md#customizing-mock-behavior) for the whole mock.
 
 ## Union parameters (C# 15)
 
