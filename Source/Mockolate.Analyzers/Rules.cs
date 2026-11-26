@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.Collections.Immutable;
+using Microsoft.CodeAnalysis;
 
 namespace Mockolate.Analyzers;
 
@@ -32,6 +33,23 @@ public static class Rules
 	public static readonly DiagnosticDescriptor SingleSpellingRule =
 		CreateDescriptor("Mockolate0004", UsageCategory, DiagnosticSeverity.Error,
 			WellKnownDiagnosticTags.CompilationEnd);
+
+	/// <summary>
+	///     The unused parameter diagnostics (IDE0060 and xUnit1026) that are suppressed for an <c>[AsDefault]</c>
+	///     parameter, which the other mocks may return.
+	/// </summary>
+	public static readonly ImmutableArray<SuppressionDescriptor> AsDefaultSuppressions =
+	[
+		CreateAsDefaultSuppression("Mockolate1001", "IDE0060"),
+		CreateAsDefaultSuppression("Mockolate1002", "xUnit1026"),
+	];
+
+	private static SuppressionDescriptor CreateAsDefaultSuppression(string suppressionId,
+		string suppressedDiagnosticId) => new(
+		suppressionId,
+		suppressedDiagnosticId,
+		new LocalizableResourceString("AsDefaultSuppressionJustification", Resources.ResourceManager,
+			typeof(Resources)));
 
 	private static DiagnosticDescriptor CreateDescriptor(string diagnosticId, string category,
 		DiagnosticSeverity severity, params string[] customTags) => new(

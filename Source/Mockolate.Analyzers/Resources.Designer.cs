@@ -60,6 +60,15 @@ namespace Mockolate.Analyzers {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The other mocks of the test case may return the [AsDefault] parameter..
+        /// </summary>
+        internal static string AsDefaultSuppressionJustification {
+            get {
+                return ResourceManager.GetString("AsDefaultSuppressionJustification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verify at least once..
         /// </summary>
         internal static string Mockolate0001CodeFixTitle {

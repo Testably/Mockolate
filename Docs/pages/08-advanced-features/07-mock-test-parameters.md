@@ -94,7 +94,7 @@ public async Task Dispenser_ShouldBeTheMockOfTheTest(IVendingMachine machine, [A
 }
 ```
 
-A setup, a value written to a property or indexer, and `ThrowWhenNotSetup` still take precedence. The parameter only replaces the default value of its exact type, e.g. not of an interface that `IChocolateDispenser` implements, and it wins over the default values of the [behavior](#configure-the-mocks) for that type. Every member of the type returns the same instance, also a method that creates a new one in the real implementation or an indexer for every key; set up such a member when it needs other instances. The parameter is still passed to the constructor of a class under test.
+A setup, a value written to a property or indexer, and `ThrowWhenNotSetup` still take precedence. The parameter only replaces the default value of its exact type, e.g. not of an interface that `IChocolateDispenser` implements, and it wins over the default values of the [behavior](#configure-the-mocks) for that type. Every member of the type returns the same instance, also a method that creates a new one in the real implementation or an indexer for every key; set up such a member when it needs other instances. The parameter is still passed to the constructor of a class under test. When the test method does not use it, it gets no [IDE0060](../10-analyzers.md#mockolate1001) diagnostic.
 
 ## Configure the mocks
 
@@ -142,7 +142,7 @@ public async Task Buy_ShouldDispenseTheRequestedChocolate(string type, int amoun
     IChocolateDispenser dispenser)
 ```
 
-A project that references both v2 and v3 gets the attribute for v3. With v3, the attribute takes the settings of xUnit's data attributes, such as `Skip`, `Explicit`, `Timeout` and `Traits`. A theory with mocks shows up as one test in the test explorer, with a result for each attribute. xUnit v2 may already create the arguments of the first attribute when it discovers the tests.
+An `[AsDefault]` parameter that the test method does not use gets no [xUnit1026](../10-analyzers.md#mockolate1002) warning. A project that references both v2 and v3 gets the attribute for v3. With v3, the attribute takes the settings of xUnit's data attributes, such as `Skip`, `Explicit`, `Timeout` and `Traits`. A theory with mocks shows up as one test in the test explorer, with a result for each attribute. xUnit v2 may already create the arguments of the first attribute when it discovers the tests.
 
 xUnit describes the arguments in the name of a test case and disposes them after the test. To describe a mock of a collection interface, such as `ISet<T>`, it may enumerate the mock, and a mock of a disposable interface gets a call to `Dispose`. Both calls count as interactions of the mock. On a strict mock, set up `Dispose`, or xUnit reports a cleanup error.
 

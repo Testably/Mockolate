@@ -308,6 +308,10 @@
 		<value>is also marked [Transient]</value>
 		<comment>Completes Mockolate0011MessageFormat.</comment>
 	</data>
+	<data name="AsDefaultSuppressionJustification" xml:space="preserve">
+		<value>The other mocks of the test case may return the [AsDefault] parameter.</value>
+		<comment>The justification of the suppressions Mockolate1001 (IDE0060) and Mockolate1002 (xUnit1026).</comment>
+	</data>
 	<data name="UnionArgumentCodeFixTitle" xml:space="preserve">
 		<value>Add the explicit type '{0}'</value>
 		<comment>The title of the code fix for an argument that cannot convert to a union-typed setup or verify parameter.</comment>

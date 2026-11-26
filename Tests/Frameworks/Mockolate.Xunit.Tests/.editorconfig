@@ -1,0 +1,3 @@
+[*.cs]
+# Fails the build when Mockolate no longer suppresses IDE0060 for an unused [AsDefault] parameter.
+dotnet_diagnostic.IDE0060.severity = error
