@@ -83,6 +83,19 @@ public sealed class AutoMockArgumentsTests
 
 	[Theory]
 	[AutoMockArguments]
+	public async Task AsDefault_WithType_ShouldBePassedToTheClassUnderTestAndReturnedForTheType(OrderService sut,
+		IWarehouse warehouse, [AsDefault(typeof(IOrderRepository))] InMemoryOrderStore store)
+	{
+		store.Orders.Add(new Order(42, 10m));
+
+		bool result = sut.Ship(42);
+
+		await That(result).IsTrue();
+		await That(warehouse.Repository).IsSameAs(store);
+	}
+
+	[Theory]
+	[AutoMockArguments]
 	public async Task AutoMockArguments_WithTransientParameter_ShouldNotShareItWithTheClassUnderTest(
 		OrderService sut, IOrderRepository repository, [Transient] IShippingClient shippingClient)
 	{

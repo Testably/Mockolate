@@ -205,6 +205,74 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments]
+	public async Task AsDefault_WithType_ShouldBePassedToTheClassUnderTestAndReturnedForTheType(OrderService sut,
+		IWarehouse warehouse, [AsDefault(typeof(IOrderRepository))] InMemoryOrderStore store,
+		IShippingClient shippingClient)
+	{
+		Order order = new(42, 10m);
+		store.Orders.Add(order);
+
+		bool result = sut.Ship(42);
+
+		await That(result).IsTrue();
+		await That(shippingClient.Mock.Verify.Ship(order)).Once();
+		await That(warehouse.Repository).IsSameAs(store);
+		await That(await warehouse.GetRepositoryAsync()).IsSameAs(store);
+	}
+
+	[Test]
+	[AutoMockArguments]
+	public async Task AsDefault_WithSeveralTypes_ShouldBePassedForEachOfThem(OrderService sut,
+		[AsDefault(typeof(IOrderRepository), typeof(IShippingClient))] InMemoryOrderStore store)
+	{
+		Order order = new(42, 10m);
+		store.Orders.Add(order);
+
+		sut.Ship(42);
+
+		await That(store.Shipped).IsEqualTo([order,]);
+	}
+
+	[Test]
+	[AutoMockArguments]
+	public async Task AsDefault_WithTypeOfAnotherParameter_ShouldMatchThemByName(OrderService sut,
+		IOrderRepository repository, [AsDefault(typeof(IOrderRepository))] InMemoryOrderStore store)
+	{
+		sut.Ship(42);
+
+		await That(repository.Mock.Verify.Find(42)).Once();
+	}
+#if NET8_0_OR_GREATER
+
+	[Test]
+	[AutoMockArguments]
+	public async Task AsDefault_WithGenericType_ShouldBePassedToTheClassUnderTestAndReturnedForTheType(
+		OrderService sut, IWarehouse warehouse, [AsDefault<IOrderRepository>] InMemoryOrderStore store)
+	{
+		store.Orders.Add(new Order(42, 10m));
+
+		bool result = sut.Ship(42);
+
+		await That(result).IsTrue();
+		await That(warehouse.Repository).IsSameAs(store);
+	}
+
+	[Test]
+	[AutoMockArguments]
+	public async Task AsDefault_WithSeveralGenericTypes_ShouldBePassedForEachOfThem(OrderService sut,
+		[AsDefault<IOrderRepository, IShippingClient>] InMemoryOrderStore store)
+	{
+		Order order = new(42, 10m);
+		store.Orders.Add(order);
+
+		sut.Ship(42);
+
+		await That(store.Shipped).IsEqualTo([order,]);
+	}
+#endif
+
+	[Test]
+	[AutoMockArguments]
 	public async Task WithoutAsDefault_ShouldNotReturnTheParameter(IWarehouse warehouse, IOrderRepository repository)
 		=> await That(warehouse.Repository).IsNotSameAs(repository);
 

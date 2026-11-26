@@ -95,6 +95,18 @@ public sealed class AutoMockArgumentsTests
 		[AsDefault] IOrderRepository repository)
 		=> await That(warehouse.Repository).IsSameAs(repository);
 
+	[AutoMockArguments]
+	public async Task AsDefault_WithType_ShouldBePassedToTheClassUnderTestAndReturnedForTheType(OrderService sut,
+		IWarehouse warehouse, [AsDefault(typeof(IOrderRepository))] InMemoryOrderStore store)
+	{
+		store.Orders.Add(new Order(42, 10m));
+
+		bool result = sut.Ship(42);
+
+		await That(result).IsTrue();
+		await That(warehouse.Repository).IsSameAs(store);
+	}
+
 	[AutoMockArguments("Hello {0}", 4L)]
 	public async Task TestName_ShouldContainTheGivenArgumentsAsTheyAre(string text, long amount,
 		IOrderRepository repository)

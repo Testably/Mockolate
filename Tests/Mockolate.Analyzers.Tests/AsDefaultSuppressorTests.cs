@@ -18,7 +18,8 @@ public class AsDefaultSuppressorTests
 	                               {
 	                                   public abstract class AsDefaultParameterAttribute : System.Attribute;
 	                                   public abstract class TransientParameterAttribute : System.Attribute;
-	                                   public sealed class AsDefaultAttribute : AsDefaultParameterAttribute;
+	                                   public sealed class AsDefaultAttribute(params System.Type[] types) : AsDefaultParameterAttribute;
+	                                   public sealed class AsDefaultAttribute<T1> : AsDefaultParameterAttribute;
 	                                   public sealed class TransientAttribute : TransientParameterAttribute;
 	                               }
 	                               """;
@@ -38,7 +39,8 @@ public class AsDefaultSuppressorTests
 			      public class Tests
 			      {
 			          [Data]
-			          public void Test([AsDefault] int {|#0:given|}, [AsDefault] IDep {|#1:dep|}) { }
+			          public void Test([AsDefault] int {|#0:given|}, [AsDefault] IDep {|#1:dep|},
+			              [AsDefault(typeof(object))] IDep {|#2:typed|}, [AsDefault<object>] IDep {|#3:generic|}) { }
 			      }
 
 			      {{Attributes}}
@@ -47,7 +49,9 @@ public class AsDefaultSuppressorTests
 			  {{Markers}}
 			  """,
 			Verifier.UnusedParameter(diagnosticId, 0, true),
-			Verifier.UnusedParameter(diagnosticId, 1, true)
+			Verifier.UnusedParameter(diagnosticId, 1, true),
+			Verifier.UnusedParameter(diagnosticId, 2, true),
+			Verifier.UnusedParameter(diagnosticId, 3, true)
 		);
 
 	[Test]

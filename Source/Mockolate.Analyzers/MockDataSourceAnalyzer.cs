@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Mockolate.SourceGenerators.Internals;
 
@@ -39,7 +40,8 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			Resources.ResourceManager, typeof(Resources)));
 
 	/// <summary>
-	///     An <c>[AsDefault]</c> test parameter with the type of another one, or that is also <c>[Transient]</c>.
+	///     An <c>[AsDefault]</c> test parameter that is used for a type of another one, that is not assignable to one of
+	///     its types, or that is also <c>[Transient]</c>.
 	/// </summary>
 	public static readonly DiagnosticDescriptor AsDefaultParameterRule = new(
 		"Mockolate0011",
@@ -106,12 +108,14 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 	private static void ReportAsDefaultParameters(SymbolAnalysisContext context,
 		ImmutableArray<IParameterSymbol> parameters)
 	{
-		List<IParameterSymbol> asDefaultParameters = [];
+		List<(IParameterSymbol Parameter, ITypeSymbol[] Types)> asDefaultParameters = [];
 		foreach (IParameterSymbol parameter in parameters.Where(parameter =>
 			         HasMarker(parameter, "AsDefaultParameterAttribute")))
 		{
-			string? reason = GetAsDefaultReason(parameter, asDefaultParameters);
-			asDefaultParameters.Add(parameter);
+			ITypeSymbol[] otherTypes = GetAsDefaultTypes(parameter);
+			ITypeSymbol[] types = [parameter.Type, ..otherTypes,];
+			string? reason = GetAsDefaultReason(parameter, otherTypes, types, asDefaultParameters, context.Compilation);
+			asDefaultParameters.Add((parameter, types));
 			if (reason is not null && parameter.Locations.FirstOrDefault() is { IsInSource: true, } location)
 			{
 				context.ReportDiagnostic(Diagnostic.Create(AsDefaultParameterRule, location, parameter.Name, reason));
@@ -119,17 +123,56 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		}
 	}
 
-	private static string? GetAsDefaultReason(IParameterSymbol parameter, List<IParameterSymbol> asDefaultParameters)
+	private static string? GetAsDefaultReason(IParameterSymbol parameter, ITypeSymbol[] otherTypes,
+		ITypeSymbol[] types, List<(IParameterSymbol Parameter, ITypeSymbol[] Types)> asDefaultParameters,
+		Compilation compilation)
 	{
 		if (HasMarker(parameter, "TransientParameterAttribute"))
 		{
 			return Resources.Mockolate0011TransientReason;
 		}
 
-		return asDefaultParameters.FirstOrDefault(other =>
-			SymbolEqualityComparer.Default.Equals(other.Type, parameter.Type)) is { } other
-			? string.Format(CultureInfo.InvariantCulture, Resources.Mockolate0011SameTypeReason, other.Name)
-			: null;
+		if (otherTypes.FirstOrDefault(type => !IsAssignable(parameter.Type, type, compilation)) is { } unassignable)
+		{
+			return string.Format(CultureInfo.InvariantCulture, Resources.Mockolate0011NotAssignableReason,
+				unassignable.ToDisplayString());
+		}
+
+		foreach ((IParameterSymbol other, ITypeSymbol[] otherParameterTypes) in asDefaultParameters)
+		{
+			if (types.FirstOrDefault(type => otherParameterTypes.Contains(type, SymbolEqualityComparer.Default)) is
+			    { } sharedType)
+			{
+				return string.Format(CultureInfo.InvariantCulture, Resources.Mockolate0011SameTypeReason,
+					other.Name, sharedType.WithNullableAnnotation(NullableAnnotation.NotAnnotated).ToDisplayString());
+			}
+		}
+
+		return null;
+	}
+
+	/// <summary>
+	///     The types of the generic <c>[AsDefault&lt;T1, …&gt;]</c> attributes and the <see langword="typeof" /> arguments
+	///     of the non-generic ones.
+	/// </summary>
+	private static ITypeSymbol[] GetAsDefaultTypes(IParameterSymbol parameter)
+		=> parameter.GetAttributes()
+			.Where(attribute => attribute.AttributeClass?.BaseType?.Name == "AsDefaultParameterAttribute")
+			.SelectMany(attribute => attribute.AttributeClass!.IsGenericType
+				? attribute.AttributeClass.TypeArguments
+				: attribute.ConstructorArguments
+					.Where(argument => argument.Kind == TypedConstantKind.Array && !argument.IsNull)
+					.SelectMany(argument => argument.Values)
+					.Select(value => value.Value)
+					.OfType<ITypeSymbol>())
+			.ToArray();
+
+	// Mirrors Type.IsAssignableFrom, which the test parameters are checked with at runtime.
+	private static bool IsAssignable(ITypeSymbol source, ITypeSymbol destination, Compilation compilation)
+	{
+		Conversion conversion = compilation.ClassifyConversion(source, destination);
+		return conversion.IsIdentity ||
+		       (conversion.IsImplicit && (conversion.IsReference || conversion.IsBoxing || conversion.IsNullable));
 	}
 
 	internal static bool HasMarker(IParameterSymbol parameter, string markerName)

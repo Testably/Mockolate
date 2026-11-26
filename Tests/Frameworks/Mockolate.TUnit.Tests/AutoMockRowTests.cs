@@ -63,7 +63,7 @@ public sealed class AutoMockRowTests
 			{
 				asked.Add(index);
 				return false;
-			}, _ => false, [], null);
+			}, _ => null, [], null);
 
 		row.Create();
 
@@ -74,7 +74,7 @@ public sealed class AutoMockRowTests
 	public async Task Create_WithAsDefaultParameter_ShouldTakePrecedenceOverTheBehavior()
 	{
 		AutoMockRow row = new(typeof(AutoMockRowTests).Assembly, GetTypes(nameof(AsDefaultCount)),
-			GetNames(nameof(AsDefaultCount)), _ => false, index => index == 0, [42,],
+			GetNames(nameof(AsDefaultCount)), _ => false, index => index == 0 ? Type.EmptyTypes : null, [42,],
 			MockBehavior.Default.WithDefaultValueFor(() => 7));
 
 		object?[] values = row.Create();
@@ -86,7 +86,7 @@ public sealed class AutoMockRowTests
 	public async Task Create_WithAsDefaultParameterFromTheDefaultValues_ShouldCreateItFromTheBehavior()
 	{
 		AutoMockRow row = new(typeof(AutoMockRowTests).Assembly, GetTypes(nameof(AsDefaultCount)),
-			GetNames(nameof(AsDefaultCount)), _ => false, index => index == 0, [],
+			GetNames(nameof(AsDefaultCount)), _ => false, index => index == 0 ? Type.EmptyTypes : null, [],
 			MockBehavior.Default.WithDefaultValueFor(() => 7));
 
 		object?[] values = row.Create();
@@ -95,8 +95,21 @@ public sealed class AutoMockRowTests
 		await That(((IChocolateStock)values[1]!).Count).IsEqualTo(7);
 	}
 
+	[Test]
+	public async Task Create_WithAsDefaultTypeThatIsNotAssignable_ShouldThrow()
+	{
+		AutoMockRow row = new(typeof(AutoMockRowTests).Assembly, GetTypes(nameof(AsDefaultCount)),
+			GetNames(nameof(AsDefaultCount)), _ => false, index => index == 0 ? [typeof(string),] : null, [], null);
+
+		void Act()
+			=> row.Create();
+
+		await That(Act).Throws<MockException>()
+			.WithMessage("The [AsDefault] parameter 'count' of type 'System.Int32' is not assignable to 'System.String'.");
+	}
+
 	private static AutoMockRow CreateRow(string methodName, params object?[] arguments)
-		=> new(typeof(AutoMockRowTests).Assembly, GetTypes(methodName), GetNames(methodName), _ => false, _ => false,
+		=> new(typeof(AutoMockRowTests).Assembly, GetTypes(methodName), GetNames(methodName), _ => false, _ => null,
 			arguments, null);
 
 	private static ParameterInfo[] GetParameters(string methodName)

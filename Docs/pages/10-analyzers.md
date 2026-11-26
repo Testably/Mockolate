@@ -261,19 +261,21 @@ The rule fires for a type parameter or a type that contains one, a type that the
 
 ## Mockolate0011
 
-**An `[AsDefault]` parameter that is ambiguous or transient.**
+**An `[AsDefault]` parameter that is ambiguous or invalid.**
 
-An [`[AsDefault]`](08-advanced-features/07-mock-test-parameters.md#return-a-parameter-from-the-other-mocks) parameter is the default value of its type for all mocks of the test case. Two of them with the same type are ambiguous, and a `[Transient]` marker contradicts it:
+An [`[AsDefault]`](08-advanced-features/07-mock-test-parameters.md#return-a-parameter-from-the-other-mocks) parameter is the default value of its type and of the [types it names](08-advanced-features/07-mock-test-parameters.md#use-a-fake-for-its-interfaces) for all mocks of the test case. Two of them for the same type are ambiguous, the parameter must be assignable to each named type, and a `[Transient]` marker contradicts it:
 
 ```csharp
 [Test]
 [AutoMockArguments]
 public void Buy_ShouldUseTheDispenser(IVendingMachine machine, [AsDefault] IChocolateDispenser dispenser,
-    // Mockolate0011: The [AsDefault] parameter 'other' has the same type as the [AsDefault] parameter 'dispenser'
-    [AsDefault] IChocolateDispenser other) { }
+    // Mockolate0011: The [AsDefault] parameter 'other' is used for 'IChocolateDispenser' like the [AsDefault] parameter 'dispenser'
+    [AsDefault<IChocolateDispenser>] FakeChocolateDispenser other,
+    // Mockolate0011: The [AsDefault] parameter 'count' is not assignable to 'IChocolateDispenser'
+    [AsDefault<IChocolateDispenser>] int count) { }
 ```
 
-Remove the marker from all but one parameter of each type, and remove either `[AsDefault]` or `[Transient]` from a parameter that has both.
+Use each type in only one `[AsDefault]` parameter, name only types that the parameter implements or derives from, and remove either `[AsDefault]` or `[Transient]` from a parameter that has both.
 
 ## Mockolate1001
 
