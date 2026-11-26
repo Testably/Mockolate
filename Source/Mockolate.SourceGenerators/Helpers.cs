@@ -601,7 +601,7 @@ internal static class Helpers
 			return sb.AppendGeneratedDefaultValueFor(type, defaultValueName, suffix, taskSuffix, autoMock);
 		}
 
-		private StringBuilder AppendTupleElementDefaultValues(EquatableArray<Type> elementTypes,
+		private void AppendTupleElementDefaultValues(EquatableArray<Type> elementTypes,
 			string defaultValueName, string suffix, string? taskSuffix,
 			Func<Type, (string Prefix, string Suffix)?>? autoMock)
 		{
@@ -616,8 +616,6 @@ internal static class Helpers
 				first = false;
 				sb.AppendDefaultValueGeneratorFor(elementType, defaultValueName, suffix, taskSuffix, autoMock);
 			}
-
-			return sb;
 		}
 
 		private StringBuilder AppendGeneratedDefaultValueFor(Type type,
