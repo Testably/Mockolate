@@ -407,6 +407,35 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
+	public async Task Tuple_IndexerWithTaskElement_ShouldReturnSameMockPerKey()
+	{
+		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
+
+		IAutoMockTupleElement first = await sut[1L].Element;
+		IAutoMockTupleElement second = await sut[1L].Element;
+		IAutoMockTupleElement otherKey = await sut[2L].Element;
+
+		await That(first).IsNotNull();
+		await That(second).IsSameAs(first);
+		await That(otherKey).IsNotSameAs(first).Because("an indexer stores its value per key");
+	}
+
+	[Test]
+	public async Task Tuple_MethodWithParameters_ShouldReturnSameMock()
+	{
+		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
+
+		IAutoMockTupleElement first = sut.GetPairFor("Dark").Element;
+		IAutoMockTupleElement second = sut.GetPairFor("White").Element;
+		IAutoMockTupleElement reference = sut.GetReferenceTupleFor("Dark").Item2;
+
+		await That(first).IsNotNull();
+		await That(second).IsSameAs(first);
+		await That(sut.GetReferenceTupleFor("White").Item2).IsSameAs(reference);
+		await That(sut.GetNothing()).IsEqualTo(default(ValueTuple));
+	}
+
+	[Test]
 	public async Task Tuple_LongTuples_ShouldReturnMockForTheEighthElement()
 	{
 		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
@@ -536,8 +565,11 @@ public sealed class AutoMockingTests
 		IAutoMockTupleElement expected = IAutoMockTupleElement.CreateMock();
 		IAutoMockTuples sut = IAutoMockTuples.CreateMock(MockBehavior.Default
 			.WithDefaultValueFor<(IAutoMockTupleElement, IAutoMockTupleElement)>(() => (expected, expected))
-			.WithDefaultValueFor<(int, IAutoMockTupleElement)>(() => (3, expected)));
+			.WithDefaultValueFor<(int, IAutoMockTupleElement)>(() => (3, expected))
+			.WithDefaultValueFor(() => Tuple.Create(4, expected)));
 
+		await That(sut.GetPairFor("Dark").Element).IsSameAs(expected);
+		await That(sut.GetReferenceTupleFor("Dark").Item1).IsEqualTo(4);
 		await That(sut.GetTwo().Second).IsSameAs(expected);
 		await That(sut.Pair.Element).IsSameAs(expected);
 		await That(sut[1].Stock).IsEqualTo(3);

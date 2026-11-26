@@ -544,8 +544,13 @@ internal static partial class MockGeneratorHelpers
 
 	/// <summary>
 	///     The types whose default value can be an auto-mock when a member returns <paramref name="typeSymbol" />: the
-	///     type itself, or the result type of a task and the elements of a tuple, also nested. An indexer that returns a task gets no auto-mock.
+	///     type itself, or the result type of a task and the elements of a tuple, also nested.
 	/// </summary>
+	/// <param name="typeSymbol">The return type of the member.</param>
+	/// <param name="unwrapTask">
+	///     Whether the result type of a returned task is a candidate; <see langword="false" /> for an indexer, which
+	///     returns no auto-mock in a task. The tasks within a tuple are still unwrapped.
+	/// </param>
 	private static IEnumerable<ITypeSymbol> GetAutoMockCandidates(ITypeSymbol typeSymbol, bool unwrapTask = true)
 	{
 		if (typeSymbol is not INamedTypeSymbol { IsGenericType: true, } named)
@@ -604,7 +609,9 @@ internal static partial class MockGeneratorHelpers
 				continue;
 			}
 
-			foreach (INamedTypeSymbol candidate in GetAutoMockCandidates(returnType, member is not IPropertySymbol { IsIndexer: true, }).OfType<INamedTypeSymbol>())
+			bool isIndexer = member is IPropertySymbol { IsIndexer: true, };
+			foreach (INamedTypeSymbol candidate in GetAutoMockCandidates(returnType, !isIndexer)
+				         .OfType<INamedTypeSymbol>())
 			{
 				// Whether a candidate is discovered depends on its members, unless its own declaration rejects it.
 				if (IsAutoMockable(candidate) && CanDiscoverNamespace(candidate, options))

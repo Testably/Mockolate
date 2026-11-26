@@ -587,14 +587,19 @@ internal static partial class Mock
 		internal const int MemberId_Indexer_int_Set = 3;
 		internal const int MemberId_Indexer_string_Get = 4;
 		internal const int MemberId_Indexer_string_Set = 5;
-		internal const int MemberId_GetTwo = 6;
-		internal const int MemberId_GetNested = 7;
-		internal const int MemberId_GetPairAsync = 8;
-		internal const int MemberId_GetReferenceTuple = 9;
-		internal const int MemberId_GetLongReferenceTuple = 10;
-		internal const int MemberId_GetLongValueTuple = 11;
-		internal const int MemberId_GetSingle = 12;
-		internal const int MemberCount = 13;
+		internal const int MemberId_Indexer_long_Get = 6;
+		internal const int MemberId_Indexer_long_Set = 7;
+		internal const int MemberId_GetTwo = 8;
+		internal const int MemberId_GetNested = 9;
+		internal const int MemberId_GetPairAsync = 10;
+		internal const int MemberId_GetReferenceTuple = 11;
+		internal const int MemberId_GetLongReferenceTuple = 12;
+		internal const int MemberId_GetLongValueTuple = 13;
+		internal const int MemberId_GetSingle = 14;
+		internal const int MemberId_GetNothing = 15;
+		internal const int MemberId_GetPairFor = 16;
+		internal const int MemberId_GetReferenceTupleFor = 17;
+		internal const int MemberCount = 18;
 		internal static readonly global::Mockolate.Interactions.PropertyGetterAccess PropertyAccess_Pair_Get = new global::Mockolate.Interactions.PropertyGetterAccess("global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.Pair");
 
 		/// <summary>
@@ -760,10 +765,45 @@ internal static partial class Mock
 				setup ??= this.MockRegistry.FindIndexerGetterSetup<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string>(global::Mockolate.Mock.IAutoMockTuples.MemberId_Indexer_string_Get, key);
 				if (this.MockRegistry.Wraps is not global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples wraps)
 				{
-					return this.MockRegistry.GetIndexer<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string>(setup, key, static b => (b.DefaultValue.Generate(default(global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>)!) ?? new global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(b.DefaultValue.Generate(default(int)!), global::Mockolate.Internals.AutoMocks.Or<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(b, b.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement)!)))), 1);
+					return this.MockRegistry.GetIndexer<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string>(setup, key, static b => ((b.DefaultValue.Probe<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>>() switch { global::Mockolate.Internals.DefaultValueSource.None => null, _ => b.DefaultValue.Generate(default(global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>)!) }) ?? new global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(b.DefaultValue.Generate(default(int)!), global::Mockolate.Internals.AutoMocks.Or<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(b, b.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement)!)))), 1);
 				}
 				global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> baseResult = wraps[key];
 				return this.MockRegistry.GetIndexer<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string>(setup, key, baseResult, 1);
+			}
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.this[long]" />
+		public (int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element) this[long key]
+		{
+			get
+			{
+				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
+				{
+					global::Mockolate.Internals.IndexerGetterRecords<long>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_Indexer_long_Get, key);
+				}
+				global::Mockolate.Setup.IndexerSetup<(int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element), long>? setup = null;
+				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
+				{
+					global::Mockolate.Setup.IndexerSetup[]? snapshot_setup = this.MockRegistry.GetIndexerSetupSnapshot(global::Mockolate.Mock.IAutoMockTuples.MemberId_Indexer_long_Get);
+					if (snapshot_setup is not null)
+					{
+						for (int i_setup = snapshot_setup.Length - 1; i_setup >= 0; i_setup--)
+						{
+							if (snapshot_setup[i_setup] is global::Mockolate.Setup.IndexerSetup<(int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element), long> s_setup && s_setup.Matches(key))
+							{
+								setup = s_setup;
+								break;
+							}
+						}
+					}
+				}
+				setup ??= this.MockRegistry.FindIndexerGetterSetup<(int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element), long>(global::Mockolate.Mock.IAutoMockTuples.MemberId_Indexer_long_Get, key);
+				if (this.MockRegistry.Wraps is not global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples wraps)
+				{
+					return this.MockRegistry.GetIndexer<(int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element), long>(setup, key, static b => ((b.DefaultValue.Probe<(int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element)>() switch { global::Mockolate.Internals.DefaultValueSource.None => null, _ => b.DefaultValue.GenerateOrNull<(int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element)>() }) ?? (b.DefaultValue.Generate(default(int)!), b.DefaultValue.Generate(default(global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>)!, global::Mockolate.Internals.AutoMocks.Or<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(b, b.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement)!))))), 2);
+				}
+				(int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element) baseResult = wraps[key];
+				return this.MockRegistry.GetIndexer<(int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element), long>(setup, key, baseResult, 2);
 			}
 		}
 
@@ -1044,7 +1084,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>)!) ?? new global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), this.MockRegistry.AutoMockOr<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTuple, this.MockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement)!))));
+			return methodSetup?.TryGetReturnValue(out var returnValue) == true ? returnValue : ((this.MockRegistry.Behavior.DefaultValue.Probe<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>>() switch { global::Mockolate.Internals.DefaultValueSource.None => null, _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>)!) }) ?? new global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), this.MockRegistry.AutoMockOr<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTuple, this.MockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement)!))));
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetLongReferenceTuple()" />
@@ -1114,7 +1154,7 @@ internal static partial class Mock
 			{
 				return wrappedResult;
 			}
-			return methodSetup?.TryGetReturnValue(out var returnValue) == true ? returnValue : (this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Tuple<int, int, int, int, int, int, int, global::System.Tuple<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>>)!) ?? new global::System.Tuple<int, int, int, int, int, int, int, global::System.Tuple<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>>(this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), (this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Tuple<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>)!) ?? new global::System.Tuple<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(this.MockRegistry.AutoMockOr<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetLongReferenceTuple, this.MockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement)!))))));
+			return methodSetup?.TryGetReturnValue(out var returnValue) == true ? returnValue : ((this.MockRegistry.Behavior.DefaultValue.Probe<global::System.Tuple<int, int, int, int, int, int, int, global::System.Tuple<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>>>() switch { global::Mockolate.Internals.DefaultValueSource.None => null, _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Tuple<int, int, int, int, int, int, int, global::System.Tuple<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>>)!) }) ?? new global::System.Tuple<int, int, int, int, int, int, int, global::System.Tuple<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>>(this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), ((this.MockRegistry.Behavior.DefaultValue.Probe<global::System.Tuple<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>>() switch { global::Mockolate.Internals.DefaultValueSource.None => null, _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Tuple<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>)!) }) ?? new global::System.Tuple<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(this.MockRegistry.AutoMockOr<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetLongReferenceTuple, this.MockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement)!))))));
 		}
 
 		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetLongValueTuple()" />
@@ -1257,6 +1297,216 @@ internal static partial class Mock
 			return methodSetup?.TryGetReturnValue(out var returnValue) == true ? returnValue : ((this.MockRegistry.Behavior.DefaultValue.Probe<global::System.ValueTuple<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>>() switch { global::Mockolate.Internals.DefaultValueSource.None => null, _ => this.MockRegistry.Behavior.DefaultValue.GenerateOrNull<global::System.ValueTuple<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>>() }) ?? new global::System.ValueTuple<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(this.MockRegistry.AutoMockOr<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetSingle, this.MockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement)!))));
 		}
 
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetNothing()" />
+		public global::System.ValueTuple GetNothing()
+		{
+			global::Mockolate.Setup.ReturnMethodSetup<global::System.ValueTuple>? methodSetup = null;
+			if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
+			{
+				global::Mockolate.Setup.MethodSetup[]? snapshot_methodSetup = this.MockRegistry.GetMethodSetupSnapshot(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetNothing);
+				if (snapshot_methodSetup is not null)
+				{
+					for (int i_methodSetup = snapshot_methodSetup.Length - 1; i_methodSetup >= 0; i_methodSetup--)
+					{
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.ReturnMethodSetup<global::System.ValueTuple> s_methodSetup && s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.ValueTuple>>(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetNothing, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetNothing") is { } fallback_methodSetup)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.ValueTuple> s_methodSetup in fallback_methodSetup)
+					{
+						if (s_methodSetup.Matches())
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.ValueTuple> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.ValueTuple>>("global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetNothing"))
+				{
+					if (s_methodSetup.Matches())
+					{
+						methodSetup = s_methodSetup;
+						break;
+					}
+				}
+			}
+			bool hasWrappedResult = false;
+			global::System.ValueTuple wrappedResult = default!;
+			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
+			{
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetNothing, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetNothing");
+			}
+			try
+			{
+				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples wraps)
+				{
+					wrappedResult = wraps.GetNothing();
+					hasWrappedResult = true;
+				}
+			}
+			finally
+			{
+				methodSetup?.TriggerCallbacks();
+			}
+			if (methodSetup is null && !hasWrappedResult && this.MockRegistry.Behavior.ThrowWhenNotSetup)
+			{
+				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetNothing()' was invoked without prior setup.");
+			}
+			if (methodSetup?.HasReturnCallbacks != true && hasWrappedResult)
+			{
+				return wrappedResult;
+			}
+			return methodSetup?.TryGetReturnValue(out var returnValue) == true ? returnValue : ((this.MockRegistry.Behavior.DefaultValue.Probe<global::System.ValueTuple>() switch { global::Mockolate.Internals.DefaultValueSource.None => null, _ => this.MockRegistry.Behavior.DefaultValue.GenerateOrNull<global::System.ValueTuple>() }) ?? default(global::System.ValueTuple));
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor(string)" />
+		public (int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element) GetPairFor(string type)
+		{
+			global::Mockolate.Setup.ReturnMethodSetup<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string>? methodSetup = null;
+			if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
+			{
+				global::Mockolate.Setup.MethodSetup[]? snapshot_methodSetup = this.MockRegistry.GetMethodSetupSnapshot(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairFor);
+				if (snapshot_methodSetup is not null)
+				{
+					for (int i_methodSetup = snapshot_methodSetup.Length - 1; i_methodSetup >= 0; i_methodSetup--)
+					{
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.ReturnMethodSetup<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string> s_methodSetup && s_methodSetup.Matches(type))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string>>(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor") is { } fallback_methodSetup)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string> s_methodSetup in fallback_methodSetup)
+					{
+						if (s_methodSetup.Matches(type))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				foreach (global::Mockolate.Setup.ReturnMethodSetup<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string>>("global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor"))
+				{
+					if (s_methodSetup.Matches(type))
+					{
+						methodSetup = s_methodSetup;
+						break;
+					}
+				}
+			}
+			bool hasWrappedResult = false;
+			(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element) wrappedResult = default!;
+			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
+			{
+				global::Mockolate.Internals.MethodRecords<string>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor", type);
+			}
+			try
+			{
+				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples wraps)
+				{
+					wrappedResult = wraps.GetPairFor(type);
+					hasWrappedResult = true;
+				}
+			}
+			finally
+			{
+				methodSetup?.TriggerCallbacks(type);
+			}
+			if (methodSetup is null && !hasWrappedResult && this.MockRegistry.Behavior.ThrowWhenNotSetup)
+			{
+				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor(string)' was invoked without prior setup.");
+			}
+			if (methodSetup?.HasReturnCallbacks != true && hasWrappedResult)
+			{
+				return wrappedResult;
+			}
+			return methodSetup?.TryGetReturnValue(type, out var returnValue) == true ? returnValue : ((this.MockRegistry.Behavior.DefaultValue.Probe<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element)>() switch { global::Mockolate.Internals.DefaultValueSource.None => null, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.GenerateOrNull<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element)>(), _ => this.MockRegistry.Behavior.DefaultValue.GenerateOrNull<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element)>(type) }) ?? ((this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, type) }), this.MockRegistry.AutoMockOr<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairFor, (this.MockRegistry.Behavior.DefaultValue.Probe<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement)!, type) }))));
+		}
+
+		/// <inheritdoc cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor(string)" />
+		public global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> GetReferenceTupleFor(string type)
+		{
+			global::Mockolate.Setup.ReturnMethodSetup<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string>? methodSetup = null;
+			if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
+			{
+				global::Mockolate.Setup.MethodSetup[]? snapshot_methodSetup = this.MockRegistry.GetMethodSetupSnapshot(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTupleFor);
+				if (snapshot_methodSetup is not null)
+				{
+					for (int i_methodSetup = snapshot_methodSetup.Length - 1; i_methodSetup >= 0; i_methodSetup--)
+					{
+						if (snapshot_methodSetup[i_methodSetup] is global::Mockolate.Setup.ReturnMethodSetup<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string> s_methodSetup && s_methodSetup.Matches(type))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+				if (methodSetup is null && this.MockRegistry.GetFallbackMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string>>(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTupleFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor") is { } fallback_methodSetup)
+				{
+					foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string> s_methodSetup in fallback_methodSetup)
+					{
+						if (s_methodSetup.Matches(type))
+						{
+							methodSetup = s_methodSetup;
+							break;
+						}
+					}
+				}
+			}
+			else
+			{
+				foreach (global::Mockolate.Setup.ReturnMethodSetup<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string> s_methodSetup in this.MockRegistry.GetMethodSetups<global::Mockolate.Setup.ReturnMethodSetup<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string>>("global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor"))
+				{
+					if (s_methodSetup.Matches(type))
+					{
+						methodSetup = s_methodSetup;
+						break;
+					}
+				}
+			}
+			bool hasWrappedResult = false;
+			global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> wrappedResult = default!;
+			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
+			{
+				global::Mockolate.Internals.MethodRecords<string>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTupleFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor", type);
+			}
+			try
+			{
+				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples wraps)
+				{
+					wrappedResult = wraps.GetReferenceTupleFor(type);
+					hasWrappedResult = true;
+				}
+			}
+			finally
+			{
+				methodSetup?.TriggerCallbacks(type);
+			}
+			if (methodSetup is null && !hasWrappedResult && this.MockRegistry.Behavior.ThrowWhenNotSetup)
+			{
+				throw new global::Mockolate.Exceptions.MockNotSetupException("The method 'global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor(string)' was invoked without prior setup.");
+			}
+			if (methodSetup?.HasReturnCallbacks != true && hasWrappedResult)
+			{
+				return wrappedResult;
+			}
+			return methodSetup?.TryGetReturnValue(type, out var returnValue) == true ? returnValue : ((this.MockRegistry.Behavior.DefaultValue.Probe<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>>() switch { global::Mockolate.Internals.DefaultValueSource.None => null, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>)!, type) }) ?? new global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>((this.MockRegistry.Behavior.DefaultValue.Probe<int>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(int)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(int)!, type) }), this.MockRegistry.AutoMockOr<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTupleFor, (this.MockRegistry.Behavior.DefaultValue.Probe<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>() switch { global::Mockolate.Internals.DefaultValueSource.None => default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement)!, global::Mockolate.Internals.DefaultValueSource.WithoutArguments => this.MockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement)!), _ => this.MockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement)!, type) }))));
+		}
+
 		#endregion Mockolate.Tests.GeneratorCoverage.IAutoMockTuples
 
 		#region IMockSetupForIAutoMockTuples
@@ -1322,6 +1572,30 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<(int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element), long> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.this[global::Mockolate.Parameters.IParameter<long>? parameter1]
+		{
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<(int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element), long>(MockRegistry, global::Mockolate.CovariantParameterAdapter<long>.Wrap(parameter1 ?? global::Mockolate.Internals.Matchers.IsNull<long>()));
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IAutoMockTuples.MemberId_Indexer_long_Get, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<(int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element), long> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.this[long parameter1]
+		{
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<(int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element), long>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.Internals.Matchers.IsValue<long>(parameter1));
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IAutoMockTuples.MemberId_Indexer_long_Get, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement First, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Second)> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.GetTwo()
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement First, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Second)>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetTwo");
@@ -1374,6 +1648,62 @@ internal static partial class Mock
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.ValueTuple<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetSingle");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetSingle, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetup<global::System.ValueTuple> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.GetNothing()
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.ValueTuple>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetNothing");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetNothing, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.GetPairFor(global::Mockolate.Parameters.IParameters parameters)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor", parameters, "type");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairFor, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.GetPairFor(global::Mockolate.Parameters.IParameter<string>? type)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor", global::Mockolate.CovariantParameterAdapter<string>.Wrap(type ?? global::Mockolate.Internals.Matchers.IsNull<string>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairFor, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.GetPairFor(string type)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor", type);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairFor, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.GetReferenceTupleFor(global::Mockolate.Parameters.IParameters parameters)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor", parameters, "type");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTupleFor, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.GetReferenceTupleFor(global::Mockolate.Parameters.IParameter<string>? type)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor", global::Mockolate.CovariantParameterAdapter<string>.Wrap(type ?? global::Mockolate.Internals.Matchers.IsNull<string>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTupleFor, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.GetReferenceTupleFor(string type)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor", type);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTupleFor, methodSetup);
 			return methodSetup;
 		}
 
@@ -1440,6 +1770,30 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIAutoMockTuples, long> IMockVerifyForIAutoMockTuples.this[global::Mockolate.Parameters.IParameter<long>? key]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIAutoMockTuples, long>(this, this.MockRegistry, global::Mockolate.Mock.IAutoMockTuples.MemberId_Indexer_long_Get,
+					global::Mockolate.CovariantParameterAdapter<long>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<long>()),
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIAutoMockTuples, long> IMockVerifyForIAutoMockTuples.this[long key]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIAutoMockTuples, long>(this, this.MockRegistry, global::Mockolate.Mock.IAutoMockTuples.MemberId_Indexer_long_Get,
+					(global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.It.Is<long>(key, "key"),
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
+			}
+		}
+
+		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples>.IgnoreParameters IMockVerifyForIAutoMockTuples.GetTwo()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockTuples>(this, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetTwo, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetTwo", () => $"GetTwo()");
 		/// <inheritdoc />
@@ -1460,6 +1814,37 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples>.IgnoreParameters IMockVerifyForIAutoMockTuples.GetSingle()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockTuples>(this, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetSingle, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetSingle", () => $"GetSingle()");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples>.IgnoreParameters IMockVerifyForIAutoMockTuples.GetNothing()
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockTuples>(this, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetNothing, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetNothing", () => $"GetNothing()");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples> IMockVerifyForIAutoMockTuples.GetPairFor(global::Mockolate.Parameters.IParameters parameters)
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockTuples, global::Mockolate.Interactions.MethodInvocation<string>>(this, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor", __i => parameters switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("type", __i.Parameter1)]),
+					_ => true
+				}, () => $"GetPairFor({parameters})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples> IMockVerifyForIAutoMockTuples.GetPairFor(global::Mockolate.Parameters.IParameter<string>? type)
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockTuples, string>(this, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor", type is null ? (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Is<string>(default!) : global::Mockolate.CovariantParameterAdapter<string>.Wrap(type), type, static (type) => $"GetPairFor({(global::Mockolate.Internals.ValueFormatter.Format((object?)type))})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples>.IgnoreParameters IMockVerifyForIAutoMockTuples.GetPairFor(string type)
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockTuples, string>(this, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor", type, static (type) => $"GetPairFor({(global::Mockolate.Internals.ValueFormatter.Format((object?)type))})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples> IMockVerifyForIAutoMockTuples.GetReferenceTupleFor(global::Mockolate.Parameters.IParameters parameters)
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockTuples, global::Mockolate.Interactions.MethodInvocation<string>>(this, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTupleFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor", __i => parameters switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("type", __i.Parameter1)]),
+					_ => true
+				}, () => $"GetReferenceTupleFor({parameters})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples> IMockVerifyForIAutoMockTuples.GetReferenceTupleFor(global::Mockolate.Parameters.IParameter<string>? type)
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockTuples, string>(this, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTupleFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor", type is null ? (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Is<string>(default!) : global::Mockolate.CovariantParameterAdapter<string>.Wrap(type), type, static (type) => $"GetReferenceTupleFor({(global::Mockolate.Internals.ValueFormatter.Format((object?)type))})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples>.IgnoreParameters IMockVerifyForIAutoMockTuples.GetReferenceTupleFor(string type)
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockTuples, string>(this, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTupleFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor", type, static (type) => $"GetReferenceTupleFor({(global::Mockolate.Internals.ValueFormatter.Format((object?)type))})");
 		#endregion IMockVerifyForIAutoMockTuples
 	}
 
@@ -1529,6 +1914,30 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIAutoMockTuples, long> IMockVerifyForIAutoMockTuples.this[global::Mockolate.Parameters.IParameter<long>? key]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIAutoMockTuples, long>(this, this.MockRegistry, global::Mockolate.Mock.IAutoMockTuples.MemberId_Indexer_long_Get,
+					global::Mockolate.CovariantParameterAdapter<long>.Wrap(key ?? global::Mockolate.Internals.Matchers.IsNull<long>()),
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIAutoMockTuples, long> IMockVerifyForIAutoMockTuples.this[long key]
+		{
+			get
+			{
+				return new global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIAutoMockTuples, long>(this, this.MockRegistry, global::Mockolate.Mock.IAutoMockTuples.MemberId_Indexer_long_Get,
+					(global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.It.Is<long>(key, "key"),
+					() => global::System.String.Format("[{0}]", global::Mockolate.Internals.ValueFormatter.Format((object?)key)));
+			}
+		}
+
+		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples>.IgnoreParameters IMockVerifyForIAutoMockTuples.GetTwo()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockTuples>(this, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetTwo, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetTwo", () => $"GetTwo()");
 		/// <inheritdoc />
@@ -1549,6 +1958,37 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples>.IgnoreParameters IMockVerifyForIAutoMockTuples.GetSingle()
 			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockTuples>(this, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetSingle, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetSingle", () => $"GetSingle()");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples>.IgnoreParameters IMockVerifyForIAutoMockTuples.GetNothing()
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockTuples>(this, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetNothing, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetNothing", () => $"GetNothing()");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples> IMockVerifyForIAutoMockTuples.GetPairFor(global::Mockolate.Parameters.IParameters parameters)
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockTuples, global::Mockolate.Interactions.MethodInvocation<string>>(this, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor", __i => parameters switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("type", __i.Parameter1)]),
+					_ => true
+				}, () => $"GetPairFor({parameters})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples> IMockVerifyForIAutoMockTuples.GetPairFor(global::Mockolate.Parameters.IParameter<string>? type)
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockTuples, string>(this, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor", type is null ? (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Is<string>(default!) : global::Mockolate.CovariantParameterAdapter<string>.Wrap(type), type, static (type) => $"GetPairFor({(global::Mockolate.Internals.ValueFormatter.Format((object?)type))})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples>.IgnoreParameters IMockVerifyForIAutoMockTuples.GetPairFor(string type)
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockTuples, string>(this, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor", type, static (type) => $"GetPairFor({(global::Mockolate.Internals.ValueFormatter.Format((object?)type))})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples> IMockVerifyForIAutoMockTuples.GetReferenceTupleFor(global::Mockolate.Parameters.IParameters parameters)
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockTuples, global::Mockolate.Interactions.MethodInvocation<string>>(this, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTupleFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor", __i => parameters switch
+				{
+					global::Mockolate.Parameters.IParametersMatch m => m.Matches([__i.Parameter1]),
+					global::Mockolate.Parameters.INamedParametersMatch m => m.Matches([("type", __i.Parameter1)]),
+					_ => true
+				}, () => $"GetReferenceTupleFor({parameters})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples> IMockVerifyForIAutoMockTuples.GetReferenceTupleFor(global::Mockolate.Parameters.IParameter<string>? type)
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockTuples, string>(this, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTupleFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor", type is null ? (global::Mockolate.Parameters.IParameterMatch<string>)global::Mockolate.It.Is<string>(default!) : global::Mockolate.CovariantParameterAdapter<string>.Wrap(type), type, static (type) => $"GetReferenceTupleFor({(global::Mockolate.Internals.ValueFormatter.Format((object?)type))})");
+		/// <inheritdoc />
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples>.IgnoreParameters IMockVerifyForIAutoMockTuples.GetReferenceTupleFor(string type)
+			=> this.MockRegistry.VerifyMethod<IMockVerifyForIAutoMockTuples, string>(this, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTupleFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor", type, static (type) => $"GetReferenceTupleFor({(global::Mockolate.Internals.ValueFormatter.Format((object?)type))})");
 		#endregion IMockVerifyForIAutoMockTuples
 	}
 
@@ -1631,6 +2071,30 @@ internal static partial class Mock
 		}
 
 		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<(int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element), long> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.this[global::Mockolate.Parameters.IParameter<long>? parameter1]
+		{
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<(int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element), long>(MockRegistry, global::Mockolate.CovariantParameterAdapter<long>.Wrap(parameter1 ?? global::Mockolate.Internals.Matchers.IsNull<long>()));
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IAutoMockTuples.MemberId_Indexer_long_Get, this._scenarioName, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
+		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<(int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element), long> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.this[long parameter1]
+		{
+			get
+			{
+				var indexerSetup = new global::Mockolate.Setup.IndexerSetup<(int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element), long>(MockRegistry, (global::Mockolate.Parameters.IParameterMatch<long>)global::Mockolate.Internals.Matchers.IsValue<long>(parameter1));
+				this.MockRegistry.SetupIndexer(global::Mockolate.Mock.IAutoMockTuples.MemberId_Indexer_long_Get, this._scenarioName, indexerSetup);
+				return indexerSetup;
+			}
+		}
+
+		/// <inheritdoc />
 		global::Mockolate.Setup.IReturnMethodSetup<(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement First, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Second)> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.GetTwo()
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement First, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Second)>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetTwo");
@@ -1683,6 +2147,62 @@ internal static partial class Mock
 		{
 			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.ValueTuple<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetSingle");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetSingle, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetup<global::System.ValueTuple> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.GetNothing()
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.ValueTuple>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetNothing");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetNothing, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.GetPairFor(global::Mockolate.Parameters.IParameters parameters)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor", parameters, "type");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairFor, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.GetPairFor(global::Mockolate.Parameters.IParameter<string>? type)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor", global::Mockolate.CovariantParameterAdapter<string>.Wrap(type ?? global::Mockolate.Internals.Matchers.IsNull<string>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairFor, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.GetPairFor(string type)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor", type);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairFor, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.GetReferenceTupleFor(global::Mockolate.Parameters.IParameters parameters)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string>.WithParameters(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor", parameters, "type");
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTupleFor, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.GetReferenceTupleFor(global::Mockolate.Parameters.IParameter<string>? type)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string>.WithParameterCollection(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor", global::Mockolate.CovariantParameterAdapter<string>.Wrap(type ?? global::Mockolate.Internals.Matchers.IsNull<string>()));
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTupleFor, this._scenarioName, methodSetup);
+			return methodSetup;
+		}
+
+		/// <inheritdoc />
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string> global::Mockolate.Mock.IMockSetupForIAutoMockTuples.GetReferenceTupleFor(string type)
+		{
+			var methodSetup = new global::Mockolate.Setup.ReturnMethodSetup<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string>.WithLiteralValues(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor", type);
+			this.MockRegistry.SetupMethod(global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTupleFor, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
 
@@ -1851,6 +2371,24 @@ internal static partial class Mock
 		global::Mockolate.Setup.IIndexerGetterOnlySetup<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string> this[string parameter1] { get; }
 
 		/// <summary>
+		///     Setup for the (int Stock, global::System.Threading.Tasks.Task{global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement} Element) indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.this[long]">this[long]</see>
+		/// </summary>
+		/// <remarks>
+		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<(int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element), long> this[global::Mockolate.Parameters.IParameter<long>? parameter1] { get; }
+
+		/// <summary>
+		///     Setup for the (int Stock, global::System.Threading.Tasks.Task{global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement} Element) indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.this[long]">this[long]</see>
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
+		global::Mockolate.Setup.IIndexerGetterOnlySetup<(int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element), long> this[long parameter1] { get; }
+
+		/// <summary>
 		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetTwo()">GetTwo()</see>.
 		/// </summary>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
@@ -1891,6 +2429,66 @@ internal static partial class Mock
 		/// </summary>
 		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
 		global::Mockolate.Setup.IReturnMethodSetup<global::System.ValueTuple<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>> GetSingle();
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetNothing()">GetNothing()</see>.
+		/// </summary>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Setup.IReturnMethodSetup<global::System.ValueTuple> GetNothing();
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor(string)">GetPairFor(string)</see> with the given <paramref name="parameters" />.
+		/// </summary>
+		/// <remarks>
+		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string> GetPairFor(global::Mockolate.Parameters.IParameters parameters);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor(string)">GetPairFor(string)</see> with the given <paramref name="type"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string> GetPairFor(global::Mockolate.Parameters.IParameter<string>? type);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor(string)">GetPairFor(string)</see> with the given <paramref name="type"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), string> GetPairFor(string type);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor(string)">GetReferenceTupleFor(string)</see> with the given <paramref name="parameters" />.
+		/// </summary>
+		/// <remarks>
+		///     This overload configures the setup via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string> GetReferenceTupleFor(global::Mockolate.Parameters.IParameters parameters);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor(string)">GetReferenceTupleFor(string)</see> with the given <paramref name="type"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Setup.IReturnMethodSetupWithCallback<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string> GetReferenceTupleFor(global::Mockolate.Parameters.IParameter<string>? type);
+
+		/// <summary>
+		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor(string)">GetReferenceTupleFor(string)</see> with the given <paramref name="type"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts direct values for every parameter; each is treated as <c>It.Is&lt;T&gt;(value)</c>.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Setup.IReturnMethodSetupParameterIgnorer<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string> GetReferenceTupleFor(string type);
 
 	}
 
@@ -1941,6 +2539,24 @@ internal static partial class Mock
 		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIAutoMockTuples, string> this[string key] { get; }
 
 		/// <summary>
+		///     Verify interactions with the (int Stock, global::System.Threading.Tasks.Task{global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement} Element) indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.this[long]">this[long]</see>.
+		/// </summary>
+		/// <remarks>
+		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIAutoMockTuples, long> this[global::Mockolate.Parameters.IParameter<long>? key] { get; }
+
+		/// <summary>
+		///     Verify interactions with the (int Stock, global::System.Threading.Tasks.Task{global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement} Element) indexer <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.this[long]">this[long]</see>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(0)]
+		global::Mockolate.Verify.VerificationIndexerGetterResult<IMockVerifyForIAutoMockTuples, long> this[long key] { get; }
+
+		/// <summary>
 		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetTwo()">GetTwo()</see>.
 		/// </summary>
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples>.IgnoreParameters GetTwo();
@@ -1974,6 +2590,65 @@ internal static partial class Mock
 		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetSingle()">GetSingle()</see>.
 		/// </summary>
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples>.IgnoreParameters GetSingle();
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetNothing()">GetNothing()</see>.
+		/// </summary>
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples>.IgnoreParameters GetNothing();
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor(string)">GetPairFor(string)</see> with the given <paramref name="parameters"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples> GetPairFor(global::Mockolate.Parameters.IParameters parameters);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor(string)">GetPairFor(string)</see> with the given <paramref name="type"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples> GetPairFor(global::Mockolate.Parameters.IParameter<string>? type);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor(string)">GetPairFor(string)</see> with the given <paramref name="type"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples>.IgnoreParameters GetPairFor(string type);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor(string)">GetReferenceTupleFor(string)</see> with the given <paramref name="parameters"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload matches invocations via a custom <see cref="global::Mockolate.Match">Match</see> predicate (for example <see cref="global::Mockolate.Match.AnyParameters()">AnyParameters()</see> or <see cref="global::Mockolate.Match.Parameters(global::System.Func{object?[], bool}, string)">Parameters(Func&lt;object?[], bool&gt;, string)</see>) rather than per-parameter matchers.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue - 1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples> GetReferenceTupleFor(global::Mockolate.Parameters.IParameters parameters);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor(string)">GetReferenceTupleFor(string)</see> with the given <paramref name="type"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload takes <see cref="global::Mockolate.It">It</see> argument matchers (e.g. <c>It.IsAny&lt;T&gt;()</c>, <c>It.Is&lt;T&gt;(value)</c>) for every parameter.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples> GetReferenceTupleFor(global::Mockolate.Parameters.IParameter<string>? type);
+
+		/// <summary>
+		///     Verify invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor(string)">GetReferenceTupleFor(string)</see> with the given <paramref name="type"/>.
+		/// </summary>
+		/// <remarks>
+		///     This overload accepts direct values for every parameter and returns a <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters">VerificationResult&lt;TVerify&gt;.IgnoreParameters</see> whose <see cref="global::Mockolate.Verify.VerificationResult{TVerify}.IgnoreParameters.AnyParameters()">VerificationResult&lt;TVerify&gt;.AnyParameters()</see> drops per-parameter matching entirely.
+		/// </remarks>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(int.MaxValue)]
+		global::Mockolate.Verify.VerificationResult<IMockVerifyForIAutoMockTuples>.IgnoreParameters GetReferenceTupleFor(string type);
 
 	}
 }

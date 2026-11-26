@@ -163,7 +163,7 @@ MockBehavior behavior = MockBehavior.Default
         (type, _) => Convert.ChangeType(-1, type)));
 ```
 
-A factory that matches a tuple type provides the whole tuple instead of the tuple of default values, e.g. `.WithDefaultValueFor<(int, string)>(…)`, but also a predicate like `type => type.IsValueType`.
+A factory that matches a tuple type provides the whole tuple instead of the tuple of default values. This applies to `.WithDefaultValueFor<(string Type, int Amount)>(() => ("Dark", 1))` and to a `DefaultValueFactory` whose predicate matches the tuple type, e.g. `type => type.IsValueType`.
 
 For full control, implement `IDefaultValueGenerator` and pass it to the `MockBehavior(IDefaultValueGenerator)` constructor, or replace the generator of an existing behavior with `.WithDefaultValueGenerator(…)`. Factories registered with `WithDefaultValueFor` are kept and take precedence over the generator, in whichever order you call the methods.
 

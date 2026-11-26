@@ -589,18 +589,7 @@ internal static class Helpers
 
 			if (type.TupleTypes is not null)
 			{
-				// A factory for the tuple type takes precedence over the tuple of default values. The probe avoids
-				// collecting the arguments when no factory can match.
-				sb.Append("((").Append(defaultValueName).Append(".Probe<").Append(type.Fullname)
-					.Append(">() switch { global::Mockolate.Internals.DefaultValueSource.None => null, ");
-				if (!string.IsNullOrWhiteSpace(suffix))
-				{
-					sb.Append("global::Mockolate.Internals.DefaultValueSource.WithoutArguments => ")
-						.Append(defaultValueName).Append(".GenerateOrNull<").Append(type.Fullname).Append(">(), ");
-				}
-
-				sb.Append("_ => ").Append(defaultValueName).Append(".GenerateOrNull<").Append(type.Fullname)
-					.Append(">(").Append(suffix).Append(") }) ?? ");
+				sb.Append("(").AppendTupleFactoryValue(type, defaultValueName, suffix, true).Append(" ?? ");
 				switch (type.TupleTypes.Value.Count)
 				{
 					case 0:
@@ -627,8 +616,7 @@ internal static class Helpers
 
 			if (IsConstructibleTuple(type))
 			{
-				// A factory for the tuple type takes precedence over the tuple of default values.
-				sb.Append("(").AppendGeneratedDefaultValueFor(type, defaultValueName, suffix, taskSuffix, autoMock)
+				sb.Append("(").AppendTupleFactoryValue(type, defaultValueName, suffix, false)
 					.Append(" ?? new ").Append(type.Fullname.TrimEnd('?')).Append("(");
 				sb.AppendTupleElementDefaultValues(type.GenericTypeParameters!.Value, defaultValueName, suffix,
 					taskSuffix, autoMock);
@@ -637,6 +625,37 @@ internal static class Helpers
 			}
 
 			return sb.AppendGeneratedDefaultValueFor(type, defaultValueName, suffix, taskSuffix, autoMock);
+		}
+
+		/// <summary>
+		///     The value of a factory for the tuple <paramref name="type" />, or <see langword="null" />, so that the
+		///     factory takes precedence over the tuple of default values.
+		/// </summary>
+		/// <remarks>
+		///     The probe avoids collecting the arguments when no factory can match.
+		/// </remarks>
+		private StringBuilder AppendTupleFactoryValue(Type type, string defaultValueName, string suffix,
+			bool isValueTuple)
+		{
+			string generateWithoutArguments = isValueTuple
+				? $"{defaultValueName}.GenerateOrNull<{type.Fullname}>("
+				: $"{defaultValueName}.Generate(default({type.Fullname})!";
+			string argumentSeparator = isValueTuple ? "" : ", ";
+			sb.Append("(").Append(defaultValueName).Append(".Probe<").Append(type.Fullname)
+				.Append(">() switch { global::Mockolate.Internals.DefaultValueSource.None => null, ");
+			if (!string.IsNullOrWhiteSpace(suffix))
+			{
+				sb.Append("global::Mockolate.Internals.DefaultValueSource.WithoutArguments => ")
+					.Append(generateWithoutArguments).Append("), ");
+				sb.Append("_ => ").Append(generateWithoutArguments).Append(argumentSeparator).Append(suffix)
+					.Append(") })");
+			}
+			else
+			{
+				sb.Append("_ => ").Append(generateWithoutArguments).Append(") })");
+			}
+
+			return sb;
 		}
 
 		private void AppendTupleElementDefaultValues(EquatableArray<Type> elementTypes,
