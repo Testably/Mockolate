@@ -4199,43 +4199,43 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockGenericVerifyForIComprehensiveInterface.G1()
 		{
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G1<>", 0, static invocation => true, () => $"G1<T>()");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G1<>", 0, null, static invocation => true, () => $"G1<T>()");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockGenericVerifyForIComprehensiveInterface.G2()
 		{
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G2<>", 0, static invocation => true, () => $"G2<T>()");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G2<>", 0, null, static invocation => true, () => $"G2<T>()");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockGenericVerifyForIComprehensiveInterface.G3()
 		{
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G3<>", 0, static invocation => true, () => $"G3<T>()");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G3<>", 0, null, static invocation => true, () => $"G3<T>()");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockGenericVerifyForIComprehensiveInterface.G4()
 		{
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G4<>", 0, static invocation => true, () => $"G4<T>()");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G4<>", 0, null, static invocation => true, () => $"G4<T>()");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockGenericVerifyForIComprehensiveInterface.G5()
 		{
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G5<>", 0, static invocation => true, () => $"G5<T>()");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G5<>", 0, null, static invocation => true, () => $"G5<T>()");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockGenericVerifyForIComprehensiveInterface.G6()
 		{
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G6<>", 0, static invocation => true, () => $"G6<T>()");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G6<>", 0, null, static invocation => true, () => $"G6<T>()");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockGenericVerifyForIComprehensiveInterface.G7()
 		{
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G7<>", 0, static invocation => true, () => $"G7<T>()");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G7<>", 0, null, static invocation => true, () => $"G7<T>()");
 		}
 
 		#endregion IMockGenericVerifyForIComprehensiveInterface
@@ -4878,43 +4878,43 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockGenericVerifyForIComprehensiveInterface.G1()
 		{
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G1<>", 0, static invocation => true, () => $"G1<T>()");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G1<>", 0, null, static invocation => true, () => $"G1<T>()");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockGenericVerifyForIComprehensiveInterface.G2()
 		{
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G2<>", 0, static invocation => true, () => $"G2<T>()");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G2<>", 0, null, static invocation => true, () => $"G2<T>()");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockGenericVerifyForIComprehensiveInterface.G3()
 		{
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G3<>", 0, static invocation => true, () => $"G3<T>()");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G3<>", 0, null, static invocation => true, () => $"G3<T>()");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockGenericVerifyForIComprehensiveInterface.G4()
 		{
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G4<>", 0, static invocation => true, () => $"G4<T>()");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G4<>", 0, null, static invocation => true, () => $"G4<T>()");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockGenericVerifyForIComprehensiveInterface.G5()
 		{
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G5<>", 0, static invocation => true, () => $"G5<T>()");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G5<>", 0, null, static invocation => true, () => $"G5<T>()");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockGenericVerifyForIComprehensiveInterface.G6()
 		{
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G6<>", 0, static invocation => true, () => $"G6<T>()");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G6<>", 0, null, static invocation => true, () => $"G6<T>()");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForIComprehensiveInterface> IMockGenericVerifyForIComprehensiveInterface.G7()
 		{
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G7<>", 0, static invocation => true, () => $"G7<T>()");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForIComprehensiveInterface>(this, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.G7<>", 0, null, static invocation => true, () => $"G7<T>()");
 		}
 
 		#endregion IMockGenericVerifyForIComprehensiveInterface

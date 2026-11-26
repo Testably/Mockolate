@@ -11,12 +11,12 @@ public sealed class GenericMethodInvocationsTests
 	{
 		MethodInvocation<int, string> invocation = new("Ns.IFoo.Send<System.Int32>", 1, "a");
 
-		bool matching = GenericMethodInvocations.TryGetInvocation(invocation, "Ns.IFoo.Send<>", 2,
+		bool matching = GenericMethodInvocations.TryGetInvocation(invocation, "Ns.IFoo.Send<>", 2, null,
 			out IMethodInvocationParameters result);
-		bool otherName = GenericMethodInvocations.TryGetInvocation(invocation, "Ns.IFoo.Get<>", 2, out _);
-		bool otherCount = GenericMethodInvocations.TryGetInvocation(invocation, "Ns.IFoo.Send<>", 1, out _);
+		bool otherName = GenericMethodInvocations.TryGetInvocation(invocation, "Ns.IFoo.Get<>", 2, null, out _);
+		bool otherCount = GenericMethodInvocations.TryGetInvocation(invocation, "Ns.IFoo.Send<>", 1, null, out _);
 		bool noMethod = GenericMethodInvocations.TryGetInvocation(new PropertyGetterAccess("Ns.IFoo.Send<>"),
-			"Ns.IFoo.Send<>", 0, out _);
+			"Ns.IFoo.Send<>", 0, null, out _);
 
 		await That(matching).IsTrue();
 		await That(result).IsSameAs(invocation);
@@ -37,10 +37,54 @@ public sealed class GenericMethodInvocationsTests
 	{
 		MethodInvocation<int> invocation = new(name, 1);
 
-		bool result = GenericMethodInvocations.TryGetInvocation(invocation, genericMethodName, 1, out _);
+		bool result = GenericMethodInvocations.TryGetInvocation(invocation, genericMethodName, 1, null, out _);
 
 		await That(result).IsEqualTo(expected)
 			.Because("a comma inside the name of a generic type argument does not separate type arguments");
+	}
+
+	[Test]
+	public async Task TryGetInvocation_ShouldRequireTheCallToBeOfTheOverload()
+	{
+		MethodInvocation<int> invocation = new("Ns.IFoo.Send<System.String>", 1);
+
+		bool ofOverload = GenericMethodInvocations.TryGetInvocation(invocation, "Ns.IFoo.Send<>", 1,
+			parameters => parameters.GetParameterTypeAt(0) == typeof(int), out _);
+		bool ofOtherOverload = GenericMethodInvocations.TryGetInvocation(invocation, "Ns.IFoo.Send<>", 1,
+			parameters => parameters.GetParameterTypeAt(0) == typeof(int?), out _);
+
+		await That(ofOverload).IsTrue();
+		await That(ofOtherOverload).IsFalse();
+	}
+
+	[Test]
+	[Arguments("Ns.IFoo.Send<System.Int32>", 0, true)]
+	[Arguments("Ns.IFoo.Send<System.String>", 0, false)]
+	[Arguments("Ns.IFoo.Send<System.String, System.Int32>", 0, false)]
+	[Arguments("Ns.IFoo.Send<System.String, System.Int32>", 1, true)]
+	[Arguments("Ns.IFoo.Send<System.Int32, System.String>", 0, true)]
+	[Arguments("Ns.IFoo.Send<System.Int32, System.String>", 1, false)]
+	[Arguments("Ns.IFoo.Send<System.Int32, System.String>", 2, false)]
+	[Arguments("Ns.IFoo.Send<System.Int32[]>", 0, false)]
+	[Arguments("Ns.IFoo<System.Int32>.Send<System.String>", 0, false)]
+	public async Task IsTypeArgument_ShouldCompareTheParameterTypeWithTheTypeArgument(string name, int typeArgumentIndex,
+		bool expected)
+	{
+		MethodInvocation<int> invocation = new(name, 1);
+
+		bool result = GenericMethodInvocations.IsTypeArgument(invocation, 0, typeArgumentIndex);
+
+		await That(result).IsEqualTo(expected);
+	}
+
+	[Test]
+	public async Task IsTypeArgument_WithoutAParameterAtTheIndex_ShouldReturnFalse()
+	{
+		MethodInvocation<int> invocation = new("Ns.IFoo.Send<System.Int32>", 1);
+
+		bool result = GenericMethodInvocations.IsTypeArgument(invocation, 1, 0);
+
+		await That(result).IsFalse();
 	}
 
 	[Test]

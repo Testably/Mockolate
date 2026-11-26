@@ -493,6 +493,94 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
+	public async Task WithASingleParameter_ShouldTakeNullAsTheMatcherOfANullArgument()
+	{
+		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
+		int count = 0;
+		sut.Mock.SetupGeneric.Plain(null).Do(() => count++);
+
+		sut.Plain<string?>(null);
+		sut.Plain("a");
+
+		await That(count).IsEqualTo(1);
+		await That(sut.Mock.VerifyGeneric.Plain(null)).Once();
+	}
+
+	[Test]
+	public async Task OverloadsThatDifferInANullableValueType_ShouldBeToldApart()
+	{
+		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
+		IVoidMethodSetupWithCallback<int?> nullable = sut.Mock.SetupGeneric.Nullable(It.IsAny<int?>());
+
+		sut.Nullable<string>(1);
+
+		await That(sut.Mock.VerifyGeneric.Nullable(It.IsAny<int>())).Once();
+		await That(sut.Mock.VerifyGeneric.Nullable(It.IsAny<int?>())).Never()
+			.Because("the call is one of the overload with an int");
+		await That(sut.Mock.VerifySetup(nullable)).Never();
+		await That(sut.Mock.VerifyThatAllSetupsAreUsed()).IsFalse();
+	}
+
+	[Test]
+	public async Task OverloadsWithAsManyTypeParametersAndParameters_ShouldBeToldApart()
+	{
+		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
+		IVoidMethodSetupWithCallback<object?> ofTypeArgument = sut.Mock.SetupGeneric.SameShape(It.IsAny<object>());
+		IVoidMethodSetupWithCallback<int> ofInt = sut.Mock.SetupGeneric.SameShape(It.IsAny<int>());
+
+		sut.SameShape<string>(5);
+
+		await That(sut.Mock.VerifyGeneric.SameShape(It.IsAny<object>())).Never()
+			.Because("the parameter of the call is an int, not the type argument");
+		await That(sut.Mock.VerifyGeneric.SameShape(It.IsAny<int>())).Once();
+		await That(sut.Mock.VerifySetup(ofTypeArgument)).Never();
+		await That(sut.Mock.VerifySetup(ofInt)).Once();
+
+		sut.SameShape("a");
+
+		await That(sut.Mock.VerifyGeneric.SameShape(It.IsAny<object>())).Once();
+		await That(sut.Mock.VerifyGeneric.SameShape(It.IsAny<int>())).Once();
+		await That(sut.Mock.VerifySetup(ofTypeArgument)).Once();
+	}
+
+	[Test]
+	public async Task OverloadThatIsNotOffered_ShouldNotBeCounted()
+	{
+		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
+		sut.Mock.SetupGeneric.WithParams(Match.AnyParameters());
+
+		sut.WithParams(1, 2, 3);
+
+		await That(sut.Mock.VerifyGeneric.WithParams(Match.AnyParameters())).Never()
+			.Because("the call is one of the overload with params, which has no setup for any type argument");
+		await That(sut.Mock.VerifyGeneric.WithParams(It.IsAny<object>())).Never();
+		await That(sut.Mock.VerifyThatAllSetupsAreUsed()).IsFalse();
+
+		sut.WithParams(1);
+
+		await That(sut.Mock.VerifyGeneric.WithParams(Match.AnyParameters())).Once();
+		await That(sut.Mock.VerifyGeneric.WithParams(It.IsAny<int>())).Once();
+		await That(sut.Mock.VerifyThatAllSetupsAreUsed()).IsTrue();
+	}
+
+	[Test]
+	public async Task OverloadsThatShareTheSignatureOnTheFacade_WhenNoSetupMatches_ShouldCheckTheMatchersOnce()
+	{
+		IAnyTypeSender sut = IAnyTypeSender.CreateMock();
+		int count = 0;
+		sut.Mock.SetupGeneric.Send(It.Satisfies<object>(_ =>
+		{
+			count++;
+			return false;
+		}), It.IsAny<CancellationToken>());
+
+		await sut.Send(new IntRequest());
+
+		await That(count).IsEqualTo(1)
+			.Because("the setup is registered for each overload, but is the same setup");
+	}
+
+	[Test]
 	public async Task OverloadsThatShareTheSignatureOnTheFacade_ShouldBeSetUpAndVerifiedTogether()
 	{
 		IAnyTypeSender sut = IAnyTypeSender.CreateMock();

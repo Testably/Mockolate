@@ -664,6 +664,17 @@ namespace Mockolate.Interactions
 				5 => Parameter6,
 				_ => null,
 			};
+		global::System.Type? global::Mockolate.Internals.IMethodInvocationParameters.GetParameterTypeAt(int index)
+			=> index switch
+			{
+				0 => typeof(T1),
+				1 => typeof(T2),
+				2 => typeof(T3),
+				3 => typeof(T4),
+				4 => typeof(T5),
+				5 => typeof(T6),
+				_ => null,
+			};
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
 		{

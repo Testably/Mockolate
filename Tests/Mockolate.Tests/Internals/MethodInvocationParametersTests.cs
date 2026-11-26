@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Mockolate.Interactions;
 
 namespace Mockolate.Tests.Internals;
@@ -19,6 +20,22 @@ public sealed class MethodInvocationParametersTests
 		await That(invocation.ParameterCount).IsEqualTo(expectedValues.Length);
 		await That(values).IsEqualTo([..expectedValues, null,])
 			.Because("an index after the last parameter has no argument");
+	}
+
+	[Test]
+	[MethodDataSource(nameof(ProvideInvocations))]
+	public async Task GetParameterTypeAt_ShouldReturnTheParameterTypesAndNullOutsideOfThem(
+		IMethodInvocationParameters invocation, object?[] expectedValues)
+	{
+		Type?[] expectedTypes = [typeof(int), typeof(string), typeof(bool), typeof(char),];
+		Type?[] types = new Type?[invocation.ParameterCount + 1];
+		for (int i = 0; i < types.Length; i++)
+		{
+			types[i] = invocation.GetParameterTypeAt(i);
+		}
+
+		await That(types).IsEqualTo([..expectedTypes.Take(expectedValues.Length), null,])
+			.Because("an index after the last parameter has no type");
 	}
 
 	public static IEnumerable<Func<(IMethodInvocationParameters, object?[])>> ProvideInvocations()

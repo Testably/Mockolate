@@ -2417,7 +2417,7 @@ namespace Mockolate.Setup
         }
         public class WithParameterCollectionForAnyTypeArguments : Mockolate.Setup.VoidMethodSetup<T1>.WithParameterCollection, Mockolate.Internals.IGenericMethodSetup, Mockolate.Setup.IVerifiableMethodSetup
         {
-            public WithParameterCollectionForAnyTypeArguments(Mockolate.Internals.MockRegistry mockRegistry, string name, Mockolate.Parameters.IParameterMatch<T1> parameter1) { }
+            public WithParameterCollectionForAnyTypeArguments(Mockolate.Internals.MockRegistry mockRegistry, string name, System.Func<Mockolate.Internals.IMethodInvocationParameters, bool>? isCallOf, Mockolate.Parameters.IParameterMatch<T1> parameter1) { }
             protected override bool MatchesInteraction(Mockolate.Interactions.IMethodInteraction interaction) { }
         }
         public class WithParameters : Mockolate.Setup.VoidMethodSetup<T1>
@@ -2428,7 +2428,7 @@ namespace Mockolate.Setup
         }
         public class WithParametersForAnyTypeArguments : Mockolate.Setup.VoidMethodSetup<T1>.WithParameters, Mockolate.Internals.IGenericMethodSetup, Mockolate.Setup.IVerifiableMethodSetup
         {
-            public WithParametersForAnyTypeArguments(Mockolate.Internals.MockRegistry mockRegistry, string name, Mockolate.Parameters.IParameters parameters, string parameterName1) { }
+            public WithParametersForAnyTypeArguments(Mockolate.Internals.MockRegistry mockRegistry, string name, System.Func<Mockolate.Internals.IMethodInvocationParameters, bool>? isCallOf, Mockolate.Parameters.IParameters parameters, string parameterName1) { }
             protected override bool MatchesInteraction(Mockolate.Interactions.IMethodInteraction interaction) { }
         }
     }
@@ -2456,7 +2456,7 @@ namespace Mockolate.Setup
         }
         public class WithParameterCollectionForAnyTypeArguments : Mockolate.Setup.VoidMethodSetup<T1, T2>.WithParameterCollection, Mockolate.Internals.IGenericMethodSetup, Mockolate.Setup.IVerifiableMethodSetup
         {
-            public WithParameterCollectionForAnyTypeArguments(Mockolate.Internals.MockRegistry mockRegistry, string name, Mockolate.Parameters.IParameterMatch<T1> parameter1, Mockolate.Parameters.IParameterMatch<T2> parameter2) { }
+            public WithParameterCollectionForAnyTypeArguments(Mockolate.Internals.MockRegistry mockRegistry, string name, System.Func<Mockolate.Internals.IMethodInvocationParameters, bool>? isCallOf, Mockolate.Parameters.IParameterMatch<T1> parameter1, Mockolate.Parameters.IParameterMatch<T2> parameter2) { }
             protected override bool MatchesInteraction(Mockolate.Interactions.IMethodInteraction interaction) { }
         }
         public class WithParameters : Mockolate.Setup.VoidMethodSetup<T1, T2>
@@ -2467,7 +2467,7 @@ namespace Mockolate.Setup
         }
         public class WithParametersForAnyTypeArguments : Mockolate.Setup.VoidMethodSetup<T1, T2>.WithParameters, Mockolate.Internals.IGenericMethodSetup, Mockolate.Setup.IVerifiableMethodSetup
         {
-            public WithParametersForAnyTypeArguments(Mockolate.Internals.MockRegistry mockRegistry, string name, Mockolate.Parameters.IParameters parameters, string parameterName1, string parameterName2) { }
+            public WithParametersForAnyTypeArguments(Mockolate.Internals.MockRegistry mockRegistry, string name, System.Func<Mockolate.Internals.IMethodInvocationParameters, bool>? isCallOf, Mockolate.Parameters.IParameters parameters, string parameterName1, string parameterName2) { }
             protected override bool MatchesInteraction(Mockolate.Interactions.IMethodInteraction interaction) { }
         }
     }
@@ -2496,7 +2496,7 @@ namespace Mockolate.Setup
         }
         public class WithParameterCollectionForAnyTypeArguments : Mockolate.Setup.VoidMethodSetup<T1, T2, T3>.WithParameterCollection, Mockolate.Internals.IGenericMethodSetup, Mockolate.Setup.IVerifiableMethodSetup
         {
-            public WithParameterCollectionForAnyTypeArguments(Mockolate.Internals.MockRegistry mockRegistry, string name, Mockolate.Parameters.IParameterMatch<T1> parameter1, Mockolate.Parameters.IParameterMatch<T2> parameter2, Mockolate.Parameters.IParameterMatch<T3> parameter3) { }
+            public WithParameterCollectionForAnyTypeArguments(Mockolate.Internals.MockRegistry mockRegistry, string name, System.Func<Mockolate.Internals.IMethodInvocationParameters, bool>? isCallOf, Mockolate.Parameters.IParameterMatch<T1> parameter1, Mockolate.Parameters.IParameterMatch<T2> parameter2, Mockolate.Parameters.IParameterMatch<T3> parameter3) { }
             protected override bool MatchesInteraction(Mockolate.Interactions.IMethodInteraction interaction) { }
         }
         public class WithParameters : Mockolate.Setup.VoidMethodSetup<T1, T2, T3>
@@ -2507,7 +2507,7 @@ namespace Mockolate.Setup
         }
         public class WithParametersForAnyTypeArguments : Mockolate.Setup.VoidMethodSetup<T1, T2, T3>.WithParameters, Mockolate.Internals.IGenericMethodSetup, Mockolate.Setup.IVerifiableMethodSetup
         {
-            public WithParametersForAnyTypeArguments(Mockolate.Internals.MockRegistry mockRegistry, string name, Mockolate.Parameters.IParameters parameters, string parameterName1, string parameterName2, string parameterName3) { }
+            public WithParametersForAnyTypeArguments(Mockolate.Internals.MockRegistry mockRegistry, string name, System.Func<Mockolate.Internals.IMethodInvocationParameters, bool>? isCallOf, Mockolate.Parameters.IParameters parameters, string parameterName1, string parameterName2, string parameterName3) { }
             protected override bool MatchesInteraction(Mockolate.Interactions.IMethodInteraction interaction) { }
         }
     }
@@ -2537,7 +2537,7 @@ namespace Mockolate.Setup
         }
         public class WithParameterCollectionForAnyTypeArguments : Mockolate.Setup.VoidMethodSetup<T1, T2, T3, T4>.WithParameterCollection, Mockolate.Internals.IGenericMethodSetup, Mockolate.Setup.IVerifiableMethodSetup
         {
-            public WithParameterCollectionForAnyTypeArguments(Mockolate.Internals.MockRegistry mockRegistry, string name, Mockolate.Parameters.IParameterMatch<T1> parameter1, Mockolate.Parameters.IParameterMatch<T2> parameter2, Mockolate.Parameters.IParameterMatch<T3> parameter3, Mockolate.Parameters.IParameterMatch<T4> parameter4) { }
+            public WithParameterCollectionForAnyTypeArguments(Mockolate.Internals.MockRegistry mockRegistry, string name, System.Func<Mockolate.Internals.IMethodInvocationParameters, bool>? isCallOf, Mockolate.Parameters.IParameterMatch<T1> parameter1, Mockolate.Parameters.IParameterMatch<T2> parameter2, Mockolate.Parameters.IParameterMatch<T3> parameter3, Mockolate.Parameters.IParameterMatch<T4> parameter4) { }
             protected override bool MatchesInteraction(Mockolate.Interactions.IMethodInteraction interaction) { }
         }
         public class WithParameters : Mockolate.Setup.VoidMethodSetup<T1, T2, T3, T4>
@@ -2548,7 +2548,7 @@ namespace Mockolate.Setup
         }
         public class WithParametersForAnyTypeArguments : Mockolate.Setup.VoidMethodSetup<T1, T2, T3, T4>.WithParameters, Mockolate.Internals.IGenericMethodSetup, Mockolate.Setup.IVerifiableMethodSetup
         {
-            public WithParametersForAnyTypeArguments(Mockolate.Internals.MockRegistry mockRegistry, string name, Mockolate.Parameters.IParameters parameters, string parameterName1, string parameterName2, string parameterName3, string parameterName4) { }
+            public WithParametersForAnyTypeArguments(Mockolate.Internals.MockRegistry mockRegistry, string name, System.Func<Mockolate.Internals.IMethodInvocationParameters, bool>? isCallOf, Mockolate.Parameters.IParameters parameters, string parameterName1, string parameterName2, string parameterName3, string parameterName4) { }
             protected override bool MatchesInteraction(Mockolate.Interactions.IMethodInteraction interaction) { }
         }
     }

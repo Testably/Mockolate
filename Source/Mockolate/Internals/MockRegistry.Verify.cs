@@ -95,10 +95,15 @@ public partial class MockRegistry
 	///     <c>"Send&lt;,&gt;"</c>).
 	/// </param>
 	/// <param name="parameterCount">The number of parameters of the method.</param>
+	/// <param name="isCallOf">
+	///     Recognizes the calls of the method, when other overloads have the same name and as many type parameters and
+	///     parameters; otherwise <see langword="null" />.
+	/// </param>
 	/// <param name="predicate">Argument predicate applied to each call of the method.</param>
 	/// <param name="expectation">Factory producing the expectation description used in failure messages.</param>
 	public VerificationResult<T> VerifyGenericMethod<T>(T subject, string genericMethodName, int parameterCount,
-		Func<IMethodInvocationParameters, bool> predicate, Func<string> expectation)
+		Func<IMethodInvocationParameters, bool>? isCallOf, Func<IMethodInvocationParameters, bool> predicate,
+		Func<string> expectation)
 	{
 		return new VerificationResult<T>(subject, Interactions, Predicate, InvokedMethodExpectation(expectation));
 
@@ -106,7 +111,7 @@ public partial class MockRegistry
 		bool Predicate(IInteraction interaction)
 		{
 			return GenericMethodInvocations.TryGetInvocation(interaction, genericMethodName, parameterCount,
-				       out IMethodInvocationParameters invocation) &&
+				       isCallOf, out IMethodInvocationParameters invocation) &&
 			       predicate(invocation);
 		}
 	}

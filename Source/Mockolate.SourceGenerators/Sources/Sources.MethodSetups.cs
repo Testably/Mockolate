@@ -140,6 +140,17 @@ internal static partial class Sources
 
 			sb.Append("\t\t\t\t_ => null,").AppendLine();
 			sb.Append("\t\t\t};").AppendLine();
+			sb.Append("\t\tglobal::System.Type? global::Mockolate.Internals.IMethodInvocationParameters.GetParameterTypeAt(int index)")
+				.AppendLine();
+			sb.Append("\t\t\t=> index switch").AppendLine();
+			sb.Append("\t\t\t{").AppendLine();
+			for (int i = 1; i <= count; i++)
+			{
+				sb.Append("\t\t\t\t").Append(i - 1).Append(" => typeof(T").Append(i).Append("),").AppendLine();
+			}
+
+			sb.Append("\t\t\t\t_ => null,").AppendLine();
+			sb.Append("\t\t\t};").AppendLine();
 
 			sb.Append("\t\t/// <inheritdoc cref=\"object.ToString()\" />").AppendLine();
 			sb.Append("\t\tpublic override string ToString()").AppendLine();
@@ -856,12 +867,13 @@ internal static partial class Sources
 		string parameterNameArgs = string.Concat(Enumerable.Range(1, numberOfParameters).Select(i => $", parameterName{i}"));
 		string parameterMatches = string.Concat(Enumerable.Range(1, numberOfParameters).Select(i => $", global::Mockolate.Parameters.IParameterMatch<T{i}> parameter{i}"));
 		string parameterMatchArgs = string.Concat(Enumerable.Range(1, numberOfParameters).Select(i => $", parameter{i}"));
+		const string isCallOf = ", global::System.Func<global::Mockolate.Internals.IMethodInvocationParameters, bool>? isCallOf";
 		AppendAnyTypeArgumentsSetup("WithParametersForAnyTypeArguments", "WithParameters",
 			"matching against <see cref=\"global::Mockolate.Parameters.IParameters\" />",
-			$", global::Mockolate.Parameters.IParameters parameters{parameterNames}", $", parameters{parameterNameArgs}");
+			$"{isCallOf}, global::Mockolate.Parameters.IParameters parameters{parameterNames}", $", parameters{parameterNameArgs}");
 		AppendAnyTypeArgumentsSetup("WithParameterCollectionForAnyTypeArguments", "WithParameterCollection",
 			"matching against individual <see cref=\"global::Mockolate.Parameters.IParameterMatch{T}\" />",
-			parameterMatches, parameterMatchArgs);
+			isCallOf + parameterMatches, parameterMatchArgs);
 		sb.Append("\t}").AppendLine();
 		sb.AppendLine();
 
@@ -873,18 +885,21 @@ internal static partial class Sources
 			sb.Append("\t\tinternal class ").Append(className).Append(" : ").Append(baseClassName)
 				.Append(", global::Mockolate.Internals.IGenericMethodSetup").AppendLine();
 			sb.Append("\t\t{").AppendLine();
+			sb.Append("\t\t\tprivate readonly global::System.Func<global::Mockolate.Internals.IMethodInvocationParameters, bool>? _isCallOf;").AppendLine();
+			sb.AppendLine();
 			sb.Append("\t\t\t/// <inheritdoc cref=\"VoidMethodSetup{").Append(typeParams).Append("}\" />").AppendLine();
 			sb.Append("\t\t\tpublic ").Append(className)
 				.Append("(global::Mockolate.Internals.MockRegistry mockRegistry, string name").Append(constructorParameters)
 				.Append(')').AppendLine();
 			sb.Append("\t\t\t\t: base(mockRegistry, name").Append(constructorArguments).Append(')').AppendLine();
 			sb.Append("\t\t\t{").AppendLine();
+			sb.Append("\t\t\t\t_isCallOf = isCallOf;").AppendLine();
 			sb.Append("\t\t\t}").AppendLine();
 			sb.AppendLine();
 			sb.Append("\t\t\t/// <inheritdoc cref=\"global::Mockolate.Setup.MethodSetup.MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction)\" />").AppendLine();
 			sb.Append("\t\t\tprotected override bool MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction interaction)").AppendLine();
 			sb.Append("\t\t\t\t=> global::Mockolate.Internals.GenericMethodInvocations.TryGetInvocation(interaction, Name, ")
-				.Append(numberOfParameters).Append(", out global::Mockolate.Internals.IMethodInvocationParameters invocation)");
+				.Append(numberOfParameters).Append(", _isCallOf, out global::Mockolate.Internals.IMethodInvocationParameters invocation)");
 			for (int i = 1; i <= numberOfParameters; i++)
 			{
 				sb.Append(" &&").AppendLine();

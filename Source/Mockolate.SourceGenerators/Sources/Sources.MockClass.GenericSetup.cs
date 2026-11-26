@@ -17,17 +17,78 @@ internal static partial class Sources
 	///     methods whose counterparts would share a signature are left out, as their setups could not be told apart, and
 	///     so are methods that an adapter intercepts, as their calls never reach the setups.
 	/// </remarks>
-	private static List<(Method Method, string[] ParameterTypes, Method[] Overloads)> GetGenericFacadeMethods(Class @class,
+	private static List<(Method Method, string[] ParameterTypes, Method[] Overloads, string IsCallOf)> GetGenericFacadeMethods(Class @class,
 		MemberType memberType)
-		=> @class.AllMethods()
+	{
+		Method[] genericMethods = @class.AllMethods().Where(method => method.GenericParameters is not null).ToArray();
+		return genericMethods
 			.Where(method => method.MemberType == memberType && method.ExplicitImplementation is null &&
 			                 HasGenericFacadeShape(method) &&
 			                 FindAdapterMember(@class, method) is not { Member.Kind: MockAdapterMemberKind.Intercepted, })
 			.GroupBy(GetGenericFacadeSignature)
 			.Where(group => group.Select(method => GetGenericSetupName(method) + GetGenericParameterNames(method))
 				.Distinct().Count() == 1)
-			.Select(group => (group.First(), GetGenericFacadeParameterTypes(group.First()), group.ToArray()))
+			.Select(group => group.ToArray())
+			.Select(overloads => (overloads[0], GetGenericFacadeParameterTypes(overloads[0]), overloads,
+				GetGenericIsCallOf(overloads, genericMethods)))
 			.ToList();
+	}
+
+	/// <summary>
+	///     The expression that recognizes the calls of the <paramref name="overloads" /> by the types of their
+	///     parameters, or <c>null</c> when their name and their numbers of type parameters and parameters already do.
+	/// </summary>
+	/// <remarks>
+	///     A call is recorded with the name of the method, its type arguments and the types of its parameters. Another
+	///     method of that name with as many type parameters and parameters is therefore told apart by a parameter type:
+	///     the type itself when it does not depend on a type argument, the type argument when it is a type parameter.
+	///     Any other type that depends on a type argument, e.g. <c>List&lt;T&gt;</c>, is not checked.
+	/// </remarks>
+	private static string GetGenericIsCallOf(Method[] overloads, Method[] genericMethods)
+	{
+		Method method = overloads[0];
+		string setupName = GetGenericSetupName(method);
+		if (!genericMethods.Any(other => !overloads.Contains(other) && other.Parameters.Count == method.Parameters.Count &&
+		                                 GetGenericSetupName(other) == setupName))
+		{
+			return "null";
+		}
+
+		string invocation = Helpers.GetUniqueLocalVariableName("invocation", method.Parameters);
+		List<string> alternatives = [];
+		foreach (Method overload in overloads)
+		{
+			GenericParameter[] genericParameters = overload.GenericParameters!.Value.AsArray();
+			List<string> checks = [];
+			int index = 0;
+			foreach (MethodParameter parameter in overload.Parameters)
+			{
+				if (!overload.UsesTypeParameter(parameter.Type))
+				{
+					checks.Add($"{invocation}.GetParameterTypeAt({index}) == typeof({parameter.Type.IdentityName})");
+				}
+				else if (Array.FindIndex(genericParameters, genericParameter
+					         => parameter.Type.Fullname == genericParameter.Name ||
+					            (parameter.Type.Fullname == genericParameter.Name + "?" && !genericParameter.IsValueType))
+				         is >= 0 and int typeArgumentIndex)
+				{
+					checks.Add(
+						$"global::Mockolate.Internals.GenericMethodInvocations.IsTypeArgument({invocation}, {index}, {typeArgumentIndex})");
+				}
+
+				index++;
+			}
+
+			if (checks.Count == 0)
+			{
+				return "null";
+			}
+
+			alternatives.Add(string.Join(" && ", checks));
+		}
+
+		return $"static {invocation} => {string.Join(" || ", alternatives.Select(alternative => $"({alternative})"))}";
+	}
 
 	/// <remarks>
 	///     A nullable annotation of a reference type does not change the signature, unlike <see cref="System.Nullable{T}" />.
@@ -63,34 +124,37 @@ internal static partial class Sources
 	private static void ImplementGenericFacade(StringBuilder sb, Class @class, string name, string mockRegistryName,
 		MemberIdTable memberIds, string memberIdPrefix)
 	{
+		ImplementGenericSetupFacade(sb, @class, name, mockRegistryName, memberIds, memberIdPrefix, null);
 		foreach (MemberType memberType in new[] { MemberType.Public, MemberType.Protected, })
 		{
-			ImplementGenericSetupFacade(sb, @class, name, memberType, mockRegistryName, memberIds, memberIdPrefix, null);
 			ImplementGenericVerifyFacade(sb, @class, name, memberType, mockRegistryName);
 		}
 	}
 
-	private static void ImplementGenericSetupFacade(StringBuilder sb, Class @class, string name, MemberType memberType,
-		string mockRegistryName, MemberIdTable memberIds, string memberIdPrefix, string? scenario)
+	private static void ImplementGenericSetupFacade(StringBuilder sb, Class @class, string name, string mockRegistryName,
+		MemberIdTable memberIds, string memberIdPrefix, string? scenario)
 	{
-		List<(Method Method, string[] ParameterTypes, Method[] Overloads)> methods = GetGenericFacadeMethods(@class, memberType);
-		if (methods.Count == 0)
+		foreach (MemberType memberType in new[] { MemberType.Public, MemberType.Protected, })
 		{
-			return;
-		}
+			List<(Method Method, string[] ParameterTypes, Method[] Overloads, string IsCallOf)> methods = GetGenericFacadeMethods(@class, memberType);
+			if (methods.Count == 0)
+			{
+				continue;
+			}
 
-		string facadeName = GetGenericSetupFacadeName(memberType, name);
-		sb.AppendLine();
-		sb.Append("\t\t#region ").Append(facadeName).AppendLine();
-		sb.AppendLine();
-		ImplementGenericSetupInterface(sb, methods, facadeName, mockRegistryName, memberIds, memberIdPrefix, scenario);
-		sb.Append("\t\t#endregion ").Append(facadeName).AppendLine();
+			string facadeName = GetGenericSetupFacadeName(memberType, name);
+			sb.AppendLine();
+			sb.Append("\t\t#region ").Append(facadeName).AppendLine();
+			sb.AppendLine();
+			ImplementGenericSetupInterface(sb, methods, facadeName, mockRegistryName, memberIds, memberIdPrefix, scenario);
+			sb.Append("\t\t#endregion ").Append(facadeName).AppendLine();
+		}
 	}
 
 	private static void ImplementGenericVerifyFacade(StringBuilder sb, Class @class, string name, MemberType memberType,
 		string mockRegistryName)
 	{
-		List<(Method Method, string[] ParameterTypes, Method[] Overloads)> methods = GetGenericFacadeMethods(@class, memberType);
+		List<(Method Method, string[] ParameterTypes, Method[] Overloads, string IsCallOf)> methods = GetGenericFacadeMethods(@class, memberType);
 		if (methods.Count == 0)
 		{
 			return;
@@ -106,11 +170,11 @@ internal static partial class Sources
 	}
 
 	private static void DefineGenericFacadeInterfaces(StringBuilder sb, Class @class, string name,
-		string classReference)
+		string classReference, bool hasOverloadResolutionPriority)
 	{
 		foreach (MemberType memberType in new[] { MemberType.Public, MemberType.Protected, })
 		{
-			List<(Method Method, string[] ParameterTypes, Method[] Overloads)> methods = GetGenericFacadeMethods(@class, memberType);
+			List<(Method Method, string[] ParameterTypes, Method[] Overloads, string IsCallOf)> methods = GetGenericFacadeMethods(@class, memberType);
 			if (methods.Count == 0)
 			{
 				continue;
@@ -121,10 +185,12 @@ internal static partial class Sources
 				: "generic methods";
 			sb.AppendLine();
 			DefineGenericSetupInterface(sb, methods, GetGenericSetupFacadeName(memberType, name),
-				$"Set up the {members} of the mock of {classReference} for any type argument.");
+				$"Set up the {members} of the mock of {classReference} for any type argument.",
+				hasOverloadResolutionPriority);
 			DefineGenericVerifyInterface(sb, methods, GetGenericVerifyFacadeName(memberType, name),
 				GetGenericVerifyResultName(memberType, name),
-				$"Verify interactions with the {members} of the mock of {classReference} for any type argument.");
+				$"Verify interactions with the {members} of the mock of {classReference} for any type argument.",
+				hasOverloadResolutionPriority);
 		}
 	}
 
@@ -247,18 +313,33 @@ internal static partial class Sources
 	private static string GetGenericParameterReferences(Method method)
 		=> string.Join(" ", method.Parameters.Select(parameter => $"<paramref name=\"{parameter.Name.TrimStart('@')}\" />"));
 
-	private static bool HasGenericParametersOverload(List<(Method Method, string[] ParameterTypes, Method[] Overloads)> methods,
+	private static bool HasGenericParametersOverload(List<(Method Method, string[] ParameterTypes, Method[] Overloads, string IsCallOf)> methods,
 		Method method)
 		=> method.Parameters.Count > 0 &&
 		   methods.Count(other => GetGenericFacadeName(other.Method) == GetGenericFacadeName(method)) == 1;
 
+	/// <summary>
+	///     Lets a <see langword="null" /> literal for the only parameter choose the overloads that take a matcher, where
+	///     it matches a <see langword="null" /> argument, over the one that takes <c>IParameters</c>.
+	/// </summary>
+	private static void AppendGenericMatcherPriority(StringBuilder sb,
+		List<(Method Method, string[] ParameterTypes, Method[] Overloads, string IsCallOf)> methods, Method method,
+		bool hasOverloadResolutionPriority)
+	{
+		if (hasOverloadResolutionPriority && method.Parameters.Count == 1 && HasGenericParametersOverload(methods, method))
+		{
+			sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]").AppendLine();
+		}
+	}
+
 	private static void DefineGenericSetupInterface(StringBuilder sb,
-		List<(Method Method, string[] ParameterTypes, Method[] Overloads)> methods, string facadeName, string summary)
+		List<(Method Method, string[] ParameterTypes, Method[] Overloads, string IsCallOf)> methods, string facadeName, string summary,
+		bool hasOverloadResolutionPriority)
 	{
 		sb.AppendXmlSummary(summary, "\t");
 		sb.Append("\tinternal interface ").Append(facadeName).AppendLine();
 		sb.Append("\t{").AppendLine();
-		foreach ((Method method, string[] parameterTypes, _) in methods)
+		foreach ((Method method, string[] parameterTypes, _, _) in methods)
 		{
 			string setupInterface = GetGenericSetupInterface(parameterTypes);
 			if (HasGenericParametersOverload(methods, method))
@@ -273,6 +354,7 @@ internal static partial class Sources
 				? $"Setup for the method {method.XmlDocReference} for any type argument."
 				: $"Setup for the method {method.XmlDocReference} for any type argument with the given {GetGenericParameterReferences(method)}.";
 			sb.AppendXmlSummary(methodSummary);
+			AppendGenericMatcherPriority(sb, methods, method, hasOverloadResolutionPriority);
 			sb.Append("\t\t").Append(setupInterface).Append(' ').Append(GetGenericFacadeName(method)).Append('(');
 			AppendGenericFacadeParameters(sb, method, parameterTypes);
 			sb.Append(");").AppendLine();
@@ -280,6 +362,7 @@ internal static partial class Sources
 			if (GetGenericMatcherOverload(method, parameterTypes) is (string[] matcherTypes, string typeParameters))
 			{
 				sb.AppendXmlSummary(methodSummary);
+				AppendGenericMatcherPriority(sb, methods, method, hasOverloadResolutionPriority);
 				sb.Append("\t\t").Append(setupInterface).Append(' ').Append(GetGenericFacadeName(method)).Append('<')
 					.Append(typeParameters).Append(">(");
 				AppendGenericFacadeParameters(sb, method, matcherTypes);
@@ -292,10 +375,10 @@ internal static partial class Sources
 	}
 
 	private static void ImplementGenericSetupInterface(StringBuilder sb,
-		List<(Method Method, string[] ParameterTypes, Method[] Overloads)> methods, string facadeName, string mockRegistryName,
+		List<(Method Method, string[] ParameterTypes, Method[] Overloads, string IsCallOf)> methods, string facadeName, string mockRegistryName,
 		MemberIdTable memberIds, string memberIdPrefix, string? scenario)
 	{
-		foreach ((Method method, string[] parameterTypes, Method[] overloads) in methods)
+		foreach ((Method method, string[] parameterTypes, Method[] overloads, string isCallOf) in methods)
 		{
 			string setupType = GetGenericSetupType(parameterTypes);
 			string setupInterface = GetGenericSetupInterface(parameterTypes);
@@ -311,7 +394,8 @@ internal static partial class Sources
 					.AppendLine();
 				sb.Append("\t\t{").AppendLine();
 				sb.Append("\t\t\tvar methodSetup = new ").Append(setupType).Append(".WithParametersForAnyTypeArguments(this.")
-					.Append(mockRegistryName).Append(", ").Append(GetGenericSetupName(method)).Append(", parameters")
+					.Append(mockRegistryName).Append(", ").Append(GetGenericSetupName(method)).Append(", ").Append(isCallOf)
+					.Append(", parameters")
 					.Append(GetGenericParameterNames(method)).Append(");").AppendLine();
 				AppendRegisterGenericSetup(sb, mockRegistryName, memberIdRefs, "methodSetup", scenario);
 			}
@@ -339,6 +423,11 @@ internal static partial class Sources
 				sb.Append("\t\t\tvar ").Append(methodSetup).Append(" = new ").Append(setupType)
 					.Append(".WithParameterCollectionForAnyTypeArguments(this.").Append(mockRegistryName).Append(", ")
 					.Append(GetGenericSetupName(method));
+				if (method.Parameters.Count > 0)
+				{
+					sb.Append(", ").Append(isCallOf);
+				}
+
 				int index = 0;
 				foreach (MethodParameter parameter in method.Parameters)
 				{
@@ -395,12 +484,13 @@ internal static partial class Sources
 	}
 
 	private static void DefineGenericVerifyInterface(StringBuilder sb,
-		List<(Method Method, string[] ParameterTypes, Method[] Overloads)> methods, string facadeName, string resultName, string summary)
+		List<(Method Method, string[] ParameterTypes, Method[] Overloads, string IsCallOf)> methods, string facadeName, string resultName, string summary,
+		bool hasOverloadResolutionPriority)
 	{
 		sb.AppendXmlSummary(summary, "\t");
 		sb.Append("\tinternal interface ").Append(facadeName).AppendLine();
 		sb.Append("\t{").AppendLine();
-		foreach ((Method method, string[] parameterTypes, _) in methods)
+		foreach ((Method method, string[] parameterTypes, _, _) in methods)
 		{
 			if (HasGenericParametersOverload(methods, method))
 			{
@@ -415,6 +505,7 @@ internal static partial class Sources
 				? $"Validates the invocations for the method {method.XmlDocReference} for any type argument."
 				: $"Validates the invocations for the method {method.XmlDocReference} for any type argument with the given {GetGenericParameterReferences(method)}.";
 			sb.AppendXmlSummary(methodSummary);
+			AppendGenericMatcherPriority(sb, methods, method, hasOverloadResolutionPriority);
 			sb.Append("\t\tglobal::Mockolate.Verify.VerificationResult<").Append(resultName).Append("> ")
 				.Append(GetGenericFacadeName(method)).Append('(');
 			AppendGenericFacadeParameters(sb, method, parameterTypes);
@@ -423,6 +514,7 @@ internal static partial class Sources
 			if (GetGenericMatcherOverload(method, parameterTypes) is (string[] matcherTypes, string typeParameters))
 			{
 				sb.AppendXmlSummary(methodSummary);
+				AppendGenericMatcherPriority(sb, methods, method, hasOverloadResolutionPriority);
 				sb.Append("\t\tglobal::Mockolate.Verify.VerificationResult<").Append(resultName).Append("> ")
 					.Append(GetGenericFacadeName(method)).Append('<').Append(typeParameters).Append(">(");
 				AppendGenericFacadeParameters(sb, method, matcherTypes);
@@ -435,10 +527,10 @@ internal static partial class Sources
 	}
 
 	private static void ImplementGenericVerifyInterface(StringBuilder sb,
-		List<(Method Method, string[] ParameterTypes, Method[] Overloads)> methods, string facadeName, string resultName,
+		List<(Method Method, string[] ParameterTypes, Method[] Overloads, string IsCallOf)> methods, string facadeName, string resultName,
 		string mockRegistryName)
 	{
-		foreach ((Method method, string[] parameterTypes, _) in methods)
+		foreach ((Method method, string[] parameterTypes, _, string isCallOf) in methods)
 		{
 			string invocation = Helpers.GetUniqueLocalVariableName("invocation", method.Parameters);
 			if (HasGenericParametersOverload(methods, method))
@@ -449,7 +541,7 @@ internal static partial class Sources
 					.Append("(global::Mockolate.Parameters.IParameters parameters)").AppendLine();
 				sb.Append("\t\t\t=> this.").Append(mockRegistryName).Append(".VerifyGenericMethod<").Append(resultName)
 					.Append(">(this, ").Append(GetGenericSetupName(method)).Append(", ")
-					.Append(method.Parameters.Count).Append(", ").Append(invocation)
+					.Append(method.Parameters.Count).Append(", ").Append(isCallOf).Append(", ").Append(invocation)
 					.Append(" => global::Mockolate.Internals.GenericMethodInvocations.Matches(parameters, ")
 					.Append(invocation).Append(GetGenericParameterNames(method)).Append("), () => $\"")
 					.Append(method.Name).Append("({parameters})\");").AppendLine();
@@ -498,7 +590,7 @@ internal static partial class Sources
 
 				sb.Append("\t\t\treturn this.").Append(mockRegistryName).Append(".VerifyGenericMethod<").Append(resultName)
 					.Append(">(this, ").Append(GetGenericSetupName(method)).Append(", ")
-					.Append(method.Parameters.Count).Append(", ")
+					.Append(method.Parameters.Count).Append(", ").Append(isCallOf).Append(", ")
 					.Append(method.Parameters.Count == 0 ? "static " : "").Append(invocation).Append(" => ")
 					.Append(method.Parameters.Count == 0 ? "true" : predicate.ToString()).Append(", () => $\"")
 					.Append(method.Name).Append('(')

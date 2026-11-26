@@ -222,6 +222,21 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             []),
         new(
+            "GenericMethodAnyTypeArgument_CanBeCreated",
+            [
+                "IGenericMethodAnyTypeArgument.cs", "IAnyTypeRequest.cs", "IAnyTypeSender.cs",
+                "IGenericMethodAnyTypeArgumentOf.cs", "IGenericMethodAnyTypeArgumentImplemented.cs",
+                "GenericMethodAnyTypeArgumentBase.cs", "GenericMethodAnyTypeArgumentImplementor.cs",
+            ],
+            """
+            IGenericMethodAnyTypeArgument sut1 = IGenericMethodAnyTypeArgument.CreateMock();
+            IAnyTypeSender sut2 = IAnyTypeSender.CreateMock();
+            IGenericMethodAnyTypeArgumentOf<int> sut3 = IGenericMethodAnyTypeArgumentOf<int>.CreateMock();
+            GenericMethodAnyTypeArgumentBase sut4 = GenericMethodAnyTypeArgumentBase.CreateMock();
+            GenericMethodAnyTypeArgumentImplementor sut5 = GenericMethodAnyTypeArgumentImplementor.CreateMock();
+            """,
+            []),
+        new(
             "GenericMethodClosedOverObject_CanBeCreated",
             ["IGenericMethodClosedOverObject.cs",],
             """

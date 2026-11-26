@@ -335,6 +335,7 @@ public partial class MockRegistry
 	private static bool HasNamedSetupInOtherBucket<T>(string methodName, string? alternativeMethodName, int memberId,
 		MethodSetup[]?[] snapshot) where T : MethodSetup
 	{
+		MethodSetup[]? searched = GetBucket(snapshot, memberId);
 		for (int b = 0; b < snapshot.Length; b++)
 		{
 			MethodSetup[]? bucket = snapshot[b];
@@ -345,7 +346,8 @@ public partial class MockRegistry
 
 			foreach (MethodSetup setup in bucket)
 			{
-				if (setup is T && setup.HasName(methodName, alternativeMethodName))
+				if (setup is T && setup.HasName(methodName, alternativeMethodName) &&
+				    !IsIn(searched, setup))
 				{
 					return true;
 				}
@@ -410,6 +412,7 @@ public partial class MockRegistry
 		// (scenario-active dispatch, ref-struct dispatch) doesn't know the id, so we filter by Name
 		// after the type-test. The outer scan is proportional to snapshot.Length (the memberId table
 		// size / mocked member count), not interaction count; the table may be sparse for a method.
+		MethodSetup[]? searched = GetBucket(snapshot, excludedMemberId);
 		for (int b = 0; b < snapshot.Length; b++)
 		{
 			MethodSetup[]? bucket = snapshot[b];
@@ -420,13 +423,22 @@ public partial class MockRegistry
 
 			for (int i = bucket.Length - 1; i >= 0; i--)
 			{
-				if (bucket[i] is T typed && typed.HasName(methodName, alternativeMethodName))
+				if (bucket[i] is T typed && typed.HasName(methodName, alternativeMethodName) &&
+				    !IsIn(searched, typed))
 				{
 					yield return typed;
 				}
 			}
 		}
 	}
+
+	private static MethodSetup[]? GetBucket(MethodSetup[]?[] snapshot, int memberId)
+		=> (uint)memberId < (uint)snapshot.Length ? snapshot[memberId] : null;
+
+	// A setup for several members, such as one for any type argument of overloads that share its signature, is in the
+	// bucket of each of them, and was already checked with the bucket of the called member.
+	private static bool IsIn(MethodSetup[]? searched, MethodSetup setup)
+		=> searched is not null && Array.IndexOf(searched, setup) >= 0;
 
 	/// <summary>
 	///     Returns the latest registered indexer setup of type <typeparamref name="T" /> that satisfies

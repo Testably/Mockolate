@@ -506,7 +506,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForConcreteLogger.BeginScope(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParametersForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", parameters, "state");
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParametersForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", null, parameters, "state");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ConcreteLogger.MemberId_BeginScope_TState_, methodSetup);
 			return methodSetup;
 		}
@@ -514,7 +514,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForConcreteLogger.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", null, global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ConcreteLogger.MemberId_BeginScope_TState_, methodSetup);
 			return methodSetup;
 		}
@@ -522,7 +522,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForConcreteLogger.BeginScope<TState>(global::Mockolate.Parameters.IParameter<TState>? state)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", new global::Mockolate.CovariantParameterAdapter<object?>((global::Mockolate.Parameters.IParameter?)state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", null, new global::Mockolate.CovariantParameterAdapter<object?>((global::Mockolate.Parameters.IParameter?)state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ConcreteLogger.MemberId_BeginScope_TState_, methodSetup);
 			return methodSetup;
 		}
@@ -533,20 +533,20 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForConcreteLogger> IMockGenericVerifyForConcreteLogger.BeginScope(global::Mockolate.Parameters.IParameters parameters)
-			=> this.MockRegistry.VerifyGenericMethod<IMockVerifyForConcreteLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(parameters, invocation, "state"), () => $"BeginScope<TState>({parameters})");
+			=> this.MockRegistry.VerifyGenericMethod<IMockVerifyForConcreteLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", 1, null, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(parameters, invocation, "state"), () => $"BeginScope<TState>({parameters})");
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForConcreteLogger> IMockGenericVerifyForConcreteLogger.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
 		{
 			global::Mockolate.Parameters.IParameterMatch<object?> match1 = global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>());
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForConcreteLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForConcreteLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", 1, null, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForConcreteLogger> IMockGenericVerifyForConcreteLogger.BeginScope<TState>(global::Mockolate.Parameters.IParameter<TState>? state)
 		{
 			global::Mockolate.Parameters.IParameterMatch<object?> match1 = new global::Mockolate.CovariantParameterAdapter<object?>((global::Mockolate.Parameters.IParameter?)state ?? global::Mockolate.Internals.Matchers.IsNull<object?>());
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForConcreteLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForConcreteLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", 1, null, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		}
 
 		#endregion IMockGenericVerifyForConcreteLogger
@@ -665,20 +665,20 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForConcreteLogger> IMockGenericVerifyForConcreteLogger.BeginScope(global::Mockolate.Parameters.IParameters parameters)
-			=> this.MockRegistry.VerifyGenericMethod<IMockVerifyForConcreteLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(parameters, invocation, "state"), () => $"BeginScope<TState>({parameters})");
+			=> this.MockRegistry.VerifyGenericMethod<IMockVerifyForConcreteLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", 1, null, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(parameters, invocation, "state"), () => $"BeginScope<TState>({parameters})");
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForConcreteLogger> IMockGenericVerifyForConcreteLogger.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
 		{
 			global::Mockolate.Parameters.IParameterMatch<object?> match1 = global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>());
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForConcreteLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForConcreteLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", 1, null, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForConcreteLogger> IMockGenericVerifyForConcreteLogger.BeginScope<TState>(global::Mockolate.Parameters.IParameter<TState>? state)
 		{
 			global::Mockolate.Parameters.IParameterMatch<object?> match1 = new global::Mockolate.CovariantParameterAdapter<object?>((global::Mockolate.Parameters.IParameter?)state ?? global::Mockolate.Internals.Matchers.IsNull<object?>());
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForConcreteLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForConcreteLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", 1, null, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		}
 
 		#endregion IMockGenericVerifyForConcreteLogger
@@ -835,7 +835,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForConcreteLogger.BeginScope(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParametersForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", parameters, "state");
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParametersForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", null, parameters, "state");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ConcreteLogger.MemberId_BeginScope_TState_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -843,7 +843,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForConcreteLogger.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", null, global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ConcreteLogger.MemberId_BeginScope_TState_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -851,7 +851,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForConcreteLogger.BeginScope<TState>(global::Mockolate.Parameters.IParameter<TState>? state)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", new global::Mockolate.CovariantParameterAdapter<object?>((global::Mockolate.Parameters.IParameter?)state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<>", null, new global::Mockolate.CovariantParameterAdapter<object?>((global::Mockolate.Parameters.IParameter?)state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.ConcreteLogger.MemberId_BeginScope_TState_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -1204,11 +1204,13 @@ internal static partial class Mock
 		/// <summary>
 		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope{TState}(TState)">BeginScope&lt;TState&gt;(TState)</see> for any type argument with the given <paramref name="state" />.
 		/// </summary>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> BeginScope(global::Mockolate.Parameters.IParameter<object?>? state);
 
 		/// <summary>
 		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope{TState}(TState)">BeginScope&lt;TState&gt;(TState)</see> for any type argument with the given <paramref name="state" />.
 		/// </summary>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> BeginScope<TState>(global::Mockolate.Parameters.IParameter<TState>? state);
 
 	}
@@ -1225,11 +1227,13 @@ internal static partial class Mock
 		/// <summary>
 		///     Validates the invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope{TState}(TState)">BeginScope&lt;TState&gt;(TState)</see> for any type argument with the given <paramref name="state" />.
 		/// </summary>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForConcreteLogger> BeginScope(global::Mockolate.Parameters.IParameter<object?>? state);
 
 		/// <summary>
 		///     Validates the invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope{TState}(TState)">BeginScope&lt;TState&gt;(TState)</see> for any type argument with the given <paramref name="state" />.
 		/// </summary>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForConcreteLogger> BeginScope<TState>(global::Mockolate.Parameters.IParameter<TState>? state);
 
 	}
@@ -2057,7 +2061,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForLeafLogger.BeginScope(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParametersForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", parameters, "state");
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParametersForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", null, parameters, "state");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.LeafLogger.MemberId_BeginScope_TState_, methodSetup);
 			return methodSetup;
 		}
@@ -2065,7 +2069,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForLeafLogger.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", null, global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.LeafLogger.MemberId_BeginScope_TState_, methodSetup);
 			return methodSetup;
 		}
@@ -2073,7 +2077,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForLeafLogger.BeginScope<TState>(global::Mockolate.Parameters.IParameter<TState>? state)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", new global::Mockolate.CovariantParameterAdapter<object?>((global::Mockolate.Parameters.IParameter?)state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", null, new global::Mockolate.CovariantParameterAdapter<object?>((global::Mockolate.Parameters.IParameter?)state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.LeafLogger.MemberId_BeginScope_TState_, methodSetup);
 			return methodSetup;
 		}
@@ -2084,20 +2088,20 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> IMockGenericVerifyForLeafLogger.BeginScope(global::Mockolate.Parameters.IParameters parameters)
-			=> this.MockRegistry.VerifyGenericMethod<IMockVerifyForLeafLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(parameters, invocation, "state"), () => $"BeginScope<TState>({parameters})");
+			=> this.MockRegistry.VerifyGenericMethod<IMockVerifyForLeafLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", 1, null, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(parameters, invocation, "state"), () => $"BeginScope<TState>({parameters})");
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> IMockGenericVerifyForLeafLogger.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
 		{
 			global::Mockolate.Parameters.IParameterMatch<object?> match1 = global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>());
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForLeafLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForLeafLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", 1, null, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> IMockGenericVerifyForLeafLogger.BeginScope<TState>(global::Mockolate.Parameters.IParameter<TState>? state)
 		{
 			global::Mockolate.Parameters.IParameterMatch<object?> match1 = new global::Mockolate.CovariantParameterAdapter<object?>((global::Mockolate.Parameters.IParameter?)state ?? global::Mockolate.Internals.Matchers.IsNull<object?>());
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForLeafLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForLeafLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", 1, null, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		}
 
 		#endregion IMockGenericVerifyForLeafLogger
@@ -2216,20 +2220,20 @@ internal static partial class Mock
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> IMockGenericVerifyForLeafLogger.BeginScope(global::Mockolate.Parameters.IParameters parameters)
-			=> this.MockRegistry.VerifyGenericMethod<IMockVerifyForLeafLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(parameters, invocation, "state"), () => $"BeginScope<TState>({parameters})");
+			=> this.MockRegistry.VerifyGenericMethod<IMockVerifyForLeafLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", 1, null, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(parameters, invocation, "state"), () => $"BeginScope<TState>({parameters})");
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> IMockGenericVerifyForLeafLogger.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
 		{
 			global::Mockolate.Parameters.IParameterMatch<object?> match1 = global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>());
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForLeafLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForLeafLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", 1, null, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		}
 
 		/// <inheritdoc />
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> IMockGenericVerifyForLeafLogger.BeginScope<TState>(global::Mockolate.Parameters.IParameter<TState>? state)
 		{
 			global::Mockolate.Parameters.IParameterMatch<object?> match1 = new global::Mockolate.CovariantParameterAdapter<object?>((global::Mockolate.Parameters.IParameter?)state ?? global::Mockolate.Internals.Matchers.IsNull<object?>());
-			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForLeafLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", 1, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
+			return this.MockRegistry.VerifyGenericMethod<IMockVerifyForLeafLogger>(this, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", 1, null, invocation => global::Mockolate.Internals.GenericMethodInvocations.Matches(match1, invocation, 0), () => $"BeginScope<TState>({(global::Mockolate.Internals.ValueFormatter.Format((object?)state))})");
 		}
 
 		#endregion IMockGenericVerifyForLeafLogger
@@ -2386,7 +2390,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForLeafLogger.BeginScope(global::Mockolate.Parameters.IParameters parameters)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParametersForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", parameters, "state");
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParametersForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", null, parameters, "state");
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.LeafLogger.MemberId_BeginScope_TState_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -2394,7 +2398,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForLeafLogger.BeginScope(global::Mockolate.Parameters.IParameter<object?>? state)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", null, global::Mockolate.CovariantParameterAdapter<object?>.Wrap(state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.LeafLogger.MemberId_BeginScope_TState_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -2402,7 +2406,7 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> IMockGenericSetupForLeafLogger.BeginScope<TState>(global::Mockolate.Parameters.IParameter<TState>? state)
 		{
-			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", new global::Mockolate.CovariantParameterAdapter<object?>((global::Mockolate.Parameters.IParameter?)state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
+			var methodSetup = new global::Mockolate.Setup.VoidMethodSetup<object?>.WithParameterCollectionForAnyTypeArguments(this.MockRegistry, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<>", null, new global::Mockolate.CovariantParameterAdapter<object?>((global::Mockolate.Parameters.IParameter?)state ?? global::Mockolate.Internals.Matchers.IsNull<object?>()));
 			this.MockRegistry.SetupMethod(global::Mockolate.Mock.LeafLogger.MemberId_BeginScope_TState_, this._scenarioName, methodSetup);
 			return methodSetup;
 		}
@@ -2755,11 +2759,13 @@ internal static partial class Mock
 		/// <summary>
 		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope{TState}(TState)">BeginScope&lt;TState&gt;(TState)</see> for any type argument with the given <paramref name="state" />.
 		/// </summary>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> BeginScope(global::Mockolate.Parameters.IParameter<object?>? state);
 
 		/// <summary>
 		///     Setup for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope{TState}(TState)">BeginScope&lt;TState&gt;(TState)</see> for any type argument with the given <paramref name="state" />.
 		/// </summary>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Setup.IVoidMethodSetupWithCallback<object?> BeginScope<TState>(global::Mockolate.Parameters.IParameter<TState>? state);
 
 	}
@@ -2776,11 +2782,13 @@ internal static partial class Mock
 		/// <summary>
 		///     Validates the invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope{TState}(TState)">BeginScope&lt;TState&gt;(TState)</see> for any type argument with the given <paramref name="state" />.
 		/// </summary>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> BeginScope(global::Mockolate.Parameters.IParameter<object?>? state);
 
 		/// <summary>
 		///     Validates the invocations for the method <see cref="global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope{TState}(TState)">BeginScope&lt;TState&gt;(TState)</see> for any type argument with the given <paramref name="state" />.
 		/// </summary>
+		[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]
 		global::Mockolate.Verify.VerificationResult<IMockVerifyForLeafLogger> BeginScope<TState>(global::Mockolate.Parameters.IParameter<TState>? state);
 
 	}

@@ -483,8 +483,7 @@ internal static partial class Sources
 			sb.Append("\t\t#endregion IMockProtectedSetupFor").Append(name).AppendLine();
 		}
 
-		ImplementGenericSetupFacade(sb, @class, name, MemberType.Public, mockRegistryName, memberIds, memberIdPrefix, "this._scenarioName");
-		ImplementGenericSetupFacade(sb, @class, name, MemberType.Protected, mockRegistryName, memberIds, memberIdPrefix, "this._scenarioName");
+		ImplementGenericSetupFacade(sb, @class, name, mockRegistryName, memberIds, memberIdPrefix, "this._scenarioName");
 		sb.Append("\t}").AppendLine();
 		sb.AppendLine();
 
@@ -862,7 +861,7 @@ internal static partial class Sources
 
 		#endregion IMockStaticVerifyForXXX
 
-		DefineGenericFacadeInterfaces(sb, @class, name, classReference);
+		DefineGenericFacadeInterfaces(sb, @class, name, classReference, hasOverloadResolutionPriority);
 
 		#endregion Mock Interfaces
 

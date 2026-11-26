@@ -21,12 +21,13 @@ internal static class Helpers
 		genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters);
 
 	/// <summary>
-	///     <see cref="TypeDisplayFormat" /> without the nullable annotations of reference types, at any depth, which do not
-	///     tell signatures apart.
+	///     <see cref="TypeDisplayFormat" /> without the nullable annotations of reference types, at any depth, and without
+	///     the names of tuple elements, which do not tell signatures apart.
 	/// </summary>
 	public static SymbolDisplayFormat TypeIdentityDisplayFormat { get; } = new(
 		miscellaneousOptions: SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers |
-		                      SymbolDisplayMiscellaneousOptions.UseSpecialTypes,
+		                      SymbolDisplayMiscellaneousOptions.UseSpecialTypes |
+		                      SymbolDisplayMiscellaneousOptions.ExpandValueTuple,
 		globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Included,
 		typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
 		genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters);

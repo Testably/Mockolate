@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using Mockolate.Internals;
 
@@ -20,6 +21,9 @@ public class MethodInvocation(string name) : IMethodInteraction, IMethodInvocati
 	int IMethodInvocationParameters.ParameterCount => 0;
 
 	object? IMethodInvocationParameters.GetParameterValueAt(int index)
+		=> null;
+
+	Type? IMethodInvocationParameters.GetParameterTypeAt(int index)
 		=> null;
 
 	/// <inheritdoc cref="object.ToString()" />
@@ -52,6 +56,13 @@ public class MethodInvocation<T1>(string name, T1 parameter1) : IMethodInteracti
 		=> index switch
 		{
 			0 => Parameter1,
+			_ => null,
+		};
+
+	Type? IMethodInvocationParameters.GetParameterTypeAt(int index)
+		=> index switch
+		{
+			0 => typeof(T1),
 			_ => null,
 		};
 
@@ -92,6 +103,14 @@ public class MethodInvocation<T1, T2>(string name, T1 parameter1, T2 parameter2)
 		{
 			0 => Parameter1,
 			1 => Parameter2,
+			_ => null,
+		};
+
+	Type? IMethodInvocationParameters.GetParameterTypeAt(int index)
+		=> index switch
+		{
+			0 => typeof(T1),
+			1 => typeof(T2),
 			_ => null,
 		};
 
@@ -139,6 +158,15 @@ public class MethodInvocation<T1, T2, T3>(string name, T1 parameter1, T2 paramet
 			0 => Parameter1,
 			1 => Parameter2,
 			2 => Parameter3,
+			_ => null,
+		};
+
+	Type? IMethodInvocationParameters.GetParameterTypeAt(int index)
+		=> index switch
+		{
+			0 => typeof(T1),
+			1 => typeof(T2),
+			2 => typeof(T3),
 			_ => null,
 		};
 
@@ -192,6 +220,16 @@ public class MethodInvocation<T1, T2, T3, T4>(string name, T1 parameter1, T2 par
 			1 => Parameter2,
 			2 => Parameter3,
 			3 => Parameter4,
+			_ => null,
+		};
+
+	Type? IMethodInvocationParameters.GetParameterTypeAt(int index)
+		=> index switch
+		{
+			0 => typeof(T1),
+			1 => typeof(T2),
+			2 => typeof(T3),
+			3 => typeof(T4),
 			_ => null,
 		};
 

@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 
 namespace Mockolate.Internals;
@@ -21,4 +22,10 @@ public interface IMethodInvocationParameters
 	///     Gets the argument at the zero-based <paramref name="index" />.
 	/// </summary>
 	object? GetParameterValueAt(int index);
+
+	/// <summary>
+	///     Gets the type that the parameter at the zero-based <paramref name="index" /> has in the called method, which
+	///     tells overloads apart that the arguments alone do not.
+	/// </summary>
+	Type? GetParameterTypeAt(int index);
 }

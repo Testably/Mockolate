@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
 using Mockolate.SourceGenerators.Internals;
 
@@ -5,6 +6,9 @@ namespace Mockolate.SourceGenerators.Entities;
 
 internal record Type
 {
+	// A type that is named dynamic is qualified, at least with global::.
+	private static readonly Regex NestedDynamic = new(@"(?<![\w.:@])dynamic(?!\w)", RegexOptions.Compiled);
+
 	private Type(string fullname)
 	{
 		Fullname = fullname;
@@ -30,9 +34,10 @@ internal record Type
 
 		// Removes '*' from multi-dimensional array types
 		Fullname = typeSymbol.ToQualifiedDisplayString(Helpers.TypeDisplayFormat).Replace("*", "");
-		IdentityName = Fullname.IndexOf('?') < 0
+		IdentityName = Fullname.IndexOfAny(['?', '(',]) < 0 && Fullname.IndexOf("dynamic", StringComparison.Ordinal) < 0
 			? Fullname
-			: typeSymbol.ToQualifiedDisplayString(Helpers.TypeIdentityDisplayFormat).Replace("*", "");
+			: NestedDynamic.Replace(
+				typeSymbol.ToQualifiedDisplayString(Helpers.TypeIdentityDisplayFormat).Replace("*", ""), "object");
 		DisplayName = typeSymbol.ToDisplayString(Helpers.TypeDisplayShortFormat).Replace("*", "");
 		Namespace = typeSymbol.ContainingNamespace?.ToString();
 		if (typeSymbol is INamedTypeSymbol namedTypeSymbol)
@@ -147,8 +152,9 @@ internal record Type
 	public string Fullname { get; }
 
 	/// <summary>
-	///     The <see cref="Fullname" /> without the nullable annotations of reference types, at any depth, so that two
-	///     types are the same in a signature exactly when their identity names are equal.
+	///     The <see cref="Fullname" /> without the nullable annotations of reference types, at any depth, without the
+	///     names of tuple elements and with <see langword="object" /> for <see langword="dynamic" />, so that two types are
+	///     the same in a signature exactly when their identity names are equal. It is valid in a <see langword="typeof" />.
 	/// </summary>
 	public string IdentityName { get; }
 

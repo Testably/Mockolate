@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using Mockolate.Interactions;
 using Mockolate.Parameters;
@@ -21,13 +22,16 @@ public static class GenericMethodInvocations
 {
 	/// <summary>
 	///     Checks whether <paramref name="interaction" /> is a call of the open generic method
-	///     <paramref name="genericMethodName" /> with <paramref name="parameterCount" /> parameters.
+	///     <paramref name="genericMethodName" /> with <paramref name="parameterCount" /> parameters, and of the overload that
+	///     <paramref name="isCallOf" /> recognizes, when other overloads have the same name and as many type parameters
+	///     and parameters.
 	/// </summary>
 	public static bool TryGetInvocation(IInteraction interaction, string genericMethodName, int parameterCount,
-		out IMethodInvocationParameters invocation)
+		Func<IMethodInvocationParameters, bool>? isCallOf, out IMethodInvocationParameters invocation)
 	{
 		if (interaction is IMethodInteraction method && IsCallOf(method.Name, genericMethodName) &&
-		    interaction is IMethodInvocationParameters parameters && parameters.ParameterCount == parameterCount)
+		    interaction is IMethodInvocationParameters parameters && parameters.ParameterCount == parameterCount &&
+		    (isCallOf is null || isCallOf(parameters)))
 		{
 			invocation = parameters;
 			return true;
@@ -56,6 +60,38 @@ public static class GenericMethodInvocations
 		}
 
 		return typeArgumentCount == genericMethodName.Length - prefixLength;
+	}
+
+	/// <summary>
+	///     Checks whether the parameter at the zero-based <paramref name="parameterIndex" /> has the type of the type
+	///     argument at the zero-based <paramref name="typeArgumentIndex" /> of the called generic method.
+	/// </summary>
+	public static bool IsTypeArgument(IMethodInvocationParameters invocation, int parameterIndex, int typeArgumentIndex)
+	{
+		if (invocation is not IMethodInteraction method || invocation.GetParameterTypeAt(parameterIndex) is not { } type)
+		{
+			return false;
+		}
+
+		string name = method.Name;
+		int start = name.LastIndexOf('<') + 1;
+		for (int i = 0; i < typeArgumentIndex; i++)
+		{
+			start = name.IndexOf(", ", start, StringComparison.Ordinal) + 2;
+			if (start < 2)
+			{
+				return false;
+			}
+		}
+
+		int end = name.IndexOf(", ", start, StringComparison.Ordinal);
+		if (end < 0)
+		{
+			end = name.Length - 1;
+		}
+
+		string typeName = type.ToString();
+		return end - start == typeName.Length && string.CompareOrdinal(name, start, typeName, 0, typeName.Length) == 0;
 	}
 
 	/// <summary>
