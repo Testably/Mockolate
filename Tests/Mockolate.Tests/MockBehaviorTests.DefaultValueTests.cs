@@ -405,6 +405,37 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
+		public async Task WithValueTuple_WhenAPredicateMatches_ShouldReturnTheValueOfTheFactory()
+		{
+			int[]? receivedArguments = null;
+			IDefaultValueGeneratorProperties sut = IDefaultValueGeneratorProperties.CreateMock(
+				MockBehavior.Default.WithDefaultValueFor(new DefaultValueFactory(
+					type => type == typeof((int, string)),
+					(_, arguments) =>
+					{
+						receivedArguments = arguments.OfType<int>().ToArray();
+						return (1, "predicate");
+					})));
+
+			(int V1, string V2) result = sut.GetNamedValueTuple(2);
+
+			await That(result).IsEqualTo((1, "predicate"));
+			await That(receivedArguments).IsEqualTo([2,]);
+		}
+
+		[Test]
+		public async Task WithValueTupleOfOneOrNoElement_ShouldReturnValueTupleWithDefaultValues()
+		{
+			IDefaultValueGeneratorProperties sut = IDefaultValueGeneratorProperties.CreateMock();
+
+			ValueTuple<string> single = sut.GetSingleValueTuple(1);
+			ValueTuple empty = sut.GetEmptyValueTuple();
+
+			await That(single.Item1).IsEqualTo("");
+			await That(empty).IsEqualTo(default(ValueTuple));
+		}
+
+		[Test]
 		public async Task WithValueTuple8_ShouldReturnValueTupleWithDefaultValues()
 		{
 			IDefaultValueGeneratorProperties sut = IDefaultValueGeneratorProperties.CreateMock();
@@ -446,6 +477,8 @@ public sealed partial class MockBehaviorTests
 			Task<(int, int[], string)> ComplexTask();
 			Task<Tuple<int, int[]>> ReferenceTupleTask();
 			(int V1, string V2) GetNamedValueTuple(int value);
+			ValueTuple<string> GetSingleValueTuple(int value);
+			ValueTuple GetEmptyValueTuple();
 			Type GetMyType();
 		}
 

@@ -19,6 +19,7 @@ public interface IAutoMockTuples
 	Tuple<int, IAutoMockTupleElement> GetReferenceTuple();
 	Tuple<int, int, int, int, int, int, int, Tuple<IAutoMockTupleElement>> GetLongReferenceTuple();
 	(int, int, int, int, int, int, int, IAutoMockTupleElement Eighth) GetLongValueTuple();
+	ValueTuple<IAutoMockTupleElement> GetSingle();
 }
 
 public interface IAutoMockTupleElement

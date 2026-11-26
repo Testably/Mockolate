@@ -589,11 +589,39 @@ internal static class Helpers
 
 			if (type.TupleTypes is not null)
 			{
-				// A factory for the tuple type takes precedence over the tuple of default values.
-				sb.Append("(").Append(defaultValueName).Append(".GenerateOrNull<").Append(type.Fullname).Append(">(")
-					.Append(suffix).Append(") ?? (");
-				sb.AppendTupleElementDefaultValues(type.TupleTypes.Value, defaultValueName, suffix, taskSuffix, autoMock);
-				sb.Append("))");
+				// A factory for the tuple type takes precedence over the tuple of default values. The probe avoids
+				// collecting the arguments when no factory can match.
+				sb.Append("((").Append(defaultValueName).Append(".Probe<").Append(type.Fullname)
+					.Append(">() switch { global::Mockolate.Internals.DefaultValueSource.None => null, ");
+				if (!string.IsNullOrWhiteSpace(suffix))
+				{
+					sb.Append("global::Mockolate.Internals.DefaultValueSource.WithoutArguments => ")
+						.Append(defaultValueName).Append(".GenerateOrNull<").Append(type.Fullname).Append(">(), ");
+				}
+
+				sb.Append("_ => ").Append(defaultValueName).Append(".GenerateOrNull<").Append(type.Fullname)
+					.Append(">(").Append(suffix).Append(") }) ?? ");
+				switch (type.TupleTypes.Value.Count)
+				{
+					case 0:
+						sb.Append("default(").Append(type.Fullname).Append(")");
+						break;
+					case 1:
+						// A single element in parentheses is no tuple literal.
+						sb.Append("new ").Append(type.Fullname).Append("(");
+						sb.AppendTupleElementDefaultValues(type.TupleTypes.Value, defaultValueName, suffix, taskSuffix,
+							autoMock);
+						sb.Append(")");
+						break;
+					default:
+						sb.Append("(");
+						sb.AppendTupleElementDefaultValues(type.TupleTypes.Value, defaultValueName, suffix, taskSuffix,
+							autoMock);
+						sb.Append(")");
+						break;
+				}
+
+				sb.Append(")");
 				return sb;
 			}
 

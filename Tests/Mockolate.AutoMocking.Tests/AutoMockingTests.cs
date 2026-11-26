@@ -485,6 +485,17 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
+	public async Task Tuple_WithOneElement_ShouldReturnSameMock()
+	{
+		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
+
+		IAutoMockTupleElement element = sut.GetSingle().Item1;
+
+		await That(element).IsNotNull();
+		await That(sut.GetSingle().Item1).IsSameAs(element);
+	}
+
+	[Test]
 	public async Task Tuple_WhenSetup_ShouldReturnTheSetupValue()
 	{
 		IAutoMockTuples sut = IAutoMockTuples.CreateMock();

@@ -544,9 +544,9 @@ internal static partial class MockGeneratorHelpers
 
 	/// <summary>
 	///     The types whose default value can be an auto-mock when a member returns <paramref name="typeSymbol" />: the
-	///     type itself, or the result type of a task and the elements of a tuple, also nested.
+	///     type itself, or the result type of a task and the elements of a tuple, also nested. An indexer that returns a task gets no auto-mock.
 	/// </summary>
-	private static IEnumerable<ITypeSymbol> GetAutoMockCandidates(ITypeSymbol typeSymbol)
+	private static IEnumerable<ITypeSymbol> GetAutoMockCandidates(ITypeSymbol typeSymbol, bool unwrapTask = true)
 	{
 		if (typeSymbol is not INamedTypeSymbol { IsGenericType: true, } named)
 		{
@@ -558,12 +558,12 @@ internal static partial class MockGeneratorHelpers
 			return named.TupleElements.SelectMany(element => GetAutoMockCandidates(element.Type));
 		}
 
-		if (named.GetSpecialType() == SpecialGenericType.Tuple)
+		if (IsConstructibleTuple(named))
 		{
-			return named.TypeArguments.SelectMany(GetAutoMockCandidates);
+			return named.TypeArguments.SelectMany(argument => GetAutoMockCandidates(argument));
 		}
 
-		return named is
+		return unwrapTask && named is
 		{
 			TypeArguments.Length: 1,
 			Name: "Task" or "ValueTask",
@@ -579,6 +579,13 @@ internal static partial class MockGeneratorHelpers
 			? GetAutoMockCandidates(named.TypeArguments[0])
 			: [typeSymbol,];
 	}
+
+	/// <summary>
+	///     The constructor of an eight element <see cref="System.Tuple" /> throws when its last element is no tuple.
+	/// </summary>
+	private static bool IsConstructibleTuple(INamedTypeSymbol type)
+		=> type.GetSpecialType() == SpecialGenericType.Tuple &&
+		   (type.Arity < 8 || type.TypeArguments[7] is INamedTypeSymbol rest && IsConstructibleTuple(rest));
 
 	private static IEnumerable<INamedTypeSymbol> GetAutoMockableReturnTypes(ITypeSymbol typeSymbol,
 		IAssemblySymbol sourceAssembly, AutoMockingOptions options, AutoMockDependencies? dependencies,
@@ -597,7 +604,7 @@ internal static partial class MockGeneratorHelpers
 				continue;
 			}
 
-			foreach (INamedTypeSymbol candidate in GetAutoMockCandidates(returnType).OfType<INamedTypeSymbol>())
+			foreach (INamedTypeSymbol candidate in GetAutoMockCandidates(returnType, member is not IPropertySymbol { IsIndexer: true, }).OfType<INamedTypeSymbol>())
 			{
 				// Whether a candidate is discovered depends on its members, unless its own declaration rejects it.
 				if (IsAutoMockable(candidate) && CanDiscoverNamespace(candidate, options))
