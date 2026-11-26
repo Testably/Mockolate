@@ -1191,6 +1191,7 @@ public partial class MockRegistry
 			}
 		}
 
+		HashSet<MethodSetup> visited = [];
 		foreach (MethodSetup[]? bucket in table)
 		{
 			if (bucket is null)
@@ -1200,6 +1201,11 @@ public partial class MockRegistry
 
 			foreach (MethodSetup setup in bucket)
 			{
+				if (!visited.Add(setup))
+				{
+					continue;
+				}
+
 				bool matched = false;
 				foreach (IMethodInteraction interaction in methodInteractions)
 				{

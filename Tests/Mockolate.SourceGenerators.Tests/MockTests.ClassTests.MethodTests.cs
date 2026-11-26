@@ -174,6 +174,39 @@ public sealed partial class MockTests
 			}
 
 			[Test]
+			public async Task SetupGeneric_ShouldOfferOverloadsThatShareTheSignatureOnlyWhenTheyShareTheParameterNames()
+			{
+				GeneratorResult result = Generator
+					.Run("""
+					     using Mockolate;
+
+					     namespace MyCode;
+					     public class Program
+					     {
+					         public static void Main(string[] args)
+					         {
+					     		_ = IMyService.CreateMock();
+					         }
+					     }
+
+					     public interface IMyService
+					     {
+					         void Shared<T>(T value);
+					         void Shared<T>(object value);
+					         void Renamed<T>(T value);
+					         void Renamed<T>(object other);
+					     }
+					     """);
+
+				await That(result.Diagnostics).IsEmpty();
+				await That(result.Sources["Mock.IMyService.g.cs"])
+					.Contains("IVoidMethodSetupWithCallback<object?> Shared(global::Mockolate.Parameters.IParameter<object?>? value);")
+					.Exactly(1).And
+					.DoesNotContain(" Renamed(global::")
+					.Because("a named parameter match could not tell which name applies");
+			}
+
+			[Test]
 			public async Task Generic_WithoutConstraints_ShouldNotHaveWhereClause()
 			{
 				GeneratorResult result = Generator

@@ -346,5 +346,20 @@ public sealed class MockRegistrySnapshotRetrievalTests
 
 			await That(unused).Contains(setup);
 		}
+
+		[Test]
+		public async Task IncludesMethodSnapshotSetupOnce_WhenRegisteredForSeveralMembers()
+		{
+			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			FakeMethodSetup setup = new();
+
+			registry.SetupMethod(1, setup);
+			registry.SetupMethod(2, setup);
+
+			IReadOnlyCollection<ISetup> unused = registry.GetUnusedSetups(registry.Interactions);
+
+			await That(unused).IsEqualTo([setup,])
+				.Because("a setup for any type argument is registered for every overload whose calls it matches");
+		}
 	}
 }

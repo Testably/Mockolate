@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using Mockolate.Exceptions;
 using Mockolate.Setup;
 using Mockolate.Tests.GeneratorCoverage;
@@ -475,6 +476,70 @@ public sealed class GenericMethodAnyTypeArgumentTests
 
 		await That(sut.Mock.VerifyGeneric.Nullable(It.IsAny<int>())).Once();
 		await That(sut.Mock.VerifyGeneric.Nullable(It.Is<int?>(null))).Once();
+	}
+
+	[Test]
+	public async Task OverloadsThatShareTheSignatureOnTheFacade_ShouldBeSetUpAndVerifiedTogether()
+	{
+		IAnyTypeSender sut = IAnyTypeSender.CreateMock();
+		IVoidMethodSetupWithCallback<object?, CancellationToken> setup = sut.Mock.SetupGeneric
+			.Send(It.IsAny<IntRequest>(), It.IsAny<CancellationToken>());
+		setup.Throws<TimeoutException>();
+
+		Task ActResponse() => sut.Send<int>(new IntRequest());
+		Task ActRequest() => sut.Send(new IntRequest());
+		await sut.Send(new StringRequest());
+
+		await That(ActResponse).Throws<TimeoutException>();
+		await That(ActRequest).Throws<TimeoutException>()
+			.Because("one setup matches the calls of every overload that shares its signature on the facade");
+		await That(sut.Mock.VerifyGeneric.Send(Match.AnyParameters())).Exactly(3);
+		await That(sut.Mock.VerifyGeneric.Send(It.IsAny<IntRequest>(), It.IsAny<CancellationToken>())).Twice();
+		await That(sut.Mock.VerifySetup(setup)).Twice();
+	}
+
+	[Test]
+	public async Task OverloadsThatShareTheSignatureOnTheFacade_ShouldCountAsUsedByACallOfAnyOfThem()
+	{
+		IAnyTypeSender sut = IAnyTypeSender.CreateMock();
+		sut.Mock.SetupGeneric.Send(Match.AnyParameters());
+
+		bool beforeCall = sut.Mock.VerifyThatAllSetupsAreUsed();
+		await sut.Send(new StringRequest());
+		bool afterCall = sut.Mock.VerifyThatAllSetupsAreUsed();
+
+		await That(beforeCall).IsFalse();
+		await That(afterCall).IsTrue();
+	}
+
+	[Test]
+	public async Task OverloadsThatShareTheSignatureOnTheFacade_InScenario_ShouldBeSetUpTogether()
+	{
+		IAnyTypeSender sut = IAnyTypeSender.CreateMock();
+		sut.Mock.InScenario("special").SetupGeneric.Send(Match.AnyParameters()).Throws<TimeoutException>();
+		sut.Mock.TransitionTo("special");
+
+		Task ActResponse() => sut.Send<int>(new IntRequest());
+		Task ActRequest() => sut.Send(new IntRequest());
+
+		await That(ActResponse).Throws<TimeoutException>();
+		await That(ActRequest).Throws<TimeoutException>();
+	}
+
+	[Test]
+	public async Task OverloadsThatShareTheSignatureOnTheFacade_WhenDefinedLater_ShouldWinOverASetupOfEachOverload()
+	{
+		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
+		List<string> received = [];
+		sut.Mock.Setup.Overloaded<int>(It.IsAny<int>()).Do(() => received.Add("specific of the first"));
+		sut.Mock.Setup.Overloaded<int>(It.IsAny<object>()).Do(() => received.Add("specific of the second"));
+		sut.Mock.SetupGeneric.Overloaded(Match.AnyParameters()).Do(() => received.Add("any"));
+
+		sut.Overloaded<int>(1);
+		sut.Overloaded<int>((object)"a");
+
+		await That(received).IsEqualTo(["any", "any",])
+			.Because("the latest matching setup wins, for every overload that shares the signature on the facade");
 	}
 
 	[Test]

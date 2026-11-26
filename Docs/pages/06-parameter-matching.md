@@ -201,7 +201,7 @@ A setup for any type argument returns no value: use it to throw or to run a call
 
 `SetupProtectedGeneric` and `VerifyProtectedGeneric` do the same for the protected generic methods of a class mock. `InScenario(...)` offers `SetupGeneric` for a scenario, and a monitor from `Monitor()` offers `VerifyGeneric` for the monitored calls.
 
-The generic entry points leave out static methods, methods with `ref`, `out`, `in` or `params` parameters, and overloads that would share a signature without their type parameters.
+Overloads that share a signature without their type parameters, such as `Send<TResponse>(IRequest<TResponse> request)` and `Send<TRequest>(TRequest request)`, are offered once, and the setup or verification matches the calls of all of them. The generic entry points leave out static methods, methods with `ref`, `out`, `in` or `params` parameters, and overloads that share a signature but name their parameters differently.
 
 ## String matching
 
