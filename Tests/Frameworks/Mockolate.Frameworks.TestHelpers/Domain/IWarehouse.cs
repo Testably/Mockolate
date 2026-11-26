@@ -8,5 +8,6 @@ public interface IWarehouse
 	IOrderRepository this[string name] { get; set; }
 	IOrderRepository GetRepository();
 	Task<IOrderRepository> GetRepositoryAsync();
+	(int Stock, IOrderRepository Repository) GetStock();
 	bool TryGetRepository(out IOrderRepository repository);
 }

@@ -141,7 +141,7 @@ When no setup matches, the mock returns:
 - an empty sequence for `IAsyncEnumerable<T>`, whose enumeration throws an `OperationCanceledException` when the first `CancellationToken` among the arguments is canceled,
 - an empty string for `string`,
 - a completed task for `Task`, `Task<T>`, `ValueTask` and `ValueTask<T>`,
-- a tuple with recursively defaulted values for value tuples and `Tuple<…>`,
+- a tuple with recursively defaulted values for value tuples and `Tuple<…>`, except for an eight element `Tuple<…>` whose last element is no `Tuple<…>`,
 - a function that returns its argument for `Func<T, T>` and an action that does nothing for `Action<T>`, so that an options callback like `Func<ChocolateOptions, ChocolateOptions>` keeps the default options,
 - `default(T)` for value types and `null` for other reference types.
 
@@ -219,7 +219,7 @@ Both lists also apply to the nested namespaces, e.g. listing `Sdk` also covers `
 <summary>Details and limitations</summary>
 
 - A method or property that returns a `Task<T>` or `ValueTask<T>` of an interface returns a completed task with an auto-mock. On .NET Framework and .NET Standard, a `ValueTask<T>` keeps returning `default`.
-- A member that returns a tuple, e.g. `(int Stock, IChocolateDispenser Dispenser)` or `Tuple<int, IChocolateDispenser>`, returns an auto-mock for each interface element, also in a nested tuple and in a tuple wrapped in a `Task<T>` or `ValueTask<T>`. Each element has its own auto-mock, also when two elements have the same type.
+- A member that returns a tuple, e.g. `(int Stock, IChocolateDispenser Dispenser)` or `Tuple<int, IChocolateDispenser>`, returns an auto-mock for each interface element, also in a nested tuple and in a tuple wrapped in a `Task<T>` or `ValueTask<T>`. Each element has its own auto-mock, also when two elements have the same type. A `WithDefaultValueFor` factory for the tuple type takes precedence over the elements. A nullable value tuple, e.g. `(int, IChocolateDispenser)?`, returns `null`.
 - The base class implementation of a class mock also takes precedence, and `ThrowingWhenNotSetup()` still throws. A `WithDefaultValueFor` factory that returns `null` counts as no value, so the member returns an auto-mock instead.
 - The auto-mock is created when the member computes its default value, so `Initialize<T>(…)` can run for an auto-mock that the member never returns, e.g. when a setup provides the value of a property.
 - The property applies to the project whose `CreateMock` creates the mock: mocks created in a project without the property return no auto-mocks.

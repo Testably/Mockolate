@@ -96,7 +96,7 @@ public async Task Dispenser_ShouldBeTheMockOfTheTest(IVendingMachine machine, [A
 
 A setup, a value written to a property or indexer, and `ThrowWhenNotSetup` still take precedence. The parameter only replaces the default value of its exact type, e.g. not of an interface that `IChocolateDispenser` implements, and it wins over the default values of the [behavior](#configure-the-mocks) for that type. Every member of the type returns the same instance, also a method that creates a new one in the real implementation or an indexer for every key; set up such a member when it needs other instances. The parameter is still passed to the constructor of a class under test. When the test method does not use it, it gets no [IDE0060](../10-analyzers.md#mockolate1001) diagnostic.
 
-Without `[AsDefault]`, a member of a mock that returns an interface returns `null`, e.g. `Task<IChocolateDispenser> GetDispenserAsync()` of a dependency, and the class under test fails with a `NullReferenceException`. Set the `MockolateAutoMocking` build property to let such members return a mock instead (see [Auto-mocking](../04-create-mocks.md#auto-mocking)), and keep `[AsDefault]` for the members whose instance the test needs.
+Without `[AsDefault]`, a member of a mock that returns an interface returns `null`, or a task with a `null` result for e.g. `Task<IChocolateDispenser> GetDispenserAsync()` of a dependency, and the class under test fails with a `NullReferenceException`. Set the `MockolateAutoMocking` build property to let such members return a mock instead (see [Auto-mocking](../04-create-mocks.md#auto-mocking)), and keep `[AsDefault]` for the members whose instance the test needs.
 
 ## Configure the mocks
 

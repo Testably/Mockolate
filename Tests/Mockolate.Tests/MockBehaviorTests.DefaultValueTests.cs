@@ -360,6 +360,16 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
+		public async Task WithTuple8WithoutTupleAsLastElement_ShouldReturnNull()
+		{
+			IDefaultValueGeneratorProperties sut = IDefaultValueGeneratorProperties.CreateMock();
+
+			Tuple<int, int, int, int, int, int, int, int> result = sut.ReferenceTuple8WithoutTupleRest;
+
+			await That(result).IsNull();
+		}
+
+		[Test]
 		public async Task WithTupleInTask_ShouldReturnTupleWithDefaultValues()
 		{
 			IDefaultValueGeneratorProperties sut = IDefaultValueGeneratorProperties.CreateMock();
@@ -379,6 +389,19 @@ public sealed partial class MockBehaviorTests
 
 			await That(result.V1).IsEqualTo(0);
 			await That(result.V2).IsEqualTo("");
+		}
+
+		[Test]
+		public async Task WithValueTuple_WhenRegistered_ShouldReturnTheRegisteredValue()
+		{
+			IDefaultValueGeneratorProperties sut = IDefaultValueGeneratorProperties.CreateMock(
+				MockBehavior.Default.WithDefaultValueFor(() => (1, "registered")));
+
+			(int V1, string V2) property = sut.NamedValueTuple;
+			(int V1, string V2) method = sut.GetNamedValueTuple(2);
+
+			await That(property).IsEqualTo((1, "registered"));
+			await That(method).IsEqualTo((1, "registered"));
 		}
 
 		[Test]
@@ -410,6 +433,7 @@ public sealed partial class MockBehaviorTests
 			Tuple<int, string> ReferenceTuple { get; }
 			Tuple<int, string>? NullableReferenceTuple { get; }
 			Tuple<int, string, int, string, int, string, int, Tuple<string>> ReferenceTuple8 { get; }
+			Tuple<int, int, int, int, int, int, int, int> ReferenceTuple8WithoutTupleRest { get; }
 			Task<int> IntTask { get; }
 			Task<int[]> IntArrayTask { get; }
 			ValueTask<int> IntValueTask { get; }
@@ -421,6 +445,7 @@ public sealed partial class MockBehaviorTests
 
 			Task<(int, int[], string)> ComplexTask();
 			Task<Tuple<int, int[]>> ReferenceTupleTask();
+			(int V1, string V2) GetNamedValueTuple(int value);
 			Type GetMyType();
 		}
 

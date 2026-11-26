@@ -520,6 +520,20 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
+	public async Task Tuple_WithDefaultValueForTheTuple_ShouldPreferTheFactory()
+	{
+		IAutoMockTupleElement expected = IAutoMockTupleElement.CreateMock();
+		IAutoMockTuples sut = IAutoMockTuples.CreateMock(MockBehavior.Default
+			.WithDefaultValueFor<(IAutoMockTupleElement, IAutoMockTupleElement)>(() => (expected, expected))
+			.WithDefaultValueFor<(int, IAutoMockTupleElement)>(() => (3, expected)));
+
+		await That(sut.GetTwo().Second).IsSameAs(expected);
+		await That(sut.Pair.Element).IsSameAs(expected);
+		await That(sut[1].Stock).IsEqualTo(3);
+		await That((await sut.GetPairAsync()).Element).IsSameAs(expected);
+	}
+
+	[Test]
 	public async Task ThrowingWhenNotSetup_ShouldStillThrow()
 	{
 		IAutoMockRoot sut = IAutoMockRoot.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());

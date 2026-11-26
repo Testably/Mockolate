@@ -558,6 +558,14 @@ internal static class Helpers
 		}
 	}
 
+	/// <summary>
+	///     The constructor of an eight element <see cref="System.Tuple" /> throws when its last element is no tuple.
+	/// </summary>
+	private static bool IsConstructibleTuple(Type type)
+		=> type.SpecialGenericType == SpecialGenericType.Tuple &&
+		   (type.GenericTypeParameters!.Value.Count < 8 ||
+		    IsConstructibleTuple(type.GenericTypeParameters.Value.ElementAt(7)));
+
 	extension(StringBuilder sb)
 	{
 		/// <remarks>
@@ -581,13 +589,15 @@ internal static class Helpers
 
 			if (type.TupleTypes is not null)
 			{
-				sb.Append("(");
+				// A factory for the tuple type takes precedence over the tuple of default values.
+				sb.Append("(").Append(defaultValueName).Append(".GenerateOrNull<").Append(type.Fullname).Append(">(")
+					.Append(suffix).Append(") ?? (");
 				sb.AppendTupleElementDefaultValues(type.TupleTypes.Value, defaultValueName, suffix, taskSuffix, autoMock);
-				sb.Append(")");
+				sb.Append("))");
 				return sb;
 			}
 
-			if (type.SpecialGenericType == SpecialGenericType.Tuple)
+			if (IsConstructibleTuple(type))
 			{
 				// A factory for the tuple type takes precedence over the tuple of default values.
 				sb.Append("(").AppendGeneratedDefaultValueFor(type, defaultValueName, suffix, taskSuffix, autoMock)
