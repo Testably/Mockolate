@@ -263,7 +263,7 @@ The rule fires for a type parameter or a type that contains one, a type that the
 
 **An `[AsDefault]` parameter that is ambiguous or invalid.**
 
-An [`[AsDefault]`](04-mocks-as-test-parameters.md#return-the-same-instance-from-every-mock) parameter is the default value of its type and of the [types it names](04-mocks-as-test-parameters.md#use-a-fake-for-its-interfaces) for all mocks of the test case. Two of them for the same type are ambiguous, the parameter must be assignable to each named type, and a `[Transient]` marker contradicts it:
+An [`[AsDefault]`](04-mocks-as-test-parameters.md#return-the-same-instance-from-every-mock) parameter is the default value of its type and of the [types it names](04-mocks-as-test-parameters.md#use-a-fake-for-an-interface) for all mocks of the test case. Two of them for the same type are ambiguous, the parameter must be assignable to each named type, and a `[Transient]` marker contradicts it:
 
 ```csharp
 [Test]

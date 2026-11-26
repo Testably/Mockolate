@@ -29,13 +29,13 @@ public class VendingMachineTests
 }
 ```
 
-The attribute replaces the arrange code of [creating the class under test with mocks](03-create-mocks.md#create-the-class-under-test-with-mocks), `VendingMachine.CreateMock()` and `sut.Mock.ConstructorArgument<IChocolateDispenser>()`, in each test. Every test case gets new instances, which Mockolate creates before the test runs. Each parameter is created once per test case and shared: a class under test receives the other parameters as its constructor arguments.
+The attribute replaces the arrange code of [creating the class under test with mocks](03-create-mocks.md#create-the-class-under-test-with-mocks). Every test case gets new instances, which Mockolate creates before the test runs.
 
 ## Set up your test framework
 
 Mockolate generates the attribute for the test framework that your project references, so there is no other package to install. Import the namespace of your framework and use the attribute like the framework's own data attribute:
 
-| Test framework                                                                     | Versions     | Namespace                       | Use it              | Like             |
+| Test framework                                                                     | Versions     | Namespace                       | Put it              | Works like       |
 |------------------------------------------------------------------------------------|--------------|---------------------------------|---------------------|------------------|
 | [TUnit](https://tunit.dev/)                                                        | 1.0 or later | `Mockolate.Integrations.TUnit`  | on a `[Test]`       | `[Arguments]`    |
 | [xUnit](https://xunit.net/)                                                        | v2 and v3    | `Mockolate.Integrations.Xunit`  | on a `[Theory]`     | `[InlineData]`   |
@@ -47,8 +47,16 @@ The examples on this page use TUnit. With NUnit, the attribute takes the place o
 ```csharp
 using Mockolate.Integrations.NUnit;
 
-[AutoMockArguments]
-public async Task Buy_WhenChocolateIsAvailable_ShouldDispenseIt(VendingMachine sut, IChocolateDispenser dispenser)
+public class VendingMachineTests
+{
+    [AutoMockArguments]
+    public async Task Buy_WhenChocolateIsAvailable_ShouldDispenseIt(VendingMachine sut, IChocolateDispenser dispenser)
+    {
+        dispenser.Mock.Setup.Dispense("Dark", It.IsAny<int>()).Returns(true);
+
+        await That(sut.Buy("Dark", 4)).IsEqualTo("Enjoy!");
+    }
+}
 ```
 
 :::warning[MSTest 4]
@@ -66,9 +74,13 @@ The [framework notes](#framework-notes) list the other differences between the f
 - A sealed class or a record gets a **real instance**.
 - Any other type, such as `string` or `int`, gets a [default value](03-create-mocks.md#default-values).
 
+Each parameter is created once per test case. The [Mockolate0010](10-analyzers.md#mockolate0010) analyzer reports a parameter that Mockolate cannot create, such as `IChocolateRepository<TFlavor>` in a generic test class.
+
+## How the class under test receives the parameters
+
 A class receives the other parameters of the test method as its constructor arguments, in any order. A constructor parameter without a matching test parameter gets a new mock or a default value, which you can reach with `sut.Mock.ConstructorArgument<IChocolateDispenser>()`.
 
-Test parameters match constructor parameters by type, and one test parameter fills every constructor parameter of its type. When the test method has several parameters of the same type, a constructor parameter gets the one with its name:
+Test parameters match constructor parameters by exactly their type, not by a base type or an interface, and one test parameter fills every constructor parameter of its type. When the test method has several parameters of the same type, a constructor parameter gets the one with its name:
 
 ```csharp
 public class ChocolateShop(IChocolateDispenser dark, IChocolateDispenser white)
@@ -89,7 +101,7 @@ public async Task Buy_WhiteChocolate_ShouldUseTheWhiteDispenser(ChocolateShop su
 }
 ```
 
-A test parameter of a value type or `string` is only passed to a constructor parameter with its name. The [Mockolate0010](10-analyzers.md#mockolate0010) analyzer reports a parameter that Mockolate cannot create, such as `IChocolateRepository<TFlavor>` in a generic test class.
+A test parameter of a value type or `string` is only passed to a constructor parameter with its name.
 
 ## Pass values
 
@@ -99,8 +111,8 @@ The attribute takes values for the first parameters of the test method. Each att
 [Test]
 [AutoMockArguments("Dark", 4)]
 [AutoMockArguments("White", 2)]
-public async Task Buy_ShouldDispenseTheRequestedChocolate(string type, int amount, VendingMachine sut,
-    IChocolateDispenser dispenser)
+public async Task Buy_ShouldDispenseTheRequestedChocolate(string type, int amount,
+    VendingMachine sut, IChocolateDispenser dispenser)
 {
     sut.Buy(type, amount);
 
@@ -145,18 +157,17 @@ public async Task Dispenser_ShouldBeTheMockOfTheTest(IVendingMachine machine, [A
 }
 ```
 
-- A setup, a value written to a property or indexer, and `ThrowWhenNotSetup` still take precedence.
+- A setup, a value written to a property or indexer, and [`ThrowingWhenNotSetup()`](03-create-mocks.md#customizing-mock-behavior) still take precedence.
 - The parameter wins over the default values of the [behavior](#choose-the-mock-behavior) for its type.
-- It only replaces the default value of its exact type, e.g. not of an interface that `IChocolateDispenser` implements, unless you [name the interface](#use-a-fake-for-its-interfaces).
+- It only replaces the default value of its exact type, e.g. not of an interface that `IChocolateDispenser` implements, unless you [name the interface](#use-a-fake-for-an-interface).
 - Every member of the type returns the same instance, also a method that creates a new one in the real implementation or an indexer for every key. Set up such a member when it needs other instances.
 - The parameter is still passed to the constructor of a class under test.
-- When the test method does not use the parameter, it gets no [IDE0060](10-analyzers.md#mockolate1001) diagnostic, and with xUnit no [xUnit1026](10-analyzers.md#mockolate1002) warning.
 
 To let all members that return an interface return a mock instead of `null`, set the `MockolateAutoMocking` build property (see [Auto-mocking](03-create-mocks.md#auto-mocking)), and keep `[AsDefault]` for the instances that the test needs.
 
-## Use a fake for its interfaces
+## Use a fake for an interface
 
-A test parameter only fills constructor parameters of exactly its type. To use a hand-written fake or another test double for an interface that it implements, name the interface in `[AsDefault<T>]`:
+To use a hand-written fake or another test double for an interface that it implements, name the interface in `[AsDefault<T>]`:
 
 ```csharp
 public sealed class FakeChocolateDispenser : IChocolateDispenser
@@ -181,11 +192,15 @@ public async Task Buy_ShouldUseTheFake(VendingMachine sut,
 }
 ```
 
-The parameter is then used for its own type and for each named type: constructor parameters of these types receive it, and it is the [default value](#return-the-same-instance-from-every-mock) of these types for all mocks of the test case. Name up to four types, e.g. `[AsDefault<IChocolateDispenser, IDisposable>]`.
+The parameter is then used for its own type and for each named type: constructor parameters of these types receive it, and it is the [default value](#return-the-same-instance-from-every-mock) of these types for all mocks of the test case. Name up to four types, e.g. `[AsDefault<IChocolateDispenser, IDisposable>]`, or pass any number of types as arguments: `[AsDefault(typeof(IChocolateDispenser))]`.
 
-The generic attribute needs .NET 7 or later, because .NET Framework cannot read generic attributes. On .NET Framework, or for more than four types, pass the types as arguments: `[AsDefault(typeof(IChocolateDispenser))]`.
+:::info[.NET 7 or later]
 
-When another test parameter has a named type, a constructor parameter of that type gets the one with its name, like with [several test parameters of a type](#what-each-parameter-gets). The [Mockolate0011](10-analyzers.md#mockolate0011) analyzer reports a parameter that is not assignable to a named type, and two `[AsDefault]` parameters for the same type.
+The generic `[AsDefault<T>]` needs .NET 7 or later, because .NET Framework cannot read generic attributes. On .NET Framework, pass the types as arguments.
+
+:::
+
+When another test parameter has a named type, a constructor parameter of that type gets the one with its name, like with [several test parameters of a type](#how-the-class-under-test-receives-the-parameters). The [Mockolate0011](10-analyzers.md#mockolate0011) analyzer reports a parameter that is not assignable to a named type, and two `[AsDefault]` parameters for the same type.
 
 ## Create the class under test in the test
 
@@ -217,7 +232,9 @@ public async Task IsSoldOut_WhenDarkChocolateIsInStock_ShouldBeFalse([Deferred] 
 
 Each call creates a new instance, exactly like a parameter of type `T`: a class under test receives the other test parameters as its constructor arguments, and the `[AsDefault]` parameters and the [behavior](#choose-the-mock-behavior) apply. An exception of the constructor reaches the test, so you can assert it with `await That(() => createSut()).Throws<InvalidOperationException>()`. `T` can be any type that a parameter can have, e.g. `[Deferred] Func<IChocolateStock>` creates a new mock on each call.
 
-The test framework does not dispose what the delegate creates, so dispose it in the test, e.g. with `using ChocolateDisplay sut = createSut();`. The delegate is not passed to the constructor of a class under test. The [Mockolate0012](10-analyzers.md#mockolate0012) analyzer reports a `[Deferred]` parameter that is not a `Func<T>`, or that is also `[AsDefault]` or `[Transient]`. Without `[Deferred]`, a `Func<T>` parameter gets a [default value](03-create-mocks.md#default-values) like other framework types.
+The test framework does not dispose what the delegate creates, so dispose it in the test, e.g. with `using ChocolateDisplay sut = createSut();`.
+
+The delegate is not passed to the constructor of a class under test. Without `[Deferred]`, a `Func<T>` parameter gets a [default value](03-create-mocks.md#default-values) like other framework types. The [Mockolate0012](10-analyzers.md#mockolate0012) analyzer reports a `[Deferred]` parameter that is not a `Func<T>`, or that is also `[AsDefault]` or `[Transient]`.
 
 ## Choose the mock behavior
 
@@ -238,6 +255,8 @@ internal static class MockolateConfiguration
 Here `AutoFixtureGenerator` stands for your own implementation of `IDefaultValueGenerator`.
 
 ## Framework notes
+
+TUnit needs nothing beyond the [setup](#set-up-your-test-framework). The other frameworks differ as follows.
 
 ### xUnit
 
@@ -263,7 +282,6 @@ Here `AutoFixtureGenerator` stands for your own implementation of `IDefaultValue
 <summary>Details and limitations</summary>
 
 - Set `<MockolateTestFrameworkIntegration>false</MockolateTestFrameworkIntegration>` in the project file to skip the attribute.
-- A test parameter matches a constructor parameter of exactly its type. A constructor parameter of type `IChocolateDispenser` does not receive a test parameter of a type that derives from it, unless the test parameter [names the interface](#use-a-fake-for-its-interfaces).
 - A constructor parameter of a delegate or abstract class type only gets a mock from a test parameter of that type.
 - When two classes under test depend on each other, only the first of the two test parameters receives the other one; the second gets a new instance or its default value.
 - The given values must have the types of the parameters, e.g. `4` for an `int` and `4L` for a `long`. `[AutoMockArguments(null)]` passes `null` to the first parameter. A single array, e.g. `[AutoMockArguments(new object[] { "Dark", 4 })]` or `[AutoMockArguments(new[] { "Dark", "White" })]`, passes its elements as the values; to pass the array itself, wrap it, e.g. `[AutoMockArguments(new object[] { new[] { "Dark", "White" } })]`.
