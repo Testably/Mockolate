@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 using Mockolate.SourceGenerators.Entities;
 using Event = Mockolate.SourceGenerators.Entities.Event;
@@ -226,7 +227,7 @@ internal static partial class SourceTemplates
 			}
 
 			_usedIdentifiers[sanitized] = count + 1;
-			return sanitized + "_" + (count + 1);
+			return sanitized + "_" + (count + 1).ToString(CultureInfo.InvariantCulture);
 		}
 
 		internal void AddProperty(Property property)

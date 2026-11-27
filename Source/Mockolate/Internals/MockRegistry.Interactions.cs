@@ -6,7 +6,7 @@ using System.Threading;
 using Mockolate.Exceptions;
 using Mockolate.Interactions;
 using Mockolate.Setup;
-#if NETSTANDARD2_0
+#if !NET11_0_OR_GREATER
 using Mockolate.Internals.Polyfills;
 #endif
 
@@ -63,7 +63,7 @@ public partial class MockRegistry
 		{
 			foreach (string ignoredName in ignoredNames)
 			{
-				if (ignoredName.EndsWith('<')
+				if (ignoredName.EndsWith('<', StringComparison.Ordinal)
 					? name.StartsWith(ignoredName, StringComparison.Ordinal)
 					: string.Equals(name, ignoredName, StringComparison.Ordinal))
 				{
@@ -813,7 +813,7 @@ public partial class MockRegistry
 
 			foreach (EventSetup setup in bucket)
 			{
-				if (setup.Name.Equals(name))
+				if (setup.Name.Equals(name, StringComparison.Ordinal))
 				{
 					yield return setup;
 				}

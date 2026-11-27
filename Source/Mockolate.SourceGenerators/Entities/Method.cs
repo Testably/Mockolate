@@ -251,7 +251,7 @@ internal record Method
 		public bool Equals(Method? x, Method? y)
 			=> (x is null && y is null) ||
 			   (x is not null && y is not null &&
-			    x.Name.Equals(y.Name) && x.ContainingType.Equals(y.ContainingType) &&
+			    x.Name.Equals(y.Name, StringComparison.Ordinal) && x.ContainingType.Equals(y.ContainingType, StringComparison.Ordinal) &&
 			    x.Parameters.Count == y.Parameters.Count &&
 			    x.Parameters.SequenceEqual(y.Parameters));
 
@@ -272,7 +272,7 @@ internal record Method
 				return false;
 			}
 
-			if (!x.Name.Equals(y.Name) || x.Parameters.Count != y.Parameters.Count)
+			if (!x.Name.Equals(y.Name, StringComparison.Ordinal) || x.Parameters.Count != y.Parameters.Count)
 			{
 				return false;
 			}
@@ -305,7 +305,7 @@ internal record Method
 					yTypeName = yTypeName.Substring(0, yTypeName.Length - 1);
 				}
 
-				if (!xTypeName.Equals(yTypeName))
+				if (!xTypeName.Equals(yTypeName, StringComparison.Ordinal))
 				{
 					return false;
 				}

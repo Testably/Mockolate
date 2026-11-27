@@ -7,7 +7,7 @@ using Mockolate.Exceptions;
 using Mockolate.Parameters;
 using Mockolate.Setup;
 using Mockolate.Web;
-#if NETSTANDARD2_0
+#if !NET11_0_OR_GREATER
 using Mockolate.Internals.Polyfills;
 #endif
 
@@ -161,7 +161,7 @@ public static partial class HttpClientExtensions
 			IParameterMatch<string?> matcher = parameter.AsParameterMatch();
 			string requestUri = value.RequestUri.ToString();
 			return matcher.Matches(requestUri) ||
-			       (requestUri.EndsWith('/') && matcher.Matches(requestUri.TrimEnd('/')));
+			       (requestUri.EndsWith('/', StringComparison.Ordinal) && matcher.Matches(requestUri.TrimEnd('/')));
 		}
 
 		public void InvokeCallbacks(HttpRequestMessage value)

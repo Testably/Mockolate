@@ -26,7 +26,7 @@ public abstract class MethodSetup : IMethodSetup, IVerifiableMethodSetup
 	public string Name { get; }
 
 	internal bool HasName(string methodName, string? alternativeMethodName)
-		=> Name.Equals(methodName) || (alternativeMethodName is not null && Name.Equals(alternativeMethodName));
+		=> Name.Equals(methodName, StringComparison.Ordinal) || (alternativeMethodName is not null && Name.Equals(alternativeMethodName, StringComparison.Ordinal));
 
 	/// <summary>
 	///     Returns a formatted string representation of the given <paramref name="type" />.

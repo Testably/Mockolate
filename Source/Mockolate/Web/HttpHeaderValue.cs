@@ -25,7 +25,7 @@ public class HttpHeaderValue
 	/// <param name="headerValue">The header value observed on the request.</param>
 	/// <returns><see langword="true" /> when it matches; <see langword="false" /> otherwise.</returns>
 	public virtual bool Matches(string headerValue)
-		=> _value.Equals(headerValue);
+		=> _value.Equals(headerValue, System.StringComparison.Ordinal);
 
 	/// <summary>
 	///     Implicit conversion from <see langword="string" /> to <see cref="HttpHeaderValue" /> &#8212; lets callers

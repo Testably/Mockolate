@@ -116,7 +116,7 @@ public abstract class PropertySetup : IInteractivePropertySetup
 
 		/// <inheritdoc cref="PropertySetup.Matches(PropertyAccess)" />
 		protected override bool Matches(PropertyAccess propertyAccess)
-			=> name.Equals(propertyAccess.Name);
+			=> name.Equals(propertyAccess.Name, StringComparison.Ordinal);
 	}
 
 #if !DEBUG
@@ -311,7 +311,7 @@ public class PropertySetup<T> : PropertySetup,
 
 	/// <inheritdoc cref="PropertySetup.Matches(PropertyAccess)" />
 	protected override bool Matches(PropertyAccess propertyAccess)
-		=> _name.Equals(propertyAccess.Name);
+		=> _name.Equals(propertyAccess.Name, StringComparison.Ordinal);
 
 	/// <inheritdoc cref="PropertySetup.InvokeGetter{TResult}(MockBehavior, Func{TResult})" />
 	protected override TResult InvokeGetter<TResult>(MockBehavior behavior, Func<TResult> defaultValueGenerator)

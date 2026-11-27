@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Mockolate.SourceGenerators.Entities;
@@ -286,7 +287,7 @@ internal static partial class SourceTemplates
 				string unique = candidate;
 				for (int suffix = 1; !usedNames.Add(unique); suffix++)
 				{
-					unique = candidate + suffix;
+					unique = candidate + suffix.ToString(CultureInfo.InvariantCulture);
 				}
 
 				return unique;

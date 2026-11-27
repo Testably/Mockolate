@@ -3,6 +3,9 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using Mockolate.Internals;
 using Mockolate.Parameters;
+#if NETSTANDARD2_0
+using Mockolate.Internals.Polyfills;
+#endif
 
 namespace Mockolate;
 
@@ -105,11 +108,11 @@ public partial class It
 			=> (_regexOptionsExpression is not null, _caseSensitive) switch
 			{
 				(true, false) =>
-					$"It.Matches(\"{pattern.Replace("\"", "\\\"")}\").AsRegex({RegexParameterToString(_timeout, _timeoutExpression, _regexOptionsExpression!)})",
+					$"It.Matches(\"{pattern.Replace("\"", "\\\"", StringComparison.Ordinal)}\").AsRegex({RegexParameterToString(_timeout, _timeoutExpression, _regexOptionsExpression!)})",
 				(true, true) =>
-					$"It.Matches(\"{pattern.Replace("\"", "\\\"")}\").AsRegex({RegexParameterToString(_timeout, _timeoutExpression, _regexOptionsExpression!)}).CaseSensitive()",
-				(false, false) => $"It.Matches(\"{pattern.Replace("\"", "\\\"")}\")",
-				(false, true) => $"It.Matches(\"{pattern.Replace("\"", "\\\"")}\").CaseSensitive()",
+					$"It.Matches(\"{pattern.Replace("\"", "\\\"", StringComparison.Ordinal)}\").AsRegex({RegexParameterToString(_timeout, _timeoutExpression, _regexOptionsExpression!)}).CaseSensitive()",
+				(false, false) => $"It.Matches(\"{pattern.Replace("\"", "\\\"", StringComparison.Ordinal)}\")",
+				(false, true) => $"It.Matches(\"{pattern.Replace("\"", "\\\"", StringComparison.Ordinal)}\").CaseSensitive()",
 			};
 
 		private static string RegexParameterToString(TimeSpan timeout, string? timeoutExpression,
