@@ -164,7 +164,7 @@ internal static partial class SourceTemplates
 				sb.Append(", ");
 			}
 
-			sb.Append("T").Append(i).Append(" value").Append(i);
+			sb.Append('T').Append(i).Append(" value").Append(i);
 		}
 
 		sb.Append(')').AppendLine();
@@ -211,7 +211,7 @@ internal static partial class SourceTemplates
 				sb.Append(", ");
 			}
 
-			sb.Append("T").Append(i).Append(" value").Append(i);
+			sb.Append('T').Append(i).Append(" value").Append(i);
 		}
 
 		sb.Append(')').AppendLine();
@@ -398,7 +398,7 @@ internal static partial class SourceTemplates
 				sb.Append(", ");
 			}
 
-			sb.Append("T").Append(i).Append(" value").Append(i);
+			sb.Append('T').Append(i).Append(" value").Append(i);
 		}
 
 		sb.Append(')').AppendLine();
@@ -445,7 +445,7 @@ internal static partial class SourceTemplates
 				sb.Append(", ");
 			}
 
-			sb.Append("T").Append(i).Append(" value").Append(i);
+			sb.Append('T').Append(i).Append(" value").Append(i);
 		}
 
 		sb.Append(", global::System.Func<TReturn>? defaultFactory = null)").AppendLine();
@@ -683,7 +683,7 @@ internal static partial class SourceTemplates
 				sb.Append(", ");
 			}
 
-			sb.Append("T").Append(i).Append(" value").Append(i);
+			sb.Append('T').Append(i).Append(" value").Append(i);
 		}
 
 		sb.Append(')').AppendLine();
@@ -995,7 +995,7 @@ internal static partial class SourceTemplates
 				sb.Append(", ");
 			}
 
-			sb.Append("T").Append(i).Append(" value").Append(i);
+			sb.Append('T').Append(i).Append(" value").Append(i);
 		}
 
 		sb.Append(')').AppendLine();

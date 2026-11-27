@@ -264,7 +264,7 @@ public static partial class ItExtensions
 			StringBuilder sb = new();
 			if (_scheme is not null)
 			{
-				sb.Append($"{_scheme} Uri");
+				sb.Append(_scheme).Append(" Uri");
 			}
 			else
 			{

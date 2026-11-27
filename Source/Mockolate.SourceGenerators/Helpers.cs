@@ -602,35 +602,35 @@ internal static class Helpers
 
 			if (type.TupleTypes is not null)
 			{
-				sb.Append("(").AppendTupleFactoryValue(type, defaultValueName, suffix, true).Append(" ?? ");
+				sb.Append('(').AppendTupleFactoryValue(type, defaultValueName, suffix, true).Append(" ?? ");
 				switch (type.TupleTypes.Value.Count)
 				{
 					case 0:
-						sb.Append("default(").Append(type.Fullname).Append(")");
+						sb.Append("default(").Append(type.Fullname).Append(')');
 						break;
 					case 1:
 						// A single element in parentheses is no tuple literal.
-						sb.Append("new ").Append(type.Fullname).Append("(");
+						sb.Append("new ").Append(type.Fullname).Append('(');
 						sb.AppendTupleElementDefaultValues(type.TupleTypes.Value, defaultValueName, suffix, taskSuffix,
 							autoMock);
-						sb.Append(")");
+						sb.Append(')');
 						break;
 					default:
-						sb.Append("(");
+						sb.Append('(');
 						sb.AppendTupleElementDefaultValues(type.TupleTypes.Value, defaultValueName, suffix, taskSuffix,
 							autoMock);
-						sb.Append(")");
+						sb.Append(')');
 						break;
 				}
 
-				sb.Append(")");
+				sb.Append(')');
 				return sb;
 			}
 
 			if (IsConstructibleTuple(type))
 			{
-				sb.Append("(").AppendTupleFactoryValue(type, defaultValueName, suffix, false)
-					.Append(" ?? new ").Append(type.Fullname.TrimEnd('?')).Append("(");
+				sb.Append('(').AppendTupleFactoryValue(type, defaultValueName, suffix, false)
+					.Append(" ?? new ").Append(type.Fullname.TrimEnd('?')).Append('(');
 				sb.AppendTupleElementDefaultValues(type.GenericTypeParameters!.Value, defaultValueName, suffix,
 					taskSuffix, autoMock);
 				sb.Append("))");
@@ -654,7 +654,7 @@ internal static class Helpers
 				? $"{defaultValueName}.GenerateOrNull<{type.Fullname}>("
 				: $"{defaultValueName}.Generate(default({type.Fullname})!";
 			string argumentSeparator = isValueTuple ? "" : ", ";
-			sb.Append("(").Append(defaultValueName).Append(".Probe<").Append(type.Fullname)
+			sb.Append('(').Append(defaultValueName).Append(".Probe<").Append(type.Fullname)
 				.Append(">() switch { global::Mockolate.Internals.DefaultValueSource.None => null, ");
 			if (!string.IsNullOrWhiteSpace(suffix))
 			{
@@ -742,11 +742,11 @@ internal static class Helpers
 
 			if (type.SpecialGenericType == SpecialGenericType.Span)
 			{
-				sb.Append("global::Mockolate.Setup.SpanWrapper<").Append(type.GenericTypeParameters!.Value.First().Fullname).Append(">");
+				sb.Append("global::Mockolate.Setup.SpanWrapper<").Append(type.GenericTypeParameters!.Value.First().Fullname).Append('>');
 			}
 			else if (type.SpecialGenericType == SpecialGenericType.ReadOnlySpan)
 			{
-				sb.Append("global::Mockolate.Setup.ReadOnlySpanWrapper<").Append(type.GenericTypeParameters!.Value.First().Fullname).Append(">");
+				sb.Append("global::Mockolate.Setup.ReadOnlySpanWrapper<").Append(type.GenericTypeParameters!.Value.First().Fullname).Append('>');
 			}
 			else
 			{
@@ -773,7 +773,7 @@ internal static class Helpers
 				sb.Append(", ").Append(appendedSuffix);
 			}
 
-			sb.Append(")");
+			sb.Append(')');
 			if (isLazy)
 			{
 				sb.Append(" })");
@@ -818,7 +818,7 @@ internal static class Helpers
 					sb.Append(')');
 				}
 
-				sb.Append("]").AppendLine();
+				sb.Append(']').AppendLine();
 			}
 
 			return sb;
@@ -828,11 +828,11 @@ internal static class Helpers
 		{
 			if (type.SpecialGenericType == SpecialGenericType.Span)
 			{
-				sb.Append("global::Mockolate.Setup.SpanWrapper<").Append(type.GenericTypeParameters!.Value.First().Fullname).Append(">");
+				sb.Append("global::Mockolate.Setup.SpanWrapper<").Append(type.GenericTypeParameters!.Value.First().Fullname).Append('>');
 			}
 			else if (type.SpecialGenericType == SpecialGenericType.ReadOnlySpan)
 			{
-				sb.Append("global::Mockolate.Setup.ReadOnlySpanWrapper<").Append(type.GenericTypeParameters!.Value.First().Fullname).Append(">");
+				sb.Append("global::Mockolate.Setup.ReadOnlySpanWrapper<").Append(type.GenericTypeParameters!.Value.First().Fullname).Append('>');
 			}
 			else
 			{

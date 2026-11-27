@@ -159,20 +159,20 @@ internal static partial class SourceTemplates
 		          }
 		          """).AppendLine();
 		sb.Append("namespace Mockolate.Interactions").AppendLine();
-		sb.Append("{").AppendLine();
+		sb.Append('{').AppendLine();
 		foreach (IndexerSetupKey key in indexerSetups)
 		{
 			AppendIndexerGetterAccess(sb, key.Arity);
 			AppendIndexerSetterAccess(sb, key.Arity);
 		}
 
-		sb.Append("}").AppendLine();
+		sb.Append('}').AppendLine();
 		sb.AppendLine();
 
 		if (indexerSetups.Any(v => v.NeedsGetterOnly || v.NeedsSetterOnly))
 		{
 			sb.Append("namespace Mockolate.Verify").AppendLine();
-			sb.Append("{").AppendLine();
+			sb.Append('{').AppendLine();
 			foreach (IndexerSetupKey item in indexerSetups)
 			{
 				if (item.NeedsGetterOnly)
@@ -186,7 +186,7 @@ internal static partial class SourceTemplates
 				}
 			}
 
-			sb.Append("}").AppendLine();
+			sb.Append('}').AppendLine();
 			sb.AppendLine();
 		}
 
@@ -206,14 +206,14 @@ internal static partial class SourceTemplates
 		sb.Append("\tinternal class IndexerGetterAccess<").Append(typeParams).Append(">(")
 			.Append(string.Join(", ",
 				Enumerable.Range(1, numberOfParameters).Select(x => FormattableString.Invariant($"T{x} parameter{x}"))))
-			.Append(")").AppendLine();
+			.Append(')').AppendLine();
 		sb.Append("\t\t: global::Mockolate.Interactions.IndexerAccess").AppendLine();
 		sb.Append("\t{").AppendLine();
 		for (int i = 1; i <= numberOfParameters; i++)
 		{
 			sb.AppendXmlSummary(FormattableString.Invariant($"The value of parameter {i}."));
 			sb.Append("\t\tpublic T").Append(i).Append(" Parameter").Append(i).Append(" { get; } = parameter")
-				.Append(i).Append(";").AppendLine();
+				.Append(i).Append(';').AppendLine();
 		}
 
 		AppendParameterHooks(sb, numberOfParameters);
@@ -244,7 +244,7 @@ internal static partial class SourceTemplates
 		{
 			sb.AppendXmlSummary(FormattableString.Invariant($"The value of parameter {i}."));
 			sb.Append("\t\tpublic T").Append(i).Append(" Parameter").Append(i).Append(" { get; } = parameter")
-				.Append(i).Append(";").AppendLine();
+				.Append(i).Append(';').AppendLine();
 		}
 
 		sb.AppendXmlSummary("The typed value the indexer was being set to.");
@@ -262,7 +262,7 @@ internal static partial class SourceTemplates
 	private static void AppendParameterHooks(StringBuilder sb, int numberOfParameters)
 	{
 		sb.Append("\t\t/// <inheritdoc cref=\"global::Mockolate.Interactions.IndexerAccess.ParameterCount\" />").AppendLine();
-		sb.Append("\t\tpublic override int ParameterCount => ").Append(numberOfParameters).Append(";").AppendLine();
+		sb.Append("\t\tpublic override int ParameterCount => ").Append(numberOfParameters).Append(';').AppendLine();
 
 		sb.Append("\t\t/// <inheritdoc cref=\"global::Mockolate.Interactions.IndexerAccess.GetParameterValueAt(int)\" />").AppendLine();
 		sb.Append("\t\tpublic override object? GetParameterValueAt(int index)").AppendLine();
@@ -270,7 +270,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t\t{").AppendLine();
 		for (int i = 1; i <= numberOfParameters; i++)
 		{
-			sb.Append("\t\t\t\t").Append(i - 1).Append(" => Parameter").Append(i).Append(",").AppendLine();
+			sb.Append("\t\t\t\t").Append(i - 1).Append(" => Parameter").Append(i).Append(',').AppendLine();
 		}
 
 		sb.Append("\t\t\t\t_ => null,").AppendLine();
@@ -309,7 +309,7 @@ internal static partial class SourceTemplates
 		string discards = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(_ => "_"));
 
 		sb.AppendXmlSummary($"Sets up a <typeparamref name=\"TValue\"/> indexer getter for {GetTypeParametersDescription(numberOfParameters)}.", "\t");
-		sb.Append("\tinternal interface IIndexerGetterSetup<TValue, ").Append(outTypeParams).Append(">").AppendLine();
+		sb.Append("\tinternal interface IIndexerGetterSetup<TValue, ").Append(outTypeParams).Append('>').AppendLine();
 		sb.Append("\t{").AppendLine();
 		sb.AppendXmlSummary("Registers a <paramref name=\"callback\"/> to be invoked whenever the indexer's getter is accessed.");
 		sb.Append("\t\tIIndexerGetterSetupCallbackBuilder<TValue, ").Append(typeParams).Append("> Do(global::System.Action callback);")
@@ -324,7 +324,7 @@ internal static partial class SourceTemplates
 
 		sb.AppendXmlSummary($"Sets up a <typeparamref name=\"TValue\"/> indexer getter for {GetTypeParametersDescription(numberOfParameters)} with callback support for the parameters.", "\t");
 		sb.Append("\tinternal interface IIndexerGetterSetupWithCallback<TValue, ").Append(outTypeParams)
-			.Append("> : global::Mockolate.Setup.IIndexerGetterSetup<TValue, ").Append(typeParams).Append(">").AppendLine();
+			.Append("> : global::Mockolate.Setup.IIndexerGetterSetup<TValue, ").Append(typeParams).Append('>').AppendLine();
 		sb.Append("\t{").AppendLine();
 		sb.AppendXmlSummary("Registers a <paramref name=\"callback\"/> to be invoked whenever the indexer's getter is accessed.");
 		sb.AppendXmlRemarks("The callback receives the parameters of the indexer.");
@@ -349,7 +349,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		sb.AppendXmlSummary($"Sets up a <typeparamref name=\"TValue\"/> indexer setter for {GetTypeParametersDescription(numberOfParameters)}.", "\t");
-		sb.Append("\tinternal interface IIndexerSetterSetup<TValue, ").Append(outTypeParams).Append(">").AppendLine();
+		sb.Append("\tinternal interface IIndexerSetterSetup<TValue, ").Append(outTypeParams).Append('>').AppendLine();
 		sb.Append("\t{").AppendLine();
 		sb.AppendXmlSummary("Registers a <paramref name=\"callback\"/> to be invoked whenever the indexer's setter is accessed.");
 		sb.Append("\t\tIIndexerSetterSetupCallbackBuilder<TValue, ").Append(typeParams).Append("> Do(global::System.Action callback);")
@@ -370,7 +370,7 @@ internal static partial class SourceTemplates
 
 		sb.AppendXmlSummary($"Sets up a <typeparamref name=\"TValue\"/> indexer setter for {GetTypeParametersDescription(numberOfParameters)} with callback support for the parameters.", "\t");
 		sb.Append("\tinternal interface IIndexerSetterSetupWithCallback<TValue, ").Append(outTypeParams)
-			.Append("> : global::Mockolate.Setup.IIndexerSetterSetup<TValue, ").Append(typeParams).Append(">").AppendLine();
+			.Append("> : global::Mockolate.Setup.IIndexerSetterSetup<TValue, ").Append(typeParams).Append('>').AppendLine();
 		sb.Append("\t{").AppendLine();
 		sb.AppendXmlSummary("Registers a <paramref name=\"callback\"/> to be invoked whenever the indexer's setter is accessed.");
 		sb.AppendXmlRemarks("The callback receives the parameters of the indexer and the value the indexer is set to as last parameter.");
@@ -386,7 +386,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		sb.AppendXmlSummary($"Sets up a <typeparamref name=\"TValue\"/> indexer for {GetTypeParametersDescription(numberOfParameters)}.", "\t");
-		sb.Append("\tinternal interface IIndexerSetup<TValue, ").Append(outTypeParams).Append(">").AppendLine();
+		sb.Append("\tinternal interface IIndexerSetup<TValue, ").Append(outTypeParams).Append('>').AppendLine();
 		sb.Append("\t{").AppendLine();
 		sb.AppendXmlSummary("Sets up callbacks on the getter.");
 		sb.Append("\t\tIIndexerGetterSetupWithCallback<TValue, ").Append(typeParams)
@@ -441,7 +441,7 @@ internal static partial class SourceTemplates
 
 		sb.AppendXmlSummary($"Sets up a <typeparamref name=\"TValue\"/> indexer for {GetTypeParametersDescription(numberOfParameters)} with callback support for the parameters.", "\t");
 		sb.Append("\tinternal interface IIndexerSetupWithCallback<TValue, ").Append(outTypeParams)
-			.Append("> : global::Mockolate.Setup.IIndexerSetup<TValue, ").Append(typeParams).Append(">").AppendLine();
+			.Append("> : global::Mockolate.Setup.IIndexerSetup<TValue, ").Append(typeParams).Append('>').AppendLine();
 		sb.Append("\t{").AppendLine();
 
 		sb.AppendXmlSummary("Initializes the indexer according to the given <paramref name=\"valueGenerator\" />.");
@@ -484,7 +484,7 @@ internal static partial class SourceTemplates
 		{
 			sb.AppendXmlSummary($"Sets up a {side.ToLowerInvariant()} callback for a <typeparamref name=\"TValue\"/> indexer for {GetTypeParametersDescription(numberOfParameters)}.", "\t");
 			sb.Append("\tinternal interface IIndexer").Append(side).Append("SetupCallbackBuilder<TValue, ").Append(outTypeParams)
-				.Append("> : IIndexer").Append(side).Append("SetupParallelCallbackBuilder<TValue, ").Append(typeParams).Append(">").AppendLine();
+				.Append("> : IIndexer").Append(side).Append("SetupParallelCallbackBuilder<TValue, ").Append(typeParams).Append('>').AppendLine();
 			sb.Append("\t{").AppendLine();
 			sb.AppendXmlSummary("Runs the callback in parallel to the other callbacks.");
 			sb.Append("\t\tIIndexer").Append(side).Append("SetupParallelCallbackBuilder<TValue, ").Append(typeParams).Append("> InParallel();")
@@ -494,7 +494,7 @@ internal static partial class SourceTemplates
 
 			sb.AppendXmlSummary($"Sets up a parallel {side.ToLowerInvariant()} callback for a <typeparamref name=\"TValue\"/> indexer for {GetTypeParametersDescription(numberOfParameters)}.", "\t");
 			sb.Append("\tinternal interface IIndexer").Append(side).Append("SetupParallelCallbackBuilder<TValue, ").Append(outTypeParams)
-				.Append("> : IIndexer").Append(side).Append("SetupCallbackWhenBuilder<TValue, ").Append(typeParams).Append(">").AppendLine();
+				.Append("> : IIndexer").Append(side).Append("SetupCallbackWhenBuilder<TValue, ").Append(typeParams).Append('>').AppendLine();
 			sb.Append("\t{").AppendLine();
 			sb.AppendXmlSummary("Limits the callback to only execute for indexer accesses where the predicate returns true.");
 			sb.AppendXmlRemarks("Provides a zero-based counter indicating how many times the indexer has been accessed so far.");
@@ -505,7 +505,7 @@ internal static partial class SourceTemplates
 
 			sb.AppendXmlSummary($"Sets up a when {side.ToLowerInvariant()} callback for a <typeparamref name=\"TValue\"/> indexer for {GetTypeParametersDescription(numberOfParameters)}.", "\t");
 			sb.Append("\tinternal interface IIndexer").Append(side).Append("SetupCallbackWhenBuilder<TValue, ").Append(outTypeParams)
-				.Append("> : global::Mockolate.Setup.IIndexerSetupWithCallback<TValue, ").Append(typeParams).Append(">").AppendLine();
+				.Append("> : global::Mockolate.Setup.IIndexerSetupWithCallback<TValue, ").Append(typeParams).Append('>').AppendLine();
 			sb.Append("\t{").AppendLine();
 
 			sb.AppendXmlSummary("Repeats the callback for the given number of <paramref name=\"times\" />.");
@@ -522,7 +522,7 @@ internal static partial class SourceTemplates
 
 		sb.AppendXmlSummary($"Sets up a return/throw callback for a <typeparamref name=\"TValue\"/> indexer for {GetTypeParametersDescription(numberOfParameters)}.", "\t");
 		sb.Append("\tinternal interface IIndexerSetupReturnBuilder<TValue, ").Append(outTypeParams)
-			.Append("> : IIndexerSetupReturnWhenBuilder<TValue, ").Append(typeParams).Append(">").AppendLine();
+			.Append("> : IIndexerSetupReturnWhenBuilder<TValue, ").Append(typeParams).Append('>').AppendLine();
 		sb.Append("\t{").AppendLine();
 		sb.AppendXmlSummary("Limits the return/throw callback to only execute for indexer accesses where the predicate returns true.");
 		sb.AppendXmlRemarks("Provides a zero-based counter indicating how many times the indexer has been accessed so far.");
@@ -533,7 +533,7 @@ internal static partial class SourceTemplates
 
 		sb.AppendXmlSummary($"Sets up a when return/throw callback for a <typeparamref name=\"TValue\"/> indexer for {GetTypeParametersDescription(numberOfParameters)}.", "\t");
 		sb.Append("\tinternal interface IIndexerSetupReturnWhenBuilder<TValue, ").Append(outTypeParams)
-			.Append("> : global::Mockolate.Setup.IIndexerSetupWithCallback<TValue, ").Append(typeParams).Append(">").AppendLine();
+			.Append("> : global::Mockolate.Setup.IIndexerSetupWithCallback<TValue, ").Append(typeParams).Append('>').AppendLine();
 		sb.Append("\t{").AppendLine();
 		sb.AppendXmlSummary("Repeats the return/throw callback for the given number of <paramref name=\"times\" />.");
 		sb.AppendXmlRemarks($"The number of times is only counted for actual executions (<see cref=\"IIndexerSetupReturnBuilder{{TValue, {typeParams}}}.When(global::System.Func{{int, bool}})\" /> evaluates to <see langword=\"true\" />).");
@@ -563,22 +563,22 @@ internal static partial class SourceTemplates
 		sb.Append("\t\tglobal::Mockolate.Setup.IIndexerSetterSetupCallbackBuilder<TValue, ").Append(typeParams).Append(">,").AppendLine();
 		sb.Append("\t\tglobal::Mockolate.Setup.IIndexerSetupReturnBuilder<TValue, ").Append(typeParams).Append(">,").AppendLine();
 		sb.Append("\t\tglobal::Mockolate.Setup.IIndexerGetterSetupWithCallback<TValue, ").Append(typeParams).Append(">,").AppendLine();
-		sb.Append("\t\tglobal::Mockolate.Setup.IIndexerSetterSetupWithCallback<TValue, ").Append(typeParams).Append(">");
+		sb.Append("\t\tglobal::Mockolate.Setup.IIndexerSetterSetupWithCallback<TValue, ").Append(typeParams).Append('>');
 		if (needsGetterOnly)
 		{
-			sb.Append(",").AppendLine();
+			sb.Append(',').AppendLine();
 			sb.Append("\t\tglobal::Mockolate.Setup.IIndexerGetterOnlySetup<TValue, ").Append(typeParams).Append(">,").AppendLine();
 			sb.Append("\t\tglobal::Mockolate.Setup.IIndexerGetterOnlyGetterSetup<TValue, ").Append(typeParams).Append(">,").AppendLine();
 			sb.Append("\t\tglobal::Mockolate.Setup.IIndexerGetterOnlySetupCallbackBuilder<TValue, ").Append(typeParams).Append(">,").AppendLine();
-			sb.Append("\t\tglobal::Mockolate.Setup.IIndexerGetterOnlySetupReturnBuilder<TValue, ").Append(typeParams).Append(">");
+			sb.Append("\t\tglobal::Mockolate.Setup.IIndexerGetterOnlySetupReturnBuilder<TValue, ").Append(typeParams).Append('>');
 		}
 
 		if (needsSetterOnly)
 		{
-			sb.Append(",").AppendLine();
+			sb.Append(',').AppendLine();
 			sb.Append("\t\tglobal::Mockolate.Setup.IIndexerSetterOnlySetup<TValue, ").Append(typeParams).Append(">,").AppendLine();
 			sb.Append("\t\tglobal::Mockolate.Setup.IIndexerSetterOnlySetterSetup<TValue, ").Append(typeParams).Append(">,").AppendLine();
-			sb.Append("\t\tglobal::Mockolate.Setup.IIndexerSetterOnlySetupCallbackBuilder<TValue, ").Append(typeParams).Append(">");
+			sb.Append("\t\tglobal::Mockolate.Setup.IIndexerSetterOnlySetupCallbackBuilder<TValue, ").Append(typeParams).Append('>');
 		}
 
 		sb.AppendLine();
@@ -1012,12 +1012,12 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t///     Check if the setup matches the specified parameter values.").AppendLine();
 		sb.Append("\t\t/// </summary>").AppendLine();
 		sb.Append("\t\tpublic virtual bool Matches(").Append(
-			string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"T{i} p{i}")))).Append(")").AppendLine();
+			string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"T{i} p{i}")))).Append(')').AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tif (");
 		sb.Append(string.Join(" || ",
 			Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"!parameter{i}.Matches(p{i})"))));
-		sb.Append(")").AppendLine();
+		sb.Append(')').AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
 		sb.Append("\t\t\t\treturn false;").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
@@ -1256,13 +1256,13 @@ internal static partial class SourceTemplates
 			sb.Append(", out T").Append(i).Append(" p").Append(i);
 		}
 
-		sb.Append(")").AppendLine();
+		sb.Append(')').AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tif (access is global::Mockolate.Interactions.IndexerGetterAccess<").Append(typeParams).Append("> getter)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
 		for (int i = 1; i <= numberOfParameters; i++)
 		{
-			sb.Append("\t\t\t\tp").Append(i).Append(" = getter.Parameter").Append(i).Append(";").AppendLine();
+			sb.Append("\t\t\t\tp").Append(i).Append(" = getter.Parameter").Append(i).Append(';').AppendLine();
 		}
 
 		sb.Append("\t\t\t\treturn true;").AppendLine();
@@ -1272,7 +1272,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t\t{").AppendLine();
 		for (int i = 1; i <= numberOfParameters; i++)
 		{
-			sb.Append("\t\t\t\tp").Append(i).Append(" = setter.Parameter").Append(i).Append(";").AppendLine();
+			sb.Append("\t\t\t\tp").Append(i).Append(" = setter.Parameter").Append(i).Append(';').AppendLine();
 		}
 
 		sb.Append("\t\t\t\treturn true;").AppendLine();
@@ -1314,6 +1314,7 @@ internal static partial class SourceTemplates
 		string description = GetTypeParametersDescription(numberOfParameters);
 
 		sb.AppendLine();
+#pragma warning disable MA0028 // Replace string interpolation with multiple Append calls or use an interpolated string
 		sb.Append($$"""
 		            	/// <summary>
 		            	///     Setup for a mocked <typeparamref name="TValue"/> indexer for {{description}} that the mock only reads.
@@ -1452,6 +1453,7 @@ internal static partial class SourceTemplates
 		            		IIndexerGetterOnlySetup<TValue, {{tp}}> Only(int times);
 		            	}
 		            """).AppendLine();
+#pragma warning restore MA0028
 	}
 
 	private static void AppendSetterOnlyIndexerInterfaces(StringBuilder sb, int numberOfParameters)
@@ -1461,6 +1463,7 @@ internal static partial class SourceTemplates
 		string description = GetTypeParametersDescription(numberOfParameters);
 
 		sb.AppendLine();
+#pragma warning disable MA0028 // Replace string interpolation with multiple Append calls or use an interpolated string
 		sb.Append($$"""
 		            	/// <summary>
 		            	///     Setup for a mocked <typeparamref name="TValue"/> indexer for {{description}} that the mock only writes.
@@ -1539,12 +1542,14 @@ internal static partial class SourceTemplates
 		            		IIndexerSetterOnlySetup<TValue, {{tp}}> Only(int times);
 		            	}
 		            """).AppendLine();
+#pragma warning restore MA0028
 	}
 
 	private static void AppendGetterOnlyIndexerImplementation(StringBuilder sb, int numberOfParameters)
 	{
 		string tp = GetGenericTypeParameters(numberOfParameters);
 
+#pragma warning disable MA0028 // Replace string interpolation with multiple Append calls or use an interpolated string
 		sb.Append($$"""
 		            		/// <inheritdoc cref="IIndexerGetterOnlySetup{TValue, {{tp}}}.SkippingBaseClass(bool)" />
 		            		IIndexerGetterOnlySetup<TValue, {{tp}}> IIndexerGetterOnlySetup<TValue, {{tp}}>.SkippingBaseClass(bool skipBaseClass)
@@ -1719,12 +1724,14 @@ internal static partial class SourceTemplates
 		            		}
 
 		            """).AppendLine();
+#pragma warning restore MA0028
 	}
 
 	private static void AppendSetterOnlyIndexerImplementation(StringBuilder sb, int numberOfParameters)
 	{
 		string tp = GetGenericTypeParameters(numberOfParameters);
 
+#pragma warning disable MA0028 // Replace string interpolation with multiple Append calls or use an interpolated string
 		sb.Append($$"""
 		            		/// <inheritdoc cref="IIndexerSetterOnlySetup{TValue, {{tp}}}.SkippingBaseClass(bool)" />
 		            		IIndexerSetterOnlySetup<TValue, {{tp}}> IIndexerSetterOnlySetup<TValue, {{tp}}>.SkippingBaseClass(bool skipBaseClass)
@@ -1801,6 +1808,7 @@ internal static partial class SourceTemplates
 		            		}
 
 		            """).AppendLine();
+#pragma warning restore MA0028
 	}
 
 	private static void AppendIndexerVerifyGetterResult(StringBuilder sb, int numberOfParameters)
@@ -1822,6 +1830,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
 #endif
 		sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
+#pragma warning disable MA0028 // Replace string interpolation with multiple Append calls or use an interpolated string
 		sb.Append($$"""
 		            	internal class VerificationIndexerGetterResult<TSubject, {{tp}}>(
 		            		TSubject subject,
@@ -1835,6 +1844,7 @@ internal static partial class SourceTemplates
 		            			=> mockRegistry.IndexerGot(subject, getMemberId, gotPredicate, parametersDescription);
 		            	}
 		            """).AppendLine();
+#pragma warning restore MA0028
 	}
 
 	private static void AppendIndexerVerifySetterResult(StringBuilder sb, int numberOfParameters,
@@ -1856,6 +1866,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
 #endif
 		sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
+#pragma warning disable MA0028 // Replace string interpolation with multiple Append calls or use an interpolated string
 		sb.Append($$"""
 		            	internal class VerificationIndexerSetterResult<TSubject, {{tp}}, TParameter>(
 		            		TSubject subject,
@@ -1873,6 +1884,7 @@ internal static partial class SourceTemplates
 		            		///     Verifies the indexer write access on the mock with the given <paramref name="value" />.
 		            		/// </summary>
 		            """).AppendLine();
+#pragma warning restore MA0028
 		if (hasOverloadResolutionPriority)
 		{
 			sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(1)]").AppendLine();

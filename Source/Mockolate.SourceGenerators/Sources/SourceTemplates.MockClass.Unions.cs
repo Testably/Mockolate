@@ -250,7 +250,7 @@ internal static partial class SourceTemplates
 			sb.Append(" with the given ").Append(string.Join(", ", keptParameters));
 		}
 
-		sb.Append(".").AppendLine();
+		sb.Append('.').AppendLine();
 		sb.Append("\t\t/// </summary>").AppendLine();
 	}
 
@@ -967,7 +967,7 @@ internal static partial class SourceTemplates
 		sb.Append("> global::Mockolate.Mock.").Append(setupName).Append(".this[");
 		AppendUnionIndexerParameters(sb, indexer, names, expressionNames, slots, isDefinition: false,
 			isVerify: false);
-		sb.Append("]").AppendLine();
+		sb.Append(']').AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tget").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
@@ -1040,7 +1040,7 @@ internal static partial class SourceTemplates
 		sb.Append(' ').Append(verifyName).Append(".this[");
 		AppendUnionIndexerParameters(sb, indexer, names, expressionNames, slots, isDefinition: false,
 			isVerify: true);
-		sb.Append("]").AppendLine();
+		sb.Append(']').AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tget").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
@@ -1072,7 +1072,7 @@ internal static partial class SourceTemplates
 			}
 
 			sb.Append(">(this, this.").Append(mockRegistryName)
-				.Append(", ").Append(verifyMemberIds).Append(",").AppendLine();
+				.Append(", ").Append(verifyMemberIds).Append(',').AppendLine();
 			for (int i = 0; i < parameters.Length; i++)
 			{
 				sb.Append("\t\t\t\t\t");
@@ -1105,7 +1105,7 @@ internal static partial class SourceTemplates
 					}
 
 					sb.Append(">(this, this.").Append(mockRegistryName)
-						.Append(", ").Append(indexerGetMemberId).Append(",").AppendLine();
+						.Append(", ").Append(indexerGetMemberId).Append(',').AppendLine();
 					break;
 				case PropertyAccessors.SetOnly:
 					sb.Append("\t\t\t\treturn new global::Mockolate.Verify.VerificationIndexerSetterResult<")
@@ -1116,12 +1116,12 @@ internal static partial class SourceTemplates
 					}
 
 					sb.Append(", ").AppendTypeOrWrapper(indexer.Type).Append(">(this, this.").Append(mockRegistryName)
-						.Append(", ").Append(indexerSetMemberId).Append(",").AppendLine();
+						.Append(", ").Append(indexerSetMemberId).Append(',').AppendLine();
 					break;
 				default:
 					sb.Append("\t\t\t\treturn new global::Mockolate.Verify.VerificationIndexerResult<").Append(verifyName)
 						.Append(", ").AppendTypeOrWrapper(indexer.Type).Append(">(this, this.").Append(mockRegistryName)
-						.Append(", ").Append(indexerGetMemberId).Append(", ").Append(indexerSetMemberId).Append(",").AppendLine();
+						.Append(", ").Append(indexerGetMemberId).Append(", ").Append(indexerSetMemberId).Append(',').AppendLine();
 					break;
 			}
 
@@ -1130,7 +1130,7 @@ internal static partial class SourceTemplates
 				sb.Append("\t\t\t\t\tinteraction => interaction is global::Mockolate.Interactions.IndexerGetterAccess<")
 					.Append(string.Join(", ", parameters.Select(p => p.ToTypeOrWrapper()))).Append("> g");
 				AppendUnionIndexerKeyMatches(sb, matchNames, "g");
-				sb.Append(",").AppendLine();
+				sb.Append(',').AppendLine();
 			}
 
 			if (interceptedAccessors != PropertyAccessors.GetOnly)

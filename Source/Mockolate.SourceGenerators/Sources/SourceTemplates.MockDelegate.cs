@@ -25,7 +25,7 @@ internal static partial class SourceTemplates
 		#region Mock
 
 		sb.Append("internal static partial class Mock").AppendLine();
-		sb.Append("{").AppendLine();
+		sb.Append('{').AppendLine();
 		
 		#region MockForXXX
 
@@ -306,7 +306,7 @@ internal static partial class SourceTemplates
 		#region IMockSetupForXXX
 
 		sb.AppendXmlSummary($"Set up the mock of {classReference}.", "\t");
-		sb.Append("\tinternal interface IMockSetupFor").Append(name).Append(" : global::Mockolate.Setup.IMockSetup<").Append(@class.ClassFullName).Append(">").AppendLine();
+		sb.Append("\tinternal interface IMockSetupFor").Append(name).Append(" : global::Mockolate.Setup.IMockSetup<").Append(@class.ClassFullName).Append('>').AppendLine();
 		sb.Append("\t{").AppendLine();
 		
 		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
@@ -375,7 +375,7 @@ internal static partial class SourceTemplates
 		#region IMockVerifyForXXX
 
 		sb.AppendXmlSummary($"Verify interactions with the mock of {classReference}.", "\t");
-		sb.Append("\tinternal interface IMockVerifyFor").Append(name).Append(" : global::Mockolate.Verify.IMockVerify<").Append(@class.ClassFullName).Append(">").AppendLine();
+		sb.Append("\tinternal interface IMockVerifyFor").Append(name).Append(" : global::Mockolate.Verify.IMockVerify<").Append(@class.ClassFullName).Append('>').AppendLine();
 		sb.Append("\t{").AppendLine();
 		
 		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
@@ -442,7 +442,7 @@ internal static partial class SourceTemplates
 
 		#endregion Mock Interfaces
 
-		sb.Append("}").AppendLine();
+		sb.Append('}').AppendLine();
 		sb.AppendLine();
 		
 		#endregion Mock
@@ -455,7 +455,7 @@ internal static partial class SourceTemplates
 #endif
 		sb.Append("[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 		sb.Append("internal static partial class MockExtensionsFor").Append(name).AppendLine();
-		sb.Append("{").AppendLine();
+		sb.Append('{').AppendLine();
 
 		sb.Append("\t/// <inheritdoc cref=\"MockExtensionsFor").Append(name).Append("\" />").AppendLine();
 		sb.Append("\textension(").Append(@class.ClassFullName).Append(" mock)").AppendLine();
@@ -524,7 +524,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t\treturn mockTarget.Object;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.Append("\t}").AppendLine();
-		sb.Append("}").AppendLine();
+		sb.Append('}').AppendLine();
 
 		#endregion MockForXXXExtensions
 
@@ -641,7 +641,7 @@ internal static partial class SourceTemplates
 				}
 				else if (parameter.RefKind == RefKind.Ref)
 				{
-					sb.Append("\t\t\t\tif (").Append(wpc).Append(".Parameter").Append(parameterIndex).Append(" is global::Mockolate.Parameters.IRefParameter<").Append(parameter.Type.ToTypeOrWrapper()).Append("> ").Append(refParamBase).Append(parameterIndex).Append(")").AppendLine();
+					sb.Append("\t\t\t\tif (").Append(wpc).Append(".Parameter").Append(parameterIndex).Append(" is global::Mockolate.Parameters.IRefParameter<").Append(parameter.Type.ToTypeOrWrapper()).Append("> ").Append(refParamBase).Append(parameterIndex).Append(')').AppendLine();
 					sb.Append("\t\t\t\t{").AppendLine();
 					sb.Append("\t\t\t\t\t").Append(parameter.Name).Append(" = ").Append(refParamBase).Append(parameterIndex).Append(".GetValue(").Append(parameter.Name).Append(");").AppendLine();
 					sb.Append("\t\t\t\t}").AppendLine();
@@ -659,7 +659,7 @@ internal static partial class SourceTemplates
 			sb.Append('<').Append(string.Join(", ", delegateMethod.Parameters.Select(p => p.ToTypeOrWrapper()))).Append('>');
 		}
 
-		sb.Append("(").Append(delegateMethod.GetUniqueNameString());
+		sb.Append('(').Append(delegateMethod.GetUniqueNameString());
 		if (delegateMethod.Parameters.Count > 0)
 		{
 			sb.Append(", ").Append(string.Join(", ", delegateMethod.Parameters.Select(p => p.ToNameOrWrapper())));

@@ -159,7 +159,7 @@ internal static class TypeFormatter
 
 			int arity = int.Parse(segment.Substring(arityStart + 1), CultureInfo.InvariantCulture);
 			stringBuilder.Append(segment, 0, arityStart).Append('<')
-				.Append(string.Join(", ", arguments.Skip(argumentIndex).Take(arity))).Append('>');
+				.AppendJoin(", ", arguments.Skip(argumentIndex).Take(arity)).Append('>');
 			argumentIndex += arity;
 		}
 

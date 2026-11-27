@@ -142,7 +142,7 @@ internal static partial class SourceTemplates
 
 		sb.Append(indent).Append("if (").Append(mockRegistry).Append(".Behavior.SkipInteractionRecording == false)")
 			.AppendLine();
-		sb.Append(indent).Append("{").AppendLine();
+		sb.Append(indent).Append('{').AppendLine();
 		if (recordsTyped)
 		{
 			sb.Append(indent).Append("\tglobal::Mockolate.Internals.IndexerGetterRecords<");
@@ -158,7 +158,7 @@ internal static partial class SourceTemplates
 				.AppendLine();
 		}
 
-		sb.Append(indent).Append("}").AppendLine();
+		sb.Append(indent).Append('}').AppendLine();
 
 		EmitIndexerSetupLookup(sb, indent, mockRegistry, accessVarName, setupVarName, propertyType, parameters,
 			setupMemberIdRef ?? memberIdRef, false, deferAccess,
@@ -260,7 +260,7 @@ internal static partial class SourceTemplates
 
 		sb.Append(indent).Append("if (").Append(mockRegistry).Append(".Behavior.SkipInteractionRecording == false)")
 			.AppendLine();
-		sb.Append(indent).Append("{").AppendLine();
+		sb.Append(indent).Append('{').AppendLine();
 		if (recordsTyped)
 		{
 			sb.Append(indent).Append("\tglobal::Mockolate.Internals.IndexerSetterRecords<");
@@ -277,7 +277,7 @@ internal static partial class SourceTemplates
 				.AppendLine();
 		}
 
-		sb.Append(indent).Append("}").AppendLine();
+		sb.Append(indent).Append('}').AppendLine();
 
 		EmitIndexerSetupLookup(sb, indent, mockRegistry, accessVarName, setupVarName, propertyType, parameters,
 			setupMemberIdRef, true, deferAccess,
@@ -473,7 +473,7 @@ internal static partial class SourceTemplates
 			if (parameter.HasExplicitDefaultValue && nullIsDeclaredDefault)
 			{
 				sb.Append(" ?? global::Mockolate.It.Is<").Append(parameter.ToNullableType()).Append(">(")
-					.Append(parameter.ExplicitDefaultValue).Append(")");
+					.Append(parameter.ExplicitDefaultValue).Append(')');
 			}
 			else
 			{
@@ -481,7 +481,7 @@ internal static partial class SourceTemplates
 			}
 		}
 
-		sb.Append(")");
+		sb.Append(')');
 	}
 
 	/// <summary>
@@ -501,7 +501,7 @@ internal static partial class SourceTemplates
 		sb.Append("(global::Mockolate.Parameters.IParameterMatch<");
 		sb.AppendTypeOrWrapper(parameter.Type);
 		sb.Append(">)global::Mockolate.Internals.Matchers.IsValue<")
-			.Append(parameter.ToNullableType()).Append(">(").Append(paramRef).Append(")");
+			.Append(parameter.ToNullableType()).Append(">(").Append(paramRef).Append(')');
 	}
 
 	private static string CreateUniqueParameterName(EquatableArray<MethodParameter> parameters, string name)
