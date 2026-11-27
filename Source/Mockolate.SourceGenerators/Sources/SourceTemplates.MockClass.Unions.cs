@@ -23,7 +23,7 @@ internal static partial class SourceTemplates
 	private enum UnionSlot : byte
 	{
 		/// <summary>
-		///     The parameter cannot carry a literal value (<c>ref</c>/<c>out</c>, Span): rendered exactly like the classic
+		///     The parameter cannot carry a literal value (<see langword="ref" />/<see langword="out" />, Span): rendered exactly like the classic
 		///     matcher slot.
 		/// </summary>
 		Fixed,
@@ -59,7 +59,7 @@ internal static partial class SourceTemplates
 	///     <see cref="HasUniqueMethodName" />): a union conversion loses to the identity and numeric conversions of a
 	///     sibling overload, so <c>Setup.M(5)</c> on <c>M(int)</c>/<c>M(long)</c> would be ambiguous or bind to the
 	///     wrong method. Generic methods keep the classic set because a union slot hides the type argument from type
-	///     inference (<c>Setup.Method(1, "x")</c> would need explicit type arguments); <c>params</c> methods keep it
+	///     inference (<c>Setup.Method(1, "x")</c> would need explicit type arguments); <see langword="params" /> methods keep it
 	///     because a <c>params T[]</c> value slot cannot survive inside a union type; ref-struct pipelines have no
 	///     value overloads at all.
 	/// </summary>
@@ -391,7 +391,7 @@ internal static partial class SourceTemplates
 	}
 
 	/// <summary>
-	///     One trailing <c>string</c> per predicate slot carrying the caller's argument text; the definition adds the
+	///     One trailing <see langword="string" /> per predicate slot carrying the caller's argument text; the definition adds the
 	///     <c>[CallerArgumentExpression]</c> and the default, the explicit implementation just the parameter.
 	/// </summary>
 	private static void AppendUnionExpressionParameters(StringBuilder sb, string[] names, string[] expressionNames,
@@ -801,7 +801,7 @@ internal static partial class SourceTemplates
 	///     qualifies (<paramref name="hasUniqueKeyCount" />, see <see cref="HasUniqueIndexerKeyCount" />): two same-arity
 	///     indexers with convertible key types (<c>this[int]</c>/<c>this[long]</c>) would make <c>Setup[5]</c> ambiguous
 	///     because a union conversion loses to the numeric conversion, while indexers of different arity never compete.
-	///     Ref-struct keys have no value overloads at all and a <c>params</c> key cannot survive inside a union type.
+	///     Ref-struct keys have no value overloads at all and a <see langword="params" /> key cannot survive inside a union type.
 	/// </summary>
 	private static bool UseUnionIndexer(Property indexer, bool hasUniqueKeyCount, bool useUnionOverloads)
 		=> useUnionOverloads &&

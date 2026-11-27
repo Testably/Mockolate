@@ -150,7 +150,7 @@ internal static partial class SourceTemplates
 	///     describes.
 	/// </summary>
 	/// <remarks>
-	///     Only <c>void</c> members with by-value parameters are supported, as no adapter intercepts other members yet.
+	///     Only <see langword="void" /> members with by-value parameters are supported, as no adapter intercepts other members yet.
 	/// </remarks>
 	private static void AppendAdapterInterception(StringBuilder sb, Method method, MockAdapterBinding binding,
 		MockAdapterMember member, string mockRegistry, string memberId, bool callsBase)

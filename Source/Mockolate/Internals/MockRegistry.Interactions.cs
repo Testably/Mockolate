@@ -882,7 +882,7 @@ public partial class MockRegistry
 	/// </summary>
 	/// <remarks>
 	///     Avoids the per-call closure allocation by accepting a static <see cref="Func{T, TResult}" /> that takes
-	///     the active <see cref="MockBehavior" /> as its argument — the source generator emits a <c>static</c>
+	///     the active <see cref="MockBehavior" /> as its argument — the source generator emits a <see langword="static" />
 	///     lambda so the C# compiler caches the delegate in a static field.
 	/// </remarks>
 	/// <typeparam name="TResult">The property's value type.</typeparam>
@@ -1124,13 +1124,14 @@ public partial class MockRegistry
 		{
 			((PropertySetup<T>)matchingSetup).InvokeSetterTyped(value);
 		}
-		else if (matchingSetup is PropertySetup.Default<T> defaultSetup)
-		{
-			defaultSetup.Value = value;
-			return Behavior.SkipBaseClass;
-		}
 		else
 		{
+			if (matchingSetup is PropertySetup.Default<T> defaultSetup)
+			{
+				defaultSetup.Value = value;
+				return Behavior.SkipBaseClass;
+			}
+
 			((IInteractivePropertySetup)matchingSetup).InvokeSetter(invocation: null, value, Behavior);
 		}
 
@@ -1195,13 +1196,14 @@ public partial class MockRegistry
 				{
 					initialValue = baseValueAccessor.Invoke();
 				}
-				else if (existingSetup.IsValueInitialized)
-				{
-					// The setup ignores a new initial value, so none is generated, e.g. a new auto-mock on every read.
-					return existingSetup;
-				}
 				else
 				{
+					if (existingSetup.IsValueInitialized)
+					{
+						// The setup ignores a new initial value, so none is generated, e.g. a new auto-mock on every read.
+						return existingSetup;
+					}
+
 					initialValue = hasGeneratedValue ? generatedValue : defaultValueGenerator();
 				}
 			}

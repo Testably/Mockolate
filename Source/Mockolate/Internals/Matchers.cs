@@ -44,12 +44,12 @@ public static class Matchers
 		=> value is IParameter<T> parameter ? parameter.AsParameterMatch() : null;
 
 	/// <summary>
-	///     The matcher that the <c>params</c> <paramref name="values" /> hold, or <see langword="null" /> when they are
+	///     The matcher that the <see langword="params" /> <paramref name="values" /> hold, or <see langword="null" /> when they are
 	///     plain values: a lone matcher for the array matches the whole array, otherwise matchers for the elements match
 	///     element by element and the plain values next to them by equality. A <see langword="null" /> array matches a
 	///     <see langword="null" /> array.
 	/// </summary>
-	/// <typeparam name="T">The declared element type of the <c>params</c> parameter.</typeparam>
+	/// <typeparam name="T">The declared element type of the <see langword="params" /> parameter.</typeparam>
 	/// <param name="values">The expected values, which can contain matchers.</param>
 	/// <returns>
 	///     The matcher for <paramref name="values" />, or <see langword="null" /> when they are plain values in a
@@ -91,7 +91,7 @@ public static class Matchers
 	}
 
 	/// <summary>
-	///     Matches the argument that a <see langword="null" /> literal stands for and renders as <c>null</c> in failure
+	///     Matches the argument that a <see langword="null" /> literal stands for and renders as <see langword="null" /> in failure
 	///     messages: <see langword="null" />, or the default value of a non-nullable value type.
 	/// </summary>
 	/// <remarks>

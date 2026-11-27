@@ -7,7 +7,7 @@ internal static partial class SourceTemplates
 	/// <summary>
 	///     The union-typed setup/verify argument: a hand-written <c>[Union]</c> struct with the case types
 	///     <c>IParameter&lt;T&gt;</c> and <c>T?</c>, so that a setup overload can take a matcher or a literal value
-	///     through a single parameter. Stored in typed slots rather than a boxed <c>object</c>, so that a value type
+	///     through a single parameter. Stored in typed slots rather than a boxed <see langword="object" />, so that a value type
 	///     <c>T</c> does not allocate. Only emitted when the compilation supports C# unions.
 	/// </summary>
 	/// <param name="emitUnionAttributePolyfill">

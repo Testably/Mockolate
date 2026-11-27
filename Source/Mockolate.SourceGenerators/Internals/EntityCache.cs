@@ -11,7 +11,7 @@ namespace Mockolate.SourceGenerators.Internals;
 ///     Per-compilation cache for symbol-keyed entity records. Roslyn returns canonical
 ///     <see cref="ITypeSymbol" /> instances for the same type within one compilation, so
 ///     deduplicating on symbol identity is sound and lets a generator build that touches the
-///     same shared types (<c>string</c>, <c>int</c>, <see cref="System.Threading.Tasks.Task" />,
+///     same shared types (<see langword="string" />, <see langword="int" />, <see cref="System.Threading.Tasks.Task" />,
 ///     etc.) hundreds of times allocate the entity record only once.
 /// </summary>
 /// <remarks>

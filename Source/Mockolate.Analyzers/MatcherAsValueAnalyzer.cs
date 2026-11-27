@@ -191,7 +191,7 @@ isEnabledByDefault: true,
 	}
 
 	/// <summary>
-	///     Whether another argument or <c>params</c> element than <paramref name="value" /> is a plain value for a value
+	///     Whether another argument or <see langword="params" /> element than <paramref name="value" /> is a plain value for a value
 	///     parameter, or a matcher that is no matcher for its parameter.
 	/// </summary>
 	private static bool HasBlockingNeighbor(MatcherTypes matcherTypes, IArgumentOperation argument, IOperation value)
@@ -245,7 +245,7 @@ isEnabledByDefault: true,
 	}
 
 	/// <summary>
-	///     The elements of a <c>params</c> array, passed one by one, in an explicit array that can need a covariant
+	///     The elements of a <see langword="params" /> array, passed one by one, in an explicit array that can need a covariant
 	///     conversion, or in a collection expression.
 	/// </summary>
 	private static ImmutableArray<IOperation>? GetParamsElements(IArgumentOperation argument)

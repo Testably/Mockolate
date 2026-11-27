@@ -3,7 +3,7 @@ namespace Mockolate.SourceGenerators.Entities;
 /// <summary>
 ///     A constructor parameter of a <see cref="DataSourceClass" />.
 /// </summary>
-/// <param name="TypeFullName">The fully qualified type without a nullable reference annotation, valid in <c>typeof</c>.</param>
+/// <param name="TypeFullName">The fully qualified type without a nullable reference annotation, valid in <see langword="typeof" />.</param>
 /// <param name="Name">The parameter name, without the <c>@</c> of a keyword.</param>
 /// <param name="IsMockable">Whether the parameter gets a new mock when the resolver supplies no argument.</param>
 /// <param name="IsMockedLast">

@@ -61,7 +61,7 @@ public sealed class RefStructVoidMethodSetup<T> : MethodSetup, IRefStructVoidMet
 	/// <summary>
 	///     Returns the matcher for the first (and only) parameter slot, or <see langword="null" />
 	///     when the slot has no matcher configured. Used by generated mock bodies to access ref-struct
-	///     <c>out</c>/<c>ref</c> matcher payloads (e.g. <see cref="IOutRefStructParameter{T}" />).
+	///     <see langword="out" />/<see langword="ref" /> matcher payloads (e.g. <see cref="IOutRefStructParameter{T}" />).
 	/// </summary>
 	[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 	public IParameterMatch<T>? GetMatcher1()

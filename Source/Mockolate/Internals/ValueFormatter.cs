@@ -18,7 +18,7 @@ namespace Mockolate.Internals;
 public static class ValueFormatter
 {
 	/// <summary>
-	///     Formats <paramref name="value" /> independent of the current culture: <see langword="null" /> as <c>null</c>,
+	///     Formats <paramref name="value" /> independent of the current culture: <see langword="null" /> as <see langword="null" />,
 	///     strings in quotes, <see cref="IFormattable" /> values with <see cref="CultureInfo.InvariantCulture" /> and
 	///     everything else with <see cref="object.ToString" />.
 	/// </summary>

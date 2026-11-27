@@ -3352,7 +3352,7 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 	///         feature and the ref-struct setup types only compile on net9.0+.
 	///     </para>
 	///     <para>
-	///         Every ref kind is in scope: by value, <c>out</c>, <c>ref</c> and <c>ref readonly</c>, the
+	///         Every ref kind is in scope: by value, <see langword="out" />, <see langword="ref" /> and <c>ref readonly</c>, the
 	///         by-ref ones writing back through <c>IOutRefStructParameter</c> /
 	///         <c>IRefRefStructParameter</c> below. There is no arity ceiling either - arities 1-4 are
 	///         hand-written in <c>Source/Mockolate/Setup/</c>, 5+ are generator-emitted into
@@ -3672,8 +3672,8 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 	/// <summary>
 	///     Emits the body of a method whose non-span ref-struct return leaves it without a setup surface.
 	///     A virtual class method still has a real implementation behind it, so it forwards to the wrapped
-	///     instance or to <c>base</c> rather than breaking a member that would otherwise work. Interface,
-	///     abstract, static and <c>ref</c>-returning methods have nothing to forward to and throw.
+	///     instance or to <see langword="base" /> rather than breaking a member that would otherwise work. Interface,
+	///     abstract, static and <see langword="ref" />-returning methods have nothing to forward to and throw.
 	/// </summary>
 	/// <remarks>
 	///     The forward ignores the behaviour flags that a normal member honours, because there is no
@@ -4159,7 +4159,7 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 			.Append(">(").Append(parameter.Name).Append(')');
 
 	/// <summary>
-	///     Whether the values for the <c>params</c> <paramref name="parameter" /> can be matchers, for the same reason as
+	///     Whether the values for the <see langword="params" /> <paramref name="parameter" /> can be matchers, for the same reason as
 	///     in <see cref="MayHoldMatcher" />: its element type is a type parameter that the call infers from a matcher or
 	///     closes over <see langword="object" />. Matchers that bind to the overload that takes them as values decide at
 	///     runtime (<c>Matchers.AsParamsMatcher</c>).
@@ -4168,7 +4168,7 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 		=> parameter.IsParams && parameter.Type.ElementType is { IsTypeParameterThatCanBeObject: true, };
 
 	/// <summary>
-	///     Whether the trailing <c>params</c> array of <paramref name="method" /> can hold matchers
+	///     Whether the trailing <see langword="params" /> array of <paramref name="method" /> can hold matchers
 	///     (<see cref="MayHoldParamsMatchers" />), no other method shares its name and no parameter is optional. Its
 	///     all-values overload is then not promoted, so that matchers bind the overloads for matchers, it keeps the
 	///     overload without arguments, and a <see langword="null" /> stands for a <see langword="null" /> array. A
@@ -4221,7 +4221,7 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 	/// <summary>
 	///     The end of the parameter type of the per-element overload. For a lone <c>params object[]</c> that overload
 	///     outranks all-values, so a <see langword="null" /> literal binds to it as a <see langword="null" /> element
-	///     and the elements are nullable. The elements of a <c>params</c> array of a type parameter
+	///     and the elements are nullable. The elements of a <see langword="params" /> array of a type parameter
 	///     (<see cref="MayHoldParamsMatchers" />) are nullable as well, because a <see langword="null" /> element next to a
 	///     matcher binds this overload when the type argument is nullable.
 	/// </summary>
@@ -4232,7 +4232,7 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 			: ">[] ";
 
 	/// <summary>
-	///     Declares the empty <c>params</c> array of the overload that leaves it out as a local, so that the body of
+	///     Declares the empty <see langword="params" /> array of the overload that leaves it out as a local, so that the body of
 	///     the overload that takes it as values follows unchanged. Forwarding to that overload instead would go through overload
 	///     resolution, where a sibling that accepts an array could win.
 	/// </summary>
@@ -4258,12 +4258,12 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 		=> method.Parameters.Select(p => p.IsParams).ToArray();
 
 	/// <summary>
-	///     Whether <paramref name="method" /> gets an overload that leaves out its <c>params</c> parameter and matches an
-	///     empty array. For a lone <c>params object[]</c> and a lone <c>params</c> array of a type parameter
+	///     Whether <paramref name="method" /> gets an overload that leaves out its <see langword="params" /> parameter and matches an
+	///     empty array. For a lone <c>params object[]</c> and a lone <see langword="params" /> array of a type parameter
 	///     (<see cref="HasParamsMatchers" />) the all-values overload ranks below the per-element overload, so a call
 	///     without arguments would bind to the latter and lose <c>AnyParameters()</c>. Without
 	///     <c>OverloadResolutionPriorityAttribute</c> (<paramref name="hasOverloadResolutionPriority" />) a call without
-	///     <c>params</c> arguments is ambiguous between the per-element overload and the one that takes the array as
+	///     <see langword="params" /> arguments is ambiguous between the per-element overload and the one that takes the array as
 	///     values, so every <c>params T[]</c> gets it; an overload in normal form wins over both expanded forms.
 	///     A sibling that could already own that signature suppresses it; a delegate has no siblings.
 	/// </summary>
@@ -4310,11 +4310,11 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 	///     literal <see langword="null" /> for the first parameter: the <c>IParameters</c> overload outranks the overload
 	///     for a single <see langword="object" /> parameter or one typed with a method type parameter
 	///     (<see cref="MayHoldMatcher" />) and the overloads that leave out optional parameters or an empty
-	///     <c>params</c> array. Its <see langword="null" /> then forwards to the call with every argument given
+	///     <see langword="params" /> array. Its <see langword="null" /> then forwards to the call with every argument given
 	///     (<see cref="LoneNullArguments" />). A same-named sibling could capture that call (<paramref name="class" /> is
 	///     <see langword="null" /> for a delegate, which has none), and a classic <see langword="null" /> for a
 	///     non-nullable value type is a matcher rather than a value, so both keep the plain <c>IParameters</c> overload.
-	///     A <c>params</c> array of a type parameter (<see cref="HasParamsMatchers" />) keeps its all-values overload
+	///     A <see langword="params" /> array of a type parameter (<see cref="HasParamsMatchers" />) keeps its all-values overload
 	///     unpromoted, so the <c>IParameters</c> overload would take a lone <see langword="null" /> for it, where it stands
 	///     for a <see langword="null" /> array, or a lone <see langword="null" /> or <see langword="default" /> for the
 	///     parameters before it, even of a value type.
@@ -4378,7 +4378,7 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 	/// <remarks>
 	///     The classification follows the accessors the mock emits a body for, which is exactly what
 	///     <see cref="Property.Getter" />/<see cref="Property.Setter" /> being non-null means: the property
-	///     declares the accessor, and it is not an <c>internal</c>/<c>private protected</c> one hidden from
+	///     declares the accessor, and it is not an <see langword="internal" />/<c>private protected</c> one hidden from
 	///     the mock's assembly. Other accessibilities are not considered here, so a
 	///     <c>{ get; private set; }</c> property still classifies as <see cref="PropertyAccessors.Both" />.
 	///     The <see cref="PropertyAccessors.Both" /> arm therefore also absorbs degenerate shapes that
@@ -6383,7 +6383,7 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 	/// </summary>
 	/// <remarks>
 	///     The overload fills every delegate parameter through <c>Generate&lt;T&gt;</c>, which carries no
-	///     <c>allows ref struct</c> anti-constraint (its body type-tests an <c>object</c> against <c>T</c>),
+	///     <c>allows ref struct</c> anti-constraint (its body type-tests an <see langword="object" /> against <c>T</c>),
 	///     so a ref-struct argument - <c>Span&lt;T&gt;</c> included, as the event path has no wrapper
 	///     carve-out - would fail with CS9244. Such events keep the strongly-typed <c>Raise</c> overload,
 	///     which passes the argument straight to the backing delegate.
@@ -7596,7 +7596,7 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 	/// <summary>
 	///     A <c>T?</c> return where <c>T</c> is one of the method's generic parameters and is
 	///     constrained to a reference type (or any other non-value-type constraint such as
-	///     <c>class</c>, <c>class?</c>, an interface, or <c>notnull</c>) cannot be expressed in
+	///     <see langword="class" />, <c>class?</c>, an interface, or <c>notnull</c>) cannot be expressed in
 	///     the explicit setup-interface implementation: CS0460 forbids restating the inherited
 	///     constraint, and <c>where T : default</c> (CS8822) conflicts with those constraints.
 	///     Without a constraint clause the compiler resolves the bare <c>T?</c> as

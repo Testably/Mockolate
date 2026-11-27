@@ -81,7 +81,7 @@ public static partial class ItExtensions
 		private IParameter<Uri?>? _uriParameter;
 
 		/// <summary>
-		///     Returns <c>this</c> typed as <typeparamref name="TParameter" /> for fluent API.
+		///     Returns <see langword="this" /> typed as <typeparamref name="TParameter" /> for fluent API.
 		/// </summary>
 		protected abstract TParameter GetThis { get; }
 
