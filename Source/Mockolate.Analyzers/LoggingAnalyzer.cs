@@ -134,7 +134,7 @@ isEnabledByDefault: true,
 	///     Mirrors <c>Class.GetAdapterBindings</c> in the generator, which decides on the same override and then dispatches
 	///     the declaration that it overrides.
 	/// </remarks>
-	private static IMethodSymbol GetMostDerivedOverride(INamedTypeSymbol mockedClass, IMethodSymbol implementation)
+	internal static IMethodSymbol GetMostDerivedOverride(INamedTypeSymbol mockedClass, IMethodSymbol implementation)
 	{
 		for (INamedTypeSymbol? type = mockedClass; type is not null; type = type.BaseType)
 		{

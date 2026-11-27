@@ -34,6 +34,18 @@ public sealed class LoggerClassTests
 	}
 
 	[Test]
+	public async Task AbstractLogger_SetupInCreateMock_ShouldApply()
+	{
+		List<string> messages = [];
+		AbstractLogger logger = AbstractLogger.CreateMock(setup
+			=> setup.LogError().Do((_, _, message, _) => messages.Add(message)));
+
+		logger.LogError("Order {OrderId} failed", 42);
+
+		await That(messages).IsEqualTo(["Order 42 failed",]);
+	}
+
+	[Test]
 	public async Task AbstractLogger_ThrowingWhenNotSetup_ShouldOnlyThrowForLogCalls()
 	{
 		AbstractLogger logger = AbstractLogger.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());

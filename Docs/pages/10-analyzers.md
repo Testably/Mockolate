@@ -343,6 +343,27 @@ public void Export_ShouldWriteTheFile(
 
 The rule also fires for a parameter with more than one value provider or `[ValueFrom]`, for a parameter that is also `[Deferred]`, whose delegate Mockolate creates, and for a parameter that gets a value of the attribute, which replaces the provided value. Use a value provider that declares the type of the parameter, and keep one value provider per parameter.
 
+## Mockolate0015
+
+**Memory cache setups and verifications on the mock of a class that does not behave like a cache.**
+
+The [memory cache](09-special-types/04-memory-cache.md) setups and verifications need a mock that behaves like a cache. The mock of a class that implements `IMemoryCache` only does so when `TryGetValue`, `CreateEntry` and `Remove` are abstract. Otherwise, it calls the base implementations, so the rule reports the cache members:
+
+```csharp
+public class InMemoryCache : IMemoryCache
+{
+    public virtual bool TryGetValue(object key, out object? value) { … }
+
+    // CreateEntry, Remove and Dispose
+}
+
+InMemoryCache cache = InMemoryCache.CreateMock();
+// Mockolate0015: The memory cache setups and verifications are not supported on the mock of class 'InMemoryCache', because it calls the base implementations of TryGetValue, CreateEntry or Remove
+cache.Mock.Setup.Get("price-Dark").Returns(2.5m);
+```
+
+Mock `IMemoryCache` instead, or wrap the class with `Wrapping(…)` on a mock of `IMemoryCache`.
+
 ## Mockolate1001
 
 **IDE0060 is suppressed for an `[AsDefault]` parameter.**

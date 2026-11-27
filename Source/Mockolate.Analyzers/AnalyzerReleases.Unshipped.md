@@ -10,3 +10,4 @@
  Mockolate0012 | Usage    | Warning  | A [Deferred] parameter is invalid
  Mockolate0013 | Usage    | Warning  | A [ValueFrom] parameter is invalid
  Mockolate0014 | Usage    | Warning  | A parameter with a value provider is invalid
+ Mockolate0015 | Usage    | Error    | Memory cache setups and verifications need a mock that behaves like a cache

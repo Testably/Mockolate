@@ -213,6 +213,33 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
+        ///   Looks up a localized string describing Mockolate0014.
+        /// </summary>
+        internal static string Mockolate0014Description {
+            get {
+                return ResourceManager.GetString("Mockolate0014Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string describing Mockolate0014's message format.
+        /// </summary>
+        internal static string Mockolate0014MessageFormat {
+            get {
+                return ResourceManager.GetString("Mockolate0014MessageFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string describing Mockolate0014's title.
+        /// </summary>
+        internal static string Mockolate0014Title {
+            get {
+                return ResourceManager.GetString("Mockolate0014Title", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Use Match.AnyParameters().
         /// </summary>
         internal static string Mockolate0006CodeFixTitle {

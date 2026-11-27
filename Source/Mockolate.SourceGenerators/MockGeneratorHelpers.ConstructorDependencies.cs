@@ -167,18 +167,18 @@ internal static partial class MockGeneratorHelpers
 	/// <summary>
 	///     Only interfaces that the generator can mock without the checks of the <c>MockabilityAnalyzer</c> are mocked,
 	///     because no <c>CreateMock</c> call in the user code names them. Framework interfaces such as
-	///     <c>IEnumerable&lt;T&gt;</c> would be mocks that return <see langword="null" />, so only <c>ILogger</c>,
-	///     <c>ILogger&lt;T&gt;</c> and <c>ILoggerFactory</c>, for which Mockolate has dedicated mocks, are mocked from the
-	///     framework namespaces.
+	///     <c>IEnumerable&lt;T&gt;</c> would be mocks that return <see langword="null" />, so only the interfaces with a
+	///     <see cref="MockAdapter" />, e.g. <c>ILogger</c>, <c>ILogger&lt;T&gt;</c> or <c>IMemoryCache</c>, for which
+	///     Mockolate has dedicated mocks, are mocked from the framework namespaces.
 	/// </summary>
 	private static bool IsDependencyMockable(ITypeSymbol type, Compilation compilation)
 		=> type is INamedTypeSymbol namedType &&
-		   (!IsFrameworkNamespace(namedType.ContainingNamespace) || IsDedicatedLoggingType(namedType)) &&
+		   (!IsFrameworkNamespace(namedType.ContainingNamespace) || IsAdaptedInterface(namedType)) &&
 		   CanBeMockedImplicitly(namedType, compilation.Assembly);
 
-	private static bool IsDedicatedLoggingType(INamedTypeSymbol type)
-		=> type.Name is "ILogger" or "ILoggerFactory" &&
-		   string.Equals(type.ContainingNamespace.ToDisplayString(), "Microsoft.Extensions.Logging", StringComparison.Ordinal);
+	private static bool IsAdaptedInterface(INamedTypeSymbol type)
+		=> MockAdapter.All.Any(adapter => string.Equals(type.Name, adapter.TargetMetadataName, StringComparison.Ordinal) &&
+		                                  string.Equals(type.ContainingNamespace.ToDisplayString(), adapter.TargetNamespace, StringComparison.Ordinal));
 
 	/// <summary>
 	///     The accessible constructor with the most parameters that the generated code can call without warnings, or

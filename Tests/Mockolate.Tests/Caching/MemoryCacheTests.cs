@@ -2,6 +2,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Mockolate.Exceptions;
 using Mockolate.Parameters;
+using Mockolate.Setup;
 using Mockolate.Tests.GeneratorCoverage;
 using Mockolate.Verify;
 
@@ -239,7 +240,7 @@ public sealed class MemoryCacheTests
 		VirtualMemoryCache cache = VirtualMemoryCache.CreateMock().Implementing<ILogger>();
 
 		void Act()
-			=> cache.Mock.Setup.Get("order-42");
+			=> ((IMockSetup<IMemoryCache>)cache.Mock.Setup).Get("order-42");
 
 		await That(Act).Throws<MockException>()
 			.WithMessage("The cache setups and verifications only support mocks of *").AsWildcard();
@@ -271,6 +272,43 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
+	public async Task ClassWithOverridableMembers_SetupInCreateMock_ShouldApply()
+	{
+		AbstractMemoryCacheBase cache = AbstractMemoryCacheBase.CreateMock(setup =>
+		{
+			setup.Get("order-7").Returns("Milk");
+			setup.Get("order-42").InitializeWith("Dark");
+		});
+
+		await That(cache.Get<string>("order-7")).IsEqualTo("Milk");
+		await That(cache.Get<string>("order-42")).IsEqualTo("Dark");
+	}
+
+	[Test]
+	public async Task ConstructorDependency_ShouldBeMockedAsCache()
+	{
+		CachingService sut = CachingService.CreateMock();
+
+		sut.Cache.Set("order-42", "Dark");
+
+		await That(sut.Cache.Get<string>("order-42")).IsEqualTo("Dark");
+		await That(sut.Mock.ConstructorArgument<IMemoryCache>().Mock.Verify.Set("order-42", "Dark")).Once();
+	}
+
+	[Test]
+	public async Task ClassWithNonVirtualLogAndCacheMembers_ShouldThrowForLoggingSetups()
+	{
+		LoggingMemoryCacheBase cache = LoggingMemoryCacheBase.CreateMock();
+
+		void Act()
+			=> ((IMockSetup<ILogger>)cache.Mock.Setup).LogError();
+
+		await That(Act).Throws<MockException>()
+			.WithMessage("The logging setups and verifications do not support '*'.").AsWildcard()
+			.Because("the mock supports the cache members, but cannot intercept the non-virtual Log");
+	}
+
+	[Test]
 	public async Task ClassWithOverridableMembers_SetupGetInScenario_ShouldApplyInScenario()
 	{
 		AbstractMemoryCacheBase cache = AbstractMemoryCacheBase.CreateMock();
@@ -290,7 +328,7 @@ public sealed class MemoryCacheTests
 		VirtualMemoryCache cache = VirtualMemoryCache.CreateMock();
 
 		void Act()
-			=> cache.Mock.Setup.Get("order-42");
+			=> ((IMockSetup<IMemoryCache>)cache.Mock.Setup).Get("order-42");
 
 		await That(Act).Throws<MockException>()
 			.WithMessage("The cache setups and verifications only support mocks of 'IMemoryCache' and of classes whose 'TryGetValue', 'CreateEntry' and 'Remove' are abstract, not '*'.").AsWildcard();
@@ -570,4 +608,31 @@ public sealed class MemoryCacheTests
 	}
 
 	public interface IOrderCache : IMemoryCache;
+
+	public class CachingService(IMemoryCache cache)
+	{
+		public IMemoryCache Cache { get; } = cache;
+	}
+
+	public abstract class LoggingMemoryCacheBase : ILogger, IMemoryCache
+	{
+		public IDisposable? BeginScope<TState>(TState state) where TState : notnull
+			=> null;
+
+		public bool IsEnabled(LogLevel logLevel)
+			=> true;
+
+		public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception,
+			Func<TState, Exception?, string> formatter)
+		{
+		}
+
+		public abstract ICacheEntry CreateEntry(object key);
+
+		public abstract void Dispose();
+
+		public abstract void Remove(object key);
+
+		public abstract bool TryGetValue(object key, out object? value);
+	}
 }

@@ -411,7 +411,12 @@ internal static partial class Sources
 		          			}
 
 		          			public void Set(object key, object? value)
-		          				=> _entries[key] = (false, value, 0);
+		          			{
+		          				lock (_lock)
+		          				{
+		          					_entries[key] = (false, value, 0);
+		          				}
+		          			}
 
 		          			public void Remove(object key)
 		          			{

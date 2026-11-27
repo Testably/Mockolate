@@ -1340,6 +1340,7 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 				sb.Append(", global::Mockolate.Mock.IMockProtectedSetupFor").Append(name).Append(", IMockSetupInitializationFor").Append(name);
 			}
 
+			AppendAdapterAccessDeclaration(sb, [@class,]);
 			sb.AppendLine();
 			sb.Append("\t{").AppendLine();
 			if (hasProtectedMembers)
@@ -1349,6 +1350,7 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 			}
 
 			sb.Append("\t\tprivate global::Mockolate.Internals.MockRegistry ").Append(mockRegistryName).Append(" { get; } = mockRegistry;").AppendLine();
+			AppendAdapterAccessImplementation(sb, [@class,], mockRegistryName, "\"\"", memberIds, memberIdPrefix);
 			sb.AppendLine();
 			sb.Append("\t\t#region IMockSetupFor").Append(name).AppendLine();
 			sb.AppendLine();

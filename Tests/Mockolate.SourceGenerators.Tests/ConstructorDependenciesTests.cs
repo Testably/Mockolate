@@ -38,6 +38,37 @@ public sealed class ConstructorDependenciesTests
 	}
 
 	[Test]
+	public async Task ClassWithAdaptedFrameworkDependencies_ShouldMockThem()
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #pragma warning disable CS9113
+		                                       using Microsoft.Extensions.Caching.Memory;
+		                                       using Microsoft.Extensions.Logging;
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public class Svc(IMemoryCache cache, ILoggerFactory loggerFactory);
+
+		                                           public class Program
+		                                           {
+		                                               public static void Main(string[] args)
+		                                               {
+		                                                   _ = Svc.CreateMock();
+		                                               }
+		                                           }
+		                                       }
+		                                       """, typeof(Microsoft.Extensions.Caching.Memory.IMemoryCache),
+			typeof(Microsoft.Extensions.Primitives.IChangeToken), typeof(Microsoft.Extensions.Logging.ILoggerFactory));
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources).ContainsKey("Caching.g.cs");
+		await That(result.Sources["Mock.Svc.g.cs"])
+			.Contains("global::Microsoft.Extensions.Caching.Memory.IMemoryCache d1 = global::Microsoft.Extensions.Caching.Memory.IMemoryCache.CreateMock(mockRegistry.Behavior);").And
+			.Contains("global::Microsoft.Extensions.Logging.ILoggerFactory d2 = global::Microsoft.Extensions.Logging.ILoggerFactory.CreateMock(mockRegistry.Behavior);");
+	}
+
+	[Test]
 	public async Task ClassWithParameterlessConstructor_ShouldNotFillTheOtherConstructor()
 	{
 		GeneratorResult result = Generator.Run("""

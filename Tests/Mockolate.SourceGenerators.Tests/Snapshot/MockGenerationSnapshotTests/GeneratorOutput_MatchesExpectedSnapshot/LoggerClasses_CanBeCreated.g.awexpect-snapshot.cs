@@ -1457,9 +1457,32 @@ internal static partial class MockExtensionsForConcreteLogger
 	}
 
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	internal sealed class MockSetup(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockSetupForConcreteLogger
+	internal sealed class MockSetup(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockSetupForConcreteLogger, global::Mockolate.Internals.IMockAdapterAccess
 	{
 		private global::Mockolate.Internals.MockRegistry MockRegistry { get; } = mockRegistry;
+
+		/// <inheritdoc />
+		global::Mockolate.Internals.MockRegistry global::Mockolate.Internals.IMockAdapterAccess.MockRegistry => this.MockRegistry;
+		/// <inheritdoc />
+		string global::Mockolate.Internals.IMockAdapterAccess.Scenario => "";
+		/// <inheritdoc />
+		int global::Mockolate.Internals.IMockAdapterAccess.GetMemberId(string memberName)
+			=> memberName switch
+			{
+				"BeginScope" => global::Mockolate.Mock.ConcreteLogger.MemberId_BeginScope_TState_,
+				"IsEnabled" => global::Mockolate.Mock.ConcreteLogger.MemberId_IsEnabled,
+				"Log" => global::Mockolate.Mock.ConcreteLogger.MemberId_Log_TState_,
+				_ => -1,
+			};
+		/// <inheritdoc />
+		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
+			=> memberName switch
+			{
+				"BeginScope" => "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.BeginScope<",
+				"IsEnabled" => "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.IsEnabled",
+				"Log" => "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.Log<",
+				_ => "",
+			};
 
 		#region IMockSetupForConcreteLogger
 
@@ -3027,9 +3050,32 @@ internal static partial class MockExtensionsForLeafLogger
 	}
 
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	internal sealed class MockSetup(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockSetupForLeafLogger
+	internal sealed class MockSetup(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockSetupForLeafLogger, global::Mockolate.Internals.IMockAdapterAccess
 	{
 		private global::Mockolate.Internals.MockRegistry MockRegistry { get; } = mockRegistry;
+
+		/// <inheritdoc />
+		global::Mockolate.Internals.MockRegistry global::Mockolate.Internals.IMockAdapterAccess.MockRegistry => this.MockRegistry;
+		/// <inheritdoc />
+		string global::Mockolate.Internals.IMockAdapterAccess.Scenario => "";
+		/// <inheritdoc />
+		int global::Mockolate.Internals.IMockAdapterAccess.GetMemberId(string memberName)
+			=> memberName switch
+			{
+				"BeginScope" => global::Mockolate.Mock.LeafLogger.MemberId_BeginScope_TState_,
+				"IsEnabled" => global::Mockolate.Mock.LeafLogger.MemberId_IsEnabled,
+				"Log" => global::Mockolate.Mock.LeafLogger.MemberId_Log_TState_,
+				_ => -1,
+			};
+		/// <inheritdoc />
+		string global::Mockolate.Internals.IMockAdapterAccess.GetMemberName(string memberName)
+			=> memberName switch
+			{
+				"BeginScope" => "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.BeginScope<",
+				"IsEnabled" => "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.IsEnabled",
+				"Log" => "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.Log<",
+				_ => "",
+			};
 
 		#region IMockSetupForLeafLogger
 
