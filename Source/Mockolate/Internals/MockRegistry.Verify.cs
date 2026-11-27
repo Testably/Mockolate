@@ -84,6 +84,39 @@ public partial class MockRegistry
 	}
 
 	/// <summary>
+	///     Counts invocations of the generic method <paramref name="genericMethodName" /> with
+	///     <paramref name="parameterCount" /> parameters, for any type argument, whose arguments satisfy
+	///     <paramref name="predicate" />.
+	/// </summary>
+	/// <typeparam name="T">The verification facade type; returned to the caller so chaining can continue.</typeparam>
+	/// <param name="subject">The verification facade the result is bound to.</param>
+	/// <param name="genericMethodName">
+	///     The name of the open generic method with a comma for each further type parameter (e.g.
+	///     <c>"Send&lt;,&gt;"</c>).
+	/// </param>
+	/// <param name="parameterCount">The number of parameters of the method.</param>
+	/// <param name="isCallOf">
+	///     Recognizes the calls of the method, when other overloads have the same name and as many type parameters and
+	///     parameters; otherwise <see langword="null" />.
+	/// </param>
+	/// <param name="predicate">Argument predicate applied to each call of the method.</param>
+	/// <param name="expectation">Factory producing the expectation description used in failure messages.</param>
+	public VerificationResult<T> VerifyGenericMethod<T>(T subject, string genericMethodName, int parameterCount,
+		Func<IMethodInvocationParameters, bool>? isCallOf, Func<IMethodInvocationParameters, bool> predicate,
+		Func<string> expectation)
+	{
+		return new VerificationResult<T>(subject, Interactions, Predicate, InvokedMethodExpectation(expectation));
+
+		[DebuggerNonUserCode]
+		bool Predicate(IInteraction interaction)
+		{
+			return GenericMethodInvocations.TryGetInvocation(interaction, genericMethodName, parameterCount,
+				       isCallOf, out IMethodInvocationParameters invocation) &&
+			       predicate(invocation);
+		}
+	}
+
+	/// <summary>
 	///     Counts getter accesses of the property named <paramref name="propertyName" /> on <paramref name="subject" />.
 	/// </summary>
 	/// <typeparam name="T">The verification facade type.</typeparam>
@@ -1163,6 +1196,7 @@ public partial class MockRegistry
 			}
 		}
 
+		HashSet<MethodSetup> visited = [];
 		foreach (MethodSetup[]? bucket in table)
 		{
 			if (bucket is null)
@@ -1172,6 +1206,11 @@ public partial class MockRegistry
 
 			foreach (MethodSetup setup in bucket)
 			{
+				if (!visited.Add(setup))
+				{
+					continue;
+				}
+
 				bool matched = false;
 				foreach (IMethodInteraction interaction in methodInteractions)
 				{

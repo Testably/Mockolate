@@ -173,6 +173,36 @@ A matcher for a nullable type with a non-nullable type argument, such as `Setup.
 
 </details>
 
+#### Any type argument
+
+A setup or verification on `Setup` or `Verify` applies to one type argument. To match every type argument, use `SetupGeneric` and `VerifyGeneric`. They offer each generic method without its type parameters: a parameter whose type depends on a type parameter takes a matcher of any type, which is checked against the value of the call, and the other parameters take a matcher of their type. Both take matchers only, so match a value with `It.Is(...)`. Generic constraints do not apply.
+
+```csharp
+public interface IChocolateSerializer
+{
+    T Deserialize<T>(string json);
+    void Write<T>(T value);
+}
+
+IChocolateSerializer serializer = IChocolateSerializer.CreateMock();
+serializer.Mock.SetupGeneric.Deserialize(It.Is("{")).Throws<FormatException>();
+
+void Act() => serializer.Deserialize<DarkChocolate>("{");
+serializer.Write("dark");
+serializer.Write(42);
+
+await That(Act).Throws<FormatException>();
+await That(serializer.Mock.VerifyGeneric.Write(It.IsAny<string>())).Once();
+await That(serializer.Mock.VerifyGeneric.Write(It.IsAny<int>())).Once();
+await That(serializer.Mock.VerifyGeneric.Write(Match.AnyParameters())).Twice();
+```
+
+A setup for any type argument returns no value: use it to throw or to run a callback, and set up the specific type argument to return a value. When a setup for a specific type argument and a setup for any type argument both match a call, the most recently defined one wins. Its callbacks receive the values of these parameters as `object`.
+
+`SetupProtectedGeneric` and `VerifyProtectedGeneric` do the same for the protected generic methods of a class mock. `InScenario(...)` offers `SetupGeneric` for a scenario, and a monitor from `Monitor()` offers `VerifyGeneric` for the monitored calls.
+
+Overloads that share a signature without their type parameters, such as `Send<TResponse>(IRequest<TResponse> request)` and `Send<TRequest>(TRequest request)`, are offered once, and the setup or verification matches the calls of all of them. The generic entry points leave out static methods, methods with `ref`, `out`, `in`, `params` or ref struct parameters (such as `Span<T>`), and overloads that share a signature but differ in the number of their type parameters, in the names of their parameters or in the interface that declares them.
+
 ## String matching
 
 `It.Matches(pattern)` matches strings with the wildcards `*` (any number of characters) and `?` (a single character).

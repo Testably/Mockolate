@@ -140,6 +140,114 @@ public sealed partial class MockTests
 			}
 
 			[Test]
+			public async Task GenericOverloads_WithTheSameNumberOfTypeParameters_ShouldGetNoParametersOverload()
+			{
+				GeneratorResult result = Generator
+					.Run("""
+					     using System.Threading;
+					     using System.Threading.Tasks;
+					     using Mockolate;
+
+					     namespace MyCode;
+					     public class Program
+					     {
+					         public static void Main(string[] args)
+					         {
+					     		_ = ISender.CreateMock();
+					         }
+					     }
+
+					     public interface IRequest<out TResponse> { }
+
+					     public interface ISender
+					     {
+					         Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = default);
+					         Task Send<TRequest>(TRequest request, CancellationToken cancellationToken = default) where TRequest : class;
+					     }
+					     """);
+
+				await That(result.Diagnostics).IsEmpty()
+					.Because("an IParameters overload per method would differ only in the names of their type parameters");
+				await That(result.Sources["Mock.ISender.g.cs"])
+					.DoesNotContain("Send<TResponse>(global::Mockolate.Parameters.IParameters").And
+					.DoesNotContain("Send<TRequest>(global::Mockolate.Parameters.IParameters").And
+					.Contains("Send<TResponse>(global::Mockolate.Parameters.IParameter<global::MyCode.IRequest<TResponse>>")
+					.Because("the overloads keep their other setups");
+			}
+
+			[Test]
+			public async Task SetupGeneric_ShouldOfferOverloadsThatShareTheSignatureOnlyWhenTheyShareTheParameterNames()
+			{
+				GeneratorResult result = Generator
+					.Run("""
+					     using Mockolate;
+
+					     namespace MyCode;
+					     public class Program
+					     {
+					         public static void Main(string[] args)
+					         {
+					     		_ = IMyService.CreateMock();
+					         }
+					     }
+
+					     public interface IMyService
+					     {
+					         void Shared<T>(T value);
+					         void Shared<T>(object value);
+					         void Renamed<T>(T value);
+					         void Renamed<T>(object other);
+					     }
+					     """);
+
+				await That(result.Diagnostics).IsEmpty();
+				await That(result.Sources["Mock.IMyService.g.cs"])
+					.Contains("IVoidMethodSetupWithCallback<object?> Shared(global::Mockolate.Parameters.IParameter<object?>? value);")
+					.Exactly(1).And
+					.DoesNotContain(" Renamed(global::")
+					.Because("a named parameter match could not tell which name applies");
+			}
+
+			[Test]
+			public async Task SetupGeneric_WithOverloadsThatDifferOnlyInNestedNullableAnnotations_ShouldOfferThemOnce()
+			{
+				GeneratorResult result = Generator
+					.Run("""
+					     #nullable enable
+					     using System.Collections.Generic;
+					     using Mockolate;
+
+					     namespace MyCode;
+					     public class Program
+					     {
+					         public static void Main(string[] args)
+					         {
+					     		_ = IMyService.CreateMock();
+					         }
+					     }
+
+					     public interface IMyService
+					     {
+					         void Annotated<T>(T value, List<string?> names);
+					         void Annotated<T>(T[] value, List<string> names);
+					         void Nested<T>(T value, List<int?> numbers);
+					         void Nested<T>(T[] value, List<int> numbers);
+					     }
+					     """);
+
+				await That(result.Diagnostics).IsEmpty()
+					.Because("nullable annotations of reference types do not tell signatures apart");
+				await That(result.Sources["Mock.IMyService.g.cs"])
+					.Contains("IVoidMethodSetupWithCallback<object?, global::System.Collections.Generic.List<string?>> Annotated(global::Mockolate.Parameters.IParameter<object?>? value")
+					.Exactly(1).And
+					.Contains("IVoidMethodSetupWithCallback<object?, global::System.Collections.Generic.List<int?>> Nested(global::Mockolate.Parameters.IParameter<object?>? value")
+					.Exactly(1).And
+					.Contains("IVoidMethodSetupWithCallback<object?, global::System.Collections.Generic.List<int>> Nested(global::Mockolate.Parameters.IParameter<object?>? value")
+					.Exactly(1)
+					.Because("a nullable value type is another type");
+			}
+
+			[Test]
 			public async Task Generic_WithoutConstraints_ShouldNotHaveWhereClause()
 			{
 				GeneratorResult result = Generator

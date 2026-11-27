@@ -212,12 +212,31 @@ public partial class MockRegistry
 	/// <param name="alternativeMethodName">The other accepted method name.</param>
 	/// <returns>A lazy stream of matching setups, scenario-scoped first.</returns>
 	public IEnumerable<T> GetMethodSetups<T>(string methodName, string? alternativeMethodName) where T : MethodSetup
+		=> GetMethodSetups<T>(-1, methodName, alternativeMethodName);
+
+	/// <summary>
+	///     Enumerates method setups of type <typeparamref name="T" /> named <paramref name="methodName" /> or
+	///     <paramref name="alternativeMethodName" />, in the order of <see cref="GetMethodSetups{T}(string)" />, but
+	///     searches the snapshot bucket of <paramref name="memberId" /> before the other buckets of the default scope.
+	/// </summary>
+	/// <remarks>
+	///     Setups of one member are ordered newest first only within its bucket. A setup that is registered for several
+	///     members, such as a setup for any type argument of overloads that share its signature, would otherwise win over
+	///     a newer setup in the bucket of the called member.
+	/// </remarks>
+	/// <typeparam name="T">The concrete <see cref="MethodSetup" /> subtype to return.</typeparam>
+	/// <param name="memberId">The generator-emitted member id of the called method.</param>
+	/// <param name="methodName">The simple method name.</param>
+	/// <param name="alternativeMethodName">The other accepted method name.</param>
+	/// <returns>A lazy stream of matching setups, scenario-scoped first.</returns>
+	public IEnumerable<T> GetMethodSetups<T>(int memberId, string methodName, string? alternativeMethodName)
+		where T : MethodSetup
 	{
 		MockSetups? setups = _setups;
 		if (!string.IsNullOrEmpty(Scenario) && setups is not null &&
 		    setups.TryGetScenario(Scenario, out MockScenarioSetup? scopedBucket))
 		{
-			return EnumerateScopedAndGlobalMethodSetups<T>(methodName, alternativeMethodName, scopedBucket);
+			return EnumerateScopedAndGlobalMethodSetups<T>(memberId, methodName, alternativeMethodName, scopedBucket);
 		}
 
 		MethodSetup[]?[]? snapshot = Volatile.Read(ref _setupsByMemberId);
@@ -228,7 +247,40 @@ public partial class MockRegistry
 				: setups.Methods.EnumerateByName<T>(methodName, alternativeMethodName);
 		}
 
-		return EnumerateGlobalMethodSetups<T>(methodName, alternativeMethodName, snapshot, -1);
+		return memberId < 0
+			? EnumerateGlobalMethodSetups<T>(methodName, alternativeMethodName, snapshot, -1)
+			: EnumerateMemberAndGlobalMethodSetups<T>(memberId, methodName, alternativeMethodName, snapshot);
+	}
+
+	private IEnumerable<T> EnumerateMemberAndGlobalMethodSetups<T>(int memberId, string methodName,
+		string? alternativeMethodName, MethodSetup[]?[] snapshot) where T : MethodSetup
+	{
+		foreach (T setup in EnumerateBucketByName<T>(methodName, alternativeMethodName, snapshot, memberId))
+		{
+			yield return setup;
+		}
+
+		foreach (T setup in EnumerateGlobalMethodSetups<T>(methodName, alternativeMethodName, snapshot, memberId))
+		{
+			yield return setup;
+		}
+	}
+
+	private static IEnumerable<T> EnumerateBucketByName<T>(string methodName, string? alternativeMethodName,
+		MethodSetup[]?[] snapshot, int memberId) where T : MethodSetup
+	{
+		if ((uint)memberId >= (uint)snapshot.Length || snapshot[memberId] is not { } bucket)
+		{
+			yield break;
+		}
+
+		for (int i = bucket.Length - 1; i >= 0; i--)
+		{
+			if (bucket[i] is T typed && typed.HasName(methodName, alternativeMethodName))
+			{
+				yield return typed;
+			}
+		}
 	}
 
 	/// <summary>
@@ -283,6 +335,7 @@ public partial class MockRegistry
 	private static bool HasNamedSetupInOtherBucket<T>(string methodName, string? alternativeMethodName, int memberId,
 		MethodSetup[]?[] snapshot) where T : MethodSetup
 	{
+		MethodSetup[]? searched = GetBucket(snapshot, memberId);
 		for (int b = 0; b < snapshot.Length; b++)
 		{
 			MethodSetup[]? bucket = snapshot[b];
@@ -293,7 +346,8 @@ public partial class MockRegistry
 
 			foreach (MethodSetup setup in bucket)
 			{
-				if (setup is T && setup.HasName(methodName, alternativeMethodName))
+				if (setup is T && setup.HasName(methodName, alternativeMethodName) &&
+				    !IsIn(searched, setup))
 				{
 					return true;
 				}
@@ -303,8 +357,8 @@ public partial class MockRegistry
 		return false;
 	}
 
-	private IEnumerable<T> EnumerateScopedAndGlobalMethodSetups<T>(string methodName, string? alternativeMethodName,
-		MockScenarioSetup scopedBucket) where T : MethodSetup
+	private IEnumerable<T> EnumerateScopedAndGlobalMethodSetups<T>(int memberId, string methodName,
+		string? alternativeMethodName, MockScenarioSetup scopedBucket) where T : MethodSetup
 	{
 		foreach (T setup in scopedBucket.Methods.EnumerateByName<T>(methodName, alternativeMethodName))
 		{
@@ -314,7 +368,12 @@ public partial class MockRegistry
 		MethodSetup[]?[]? snapshot = Volatile.Read(ref _setupsByMemberId);
 		if (snapshot is not null)
 		{
-			foreach (T setup in EnumerateSnapshotByName<T>(methodName, alternativeMethodName, snapshot, -1))
+			foreach (T setup in EnumerateBucketByName<T>(methodName, alternativeMethodName, snapshot, memberId))
+			{
+				yield return setup;
+			}
+
+			foreach (T setup in EnumerateSnapshotByName<T>(methodName, alternativeMethodName, snapshot, memberId))
 			{
 				yield return setup;
 			}
@@ -353,6 +412,7 @@ public partial class MockRegistry
 		// (scenario-active dispatch, ref-struct dispatch) doesn't know the id, so we filter by Name
 		// after the type-test. The outer scan is proportional to snapshot.Length (the memberId table
 		// size / mocked member count), not interaction count; the table may be sparse for a method.
+		MethodSetup[]? searched = GetBucket(snapshot, excludedMemberId);
 		for (int b = 0; b < snapshot.Length; b++)
 		{
 			MethodSetup[]? bucket = snapshot[b];
@@ -363,13 +423,22 @@ public partial class MockRegistry
 
 			for (int i = bucket.Length - 1; i >= 0; i--)
 			{
-				if (bucket[i] is T typed && typed.HasName(methodName, alternativeMethodName))
+				if (bucket[i] is T typed && typed.HasName(methodName, alternativeMethodName) &&
+				    !IsIn(searched, typed))
 				{
 					yield return typed;
 				}
 			}
 		}
 	}
+
+	private static MethodSetup[]? GetBucket(MethodSetup[]?[] snapshot, int memberId)
+		=> (uint)memberId < (uint)snapshot.Length ? snapshot[memberId] : null;
+
+	// A setup for several members, such as one for any type argument of overloads that share its signature, is in the
+	// bucket of each of them, and was already checked with the bucket of the called member.
+	private static bool IsIn(MethodSetup[]? searched, MethodSetup setup)
+		=> searched is not null && Array.IndexOf(searched, setup) >= 0;
 
 	/// <summary>
 	///     Returns the latest registered indexer setup of type <typeparamref name="T" /> that satisfies

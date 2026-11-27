@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
 using Mockolate.SourceGenerators.Internals;
 
@@ -5,9 +6,13 @@ namespace Mockolate.SourceGenerators.Entities;
 
 internal record Type
 {
+	// A type that is named dynamic is qualified, at least with global::.
+	private static readonly Regex NestedDynamic = new(@"(?<![\w.:@])dynamic(?!\w)", RegexOptions.Compiled, TimeSpan.FromSeconds(1));
+
 	private Type(string fullname)
 	{
 		Fullname = fullname;
+		IdentityName = fullname;
 		DisplayName = fullname;
 	}
 
@@ -18,6 +23,7 @@ internal record Type
 		{
 			CanBeNullable = typeSymbol.NullableAnnotation == NullableAnnotation.Annotated;
 			Fullname = CanBeNullable ? "object?" : "object";
+			IdentityName = "object";
 			DisplayName = Fullname;
 			Namespace = "System";
 			SpecialType = SpecialType.System_Object;
@@ -28,6 +34,10 @@ internal record Type
 
 		// Removes '*' from multi-dimensional array types
 		Fullname = typeSymbol.ToQualifiedDisplayString(Helpers.TypeDisplayFormat).Replace("*", "");
+		IdentityName = Fullname.IndexOfAny(['?', '(',]) < 0 && Fullname.IndexOf("dynamic", StringComparison.Ordinal) < 0
+			? Fullname
+			: NestedDynamic.Replace(
+				typeSymbol.ToQualifiedDisplayString(Helpers.TypeIdentityDisplayFormat).Replace("*", ""), "object");
 		DisplayName = typeSymbol.ToDisplayString(Helpers.TypeDisplayShortFormat).Replace("*", "");
 		Namespace = typeSymbol.ContainingNamespace?.ToString();
 		if (typeSymbol is INamedTypeSymbol namedTypeSymbol)
@@ -140,6 +150,13 @@ internal record Type
 	internal static Type Void { get; } = new("void");
 
 	public string Fullname { get; }
+
+	/// <summary>
+	///     The <see cref="Fullname" /> without the nullable annotations of reference types, at any depth, without the
+	///     names of tuple elements and with <see langword="object" /> for <see langword="dynamic" />, so that two types are
+	///     the same in a signature exactly when their identity names are equal. It is valid in a <see langword="typeof" />.
+	/// </summary>
+	public string IdentityName { get; }
 
 	public string DisplayName { get; }
 

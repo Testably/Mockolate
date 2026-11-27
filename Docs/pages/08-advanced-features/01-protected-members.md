@@ -48,3 +48,19 @@ dispenser.Mock.VerifyProtected[0].Set(42).Once();
 ```
 
 All [verification options](../07-verify-interactions.md) work the same as for public members.
+
+## Generic methods for any type argument
+
+`Mock.SetupProtectedGeneric` and `Mock.VerifyProtectedGeneric` set up and verify protected generic methods for any type argument, like `SetupGeneric` and `VerifyGeneric` do for public ones (see [Generic methods](../06-parameter-matching.md#generic-methods)):
+
+```csharp
+public abstract class ChocolateRecipe
+{
+    protected virtual void AddIngredient<T>(T ingredient) { }
+}
+
+ChocolateRecipe recipe = ChocolateRecipe.CreateMock();
+recipe.Mock.SetupProtectedGeneric.AddIngredient(It.IsAny<string>()).Throws<InvalidOperationException>();
+
+await That(recipe.Mock.VerifyProtectedGeneric.AddIngredient(Match.AnyParameters())).Never();
+```

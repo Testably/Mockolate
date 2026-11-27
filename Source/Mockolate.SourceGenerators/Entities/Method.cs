@@ -176,6 +176,9 @@ internal record Method
 		return $"\"{ContainingType}.{Name}\"";
 	}
 
+	internal bool UsesTypeParameter(Type type)
+		=> GenericParameters is not null && ContainsAnyTypeParameter(type.Fullname, GenericParameters.Value.AsArray());
+
 	private static bool ContainsAnyTypeParameter(string text, GenericParameter[] genericParameters)
 	{
 		foreach (GenericParameter gp in genericParameters)

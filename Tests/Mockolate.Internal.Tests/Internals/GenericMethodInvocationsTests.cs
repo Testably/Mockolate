@@ -1,0 +1,181 @@
+using System.Collections.Generic;
+using Mockolate.Interactions;
+using Mockolate.Parameters;
+
+namespace Mockolate.Internal.Tests.Internals;
+
+public sealed class GenericMethodInvocationsTests
+{
+	[Test]
+	public async Task TryGetInvocation_ShouldRequireTheNameAndTheParameterCount()
+	{
+		MethodInvocation<int, string> invocation = new("Ns.IFoo.Send<System.Int32>", 1, "a");
+
+		bool matching = GenericMethodInvocations.TryGetInvocation(invocation, "Ns.IFoo.Send<>", 2, null,
+			out IMethodInvocationParameters result);
+		bool otherName = GenericMethodInvocations.TryGetInvocation(invocation, "Ns.IFoo.Get<>", 2, null, out _);
+		bool otherCount = GenericMethodInvocations.TryGetInvocation(invocation, "Ns.IFoo.Send<>", 1, null, out _);
+		bool noMethod = GenericMethodInvocations.TryGetInvocation(new PropertyGetterAccess("Ns.IFoo.Send<>"),
+			"Ns.IFoo.Send<>", 0, null, out _);
+
+		await That(matching).IsTrue();
+		await That(result).IsSameAs(invocation);
+		await That(otherName).IsFalse();
+		await That(otherCount).IsFalse();
+		await That(noMethod).IsFalse();
+	}
+
+	[Test]
+	[Arguments("Ns.IFoo.Send<System.Int32>", "Ns.IFoo.Send<>", true)]
+	[Arguments("Ns.IFoo.Send<System.Int32, System.String>", "Ns.IFoo.Send<>", false)]
+	[Arguments("Ns.IFoo.Send<System.Int32, System.String>", "Ns.IFoo.Send<,>", true)]
+	[Arguments("Ns.IFoo.Send<System.Collections.Generic.Dictionary`2[System.Int32,System.String]>", "Ns.IFoo.Send<>", true)]
+	[Arguments("Ns.IFoo<System.Int32, System.String>.Send<System.Int32>", "Ns.IFoo<System.Int32, System.String>.Send<>", true)]
+	[Arguments("Ns.IFoo.Send<", "Ns.IFoo.Send<>", false)]
+	public async Task TryGetInvocation_ShouldCountTheTypeArgumentsOfTheMethod(string name, string genericMethodName,
+		bool expected)
+	{
+		MethodInvocation<int> invocation = new(name, 1);
+
+		bool result = GenericMethodInvocations.TryGetInvocation(invocation, genericMethodName, 1, null, out _);
+
+		await That(result).IsEqualTo(expected)
+			.Because("a comma inside the name of a generic type argument does not separate type arguments");
+	}
+
+	[Test]
+	public async Task TryGetInvocation_ShouldRequireTheCallToBeOfTheOverload()
+	{
+		MethodInvocation<int> invocation = new("Ns.IFoo.Send<System.String>", 1);
+
+		bool ofOverload = GenericMethodInvocations.TryGetInvocation(invocation, "Ns.IFoo.Send<>", 1,
+			parameters => parameters.GetParameterTypeAt(0) == typeof(int), out _);
+		bool ofOtherOverload = GenericMethodInvocations.TryGetInvocation(invocation, "Ns.IFoo.Send<>", 1,
+			parameters => parameters.GetParameterTypeAt(0) == typeof(int?), out _);
+
+		await That(ofOverload).IsTrue();
+		await That(ofOtherOverload).IsFalse();
+	}
+
+	[Test]
+	[Arguments("Ns.IFoo.Send<System.Int32>", "Ns.IFoo.Send<>", 0, true)]
+	[Arguments("Ns.IFoo.Send<System.String>", "Ns.IFoo.Send<>", 0, false)]
+	[Arguments("Ns.IFoo.Send<System.String, System.Int32>", "Ns.IFoo.Send<,>", 0, false)]
+	[Arguments("Ns.IFoo.Send<System.String, System.Int32>", "Ns.IFoo.Send<,>", 1, true)]
+	[Arguments("Ns.IFoo.Send<System.Int32, System.String>", "Ns.IFoo.Send<,>", 0, true)]
+	[Arguments("Ns.IFoo.Send<System.Int32, System.String>", "Ns.IFoo.Send<,>", 1, false)]
+	[Arguments("Ns.IFoo.Send<System.Int32, System.String>", "Ns.IFoo.Send<,>", 2, false)]
+	[Arguments("Ns.IFoo.Send<System.Int32[]>", "Ns.IFoo.Send<>", 0, false)]
+	[Arguments("Ns.IFoo<System.Int32>.Send<System.String>", "Ns.IFoo<System.Int32>.Send<>", 0, false)]
+	[Arguments("Ns.IFoo.Send<System.String, <>f__AnonymousType0`1[System.Int32]>", "Ns.IFoo.Send<,>", 0, false)]
+	[Arguments("Ns.IFoo.Send<<>f__AnonymousType0`1[System.Int32], System.Int32>", "Ns.IFoo.Send<,>", 1, true)]
+	public async Task IsTypeArgument_ShouldCompareTheParameterTypeWithTheTypeArgument(string name,
+		string genericMethodName, int typeArgumentIndex, bool expected)
+	{
+		MethodInvocation<int> invocation = new(name, 1);
+
+		bool result = GenericMethodInvocations.IsTypeArgument(invocation, genericMethodName, 0, typeArgumentIndex);
+
+		await That(result).IsEqualTo(expected);
+	}
+
+	[Test]
+	public async Task IsTypeArgument_WhenNullable_ShouldCompareTheUnderlyingType()
+	{
+		MethodInvocation<int?, int> invocation = new("Ns.IFoo.Send<System.Int32>", 1, 2);
+
+		bool ofNullable = GenericMethodInvocations.IsTypeArgument(invocation, "Ns.IFoo.Send<>", 0, 0, true);
+		bool ofNullableAsPlain = GenericMethodInvocations.IsTypeArgument(invocation, "Ns.IFoo.Send<>", 0, 0);
+		bool ofPlainAsNullable = GenericMethodInvocations.IsTypeArgument(invocation, "Ns.IFoo.Send<>", 1, 0, true);
+
+		await That(ofNullable).IsTrue();
+		await That(ofNullableAsPlain).IsFalse();
+		await That(ofPlainAsNullable).IsFalse();
+	}
+
+	[Test]
+	public async Task IsTypeArgument_WithoutAParameterAtTheIndex_ShouldReturnFalse()
+	{
+		MethodInvocation<int> invocation = new("Ns.IFoo.Send<System.Int32>", 1);
+
+		bool result = GenericMethodInvocations.IsTypeArgument(invocation, "Ns.IFoo.Send<>", 1, 0);
+
+		await That(result).IsFalse();
+	}
+
+	[Test]
+	public async Task TryGetValue_ShouldCastTheArgument()
+	{
+		MethodInvocation<object?, object?> invocation = new("M<T>", "a", null);
+
+		bool asString = GenericMethodInvocations.TryGetValue(invocation, 0, out string? text);
+		bool asInt = GenericMethodInvocations.TryGetValue(invocation, 0, out int _);
+		bool nullAsString = GenericMethodInvocations.TryGetValue(invocation, 1, out string? nullText);
+		bool nullAsInt = GenericMethodInvocations.TryGetValue(invocation, 1, out int _);
+
+		await That(asString).IsTrue();
+		await That(text).IsEqualTo("a");
+		await That(asInt).IsFalse();
+		await That(nullAsString).IsTrue();
+		await That(nullText).IsNull();
+		await That(nullAsInt).IsFalse().Because("a value type cannot be null");
+	}
+
+	[Test]
+	public async Task Matches_WithIParametersMatch_ShouldForwardTheArguments()
+	{
+		RecordingParametersMatch matcher = new(true);
+		MethodInvocation<int, string> invocation = new("M<T>", 1, "a");
+
+		bool result = GenericMethodInvocations.Matches(matcher, invocation, "p1", "p2");
+
+		await That(result).IsTrue();
+		await That(matcher.Received).HasCount(1);
+		await That(matcher.Received[0]).IsEqualTo(new object?[] { 1, "a", });
+	}
+
+	[Test]
+	public async Task Matches_WithINamedParametersMatch_ShouldForwardTheNamedArguments()
+	{
+		RecordingNamedParametersMatch matcher = new(false);
+		MethodInvocation<int, string> invocation = new("M<T>", 1, "a");
+
+		bool result = GenericMethodInvocations.Matches(matcher, invocation, "p1", "p2");
+
+		await That(result).IsFalse();
+		await That(matcher.Received).HasCount(1);
+		await That(matcher.Received[0]).IsEqualTo(new[] { ("p1", (object?)1), ("p2", (object?)"a"), });
+	}
+
+	[Test]
+	public async Task Matches_WithUnknownIParameters_ShouldReturnTrue()
+	{
+		MethodInvocation<int> invocation = new("M<T>", 1);
+
+		bool result = GenericMethodInvocations.Matches(Match.AnyParameters(), invocation, "p1");
+
+		await That(result).IsTrue();
+	}
+
+	private sealed class RecordingParametersMatch(bool result) : IParameters, IParametersMatch
+	{
+		public List<object?[]> Received { get; } = new();
+
+		public bool Matches(ReadOnlySpan<object?> values)
+		{
+			Received.Add(values.ToArray());
+			return result;
+		}
+	}
+
+	private sealed class RecordingNamedParametersMatch(bool result) : IParameters, INamedParametersMatch
+	{
+		public List<(string, object?)[]> Received { get; } = new();
+
+		public bool Matches(ReadOnlySpan<(string, object?)> values)
+		{
+			Received.Add(values.ToArray());
+			return result;
+		}
+	}
+}
