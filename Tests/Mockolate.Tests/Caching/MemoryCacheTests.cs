@@ -441,6 +441,44 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
+	public async Task SetupGetTyped_ShouldReturnAndInitializeTypedValues()
+	{
+		IMemoryCache cache = IMemoryCache.CreateMock();
+		cache.Mock.Setup.Get<decimal>("price-Dark").Returns(2.5m);
+		cache.Mock.Setup.Get<decimal>(It.Matches("price-*")).InitializeWith(1.0m);
+
+		await That(cache.Get<decimal>("price-Dark")).IsEqualTo(2.5m);
+		await That(cache.Get<decimal>("price-White")).IsEqualTo(1.0m);
+	}
+
+	[Test]
+	public async Task SetupGet_Misses_ShouldMissAlsoAfterSet()
+	{
+		IMemoryCache cache = IMemoryCache.CreateMock();
+		int calls = 0;
+		cache.Mock.Setup.Get("order-42").Misses();
+		cache.Set("order-42", "Milk");
+
+		string? first = cache.GetOrCreate("order-42", _ => $"Dark{++calls}");
+		string? second = cache.GetOrCreate("order-42", _ => $"Dark{++calls}");
+
+		await That(cache.Get("order-42")).IsNull();
+		await That(first).IsEqualTo("Dark1");
+		await That(second).IsEqualTo("Dark2").Because("every read of the key misses");
+	}
+
+	[Test]
+	public async Task ThrowingWhenNotSetup_WithMisses_ShouldNotThrow()
+	{
+		IMemoryCache cache = IMemoryCache.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
+		cache.Mock.Setup.Get<string>("order-42").Misses();
+
+		string? result = cache.GetOrCreate("order-42", _ => "Dark");
+
+		await That(result).IsEqualTo("Dark");
+	}
+
+	[Test]
 	public async Task SetupGet_ThrowsException_ShouldThrow()
 	{
 		IMemoryCache cache = IMemoryCache.CreateMock();
@@ -566,6 +604,60 @@ public sealed class MemoryCacheTests
 		await That(cache.Mock.Verify.Set(It.IsAny<object>(), "Dark").WithSize(3)).Once();
 		await That(cache.Mock.Verify.Set(It.IsAny<object>(), "Dark").WithPriority(CacheItemPriority.High)).Once();
 		await That(cache.Mock.Verify.Set("options", "Dark").WithSize(3).WithPriority(CacheItemPriority.Low)).Never();
+	}
+
+	[Test]
+	public async Task VerifySet_WithExpirationArguments_ShouldMatchLikeTheSetExtensions()
+	{
+		IMemoryCache cache = IMemoryCache.CreateMock();
+		DateTimeOffset expiration = new(2026, 11, 22, 12, 0, 0, TimeSpan.Zero);
+
+		cache.Set("absolute", "Dark", expiration);
+		cache.Set("relative", "Dark", TimeSpan.FromMinutes(1));
+
+		await That(cache.Mock.Verify.Set("absolute", "Dark", expiration)).Once();
+		await That(cache.Mock.Verify.Set("absolute", It.IsAny<object?>(), expiration)).Once();
+		await That(cache.Mock.Verify.Set(It.Matches("abs*"), "Dark", expiration)).Once();
+		await That(cache.Mock.Verify.Set(It.IsAny<object>(), It.IsAny<object?>(), expiration.AddDays(1))).Never();
+		await That(cache.Mock.Verify.Set("relative", "Dark", TimeSpan.FromMinutes(1))).Once();
+		await That(cache.Mock.Verify.Set("relative", It.IsAny<object?>(), TimeSpan.FromMinutes(1))).Once();
+		await That(cache.Mock.Verify.Set(It.Matches("rel*"), "Dark", TimeSpan.FromMinutes(1))).Once();
+		await That(cache.Mock.Verify.Set(It.IsAny<object>(), It.IsAny<object?>(), TimeSpan.FromMinutes(2))).Never();
+	}
+
+	[Test]
+	public async Task VerifySet_WithOptions_ShouldMatchTheOptions()
+	{
+		IMemoryCache cache = IMemoryCache.CreateMock();
+		MemoryCacheEntryOptions options = new()
+		{
+			SlidingExpiration = TimeSpan.FromMinutes(5),
+			Size = 3,
+			Priority = CacheItemPriority.High,
+		};
+
+		cache.Set("options", "Dark", options);
+		cache.Set("plain", "Dark");
+
+		await That(cache.Mock.Verify.Set("options", "Dark", options)).Once();
+		await That(cache.Mock.Verify.Set("options", It.IsAny<object?>(), options)).Once();
+		await That(cache.Mock.Verify.Set(It.IsAny<object>(), "Dark", options)).Once();
+		await That(cache.Mock.Verify.Set(It.IsAny<object>(), It.IsAny<object?>(), new MemoryCacheEntryOptions { Size = 3, }))
+			.Never().Because("all options have to match");
+		await That(cache.Mock.Verify.Set(It.IsAny<object>(), "Dark", (MemoryCacheEntryOptions?)null)).Once()
+			.Because("an entry without options matches the default options");
+	}
+
+	[Test]
+	public async Task VerifySet_WithOptions_WhenFailing_ShouldDescribeOptions()
+	{
+		IMemoryCache cache = IMemoryCache.CreateMock();
+
+		void Act()
+			=> cache.Mock.Verify.Set("order-42", "Dark", new MemoryCacheEntryOptions { Size = 3, }).Once();
+
+		await That(Act).Throws<MockVerificationException>()
+			.WithMessage("Expected that mock invoked method Set(\"order-42\", \"Dark\").WithAbsoluteExpiration(null).WithAbsoluteExpirationRelativeToNow(null).WithSlidingExpiration(null).WithSize(3).WithPriority(Normal) exactly once, but it never did.");
 	}
 
 	[Test]

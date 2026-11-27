@@ -60,18 +60,25 @@ namespace Mockolate.Setup
 	/// <summary>
 	///     A setup of the reads of the matching keys of a mocked <c>IMemoryCache</c>.
 	/// </summary>
-	internal interface ICacheGetSetup
+	/// <typeparam name="TItem">The type of the values of the matching keys.</typeparam>
+	internal interface ICacheGetSetup<TItem>
 	{
 		/// <summary>
 		///     Gives the matching keys the start value <paramref name="value" />. The cache keeps behaving like a cache, so
 		///     storing or removing a key replaces the start value.
 		/// </summary>
-		void InitializeWith(object? value);
+		void InitializeWith(TItem value);
 
 		/// <summary>
 		///     Reads of the matching keys always return the <paramref name="value" />.
 		/// </summary>
-		global::Mockolate.Setup.IMethodSetup Returns(object? value);
+		global::Mockolate.Setup.IMethodSetup Returns(TItem value);
+
+		/// <summary>
+		///     Reads of the matching keys always miss, also after an entry was stored, e.g. so that <c>GetOrCreate</c>
+		///     calls the factory every time.
+		/// </summary>
+		global::Mockolate.Setup.IMethodSetup Misses();
 
 		/// <summary>
 		///     Reads of the matching keys throw an exception of type <typeparamref name="TException" />.
@@ -256,14 +263,29 @@ namespace Mockolate
 			/// <summary>
 			///     Sets up the reads of the <paramref name="key" />, e.g. with <c>Get</c>, <c>TryGetValue</c> or <c>GetOrCreate</c>.
 			/// </summary>
-			public global::Mockolate.Setup.ICacheGetSetup Get(object key)
-				=> setup.Get(global::Mockolate.It.Is(key, global::Mockolate.Internals.ValueFormatter.Format(key)));
+			public global::Mockolate.Setup.ICacheGetSetup<object?> Get(object key)
+				=> setup.Get<object?>(key);
 
 			/// <summary>
 			///     Sets up the reads of the keys that match the <paramref name="key" />, e.g. with <c>Get</c>, <c>TryGetValue</c> or <c>GetOrCreate</c>.
 			/// </summary>
-			public global::Mockolate.Setup.ICacheGetSetup Get(global::Mockolate.Parameters.IParameter key)
-				=> new CacheGetSetup(GetAccess(setup), key);
+			public global::Mockolate.Setup.ICacheGetSetup<object?> Get(global::Mockolate.Parameters.IParameter key)
+				=> setup.Get<object?>(key);
+
+			/// <summary>
+			///     Sets up the reads of the <paramref name="key" /> with values of type <typeparamref name="TItem" />, e.g. with
+			///     <c>Get&lt;TItem&gt;</c>, <c>TryGetValue&lt;TItem&gt;</c> or <c>GetOrCreate&lt;TItem&gt;</c>.
+			/// </summary>
+			public global::Mockolate.Setup.ICacheGetSetup<TItem> Get<TItem>(object key)
+				=> setup.Get<TItem>(global::Mockolate.It.Is(key, global::Mockolate.Internals.ValueFormatter.Format(key)));
+
+			/// <summary>
+			///     Sets up the reads of the keys that match the <paramref name="key" /> with values of type
+			///     <typeparamref name="TItem" />, e.g. with <c>Get&lt;TItem&gt;</c>, <c>TryGetValue&lt;TItem&gt;</c> or
+			///     <c>GetOrCreate&lt;TItem&gt;</c>.
+			/// </summary>
+			public global::Mockolate.Setup.ICacheGetSetup<TItem> Get<TItem>(global::Mockolate.Parameters.IParameter key)
+				=> new CacheGetSetup<TItem>(GetAccess(setup), key);
 		}
 
 		/// <inheritdoc cref="MockolateCaching" />
@@ -313,6 +335,102 @@ namespace Mockolate
 			/// </summary>
 			public global::Mockolate.Verify.CacheSetVerificationResult<TVerify> Set(global::Mockolate.Parameters.IParameter key, global::Mockolate.Parameters.IParameter? value)
 				=> new(verify, GetAccess(verify).MockRegistry, key, value ?? global::Mockolate.It.IsNull<object?>());
+
+			/// <summary>
+			///     Verifies the entries stored for the <paramref name="key" /> with the <paramref name="value" /> and the
+			///     <paramref name="absoluteExpirationRelativeToNow" />, e.g. with <c>Set(key, value, absoluteExpirationRelativeToNow)</c>.
+			/// </summary>
+			public global::Mockolate.Verify.CacheSetVerificationResult<TVerify> Set(object key, object? value, global::System.TimeSpan absoluteExpirationRelativeToNow)
+				=> verify.Set(key, value).WithAbsoluteExpirationRelativeToNow(absoluteExpirationRelativeToNow);
+
+			/// <summary>
+			///     Verifies the entries stored for the <paramref name="key" /> with a value that matches the <paramref name="value" />
+			///     and the <paramref name="absoluteExpirationRelativeToNow" />, e.g. with <c>Set(key, value, absoluteExpirationRelativeToNow)</c>.
+			/// </summary>
+			public global::Mockolate.Verify.CacheSetVerificationResult<TVerify> Set(object key, global::Mockolate.Parameters.IParameter? value, global::System.TimeSpan absoluteExpirationRelativeToNow)
+				=> verify.Set(key, value).WithAbsoluteExpirationRelativeToNow(absoluteExpirationRelativeToNow);
+
+			/// <summary>
+			///     Verifies the entries stored for the keys that match the <paramref name="key" /> with the <paramref name="value" />
+			///     and the <paramref name="absoluteExpirationRelativeToNow" />, e.g. with <c>Set(key, value, absoluteExpirationRelativeToNow)</c>.
+			/// </summary>
+			public global::Mockolate.Verify.CacheSetVerificationResult<TVerify> Set(global::Mockolate.Parameters.IParameter key, object? value, global::System.TimeSpan absoluteExpirationRelativeToNow)
+				=> verify.Set(key, value).WithAbsoluteExpirationRelativeToNow(absoluteExpirationRelativeToNow);
+
+			/// <summary>
+			///     Verifies the entries stored for the keys that match the <paramref name="key" /> with a value that matches the
+			///     <paramref name="value" /> and the <paramref name="absoluteExpirationRelativeToNow" />, e.g. with
+			///     <c>Set(key, value, absoluteExpirationRelativeToNow)</c>.
+			/// </summary>
+			public global::Mockolate.Verify.CacheSetVerificationResult<TVerify> Set(global::Mockolate.Parameters.IParameter key, global::Mockolate.Parameters.IParameter? value, global::System.TimeSpan absoluteExpirationRelativeToNow)
+				=> verify.Set(key, value).WithAbsoluteExpirationRelativeToNow(absoluteExpirationRelativeToNow);
+
+			/// <summary>
+			///     Verifies the entries stored for the <paramref name="key" /> with the <paramref name="value" /> and the
+			///     <paramref name="absoluteExpiration" />, e.g. with <c>Set(key, value, absoluteExpiration)</c>.
+			/// </summary>
+			public global::Mockolate.Verify.CacheSetVerificationResult<TVerify> Set(object key, object? value, global::System.DateTimeOffset absoluteExpiration)
+				=> verify.Set(key, value).WithAbsoluteExpiration(absoluteExpiration);
+
+			/// <summary>
+			///     Verifies the entries stored for the <paramref name="key" /> with a value that matches the <paramref name="value" />
+			///     and the <paramref name="absoluteExpiration" />, e.g. with <c>Set(key, value, absoluteExpiration)</c>.
+			/// </summary>
+			public global::Mockolate.Verify.CacheSetVerificationResult<TVerify> Set(object key, global::Mockolate.Parameters.IParameter? value, global::System.DateTimeOffset absoluteExpiration)
+				=> verify.Set(key, value).WithAbsoluteExpiration(absoluteExpiration);
+
+			/// <summary>
+			///     Verifies the entries stored for the keys that match the <paramref name="key" /> with the <paramref name="value" />
+			///     and the <paramref name="absoluteExpiration" />, e.g. with <c>Set(key, value, absoluteExpiration)</c>.
+			/// </summary>
+			public global::Mockolate.Verify.CacheSetVerificationResult<TVerify> Set(global::Mockolate.Parameters.IParameter key, object? value, global::System.DateTimeOffset absoluteExpiration)
+				=> verify.Set(key, value).WithAbsoluteExpiration(absoluteExpiration);
+
+			/// <summary>
+			///     Verifies the entries stored for the keys that match the <paramref name="key" /> with a value that matches the
+			///     <paramref name="value" /> and the <paramref name="absoluteExpiration" />, e.g. with <c>Set(key, value, absoluteExpiration)</c>.
+			/// </summary>
+			public global::Mockolate.Verify.CacheSetVerificationResult<TVerify> Set(global::Mockolate.Parameters.IParameter key, global::Mockolate.Parameters.IParameter? value, global::System.DateTimeOffset absoluteExpiration)
+				=> verify.Set(key, value).WithAbsoluteExpiration(absoluteExpiration);
+
+			/// <summary>
+			///     Verifies the entries stored for the <paramref name="key" /> with the <paramref name="value" /> and the expiration,
+			///     size and priority of the <paramref name="options" />, e.g. with <c>Set(key, value, options)</c>.
+			/// </summary>
+			public global::Mockolate.Verify.CacheSetVerificationResult<TVerify> Set(object key, object? value, global::Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions? options)
+				=> WithOptions(verify.Set(key, value), options);
+
+			/// <summary>
+			///     Verifies the entries stored for the <paramref name="key" /> with a value that matches the <paramref name="value" />
+			///     and the expiration, size and priority of the <paramref name="options" />, e.g. with <c>Set(key, value, options)</c>.
+			/// </summary>
+			public global::Mockolate.Verify.CacheSetVerificationResult<TVerify> Set(object key, global::Mockolate.Parameters.IParameter? value, global::Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions? options)
+				=> WithOptions(verify.Set(key, value), options);
+
+			/// <summary>
+			///     Verifies the entries stored for the keys that match the <paramref name="key" /> with the <paramref name="value" />
+			///     and the expiration, size and priority of the <paramref name="options" />, e.g. with <c>Set(key, value, options)</c>.
+			/// </summary>
+			public global::Mockolate.Verify.CacheSetVerificationResult<TVerify> Set(global::Mockolate.Parameters.IParameter key, object? value, global::Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions? options)
+				=> WithOptions(verify.Set(key, value), options);
+
+			/// <summary>
+			///     Verifies the entries stored for the keys that match the <paramref name="key" /> with a value that matches the
+			///     <paramref name="value" /> and the expiration, size and priority of the <paramref name="options" />, e.g. with
+			///     <c>Set(key, value, options)</c>.
+			/// </summary>
+			public global::Mockolate.Verify.CacheSetVerificationResult<TVerify> Set(global::Mockolate.Parameters.IParameter key, global::Mockolate.Parameters.IParameter? value, global::Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions? options)
+				=> WithOptions(verify.Set(key, value), options);
+		}
+
+		private static global::Mockolate.Verify.CacheSetVerificationResult<TVerify> WithOptions<TVerify>(global::Mockolate.Verify.CacheSetVerificationResult<TVerify> result, global::Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions? options)
+		{
+			options ??= new global::Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions();
+			return result.WithAbsoluteExpiration(options.AbsoluteExpiration)
+				.WithAbsoluteExpirationRelativeToNow(options.AbsoluteExpirationRelativeToNow)
+				.WithSlidingExpiration(options.SlidingExpiration)
+				.WithSize(options.Size)
+				.WithPriority(options.Priority);
 		}
 
 		/// <summary>
@@ -558,9 +676,9 @@ namespace Mockolate
 			}
 		}
 
-		private sealed class CacheGetSetup(global::Mockolate.Internals.IMockAdapterAccess access, global::Mockolate.Parameters.IParameter key) : global::Mockolate.Setup.ICacheGetSetup
+		private sealed class CacheGetSetup<TItem>(global::Mockolate.Internals.IMockAdapterAccess access, global::Mockolate.Parameters.IParameter key) : global::Mockolate.Setup.ICacheGetSetup<TItem>
 		{
-			public void InitializeWith(object? value)
+			public void InitializeWith(TItem value)
 			{
 				if (access.MockRegistry.Wraps is not null)
 				{
@@ -570,10 +688,17 @@ namespace Mockolate
 				GetState(access.MockRegistry).Initialize(key, access.Scenario, value);
 			}
 
-			public global::Mockolate.Setup.IMethodSetup Returns(object? value)
+			public global::Mockolate.Setup.IMethodSetup Returns(TItem value)
 			{
 				global::Mockolate.Setup.ReturnMethodSetup<bool, object, object?>.WithParameterCollection setup = Create(global::Mockolate.It.IsOut<object?>(() => value));
 				((global::Mockolate.Setup.IReturnMethodSetup<bool, object, object?>)setup).Returns(true);
+				return Register(setup);
+			}
+
+			public global::Mockolate.Setup.IMethodSetup Misses()
+			{
+				global::Mockolate.Setup.ReturnMethodSetup<bool, object, object?>.WithParameterCollection setup = Create(global::Mockolate.It.IsOut<object?>(() => null));
+				((global::Mockolate.Setup.IReturnMethodSetup<bool, object, object?>)setup).Returns(false);
 				return Register(setup);
 			}
 

@@ -36,37 +36,45 @@ public class ChocolateShop(IMemoryCache cache)
 
 An entry is stored when the entry that `CreateEntry` returned is disposed with a value, as with a real cache. The expiration options are recorded for the verifications, but the entries do not expire and the eviction callbacks are not called.
 
-On a mock created with [`ThrowingWhenNotSetup()`](../03-create-mocks.md#customizing-mock-behavior), reading a key without a setup and without a stored entry throws a `MockNotSetupException`. Storing and removing entries still works. To let a read miss, e.g. for `GetOrCreate(…)`, set up `TryGetValue` to return `false`. The setup answers every read of the key, so the key always misses and `GetOrCreate(…)` calls the factory every time:
+On a mock created with [`ThrowingWhenNotSetup()`](../03-create-mocks.md#customizing-mock-behavior), reading a key without a setup and without a stored entry throws a `MockNotSetupException`. Storing and removing entries still works. To let a read miss, e.g. for `GetOrCreate(…)`, set up the key with `Misses()`. The setup answers every read of the key, so the key always misses and `GetOrCreate(…)` calls the factory every time:
 
 ```csharp
-cache.Mock.Setup.TryGetValue("price-Dark", It.IsAnyOut<object?>()).Returns(false);
+cache.Mock.Setup.Get("price-Dark").Misses();
 ```
 
 A setup of `TryGetValue` without a return value, e.g. with only a callback, keeps the cache behavior: the stored entries answer the reads, also with their values, and a strict mock misses without throwing.
 
 ## Setup
 
-`Setup.Get(key)` sets up the reads of a key, or of the keys that match a [matcher](../06-parameter-matching.md):
+`Setup.Get(key)` sets up the reads of a key, or of the keys that match a [matcher](../06-parameter-matching.md). Like `cache.Get<TItem>(key)`, `Setup.Get<TItem>(key)` takes the type of the value, so a value of another type does not compile:
 
 | Member                   | Reads of the matching keys …                                                                          |
 |--------------------------|-------------------------------------------------------------------------------------------------------|
 | `InitializeWith(value)`  | return the start value. The cache keeps behaving like a cache, so storing or removing a key replaces it. |
 | `Returns(value)`         | always return the value, also after an entry was stored.                                              |
+| `Misses()`               | always miss, also after an entry was stored.                                                          |
 | `Throws<TException>()`   | throw an exception of the type.                                                                       |
 | `Throws(exception)`      | throw the exception.                                                                                  |
 
 ```csharp
-cache.Mock.Setup.Get(It.Matches("price-*")).InitializeWith(1.0m);
+cache.Mock.Setup.Get<decimal>(It.Matches("price-*")).InitializeWith(1.0m);
 cache.Mock.Setup.Get("price-White").Throws<TimeoutException>();
 ```
 
-`Returns` and `Throws` set up `TryGetValue`, so they take precedence over the stored entries and the start values and can be verified with `VerifySetup(…)`. All members apply in [scenarios](../08-advanced-features/06-scenarios.md), and a start value of the active scenario takes precedence over one of the default scope. A matcher can match keys of any type, e.g. `It.IsAny<int>()`.
+`Returns`, `Misses` and `Throws` set up `TryGetValue`, so they take precedence over the stored entries and the start values and can be verified with `VerifySetup(…)`. All members apply in [scenarios](../08-advanced-features/06-scenarios.md), and a start value of the active scenario takes precedence over one of the default scope. A matcher can match keys of any type, e.g. `It.IsAny<int>()`.
 
 ## Verification
 
 `Verify.Get(key)` counts the reads of a key, e.g. with `Get(…)`, `TryGetValue(…)` or `GetOrCreate(…)`. `Verify.Set(key, value)` counts the stored entries, e.g. with `Set(…)` or `GetOrCreate(…)` on a miss. Both accept values and matchers. `Remove(key)` is a member of the cache, so `Verify.Remove(key)` verifies it as usual.
 
-Narrow `Verify.Set(…)` down by the options of the entry:
+Like the `Set(…)` extension methods, `Verify.Set(…)` takes an absolute expiration, an expiration relative to now or `MemoryCacheEntryOptions` as third argument. The options match when the entry has the same expirations, size and priority; their change tokens and eviction callbacks are not compared:
+
+```csharp
+await That(cache.Mock.Verify.Set("price-Dark", 2.5m,
+    new MemoryCacheEntryOptions { SlidingExpiration = TimeSpan.FromMinutes(5) })).Once();
+```
+
+Or narrow `Verify.Set(…)` down by single options of the entry:
 
 | Member                                         | Counts the entries …                                  |
 |------------------------------------------------|-------------------------------------------------------|
