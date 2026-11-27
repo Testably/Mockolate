@@ -36,6 +36,30 @@ internal static class StringExtensionMethods
 		=> @this.Length > 0 && @this[@this.Length - 1] == value;
 
 	/// <summary>
+	///     Reports the zero-based index of the first occurrence of the specified character in this string.
+	/// </summary>
+	internal static int IndexOf(
+		this string @this,
+		char value,
+		StringComparison comparisonType)
+		=> comparisonType == StringComparison.Ordinal
+			? @this.AsSpan().IndexOf(value)
+			: @this.IndexOf(value.ToString(), comparisonType);
+
+	/// <summary>
+	///     Returns a new string in which all occurrences of a specified string in this instance are replaced with another
+	///     specified string, using ordinal comparison, the only <paramref name="comparisonType" /> supported here.
+	/// </summary>
+#pragma warning disable MA0001 // Use an overload of 'Replace' that has a StringComparison parameter
+	internal static string Replace(
+		this string @this,
+		string oldValue,
+		string newValue,
+		StringComparison comparisonType)
+		=> @this.Replace(oldValue, newValue);
+#pragma warning restore MA0001
+
+	/// <summary>
 	///     Splits a string into a maximum number of substrings based on the provided character <paramref name="separator" />,
 	///     optionally omitting empty substrings from the result.
 	/// </summary>

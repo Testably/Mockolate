@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+#if NETSTANDARD2_0
+using Mockolate.Internals.Polyfills;
+#endif
 
 namespace Mockolate.Internals;
 
@@ -136,7 +139,7 @@ internal static class TypeFormatter
 			return arguments[0] + "?";
 		}
 
-		int nestedStart = name.IndexOf('+');
+		int nestedStart = name.IndexOf('+', StringComparison.Ordinal);
 		int namespaceEnd = name.AsSpan(0, nestedStart < 0 ? name.Length : nestedStart).LastIndexOf('.');
 		StringBuilder stringBuilder = new();
 		int argumentIndex = 0;
@@ -147,7 +150,7 @@ internal static class TypeFormatter
 				stringBuilder.Append('.');
 			}
 
-			int arityStart = segment.IndexOf('`');
+			int arityStart = segment.IndexOf('`', StringComparison.Ordinal);
 			if (arityStart < 0 || arguments is null)
 			{
 				stringBuilder.Append(segment);

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -64,7 +65,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 
 		// Resolve the method if possible. When C# 14 extension member syntax is not fully
 		// supported by the host Roslyn version, the call may be unresolved (null symbol).
-		SymbolInfo invocationInfo = context.SemanticModel.GetSymbolInfo(invocation);
+		SymbolInfo invocationInfo = context.SemanticModel.GetSymbolInfo(invocation, cancellationToken: context.CancellationToken);
 		IMethodSymbol? method = invocationInfo.Symbol as IMethodSymbol
 		                        ?? invocationInfo.CandidateSymbols.OfType<IMethodSymbol>().FirstOrDefault();
 
@@ -116,7 +117,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 		MemberAccessExpressionSyntax memberAccess, SymbolInfo invocationInfo, ArgumentSyntax outArgument)
 		=> invocationInfo.Symbol is null &&
 		   invocation.ArgumentList.Arguments.Count(argument => argument.RefKindKeyword.IsKind(SyntaxKind.OutKeyword)) == 1 &&
-		   context.SemanticModel.GetSymbolInfo(memberAccess.Expression).Symbol is INamedTypeSymbol receiver &&
+		   context.SemanticModel.GetSymbolInfo(memberAccess.Expression, cancellationToken: context.CancellationToken).Symbol is INamedTypeSymbol receiver &&
 		   receiver is { TypeKind: TypeKind.Class, IsStatic: false, IsAbstract: false, } and
 			   ({ IsSealed: true, } or { IsRecord: true, }) &&
 		   ConstructorRules.HasMemberNamedCreateMock(receiver, context.Compilation.Assembly) &&
@@ -336,7 +337,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 		switch (member)
 		{
 			case IMethodSymbol method:
-				return "M:" + method.Name + "`" + method.Arity + "(" +
+				return "M:" + method.Name + "`" + method.Arity.ToString(CultureInfo.InvariantCulture) + "(" +
 				       string.Join(",", method.Parameters.Select(FormatParameter)) + ")";
 			case IPropertySymbol { IsIndexer: true, } indexer:
 				return "I:(" +
@@ -604,7 +605,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 	{
 		// For a static call on a type (e.g. IFoo.CreateMock()), the receiver is a type
 		// expression. GetSymbolInfo returns the ITypeSymbol directly.
-		SymbolInfo receiverInfo = context.SemanticModel.GetSymbolInfo(memberAccess.Expression);
+		SymbolInfo receiverInfo = context.SemanticModel.GetSymbolInfo(memberAccess.Expression, cancellationToken: context.CancellationToken);
 		if (receiverInfo.Symbol is ITypeSymbol typeFromReceiver)
 		{
 			return typeFromReceiver;
@@ -619,7 +620,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 	{
 		if (memberAccess.Name is GenericNameSyntax { TypeArgumentList.Arguments: { Count: > 0, } args, })
 		{
-			return context.SemanticModel.GetTypeInfo(args[0]).Type;
+			return context.SemanticModel.GetTypeInfo(args[0], cancellationToken: context.CancellationToken).Type;
 		}
 
 		return null;

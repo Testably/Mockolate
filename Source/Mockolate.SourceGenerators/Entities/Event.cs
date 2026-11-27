@@ -87,8 +87,8 @@ internal record Event
 		public bool Equals(Event? x, Event? y)
 			=> (x is null && y is null) ||
 			   (x is not null && y is not null &&
-			    x.Name.Equals(y.Name) &&
-			    x.ContainingType.Equals(y.ContainingType));
+			    x.Name.Equals(y.Name, StringComparison.Ordinal) &&
+			    x.ContainingType.Equals(y.ContainingType, StringComparison.Ordinal));
 
 		public int GetHashCode(Event obj) => StringComparer.Ordinal.GetHashCode(obj.Name);
 	}
@@ -98,7 +98,7 @@ internal record Event
 		public bool Equals(Event? x, Event? y)
 			=> (x is null && y is null) ||
 			   (x is not null && y is not null &&
-			    x.Name.Equals(y.Name));
+			    x.Name.Equals(y.Name, StringComparison.Ordinal));
 
 		public int GetHashCode(Event obj) => StringComparer.Ordinal.GetHashCode(obj.Name);
 	}

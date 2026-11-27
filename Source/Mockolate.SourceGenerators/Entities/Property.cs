@@ -109,7 +109,7 @@ internal record Property
 				return y is null;
 			}
 
-			if (y is null || x.IsIndexer != y.IsIndexer || !x.ContainingType.Equals(y.ContainingType))
+			if (y is null || x.IsIndexer != y.IsIndexer || !x.ContainingType.Equals(y.ContainingType, StringComparison.Ordinal))
 			{
 				return false;
 			}
@@ -119,7 +119,7 @@ internal record Property
 				return x.IndexerParameters!.Value.Equals(y.IndexerParameters!.Value);
 			}
 
-			return x.Name.Equals(y.Name);
+			return x.Name.Equals(y.Name, StringComparison.Ordinal);
 		}
 
 		public int GetHashCode(Property obj) => StringComparer.Ordinal.GetHashCode(obj.Name);
@@ -144,7 +144,7 @@ internal record Property
 				return x.IndexerParameters!.Value.Equals(y.IndexerParameters!.Value);
 			}
 
-			return x.Name.Equals(y.Name);
+			return x.Name.Equals(y.Name, StringComparison.Ordinal);
 		}
 
 		public int GetHashCode(Property obj) => StringComparer.Ordinal.GetHashCode(obj.Name);

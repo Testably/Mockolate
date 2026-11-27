@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Mockolate.SourceGenerators.Entities;
@@ -529,7 +530,7 @@ internal static partial class SourceTemplates
 			int index = 1;
 			do
 			{
-				propertyName = $"Mockolate_{initialValue}__" + index++;
+				propertyName = $"Mockolate_{initialValue}__" + index++.ToString(CultureInfo.InvariantCulture);
 			} while (@class.HasReservedName(propertyName));
 		}
 

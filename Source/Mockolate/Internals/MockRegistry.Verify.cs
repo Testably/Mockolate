@@ -134,7 +134,7 @@ public partial class MockRegistry
 		bool Predicate(IInteraction interaction)
 		{
 			return interaction is PropertyGetterAccess property &&
-			       property.Name.Equals(propertyName);
+			       property.Name.Equals(propertyName, StringComparison.Ordinal);
 		}
 	}
 
@@ -160,7 +160,7 @@ public partial class MockRegistry
 		bool Predicate(IInteraction interaction)
 		{
 			return interaction is PropertySetterAccess<TValue> property &&
-			       property.Name.Equals(propertyName) &&
+			       property.Name.Equals(propertyName, StringComparison.Ordinal) &&
 			       value.Matches(property.Value);
 		}
 	}
@@ -311,7 +311,7 @@ public partial class MockRegistry
 		bool Predicate(IInteraction interaction)
 		{
 			return interaction is EventSubscription @event &&
-			       @event.Name.Equals(eventName);
+			       @event.Name.Equals(eventName, StringComparison.Ordinal);
 		}
 	}
 
@@ -332,7 +332,7 @@ public partial class MockRegistry
 		bool Predicate(IInteraction interaction)
 		{
 			return interaction is EventUnsubscription @event &&
-			       @event.Name.Equals(eventName);
+			       @event.Name.Equals(eventName, StringComparison.Ordinal);
 		}
 	}
 

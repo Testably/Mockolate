@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Mockolate.Exceptions;
 using Mockolate.Interactions;
 using Mockolate.Internals;
+#if NETSTANDARD2_0
+using Mockolate.Internals.Polyfills;
+#endif
 
 namespace Mockolate.Verify;
 
@@ -281,7 +284,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 				return true;
 			}
 
-			return VerifyAsync(predicate).ConfigureAwait(false).GetAwaiter().GetResult();
+			return VerifyAsync(predicate, CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
 		}
 
 		/// <inheritdoc cref="IAsyncVerificationResult.VerifyAsync(Func{IInteraction[], Boolean})" />
@@ -412,7 +415,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 				return true;
 			}
 
-			return VerifyAsync(arr => countPredicate(arr.Length)).ConfigureAwait(false).GetAwaiter().GetResult();
+			return VerifyAsync(arr => countPredicate(arr.Length), CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();
 		}
 
 		/// <inheritdoc cref="ICountVerifiable.VerifyCount(int, int, out int)" />
@@ -471,7 +474,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 	/// </summary>
 	private static string WithAnyParameters(string expectation)
 	{
-		int argumentList = expectation.IndexOf('(');
+		int argumentList = expectation.IndexOf('(', StringComparison.Ordinal);
 		return $"{(argumentList < 0 ? expectation : expectation.Substring(0, argumentList))}(Match.AnyParameters())";
 	}
 
