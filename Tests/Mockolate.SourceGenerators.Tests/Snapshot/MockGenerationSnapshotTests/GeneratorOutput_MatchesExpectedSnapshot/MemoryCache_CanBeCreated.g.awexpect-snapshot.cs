@@ -30,13 +30,13 @@ internal static partial class Mock
 		internal const int MemberCount = 5;
 
 		/// <summary>
-		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
+		///     Creates a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
 		/// </summary>
-		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
-			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
+		internal static global::Mockolate.Internals.MockInteractions CreateInteractions(global::Mockolate.MockBehavior behavior)
+			=> new global::Mockolate.Internals.MockInteractions(MemberCount, behavior.SkipInteractionRecording);
 
 		/// <summary>
-		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
 		/// </summary>
 		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
@@ -91,6 +91,9 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForIMemoryCache> IMockForIMemoryCache.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForIMemoryCache>(this.MockRegistry.Interactions, interactions => new VerifyMonitorIMemoryCache(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+		/// <inheritdoc />
+		global::System.IDisposable IMockForIMemoryCache.TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more)
+			=> this.MockRegistry.TrackCallOrder(this, other, more);
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
@@ -183,7 +186,7 @@ internal static partial class Mock
 			value = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<object, object?>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMemoryCache.MemberId_TryGetValue, "global::Microsoft.Extensions.Caching.Memory.IMemoryCache.TryGetValue", key, value);
+				global::Mockolate.Internals.MethodRecords<object, object?>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMemoryCache.MemberId_TryGetValue, "global::Microsoft.Extensions.Caching.Memory.IMemoryCache.TryGetValue", key, value);
 			}
 			try
 			{
@@ -271,7 +274,7 @@ internal static partial class Mock
 			global::Microsoft.Extensions.Caching.Memory.ICacheEntry wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<object>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMemoryCache.MemberId_CreateEntry, "global::Microsoft.Extensions.Caching.Memory.IMemoryCache.CreateEntry", key);
+				global::Mockolate.Internals.MethodRecords<object>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMemoryCache.MemberId_CreateEntry, "global::Microsoft.Extensions.Caching.Memory.IMemoryCache.CreateEntry", key);
 			}
 			try
 			{
@@ -336,7 +339,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<object>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMemoryCache.MemberId_Remove, "global::Microsoft.Extensions.Caching.Memory.IMemoryCache.Remove", key);
+				global::Mockolate.Internals.MethodRecords<object>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMemoryCache.MemberId_Remove, "global::Microsoft.Extensions.Caching.Memory.IMemoryCache.Remove", key);
 			}
 			try
 			{
@@ -401,7 +404,7 @@ internal static partial class Mock
 			global::Microsoft.Extensions.Caching.Memory.MemoryCacheStatistics? wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMemoryCache.MemberId_GetCurrentStatistics, "global::Microsoft.Extensions.Caching.Memory.IMemoryCache.GetCurrentStatistics");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMemoryCache.MemberId_GetCurrentStatistics, "global::Microsoft.Extensions.Caching.Memory.IMemoryCache.GetCurrentStatistics");
 			}
 			try
 			{
@@ -470,7 +473,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMemoryCache.MemberId_Dispose, "global::System.IDisposable.Dispose");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IMemoryCache.MemberId_Dispose, "global::System.IDisposable.Dispose");
 			}
 			try
 			{
@@ -892,7 +895,7 @@ internal static partial class Mock
 	/// <remarks>
 	///     Groups every operation that acts on the mock rather than on the mocked subject: setups, verifications, event raising, scenarios and monitoring.
 	/// </remarks>
-	internal interface IMockForIMemoryCache
+	internal interface IMockForIMemoryCache : global::Mockolate.IMock
 	{
 		/// <summary>
 		///     Configures how members of the mock of <see cref="global::Microsoft.Extensions.Caching.Memory.IMemoryCache">IMemoryCache</see> respond when invoked.
@@ -988,6 +991,18 @@ internal static partial class Mock
 		/// </remarks>
 		/// <returns>A <see cref="global::Mockolate.Monitor.MockMonitor{T}">MockMonitor&lt;T&gt;</see> that exposes <c>Verify</c> over the monitored interactions and a <c>Run()</c> method that opens the recording scope.</returns>
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForIMemoryCache> Monitor();
+
+		/// <summary>
+		///     Tracks the order of the calls across this mock and the <paramref name="other" /> mocks until the returned scope is disposed, so that <c>Then</c> can verify the order of calls on different mocks.
+		/// </summary>
+		/// <remarks>
+		///     Only the calls while the scope is not disposed are compared, e.g. <c>using (sut.Mock.TrackCallOrder(other.Mock)) { ... }</c>.
+		/// </remarks>
+		/// <param name="other">The <c>Mock</c> property of another mock.</param>
+		/// <param name="more">The <c>Mock</c> properties of further mocks.</param>
+		/// <returns>A scope that ends the tracking when it is disposed.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The call order of one of the mocks cannot be tracked or is already tracked.</exception>
+		global::System.IDisposable TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more);
 	}
 
 	/// <summary>
@@ -1214,7 +1229,7 @@ internal static partial class MockExtensionsForIMemoryCache
 		///       <item><description><c>Setup</c> - configure how members respond when invoked (<c>Returns</c>, <c>Throws</c>, <c>Do</c>, <c>InitializeWith</c>, ...).</description></item><br />
 		///       <item><description><c>Verify</c> - assert how often (and in which order) members were invoked.</description></item><br />
 		///       <item><description><c>InScenario</c> / <c>TransitionTo</c> - scope setups and behavior to a named scenario and switch between scenarios.</description></item><br />
-		///       <item><description><c>Monitor</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
+		///       <item><description><c>Monitor</c>, <c>TrackCallOrder</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
 		///       <item><description><c>VerifySetup</c> - verify how often a specific setup matched.</description></item><br />
 		///     </list>
 		/// </remarks>
@@ -1335,7 +1350,7 @@ internal static partial class MockExtensionsForIMemoryCache
 			if (mock is global::Mockolate.IMock mockInterface)
 			{
 				global::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);
-				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.IMemoryCache.CreateFastInteractions(wrappingRegistry.Behavior));
+				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.IMemoryCache.CreateInteractions(wrappingRegistry.Behavior));
 				return CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);
 			}
 			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");

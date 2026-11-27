@@ -301,13 +301,13 @@ public class MockGenerator : IIncrementalGenerator
 
 		IncrementalValueProvider<bool> hasMemoryCacheMock = collectedMocks
 			.Select(static (arr, _) =>
-				arr.AsArray().Any(m => m.AllImplementations().Any(c => Sources.Sources.HasAdapter(c, MockAdapter.MemoryCache))));
+				arr.AsArray().Any(m => m.AllImplementations().Any(c => SourceTemplates.HasAdapter(c, MockAdapter.MemoryCache))));
 
 		context.RegisterSourceOutput(hasMemoryCacheMock.Combine(externAliases), static (spc, source) =>
 		{
 			if (source.Left)
 			{
-				spc.AddSource("Caching.g.cs", ToSource(Sources.Sources.Caching(), source.Right));
+				spc.AddSource("Caching.g.cs", ToSource(SourceTemplates.Caching(), source.Right));
 			}
 		});
 

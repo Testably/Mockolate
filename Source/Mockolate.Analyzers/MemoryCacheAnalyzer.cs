@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.CodeAnalysis;
@@ -65,7 +66,7 @@ public class MemoryCacheAnalyzer : DiagnosticAnalyzer
 	{
 		for (INamedTypeSymbol? type = method.ContainingType; type is not null; type = type.ContainingType)
 		{
-			if (type.Name == "MockolateCaching" &&
+			if (string.Equals(type.Name, "MockolateCaching", StringComparison.Ordinal) &&
 			    AnalyzerHelpers.IsMockolateNamespace(type.ContainingNamespace))
 			{
 				return true;
