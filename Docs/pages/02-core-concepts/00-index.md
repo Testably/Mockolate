@@ -64,7 +64,8 @@ Each call to the mock goes through the same steps:
    The setup's callbacks run, and its return value or exception is used.
 3. Without a matching setup, the mock falls back to its [`MockBehavior`](../03-create-mocks.md#customizing-mock-behavior):
    - methods return a **default value**: `false`, `0`, an empty string, an empty collection, a completed task, or
-     `null` for other reference types;
+     `null` for other reference types; a mocked `Equals(object)` returns whether the argument is the mock itself, so
+     that the mock still works as a key in a dictionary or set;
    - properties and indexers behave like **normal storage**: reading returns the value that was last written, or the
      default value if nothing was written yet;
    - a mock created with `ThrowingWhenNotSetup()` throws a `MockNotSetupException` instead.

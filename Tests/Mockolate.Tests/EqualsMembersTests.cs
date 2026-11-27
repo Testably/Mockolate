@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Mockolate.Exceptions;
 using Mockolate.Tests.GeneratorCoverage;
 
 namespace Mockolate.Tests;
@@ -106,11 +107,62 @@ public sealed class EqualsMembersTests
 	}
 
 	[Test]
-	public async Task Mock_WhenEqualsReturnsReferenceEquality_ShouldBeUsableAsDictionaryKey()
+	public async Task Equals_WithoutSetup_ShouldUseReferenceEquality()
 	{
 		IEqualsOnly sut = IEqualsOnly.CreateMock();
 		IEqualsOnly other = IEqualsOnly.CreateMock();
-		sut.Mock.Setup.Equals(It.Satisfies<object?>(obj => ReferenceEquals(obj, sut))).Returns(true);
+
+		bool self = sut.Equals(sut);
+		bool otherMock = sut.Equals(other);
+		bool nullValue = sut.Equals(null);
+
+		await That(self).IsTrue();
+		await That(otherMock).IsFalse();
+		await That(nullValue).IsFalse();
+		await That(sut.Mock.Verify.Equals(It.IsAny<object?>())).Exactly(3);
+	}
+
+	[Test]
+	public async Task Equals_OfClass_WithoutSetup_ShouldUseReferenceEquality()
+	{
+		EqualsOnlyBase sut = EqualsOnlyBase.CreateMock();
+
+		bool self = sut.Equals(sut);
+		bool otherObject = sut.Equals(new object());
+
+		await That(self).IsTrue();
+		await That(otherObject).IsFalse();
+	}
+
+	[Test]
+	public async Task Equals_WithoutSetup_WhenThrowingWhenNotSetup_ShouldThrow()
+	{
+		IEqualsOnly sut = IEqualsOnly.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
+
+		void Act() => sut.Equals(sut);
+
+		await That(Act).Throws<MockNotSetupException>();
+	}
+
+	[Test]
+	public async Task Mock_WithoutSetup_ShouldBeUsableInCollections()
+	{
+		IEqualsOnly sut = IEqualsOnly.CreateMock();
+		IEqualsOnly other = IEqualsOnly.CreateMock();
+		List<IEqualsOnly> list = [sut,];
+		HashSet<IEqualsOnly> set = [sut,];
+
+		await That(list.Contains(sut)).IsTrue();
+		await That(list.Contains(other)).IsFalse();
+		await That(set.Contains(sut)).IsTrue();
+		await That(set.Contains(other)).IsFalse();
+	}
+
+	[Test]
+	public async Task Mock_WithoutSetup_ShouldBeUsableAsDictionaryKey()
+	{
+		IEqualsOnly sut = IEqualsOnly.CreateMock();
+		IEqualsOnly other = IEqualsOnly.CreateMock();
 		Dictionary<IEqualsOnly, int> dictionary = new()
 		{
 			[sut] = 1,
