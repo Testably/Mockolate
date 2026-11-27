@@ -28,7 +28,7 @@ public class MethodInvocation(string name) : IMethodInteraction, IMethodInvocati
 
 	/// <inheritdoc cref="object.ToString()" />
 	public override string ToString()
-		=> $"invoke method {Name.SubstringAfterLast('.')}()";
+		=> $"invoke method {ValueFormatter.FormatMethodName(Name)}()";
 }
 
 /// <summary>
@@ -68,7 +68,7 @@ public class MethodInvocation<T1>(string name, T1 parameter1) : IMethodInteracti
 
 	/// <inheritdoc cref="object.ToString()" />
 	public override string ToString()
-		=> $"invoke method {Name.SubstringAfterLast('.')}({ValueFormatter.Format(Parameter1)})";
+		=> $"invoke method {ValueFormatter.FormatMethodName(Name)}({ValueFormatter.Format(Parameter1)})";
 }
 
 /// <summary>
@@ -116,7 +116,7 @@ public class MethodInvocation<T1, T2>(string name, T1 parameter1, T2 parameter2)
 
 	/// <inheritdoc cref="object.ToString()" />
 	public override string ToString()
-		=> $"invoke method {Name.SubstringAfterLast('.')}({ValueFormatter.Format(Parameter1)}, {ValueFormatter.Format(Parameter2)})";
+		=> $"invoke method {ValueFormatter.FormatMethodName(Name)}({ValueFormatter.Format(Parameter1)}, {ValueFormatter.Format(Parameter2)})";
 }
 
 /// <summary>
@@ -172,7 +172,7 @@ public class MethodInvocation<T1, T2, T3>(string name, T1 parameter1, T2 paramet
 
 	/// <inheritdoc cref="object.ToString()" />
 	public override string ToString()
-		=> $"invoke method {Name.SubstringAfterLast('.')}({ValueFormatter.Format(Parameter1)}, {ValueFormatter.Format(Parameter2)}, {ValueFormatter.Format(Parameter3)})";
+		=> $"invoke method {ValueFormatter.FormatMethodName(Name)}({ValueFormatter.Format(Parameter1)}, {ValueFormatter.Format(Parameter2)}, {ValueFormatter.Format(Parameter3)})";
 }
 
 /// <summary>
@@ -235,5 +235,5 @@ public class MethodInvocation<T1, T2, T3, T4>(string name, T1 parameter1, T2 par
 
 	/// <inheritdoc cref="object.ToString()" />
 	public override string ToString()
-		=> $"invoke method {Name.SubstringAfterLast('.')}({ValueFormatter.Format(Parameter1)}, {ValueFormatter.Format(Parameter2)}, {ValueFormatter.Format(Parameter3)}, {ValueFormatter.Format(Parameter4)})";
+		=> $"invoke method {ValueFormatter.FormatMethodName(Name)}({ValueFormatter.Format(Parameter1)}, {ValueFormatter.Format(Parameter2)}, {ValueFormatter.Format(Parameter3)}, {ValueFormatter.Format(Parameter4)})";
 }

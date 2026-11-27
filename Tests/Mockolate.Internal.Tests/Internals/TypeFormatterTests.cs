@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Mockolate.Internals;
 
@@ -38,7 +39,26 @@ public sealed class TypeFormatterTests
 		await That(result).IsEqualTo("void");
 	}
 
+	[Test]
+	[Arguments(typeof(string))]
+	[Arguments(typeof(int?))]
+	[Arguments(typeof(int[]))]
+	[Arguments(typeof(List<string>[]))]
+	[Arguments(typeof(Dictionary<string, List<int?>>))]
+	[Arguments(typeof((int, string)))]
+	[Arguments(typeof(MyType))]
+	[Arguments(typeof(MyGeneric<MyType>))]
+	public async Task FormatTypeNames_ShouldMatchFormatType(Type type)
+	{
+		string result = TypeFormatter.FormatTypeNames(type.ToString());
+
+		await That(result).IsEqualTo(type.FormatType());
+	}
+
 	private class MyType;
+
+	// ReSharper disable once UnusedTypeParameter
+	private class MyGeneric<T>;
 
 	// ReSharper disable once UnusedTypeParameter
 	private static void MyMethod<T>() { }

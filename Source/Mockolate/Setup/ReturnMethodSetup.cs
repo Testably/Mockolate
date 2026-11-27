@@ -307,7 +307,7 @@ public abstract class ReturnMethodSetup<TReturn>
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"{FormatType(typeof(TReturn))} {Name.SubstringAfterLast('.')}()";
+			=> $"{FormatType(typeof(TReturn))} {ValueFormatter.FormatMethodName(Name)}()";
 	}
 }
 
@@ -676,7 +676,7 @@ public abstract class ReturnMethodSetup<TReturn, T1> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"{FormatType(typeof(TReturn))} {Name.SubstringAfterLast('.')}({Parameters})";
+			=> $"{FormatType(typeof(TReturn))} {ValueFormatter.FormatMethodName(Name)}({Parameters})";
 	}
 
 	/// <summary>
@@ -719,7 +719,7 @@ public abstract class ReturnMethodSetup<TReturn, T1> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"{FormatType(typeof(TReturn))} {Name.SubstringAfterLast('.')}({Parameter1})";
+			=> $"{FormatType(typeof(TReturn))} {ValueFormatter.FormatMethodName(Name)}({Parameter1})";
 	}
 
 	/// <summary>
@@ -753,7 +753,7 @@ public abstract class ReturnMethodSetup<TReturn, T1> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"{FormatType(typeof(TReturn))} {Name.SubstringAfterLast('.')}({FormatLiteralValue(_value1)})";
+			=> $"{FormatType(typeof(TReturn))} {ValueFormatter.FormatMethodName(Name)}({FormatLiteralValue(_value1)})";
 	}
 }
 
@@ -1133,7 +1133,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"{FormatType(typeof(TReturn))} {Name.SubstringAfterLast('.')}({Parameters})";
+			=> $"{FormatType(typeof(TReturn))} {ValueFormatter.FormatMethodName(Name)}({Parameters})";
 	}
 
 	/// <summary>
@@ -1186,7 +1186,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"{FormatType(typeof(TReturn))} {Name.SubstringAfterLast('.')}({Parameter1}, {Parameter2})";
+			=> $"{FormatType(typeof(TReturn))} {ValueFormatter.FormatMethodName(Name)}({Parameter1}, {Parameter2})";
 	}
 
 	/// <summary>
@@ -1225,7 +1225,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"{FormatType(typeof(TReturn))} {Name.SubstringAfterLast('.')}({FormatLiteralValue(_value1)}, {FormatLiteralValue(_value2)})";
+			=> $"{FormatType(typeof(TReturn))} {ValueFormatter.FormatMethodName(Name)}({FormatLiteralValue(_value1)}, {FormatLiteralValue(_value2)})";
 	}
 }
 
@@ -1613,7 +1613,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"{FormatType(typeof(TReturn))} {Name.SubstringAfterLast('.')}({Parameters})";
+			=> $"{FormatType(typeof(TReturn))} {ValueFormatter.FormatMethodName(Name)}({Parameters})";
 	}
 
 	/// <summary>
@@ -1678,7 +1678,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"{FormatType(typeof(TReturn))} {Name.SubstringAfterLast('.')}({Parameter1}, {Parameter2}, {Parameter3})";
+			=> $"{FormatType(typeof(TReturn))} {ValueFormatter.FormatMethodName(Name)}({Parameter1}, {Parameter2}, {Parameter3})";
 	}
 
 	/// <summary>
@@ -1719,7 +1719,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"{FormatType(typeof(TReturn))} {Name.SubstringAfterLast('.')}({FormatLiteralValue(_value1)}, {FormatLiteralValue(_value2)}, {FormatLiteralValue(_value3)})";
+			=> $"{FormatType(typeof(TReturn))} {ValueFormatter.FormatMethodName(Name)}({FormatLiteralValue(_value1)}, {FormatLiteralValue(_value2)}, {FormatLiteralValue(_value3)})";
 	}
 }
 
@@ -2117,7 +2117,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"{FormatType(typeof(TReturn))} {Name.SubstringAfterLast('.')}({Parameters})";
+			=> $"{FormatType(typeof(TReturn))} {ValueFormatter.FormatMethodName(Name)}({Parameters})";
 	}
 
 	/// <summary>
@@ -2192,7 +2192,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"{FormatType(typeof(TReturn))} {Name.SubstringAfterLast('.')}({Parameter1}, {Parameter2}, {Parameter3}, {Parameter4})";
+			=> $"{FormatType(typeof(TReturn))} {ValueFormatter.FormatMethodName(Name)}({Parameter1}, {Parameter2}, {Parameter3}, {Parameter4})";
 	}
 
 	/// <summary>
@@ -2238,7 +2238,7 @@ public abstract class ReturnMethodSetup<TReturn, T1, T2, T3, T4> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"{FormatType(typeof(TReturn))} {Name.SubstringAfterLast('.')}({FormatLiteralValue(_value1)}, {FormatLiteralValue(_value2)}, {FormatLiteralValue(_value3)}, {FormatLiteralValue(_value4)})";
+			=> $"{FormatType(typeof(TReturn))} {ValueFormatter.FormatMethodName(Name)}({FormatLiteralValue(_value1)}, {FormatLiteralValue(_value2)}, {FormatLiteralValue(_value3)}, {FormatLiteralValue(_value4)})";
 	}
 }
 #pragma warning restore S2436 // Types and methods should not have too many generic parameters
