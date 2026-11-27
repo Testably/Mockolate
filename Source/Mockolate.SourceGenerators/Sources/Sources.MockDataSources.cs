@@ -16,7 +16,9 @@ internal static partial class Sources
 	///     Creates the <c>MockDataSourceFactory</c> for the <paramref name="classes" />, the
 	///     <paramref name="mockedTypes" />, the <paramref name="valueOrMockTypes" /> and the
 	///     <paramref name="valueTypes" />, and the one for the <c>Func&lt;T&gt;</c> of the <paramref name="deferredTypes" />,
-	///     which a module initializer registers.
+	///     which a module initializer registers. The module initializer also keeps the properties and methods of the
+	///     <paramref name="valueFromClasses" /> from being trimmed, because a <c>[ValueFrom]</c> parameter reads them through
+	///     reflection.
 	/// </summary>
 	/// <remarks>
 	///     The factory lives in a file-local class, so that neither its registration nor its name reach the users of
@@ -24,7 +26,7 @@ internal static partial class Sources
 	/// </remarks>
 	public static string MockDataSources(EquatableArray<DataSourceClass> classes, EquatableArray<string> mockedTypes,
 		EquatableArray<string> valueOrMockTypes, EquatableArray<string> valueTypes, EquatableArray<string> deferredTypes,
-		bool emitModuleInitializerPolyfill)
+		EquatableArray<string> valueFromClasses, bool emitModuleInitializerPolyfill)
 	{
 		DataSourceClass[] classArray = classes.AsArray();
 		Dictionary<string, int> classIndices = new(StringComparer.Ordinal);
@@ -69,6 +71,18 @@ internal static partial class Sources
 		sb.Append("\t{").AppendLine();
 		sb.Append("#pragma warning disable CA2255, CS0436 // Module initializers in libraries; the polyfill next to an imported attribute").AppendLine();
 		sb.Append("\t\t[global::System.Runtime.CompilerServices.ModuleInitializer]").AppendLine();
+		if (valueFromClasses.Count > 0)
+		{
+			sb.Append("#if NET5_0_OR_GREATER").AppendLine();
+			foreach (string valueFromClass in valueFromClasses)
+			{
+				sb.Append("\t\t[global::System.Diagnostics.CodeAnalysis.DynamicDependency(global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicProperties | global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicProperties | global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicMethods | global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicMethods, ")
+					.Append(valueFromClass).Append(")]").AppendLine();
+			}
+
+			sb.Append("#endif").AppendLine();
+		}
+
 		sb.Append("\t\tinternal static void Register()").AppendLine();
 		sb.Append("\t\t\t=> global::Mockolate.Internals.MockDataSourceRegistry.Register(typeof(MockDataSourceRegistration).Assembly, Create")
 			.Append(deferredTypes.Count > 0 ? ", CreateDeferred" : "").Append(");").AppendLine();

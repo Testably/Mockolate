@@ -67,6 +67,16 @@ public sealed class AutoMockArgumentsTests
 		await That(sut.Stock).IsSameAs(stock);
 	}
 
+	[Test]
+	public async Task GetData_WithValueFromParameter_ShouldPassTheValueToTheClassUnderTest()
+	{
+		object[] row = GetSingleRow(nameof(ValueFrom));
+		PriceCalculator sut = (PriceCalculator)row[0];
+
+		await That(sut.Rule).IsSameAs(row[1]);
+		await That(((DiscountRule)row[1]).Percentage).IsEqualTo(10m);
+	}
+
 	private static object[] GetSingleRow(string methodName)
 	{
 		MethodInfo method = typeof(AutoMockArgumentsTests).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)!;
@@ -98,4 +108,14 @@ public sealed class AutoMockArgumentsTests
 	private static void Deferred([Deferred] Func<StockIndicator> createSut, IChocolateStock stock)
 	{
 	}
+
+	[AutoMockArguments]
+	private static void ValueFrom(PriceCalculator sut, [ValueFrom(nameof(TenPercentOff))] DiscountRule rule)
+	{
+	}
+
+	private static DiscountRule TenPercentOff => new()
+	{
+		Percentage = 10m,
+	};
 }

@@ -153,14 +153,15 @@ public class MockGenerator : IIncrementalGenerator
 				.OrderBy(dataSourceClass => dataSourceClass.ClassFullName, StringComparer.Ordinal)
 				.ToArray()));
 
-		IncrementalValueProvider<(EquatableArray<string> Mocked, EquatableArray<string> ValueOrMock, EquatableArray<string> Value, EquatableArray<string> Deferred)>
+		IncrementalValueProvider<(EquatableArray<string> Mocked, EquatableArray<string> ValueOrMock, EquatableArray<string> Value, EquatableArray<string> Deferred, EquatableArray<string> ValueFrom)>
 			dataSourceTypes = dataSourceCreations
 				.Collect()
 				.Select(static (source, _) => (
 					SortedDistinct(source.SelectMany(creation => creation.MockedTypes)),
 					SortedDistinct(source.SelectMany(creation => creation.ValueOrMockTypes)),
 					SortedDistinct(source.SelectMany(creation => creation.ValueTypes)),
-					SortedDistinct(source.SelectMany(creation => creation.DeferredTypes))));
+					SortedDistinct(source.SelectMany(creation => creation.DeferredTypes)),
+					SortedDistinct(source.SelectMany(creation => creation.ValueFromClasses))));
 
 		// Like the union attributes, the attribute may come from another generator, which Mockolate cannot see: one that
 		// MockolateUnionAttributePolyfills names, PolySharp or the generator of TUnit.
@@ -204,13 +205,14 @@ public class MockGenerator : IIncrementalGenerator
 			{
 				((EquatableArray<DataSourceClass> classes,
 						(EquatableArray<string> Mocked, EquatableArray<string> ValueOrMock, EquatableArray<string> Value,
-						EquatableArray<string> Deferred) types),
+						EquatableArray<string> Deferred, EquatableArray<string> ValueFrom) types),
 					bool moduleInitializer) = source.Left;
-				if (classes.Count > 0 || types.Mocked.Count > 0 || types.ValueOrMock.Count > 0 || types.Value.Count > 0)
+				if (classes.Count > 0 || types.Mocked.Count > 0 || types.ValueOrMock.Count > 0 || types.Value.Count > 0 ||
+				    types.ValueFrom.Count > 0)
 				{
 					spc.AddSource("MockDataSources.g.cs",
 						ToSource(Sources.Sources.MockDataSources(classes, types.Mocked, types.ValueOrMock, types.Value,
-							types.Deferred, !moduleInitializer), source.Right));
+							types.Deferred, types.ValueFrom, !moduleInitializer), source.Right));
 				}
 			});
 

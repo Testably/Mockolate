@@ -343,6 +343,78 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments]
+	public async Task ValueFrom_ShouldPassTheValueOfThePropertyToTheClassUnderTest(PriceCalculator sut,
+		ITaxCalculator taxCalculator, [ValueFrom(nameof(TenPercentOff))] DiscountRule rule)
+	{
+		taxCalculator.Mock.Setup.GetTax(It.IsAny<decimal>()).Returns(1m);
+
+		decimal price = sut.GetPrice(20m);
+
+		await That(sut.Rule).IsSameAs(rule);
+		await That(rule.Percentage).IsEqualTo(10m);
+		await That(price).IsEqualTo(19m);
+	}
+
+	[Test]
+	[AutoMockArguments]
+	public async Task ValueFrom_WithMethod_ShouldPassItsResultBeforeTheClassUnderTestIsCreated(StockIndicator sut,
+		[ValueFrom(nameof(CreateStockOfFive))] IChocolateStock stock)
+	{
+		await That(sut.Stock).IsSameAs(stock);
+		await That(sut.IsAvailable).IsTrue().Because("the constructor already sees the setup of the member");
+	}
+
+	[Test]
+	[AutoMockArguments]
+	public async Task ValueFrom_WithTransient_ShouldNotPassItToTheClassUnderTest(PriceCalculator sut,
+		[Transient] [ValueFrom(nameof(TenPercentOff))] DiscountRule rule)
+	{
+		await That(sut.Rule).IsNotSameAs(rule);
+		await That(sut.Rule.Percentage).IsEqualTo(0m).Because("the class under test gets a created rule");
+		await That(rule.Percentage).IsEqualTo(10m);
+	}
+
+	[Test]
+	[AutoMockArguments]
+	public async Task ValueFrom_WithAsDefault_ShouldBeReturnedByMembersWithoutSetup(IWarehouse warehouse,
+		[AsDefault] [ValueFrom(nameof(CreateRepository))] IOrderRepository repository)
+	{
+		await That(warehouse.Repository).IsSameAs(repository);
+		await That(repository.Mock.Verify.Find(1)).Once()
+			.Because("the repository is the instance that the member created");
+	}
+
+	[Test]
+	[AutoMockArguments(5)]
+	public async Task ValueFrom_WithGivenArguments_ShouldFillTheParameterAfterThem(int amount, PriceCalculator sut,
+		[ValueFrom(nameof(TenPercentOff))] DiscountRule rule)
+	{
+		await That(amount).IsEqualTo(5);
+		await That(sut.Rule).IsSameAs(rule);
+	}
+
+	private static DiscountRule TenPercentOff => new()
+	{
+		ProductCode = "Dark",
+		Percentage = 10m,
+	};
+
+	private static IChocolateStock CreateStockOfFive()
+	{
+		IChocolateStock stock = IChocolateStock.CreateMock();
+		stock.Mock.Setup.Count.Returns(5);
+		return stock;
+	}
+
+	private static IOrderRepository CreateRepository()
+	{
+		IOrderRepository repository = IOrderRepository.CreateMock();
+		repository.Find(1);
+		return repository;
+	}
+
+	[Test]
+	[AutoMockArguments]
 	public async Task AutoMockArguments_WithTransientParameterOfTheType_ShouldIgnoreItWhenMatching(
 		TransferService sut, IAccount source, IAccount target, [Transient] IAccount other)
 	{

@@ -333,6 +333,39 @@
 		<value>is also marked [Transient], which has no effect</value>
 		<comment>Completes Mockolate0012MessageFormat.</comment>
 	</data>
+	<data name="Mockolate0013Description" xml:space="preserve">
+		<value>A [ValueFrom] parameter takes its value from a static property or parameterless static method of the test class or a non-private one of its base classes, whose type must be assignable to the parameter. A field is not supported, because it would share one instance with all test cases. A given argument of the attribute replaces the value, and a [Deferred] marker contradicts it.</value>
+	</data>
+	<data name="Mockolate0013MessageFormat" xml:space="preserve">
+		<value>The [ValueFrom] parameter '{0}' {1}</value>
+	</data>
+	<data name="Mockolate0013Title" xml:space="preserve">
+		<value>A [ValueFrom] parameter is invalid</value>
+	</data>
+	<data name="Mockolate0013NotFoundReason" xml:space="preserve">
+		<value>names no static property or parameterless static method '{0}' of '{1}'</value>
+		<comment>Completes Mockolate0013MessageFormat. {0} is the member name, {1} the test class.</comment>
+	</data>
+	<data name="Mockolate0013FieldReason" xml:space="preserve">
+		<value>names the field '{0}' of '{1}'; use a property or method, so that each test case gets a new value</value>
+		<comment>Completes Mockolate0013MessageFormat. {0} is the member name, {1} the test class.</comment>
+	</data>
+	<data name="Mockolate0013NotStaticReason" xml:space="preserve">
+		<value>names '{0}', which is not static</value>
+		<comment>Completes Mockolate0013MessageFormat. {0} is the member name.</comment>
+	</data>
+	<data name="Mockolate0013NotAssignableReason" xml:space="preserve">
+		<value>names '{0}' of type '{1}', which is not assignable to '{2}'</value>
+		<comment>Completes Mockolate0013MessageFormat. {0} is the member name, {1} its type, {2} the parameter type.</comment>
+	</data>
+	<data name="Mockolate0013DeferredReason" xml:space="preserve">
+		<value>is also marked [Deferred]</value>
+		<comment>Completes Mockolate0013MessageFormat.</comment>
+	</data>
+	<data name="Mockolate0013GivenArgumentReason" xml:space="preserve">
+		<value>gets a given argument of the attribute, which replaces the value</value>
+		<comment>Completes Mockolate0013MessageFormat.</comment>
+	</data>
 	<data name="AsDefaultSuppressionJustification" xml:space="preserve">
 		<value>The other mocks of the test case may return the [AsDefault] parameter.</value>
 		<comment>The justification of the suppressions Mockolate1001 (IDE0060) and Mockolate1002 (xUnit1026).</comment>

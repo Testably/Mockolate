@@ -366,6 +366,54 @@ public sealed class MockDataSourcesTests
 	}
 
 	[Test]
+	public async Task ValueFromParameterOnly_ShouldOnlyKeepTheMembersOfTheTestClass()
+	{
+		GeneratorResult result = Generator.Run($$"""
+		                                         #nullable enable
+		                                         namespace MyCode.@event
+		                                         {
+		                                             public interface IDep { int Get(); }
+
+		                                             public class Outer<T>
+		                                             {
+		                                                 public class Tests
+		                                                 {
+		                                                     [MyCode.Data]
+		                                                     public void Test([Mockolate.Integrations.ValueFrom(nameof(Dep))] IDep dep) { }
+
+		                                                     private static IDep Dep => null!;
+		                                                 }
+		                                             }
+
+		                                             public class Program
+		                                             {
+		                                                 public static void Main(string[] args)
+		                                                 {
+		                                                 }
+		                                             }
+		                                         }
+
+		                                         namespace Mockolate.Integrations
+		                                         {
+		                                             public abstract class ValueFromParameterAttribute(string memberName) : System.Attribute
+		                                             {
+		                                                 public string MemberName { get; } = memberName;
+		                                             }
+
+		                                             public sealed class ValueFromAttribute(string memberName) : ValueFromParameterAttribute(memberName);
+		                                         }
+
+		                                         {{DataAttribute}}
+		                                         """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["MockDataSources.g.cs"]).Contains("NonPublicMethods, \"MyCode.event.Outer`1.Tests\", \"")
+			.Because("the trimmer reads unescaped names with nested types separated by a dot");
+		await That(result.Sources.Keys).All().Satisfy(name => !name.Contains("IDep"))
+			.Because("Mockolate does not create a [ValueFrom] parameter, so it needs no mock");
+	}
+
+	[Test]
 	public async Task DependencyWithNullForgivingDefault_ShouldCompileWithoutWarnings()
 	{
 		GeneratorResult result = Generator.Run($$"""
@@ -1247,7 +1295,7 @@ public sealed class MockDataSourcesTests
 	{
 		string source = Sources.Sources.MockDataSources(new EquatableArray<DataSourceClass>([]),
 			new EquatableArray<string>(["global::MyCode.IDep",]), new EquatableArray<string>([]),
-			new EquatableArray<string>([]), new EquatableArray<string>([]), emitPolyfill);
+			new EquatableArray<string>([]), new EquatableArray<string>([]), new EquatableArray<string>([]), emitPolyfill);
 
 		await That(source.Contains("internal sealed class ModuleInitializerAttribute")).IsEqualTo(emitPolyfill);
 	}

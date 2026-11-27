@@ -8,3 +8,4 @@
  Mockolate0010 | Usage    | Warning  | A mock test parameter cannot be created
  Mockolate0011 | Usage    | Warning  | An [AsDefault] parameter is ambiguous or invalid
  Mockolate0012 | Usage    | Warning  | A [Deferred] parameter is invalid
+ Mockolate0013 | Usage    | Warning  | A [ValueFrom] parameter is invalid

@@ -79,6 +79,9 @@ namespace Mockolate.Integrations.TUnit
 				index => parameters[index].ReflectionInfo is { } reflectionInfo
 					? global::Mockolate.Integrations.AutoMockRow.GetAsDefaultTypes(reflectionInfo)
 					: null,
+				index => parameters[index].ReflectionInfo is { } reflectionInfo
+					? global::Mockolate.Integrations.AutoMockRow.GetValueFrom(reflectionInfo)
+					: null,
 				Arguments, DefaultBehavior?.Invoke()).Create();
 		}
 	}
@@ -105,6 +108,22 @@ namespace Mockolate.Integrations.TUnit
 	[global::Microsoft.CodeAnalysis.Embedded]
 	internal sealed class DeferredAttribute : global::Mockolate.Integrations.DeferredParameterAttribute
 	{
+	}
+
+	/// <summary>
+	///     Takes the value of the test parameter from a static property or parameterless static method of the test
+	///     class, once per test case, instead of letting <see cref="AutoMockArgumentsAttribute">AutoMockArgumentsAttribute</see> create it. The
+	///     value is shared with the classes under test like a created parameter.
+	/// </summary>
+	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
+	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+	[global::Microsoft.CodeAnalysis.Embedded]
+	internal sealed class ValueFromAttribute : global::Mockolate.Integrations.ValueFromParameterAttribute
+	{
+		/// <param name="memberName">The name of the static property or parameterless static method, e.g. <c>nameof(Rule)</c>.</param>
+		public ValueFromAttribute(string memberName) : base(memberName)
+		{
+		}
 	}
 
 	/// <summary>
