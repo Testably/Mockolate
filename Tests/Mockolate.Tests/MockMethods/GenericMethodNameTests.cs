@@ -89,7 +89,7 @@ public sealed class GenericMethodNameTests
 		=> ((IMock)sut).MockRegistry.Interactions.GetUnverifiedInteractions().Single().ToString();
 
 	private static string? SingleUnusedSetup(object sut)
-		=> ((IMock)sut).MockRegistry.GetUnusedSetups(new FastMockInteractions(0)).Single().ToString();
+		=> ((IMock)sut).MockRegistry.GetUnusedSetups(new MockInteractions(0)).Single().ToString();
 
 	public interface IGenericMethods
 	{
