@@ -532,7 +532,7 @@ internal static partial class Sources
 		if (hasProtectedGenericMethods)
 		{
 			sb.AppendXmlSummary($"Configures how <see langword=\"protected\" /> generic methods of the mock of {classReference} respond when invoked with any type argument.");
-			sb.AppendXmlRemarks(["Same semantics as <see cref=\"SetupGeneric\" />, for the generic methods that <see cref=\"SetupProtected\" /> offers.",]);
+			sb.AppendXmlRemarks([$"Same semantics as {(hasGenericMethods ? "<see cref=\"SetupGeneric\" />" : "<c>SetupGeneric</c>")}, for the generic methods that <see cref=\"SetupProtected\" /> offers.",]);
 			sb.Append("\t\t").Append(GetGenericSetupFacadeName(MemberType.Protected, name)).Append(" SetupProtectedGeneric { get; }").AppendLine();
 			sb.AppendLine();
 		}
@@ -619,7 +619,7 @@ internal static partial class Sources
 		if (hasProtectedGenericMethods)
 		{
 			sb.AppendXmlSummary($"Asserts how often <see langword=\"protected\" /> generic methods of the mock of {classReference} were invoked with any type argument.");
-			sb.AppendXmlRemarks(["Same semantics as <see cref=\"VerifyGeneric\" />, for the generic methods that <see cref=\"VerifyProtected\" /> offers.",]);
+			sb.AppendXmlRemarks([$"Same semantics as {(hasGenericMethods ? "<see cref=\"VerifyGeneric\" />" : "<c>VerifyGeneric</c>")}, for the generic methods that <see cref=\"VerifyProtected\" /> offers.",]);
 			sb.Append("\t\t").Append(GetGenericVerifyFacadeName(MemberType.Protected, name)).Append(" VerifyProtectedGeneric { get; }").AppendLine();
 			sb.AppendLine();
 		}

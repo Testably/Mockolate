@@ -737,6 +737,18 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
+	public async Task SetupProtectedGeneric_WithoutPublicGenericMethods_ShouldSetUpAndVerifyEveryTypeArgument()
+	{
+		GenericMethodAnyTypeArgumentProtectedOnly sut = GenericMethodAnyTypeArgumentProtectedOnly.CreateMock();
+		sut.Mock.SetupProtectedGeneric.Protected(It.IsAny<string>()).Throws<InvalidOperationException>();
+
+		void Act() => sut.CallProtected("a");
+
+		await That(Act).Throws<InvalidOperationException>();
+		await That(sut.Mock.VerifyProtectedGeneric.Protected(It.IsAny<string>())).Once();
+	}
+
+	[Test]
 	public async Task SetupProtectedGeneric_InScenario_ShouldOnlyApplyInTheScenario()
 	{
 		GenericMethodAnyTypeArgumentBase sut = GenericMethodAnyTypeArgumentBase.CreateMock();

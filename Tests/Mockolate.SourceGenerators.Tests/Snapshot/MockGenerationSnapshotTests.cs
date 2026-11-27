@@ -227,6 +227,7 @@ public sealed partial class MockGenerationSnapshotTests
                 "IGenericMethodAnyTypeArgument.cs", "IAnyTypeRequest.cs", "IAnyTypeSender.cs",
                 "IGenericMethodAnyTypeArgumentOf.cs", "IGenericMethodAnyTypeArgumentImplemented.cs",
                 "GenericMethodAnyTypeArgumentBase.cs", "GenericMethodAnyTypeArgumentImplementor.cs",
+                "GenericMethodAnyTypeArgumentProtectedOnly.cs",
             ],
             """
             IGenericMethodAnyTypeArgument sut1 = IGenericMethodAnyTypeArgument.CreateMock();
@@ -234,6 +235,7 @@ public sealed partial class MockGenerationSnapshotTests
             IGenericMethodAnyTypeArgumentOf<int> sut3 = IGenericMethodAnyTypeArgumentOf<int>.CreateMock();
             GenericMethodAnyTypeArgumentBase sut4 = GenericMethodAnyTypeArgumentBase.CreateMock();
             GenericMethodAnyTypeArgumentImplementor sut5 = GenericMethodAnyTypeArgumentImplementor.CreateMock();
+            GenericMethodAnyTypeArgumentProtectedOnly sut6 = GenericMethodAnyTypeArgumentProtectedOnly.CreateMock();
             """,
             []),
         new(

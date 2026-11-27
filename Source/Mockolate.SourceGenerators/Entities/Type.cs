@@ -7,7 +7,7 @@ namespace Mockolate.SourceGenerators.Entities;
 internal record Type
 {
 	// A type that is named dynamic is qualified, at least with global::.
-	private static readonly Regex NestedDynamic = new(@"(?<![\w.:@])dynamic(?!\w)", RegexOptions.Compiled);
+	private static readonly Regex NestedDynamic = new(@"(?<![\w.:@])dynamic(?!\w)", RegexOptions.Compiled, TimeSpan.FromSeconds(1));
 
 	private Type(string fullname)
 	{

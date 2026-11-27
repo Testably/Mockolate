@@ -175,7 +175,7 @@ A matcher for a nullable type with a non-nullable type argument, such as `Setup.
 
 #### Any type argument
 
-A setup or verification on `Setup` or `Verify` applies to one type argument. To match every type argument, use `SetupGeneric` and `VerifyGeneric`. They offer each generic method without its type parameters: a parameter whose type depends on a type parameter takes a matcher of any type, which is checked against the value of the call, and the other parameters keep their types. Generic constraints do not apply.
+A setup or verification on `Setup` or `Verify` applies to one type argument. To match every type argument, use `SetupGeneric` and `VerifyGeneric`. They offer each generic method without its type parameters: a parameter whose type depends on a type parameter takes a matcher of any type, which is checked against the value of the call, and the other parameters take a matcher of their type. Both take matchers only, so match a value with `It.Is(...)`. Generic constraints do not apply.
 
 ```csharp
 public interface IChocolateSerializer
