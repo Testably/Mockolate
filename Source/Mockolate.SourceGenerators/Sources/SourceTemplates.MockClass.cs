@@ -3308,6 +3308,11 @@ internal static partial class SourceTemplates
 				AppendAnsweringHookCall(sb, answering.Binding, answering.Member, hook, mockRegistry, methodSetup,
 					method);
 			}
+			else if (method.IsEquals())
+			{
+				sb.Append("global::System.Object.ReferenceEquals(this, ")
+					.Append(method.Parameters.Single().ToNameOrWrapper()).Append(')');
+			}
 			else
 			{
 				sb.AppendDefaultValueGeneratorFor(method.ReturnType, $"{mockRegistry}.Behavior.DefaultValue",
