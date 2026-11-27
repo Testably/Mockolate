@@ -1938,6 +1938,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -2263,7 +2269,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -2592,7 +2599,8 @@ window.BENCHMARK_DATA = {
           170.92617494265238,
           201.45689894358318,
           202.2009002606074,
-          166.1952068010966
+          166.1952068010966,
+          192.732754723231
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -2921,6 +2929,7 @@ window.BENCHMARK_DATA = {
           800,
           800,
           800,
+          808,
           808,
           808,
           808,
@@ -3263,7 +3272,8 @@ window.BENCHMARK_DATA = {
           36080.538521321614,
           76823.23500279018,
           104516.38962965745,
-          61873.025817871094
+          61873.025817871094,
+          102905.42119140625
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3595,6 +3605,7 @@ window.BENCHMARK_DATA = {
           9055,
           9055,
           9158,
+          9056,
           9056,
           9056,
           9056
@@ -3934,7 +3945,8 @@ window.BENCHMARK_DATA = {
           3361.6698651631673,
           4399.017039489746,
           4481.192931038992,
-          3564.3021024976456
+          3564.3021024976456,
+          4483.190567652385
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -4095,6 +4107,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -4605,7 +4618,8 @@ window.BENCHMARK_DATA = {
           2977.627682549613,
           4250.8597279866535,
           4676.54699605306,
-          3491.6082122802736
+          3491.6082122802736,
+          4297.137799776518
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4937,6 +4951,7 @@ window.BENCHMARK_DATA = {
           6930,
           6930,
           6924,
+          6930,
           6930,
           6930,
           6930
@@ -5276,7 +5291,8 @@ window.BENCHMARK_DATA = {
           189.77514548301696,
           214.0615512053172,
           195.70534965197245,
-          163.04357358614604
+          163.04357358614604,
+          194.54763243879592
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -5442,6 +5458,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -5947,7 +5964,8 @@ window.BENCHMARK_DATA = {
           322.46555414199827,
           354.94688767653247,
           335.4766323963801,
-          279.8810616220747
+          279.8810616220747,
+          326.4010328224727
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -6258,6 +6276,7 @@ window.BENCHMARK_DATA = {
           2056,
           2056,
           2056,
+          1352,
           1352,
           1352,
           1352,
@@ -8233,6 +8252,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -8558,7 +8583,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -8887,7 +8913,8 @@ window.BENCHMARK_DATA = {
           123.75941842397054,
           86.33873547712962,
           187.52269647671625,
-          133.16002354621887
+          133.16002354621887,
+          167.43070702552797
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -9216,6 +9243,7 @@ window.BENCHMARK_DATA = {
           712,
           712,
           712,
+          720,
           720,
           720,
           720,
@@ -9558,7 +9586,8 @@ window.BENCHMARK_DATA = {
           10955.209309895834,
           7562.9838129679365,
           12433.195101224459,
-          9922.317439152645
+          9922.317439152645,
+          15070.039015549879
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9891,6 +9920,7 @@ window.BENCHMARK_DATA = {
           12760,
           12761,
           12760,
+          12761,
           12761,
           12761
         ],
@@ -10229,7 +10259,8 @@ window.BENCHMARK_DATA = {
           4385.049251810709,
           2914.242436472575,
           5189.496850585938,
-          4157.142422015851
+          4157.142422015851,
+          5883.61300608317
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10390,6 +10421,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -10900,7 +10932,8 @@ window.BENCHMARK_DATA = {
           195039.64435686384,
           117617.49588216146,
           148041.246547154,
-          109349.37266322544
+          109349.37266322544,
+          224969.9165387835
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11234,7 +11267,8 @@ window.BENCHMARK_DATA = {
           15619,
           15619,
           15578,
-          15578
+          15578,
+          15618
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11571,7 +11605,8 @@ window.BENCHMARK_DATA = {
           145.3765987078349,
           108.95381496747335,
           211.18791596094766,
-          168.31100997924804
+          168.31100997924804,
+          178.8997416325978
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -11712,6 +11747,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -12242,7 +12278,8 @@ window.BENCHMARK_DATA = {
           129.23572788238525,
           94.55638817378453,
           236.49073950449625,
-          197.6357607205709
+          197.6357607205709,
+          168.76290583610535
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -12376,6 +12413,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -14528,6 +14566,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -14853,7 +14897,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -15182,7 +15227,8 @@ window.BENCHMARK_DATA = {
           511.1798039163862,
           458.59546988351,
           287.59289105733234,
-          445.2485558803265
+          445.2485558803265,
+          443.1420256614685
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -15511,6 +15557,7 @@ window.BENCHMARK_DATA = {
           1824,
           1824,
           1840,
+          1848,
           1848,
           1848,
           1848,
@@ -15853,7 +15900,8 @@ window.BENCHMARK_DATA = {
           534082.8019670759,
           529228.7234825721,
           155998.63511439733,
-          171288.3084716797
+          171288.3084716797,
+          530156.6664713542
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16187,7 +16235,8 @@ window.BENCHMARK_DATA = {
           38635,
           38379,
           38486,
-          38380
+          38380,
+          38571
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16524,7 +16573,8 @@ window.BENCHMARK_DATA = {
           212951.6005859375,
           211213.14742838542,
           40415.872713216144,
-          60771.42222086588
+          60771.42222086588,
+          209584.12703450522
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16858,7 +16908,8 @@ window.BENCHMARK_DATA = {
           28100,
           28156,
           28162,
-          28142
+          28142,
+          28100
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17195,7 +17246,8 @@ window.BENCHMARK_DATA = {
           244812.04892578124,
           248852.0286395733,
           53703.80717773437,
-          69303.01314603366
+          69303.01314603366,
+          244635.30662434894
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17529,7 +17581,8 @@ window.BENCHMARK_DATA = {
           30259,
           30728,
           30395,
-          30247
+          30247,
+          30273
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17866,7 +17919,8 @@ window.BENCHMARK_DATA = {
           356.51129592259724,
           332.1156962834872,
           212.93192847569784,
-          292.70030771891277
+          292.70030771891277,
+          309.60955295562746
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -18200,6 +18254,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1216,
           1216
         ],
         "borderColor": "#E84393",
@@ -18333,7 +18388,8 @@ window.BENCHMARK_DATA = {
           702.653584543864,
           640.4353927884783,
           431.13182156880697,
-          541.4170007705688
+          541.4170007705688,
+          622.3286472048078
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -18440,6 +18496,7 @@ window.BENCHMARK_DATA = {
           2856,
           2856,
           2856,
+          2208,
           2208,
           2208,
           2208,
@@ -20415,6 +20472,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -20740,7 +20803,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -21069,7 +21133,8 @@ window.BENCHMARK_DATA = {
           1345.7345536549885,
           1280.9042106628417,
           912.8327635447184,
-          1165.0840184529623
+          1165.0840184529623,
+          1230.6286993026733
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -21398,6 +21463,7 @@ window.BENCHMARK_DATA = {
           2760,
           2760,
           2776,
+          2784,
           2784,
           2784,
           2784,
@@ -21740,7 +21806,8 @@ window.BENCHMARK_DATA = {
           536725.2172154018,
           532783.2974609375,
           160113.34861653644,
-          205675.00961914062
+          205675.00961914062,
+          539013.8518229167
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -22074,7 +22141,8 @@ window.BENCHMARK_DATA = {
           48206,
           46945,
           48088,
-          48073
+          48073,
+          48142
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -22411,7 +22479,8 @@ window.BENCHMARK_DATA = {
           232051.39711216517,
           230506.75651041666,
           45518.138178898735,
-          78853.1110941569
+          78853.1110941569,
+          231107.7498046875
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -22745,7 +22814,8 @@ window.BENCHMARK_DATA = {
           41215,
           41271,
           41269,
-          41265
+          41265,
+          41215
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -23082,7 +23152,8 @@ window.BENCHMARK_DATA = {
           268416.3407226562,
           264955.9747314453,
           60897.82193865095,
-          89251.50458780925
+          89251.50458780925,
+          266269.8919921875
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -23416,7 +23487,8 @@ window.BENCHMARK_DATA = {
           49926,
           50382,
           50045,
-          49922
+          49922,
+          49926
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -23753,7 +23825,8 @@ window.BENCHMARK_DATA = {
           874.7904241561889,
           801.9956106821696,
           485.9599250793457,
-          634.8897993224008
+          634.8897993224008,
+          782.191288693746
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -24087,6 +24160,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2296,
           2296
         ],
         "borderColor": "#E84393",
@@ -24220,7 +24294,8 @@ window.BENCHMARK_DATA = {
           2418.5726692199705,
           2308.9609751383464,
           1481.7663016001384,
-          1824.2905053456625
+          1824.2905053456625,
+          2267.8936973571776
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -24327,6 +24402,7 @@ window.BENCHMARK_DATA = {
           5568,
           5568,
           5568,
+          5248,
           5248,
           5248,
           5248,
@@ -26302,6 +26378,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -26627,7 +26709,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -26956,7 +27039,8 @@ window.BENCHMARK_DATA = {
           107.45291432312557,
           124.53409279187521,
           123.36113365491231,
-          135.75405643781025
+          135.75405643781025,
+          74.81333372592925
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -27285,6 +27369,7 @@ window.BENCHMARK_DATA = {
           592,
           592,
           592,
+          600,
           600,
           600,
           600,
@@ -27627,7 +27712,8 @@ window.BENCHMARK_DATA = {
           3460.714005606515,
           4583.58984375,
           3133.220026652018,
-          3122.1153330485026
+          3122.1153330485026,
+          2390.937792264498
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -27917,6 +28003,7 @@ window.BENCHMARK_DATA = {
           14902,
           14914,
           14906,
+          6552,
           6552,
           6552,
           6552,
@@ -28298,7 +28385,8 @@ window.BENCHMARK_DATA = {
           4430.467508951823,
           5813.279562143179,
           4265.244046020508,
-          4330.633722577776
+          4330.633722577776,
+          2868.8692888532364
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -28588,6 +28676,7 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9320,
+          9816,
           9816,
           9816,
           9816,
@@ -28969,7 +29058,8 @@ window.BENCHMARK_DATA = {
           3488.84008992513,
           4509.587866210937,
           2990.553205871582,
-          3003.9591344197593
+          3003.9591344197593,
+          2388.541576930455
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -29303,7 +29393,8 @@ window.BENCHMARK_DATA = {
           7517,
           7517,
           7509,
-          7509
+          7509,
+          7517
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -29640,7 +29731,8 @@ window.BENCHMARK_DATA = {
           155.72239576975505,
           171.16022743497575,
           159.87384125391642,
-          171.51261522219733
+          171.51261522219733,
+          112.45912546316782
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -29930,6 +30022,7 @@ window.BENCHMARK_DATA = {
           728,
           728,
           728,
+          808,
           808,
           808,
           808,
@@ -30311,7 +30404,8 @@ window.BENCHMARK_DATA = {
           272.31887941360475,
           321.903571333204,
           290.2871688842773,
-          314.6783208847046
+          314.6783208847046,
+          205.3564011133634
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -30622,6 +30716,7 @@ window.BENCHMARK_DATA = {
           2136,
           2136,
           2136,
+          1424,
           1424,
           1424,
           1424,
@@ -32597,6 +32692,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -32922,7 +33023,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -33251,7 +33353,8 @@ window.BENCHMARK_DATA = {
           278.7972315152486,
           357.50037275950115,
           315.18724393844604,
-          307.64170125552585
+          307.64170125552585,
+          234.8621074517568
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -33580,6 +33683,7 @@ window.BENCHMARK_DATA = {
           1096,
           1096,
           1096,
+          1104,
           1104,
           1104,
           1104,
@@ -33922,7 +34026,8 @@ window.BENCHMARK_DATA = {
           4964.723928833007,
           6485.624487195696,
           4822.547815958659,
-          4799.700232914516
+          4799.700232914516,
+          3621.421606336321
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -34212,6 +34317,7 @@ window.BENCHMARK_DATA = {
           18901,
           18906,
           18883,
+          10536,
           10536,
           10536,
           10536,
@@ -34593,7 +34699,8 @@ window.BENCHMARK_DATA = {
           6285.476386515299,
           8606.27273123605,
           6415.46321996053,
-          6097.4192299476035
+          6097.4192299476035,
+          4337.168363717886
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -34926,6 +35033,7 @@ window.BENCHMARK_DATA = {
           12840,
           12840,
           12841,
+          12840,
           12840,
           12840
         ],
@@ -35264,7 +35372,8 @@ window.BENCHMARK_DATA = {
           6054.018104553223,
           8145.511210850307,
           5958.1038562229705,
-          5773.240569481482
+          5773.240569481482,
+          4317.6851561410085
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -35598,7 +35707,8 @@ window.BENCHMARK_DATA = {
           15754,
           15754,
           15748,
-          15748
+          15748,
+          15754
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -35935,7 +36045,8 @@ window.BENCHMARK_DATA = {
           316.47004041671755,
           360.9312354837145,
           328.0836016337077,
-          333.7554594039917
+          333.7554594039917,
+          251.41529350280763
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -36225,6 +36336,7 @@ window.BENCHMARK_DATA = {
           1088,
           1088,
           1088,
+          1168,
           1168,
           1168,
           1168,
@@ -36606,7 +36718,8 @@ window.BENCHMARK_DATA = {
           934.723398844401,
           1113.987359046936,
           1026.0074860709053,
-          1035.6592450459798
+          1035.6592450459798,
+          826.115091196696
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -36917,6 +37030,7 @@ window.BENCHMARK_DATA = {
           3888,
           3888,
           3888,
+          3288,
           3288,
           3288,
           3288,
@@ -38892,6 +39006,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -39217,7 +39337,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -39546,7 +39667,8 @@ window.BENCHMARK_DATA = {
           184.07378090222676,
           252.38686590194703,
           161.12502024968464,
-          192.9586366812388
+          192.9586366812388,
+          203.77026878084456
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -39875,6 +39997,7 @@ window.BENCHMARK_DATA = {
           920,
           920,
           920,
+          928,
           928,
           928,
           928,
@@ -40217,7 +40340,8 @@ window.BENCHMARK_DATA = {
           5819.423102242606,
           10764.35567533053,
           5193.516866048177,
-          7480.302044208233
+          7480.302044208233,
+          8049.475930350168
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -40551,6 +40675,7 @@ window.BENCHMARK_DATA = {
           10680,
           10458,
           10568,
+          10569,
           10569
         ],
         "borderColor": "#A052B0",
@@ -40888,7 +41013,8 @@ window.BENCHMARK_DATA = {
           3992.839370218913,
           7632.4958638509115,
           3601.875527445475,
-          5432.020428975423
+          5432.020428975423,
+          5803.333950805664
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -41222,7 +41348,8 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11664,
-          11664
+          11664,
+          11688
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -41559,7 +41686,8 @@ window.BENCHMARK_DATA = {
           3954.2741795857746,
           7913.816370646159,
           3671.7094299316404,
-          5170.585912068685
+          5170.585912068685,
+          5835.826433454241
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -41889,6 +42017,7 @@ window.BENCHMARK_DATA = {
           11196,
           11196,
           11191,
+          11196,
           11196,
           11196,
           11196,
@@ -42230,7 +42359,8 @@ window.BENCHMARK_DATA = {
           124.13568268503461,
           159.91386604309082,
           108.8340692281723,
-          133.96422295570375
+          133.96422295570375,
+          138.93739575606125
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -42396,6 +42526,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -42901,7 +43032,8 @@ window.BENCHMARK_DATA = {
           258.15485882759094,
           377.82901706695554,
           224.33422656059264,
-          285.92194379170735
+          285.92194379170735,
+          323.40834459891687
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -43212,6 +43344,7 @@ window.BENCHMARK_DATA = {
           1672,
           1672,
           1672,
+          1464,
           1464,
           1464,
           1464,
@@ -45187,6 +45320,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -45512,7 +45651,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -45841,7 +45981,8 @@ window.BENCHMARK_DATA = {
           442.48807116917203,
           603.543416091374,
           415.6900517463684,
-          487.2441072463989
+          487.2441072463989,
+          528.0955040114267
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -46170,6 +46311,7 @@ window.BENCHMARK_DATA = {
           1784,
           1784,
           1784,
+          1792,
           1792,
           1792,
           1792,
@@ -46512,7 +46654,8 @@ window.BENCHMARK_DATA = {
           9133.710199991861,
           17621.980358886718,
           8905.584553309849,
-          12455.240585327148
+          12455.240585327148,
+          13116.693469238282
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -46845,6 +46988,7 @@ window.BENCHMARK_DATA = {
           18729,
           18617,
           17385,
+          18505,
           18505,
           18505
         ],
@@ -47183,7 +47327,8 @@ window.BENCHMARK_DATA = {
           9183.488534780648,
           17714.629915364585,
           8966.187895202636,
-          12890.158322143554
+          12890.158322143554,
+          13007.809841449443
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -47517,7 +47662,8 @@ window.BENCHMARK_DATA = {
           21529,
           21529,
           21529,
-          21529
+          21529,
+          21553
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -47854,7 +48000,8 @@ window.BENCHMARK_DATA = {
           9649.024457804362,
           19948.39693123954,
           10284.301860046387,
-          13107.89346923828
+          13107.89346923828,
+          13980.446086629232
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -48184,6 +48331,7 @@ window.BENCHMARK_DATA = {
           30785,
           30785,
           30780,
+          30785,
           30785,
           30785,
           30785,
@@ -48525,7 +48673,8 @@ window.BENCHMARK_DATA = {
           272.01067788260326,
           335.9722106615702,
           255.98409783045452,
-          245.2826258977254
+          245.2826258977254,
+          265.94318911007474
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -48691,6 +48840,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -49196,7 +49346,8 @@ window.BENCHMARK_DATA = {
           950.6857718149821,
           1356.080123647054,
           919.0106468200684,
-          1003.3550897325788
+          1003.3550897325788,
+          1108.4068463189262
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -49507,6 +49658,7 @@ window.BENCHMARK_DATA = {
           4024,
           4024,
           4024,
+          3600,
           3600,
           3600,
           3600,
@@ -51482,6 +51634,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -51807,7 +51965,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -52136,7 +52295,8 @@ window.BENCHMARK_DATA = {
           10.837023319800695,
           12.738616597652435,
           15.329704701900482,
-          9.90156688942359
+          9.90156688942359,
+          17.435815115769703
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -52366,6 +52526,7 @@ window.BENCHMARK_DATA = {
           160,
           160,
           160,
+          136,
           136,
           136,
           136,
@@ -52807,7 +52968,8 @@ window.BENCHMARK_DATA = {
           63.393818591322216,
           77.60231451193492,
           85.40161473751068,
-          62.05340609550476
+          62.05340609550476,
+          89.72247231006622
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -52973,6 +53135,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -53478,7 +53641,8 @@ window.BENCHMARK_DATA = {
           18.982917127864702,
           22.36806466480096,
           25.99918626134212,
-          18.298290890455245
+          18.298290890455245,
+          27.442442977428435
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -53612,6 +53776,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -54149,7 +54314,8 @@ window.BENCHMARK_DATA = {
           797.2565249715533,
           972.5764970779419,
           1254.587336476644,
-          804.672874323527
+          804.672874323527,
+          1272.5689089638847
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -54310,6 +54476,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -54820,7 +54987,8 @@ window.BENCHMARK_DATA = {
           1067.4302327473958,
           1369.02926499503,
           1844.587832514445,
-          1164.3837200164794
+          1164.3837200164794,
+          1852.4680601755779
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -54981,6 +55149,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -55491,7 +55660,8 @@ window.BENCHMARK_DATA = {
           1018.1347311019897,
           1241.2376504262288,
           1502.0409698486328,
-          991.7699297587078
+          991.7699297587078,
+          1535.6106177012125
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -55813,6 +55983,7 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2751,
+          2755,
           2755,
           2755,
           2755,
@@ -56679,6 +56850,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -56821,7 +56998,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -56967,7 +57145,8 @@ window.BENCHMARK_DATA = {
           2396.2477559407553,
           1700.5234559377034,
           1524.8261942545573,
-          1510.8141907283239
+          1510.8141907283239,
+          2347.379477183024
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -57113,6 +57292,7 @@ window.BENCHMARK_DATA = {
           5264,
           5264,
           5264,
+          5296,
           5296,
           5296,
           5296,
@@ -57272,7 +57452,8 @@ window.BENCHMARK_DATA = {
           2448.8239310128347,
           2060.290224011739,
           1727.6907774607341,
-          1724.0665405818395
+          1724.0665405818395,
+          2514.1274809156143
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -57422,6 +57603,7 @@ window.BENCHMARK_DATA = {
           7384,
           7385,
           7385,
+          7384,
           7384,
           7384
         ],
@@ -57577,7 +57759,8 @@ window.BENCHMARK_DATA = {
           4340.289594014485,
           3597.1589581807452,
           2979.972312927246,
-          3080.020829274104
+          3080.020829274104,
+          4526.119536179763
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -57705,6 +57888,7 @@ window.BENCHMARK_DATA = {
           17360,
           17360,
           17360,
+          10920,
           10920,
           10920,
           10920,
@@ -57882,7 +58066,8 @@ window.BENCHMARK_DATA = {
           1437361.4188058036,
           1024028.8514122596,
           794348.5740885417,
-          793315.722516741
+          793315.722516741,
+          1079719.5232979911
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -58033,7 +58218,8 @@ window.BENCHMARK_DATA = {
           92233,
           92021,
           92661,
-          92805
+          92805,
+          92291
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -58187,7 +58373,8 @@ window.BENCHMARK_DATA = {
           318642.23798828124,
           270167.2863606771,
           249040.41071965144,
-          250834.32966496394
+          250834.32966496394,
+          343967.80198317306
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -58337,6 +58524,7 @@ window.BENCHMARK_DATA = {
           54356,
           54382,
           54382,
+          54356,
           54356,
           54356
         ],
@@ -58492,7 +58680,8 @@ window.BENCHMARK_DATA = {
           356358.4080528846,
           306814.26213191106,
           286025.8556640625,
-          283006.4876627604
+          283006.4876627604,
+          381551.1668526786
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -58643,7 +58832,8 @@ window.BENCHMARK_DATA = {
           65639,
           65479,
           65388,
-          65628
+          65628,
+          65389
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -59383,6 +59573,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -59506,7 +59702,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -59633,7 +59830,8 @@ window.BENCHMARK_DATA = {
           20481.909670148576,
           24908.09427533831,
           21871.717237200057,
-          20796.021174839563
+          20796.021174839563,
+          16147.643456595284
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -59760,6 +59958,7 @@ window.BENCHMARK_DATA = {
           56536,
           56536,
           56536,
+          56544,
           56544,
           56544,
           56544,
@@ -59900,7 +60099,8 @@ window.BENCHMARK_DATA = {
           18173.875044759116,
           21483.620727539062,
           18408.403700764975,
-          17468.697408822867
+          17468.697408822867,
+          13837.542307172504
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -59988,6 +60188,7 @@ window.BENCHMARK_DATA = {
           40688,
           40688,
           40688,
+          40768,
           40768,
           40768,
           40768,
@@ -60167,7 +60368,8 @@ window.BENCHMARK_DATA = {
           67279.71235351563,
           76344.1052507673,
           76919.10033365885,
-          72792.03627366286
+          72792.03627366286,
+          60328.4471609933
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -60299,7 +60501,8 @@ window.BENCHMARK_DATA = {
           178353,
           178353,
           178353,
-          178353
+          178353,
+          178352
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -60434,7 +60637,8 @@ window.BENCHMARK_DATA = {
           155078.38970075335,
           180876.49959309897,
           154242.42021833148,
-          145325.78041294642
+          145325.78041294642,
+          105175.42526041667
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -60566,7 +60770,8 @@ window.BENCHMARK_DATA = {
           423563,
           423564,
           423539,
-          423539
+          423539,
+          423562
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -60701,7 +60906,8 @@ window.BENCHMARK_DATA = {
           215063.05520833333,
           267158.2960205078,
           190585.99506835936,
-          176229.01263427734
+          176229.01263427734,
+          137701.4151436942
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -60833,7 +61039,8 @@ window.BENCHMARK_DATA = {
           378536,
           378539,
           378514,
-          378514
+          378514,
+          378535
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -60968,7 +61175,8 @@ window.BENCHMARK_DATA = {
           314142.0590983073,
           389171.86579241074,
           312088.259375,
-          285030.8679361979
+          285030.8679361979,
+          211858.54130859376
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -61100,7 +61308,8 @@ window.BENCHMARK_DATA = {
           943722,
           943763,
           943883,
-          943883
+          943883,
+          943741
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -61840,6 +62049,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -61963,7 +62178,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -62090,7 +62306,8 @@ window.BENCHMARK_DATA = {
           29282.603434244793,
           40015.049678548174,
           29967.465489705402,
-          33587.232458496095
+          33587.232458496095,
+          34023.58808781551
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -62217,6 +62434,7 @@ window.BENCHMARK_DATA = {
           96824,
           96824,
           96824,
+          96832,
           96832,
           96832,
           96832,
@@ -62357,7 +62575,8 @@ window.BENCHMARK_DATA = {
           16124.416806734525,
           18132.832876586916,
           15945.344551595052,
-          13028.470533243815
+          13028.470533243815,
+          13635.128874460856
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -62485,6 +62704,7 @@ window.BENCHMARK_DATA = {
           32641,
           32641,
           32640,
+          32641,
           32641,
           32641,
           32641,
@@ -62624,7 +62844,8 @@ window.BENCHMARK_DATA = {
           77988.55377604166,
           99838.46505533854,
           75237.18144880023,
-          74919.18371582031
+          74919.18371582031,
+          78947.31133563702
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -62756,7 +62977,8 @@ window.BENCHMARK_DATA = {
           218305,
           218305,
           218305,
-          218305
+          218305,
+          218304
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -62891,7 +63113,8 @@ window.BENCHMARK_DATA = {
           405560.41217447916,
           662980.81640625,
           382941.02877604164,
-          522240.780203683
+          522240.780203683,
+          563854.2009114583
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -63023,7 +63246,8 @@ window.BENCHMARK_DATA = {
           836651,
           724511,
           836538,
-          836540
+          836540,
+          836541
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -63158,7 +63382,8 @@ window.BENCHMARK_DATA = {
           630463.7801920573,
           1099672.4463541666,
           583060.1071614583,
-          798799.0279017857
+          798799.0279017857,
+          800647.9010416666
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -63290,7 +63515,8 @@ window.BENCHMARK_DATA = {
           1139701,
           1139704,
           1139702,
-          1139701
+          1139701,
+          1139726
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -63425,7 +63651,8 @@ window.BENCHMARK_DATA = {
           769734.3087439904,
           1340544.6541573661,
           739463.2345703125,
-          1002758.291796875
+          1002758.291796875,
+          1056281.2641927083
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -63557,7 +63784,8 @@ window.BENCHMARK_DATA = {
           2194322,
           2194291,
           2194325,
-          2194325
+          2194325,
+          2194290
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -64297,6 +64525,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -64420,7 +64654,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -64547,7 +64782,8 @@ window.BENCHMARK_DATA = {
           88465.00241699218,
           84671.16849190848,
           68682.39991861979,
-          82272.57509358723
+          82272.57509358723,
+          84469.22263183593
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -64674,6 +64910,7 @@ window.BENCHMARK_DATA = {
           105721,
           105721,
           105737,
+          105745,
           105745,
           105745,
           105745,
@@ -64814,7 +65051,8 @@ window.BENCHMARK_DATA = {
           54783.162585449216,
           51258.2245320638,
           29861.29186808268,
-          39247.42048746745
+          39247.42048746745,
+          50353.25348336356
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -64946,7 +65184,8 @@ window.BENCHMARK_DATA = {
           121101,
           121101,
           121101,
-          121097
+          121097,
+          121101
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -65081,7 +65320,8 @@ window.BENCHMARK_DATA = {
           1410506.1681189905,
           1419632.8168247768,
           601187.3530649039,
-          829934.2213541666
+          829934.2213541666,
+          1332087.4772135417
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -65213,7 +65453,8 @@ window.BENCHMARK_DATA = {
           1048470,
           936305,
           1048315,
-          1048197
+          1048197,
+          1048406
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -65348,7 +65589,8 @@ window.BENCHMARK_DATA = {
           2039425.534877232,
           1816891.0045572917,
           909014.6099330357,
-          1250092.9346354166
+          1250092.9346354166,
+          1915434.4830979567
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -65480,7 +65722,8 @@ window.BENCHMARK_DATA = {
           1515871,
           1515916,
           1515916,
-          1515778
+          1515778,
+          1515860
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -65615,7 +65858,8 @@ window.BENCHMARK_DATA = {
           1776793.1731305805,
           1662864.9139229911,
           824337.8178335336,
-          1121343.2049386161
+          1121343.2049386161,
+          1725171.7268229167
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -65747,7 +65991,8 @@ window.BENCHMARK_DATA = {
           2221384,
           2221840,
           2221517,
-          2221357
+          2221357,
+          2221384
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -65880,7 +66125,8 @@ window.BENCHMARK_DATA = {
           171940.47696358818,
           166488.72848074776,
           110092.89237060546,
-          137588.55678710938
+          137588.55678710938,
+          169852.6684407552
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -65987,6 +66233,7 @@ window.BENCHMARK_DATA = {
           300785,
           300785,
           300785,
+          299545,
           299545,
           299545,
           299545,
@@ -66702,6 +66949,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -66817,7 +67070,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -66936,7 +67190,8 @@ window.BENCHMARK_DATA = {
           283.07124325207303,
           368.3555634362357,
           479.6551457132612,
-          435.4111100264958
+          435.4111100264958,
+          318.3747810999552
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -67055,6 +67310,7 @@ window.BENCHMARK_DATA = {
           1544,
           1544,
           1560,
+          1568,
           1568,
           1568,
           1568,
@@ -67187,7 +67443,8 @@ window.BENCHMARK_DATA = {
           172.65788777669272,
           248.2884734471639,
           283.6646096229553,
-          264.86752697137683
+          264.86752697137683,
+          175.33441414151872
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -67199,6 +67456,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1088,
           1088,
           1088,
           1088,
@@ -67438,7 +67696,8 @@ window.BENCHMARK_DATA = {
           346.47287896474205,
           415.52017339070636,
           537.2311220169067,
-          487.47472337087
+          487.47472337087,
+          338.07809127171834
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -67539,6 +67798,7 @@ window.BENCHMARK_DATA = {
           1856,
           1856,
           1856,
+          1784,
           1784,
           1784,
           1784,
@@ -67689,7 +67949,8 @@ window.BENCHMARK_DATA = {
           31509.22297363281,
           70912.55966421273,
           117556.1618326823,
-          115669.49594726562
+          115669.49594726562,
+          35347.611275809155
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -67813,7 +68074,8 @@ window.BENCHMARK_DATA = {
           10029,
           10030,
           10030,
-          10030
+          10030,
+          10031
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -67940,7 +68202,8 @@ window.BENCHMARK_DATA = {
           3905.1336176554364,
           5987.54097290039,
           7687.516992841448,
-          7500.516691080729
+          7500.516691080729,
+          4290.236530049642
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -68055,6 +68318,7 @@ window.BENCHMARK_DATA = {
           10248,
           10248,
           10416,
+          10248,
           10248,
           10248,
           10248,
@@ -68191,7 +68455,8 @@ window.BENCHMARK_DATA = {
           3877.587975093297,
           5795.203032938639,
           7865.946677652994,
-          7629.503967793783
+          7629.503967793783,
+          4242.032201639811
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -68315,7 +68580,8 @@ window.BENCHMARK_DATA = {
           11854,
           11966,
           11854,
-          11966
+          11966,
+          11853
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -69007,6 +69273,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -69122,7 +69394,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -69241,7 +69514,8 @@ window.BENCHMARK_DATA = {
           1091.5979580512414,
           1349.2174137660436,
           1612.3721249444145,
-          1564.267739704677
+          1564.267739704677,
+          1148.219792429606
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -69360,6 +69634,7 @@ window.BENCHMARK_DATA = {
           4016,
           4016,
           4032,
+          4040,
           4040,
           4040,
           4040,
@@ -69492,7 +69767,8 @@ window.BENCHMARK_DATA = {
           651.4584971155439,
           858.0017009735108,
           994.903138478597,
-          968.340708051409
+          968.340708051409,
+          674.0774313926697
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -69504,6 +69780,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2960,
           2960,
           2960,
           2960,
@@ -69743,7 +70020,8 @@ window.BENCHMARK_DATA = {
           2132.846082687378,
           2793.416358402797,
           3247.6509923299154,
-          3091.8999165126256
+          3091.8999165126256,
+          2069.799701145717
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -69844,6 +70122,7 @@ window.BENCHMARK_DATA = {
           8672,
           8672,
           8672,
+          8600,
           8600,
           8600,
           8600,
@@ -69994,7 +70273,8 @@ window.BENCHMARK_DATA = {
           38568.03706577846,
           83624.67903019831,
           132327.40297851563,
-          130811.90152994792
+          130811.90152994792,
+          40329.08692278181
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -70118,7 +70398,8 @@ window.BENCHMARK_DATA = {
           25114,
           25114,
           25115,
-          25115
+          25115,
+          25114
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -70245,7 +70526,8 @@ window.BENCHMARK_DATA = {
           12502.245122637067,
           18805.690165201824,
           23668.286365763346,
-          23884.671478271484
+          23884.671478271484,
+          13095.857128397623
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -70365,6 +70647,7 @@ window.BENCHMARK_DATA = {
           23481,
           23480,
           23480,
+          23481,
           23481,
           23481,
           23481,
@@ -70496,7 +70779,8 @@ window.BENCHMARK_DATA = {
           15434.331974283854,
           23035.89878133138,
           28657.814841715495,
-          28089.15870361328
+          28089.15870361328,
+          16738.86755167643
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -70620,7 +70904,8 @@ window.BENCHMARK_DATA = {
           55216,
           55328,
           55216,
-          55328
+          55328,
+          55216
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -71312,6 +71597,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -71427,7 +71718,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -71546,7 +71838,8 @@ window.BENCHMARK_DATA = {
           87865.69501604352,
           108495.66284179688,
           127489.22775065104,
-          121218.2722516741
+          121218.2722516741,
+          91569.86079758864
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -71665,6 +71958,7 @@ window.BENCHMARK_DATA = {
           273297,
           273297,
           273313,
+          273321,
           273321,
           273321,
           273321,
@@ -71797,7 +72091,8 @@ window.BENCHMARK_DATA = {
           55237.681788126625,
           67622.51240757534,
           83188.07014160157,
-          81269.3057454427
+          81269.3057454427,
+          58344.638690185544
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -71917,6 +72212,7 @@ window.BENCHMARK_DATA = {
           208883,
           208881,
           208881,
+          208883,
           208883,
           208883,
           208883,
@@ -72048,7 +72344,8 @@ window.BENCHMARK_DATA = {
           207932.29934895833,
           260481.05279947916,
           303180.03880208335,
-          297654.12454427086
+          297654.12454427086,
+          203935.91373697916
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -72172,7 +72469,8 @@ window.BENCHMARK_DATA = {
           707721,
           707722,
           707722,
-          707722
+          707722,
+          707721
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -72299,7 +72597,8 @@ window.BENCHMARK_DATA = {
           818608.2271205357,
           1255671.8627232143,
           1555850.7820870536,
-          1524660.1326622595
+          1524660.1326622595,
+          876992.3590959822
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -72423,7 +72722,8 @@ window.BENCHMARK_DATA = {
           1692670,
           1692678,
           1692680,
-          1692680
+          1692680,
+          1692675
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -72550,7 +72850,8 @@ window.BENCHMARK_DATA = {
           961474.5732421875,
           1445323.458203125,
           1756414.7006138393,
-          1812007.3895833334
+          1812007.3895833334,
+          1044965.1960100447
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -72674,7 +72975,8 @@ window.BENCHMARK_DATA = {
           1468910,
           1468915,
           1468916,
-          1468916
+          1468916,
+          1468913
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -72801,7 +73103,8 @@ window.BENCHMARK_DATA = {
           1863170.0651041667,
           2410544.7421875,
           2947632.3471354167,
-          2970588.578255208
+          2970588.578255208,
+          1937700.0713541666
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -72925,7 +73228,8 @@ window.BENCHMARK_DATA = {
           4803366,
           4803672,
           4803385,
-          4803673
+          4803673,
+          4803383
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -73413,6 +73717,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -73494,7 +73804,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -73579,7 +73890,8 @@ window.BENCHMARK_DATA = {
           242.156556002299,
           292.4923876982469,
           185.50630933897835,
-          248.18577177183968
+          248.18577177183968,
+          253.16179316838583
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -73664,6 +73976,7 @@ window.BENCHMARK_DATA = {
           1024,
           1024,
           1024,
+          1032,
           1032,
           1032,
           1032,
@@ -73762,7 +74075,8 @@ window.BENCHMARK_DATA = {
           331.96662082672117,
           385.87314796447754,
           261.71844186782835,
-          347.40406153996787
+          347.40406153996787,
+          354.5957833925883
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -73774,6 +74088,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1616,
           1616,
           1616,
           1616,
@@ -73945,7 +74260,8 @@ window.BENCHMARK_DATA = {
           600.7163028035845,
           661.124638001124,
           496.91015872955325,
-          637.2391377176557
+          637.2391377176557,
+          651.7102135340373
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -74012,6 +74328,7 @@ window.BENCHMARK_DATA = {
           4464,
           4464,
           4464,
+          2632,
           2632,
           2632,
           2632,
@@ -74128,7 +74445,8 @@ window.BENCHMARK_DATA = {
           108138.57393704928,
           119648.5926920573,
           97170.3855329241,
-          201458.17919921875
+          201458.17919921875,
+          204834.94767878606
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -74218,6 +74536,7 @@ window.BENCHMARK_DATA = {
           23313,
           23307,
           23313,
+          23302,
           23302
         ],
         "borderColor": "#A052B0",
@@ -74311,7 +74630,8 @@ window.BENCHMARK_DATA = {
           9066.089385986328,
           10242.687330881754,
           8007.607389177595,
-          10868.598313467843
+          10868.598313467843,
+          11852.741134643555
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -74401,7 +74721,8 @@ window.BENCHMARK_DATA = {
           19553,
           19515,
           19553,
-          19553
+          19553,
+          19742
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -74494,7 +74815,8 @@ window.BENCHMARK_DATA = {
           6941.286764291616,
           6913.130338228666,
           5965.210547892252,
-          8293.7486038208
+          8293.7486038208,
+          8530.65114375523
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -74584,7 +74906,8 @@ window.BENCHMARK_DATA = {
           14332,
           14324,
           14332,
-          14412
+          14412,
+          14332
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -75072,6 +75395,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -75153,7 +75482,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -75238,7 +75568,8 @@ window.BENCHMARK_DATA = {
           1154.7143936157227,
           1199.672173500061,
           947.3468639667218,
-          1212.6501829964775
+          1212.6501829964775,
+          1230.752342224121
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -75323,6 +75654,7 @@ window.BENCHMARK_DATA = {
           3040,
           3040,
           3040,
+          3048,
           3048,
           3048,
           3048,
@@ -75421,7 +75753,8 @@ window.BENCHMARK_DATA = {
           1085.230123247419,
           1248.6895393371583,
           891.9208775202434,
-          1155.2838175637382
+          1155.2838175637382,
+          1579.5321315765382
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -75433,6 +75766,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          3488,
           3488,
           3488,
           3488,
@@ -75604,7 +75938,8 @@ window.BENCHMARK_DATA = {
           3241.8428736368814,
           3262.9519421895343,
           2689.128170285906,
-          3449.991719818115
+          3449.991719818115,
+          3767.8325490315756
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -75671,6 +76006,7 @@ window.BENCHMARK_DATA = {
           10536,
           10536,
           10536,
+          9440,
           9440,
           9440,
           9440,
@@ -75787,7 +76123,8 @@ window.BENCHMARK_DATA = {
           138128.78004673548,
           140688.8519193209,
           119329.53112792969,
-          239253.443359375
+          239253.443359375,
+          235678.1875751202
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -75877,6 +76214,7 @@ window.BENCHMARK_DATA = {
           41152,
           41147,
           41152,
+          41153,
           41153
         ],
         "borderColor": "#A052B0",
@@ -75970,7 +76308,8 @@ window.BENCHMARK_DATA = {
           15974.652515956333,
           17460.87970377604,
           15022.216993478629,
-          20187.99131673177
+          20187.99131673177,
+          20285.660430908203
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -76060,7 +76399,8 @@ window.BENCHMARK_DATA = {
           30101,
           30082,
           30095,
-          30101
+          30101,
+          31330
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -76153,7 +76493,8 @@ window.BENCHMARK_DATA = {
           27464.2615041097,
           26514.808900960288,
           21581.62567952474,
-          32281.710699462892
+          32281.710699462892,
+          30549.21875469501
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -76243,7 +76584,8 @@ window.BENCHMARK_DATA = {
           60496,
           60498,
           60496,
-          60577
+          60577,
+          60496
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -76731,6 +77073,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -76812,7 +77160,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -76897,7 +77246,8 @@ window.BENCHMARK_DATA = {
           96359.02145996093,
           103050.3827749399,
           81590.4768851144,
-          109495.9374186198
+          109495.9374186198,
+          108287.97063337054
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -76985,6 +77335,7 @@ window.BENCHMARK_DATA = {
           224809,
           224809,
           224808,
+          224809,
           224809,
           224809,
           224809
@@ -77080,7 +77431,8 @@ window.BENCHMARK_DATA = {
           83381.41902378628,
           87360.60201009114,
           70583.90526404747,
-          90389.15313720703
+          90389.15313720703,
+          88161.92258707683
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -77170,6 +77522,7 @@ window.BENCHMARK_DATA = {
           209408,
           209409,
           209408,
+          209409,
           209409
         ],
         "borderColor": "#E84393",
@@ -77263,7 +77616,8 @@ window.BENCHMARK_DATA = {
           266203.36342773435,
           271927.0919921875,
           229457.6076904297,
-          284454.3955829327
+          284454.3955829327,
+          325264.06875
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -77353,6 +77707,7 @@ window.BENCHMARK_DATA = {
           653538,
           653538,
           653537,
+          653538,
           653538
         ],
         "borderColor": "#FF8C00",
@@ -77446,7 +77801,8 @@ window.BENCHMARK_DATA = {
           2322712.7087053573,
           2418846.7806490385,
           2214327.12421875,
-          3220087.991927083
+          3220087.991927083,
+          3135532.181640625
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -77535,6 +77891,7 @@ window.BENCHMARK_DATA = {
           1936649,
           1936392,
           1936120,
+          1936410,
           1936410,
           1936410
         ],
@@ -77629,7 +77986,8 @@ window.BENCHMARK_DATA = {
           750650.9270368303,
           725257.9841796875,
           718786.457406851,
-          908097.9706380208
+          908097.9706380208,
+          984747.261328125
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -77719,7 +78077,8 @@ window.BENCHMARK_DATA = {
           1118923,
           1117064,
           1118986,
-          1119052
+          1119052,
+          1231501
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -77812,7 +78171,8 @@ window.BENCHMARK_DATA = {
           2711648.787369792,
           2732666.8489583335,
           2441890.437109375,
-          3016954.5053385417
+          3016954.5053385417,
+          3099225.0151041667
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -77902,7 +78262,8 @@ window.BENCHMARK_DATA = {
           5051807,
           5051646,
           5051807,
-          5051817
+          5051817,
+          5051809
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -78390,6 +78751,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 13:25:10 2026 \u002B0100",
         "message": "docs: clarify the value provider and deferred creation examples (#1160)"
+      },
+      {
+        "sha": "0d7a20e9bdc630cd6432b51189803f2c3d0d9daf",
+        "author": "fb1606",
+        "date": "Fri Nov 27 14:16:02 2026 \u002B0100",
+        "message": "fix: implement inherited members that differ only in nullability explicitly (#1156)"
       }
     ],
     "labels": [
@@ -78471,7 +78838,8 @@ window.BENCHMARK_DATA = {
       "95da4f1f",
       "23f4955b",
       "609bbacb",
-      "6b38ddbb"
+      "6b38ddbb",
+      "0d7a20e9"
     ],
     "datasets": [
       {
@@ -78556,7 +78924,8 @@ window.BENCHMARK_DATA = {
           3405.658417892456,
           2771.757199859619,
           2565.9783551534015,
-          2605.1440452575685
+          2605.1440452575685,
+          1858.2270938328334
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -78641,6 +79010,7 @@ window.BENCHMARK_DATA = {
           2288,
           2288,
           2288,
+          2296,
           2296,
           2296,
           2296,
@@ -78739,7 +79109,8 @@ window.BENCHMARK_DATA = {
           3145.511610921224,
           2324.9288662501745,
           2405.510074908917,
-          2326.9860270573545
+          2326.9860270573545,
+          1740.4657564163208
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -78751,6 +79122,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2288,
           2288,
           2288,
           2288,
@@ -78922,7 +79294,8 @@ window.BENCHMARK_DATA = {
           3680.478276824951,
           2767.975360743205,
           2820.9412937164307,
-          2728.2192390441896
+          2728.2192390441896,
+          2062.8587882995607
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -78989,6 +79362,7 @@ window.BENCHMARK_DATA = {
           3344,
           3344,
           3344,
+          2912,
           2912,
           2912,
           2912,
@@ -79105,7 +79479,8 @@ window.BENCHMARK_DATA = {
           14541.563512529645,
           10105.535602823893,
           10097.616962687174,
-          9595.289918009441
+          9595.289918009441,
+          6740.217043195452
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -79176,6 +79551,7 @@ window.BENCHMARK_DATA = {
           11048,
           11048,
           11049,
+          11048,
           11048,
           11048,
           11048,
@@ -79288,7 +79664,8 @@ window.BENCHMARK_DATA = {
           12645.510728018624,
           9284.808435712543,
           8689.600151570638,
-          8415.278345743814
+          8415.278345743814,
+          5652.8756169637045
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -79377,6 +79754,7 @@ window.BENCHMARK_DATA = {
           14633,
           14633,
           15024,
+          14633,
           14633,
           14633
         ],
@@ -79471,7 +79849,8 @@ window.BENCHMARK_DATA = {
           13278.698327871469,
           9430.412781935473,
           8869.391872950962,
-          8696.112360127767
+          8696.112360127767,
+          5984.957036336263
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -79560,6 +79939,7 @@ window.BENCHMARK_DATA = {
           14620,
           14620,
           14614,
+          14620,
           14620,
           14620
         ],
