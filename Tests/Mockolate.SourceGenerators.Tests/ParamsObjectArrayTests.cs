@@ -71,7 +71,7 @@ public sealed class ParamsObjectArrayTests
 		("0000:[]", "sut.Five(0, 0, 0, 0)"), ("1234:[]", "sut.Five(1, 2, 3, 4)"),
 		("0000:[a]", "sut.Five(0, 0, 0, 0, \"a\")"), ("1234:[a]", "sut.Five(1, 2, 3, 4, \"a\")"),
 		("1234:[a,2]", "sut.Five(1, 2, 3, 4, \"a\", 2)"), ("1234:null", "sut.Five(1, 2, 3, 4, null!)"),
-		("1234:[null]", "sut.Five(1, 2, 3, 4, (object)null!)"),
+		("1234:[null]", "sut.Five(1, 2, 3, 4, (object)null!)"), ("0000:null", "sut.Five(0, 0, 0, 0, null!)"),
 	]);
 
 	private static readonly OverloadMatrix.Member Opt = new("ILog", "Opt",
@@ -127,12 +127,13 @@ public sealed class ParamsObjectArrayTests
 	private static readonly (string, string)[] LevelAndStrings =
 	[
 		("0:[]", "(0)"), ("1:[]", "(1)"), ("0:[a]", "(0, \"a\")"), ("1:[a]", "(1, \"a\")"), ("1:[a,b]", "(1, \"a\", \"b\")"),
-		("1:null", "(1, null!)"),
+		("1:null", "(1, null!)"), ("0:null", "(0, null!)"), ("1:[null]", "(1, (string)null!)"),
 	];
 
 	private static readonly (string, string)[] OnlyStrings =
 	[
 		("[]", "()"), ("[a]", "(\"a\")"), ("[a,b]", "(\"a\", \"b\")"), ("null", "(null!)"), ("[null,null]", "(null!, null!)"),
+		("[null]", "((string)null!)"),
 	];
 
 	private static readonly OverloadMatrix.Member Str = new("ILog", "Str", Probes("sut.Str", LevelAndStrings));
@@ -192,11 +193,11 @@ public sealed class ParamsObjectArrayTests
 			(null, "a") | (IParameter<int>?, params object[]) matches 0:[a]
 			(Match.AnyParameters()) | (IParameters) matches everything
 			"""),
-		new(Log, "an element matcher next to values and a null array typed as such are known gaps that did not change", """
+		new(Log, "an element matcher next to values is a known gap that did not change, and a null array typed as such matches a null array", """
 			(1, It.IsAny<object>()) | (int, params object[]) matches nothing
 			(1, "a", It.IsAny<object>()) | (int, params object[]) matches nothing
 			(1, It.IsAny<string>()) | (int, params object[]) matches nothing
-			(1, (object[])null!) | (int, params object[]) throws ArgumentNullException
+			(1, (object[])null!) | (int, params object[]) matches 1:null
 			"""),
 		new(Log, "these calls do not compile: two equally good matcher overloads, or AnyParameters after a matcher", """
 			(It.IsAny<int>(), null) | CS0121
@@ -238,9 +239,9 @@ public sealed class ParamsObjectArrayTests
 			(parameters: Match.AnyParameters()) | (IParameters) matches everything
 			(parameters: null) | (IParameters) matches everything
 			"""),
-		new(Only, "an element matcher next to values and a null array typed as such are known gaps that did not change", """
+		new(Only, "an element matcher next to values is a known gap that did not change, and a null array typed as such matches a null array", """
 			("a", It.IsAny<object>()) | (params object[]) matches nothing
-			((object[])null!) | (params object[]) throws ArgumentNullException
+			((object[])null!) | (params object[]) matches null
 			"""),
 		new(Only, "AnyParameters after a matcher does not compile", """
 			(It.IsAny<object[]>()).AnyParameters() | CS1061
@@ -261,12 +262,12 @@ public sealed class ParamsObjectArrayTests
 			(null) | (IParameters) matches everything
 			(Match.AnyParameters()) | (IParameters) matches everything
 			"""),
-		new(Five, "no overload combines values with a matcher above four parameters, which are known gaps that did not change", """
+		new(Five, "no overload combines values with a matcher above four parameters, which is a known gap that did not change, and a null array matches a null array", """
 			(1, 2, 3, 4, It.IsAny<object[]>()) | (int, int, int, int, params object[]) matches nothing
 			(1, 2, 3, 4, It.IsAny<object>()) | (int, int, int, int, params object[]) matches nothing
-			(1, 2, 3, 4, null) | (int, int, int, int, params object[]) throws ArgumentNullException
-			(1, 2, 3, 4, (object[])null!) | (int, int, int, int, params object[]) throws ArgumentNullException
-			(default, default, default, default, default) | (int, int, int, int, params object[]) throws ArgumentNullException
+			(1, 2, 3, 4, null) | (int, int, int, int, params object[]) matches 1234:null
+			(1, 2, 3, 4, (object[])null!) | (int, int, int, int, params object[]) matches 1234:null
+			(default, default, default, default, default) | (int, int, int, int, params object[]) matches 0000:null
 			(It.IsAny<int>(), It.Is(2), It.Is(3), It.Is(4), "a") | CS1503
 			"""),
 		new(Opt, "a default literal for an optional parameter keeps meaning its value instead of the declared default", """
@@ -296,7 +297,7 @@ public sealed class ParamsObjectArrayTests
 			(new object[] { "a", }) | (params object[]) matches array:[a]
 			(null) | (IParameter<object[]>?) matches array:null
 			((object)null!) | (object) matches object:null
-			((object[])null!) | (params object[]) throws ArgumentNullException
+			((object[])null!) | (params object[]) matches array:null
 			(It.IsAny<object>()) | (IParameter<object>?) matches object:a object:null
 			(It.IsAny<object[]>()) | (IParameter<object[]>?) matches array:[] array:[a] array:[a,b] array:null
 			(It.IsAny<object>(), It.IsAny<object>()) | (params IParameter<object>?[]) matches array:[a,b]
@@ -424,28 +425,30 @@ public sealed class ParamsObjectArrayTests
 			<object>("a").AnyParameters() | (params object[]) matches everything
 			<object>(null!) | (params object[]) matches null
 			"""),
-		new(Str, "other element types did not change", """
+		new(Str, "other element types bind as before, and a null array matches a null array", """
 			(1) | (int, params string[]) matches 1:[]
 			(1, "a") | (int, params string[]) matches 1:[a]
-			(1, null) | (int, params string[]) throws ArgumentNullException
-			(1, It.IsAny<string[]>()) | (int, IParameter<string[]>?) matches 1:[] 1:[a] 1:[a,b] 1:null
+			(1, null) | (int, params string[]) matches 1:null
+			(1, (string)null!) | (int, params string[]) matches 1:[null]
+			(1, It.IsAny<string[]>()) | (int, IParameter<string[]>?) matches 1:[] 1:[a] 1:[a,b] 1:null 1:[null]
 			(1, It.IsAny<string>()) | CS1503
 			(It.IsAny<int>(), "a") | (IParameter<int>?, params string[]) matches 0:[a] 1:[a]
 			(default, "a") | (int, params string[]) matches 0:[a]
 			(default) | (int, params string[]) matches 0:[]
-			(default, default) | (int, params string[]) throws ArgumentNullException
+			(default, default) | (int, params string[]) matches 0:null
 			(null) | (IParameters) matches everything
 			(Match.AnyParameters()) | (IParameters) matches everything
 			(1).AnyParameters() | (int, params string[]) matches everything
 			"""),
-		new(OnlyStr, "a lone array of another element type did not change", """
+		new(OnlyStr, "a lone array of another element type binds as before, and a null literal matches a null array", """
 			() | (params string[]) matches []
 			("a") | (params string[]) matches [a]
-			(null) | (params string[]) throws ArgumentNullException
+			(null) | (params string[]) matches null
+			((string)null!) | (params string[]) matches [null]
 			(null, null) | (params string[]) matches [null,null]
 			(default, default) | (params string[]) matches [null,null]
 			(It.IsAny<string[]>()) | (IParameter<string[]>?) matches everything
-			(It.IsAny<string>()) | (params IParameter<string>[]) matches [a]
+			(It.IsAny<string>()) | (params IParameter<string>[]) matches [a] [null]
 			(Match.AnyParameters()) | (IParameters) matches everything
 			(parameters: null) | (IParameters) matches everything
 			().AnyParameters() | (params string[]) matches everything

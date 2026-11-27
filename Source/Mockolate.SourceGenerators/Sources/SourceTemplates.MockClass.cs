@@ -4159,6 +4159,24 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 			.Append(">(").Append(parameter.Name).Append(')');
 
 	/// <summary>
+	///     Matches the <see langword="params" /> values element by element, or a <see langword="null" /> array when the
+	///     argument is <see langword="null" />, which is what the same argument passes to the mocked method. Without
+	///     <paramref name="matchesNull" /> the caller has already handled a <see langword="null" /> array.
+	/// </summary>
+	private static void AppendParamsValuesMatcher(StringBuilder sb, MethodParameter parameter, bool matchesNull = true)
+	{
+		sb.Append("global::Mockolate.CovariantParameterAdapter<").Append(parameter.Type.Fullname).Append(">.Wrap(");
+		if (matchesNull)
+		{
+			sb.Append(parameter.Name).Append(" is null ? global::Mockolate.Internals.Matchers.IsNull<")
+				.Append(parameter.Type.Fullname).Append(">() : ");
+		}
+
+		sb.Append("global::Mockolate.It.SequenceEquals<").Append(parameter.Type.ElementType!.Fullname).Append(">(")
+			.Append(parameter.Name).Append("))");
+	}
+
+	/// <summary>
 	///     Whether a matcher for the whole array of a trailing <c>params object[]</c> must outrank the all-values
 	///     overload, which accepts any argument list in its expanded form and would capture the matcher as one element.
 	///     Only the all-values overload moves below it: the overloads that replace other values by matchers stay
@@ -5399,17 +5417,14 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 				{
 					if (parameter.IsParams && parameter.Type.ElementType is not null)
 					{
-						if (!emptyParams && MayHoldParamsMatchers(parameter))
+						bool asParamsMatcher = !emptyParams && MayHoldParamsMatchers(parameter);
+						if (asParamsMatcher)
 						{
 							AppendParamsMatcher(sb, parameter);
 							sb.Append(" ?? ");
 						}
 
-						// params value parameter: match element-wise by value via It.SequenceEquals.
-						sb.Append("global::Mockolate.CovariantParameterAdapter<").Append(parameter.Type.Fullname)
-							.Append(">.Wrap(global::Mockolate.It.SequenceEquals<")
-							.Append(parameter.Type.ElementType.Fullname).Append(">(").Append(parameter.Name)
-							.Append("))");
+						AppendParamsValuesMatcher(sb, parameter, matchesNull: !asParamsMatcher);
 					}
 					else if (MayHoldMatcher(parameter))
 					{
@@ -7320,10 +7335,16 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 				}
 				else if (isValueParam)
 				{
-					sb.Append(
-						parameter.IsParams && parameter.Type.ElementType is not null
-							? FormattableString.Invariant($"(global::Mockolate.CovariantParameterAdapter<{parameter.Type.Fullname}>.Wrap(global::Mockolate.It.SequenceEquals<{parameter.Type.ElementType.Fullname}>({parameter.Name})).Matches({invocation}.Parameter{i + 1}))")
-							: FormattableString.Invariant($"(global::System.Collections.Generic.EqualityComparer<{parameter.ToTypeOrWrapper()}>.Default.Equals({parameter.Name}, {invocation}.Parameter{i + 1}))"));
+					if (parameter.IsParams && parameter.Type.ElementType is not null)
+					{
+						sb.Append('(');
+						AppendParamsValuesMatcher(sb, parameter);
+						sb.Append(".Matches(").Append(invocation).Append(".Parameter").Append(i + 1).Append("))");
+					}
+					else
+					{
+						sb.Append(FormattableString.Invariant($"(global::System.Collections.Generic.EqualityComparer<{parameter.ToTypeOrWrapper()}>.Default.Equals({parameter.Name}, {invocation}.Parameter{i + 1}))"));
+					}
 				}
 				else if (usesDeclaredDefault[i])
 				{
