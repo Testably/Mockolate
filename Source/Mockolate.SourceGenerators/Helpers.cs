@@ -11,6 +11,7 @@ using Type = Mockolate.SourceGenerators.Entities.Type;
 
 namespace Mockolate.SourceGenerators;
 
+#pragma warning disable MA0038 // Make method static (deprecated, use CA1822 instead)
 internal static class Helpers
 {
 	public static SymbolDisplayFormat TypeDisplayFormat { get; } = new(
@@ -969,3 +970,4 @@ internal static class Helpers
 			   parameter.Type.SpecialGenericType is not (SpecialGenericType.Span or SpecialGenericType.ReadOnlySpan);
 	}
 }
+#pragma warning restore MA0038 // Make method static (deprecated, use CA1822 instead)

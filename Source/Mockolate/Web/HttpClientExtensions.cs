@@ -14,6 +14,7 @@ using Mockolate.Internals.Polyfills;
 // ReSharper disable once CheckNamespace
 namespace Mockolate;
 
+#pragma warning disable MA0038 // Make method static (deprecated, use CA1822 instead)
 /// <summary>
 ///     Fluent <c>Setup</c> / <c>Verify</c> surface for a mocked <see cref="HttpClient" /> - turns HTTP method
 ///     calls (<c>GetAsync</c>, <c>PostAsync</c>, <c>PutAsync</c>, <c>PatchAsync</c>, <c>DeleteAsync</c> and the
@@ -172,3 +173,4 @@ public static partial class HttpClientExtensions
 			=> $"Uri matching {parameter}";
 	}
 }
+#pragma warning restore MA0038 // Make method static (deprecated, use CA1822 instead)

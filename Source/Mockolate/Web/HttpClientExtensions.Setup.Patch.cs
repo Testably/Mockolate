@@ -10,6 +10,7 @@ using Mockolate.Setup;
 // ReSharper disable once CheckNamespace
 namespace Mockolate;
 
+#pragma warning disable MA0038 // Make method static (deprecated, use CA1822 instead)
 #pragma warning disable S2325 // Methods and properties that don't access instance data should be static
 public static partial class HttpClientExtensions
 {
@@ -123,3 +124,4 @@ public static partial class HttpClientExtensions
 }
 #pragma warning restore S2325 // Methods and properties that don't access instance data should be static
 #endif
+#pragma warning restore MA0038 // Make method static (deprecated, use CA1822 instead)

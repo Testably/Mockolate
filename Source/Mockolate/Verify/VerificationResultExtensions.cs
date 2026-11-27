@@ -8,6 +8,7 @@ using Mockolate.Internals;
 
 namespace Mockolate.Verify;
 
+#pragma warning disable MA0038 // Make method static (deprecated, use CA1822 instead)
 /// <summary>
 ///     Count-assertion extensions on <see cref="VerificationResult{TVerify}" /> that turn a recorded interaction set
 ///     into a pass/fail check (for example <c>.Once()</c>, <c>.AtLeast(3)</c>, <c>.Then(...)</c>).
@@ -402,3 +403,4 @@ public static class VerificationResultExtensions
 		}
 	}
 }
+#pragma warning restore MA0038 // Make method static (deprecated, use CA1822 instead)

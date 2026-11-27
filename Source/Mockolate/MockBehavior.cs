@@ -6,6 +6,7 @@ using Mockolate.Internals;
 
 namespace Mockolate;
 
+#pragma warning disable MA0038 // Make method static (deprecated, use CA1822 instead)
 /// <summary>
 ///     Configures the runtime behavior of a Mockolate mock: default return values for un-configured members,
 ///     base-class delegation, interaction recording, pre-registered constructor parameters, and whether
@@ -415,3 +416,4 @@ public record MockBehavior : IMockBehaviorAccess
 		}
 	}
 }
+#pragma warning restore MA0038 // Make method static (deprecated, use CA1822 instead)

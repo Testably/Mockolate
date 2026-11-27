@@ -5,6 +5,7 @@ using Mockolate.SourceGenerators.Entities;
 
 namespace Mockolate.SourceGenerators.Internals;
 
+#pragma warning disable MA0038 // Make method static (deprecated, use CA1822 instead)
 /// <summary>
 ///     Keeps the discovered auto-mocks of a project from one compilation to the next, so that an edit that cannot
 ///     change them, e.g. typing in a test method, does not discover and build them again.
@@ -291,3 +292,4 @@ internal static class AutoMockDiscoveryCache
 		}
 	}
 }
+#pragma warning restore MA0038 // Make method static (deprecated, use CA1822 instead)
