@@ -32,7 +32,7 @@ internal sealed class CallOrderTracker : IDisposable
 		for (int i = 0; i < mocks.Count; i++)
 		{
 			(string name, MockInteractions interactions) = mocks[i];
-			string displayName = mocks.Count(mock => string.Equals(mock.Name, name, StringComparison.Ordinal)) > 1
+			string displayName = mocks.Where(mock => string.Equals(mock.Name, name, StringComparison.Ordinal)).Skip(1).Any()
 				? $"{name} #{mocks.Take(i + 1).Count(mock => string.Equals(mock.Name, name, StringComparison.Ordinal))}"
 				: name;
 			_mocks[i] = new TrackedMock(this, displayName, interactions);

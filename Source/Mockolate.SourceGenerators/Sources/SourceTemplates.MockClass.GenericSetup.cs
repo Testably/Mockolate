@@ -28,7 +28,7 @@ internal static partial class SourceTemplates
 			                 FindAdapterMember(@class, method) is not { Member.Kind: MockAdapterMemberKind.Intercepted, })
 			.GroupBy(GetGenericFacadeSignature)
 			.Where(group => group.Select(method => GetGenericSetupName(method) + GetGenericParameterNames(method))
-				.Distinct().Count() == 1)
+				.Distinct().Take(2).Count() == 1)
 			.Select(group => group.ToArray())
 			.Select(overloads => (overloads[0], GetGenericFacadeParameterTypes(overloads[0]), overloads,
 				GetGenericIsCallOf(overloads, genericMethods)))
@@ -318,7 +318,7 @@ internal static partial class SourceTemplates
 	private static bool HasGenericParametersOverload(List<(Method Method, string[] ParameterTypes, Method[] Overloads, string IsCallOf)> methods,
 		Method method)
 		=> method.Parameters.Count > 0 &&
-		   methods.Count(other => string.Equals(GetGenericFacadeName(other.Method), GetGenericFacadeName(method), StringComparison.Ordinal)) == 1;
+		   methods.Where(other => string.Equals(GetGenericFacadeName(other.Method), GetGenericFacadeName(method), StringComparison.Ordinal)).Take(2).Count() == 1;
 
 	/// <summary>
 	///     Lets a <see langword="null" /> literal for the only parameter choose the overloads that take a matcher, where

@@ -89,7 +89,7 @@ internal static partial class SourceTemplates
 			foreach (Method method in @class.AllMethods())
 			{
 				if (FindAdapterMember(@class, method) is { Member: { } member, } &&
-				    members.All(existing => !string.Equals(existing.Name, member.Name, StringComparison.Ordinal)))
+				    members.TrueForAll(existing => !string.Equals(existing.Name, member.Name, StringComparison.Ordinal)))
 				{
 					members.Add((member.Name, memberIdPrefix + memberIds.GetMethodIdentifier(method),
 						method.ContainingType + "." + member.Name + (method.GenericParameters?.Count > 0 ? "<" : "")));

@@ -367,7 +367,7 @@ internal static partial class MockGeneratorHelpers
 		int count = constructor.Parameters.Length;
 		IMethodSymbol[] reachable = GetMockConstructors(type, compilation.Assembly)
 			.Where(candidate => !candidate.Parameters.Any(parameter => parameter.Type.IsRefLikeType) &&
-			                    candidate.Parameters.Count(parameter => !parameter.HasExplicitDefaultValue) <= count &&
+			                    !candidate.Parameters.Where(parameter => !parameter.HasExplicitDefaultValue).Skip(count).Any() &&
 			                    count <= candidate.Parameters.Length)
 			.ToArray();
 		return reachable.Length == 1 && SymbolEqualityComparer.Default.Equals(reachable[0], constructor);

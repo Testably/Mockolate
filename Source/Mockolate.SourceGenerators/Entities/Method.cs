@@ -40,7 +40,7 @@ internal record Method
 
 		if (alreadyDefinedMethods is not null)
 		{
-			if (alreadyDefinedMethods.Any(m =>
+			if (alreadyDefinedMethods.Exists(m =>
 				    string.Equals(m.Name, Name, StringComparison.Ordinal) &&
 				    m.Parameters.Count == Parameters.Count &&
 				    m.Parameters.Zip(Parameters, HaveSameIdentity).All(same => same)))

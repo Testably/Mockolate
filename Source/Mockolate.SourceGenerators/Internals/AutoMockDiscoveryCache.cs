@@ -202,7 +202,7 @@ internal static class AutoMockDiscoveryCache
 
 		private bool HasSameReferences(Compilation compilation)
 		{
-			if (compilation.References.Count() != references.Length)
+			if (compilation.References.Take(references.Length + 1).Count() != references.Length)
 			{
 				return false;
 			}
