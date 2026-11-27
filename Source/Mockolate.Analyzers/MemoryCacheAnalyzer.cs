@@ -66,7 +66,7 @@ public class MemoryCacheAnalyzer : DiagnosticAnalyzer
 		for (INamedTypeSymbol? type = method.ContainingType; type is not null; type = type.ContainingType)
 		{
 			if (type.Name == "MockolateCaching" &&
-			    type.ContainingNamespace is { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, })
+			    AnalyzerHelpers.IsMockolateNamespace(type.ContainingNamespace))
 			{
 				return true;
 			}
@@ -79,7 +79,8 @@ public class MemoryCacheAnalyzer : DiagnosticAnalyzer
 		=> new[] { receiverType, }.Concat(receiverType.AllInterfaces)
 			.OfType<INamedTypeSymbol>()
 			.Where(facade => facade is { Name: "IMockSetup" or "IMockVerify", TypeArguments.Length: 1, } &&
-			                 facade.ContainingNamespace is { Name: "Setup" or "Verify", ContainingNamespace.Name: "Mockolate", })
+			                 facade.ContainingNamespace is { Name: "Setup" or "Verify", } facadeNamespace &&
+			                 AnalyzerHelpers.IsMockolateNamespace(facadeNamespace.ContainingNamespace))
 			.Select(facade => facade.TypeArguments[0])
 			.OfType<INamedTypeSymbol>()
 			.FirstOrDefault(mockedClass => mockedClass.TypeKind == TypeKind.Class && IsUnsupported(mockedClass));
