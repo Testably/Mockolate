@@ -1110,6 +1110,25 @@ public sealed class MockRegistryTests
 		}
 	}
 
+	public sealed class TrackCallOrderTests
+	{
+		[Test]
+		public async Task WithNonFastInteractions_ShouldThrowMockException()
+		{
+			StringKeyedPropertyTests.IPropertyService sut = StringKeyedPropertyTests.IPropertyService.CreateMock();
+			StringKeyedPropertyTests.IPropertyService other = StringKeyedPropertyTests.IPropertyService.CreateMock();
+			MockRegistry registry = new(MockBehavior.Default, new TryGetRecordsTests.NonFastInteractions());
+
+			void Act()
+			{
+				registry.TrackCallOrder((IMock)sut, (IMock)other, []);
+			}
+
+			await That(Act).Throws<MockException>()
+				.WithMessage("The call order of the * mock cannot be tracked, because it records its interactions in a *NonFastInteractions.").AsWildcard();
+		}
+	}
+
 	public sealed class TryGetRecordsTests
 	{
 		[Test]

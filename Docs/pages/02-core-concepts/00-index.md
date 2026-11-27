@@ -48,6 +48,7 @@ reached through its `Mock` property:
 | `Mock.SetupStatic`, `Mock.VerifyStatic`, …                   | The same for static interface members. See [Static interface members](../08-advanced-features/02-static-interface-members.md). |
 | `Mock.InScenario(…)`, `Mock.TransitionTo(…)`                 | Switch between sets of setups. See [Scenarios](../08-advanced-features/06-scenarios.md).                          |
 | `Mock.Monitor()`, `Mock.ClearAllInteractions()`              | Limit which interactions are counted. See [Monitor interactions](../08-advanced-features/04-monitor-interactions.md). |
+| `Mock.TrackCallOrder(…)`                                     | Verify the order of calls across mocks. See [Call order](../07-verify-interactions.md#across-mocks).           |
 | `Mock.As<T>()`                                               | Reach an additional interface. See [Create mocks](../03-create-mocks.md#implementing-additional-interfaces).  |
 
 The generated setup and verification members mirror the members of the mocked type, so a typo or a wrong argument type

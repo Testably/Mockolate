@@ -169,6 +169,21 @@ internal static class Checks
 			       ?? Throws<MockVerificationException>(() => sut.Mock.Verify.Dispense(It.Is("Milk"), It.IsAny<int>())
 				       .Then(m => m.Dispense(It.Is("Dark"), It.IsAny<int>())), "Milk");
 		}),
+		new("Then verifies the order of the interactions across tracked mocks", () =>
+		{
+			IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
+			Calculate calculate = Calculate.CreateMock();
+			using (dispenser.Mock.TrackCallOrder(calculate.Mock))
+			{
+				dispenser.Dispense("Dark", 1);
+				calculate(5, "add");
+			}
+
+			return Passes(() => dispenser.Mock.Verify.Dispense(It.Is("Dark"), It.IsAny<int>())
+				       .Then(calculate.Mock.Verify(It.IsAny<int>(), It.Is("add"))))
+			       ?? Throws<MockVerificationException>(() => calculate.Mock.Verify(It.IsAny<int>(), It.Is("add"))
+				       .Then(dispenser.Mock.Verify.Dispense(It.Is("Dark"), It.IsAny<int>())), "too early");
+		}),
 		new("an interaction that was not verified is reported", () =>
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();

@@ -200,6 +200,8 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t\t=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyFor").Append(name).Append(">(this.")
 			.Append(mockRegistryName).Append(".Interactions, interactions => new VerifyMonitor").Append(name)
 			.Append("(new global::Mockolate.Internals.MockRegistry(this.").Append(mockRegistryName).Append(", interactions)));").AppendLine();
+		sb.AppendLine();
+		AppendTrackCallOrderImplementation(sb, name, mockRegistryName);
 		sb.AppendLine("\t}");
 		sb.AppendLine();
 		
@@ -278,7 +280,7 @@ internal static partial class SourceTemplates
 
 		sb.AppendXmlSummary($"Accesses the mock of {classReference}.", "\t");
 		sb.Append("\tinternal interface IMockFor").Append(name).Append(" :").AppendLine();
-		sb.Append("\t\t IMockSetupFor").Append(name).Append(", IMockVerifyFor").Append(name).AppendLine();
+		sb.Append("\t\t IMockSetupFor").Append(name).Append(", IMockVerifyFor").Append(name).Append(", global::Mockolate.IMock").AppendLine();
 		sb.Append("\t{").AppendLine();
 		sb.AppendXmlSummary("Verifies the method invocations for the <paramref name=\"setup\" /> on the mock.");
 		sb.Append("\t\tglobal::Mockolate.Verify.VerificationResult<IMockVerifyFor").Append(name).Append("> VerifySetup(global::Mockolate.Setup.IMethodSetup setup);").AppendLine();
@@ -294,6 +296,8 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 		sb.AppendXmlSummary("Provides monitoring capabilities for a mocked instance of the specified type, allowing inspection of accessed properties, invoked methods, and event subscriptions.");
 		sb.Append("\t\tglobal::Mockolate.Monitor.MockMonitor<IMockVerifyFor").Append(name).Append("> Monitor();").AppendLine();
+		sb.AppendLine();
+		AppendTrackCallOrderDeclaration(sb);
 		sb.Append("\t}").AppendLine();
 		sb.AppendLine();
 

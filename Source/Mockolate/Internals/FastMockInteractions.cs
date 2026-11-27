@@ -58,6 +58,9 @@ public class FastMockInteractions : IMockInteractions
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	private FastMockInteractions[]? _sharedVerifications;
 
+	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	private CallOrderTracker.TrackedMock? _trackedCallOrder;
+
 	/// <summary>
 	///     Creates a new <see cref="FastMockInteractions" /> for a mock with <paramref name="memberCount" /> members.
 	/// </summary>
@@ -117,8 +120,44 @@ public class FastMockInteractions : IMockInteractions
 			head = previous;
 		}
 
+		if (Volatile.Read(ref _trackedCallOrder) is { } trackedCallOrder)
+		{
+			trackedCallOrder.Record(node);
+		}
+
 		InteractionAdded?.Invoke(this, EventArgs.Empty);
 	}
+
+	/// <summary>
+	///     The mock as tracked by the latest tracker of its call order, or <see langword="null" /> if it was never
+	///     tracked.
+	/// </summary>
+	internal CallOrderTracker.TrackedMock? TrackedCallOrder => Volatile.Read(ref _trackedCallOrder);
+
+	/// <summary>
+	///     Lets <paramref name="tracked" /> track the order of the following calls, unless another tracker is still
+	///     running.
+	/// </summary>
+	internal bool TryTrackCallOrder(CallOrderTracker.TrackedMock tracked, out CallOrderTracker.TrackedMock? previous)
+	{
+		do
+		{
+			previous = Volatile.Read(ref _trackedCallOrder);
+			if (previous is { IsRunning: true, })
+			{
+				return false;
+			}
+		} while (Interlocked.CompareExchange(ref _trackedCallOrder, tracked, previous) != previous);
+
+		return true;
+	}
+
+	/// <summary>
+	///     Undoes <see cref="TryTrackCallOrder" /> of <paramref name="tracked" />, so that the <paramref name="previous" />
+	///     tracker keeps the call order of the mock.
+	/// </summary>
+	internal void RestoreCallOrder(CallOrderTracker.TrackedMock tracked, CallOrderTracker.TrackedMock? previous)
+		=> Interlocked.CompareExchange(ref _trackedCallOrder, previous, tracked);
 
 	/// <summary>
 	///     Returns a view on the typed records of the member <paramref name="memberId" />, or
@@ -241,6 +280,7 @@ public class FastMockInteractions : IMockInteractions
 	/// <inheritdoc cref="IMockInteractions.Clear" />
 	public void Clear()
 	{
+		Volatile.Read(ref _trackedCallOrder)?.Clear();
 		Volatile.Write(ref _hasInteractionRecords, false);
 		Volatile.Write(ref _head, null);
 

@@ -91,6 +91,45 @@ public partial class MockRegistry
 	}
 
 	/// <summary>
+	///     Tracks the order of the calls across the <paramref name="mock" />, the <paramref name="other" /> mock and the
+	///     <paramref name="more" /> mocks until the returned scope is disposed, so that <c>Then</c> can verify the order
+	///     of calls on different mocks.
+	/// </summary>
+	/// <param name="mock">The mock that records its interactions in this registry.</param>
+	/// <param name="other">The <c>Mock</c> property of another mock.</param>
+	/// <param name="more">The <c>Mock</c> properties of further mocks.</param>
+	/// <returns>The scope that ends the tracking when it is disposed.</returns>
+	/// <exception cref="MockException">
+	///     The call order of one of the mocks cannot be tracked or is already tracked.
+	/// </exception>
+	public IDisposable TrackCallOrder(IMock mock, IMock other, IMock[] more)
+	{
+		List<(string Name, FastMockInteractions Interactions)> mocks = [];
+		Add(mock.ToString(), Interactions);
+		Add(other.ToString(), other.MockRegistry.Interactions);
+		foreach (IMock another in more)
+		{
+			Add(another.ToString(), another.MockRegistry.Interactions);
+		}
+
+		return CallOrderTracker.Track(mocks);
+
+		void Add(string name, IMockInteractions interactions)
+		{
+			if (interactions is not FastMockInteractions fastInteractions)
+			{
+				throw new MockException(
+					$"The call order of the {name} cannot be tracked, because it records its interactions in a {interactions.GetType()}.");
+			}
+
+			if (!mocks.Exists(tracked => ReferenceEquals(tracked.Interactions, fastInteractions)))
+			{
+				mocks.Add((name, fastInteractions));
+			}
+		}
+	}
+
+	/// <summary>
 	///     Returns the current snapshot of default-scope method setups registered under the generator-emitted
 	///     <paramref name="memberId" />, or <see langword="null" /> when no setup has been registered.
 	/// </summary>

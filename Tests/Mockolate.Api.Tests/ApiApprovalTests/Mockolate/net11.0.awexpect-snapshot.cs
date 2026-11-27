@@ -85,6 +85,7 @@ namespace Mockolate
     }
     public interface IMock
     {
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         Mockolate.Internals.MockRegistry MockRegistry { get; }
         string ToString();
     }
@@ -3267,6 +3268,7 @@ namespace Mockolate.Verify
             public void Exactly(int times) { }
             public void Never() { }
             public void Once() { }
+            public void Then(Mockolate.Verify.IVerificationResult next, params Mockolate.Verify.IVerificationResult[] more) { }
             public void Then(params System.Func<TMock, Mockolate.Verify.VerificationResult<TMock>>[] orderedChecks) { }
             public void Times(System.Func<int, bool> predicate, [System.Runtime.CompilerServices.CallerArgumentExpression("predicate")] string doNotPopulateThisValue = "") { }
             public void Twice() { }
