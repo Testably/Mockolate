@@ -346,6 +346,8 @@ shelf.Mock.Verify.Restock().Once();
 shelf.Mock.As<IChocolateShelfBase>().Verify.Restock().Once();
 ```
 
+The same applies when the mocked interface inherits a member with the same signature from two base interfaces, also when the signatures differ only in nullable annotations, such as `Find(string name)` and `Find(string? name)`: `Mock.Setup` and `Mock.Verify` reach the member of the first interface, and `Mock.As<T>()` reaches the member of the other.
+
 Indexers are the exception: they are keyed by their parameter signature rather than by the declaring interface, so a
 `new` indexer and the base indexer it hides share the same storage.
 

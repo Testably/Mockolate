@@ -315,6 +315,25 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             []),
         new(
+            "MembersDifferingInNullability_CanBeCreated",
+            ["IMembersDifferingInNullability.cs",],
+            """
+            IMembersDifferingInNullability sut1 = IMembersDifferingInNullability.CreateMock();
+            IGenericMembersDifferingInNullability sut2 = IGenericMembersDifferingInNullability.CreateMock();
+            IHidingQueries sut3 = IHidingQueries.CreateMock();
+            """,
+            []),
+        new(
+            "MembersDifferingInNullability_CanBeCreated_Unions",
+            ["IMembersDifferingInNullability.cs",],
+            """
+            IMembersDifferingInNullability sut1 = IMembersDifferingInNullability.CreateMock();
+            IGenericMembersDifferingInNullability sut2 = IGenericMembersDifferingInNullability.CreateMock();
+            IHidingQueries sut3 = IHidingQueries.CreateMock();
+            """,
+            [],
+            UnionMode: true),
+        new(
             "NullableMethodTypeParameter_CanBeCreated",
             ["INullableMethodTypeParameter.cs",],
             """
