@@ -43,7 +43,7 @@ internal record Method
 			if (alreadyDefinedMethods.Any(m =>
 				    string.Equals(m.Name, Name, StringComparison.Ordinal) &&
 				    m.Parameters.Count == Parameters.Count &&
-				    m.Parameters.SequenceEqual(Parameters)))
+				    m.Parameters.Zip(Parameters, HaveSameIdentity).All(same => same)))
 			{
 				ExplicitImplementation = ContainingType;
 			}
@@ -211,6 +211,13 @@ internal record Method
 	}
 
 	private static bool IsIdentifierChar(char c) => char.IsLetterOrDigit(c) || c == '_';
+
+	/// <summary>
+	///     C# signatures ignore parameter names and nullable reference annotations, so two members that differ only there
+	///     cannot both be implemented implicitly.
+	/// </summary>
+	private static bool HaveSameIdentity(MethodParameter x, MethodParameter y)
+		=> x.RefKind == y.RefKind && string.Equals(x.Type.IdentityName, y.Type.IdentityName, StringComparison.Ordinal);
 
 	public bool IsToString()
 		=> string.Equals(Name, "ToString", StringComparison.Ordinal) &&Parameters.Count == 0 && CanOverrideObjectMember(SpecialType.System_String);
