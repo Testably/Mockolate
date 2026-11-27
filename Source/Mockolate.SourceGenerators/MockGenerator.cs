@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -6,7 +7,8 @@ using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 using Mockolate.SourceGenerators.Entities;
 using Mockolate.SourceGenerators.Internals;
-using Type = Mockolate.SourceGenerators.Entities.Type;
+using Mockolate.SourceGenerators.Sources;
+using Type =Mockolate.SourceGenerators.Entities.Type;
 
 namespace Mockolate.SourceGenerators;
 
@@ -20,13 +22,13 @@ public class MockGenerator : IIncrementalGenerator
 	{
 		context.RegisterPostInitializationOutput(ctx =>
 		{
-			ctx.AddSource("Mock.g.cs", ToSource(Sources.Sources.MockClass(), default));
-			ctx.AddSource("AutoMockArguments.g.cs", ToSource(Sources.Sources.AutoMockArgumentsShared(), default));
-			ctx.AddSource("AutoMockArguments.TUnit.g.cs", ToSource(Sources.Sources.AutoMockArgumentsForTUnit(), default));
-			ctx.AddSource("AutoMockArguments.Xunit2.g.cs", ToSource(Sources.Sources.AutoMockArgumentsForXunit2(), default));
-			ctx.AddSource("AutoMockArguments.Xunit3.g.cs", ToSource(Sources.Sources.AutoMockArgumentsForXunit3(), default));
-			ctx.AddSource("AutoMockArguments.NUnit.g.cs", ToSource(Sources.Sources.AutoMockArgumentsForNUnit(), default));
-			ctx.AddSource("AutoMockArguments.MSTest.g.cs", ToSource(Sources.Sources.AutoMockArgumentsForMSTest(), default));
+			ctx.AddSource("Mock.g.cs", ToSource(SourceTemplates.MockClass(), default));
+			ctx.AddSource("AutoMockArguments.g.cs", ToSource(SourceTemplates.AutoMockArgumentsShared(), default));
+			ctx.AddSource("AutoMockArguments.TUnit.g.cs", ToSource(SourceTemplates.AutoMockArgumentsForTUnit(), default));
+			ctx.AddSource("AutoMockArguments.Xunit2.g.cs", ToSource(SourceTemplates.AutoMockArgumentsForXunit2(), default));
+			ctx.AddSource("AutoMockArguments.Xunit3.g.cs", ToSource(SourceTemplates.AutoMockArgumentsForXunit3(), default));
+			ctx.AddSource("AutoMockArguments.NUnit.g.cs", ToSource(SourceTemplates.AutoMockArgumentsForNUnit(), default));
+			ctx.AddSource("AutoMockArguments.MSTest.g.cs", ToSource(SourceTemplates.AutoMockArgumentsForMSTest(), default));
 		});
 
 		// Per-mock stream. Equality on MockClass is now keyed only on its canonical identity
@@ -195,7 +197,7 @@ public class MockGenerator : IIncrementalGenerator
 				if (source.Left.Count > 0)
 				{
 					// Outside the Mock.<Name>.g.cs pattern of the mock files, so that no mocked type shares the hint name.
-					spc.AddSource("SealedClasses.g.cs", ToSource(Sources.Sources.SealedClasses(source.Left), source.Right));
+					spc.AddSource("SealedClasses.g.cs", ToSource(SourceTemplates.SealedClasses(source.Left), source.Right));
 				}
 			});
 
@@ -211,7 +213,7 @@ public class MockGenerator : IIncrementalGenerator
 				    types.ValueFrom.Count > 0)
 				{
 					spc.AddSource("MockDataSources.g.cs",
-						ToSource(Sources.Sources.MockDataSources(classes, types.Mocked, types.ValueOrMock, types.Value,
+						ToSource(SourceTemplates.MockDataSources(classes, types.Mocked, types.ValueOrMock, types.Value,
 							types.Deferred, types.ValueFrom, !moduleInitializer), source.Right));
 				}
 			});
@@ -250,7 +252,7 @@ public class MockGenerator : IIncrementalGenerator
 			if (source.Left)
 			{
 				spc.AddSource("ParameterArg.g.cs",
-					ToSource(Sources.Sources.ParameterArg(
+					ToSource(SourceTemplates.ParameterArg(
 						emitUnionAttributePolyfill: !source.Right.Union,
 						emitOverloadResolutionPriorityPolyfill: !source.Right.Priority,
 						emitCallerArgumentExpressionPolyfill: !source.Right.CallerArgumentExpression), default));
@@ -280,8 +282,8 @@ public class MockGenerator : IIncrementalGenerator
 
 		IncrementalValueProvider<(bool HasLogger, bool HasLoggerFactory)> loggingMocks = collectedMocks
 			.Select(static (arr, _) => (
-				arr.AsArray().Any(m => m.AllImplementations().Any(c => Sources.Sources.HasAdapter(c, MockAdapter.Logger))),
-				arr.AsArray().Any(m => m.AllImplementations().Any(c => Sources.Sources.HasAdapter(c, MockAdapter.LoggerFactory)))));
+				arr.AsArray().Any(m => m.AllImplementations().Any(c => SourceTemplates.HasAdapter(c, MockAdapter.Logger))),
+				arr.AsArray().Any(m => m.AllImplementations().Any(c => SourceTemplates.HasAdapter(c, MockAdapter.LoggerFactory)))));
 
 		IncrementalValueProvider<LoggerMockNames> loggerMockNames = namedMocksAggregate
 			.Select(static (arr, _) => CollectLoggerMockNames(arr));
@@ -293,7 +295,7 @@ public class MockGenerator : IIncrementalGenerator
 				if (hasLogger || hasLoggerFactory)
 				{
 					spc.AddSource("Logging.g.cs",
-						ToSource(Sources.Sources.Logging(hasLoggerFactory, source.Left.Right), source.Right));
+						ToSource(SourceTemplates.Logging(hasLoggerFactory, source.Left.Right), source.Right));
 				}
 			});
 
@@ -306,7 +308,7 @@ public class MockGenerator : IIncrementalGenerator
 			if (source.Left.Count > 0)
 			{
 				spc.AddSource("Mock.AsExtensions.g.cs",
-					ToSource(Sources.Sources.MockAsExtensions(source.Left), source.Right));
+					ToSource(SourceTemplates.MockAsExtensions(source.Left), source.Right));
 			}
 		});
 
@@ -325,7 +327,7 @@ public class MockGenerator : IIncrementalGenerator
 				}
 
 				spc.AddSource("IndexerSetups.g.cs",
-					ToSource(Sources.Sources.IndexerSetups(keys, priority, source.Right), aliases));
+					ToSource(SourceTemplates.IndexerSetups(keys, priority, source.Right), aliases));
 			});
 
 		IncrementalValueProvider<EquatableArray<MethodSetupKey>> methodSetupKeys = collectedMocks
@@ -340,13 +342,13 @@ public class MockGenerator : IIncrementalGenerator
 			}
 
 			HashSet<(int, bool)> set = ToMethodSetupHashSet(keys);
-			spc.AddSource("MethodSetups.g.cs", ToSource(Sources.Sources.MethodSetups(set), aliases));
+			spc.AddSource("MethodSetups.g.cs", ToSource(SourceTemplates.MethodSetups(set), aliases));
 
 			const int dotNetFuncActionParameterLimit = 16;
 			if (set.Any(x => x.Item1 >= dotNetFuncActionParameterLimit))
 			{
 				spc.AddSource("ActionFunc.g.cs",
-					ToSource(Sources.Sources.ActionFunc(set
+					ToSource(SourceTemplates.ActionFunc(set
 						.Where(x => x.Item1 >= dotNetFuncActionParameterLimit)
 						.SelectMany<(int, bool), int>(x => [x.Item1, x.Item1 + 1,])
 						.Where(x => x > dotNetFuncActionParameterLimit)
@@ -356,7 +358,7 @@ public class MockGenerator : IIncrementalGenerator
 			if (set.Any(x => !x.Item2))
 			{
 				spc.AddSource("ReturnsThrowsAsyncExtensions.g.cs",
-					ToSource(Sources.Sources.ReturnsThrowsAsyncExtensions(set
+					ToSource(SourceTemplates.ReturnsThrowsAsyncExtensions(set
 						.Where(x => !x.Item2).Select(x => x.Item1).ToArray()), aliases));
 			}
 		});
@@ -380,13 +382,13 @@ public class MockGenerator : IIncrementalGenerator
 			}
 
 			spc.AddSource("RefStructMethodSetups.g.cs",
-				ToSource(Sources.Sources.RefStructMethodSetups(methodSet, indexerArities), aliases));
+				ToSource(SourceTemplates.RefStructMethodSetups(methodSet, indexerArities), aliases));
 		});
 
 		// MockBehaviorExtensions: depends on whether HttpClient appears as a mock target.
 		// Reduce to a bool so the aggregate cache holds across mock-set churn that doesn't toggle it.
 		IncrementalValueProvider<bool> includeHttpClient = collectedMocks
-			.Select(static (arr, _) => arr.AsArray().Any(m => m.ClassFullName == "global::System.Net.Http.HttpClient"));
+			.Select(static (arr, _) => arr.AsArray().Any(m => string.Equals(m.ClassFullName, "global::System.Net.Http.HttpClient", StringComparison.Ordinal)));
 
 		IncrementalValueProvider<EquatableArray<string>?> autoMockableTypes = collectedMocks
 			.Combine(emissionOptions)
@@ -403,7 +405,7 @@ public class MockGenerator : IIncrementalGenerator
 
 		context.RegisterSourceOutput(includeHttpClient.Combine(includeAsyncEnumerable).Combine(autoMockableTypes).Combine(externAliases), static (spc, source) =>
 			spc.AddSource("MockBehaviorExtensions.g.cs",
-				ToSource(Sources.Sources.MockBehaviorExtensions(source.Left.Left.Left, source.Left.Left.Right, source.Left.Right), source.Right)));
+				ToSource(SourceTemplates.MockBehaviorExtensions(source.Left.Left.Left, source.Left.Left.Right, source.Left.Right), source.Right)));
 
 		// Since 1.71, the source generator of TUnit declares ModuleInitializerAttribute when it is missing, unless the
 		// source generation or the polyfills of TUnit are turned off or PolySharp declares the attribute. Mockolate
@@ -415,7 +417,7 @@ public class MockGenerator : IIncrementalGenerator
 		{
 			AnalyzerConfigOptions options = analyzerConfigOptions.GlobalOptions;
 			if (!compilation.ReferencedAssemblyNames.Any(assembly =>
-				    assembly.Name == "TUnit.Core" && assembly.Version >= new Version(1, 71)) ||
+				    string.Equals(assembly.Name, "TUnit.Core", StringComparison.Ordinal) && assembly.Version >= new Version(1, 71)) ||
 			    !options.TryGetValue("build_property.EnableTUnitSourceGeneration", out string? sourceGeneration) ||
 			    IsFalse(sourceGeneration) ||
 			    (options.TryGetValue("build_property.EnableTUnitPolyfills", out string? polyfills) && IsFalse(polyfills)))
@@ -555,16 +557,16 @@ public class MockGenerator : IIncrementalGenerator
 			.Where(type => compilation.IsSymbolAccessibleWithin(type, compilation.Assembly) &&
 			               (SymbolEqualityComparer.Default.Equals(type.ContainingAssembly, compilation.Assembly) ||
 			                !type.GetAttributes().Any(attribute =>
-				                attribute.AttributeClass?.ToDisplayString() == "Microsoft.CodeAnalysis.EmbeddedAttribute")))
+				                string.Equals(attribute.AttributeClass?.ToDisplayString(), "Microsoft.CodeAnalysis.EmbeddedAttribute", StringComparison.Ordinal))))
 			.ToArray();
 
 	private static SourceText ToSource(string source, EquatableArray<string> externAliases)
-		=> SourceText.From(Sources.Sources.ExpandCrefs(WithExternAliases(source, externAliases)), Encoding.UTF8);
+		=> SourceText.From(SourceTemplates.ExpandCrefs(WithExternAliases(source, externAliases)), Encoding.UTF8);
 
 	private static EquatableArray<string> GetExternAliases(Compilation compilation)
 		=> new(compilation.References
 			.SelectMany(reference => reference.Properties.Aliases)
-			.Where(alias => alias != "global")
+			.Where(alias => !string.Equals(alias, "global", StringComparison.Ordinal))
 			.Distinct()
 			.OrderBy(alias => alias, StringComparer.Ordinal)
 			.ToArray());
@@ -583,7 +585,7 @@ public class MockGenerator : IIncrementalGenerator
 
 		return directives is null
 			? source
-			: source.Insert(Sources.Sources.AutoGeneratedHeader.Length, directives.ToString());
+			: source.Insert(SourceTemplates.AutoGeneratedHeader.Length, directives.ToString());
 	}
 
 	private static EquatableArray<string> ReadNamespaces(AnalyzerConfigOptionsProvider options, string property)
@@ -801,7 +803,7 @@ public class MockGenerator : IIncrementalGenerator
 				if (m.Parameters.Count > 4)
 				{
 					set.Add(new MethodSetupKey(m.Parameters.Count, m.ReturnType == Type.Void));
-					if (Sources.Sources.HasGenericFacadeShape(m))
+					if (SourceTemplates.HasGenericFacadeShape(m))
 					{
 						set.Add(new MethodSetupKey(m.Parameters.Count, true));
 					}
@@ -1003,11 +1005,11 @@ public class MockGenerator : IIncrementalGenerator
 			}
 
 			string fullName = named.Mock.ClassFullName;
-			if (fullName == loggerFullName)
+			if (string.Equals(fullName, loggerFullName, StringComparison.Ordinal))
 			{
 				loggerName = named.ParentName;
 			}
-			else if (Sources.Sources.GetLoggerCategoryType(fullName) is { } categoryType)
+			else if (SourceTemplates.GetLoggerCategoryType(fullName) is { } categoryType)
 			{
 				categoryLoggers.Add((categoryType, named.ParentName));
 			}
@@ -1081,7 +1083,7 @@ public class MockGenerator : IIncrementalGenerator
 		if (@class is MockClass { Delegate: not null, } mockClass)
 		{
 			context.AddSource($"Mock.{fileName}.g.cs",
-				ToSource(Sources.Sources.MockDelegate(named.ParentName, mockClass, mockClass.Delegate, autoMocking,
+				ToSource(SourceTemplates.MockDelegate(named.ParentName, mockClass, mockClass.Delegate, autoMocking,
 					hasOverloadResolutionPriority, useUnionOverloads), externAliases));
 			return;
 		}
@@ -1100,7 +1102,7 @@ public class MockGenerator : IIncrementalGenerator
 			}
 
 			context.AddSource($"Mock.{fileName}.g.cs",
-				ToSource(Sources.Sources.MockClass(named.ParentName, @class, autoMocking, hasOverloadResolutionPriority, hiddenBaseArr,
+				ToSource(SourceTemplates.MockClass(named.ParentName, @class, autoMocking, hasOverloadResolutionPriority, hiddenBaseArr,
 					useUnionOverloads), externAliases));
 			return;
 		}
@@ -1113,7 +1115,7 @@ public class MockGenerator : IIncrementalGenerator
 		}
 
 		context.AddSource($"Mock.{fileName}.g.cs",
-			ToSource(Sources.Sources.MockCombinationClass(fileName, named.ParentName, @class, additionalArr, autoMocking, hasOverloadResolutionPriority,
+			ToSource(SourceTemplates.MockCombinationClass(fileName, named.ParentName, @class, additionalArr, autoMocking, hasOverloadResolutionPriority,
 				useUnionOverloads), externAliases));
 	}
 
@@ -1123,14 +1125,18 @@ public class MockGenerator : IIncrementalGenerator
 		   mockClass.AllImplementations().All(x => !x.HasInaccessibleRequiredMember);
 }
 
+[StructLayout(LayoutKind.Auto)]
 internal readonly record struct MethodSetupKey(int Arity, bool IsVoid);
 
 internal readonly record struct CreateMockLocation(string FilePath, int Start, int Length);
 
+[StructLayout(LayoutKind.Auto)]
 internal readonly record struct MockCreation(EquatableArray<MockClass> Mocks, CreateMockLocation Location);
 
+[StructLayout(LayoutKind.Auto)]
 internal readonly record struct RefStructIndexerSetup(int Arity, bool HasGetter, bool HasSetter);
 
+[StructLayout(LayoutKind.Auto)]
 internal readonly record struct IndexerSetupKey(int Arity, bool NeedsGetterOnly, bool NeedsSetterOnly);
 
 internal readonly record struct MockAsExtensionPair(
@@ -1201,7 +1207,7 @@ internal sealed class NamedMock : IEquatable<NamedMock>
 			return false;
 		}
 
-		if (FileName != other.FileName || ParentName != other.ParentName)
+		if (!string.Equals(FileName, other.FileName, StringComparison.Ordinal) || !string.Equals(ParentName, other.ParentName, StringComparison.Ordinal))
 		{
 			return false;
 		}
@@ -1238,8 +1244,8 @@ internal sealed class NamedMock : IEquatable<NamedMock>
 
 	public override int GetHashCode()
 	{
-		int hash = FileName.GetHashCode();
-		hash = unchecked((hash * 17) + ParentName.GetHashCode());
+		int hash = StringComparer.Ordinal.GetHashCode(FileName);
+		hash = unchecked((hash * 17) + StringComparer.Ordinal.GetHashCode(ParentName));
 		hash = unchecked((hash * 17) + Mock.GetHashCode());
 		if (AdditionalClasses is { } additional)
 		{

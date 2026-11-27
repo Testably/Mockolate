@@ -173,7 +173,7 @@ internal static partial class MockGeneratorHelpers
 		Compilation compilation, CancellationToken cancellationToken)
 	{
 		TextSpan span = new(location.Start, location.Length);
-		foreach (SyntaxTree tree in compilation.SyntaxTrees.Where(tree => tree.FilePath == location.FilePath))
+		foreach (SyntaxTree tree in compilation.SyntaxTrees.Where(tree => string.Equals(tree.FilePath, location.FilePath, StringComparison.Ordinal)))
 		{
 			SyntaxNode root = tree.GetRoot(cancellationToken);
 			if (root.FullSpan.Contains(span) &&

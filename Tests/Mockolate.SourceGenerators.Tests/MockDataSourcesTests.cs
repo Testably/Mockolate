@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Mockolate.Internals;
 using Mockolate.SourceGenerators.Entities;
+using Mockolate.SourceGenerators.Sources;
 using Mockolate.SourceGenerators.Tests.TestHelpers;
 
 namespace Mockolate.SourceGenerators.Tests;
@@ -1293,7 +1294,7 @@ public sealed class MockDataSourcesTests
 	[Arguments(false)]
 	public async Task MockDataSourcesSource_ShouldContainThePolyfillOnlyWhenRequested(bool emitPolyfill)
 	{
-		string source = Sources.Sources.MockDataSources(new EquatableArray<DataSourceClass>([]),
+		string source = SourceTemplates.MockDataSources(new EquatableArray<DataSourceClass>([]),
 			new EquatableArray<string>(["global::MyCode.IDep",]), new EquatableArray<string>([]),
 			new EquatableArray<string>([]), new EquatableArray<string>([]), new EquatableArray<string>([]), emitPolyfill);
 

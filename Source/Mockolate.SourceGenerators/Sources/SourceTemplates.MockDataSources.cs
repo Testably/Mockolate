@@ -3,7 +3,7 @@ using Mockolate.SourceGenerators.Entities;
 
 namespace Mockolate.SourceGenerators.Sources;
 
-internal static partial class Sources
+internal static partial class SourceTemplates
 {
 	/// <summary>
 	///     A class parameter is the class under test, so its mock always forwards to the real implementation; only its

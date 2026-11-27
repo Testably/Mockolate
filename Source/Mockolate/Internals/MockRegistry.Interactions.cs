@@ -65,7 +65,7 @@ public partial class MockRegistry
 			{
 				if (ignoredName.EndsWith('<')
 					? name.StartsWith(ignoredName, StringComparison.Ordinal)
-					: name == ignoredName)
+					: string.Equals(name, ignoredName, StringComparison.Ordinal))
 				{
 					return true;
 				}

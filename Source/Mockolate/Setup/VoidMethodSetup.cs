@@ -275,7 +275,7 @@ public abstract class VoidMethodSetup<T1> : MethodSetup,
 	private bool? _skipBaseClass;
 
 	/// <inheritdoc cref="VoidMethodSetup{T1}" />
-	public VoidMethodSetup(MockRegistry mockRegistry, string name)
+	protected VoidMethodSetup(MockRegistry mockRegistry, string name)
 		: base(name)
 	{
 		_mockRegistry = mockRegistry;
@@ -684,7 +684,7 @@ public abstract class VoidMethodSetup<T1, T2> : MethodSetup,
 	private bool? _skipBaseClass;
 
 	/// <inheritdoc cref="VoidMethodSetup{T1, T2}" />
-	public VoidMethodSetup(MockRegistry mockRegistry, string name)
+	protected VoidMethodSetup(MockRegistry mockRegistry, string name)
 		: base(name)
 	{
 		_mockRegistry = mockRegistry;
@@ -1114,7 +1114,7 @@ public abstract class VoidMethodSetup<T1, T2, T3> : MethodSetup,
 	private bool? _skipBaseClass;
 
 	/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3}" />
-	public VoidMethodSetup(MockRegistry mockRegistry, string name)
+	protected VoidMethodSetup(MockRegistry mockRegistry, string name)
 		: base(name)
 	{
 		_mockRegistry = mockRegistry;
@@ -1563,7 +1563,7 @@ public abstract class VoidMethodSetup<T1, T2, T3, T4> : MethodSetup,
 	private bool? _skipBaseClass;
 
 	/// <inheritdoc cref="VoidMethodSetup{T1, T2, T3, T4}" />
-	public VoidMethodSetup(MockRegistry mockRegistry, string name)
+	protected VoidMethodSetup(MockRegistry mockRegistry, string name)
 		: base(name)
 	{
 		_mockRegistry = mockRegistry;

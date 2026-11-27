@@ -2406,7 +2406,7 @@ namespace Mockolate.Setup
     }
     public abstract class VoidMethodSetup<T1> : Mockolate.Setup.MethodSetup, Mockolate.Setup.IMethodSetup, Mockolate.Setup.ISetup, Mockolate.Setup.IVoidMethodSetup<T1>, Mockolate.Setup.IVoidMethodSetupCallbackBuilder<T1>, Mockolate.Setup.IVoidMethodSetupCallbackWhenBuilder<T1>, Mockolate.Setup.IVoidMethodSetupParallelCallbackBuilder<T1>, Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1>, Mockolate.Setup.IVoidMethodSetupReturnWhenBuilder<T1>, Mockolate.Setup.IVoidMethodSetupWithCallback<T1>
     {
-        public VoidMethodSetup(Mockolate.Internals.MockRegistry mockRegistry, string name) { }
+        protected VoidMethodSetup(Mockolate.Internals.MockRegistry mockRegistry, string name) { }
         public abstract bool Matches(T1 p1Value);
         protected override bool MatchesInteraction(Mockolate.Interactions.IMethodInteraction interaction) { }
         public bool SkipBaseClass(Mockolate.MockBehavior behavior) { }
@@ -2444,7 +2444,7 @@ namespace Mockolate.Setup
     }
     public abstract class VoidMethodSetup<T1, T2> : Mockolate.Setup.MethodSetup, Mockolate.Setup.IMethodSetup, Mockolate.Setup.ISetup, Mockolate.Setup.IVoidMethodSetup<T1, T2>, Mockolate.Setup.IVoidMethodSetupCallbackBuilder<T1, T2>, Mockolate.Setup.IVoidMethodSetupCallbackWhenBuilder<T1, T2>, Mockolate.Setup.IVoidMethodSetupParallelCallbackBuilder<T1, T2>, Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2>, Mockolate.Setup.IVoidMethodSetupReturnWhenBuilder<T1, T2>, Mockolate.Setup.IVoidMethodSetupWithCallback<T1, T2>
     {
-        public VoidMethodSetup(Mockolate.Internals.MockRegistry mockRegistry, string name) { }
+        protected VoidMethodSetup(Mockolate.Internals.MockRegistry mockRegistry, string name) { }
         public abstract bool Matches(T1 p1Value, T2 p2Value);
         protected override bool MatchesInteraction(Mockolate.Interactions.IMethodInteraction interaction) { }
         public bool SkipBaseClass(Mockolate.MockBehavior behavior) { }
@@ -2483,7 +2483,7 @@ namespace Mockolate.Setup
     }
     public abstract class VoidMethodSetup<T1, T2, T3> : Mockolate.Setup.MethodSetup, Mockolate.Setup.IMethodSetup, Mockolate.Setup.ISetup, Mockolate.Setup.IVoidMethodSetup<T1, T2, T3>, Mockolate.Setup.IVoidMethodSetupCallbackBuilder<T1, T2, T3>, Mockolate.Setup.IVoidMethodSetupCallbackWhenBuilder<T1, T2, T3>, Mockolate.Setup.IVoidMethodSetupParallelCallbackBuilder<T1, T2, T3>, Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3>, Mockolate.Setup.IVoidMethodSetupReturnWhenBuilder<T1, T2, T3>, Mockolate.Setup.IVoidMethodSetupWithCallback<T1, T2, T3>
     {
-        public VoidMethodSetup(Mockolate.Internals.MockRegistry mockRegistry, string name) { }
+        protected VoidMethodSetup(Mockolate.Internals.MockRegistry mockRegistry, string name) { }
         public abstract bool Matches(T1 p1Value, T2 p2Value, T3 p3Value);
         protected override bool MatchesInteraction(Mockolate.Interactions.IMethodInteraction interaction) { }
         public bool SkipBaseClass(Mockolate.MockBehavior behavior) { }
@@ -2523,7 +2523,7 @@ namespace Mockolate.Setup
     }
     public abstract class VoidMethodSetup<T1, T2, T3, T4> : Mockolate.Setup.MethodSetup, Mockolate.Setup.IMethodSetup, Mockolate.Setup.ISetup, Mockolate.Setup.IVoidMethodSetup<T1, T2, T3, T4>, Mockolate.Setup.IVoidMethodSetupCallbackBuilder<T1, T2, T3, T4>, Mockolate.Setup.IVoidMethodSetupCallbackWhenBuilder<T1, T2, T3, T4>, Mockolate.Setup.IVoidMethodSetupParallelCallbackBuilder<T1, T2, T3, T4>, Mockolate.Setup.IVoidMethodSetupReturnBuilder<T1, T2, T3, T4>, Mockolate.Setup.IVoidMethodSetupReturnWhenBuilder<T1, T2, T3, T4>, Mockolate.Setup.IVoidMethodSetupWithCallback<T1, T2, T3, T4>
     {
-        public VoidMethodSetup(Mockolate.Internals.MockRegistry mockRegistry, string name) { }
+        protected VoidMethodSetup(Mockolate.Internals.MockRegistry mockRegistry, string name) { }
         public abstract bool Matches(T1 p1Value, T2 p2Value, T3 p3Value, T4 p4Value);
         protected override bool MatchesInteraction(Mockolate.Interactions.IMethodInteraction interaction) { }
         public bool SkipBaseClass(Mockolate.MockBehavior behavior) { }

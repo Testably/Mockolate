@@ -41,7 +41,7 @@ internal record Method
 		if (alreadyDefinedMethods is not null)
 		{
 			if (alreadyDefinedMethods.Any(m =>
-				    m.Name == Name &&
+				    string.Equals(m.Name, Name, StringComparison.Ordinal) &&
 				    m.Parameters.Count == Parameters.Count &&
 				    m.Parameters.SequenceEqual(Parameters)))
 			{
@@ -213,13 +213,13 @@ internal record Method
 	private static bool IsIdentifierChar(char c) => char.IsLetterOrDigit(c) || c == '_';
 
 	public bool IsToString()
-		=> Name == "ToString" && Parameters.Count == 0 && CanOverrideObjectMember(SpecialType.System_String);
+		=> string.Equals(Name, "ToString", StringComparison.Ordinal) &&Parameters.Count == 0 && CanOverrideObjectMember(SpecialType.System_String);
 
 	public bool IsGetHashCode()
-		=> Name == "GetHashCode" && Parameters.Count == 0 && CanOverrideObjectMember(SpecialType.System_Int32);
+		=> string.Equals(Name, "GetHashCode", StringComparison.Ordinal) &&Parameters.Count == 0 && CanOverrideObjectMember(SpecialType.System_Int32);
 
 	public bool IsEquals()
-		=> Name == "Equals" && Parameters.Count == 1 && IsObjectParameter(Parameters.Single()) &&
+		=> string.Equals(Name, "Equals", StringComparison.Ordinal) &&Parameters.Count == 1 && IsObjectParameter(Parameters.Single()) &&
 		   CanOverrideObjectMember(SpecialType.System_Boolean);
 
 	/// <summary>
@@ -236,8 +236,8 @@ internal record Method
 		=> !IsStatic && !IsRefReturn && !IsRefReadonlyReturn && ReturnType.SpecialType == returnType;
 
 	private static bool IsObjectParameter(MethodParameter parameter)
-		=> parameter.RefKind == RefKind.None && parameter.Type.Namespace == "System" &&
-		   (parameter.Type.Fullname == "object" || parameter.Type.Fullname == "object?");
+		=> parameter.RefKind == RefKind.None && string.Equals(parameter.Type.Namespace, "System", StringComparison.Ordinal) &&
+		   (string.Equals(parameter.Type.Fullname, "object", StringComparison.Ordinal) || string.Equals(parameter.Type.Fullname, "object?", StringComparison.Ordinal));
 
 	private sealed class MethodEqualityComparer : IEqualityComparer<Method>
 	{
@@ -248,7 +248,7 @@ internal record Method
 			    x.Parameters.Count == y.Parameters.Count &&
 			    x.Parameters.SequenceEqual(y.Parameters));
 
-		public int GetHashCode(Method obj) => obj.Name.GetHashCode();
+		public int GetHashCode(Method obj) => StringComparer.Ordinal.GetHashCode(obj.Name);
 	}
 
 	private sealed class ContainingTypeIndependentMethodEqualityComparer : IEqualityComparer<Method>
@@ -288,12 +288,12 @@ internal record Method
 				string xTypeName = xParam.Type.Fullname;
 				string yTypeName = yParam.Type.Fullname;
 
-				if (xTypeName.EndsWith("?"))
+				if (xTypeName.EndsWith("?", StringComparison.Ordinal))
 				{
 					xTypeName = xTypeName.Substring(0, xTypeName.Length - 1);
 				}
 
-				if (yTypeName.EndsWith("?"))
+				if (yTypeName.EndsWith("?", StringComparison.Ordinal))
 				{
 					yTypeName = yTypeName.Substring(0, yTypeName.Length - 1);
 				}
@@ -307,6 +307,6 @@ internal record Method
 			return true;
 		}
 
-		public int GetHashCode(Method obj) => obj.Name.GetHashCode();
+		public int GetHashCode(Method obj) => StringComparer.Ordinal.GetHashCode(obj.Name);
 	}
 }

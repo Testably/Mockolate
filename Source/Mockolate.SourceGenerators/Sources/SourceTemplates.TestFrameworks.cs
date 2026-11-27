@@ -1,6 +1,6 @@
 namespace Mockolate.SourceGenerators.Sources;
 
-internal static partial class Sources
+internal static partial class SourceTemplates
 {
 	/// <summary>
 	///     Creates the arguments from the <see cref="System.Reflection.ParameterInfo" />s of the test method, for the test

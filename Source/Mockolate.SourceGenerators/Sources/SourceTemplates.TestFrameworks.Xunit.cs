@@ -1,6 +1,6 @@
 namespace Mockolate.SourceGenerators.Sources;
 
-internal static partial class Sources
+internal static partial class SourceTemplates
 {
 	/// <summary>
 	///     The <c>AutoMockArguments</c> attribute for xUnit v2, which a project that also references xUnit v3 does not get.

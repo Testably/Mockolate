@@ -2,7 +2,7 @@ using System.Text;
 
 namespace Mockolate.SourceGenerators.Sources;
 
-internal static partial class Sources
+internal static partial class SourceTemplates
 {
 	public static string ReturnsThrowsAsyncExtensions(int[] numberOfParameters)
 	{

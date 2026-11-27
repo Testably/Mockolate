@@ -49,7 +49,7 @@ public class NullParametersAnalyzer : DiagnosticAnalyzer
 	}
 
 	// The generator declares the `IParameters` parameter nullable exactly when it forwards a lone `null` as the null
-	// argument (`ForwardsLoneNull` in `Sources.MockClass.cs`), so the annotation alone tells the two cases apart.
+	// argument (`ForwardsLoneNull` in `SourceTemplates.MockClass.cs`), so the annotation alone tells the two cases apart.
 	private static void AnalyzeArgument(OperationAnalysisContext context)
 	{
 		if (context.Operation is IArgumentOperation

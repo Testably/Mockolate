@@ -34,10 +34,10 @@ internal static partial class MockGeneratorHelpers
 		=> symbol.ContainingNamespace is { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, };
 
 	private static bool IsCreateMockMethod(IMethodSymbol methodSymbol)
-		=> methodSymbol.Name == "CreateMock" && IsInGlobalMockolateNamespace(methodSymbol);
+		=> string.Equals(methodSymbol.Name, "CreateMock", StringComparison.Ordinal) && IsInGlobalMockolateNamespace(methodSymbol);
 
 	private static bool IsImplementingMethod(IMethodSymbol methodSymbol)
-		=> methodSymbol.Name == "Implementing" && IsInGlobalMockolateNamespace(methodSymbol);
+		=> string.Equals(methodSymbol.Name, "Implementing", StringComparison.Ordinal) && IsInGlobalMockolateNamespace(methodSymbol);
 
 	private static bool IsCreateMockInvocation(this SymbolInfo symbolInfo)
 	{
@@ -628,14 +628,14 @@ internal static partial class MockGeneratorHelpers
 	}
 
 	private static ITypeSymbol? GetHttpMessageHandler(ITypeSymbol type)
-		=> type.Name == "HttpClient" &&
+		=> string.Equals(type.Name, "HttpClient", StringComparison.Ordinal) &&
 		   type.ContainingNamespace is { ContainingNamespace: { ContainingNamespace.ContainingNamespace.IsGlobalNamespace: true, ContainingNamespace.Name: "System", Name: "Net", }, Name: "Http", }
 			? type.GetMembers()
 				.OfType<IMethodSymbol>()
 				.Where(m => m.MethodKind == MethodKind.Constructor)
 				.SelectMany(c => c.Parameters)
 				.Select(p => p.Type)
-				.First(t => t.Name == "HttpMessageHandler")
+				.First(t => string.Equals(t.Name, "HttpMessageHandler", StringComparison.Ordinal))
 			: null;
 
 	/// <summary>
@@ -751,7 +751,7 @@ internal static partial class MockGeneratorHelpers
 		   (!namedTypeSymbol.IsGenericType ||
 		    namedTypeSymbol.TypeArguments.All(a => a.TypeKind != TypeKind.TypeParameter)) &&
 		   (!typeSymbol.IsSealed || typeSymbol.TypeKind == TypeKind.Delegate) &&
-		   !(typeSymbol.Name == "IMock" &&
-		     typeSymbol.ContainingNamespace.Name == "Mockolate" &&
+		   !(string.Equals(typeSymbol.Name, "IMock", StringComparison.Ordinal) &&
+		     string.Equals(typeSymbol.ContainingNamespace.Name, "Mockolate", StringComparison.Ordinal) &&
 		     typeSymbol.ContainingNamespace.ContainingNamespace.IsGlobalNamespace);
 }

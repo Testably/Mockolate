@@ -114,7 +114,7 @@ internal static class AutoMockDiscoveryCache
 		/// </summary>
 		public State? TryReuse(Compilation compilation, string currentSettings, CancellationToken cancellationToken)
 		{
-			if (currentSettings != settings || !WithoutServices(compilation.Options).Equals(options) ||
+			if (!string.Equals(currentSettings, settings, StringComparison.Ordinal) ||!WithoutServices(compilation.Options).Equals(options) ||
 			    !HasSameReferences(compilation))
 			{
 				return null;
@@ -138,7 +138,7 @@ internal static class AutoMockDiscoveryCache
 
 				FileState current = FileState.Read(tree, cancellationToken);
 				if (current.DeclaresAny(dependencies) || previous?.DeclaresAny(dependencies) == true ||
-				    current.Fingerprint != (previous?.Fingerprint ?? ""))
+				    !string.Equals(current.Fingerprint, previous?.Fingerprint ?? "", StringComparison.Ordinal))
 				{
 					return null;
 				}

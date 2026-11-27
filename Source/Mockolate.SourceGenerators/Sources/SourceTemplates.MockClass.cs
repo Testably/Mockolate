@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Mockolate.SourceGenerators.Entities;
@@ -7,7 +8,7 @@ using Type = Mockolate.SourceGenerators.Entities.Type;
 
 namespace Mockolate.SourceGenerators.Sources;
 
-internal static partial class Sources
+internal static partial class SourceTemplates
 {
 	private const int MaxExplicitParameters = 4;
 
@@ -208,7 +209,7 @@ internal static partial class Sources
 		sb.Append("\t\tstring global::Mockolate.IMock.ToString()").AppendLine();
 		sb.Append("\t\t\t=> \"").Append(@class.DisplayString).Append(" mock\";").AppendLine();
 		// A class named ToString cannot have a member of its name (CS0542).
-		if (@class.IsInterface && name != "ToString" && !DeclaresToString(@class))
+		if (@class.IsInterface && !string.Equals(name, "ToString", StringComparison.Ordinal) && !DeclaresToString(@class))
 		{
 			AppendObjectToString(sb, $"{@class.DisplayString} mock");
 		}
@@ -1611,8 +1612,8 @@ internal static partial class Sources
 	/// </summary>
 	private static bool DeclaresToString(Class @class)
 		=> @class.AllMethods().Any(method => method is { Name: "ToString", Parameters.Count: 0, }) ||
-		   @class.AllProperties().Any(property => property.Name == "ToString") ||
-		   @class.AllEvents().Any(@event => @event.Name == "ToString");
+		   @class.AllProperties().Any(property => string.Equals(property.Name, "ToString", StringComparison.Ordinal)) ||
+		   @class.AllEvents().Any(@event => string.Equals(@event.Name, "ToString", StringComparison.Ordinal));
 
 	/// <summary>
 	///     Whether the mock of the class records the arguments of at least one of its <paramref name="constructors" />,
@@ -1647,7 +1648,7 @@ internal static partial class Sources
 		string signature = $"MockolateConstructorSignature{index}";
 		int suffix = 0;
 		while (@class.HasReservedName(signature) ||
-		       constructor.Parameters.Any(parameter => parameter.Name.TrimStart('@') == signature))
+		       constructor.Parameters.Any(parameter => string.Equals(parameter.Name.TrimStart('@'), signature, StringComparison.Ordinal)))
 		{
 			signature = $"MockolateConstructorSignature{index}_{++suffix}";
 		}
@@ -1679,7 +1680,7 @@ internal static partial class Sources
 
 		sb.Append("\t\t/// <inheritdoc cref=\"").Append(name).Append("\" />").AppendLine();
 		sb.Append(constructor.Attributes, "\t\t");
-		if (@class.HasRequiredMembers && constructor.Attributes?.Any(a => a.Name == "global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers") != true)
+		if (@class.HasRequiredMembers && constructor.Attributes?.Any(a => string.Equals(a.Name, "global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers", StringComparison.Ordinal)) != true)
 		{
 			sb.Append("\t\t[global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]").AppendLine();
 		}
@@ -1787,7 +1788,7 @@ internal static partial class Sources
 		string behavior = CreateUniqueParameterName(constructor.Parameters, "behavior");
 		sb.Append("\t\t/// <inheritdoc cref=\"").Append(name).Append("\" />").AppendLine();
 		sb.Append(constructor.Attributes, "\t\t");
-		if (hasRequiredMembers && constructor.Attributes?.Any(a => a.Name == "global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers") != true)
+		if (hasRequiredMembers && constructor.Attributes?.Any(a => string.Equals(a.Name, "global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers", StringComparison.Ordinal)) != true)
 		{
 			sb.Append("\t\t[global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]").AppendLine();
 		}
@@ -3634,7 +3635,7 @@ internal static partial class Sources
 
 	/// <summary>
 	///     Emits the <c>NotSupportedException</c> body for a method-shaped member that has no setup
-	///     surface, so every carve-out - including the delegate ones in <c>Sources.MockDelegate</c> -
+	///     surface, so every carve-out - including the delegate ones in <c>SourceTemplates.MockDelegate</c> -
 	///     reports <paramref name="reason" /> in the same shape the analyzer uses.
 	/// </summary>
 	private static void AppendUnsupportedMethodThrow(StringBuilder sb, Method method, string reason)
@@ -3945,7 +3946,7 @@ internal static partial class Sources
 		}
 
 		int parameterCount = method.Parameters.Count;
-		return (priority - (parameterCount + 1) * (parameterCount - keptCount)).ToString();
+		return (priority - (parameterCount + 1) * (parameterCount - keptCount)).ToString(CultureInfo.InvariantCulture);
 	}
 
 	/// <summary>
@@ -4009,13 +4010,13 @@ internal static partial class Sources
 			// neither of which converts to the other, so the array matcher must win to stand for a `null` array.
 			if (!perElementParams && HasParamsMatchers(@class, method))
 			{
-				return (parameterCount + 1).ToString();
+				return (parameterCount + 1).ToString(CultureInfo.InvariantCulture);
 			}
 
 			if (!arrayMatcherFirst || parameterCount > 1 ||
 			    (perElementParams && HasSiblingWithObjectParameter(@class, method)))
 			{
-				return parameterCount.ToString();
+				return parameterCount.ToString(CultureInfo.InvariantCulture);
 			}
 
 			return perElementParams ? "int.MaxValue - 2" : "int.MaxValue";
@@ -4024,7 +4025,7 @@ internal static partial class Sources
 		int matcherCount = valueFlags.Count(x => !x);
 		return arrayMatcherFirst && matcherCount == 1 && !valueFlags[parameterCount - 1]
 			? "int.MaxValue"
-			: matcherCount.ToString();
+			: matcherCount.ToString(CultureInfo.InvariantCulture);
 	}
 
 	/// <summary>
@@ -4071,7 +4072,7 @@ internal static partial class Sources
 		string bareName = BareMethodName(method);
 		return @class.AllMethods().Any(m => m.ExplicitImplementation is null &&
 		                                    m.MemberType == method.MemberType &&
-		                                    BareMethodName(m) == bareName &&
+		                                    string.Equals(BareMethodName(m), bareName, StringComparison.Ordinal) &&
 		                                    m.Parameters.Any(p => (p.Type.SpecialType == SpecialType.System_Object ||
 		                                                           MayHoldMatcher(p)) &&
 		                                                          p.CanUseNullableParameterOverload()));
@@ -4088,7 +4089,7 @@ internal static partial class Sources
 		string bareName = BareMethodName(method);
 		return @class.AllMethods().Any(m => m.ExplicitImplementation is null &&
 		                                    m.MemberType == method.MemberType &&
-		                                    BareMethodName(m) == bareName &&
+		                                    string.Equals(BareMethodName(m), bareName, StringComparison.Ordinal) &&
 		                                    m.Parameters.Count == method.Parameters.Count &&
 		                                    m.Parameters.Any(p => MayHoldMatcher(p) &&
 		                                                          p.CanUseNullableParameterOverload()));
@@ -4254,7 +4255,7 @@ internal static partial class Sources
 		                    !@class.AllMethods().Any(m => m.ExplicitImplementation is null &&
 		                                                  m.MemberType == method.MemberType &&
 		                                                  m.Parameters.Count == 0 &&
-		                                                  BareMethodName(m) == bareName)) ||
+		                                                  string.Equals(BareMethodName(m), bareName, StringComparison.Ordinal))) ||
 		                   HasParamsMatchers(@class, method));
 		if (loneParams || hasOverloadResolutionPriority)
 		{
@@ -4265,7 +4266,7 @@ internal static partial class Sources
 		return !@class.AllMethods().Any(m => m.ExplicitImplementation is null &&
 		                                     m.MemberType == method.MemberType &&
 		                                     !m.Equals(method) &&
-		                                     BareMethodName(m) == bareName &&
+		                                     string.Equals(BareMethodName(m), bareName, StringComparison.Ordinal) &&
 		                                     (m.Parameters.Count == leading.Length ||
 		                                      (m.Parameters.Count == leading.Length + 1 &&
 		                                       m.Parameters.AsArray()[leading.Length].IsParams)) &&
@@ -7592,7 +7593,7 @@ internal static partial class Sources
 		string raw = fullname.Substring(0, fullname.Length - 1);
 		foreach (GenericParameter gp in method.GenericParameters.Value)
 		{
-			if (gp.Name == raw)
+			if (string.Equals(gp.Name, raw, StringComparison.Ordinal))
 			{
 				return !gp.IsStruct && !gp.IsUnmanaged;
 			}

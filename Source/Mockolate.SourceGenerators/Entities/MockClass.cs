@@ -171,7 +171,7 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 		    _mockSurfaceHash == other._mockSurfaceHash &&
 		    IsDiscovered == other.IsDiscovered &&
 		    IsAutoMockable == other.IsAutoMockable &&
-		    ClassFullName == other.ClassFullName);
+		    string.Equals(ClassFullName, other.ClassFullName, StringComparison.Ordinal));
 
 	public override bool Equals(Class? other) => other is MockClass mc && Equals(mc);
 

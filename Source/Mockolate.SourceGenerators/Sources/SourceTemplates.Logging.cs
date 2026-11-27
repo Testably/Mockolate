@@ -3,7 +3,7 @@ using Mockolate.SourceGenerators.Entities;
 
 namespace Mockolate.SourceGenerators.Sources;
 
-internal static partial class Sources
+internal static partial class SourceTemplates
 {
 	private const string LoggerFullName = "global::Microsoft.Extensions.Logging.ILogger";
 

@@ -6,7 +6,7 @@ using Type = Mockolate.SourceGenerators.Entities.Type;
 
 namespace Mockolate.SourceGenerators.Sources;
 
-internal static partial class Sources
+internal static partial class SourceTemplates
 {
 	public static string MockDelegate(string name, MockClass @class, Method delegateMethod,
 		AutoMockingOptions? autoMocking, bool hasOverloadResolutionPriority = false, bool useUnionOverloads = false)
@@ -69,7 +69,7 @@ internal static partial class Sources
 		sb.Append("\t\tstring global::Mockolate.IMock.ToString()").AppendLine();
 		sb.Append("\t\t\t=> \"").Append(@class.DisplayString).Append(" mock\";").AppendLine();
 		// A class named ToString cannot have a member of its name (CS0542).
-		if (name != "ToString")
+		if (!string.Equals(name, "ToString", StringComparison.Ordinal))
 		{
 			AppendObjectToString(sb, $"{@class.DisplayString} mock");
 		}

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
+using Mockolate.SourceGenerators.Sources;
 
 namespace Mockolate.SourceGenerators.Tests;
 
@@ -208,7 +209,7 @@ public sealed class MockBehaviorExtensionsTests
 	[Arguments(false)]
 	public async Task MockBehaviorExtensionsSource_ShouldContainTheIAsyncEnumerableDefaultOnlyWhenAvailable(bool includeAsyncEnumerable)
 	{
-		string source = Sources.Sources.MockBehaviorExtensions(false, includeAsyncEnumerable, null);
+		string source = SourceTemplates.MockBehaviorExtensions(false, includeAsyncEnumerable, null);
 
 		await That(source.Contains("IAsyncEnumerable")).IsEqualTo(includeAsyncEnumerable)
 			.Because("IAsyncEnumerable<T> is missing on .NET Framework and .NET Standard 2.0 without Microsoft.Bcl.AsyncInterfaces");

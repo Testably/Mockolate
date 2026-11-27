@@ -288,7 +288,7 @@ internal class Class : IEquatable<Class>
 
 		Method? target = implementor.AllMethods()
 			.FirstOrDefault(candidate => Method.EqualityComparer.Equals(candidate, implementation));
-		if (target is null || target.ContainingType == method.ContainingType)
+		if (target is null || string.Equals(target.ContainingType, method.ContainingType, StringComparison.Ordinal))
 		{
 			return method;
 		}
@@ -308,7 +308,7 @@ internal class Class : IEquatable<Class>
 
 		Property? target = implementor.AllProperties()
 			.FirstOrDefault(candidate => Property.EqualityComparer.Equals(candidate, implementation));
-		if (target is null || target.ContainingType == property.ContainingType)
+		if (target is null || string.Equals(target.ContainingType, property.ContainingType, StringComparison.Ordinal))
 		{
 			return property;
 		}
@@ -328,7 +328,7 @@ internal class Class : IEquatable<Class>
 
 		Event? target = implementor.AllEvents()
 			.FirstOrDefault(candidate => Event.EqualityComparer.Equals(candidate, implementation));
-		if (target is null || target.ContainingType == @event.ContainingType)
+		if (target is null || string.Equals(target.ContainingType, @event.ContainingType, StringComparison.Ordinal))
 		{
 			return @event;
 		}
@@ -379,7 +379,7 @@ internal class Class : IEquatable<Class>
 		   (other is not null &&
 		    GetType() == other.GetType() &&
 		    _surfaceHash == other._surfaceHash &&
-		    ClassFullName == other.ClassFullName);
+		    string.Equals(ClassFullName, other.ClassFullName, StringComparison.Ordinal));
 
 	public override bool Equals(object? obj) => Equals(obj as Class);
 
@@ -396,7 +396,7 @@ internal class Class : IEquatable<Class>
 	/// </summary>
 	private int ComputeSurfaceHash()
 	{
-		int hash = ClassFullName.GetHashCode();
+		int hash = StringComparer.Ordinal.GetHashCode(ClassFullName);
 		hash = unchecked((hash * 17) + Methods.GetHashCode());
 		hash = unchecked((hash * 17) + Properties.GetHashCode());
 		hash = unchecked((hash * 17) + Events.GetHashCode());
@@ -837,7 +837,7 @@ internal class Class : IEquatable<Class>
 				: [];
 			if (type.TypeKind == TypeKind.Class && adapter.Members.Any(member =>
 				    (member.Kind == MockAdapterMemberKind.Intercepted || adapter.Classes == MockAdapterClasses.WithAbstractMembers) &&
-				    classMembers.All(classMember => classMember.Member != member.Name)))
+				    classMembers.All(classMember => !string.Equals(classMember.Member, member.Name, StringComparison.Ordinal))))
 			{
 				continue;
 			}

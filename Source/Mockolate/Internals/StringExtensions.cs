@@ -1,4 +1,6 @@
-﻿namespace Mockolate.Internals;
+﻿using System;
+
+namespace Mockolate.Internals;
 
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
@@ -18,7 +20,7 @@ internal static class StringExtensions
 
 	internal static string SubstringAfterLast(this string name, char c)
 	{
-		int index = name.LastIndexOf(c);
+		int index = name.AsSpan().LastIndexOf(c);
 		if (index >= 0)
 		{
 			return name.Substring(index + 1);

@@ -43,6 +43,6 @@ internal sealed record AutoMockingOptions(
 		=> frameworkNamespace is null || Contains(IncludedNamespaces, frameworkNamespace);
 
 	private static bool Contains(EquatableArray<string> namespaces, string @namespace)
-		=> namespaces.Any(item => @namespace == item ||
+		=> namespaces.Any(item => string.Equals(@namespace, item, StringComparison.Ordinal) ||
 		                          @namespace.StartsWith(item + ".", StringComparison.Ordinal));
 }

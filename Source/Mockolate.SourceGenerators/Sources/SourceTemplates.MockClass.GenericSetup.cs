@@ -4,7 +4,7 @@ using Mockolate.SourceGenerators.Entities;
 
 namespace Mockolate.SourceGenerators.Sources;
 
-internal static partial class Sources
+internal static partial class SourceTemplates
 {
 	/// <summary>
 	///     The generic methods on <c>SetupGeneric</c>/<c>VerifyGeneric</c> (or, for <see cref="MemberType.Protected" />,
@@ -49,7 +49,7 @@ internal static partial class Sources
 		Method method = overloads[0];
 		string setupName = GetGenericSetupName(method);
 		if (!genericMethods.Any(other => !overloads.Contains(other) && other.Parameters.Count == method.Parameters.Count &&
-		                                 GetGenericSetupName(other) == setupName))
+		                                 string.Equals(GetGenericSetupName(other), setupName, StringComparison.Ordinal)))
 		{
 			return "null";
 		}
@@ -68,11 +68,11 @@ internal static partial class Sources
 					checks.Add($"{invocation}.GetParameterTypeAt({index}) == typeof({parameter.Type.IdentityName})");
 				}
 				else if (Array.FindIndex(genericParameters, genericParameter
-					         => parameter.Type.Fullname == genericParameter.Name ||
-					            parameter.Type.Fullname == genericParameter.Name + "?")
+					         => string.Equals(parameter.Type.Fullname, genericParameter.Name, StringComparison.Ordinal) ||
+					            string.Equals(parameter.Type.Fullname, genericParameter.Name + "?", StringComparison.Ordinal))
 				         is >= 0 and int typeArgumentIndex)
 				{
-					bool isNullable = parameter.Type.Fullname.EndsWith("?") && genericParameters[typeArgumentIndex].IsValueType;
+					bool isNullable = parameter.Type.Fullname.EndsWith("?", StringComparison.Ordinal) && genericParameters[typeArgumentIndex].IsValueType;
 					checks.Add(
 						$"global::Mockolate.Internals.GenericMethodInvocations.IsTypeArgument({invocation}, {setupName}, {index}, {typeArgumentIndex}{(isNullable ? ", true" : "")})");
 				}
@@ -242,7 +242,7 @@ internal static partial class Sources
 		string[] parameterTypes = GetGenericFacadeParameterTypes(method);
 		return (GetGenericSetupType(parameterTypes),
 			string.Join(", ", method.Parameters.Select((parameter, i)
-				=> parameterTypes[i] == "object?" ? $"(object?){parameter.Name}" : parameter.Name)));
+				=> string.Equals(parameterTypes[i], "object?", StringComparison.Ordinal) ? $"(object?){parameter.Name}" : parameter.Name)));
 	}
 
 	private static void AppendGenericFacadeParameters(StringBuilder sb, Method method, string[] parameterTypes)
@@ -317,7 +317,7 @@ internal static partial class Sources
 	private static bool HasGenericParametersOverload(List<(Method Method, string[] ParameterTypes, Method[] Overloads, string IsCallOf)> methods,
 		Method method)
 		=> method.Parameters.Count > 0 &&
-		   methods.Count(other => GetGenericFacadeName(other.Method) == GetGenericFacadeName(method)) == 1;
+		   methods.Count(other => string.Equals(GetGenericFacadeName(other.Method), GetGenericFacadeName(method), StringComparison.Ordinal)) == 1;
 
 	/// <summary>
 	///     Lets a <see langword="null" /> literal for the only parameter choose the overloads that take a matcher, where

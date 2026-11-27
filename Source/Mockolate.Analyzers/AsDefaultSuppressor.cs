@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.CodeAnalysis;
@@ -27,7 +28,7 @@ public sealed class AsDefaultSuppressor : DiagnosticSuppressor
 			{
 				// The compiler only passes diagnostics with the ID of a supported suppression.
 				SuppressionDescriptor suppression = Rules.AsDefaultSuppressions
-					.First(descriptor => descriptor.SuppressedDiagnosticId == diagnostic.Id);
+					.First(descriptor => string.Equals(descriptor.SuppressedDiagnosticId, diagnostic.Id, StringComparison.Ordinal));
 				context.ReportSuppression(Suppression.Create(suppression, diagnostic));
 			}
 		}

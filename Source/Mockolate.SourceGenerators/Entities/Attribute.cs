@@ -27,7 +27,7 @@ internal record Attribute
 	public EquatableArray<(string Name, AttributeParameter Parameter)>? NamedArguments { get; }
 
 	private static string ToName(string className)
-		=> className.EndsWith("Attribute")
+		=> className.EndsWith("Attribute", StringComparison.Ordinal)
 			? className.Substring(0, className.Length - "Attribute".Length)
 			: className;
 }

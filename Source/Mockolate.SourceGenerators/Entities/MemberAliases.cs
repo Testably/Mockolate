@@ -7,7 +7,7 @@ namespace Mockolate.SourceGenerators.Entities;
 /// <remarks>
 ///     Only populated for combination mocks (<c>Implementing&lt;TInterface&gt;()</c>) whose mocked
 ///     class implements <c>TInterface</c> with an overridable member. Filled once by
-///     <see cref="Class.RebaseOnto" /> and read-only from then on: <c>Sources.ComputeMemberIds</c>
+///     <see cref="Class.RebaseOnto" /> and read-only from then on: <c>SourceTemplates.ComputeMemberIds</c>
 ///     assigns ids against a finished map.
 /// </remarks>
 internal sealed class MemberAliases

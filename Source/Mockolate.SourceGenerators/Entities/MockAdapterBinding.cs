@@ -18,9 +18,9 @@ internal sealed record MockAdapterBinding(
 	///     Whether the <paramref name="method" /> of the mocked type is the adapted member <paramref name="name" />.
 	/// </summary>
 	internal bool IsMember(Method method, string name)
-		=> (method.ContainingType == Adapter.TargetFullName && GetBaseName(method.Name) == name) ||
+		=> (string.Equals(method.ContainingType, Adapter.TargetFullName, StringComparison.Ordinal) && string.Equals(GetBaseName(method.Name), name, StringComparison.Ordinal)) ||
 		   ClassMembers.Any(classMember =>
-			   classMember.Member == name && Method.EqualityComparer.Equals(classMember.Method, method));
+			   string.Equals(classMember.Member, name, StringComparison.Ordinal) &&Method.EqualityComparer.Equals(classMember.Method, method));
 
 	private static string GetBaseName(string name)
 	{

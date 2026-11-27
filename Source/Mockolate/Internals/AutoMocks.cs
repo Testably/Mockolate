@@ -129,7 +129,7 @@ public static class AutoMocks
 		}
 
 		Type definition = type.GetGenericTypeDefinition();
-		return definition == typeof(Task<>) || definition.FullName == "System.Threading.Tasks.ValueTask`1"
+		return definition == typeof(Task<>) || string.Equals(definition.FullName, "System.Threading.Tasks.ValueTask`1", StringComparison.Ordinal)
 			? HasInterface(type.GetGenericArguments()[0])
 			: IsTupleWithInterface(type);
 	}

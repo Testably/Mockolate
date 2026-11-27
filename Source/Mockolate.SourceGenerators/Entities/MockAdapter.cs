@@ -73,7 +73,7 @@ internal sealed record MockAdapter(
 	private INamedTypeSymbol? FindInterface(ITypeSymbol type, string metadataName)
 		=> new[] { type, }.Concat(type.AllInterfaces).OfType<INamedTypeSymbol>()
 			.FirstOrDefault(candidate => candidate.TypeKind == TypeKind.Interface &&
-			                             candidate.MetadataName == metadataName &&
-			                             candidate.ContainingNamespace.ToDisplayString() == TargetNamespace);
+			                             string.Equals(candidate.MetadataName, metadataName, StringComparison.Ordinal) &&
+			                             string.Equals(candidate.ContainingNamespace.ToDisplayString(), TargetNamespace, StringComparison.Ordinal));
 }
 

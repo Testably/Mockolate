@@ -108,7 +108,7 @@ public static partial class ItExtensions
 		{
 			foreach ((string Key, string Value) parameter in formDataParameters)
 			{
-				if (parameter.Key == name && value.Matches(parameter.Value))
+				if (string.Equals(parameter.Key, name, StringComparison.Ordinal) && value.Matches(parameter.Value))
 				{
 					return true;
 				}
@@ -121,7 +121,7 @@ public static partial class ItExtensions
 		{
 			foreach ((string Name, HttpFormDataValue Value) requiredParameter in _requiredFormDataParameters)
 			{
-				if (key == requiredParameter.Name && requiredParameter.Value.Matches(value))
+				if (string.Equals(key, requiredParameter.Name, StringComparison.Ordinal) && requiredParameter.Value.Matches(value))
 				{
 					return true;
 				}
@@ -152,7 +152,7 @@ public static partial class ItExtensions
 			StringBuilder sb = new();
 			foreach (string line in lines)
 			{
-				if (line.StartsWith("--") ||
+				if (line.StartsWith("--", StringComparison.Ordinal) ||
 				    line.StartsWith("Content-Type: ", StringComparison.OrdinalIgnoreCase) ||
 				    line.StartsWith("Content-Disposition: ", StringComparison.OrdinalIgnoreCase))
 				{
