@@ -31,7 +31,7 @@ internal record Property
 
 		if (alreadyDefinedProperties is not null)
 		{
-			if (alreadyDefinedProperties.Any(p => string.Equals(p.Name, Name, StringComparison.Ordinal)))
+			if (alreadyDefinedProperties.Exists(p => string.Equals(p.Name, Name, StringComparison.Ordinal)))
 			{
 				ExplicitImplementation = ContainingType;
 			}

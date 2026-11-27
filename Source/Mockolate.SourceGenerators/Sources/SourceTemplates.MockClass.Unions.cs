@@ -93,11 +93,11 @@ internal static partial class SourceTemplates
 	private static bool HasUniqueMethodName(Class @class, Method method, bool sameTypeParameterCount = false)
 	{
 		string bareName = BareMethodName(method);
-		return @class.AllMethods().Count(m => m.ExplicitImplementation is null &&
+		return @class.AllMethods().Where(m => m.ExplicitImplementation is null &&
 		                                      m.MemberType == method.MemberType &&
 		                                      string.Equals(BareMethodName(m), bareName, StringComparison.Ordinal) &&
 		                                      (!sameTypeParameterCount ||
-		                                       TypeParameterCount(m) == TypeParameterCount(method))) == 1;
+		                                       TypeParameterCount(m) == TypeParameterCount(method))).Take(2).Count() == 1;
 
 		static int TypeParameterCount(Method m)
 			=> m.GenericParameters?.Count ?? 0;
@@ -822,9 +822,9 @@ internal static partial class SourceTemplates
 	private static bool HasUniqueIndexerKeyCount(Class @class, Property indexer)
 	{
 		int keyCount = indexer.IndexerParameters!.Value.Count;
-		return @class.AllProperties().Count(p =>
+		return @class.AllProperties().Where(p =>
 			p.IsIndexer && p.ExplicitImplementation is null && p.MemberType == indexer.MemberType &&
-			p.IndexerParameters?.Count == keyCount) == 1;
+			p.IndexerParameters?.Count == keyCount).Take(2).Count() == 1;
 	}
 
 	/// <summary>

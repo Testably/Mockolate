@@ -493,7 +493,7 @@ internal class Class : IEquatable<Class>
 	///     the slot is listed under that declaration instead.
 	/// </summary>
 	private static bool IsReabstractedIn(ISymbol member, ITypeSymbol mockedType)
-		=> FindOverridesIn(member, mockedType)?.Any(@override => @override.IsAbstract) == true;
+		=> FindOverridesIn(member, mockedType)?.Exists(@override => @override.IsAbstract) == true;
 
 	/// <summary>
 	///     The overrides of <paramref name="member" /> in the <paramref name="mockedType" />, from the most derived one

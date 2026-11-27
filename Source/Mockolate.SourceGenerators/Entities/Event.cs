@@ -26,7 +26,7 @@ internal record Event
 
 		if (alreadyDefinedEvents is not null)
 		{
-			if (alreadyDefinedEvents.Any(p => string.Equals(p.Name, Name, StringComparison.Ordinal)))
+			if (alreadyDefinedEvents.Exists(p => string.Equals(p.Name, Name, StringComparison.Ordinal)))
 			{
 				ExplicitImplementation = ContainingType;
 			}

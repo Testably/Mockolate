@@ -664,8 +664,9 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		HashSet<ISymbol> overridden = GetOverriddenMembers(type);
 		IEnumerable<ITypeSymbol> types = [type, ..type.AllInterfaces, ..GetBaseTypes(type),];
 		return types.SelectMany(declaring => declaring.GetMembers())
-			.Where(member => !overridden.Contains(member) && IsImplementedByMock(member, type, isClass, sourceAssembly))
-			.FirstOrDefault(member => IsUnsupportedMember(member, isClass));
+			.FirstOrDefault(member => !overridden.Contains(member) &&
+			                          IsImplementedByMock(member, type, isClass, sourceAssembly) &&
+			                          IsUnsupportedMember(member, isClass));
 	}
 
 	private static IEnumerable<ITypeSymbol> GetBaseTypes(ITypeSymbol type)

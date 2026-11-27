@@ -1865,7 +1865,7 @@ internal static partial class SourceTemplates
 		foreach (Event @event in @class.AllEvents())
 		{
 			if (!memberIds.IsAlias(@event) &&
-			    mockEvents?.All(e => !Event.EqualityComparer.Equals(@event, e)) != false)
+			    mockEvents?.TrueForAll(e => !Event.EqualityComparer.Equals(@event, e)) != false)
 			{
 				AppendMockSubject_ImplementClass_AddEvent(sb, @event, mockRegistryName, className,
 					mockClass is not null,
@@ -1881,7 +1881,7 @@ internal static partial class SourceTemplates
 		foreach (Property property in @class.AllProperties())
 		{
 			if (!memberIds.IsAlias(property) &&
-			    mockProperties?.All(p => !Property.EqualityComparer.Equals(property, p)) != false)
+			    mockProperties?.TrueForAll(p => !Property.EqualityComparer.Equals(property, p)) != false)
 			{
 				int signatureIndex = -1;
 				if (property is { IsIndexer: true, IndexerParameters: not null, })
@@ -1911,7 +1911,7 @@ internal static partial class SourceTemplates
 		foreach (Method method in @class.AllMethods())
 		{
 			if (!memberIds.IsAlias(method) &&
-			    mockMethods?.All(m => !Method.EqualityComparer.Equals(method, m)) != false)
+			    mockMethods?.TrueForAll(m => !Method.EqualityComparer.Equals(method, m)) != false)
 			{
 				AppendMockSubject_ImplementClass_AddMethod(sb, method, mockRegistryName, className,
 					mockClass is not null,
@@ -3886,7 +3886,7 @@ internal static partial class SourceTemplates
 	private static int OmittableMethodParameterCount(Class? @class, Method method, bool hasOverloadResolutionPriority)
 	{
 		MethodParameter[] parameters = method.Parameters.AsArray();
-		if (!hasOverloadResolutionPriority || parameters.Count(p => p.HasExplicitDefaultValue) != 1 ||
+		if (!hasOverloadResolutionPriority || parameters.Where(p => p.HasExplicitDefaultValue).Take(2).Count() != 1 ||
 		    parameters[parameters.Length - 1] is not { HasExplicitDefaultValue: true, } last ||
 		    !last.CanUseNullableParameterOverload() || parameters.Any(p => p.NeedsRefStructPipeline()) ||
 		    (@class is not null && !HasUniqueMethodName(@class, method)))
@@ -4539,7 +4539,7 @@ internal static partial class SourceTemplates
 			@class.AllMethods().Where((Func<Method, bool>)MethodPredicate).GroupBy(GetParametersOverloadKey).ToList();
 		foreach (IGrouping<string, Method>? methodGroup in methodGroups)
 		{
-			if (methodGroup.Count() == 1)
+			if (methodGroup.Take(2).Count() == 1)
 			{
 				Method? method = methodGroup.Single();
 				if (method.Parameters.Count > 0)
@@ -5070,7 +5070,7 @@ internal static partial class SourceTemplates
 			@class.AllMethods().Where((Func<Method, bool>)MethodPredicate).GroupBy(GetParametersOverloadKey).ToList();
 		foreach (IGrouping<string, Method>? methodGroup in methodGroups)
 		{
-			if (methodGroup.Count() == 1)
+			if (methodGroup.Take(2).Count() == 1)
 			{
 				Method? method = methodGroup.Single();
 				if (method.Parameters.Count > 0)
@@ -6408,7 +6408,7 @@ internal static partial class SourceTemplates
 		foreach (Event @event in @class.AllEvents()
 			         .Where(predicate)
 			         .GroupBy(m => m.Name)
-			         .Where(g => g.Count() == 1)
+			         .Where(g => g.Take(2).Count() == 1)
 			         .Select(g => g.Single())
 			         .Where(HasDefaultParametersRaiseOverload))
 		{
@@ -6461,7 +6461,7 @@ internal static partial class SourceTemplates
 		foreach (Event @event in @class.AllEvents()
 			         .Where(predicate)
 			         .GroupBy(m => m.Name)
-			         .Where(g => g.Count() == 1)
+			         .Where(g => g.Take(2).Count() == 1)
 			         .Select(g => g.Single())
 			         .Where(HasDefaultParametersRaiseOverload))
 		{
@@ -6574,7 +6574,7 @@ internal static partial class SourceTemplates
 			@class.AllMethods().Where((Func<Method, bool>)MethodPredicate).GroupBy(GetParametersOverloadKey).ToList();
 		foreach (IGrouping<string, Method>? methodGroup in methodGroups)
 		{
-			if (methodGroup.Count() == 1)
+			if (methodGroup.Take(2).Count() == 1)
 			{
 				Method? method = methodGroup.Single();
 				if (method.Parameters.Count > 0)
@@ -6902,7 +6902,7 @@ internal static partial class SourceTemplates
 			@class.AllMethods().Where((Func<Method, bool>)MethodPredicate).GroupBy(GetParametersOverloadKey).ToList();
 		foreach (IGrouping<string, Method>? methodGroup in methodGroups)
 		{
-			if (methodGroup.Count() == 1)
+			if (methodGroup.Take(2).Count() == 1)
 			{
 				Method? method = methodGroup.Single();
 				if (method.Parameters.Count > 0)

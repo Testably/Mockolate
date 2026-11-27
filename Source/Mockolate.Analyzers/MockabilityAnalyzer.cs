@@ -116,7 +116,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 	private static bool IsHiddenSealedCreateMock(SyntaxNodeAnalysisContext context, InvocationExpressionSyntax invocation,
 		MemberAccessExpressionSyntax memberAccess, SymbolInfo invocationInfo, ArgumentSyntax outArgument)
 		=> invocationInfo.Symbol is null &&
-		   invocation.ArgumentList.Arguments.Count(argument => argument.RefKindKeyword.IsKind(SyntaxKind.OutKeyword)) == 1 &&
+		   invocation.ArgumentList.Arguments.Where(argument => argument.RefKindKeyword.IsKind(SyntaxKind.OutKeyword)).Take(2).Count() == 1 &&
 		   context.SemanticModel.GetSymbolInfo(memberAccess.Expression, cancellationToken: context.CancellationToken).Symbol is INamedTypeSymbol receiver &&
 		   receiver is { TypeKind: TypeKind.Class, IsStatic: false, IsAbstract: false, } and
 			   ({ IsSealed: true, } or { IsRecord: true, }) &&
@@ -578,7 +578,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 	{
 		foreach (IGrouping<string, MockedSpelling> type in spellings.GroupBy(spelling => spelling.Type))
 		{
-			if (type.Select(spelling => spelling.Spelling).Distinct().Count() < 2)
+			if (!type.Select(spelling => spelling.Spelling).Distinct().Skip(1).Any())
 			{
 				continue;
 			}
