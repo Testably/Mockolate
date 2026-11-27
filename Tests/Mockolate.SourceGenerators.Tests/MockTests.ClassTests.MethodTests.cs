@@ -1028,7 +1028,11 @@ public sealed partial class MockTests
 					          						{
 					          							value1 = refParam2.GetValue(value1);
 					          						}
-					          						if (wpc.Parameter3 is not global::Mockolate.Parameters.IOutParameter<bool> outParam3 || !outParam3.TryGetValue(out flag))
+					          						if (wpc.Parameter3 is global::Mockolate.Parameters.IOutParameter<bool> outParam3 && outParam3.TryGetValue(out bool outTemp3))
+					          						{
+					          							flag = outTemp3;
+					          						}
+					          						else if (!hasWrappedResult)
 					          						{
 					          							flag = this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!);
 					          						}
@@ -1082,7 +1086,11 @@ public sealed partial class MockTests
 					          						{
 					          							value1 = refParam3.GetValue(value1);
 					          						}
-					          						if (wpc.Parameter4 is not global::Mockolate.Parameters.IOutParameter<bool> outParam4 || !outParam4.TryGetValue(out flag))
+					          						if (wpc.Parameter4 is global::Mockolate.Parameters.IOutParameter<bool> outParam4 && outParam4.TryGetValue(out bool outTemp4))
+					          						{
+					          							flag = outTemp4;
+					          						}
+					          						else if (!hasWrappedResult)
 					          						{
 					          							flag = this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!);
 					          						}
@@ -1333,7 +1341,11 @@ public sealed partial class MockTests
 					          				{
 					          					if (methodSetup is global::Mockolate.Setup.ReturnMethodSetup<bool, int, bool>.WithParameterCollection wpc)
 					          					{
-					          						if (wpc.Parameter2 is not global::Mockolate.Parameters.IOutParameter<bool> outParam2 || !outParam2.TryGetValue(out isReadOnly))
+					          						if (wpc.Parameter2 is global::Mockolate.Parameters.IOutParameter<bool> outParam2 && outParam2.TryGetValue(out bool outTemp2))
+					          						{
+					          							isReadOnly = outTemp2;
+					          						}
+					          						else if (!hasWrappedResult)
 					          						{
 					          							isReadOnly = this.MockRegistry.Behavior.DefaultValue.Generate(default(bool)!);
 					          						}

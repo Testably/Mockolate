@@ -196,7 +196,11 @@ internal static partial class Mock
 				{
 					if (methodSetup is global::Mockolate.Setup.ReturnMethodSetup<bool, object, object?>.WithParameterCollection wpc)
 					{
-						if (wpc.Parameter2 is not global::Mockolate.Parameters.IOutParameter<object?> outParam2 || !outParam2.TryGetValue(out value))
+						if (wpc.Parameter2 is global::Mockolate.Parameters.IOutParameter<object?> outParam2 && outParam2.TryGetValue(out object? outTemp2))
+						{
+							value = outTemp2;
+						}
+						else if (!hasWrappedResult)
 						{
 							value = this.MockRegistry.Behavior.DefaultValue.Generate(default(object?)!);
 						}

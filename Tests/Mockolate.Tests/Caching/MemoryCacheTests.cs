@@ -218,6 +218,23 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
+	public async Task Wrapping_WithSetupWithoutReturnValue_ShouldKeepValueOfWrappedCache()
+	{
+		IMemoryCache wrapped = IMemoryCache.CreateMock();
+		wrapped.Set("order-42", "Dark");
+		IMemoryCache cache = IMemoryCache.CreateMock().Wrapping(wrapped);
+		object? observed = null;
+		cache.Mock.Setup.TryGetValue(It.IsAny<object>(), It.IsAnyOut<object?>())
+			.Do((object _, object? value) => observed = value);
+
+		bool found = cache.TryGetValue("order-42", out string? result);
+
+		await That(found).IsTrue();
+		await That(result).IsEqualTo("Dark");
+		await That(observed).IsEqualTo("Dark");
+	}
+
+	[Test]
 	public async Task Wrapping_ShouldRecordOptionsBeforeWrappedCacheCommitsEntry()
 	{
 		ICacheEntry wrappedEntry = ICacheEntry.CreateMock();

@@ -3127,45 +3127,25 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 				parameterIndex++;
 				if (parameter.RefKind == RefKind.Out)
 				{
-					bool isSpanOrReadOnlySpan = parameter.Type.SpecialGenericType
-						is SpecialGenericType.Span or SpecialGenericType.ReadOnlySpan;
-					if (isSpanOrReadOnlySpan)
-					{
-						// C# does not insert user-defined implicit conversions across `out`, so the
-						// wrapper-typed slot must be unpacked into a wrapper-typed temp local first,
-						// then assigned to the bare-typed parameter (which triggers the implicit op).
-						sb.Append("\t\t\t\t\t\tif (").Append(wpc).Append(".Parameter").Append(parameterIndex)
-							.Append(" is not global::Mockolate.Parameters.IOutParameter<")
-							.Append(parameter.Type.ToTypeOrWrapper()).Append("> ").Append(outParamBase)
-							.Append(parameterIndex)
-							.Append(" || !").Append(outParamBase).Append(parameterIndex)
-							.Append(".TryGetValue(out ").Append(parameter.Type.ToTypeOrWrapper())
-							.Append(' ').Append(outTempBase).Append(parameterIndex).Append("))").AppendLine();
-						sb.Append("\t\t\t\t\t\t{").AppendLine();
-						sb.Append("\t\t\t\t\t\t\t").Append(parameter.Name).Append(" = ")
-							.AppendDefaultValueGeneratorFor(parameter.Type, $"{mockRegistry}.Behavior.DefaultValue")
-							.Append(';').AppendLine();
-						sb.Append("\t\t\t\t\t\t}").AppendLine();
-						sb.Append("\t\t\t\t\t\telse").AppendLine();
-						sb.Append("\t\t\t\t\t\t{").AppendLine();
-						sb.Append("\t\t\t\t\t\t\t").Append(parameter.Name).Append(" = ").Append(outTempBase)
-							.Append(parameterIndex).Append(';').AppendLine();
-						sb.Append("\t\t\t\t\t\t}").AppendLine();
-					}
-					else
-					{
-						sb.Append("\t\t\t\t\t\tif (").Append(wpc).Append(".Parameter").Append(parameterIndex)
-							.Append(" is not global::Mockolate.Parameters.IOutParameter<")
-							.Append(parameter.Type.ToTypeOrWrapper()).Append("> ").Append(outParamBase)
-							.Append(parameterIndex)
-							.Append(" || !").Append(outParamBase).Append(parameterIndex).Append(".TryGetValue(out ")
-							.Append(parameter.Name).Append("))").AppendLine();
-						sb.Append("\t\t\t\t\t\t{").AppendLine();
-						sb.Append("\t\t\t\t\t\t\t").Append(parameter.Name).Append(" = ")
-							.AppendDefaultValueGeneratorFor(parameter.Type, $"{mockRegistry}.Behavior.DefaultValue")
-							.Append(';').AppendLine();
-						sb.Append("\t\t\t\t\t\t}").AppendLine();
-					}
+					// The temp local keeps the value of the wrapped instance or the base class when the setup has
+					// none, and C# does not insert the implicit conversion of a span wrapper across `out`.
+					sb.Append("\t\t\t\t\t\tif (").Append(wpc).Append(".Parameter").Append(parameterIndex)
+						.Append(" is global::Mockolate.Parameters.IOutParameter<")
+						.Append(parameter.Type.ToTypeOrWrapper()).Append("> ").Append(outParamBase)
+						.Append(parameterIndex)
+						.Append(" && ").Append(outParamBase).Append(parameterIndex)
+						.Append(".TryGetValue(out ").Append(parameter.Type.ToTypeOrWrapper())
+						.Append(' ').Append(outTempBase).Append(parameterIndex).Append("))").AppendLine();
+					sb.Append("\t\t\t\t\t\t{").AppendLine();
+					sb.Append("\t\t\t\t\t\t\t").Append(parameter.Name).Append(" = ").Append(outTempBase)
+						.Append(parameterIndex).Append(';').AppendLine();
+					sb.Append("\t\t\t\t\t\t}").AppendLine();
+					sb.Append("\t\t\t\t\t\telse if (!").Append(hasWrappedResult).Append(')').AppendLine();
+					sb.Append("\t\t\t\t\t\t{").AppendLine();
+					sb.Append("\t\t\t\t\t\t\t").Append(parameter.Name).Append(" = ")
+						.AppendDefaultValueGeneratorFor(parameter.Type, $"{mockRegistry}.Behavior.DefaultValue")
+						.Append(';').AppendLine();
+					sb.Append("\t\t\t\t\t\t}").AppendLine();
 				}
 				else if (parameter.RefKind == RefKind.Ref)
 				{
