@@ -71,9 +71,9 @@ public class MemoryCacheAnalyzerTests
 			         	}
 			         }
 			         """,
-			new DiagnosticResult("Mockolate0014", DiagnosticSeverity.Error)
+			new DiagnosticResult("Mockolate0015", DiagnosticSeverity.Error)
 				.WithLocation(0).WithArguments("MyCode.MyCache"),
-			new DiagnosticResult("Mockolate0014", DiagnosticSeverity.Error)
+			new DiagnosticResult("Mockolate0015", DiagnosticSeverity.Error)
 				.WithLocation(1).WithArguments("MyCode.MyCache"));
 
 	[Test]
@@ -98,7 +98,7 @@ public class MemoryCacheAnalyzerTests
 			         	}
 			         }
 			         """,
-			new DiagnosticResult("Mockolate0014", DiagnosticSeverity.Error)
+			new DiagnosticResult("Mockolate0015", DiagnosticSeverity.Error)
 				.WithLocation(0).WithArguments("MyCode.MyCache"));
 
 	[Test]
@@ -128,7 +128,7 @@ public class MemoryCacheAnalyzerTests
 			         	}
 			         }
 			         """,
-			new DiagnosticResult("Mockolate0014", DiagnosticSeverity.Error)
+			new DiagnosticResult("Mockolate0015", DiagnosticSeverity.Error)
 				.WithLocation(0).WithArguments("MyCode.MyCache"));
 
 	[Test]

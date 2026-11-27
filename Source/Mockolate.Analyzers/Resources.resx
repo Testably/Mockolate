@@ -333,13 +333,13 @@
 		<value>is also marked [NotShared], which has no effect</value>
 		<comment>Completes Mockolate0012MessageFormat.</comment>
 	</data>
-	<data name="Mockolate0014Description" xml:space="preserve">
+	<data name="Mockolate0015Description" xml:space="preserve">
 		<value>The memory cache setups and verifications need a mock that behaves like a cache, so the mock of a class that implements IMemoryCache only supports them when TryGetValue, CreateEntry and Remove are abstract. Otherwise the mock calls the base implementations.</value>
 	</data>
-	<data name="Mockolate0014MessageFormat" xml:space="preserve">
+	<data name="Mockolate0015MessageFormat" xml:space="preserve">
 		<value>The memory cache setups and verifications are not supported on the mock of class '{0}', because it calls the base implementations of TryGetValue, CreateEntry or Remove</value>
 	</data>
-	<data name="Mockolate0014Title" xml:space="preserve">
+	<data name="Mockolate0015Title" xml:space="preserve">
 		<value>Memory cache setups and verifications need a mock that behaves like a cache</value>
 	</data>
 	<data name="Mockolate0013Description" xml:space="preserve">

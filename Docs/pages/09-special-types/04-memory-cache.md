@@ -98,4 +98,4 @@ await That(cache.Mock.Verify.Remove("price-Dark")).Never();
 
 A mock that [wraps](../03-create-mocks.md#wrapping-existing-instances) a cache reads and stores the entries in the wrapped cache and still records them for `Verify.Get(…)` and `Verify.Set(…)`. `Verify.Set(…)` counts the entries passed to the wrapped cache, also when it does not store them, e.g. because of a size limit. Set start values in the wrapped cache, as `InitializeWith(…)` throws on the wrapping mock and start values set before `Wrapping(…)` have no effect.
 
-A mock of a class that implements `IMemoryCache` behaves like a cache when `TryGetValue`, `CreateEntry` and `Remove` are abstract. Otherwise the mock calls the base implementations, and [Mockolate0014](../10-analyzers.md#mockolate0014) reports the cache setups and verifications.
+A mock of a class that implements `IMemoryCache` behaves like a cache when `TryGetValue`, `CreateEntry` and `Remove` are abstract. Otherwise the mock calls the base implementations, and [Mockolate0015](../10-analyzers.md#mockolate0015) reports the cache setups and verifications.

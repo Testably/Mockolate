@@ -213,29 +213,29 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
-        ///   Looks up a localized string describing Mockolate0014.
+        ///   Looks up a localized string describing Mockolate0015.
         /// </summary>
-        internal static string Mockolate0014Description {
+        internal static string Mockolate0015Description {
             get {
-                return ResourceManager.GetString("Mockolate0014Description", resourceCulture);
+                return ResourceManager.GetString("Mockolate0015Description", resourceCulture);
             }
         }
 
         /// <summary>
-        ///   Looks up a localized string describing Mockolate0014's message format.
+        ///   Looks up a localized string describing Mockolate0015's message format.
         /// </summary>
-        internal static string Mockolate0014MessageFormat {
+        internal static string Mockolate0015MessageFormat {
             get {
-                return ResourceManager.GetString("Mockolate0014MessageFormat", resourceCulture);
+                return ResourceManager.GetString("Mockolate0015MessageFormat", resourceCulture);
             }
         }
 
         /// <summary>
-        ///   Looks up a localized string describing Mockolate0014's title.
+        ///   Looks up a localized string describing Mockolate0015's title.
         /// </summary>
-        internal static string Mockolate0014Title {
+        internal static string Mockolate0015Title {
             get {
-                return ResourceManager.GetString("Mockolate0014Title", resourceCulture);
+                return ResourceManager.GetString("Mockolate0015Title", resourceCulture);
             }
         }
 

@@ -22,15 +22,15 @@ public class MemoryCacheAnalyzer : DiagnosticAnalyzer
 	private static readonly string[] s_cacheMembers = ["TryGetValue", "CreateEntry", "Remove",];
 
 	private static readonly DiagnosticDescriptor s_memoryCacheRule = new(
-		"Mockolate0014",
-		new LocalizableResourceString(nameof(Resources.Mockolate0014Title),
+		"Mockolate0015",
+		new LocalizableResourceString(nameof(Resources.Mockolate0015Title),
 			Resources.ResourceManager, typeof(Resources)),
-		new LocalizableResourceString(nameof(Resources.Mockolate0014MessageFormat),
+		new LocalizableResourceString(nameof(Resources.Mockolate0015MessageFormat),
 			Resources.ResourceManager, typeof(Resources)),
 		"Usage",
 		DiagnosticSeverity.Error,
 		true,
-		new LocalizableResourceString(nameof(Resources.Mockolate0014Description),
+		new LocalizableResourceString(nameof(Resources.Mockolate0015Description),
 			Resources.ResourceManager, typeof(Resources)));
 
 	/// <inheritdoc cref="DiagnosticAnalyzer.SupportedDiagnostics" />
