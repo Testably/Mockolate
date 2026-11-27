@@ -8,6 +8,7 @@ using Microsoft.CodeAnalysis.Operations;
 
 namespace Mockolate.Analyzers;
 
+#pragma warning disable MA0038 // Make method static (deprecated, use CA1822 instead)
 /// <summary>
 ///     An analyzer that reports a matcher passed to a <c>Setup</c> or <c>Verify</c> parameter that takes a value, where
 ///     it is compared as the expected value instead of matching.
@@ -404,3 +405,4 @@ isEnabledByDefault: true,
 			=> compilation.ClassifyCommonConversion(typedParameter.Construct(valueType), valueType).IsImplicit;
 	}
 }
+#pragma warning restore MA0038 // Make method static (deprecated, use CA1822 instead)

@@ -10,6 +10,7 @@ using Mockolate.Internals.Polyfills;
 
 namespace Mockolate.Web;
 
+#pragma warning disable MA0038 // Make method static (deprecated, use CA1822 instead)
 /// <summary>
 ///     Extensions for parameter matchers for HTTP-related types.
 /// </summary>
@@ -122,3 +123,4 @@ public static partial class ItExtensions
 			   + string.Join(", ", _requiredHeaders.Select(header => $"\"{header.Name}: {header.Value}\""));
 	}
 }
+#pragma warning restore MA0038 // Make method static (deprecated, use CA1822 instead)

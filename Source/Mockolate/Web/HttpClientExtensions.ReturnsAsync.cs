@@ -9,6 +9,7 @@ using Mockolate.Setup;
 // ReSharper disable once CheckNamespace
 namespace Mockolate;
 
+#pragma warning disable MA0038 // Make method static (deprecated, use CA1822 instead)
 public static partial class HttpClientExtensions
 {
 	/// <inheritdoc cref="HttpClientExtensions" />
@@ -110,3 +111,4 @@ public static partial class HttpClientExtensions
 			});
 	}
 }
+#pragma warning restore MA0038 // Make method static (deprecated, use CA1822 instead)

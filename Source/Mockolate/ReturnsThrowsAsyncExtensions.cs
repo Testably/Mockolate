@@ -4,6 +4,7 @@ using Mockolate.Setup;
 
 namespace Mockolate;
 
+#pragma warning disable MA0038 // Make method static (deprecated, use CA1822 instead)
 #pragma warning disable S2436 // Types and methods should not have too many generic parameters
 /// <summary>
 ///     Extensions for setting up return values and throwing exceptions for <see langword="async" /> methods.
@@ -930,3 +931,4 @@ public static class ReturnsThrowsAsyncExtensions
 #endif
 }
 #pragma warning restore S2436 // Types and methods should not have too many generic parameters
+#pragma warning restore MA0038 // Make method static (deprecated, use CA1822 instead)

@@ -4,6 +4,7 @@ using Mockolate.Setup;
 
 namespace Mockolate.Internals;
 
+#pragma warning disable MA0038 // Make method static (deprecated, use CA1822 instead)
 /// <summary>
 ///     Extension methods for <see cref="Callbacks{T}" />.
 /// </summary>
@@ -41,3 +42,4 @@ public static class CallbacksExtensions
 			return callbacks;
 		}	}
 }
+#pragma warning restore MA0038 // Make method static (deprecated, use CA1822 instead)

@@ -2,6 +2,7 @@ using Mockolate.Setup;
 
 namespace Mockolate;
 
+#pragma warning disable MA0038 // Make method static (deprecated, use CA1822 instead)
 /// <summary>
 ///     Extensions for indexer, property and method setups.
 /// </summary>
@@ -1082,3 +1083,4 @@ public static class SetupExtensions
 			=> setup.Only(1);
 	}
 }
+#pragma warning restore MA0038 // Make method static (deprecated, use CA1822 instead)

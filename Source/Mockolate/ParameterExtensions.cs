@@ -5,6 +5,7 @@ using Mockolate.Parameters;
 
 namespace Mockolate;
 
+#pragma warning disable MA0038 // Make method static (deprecated, use CA1822 instead)
 /// <summary>
 ///     Extension methods for <see cref="IParameter" />s.
 /// </summary>
@@ -394,3 +395,4 @@ public static class ParameterExtensions
 			=> _values.Add(value);
 	}
 }
+#pragma warning restore MA0038 // Make method static (deprecated, use CA1822 instead)

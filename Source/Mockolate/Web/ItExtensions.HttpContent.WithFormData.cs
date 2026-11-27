@@ -9,6 +9,7 @@ using Mockolate.Internals.Polyfills;
 
 namespace Mockolate.Web;
 
+#pragma warning disable MA0038 // Make method static (deprecated, use CA1822 instead)
 #pragma warning disable S2325 // Methods and properties that don't access instance data should be static
 public static partial class ItExtensions
 {
@@ -188,3 +189,4 @@ public static partial class ItExtensions
 	}
 }
 #pragma warning restore S2325 // Methods and properties that don't access instance data should be static
+#pragma warning restore MA0038 // Make method static (deprecated, use CA1822 instead)
