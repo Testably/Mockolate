@@ -32,6 +32,12 @@ internal static class AnalyzerHelpers
 		   nts.TypeArguments.Any(a => a.TypeKind == TypeKind.TypeParameter);
 
 	/// <summary>
+	///     Check if a namespace is the global <c>Mockolate</c> namespace.
+	/// </summary>
+	public static bool IsMockolateNamespace(INamespaceSymbol? ns)
+		=> ns is { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, };
+
+	/// <summary>
 	///     Get the location of a type argument in an invocation expression.
 	/// </summary>
 	public static Location? GetTypeArgumentLocation(SyntaxNode syntax, ITypeSymbol typeSymbol)

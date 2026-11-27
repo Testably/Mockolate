@@ -68,7 +68,7 @@ public class LoggingAnalyzer : DiagnosticAnalyzer
 		for (INamedTypeSymbol? type = method.ContainingType; type is not null; type = type.ContainingType)
 		{
 			if (type.Name is "MockolateLogging" or "MockolateLoggerFactoryLogging" &&
-			    type.ContainingNamespace is { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, })
+			    AnalyzerHelpers.IsMockolateNamespace(type.ContainingNamespace))
 			{
 				return type.Name;
 			}
@@ -91,7 +91,8 @@ public class LoggingAnalyzer : DiagnosticAnalyzer
 			         .OfType<INamedTypeSymbol>())
 		{
 			if (facade is { Name: "IMockSetup" or "IMockVerify", TypeArguments.Length: 1, } &&
-			    facade.ContainingNamespace is { Name: "Setup" or "Verify", ContainingNamespace.Name: "Mockolate", } &&
+			    facade.ContainingNamespace is { Name: "Setup" or "Verify", } facadeNamespace &&
+			    AnalyzerHelpers.IsMockolateNamespace(facadeNamespace.ContainingNamespace) &&
 			    facade.TypeArguments[0] is INamedTypeSymbol { TypeKind: TypeKind.Class, } mockedClass &&
 			    IsUnsupported(mockedClass, isFactoryMember))
 			{

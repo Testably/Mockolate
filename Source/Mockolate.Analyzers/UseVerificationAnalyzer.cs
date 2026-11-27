@@ -47,10 +47,8 @@ public class UseVerificationAnalyzer : DiagnosticAnalyzer
 		INamedTypeSymbol candidate = type is { Name: "IgnoreParameters", ContainingType: { } containingType, }
 			? containingType
 			: type;
-		return candidate.Name == "VerificationResult" &&
-		       candidate.ContainingNamespace?.Name == "Verify" &&
-		       candidate.ContainingNamespace.ContainingNamespace?.Name == "Mockolate" &&
-		       candidate.ContainingNamespace.ContainingNamespace.ContainingNamespace?.IsGlobalNamespace == true;
+		return candidate is { Name: "VerificationResult", ContainingNamespace: { Name: "Verify", } ns, } &&
+		       AnalyzerHelpers.IsMockolateNamespace(ns.ContainingNamespace);
 	}
 
 	private static void CheckIsUsed(OperationAnalysisContext context, IInvocationOperation invocationOperation)

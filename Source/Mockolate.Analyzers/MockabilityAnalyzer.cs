@@ -82,7 +82,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 
 		// Skip a call that resolves to something outside the Mockolate namespace, unless a member hides the overload for
 		// sealed classes, which the generator then does not emit.
-		if (method is not null && !IsInMockolateNamespace(method))
+		if (method is not null && !AnalyzerHelpers.IsMockolateNamespace(method.ContainingNamespace))
 		{
 			if (outArgument is null ||
 			    !IsHiddenSealedCreateMock(context, invocation, memberAccess, invocationInfo, outArgument))
@@ -140,11 +140,8 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 		return IsConstructorArguments(semanticModel.GetTypeInfo(expression).Type);
 
 		static bool IsConstructorArguments(ITypeSymbol? type)
-			=> type is
-			{
-				Name: "ConstructorArguments",
-				ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, },
-			};
+			=> type is { Name: "ConstructorArguments", } &&
+			   AnalyzerHelpers.IsMockolateNamespace(type.ContainingNamespace);
 	}
 
 	private static void AnalyzeCreateMock(SyntaxNodeAnalysisContext context,
@@ -627,9 +624,6 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 
 		return null;
 	}
-
-	private static bool IsInMockolateNamespace(ISymbol symbol)
-		=> symbol.ContainingNamespace is { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, };
 
 	internal static bool IsMockable(ITypeSymbol typeSymbol, IAssemblySymbol sourceAssembly, out string? reason)
 	{

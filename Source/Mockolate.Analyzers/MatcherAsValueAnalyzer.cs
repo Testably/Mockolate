@@ -309,7 +309,8 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 
 		for (INamedTypeSymbol? type = containingType.ContainingType; type is not null; type = type.ContainingType)
 		{
-			if (type is { Name: "Mock", ContainingType: null, } && IsMockolateNamespace(type.ContainingNamespace))
+			if (type is { Name: "Mock", ContainingType: null, } &&
+			    AnalyzerHelpers.IsMockolateNamespace(type.ContainingNamespace))
 			{
 				return true;
 			}
@@ -338,7 +339,7 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 	/// </summary>
 	private static bool IsVerificationSet(ISymbol member)
 		=> member is IMethodSymbol { Name: "Set", ContainingType.ContainingNamespace: { Name: "Verify", } ns, } &&
-		   IsMockolateNamespace(ns.ContainingNamespace);
+		   AnalyzerHelpers.IsMockolateNamespace(ns.ContainingNamespace);
 
 	/// <summary>
 	///     Mirrors the generator, which checks for a matcher at runtime exactly for these type parameters.
@@ -358,7 +359,7 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 		}
 
 		if (type is INamedTypeSymbol { Name: "ParameterArg", TypeArguments.Length: 1, } parameterArg &&
-		    IsMockolateNamespace(parameterArg.ContainingNamespace))
+		    AnalyzerHelpers.IsMockolateNamespace(parameterArg.ContainingNamespace))
 		{
 			valueType = parameterArg.TypeArguments[0];
 			return true;
@@ -367,9 +368,6 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 		valueType = type;
 		return false;
 	}
-
-	private static bool IsMockolateNamespace(INamespaceSymbol? ns)
-		=> ns is { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, };
 
 	private sealed class MatcherTypes(
 		Compilation compilation,
