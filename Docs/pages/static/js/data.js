@@ -1950,6 +1950,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -2277,7 +2283,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -2608,7 +2615,8 @@ window.BENCHMARK_DATA = {
           202.2009002606074,
           166.1952068010966,
           192.732754723231,
-          128.48666032155356
+          128.48666032155356,
+          120.2372254218374
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -2937,6 +2945,7 @@ window.BENCHMARK_DATA = {
           800,
           800,
           800,
+          808,
           808,
           808,
           808,
@@ -3283,7 +3292,8 @@ window.BENCHMARK_DATA = {
           104516.38962965745,
           61873.025817871094,
           102905.42119140625,
-          31586.370749337333
+          31586.370749337333,
+          29353.929050990515
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3619,7 +3629,8 @@ window.BENCHMARK_DATA = {
           9056,
           9056,
           9056,
-          9055
+          9055,
+          9167
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3958,7 +3969,8 @@ window.BENCHMARK_DATA = {
           4481.192931038992,
           3564.3021024976456,
           4483.190567652385,
-          2508.2145212809246
+          2508.2145212809246,
+          2310.2904218037925
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -4119,6 +4131,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -4633,7 +4646,8 @@ window.BENCHMARK_DATA = {
           4676.54699605306,
           3491.6082122802736,
           4297.137799776518,
-          2330.7329376220705
+          2330.7329376220705,
+          2417.5855674743652
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4969,7 +4983,8 @@ window.BENCHMARK_DATA = {
           6930,
           6930,
           6930,
-          6930
+          6930,
+          7042
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -5308,7 +5323,8 @@ window.BENCHMARK_DATA = {
           195.70534965197245,
           163.04357358614604,
           194.54763243879592,
-          132.76881572405497
+          132.76881572405497,
+          123.21084185747
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -5474,6 +5490,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -5983,7 +6000,8 @@ window.BENCHMARK_DATA = {
           335.4766323963801,
           279.8810616220747,
           326.4010328224727,
-          244.11327838897705
+          244.11327838897705,
+          217.45226723353068
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -6294,6 +6312,7 @@ window.BENCHMARK_DATA = {
           2056,
           2056,
           2056,
+          1352,
           1352,
           1352,
           1352,
@@ -8283,6 +8302,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -8610,7 +8635,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -8941,7 +8967,8 @@ window.BENCHMARK_DATA = {
           187.52269647671625,
           133.16002354621887,
           167.43070702552797,
-          189.37996758733476
+          189.37996758733476,
+          116.28224789301554
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -9270,6 +9297,7 @@ window.BENCHMARK_DATA = {
           712,
           712,
           712,
+          720,
           720,
           720,
           720,
@@ -9616,7 +9644,8 @@ window.BENCHMARK_DATA = {
           12433.195101224459,
           9922.317439152645,
           15070.039015549879,
-          12497.110310872396
+          12497.110310872396,
+          10496.546870640346
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9949,6 +9978,7 @@ window.BENCHMARK_DATA = {
           12760,
           12761,
           12760,
+          12761,
           12761,
           12761,
           12761,
@@ -10291,7 +10321,8 @@ window.BENCHMARK_DATA = {
           5189.496850585938,
           4157.142422015851,
           5883.61300608317,
-          5174.707241603306
+          5174.707241603306,
+          4033.5947248018706
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10452,6 +10483,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -10966,7 +10998,8 @@ window.BENCHMARK_DATA = {
           148041.246547154,
           109349.37266322544,
           224969.9165387835,
-          154696.53022112165
+          154696.53022112165,
+          195628.65780203682
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11302,7 +11335,8 @@ window.BENCHMARK_DATA = {
           15578,
           15578,
           15618,
-          15579
+          15579,
+          15619
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11641,7 +11675,8 @@ window.BENCHMARK_DATA = {
           211.18791596094766,
           168.31100997924804,
           178.8997416325978,
-          210.8406686101641
+          210.8406686101641,
+          140.81871743202208
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -11782,6 +11817,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -12316,7 +12352,8 @@ window.BENCHMARK_DATA = {
           236.49073950449625,
           197.6357607205709,
           168.76290583610535,
-          235.77660907109578
+          235.77660907109578,
+          122.39159642855326
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -12450,6 +12487,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -14616,6 +14654,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -14943,7 +14987,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -15274,7 +15319,8 @@ window.BENCHMARK_DATA = {
           287.59289105733234,
           445.2485558803265,
           443.1420256614685,
-          418.8590779940287
+          418.8590779940287,
+          406.13204326629636
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -15603,6 +15649,7 @@ window.BENCHMARK_DATA = {
           1824,
           1824,
           1840,
+          1848,
           1848,
           1848,
           1848,
@@ -15949,7 +15996,8 @@ window.BENCHMARK_DATA = {
           155998.63511439733,
           171288.3084716797,
           530156.6664713542,
-          177134.82571614583
+          177134.82571614583,
+          180712.40426432292
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16285,7 +16333,8 @@ window.BENCHMARK_DATA = {
           38486,
           38380,
           38571,
-          39188
+          39188,
+          38540
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16624,7 +16673,8 @@ window.BENCHMARK_DATA = {
           40415.872713216144,
           60771.42222086588,
           209584.12703450522,
-          63466.58850911458
+          63466.58850911458,
+          59582.61909179688
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16960,7 +17010,8 @@ window.BENCHMARK_DATA = {
           28162,
           28142,
           28100,
-          28098
+          28098,
+          28086
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17299,7 +17350,8 @@ window.BENCHMARK_DATA = {
           53703.80717773437,
           69303.01314603366,
           244635.30662434894,
-          65789.90064290365
+          65789.90064290365,
+          64794.66979980469
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17635,7 +17687,8 @@ window.BENCHMARK_DATA = {
           30395,
           30247,
           30273,
-          30583
+          30583,
+          30247
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17974,7 +18027,8 @@ window.BENCHMARK_DATA = {
           212.93192847569784,
           292.70030771891277,
           309.60955295562746,
-          295.5775784810384
+          295.5775784810384,
+          284.9995979309082
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -18310,6 +18364,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1216,
           1216
         ],
         "borderColor": "#E84393",
@@ -18445,7 +18500,8 @@ window.BENCHMARK_DATA = {
           431.13182156880697,
           541.4170007705688,
           622.3286472048078,
-          557.6353511129107
+          557.6353511129107,
+          535.3614580290658
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -18552,6 +18608,7 @@ window.BENCHMARK_DATA = {
           2856,
           2856,
           2856,
+          2208,
           2208,
           2208,
           2208,
@@ -20541,6 +20598,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -20868,7 +20931,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -21199,7 +21263,8 @@ window.BENCHMARK_DATA = {
           912.8327635447184,
           1165.0840184529623,
           1230.6286993026733,
-          1221.0250250498455
+          1221.0250250498455,
+          1198.5647267659506
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -21528,6 +21593,7 @@ window.BENCHMARK_DATA = {
           2760,
           2760,
           2776,
+          2784,
           2784,
           2784,
           2784,
@@ -21874,7 +21940,8 @@ window.BENCHMARK_DATA = {
           160113.34861653644,
           205675.00961914062,
           539013.8518229167,
-          207653.0323311942
+          207653.0323311942,
+          210000.20874023438
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -22210,7 +22277,8 @@ window.BENCHMARK_DATA = {
           48088,
           48073,
           48142,
-          48880
+          48880,
+          48233
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -22549,7 +22617,8 @@ window.BENCHMARK_DATA = {
           45518.138178898735,
           78853.1110941569,
           231107.7498046875,
-          78910.01171875
+          78910.01171875,
+          78473.3259765625
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -22885,7 +22954,8 @@ window.BENCHMARK_DATA = {
           41269,
           41265,
           41215,
-          41208
+          41208,
+          41205
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -23224,7 +23294,8 @@ window.BENCHMARK_DATA = {
           60897.82193865095,
           89251.50458780925,
           266269.8919921875,
-          83651.63758138022
+          83651.63758138022,
+          82713.85536295573
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -23560,7 +23631,8 @@ window.BENCHMARK_DATA = {
           50045,
           49922,
           49926,
-          50257
+          50257,
+          49922
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -23899,7 +23971,8 @@ window.BENCHMARK_DATA = {
           485.9599250793457,
           634.8897993224008,
           782.191288693746,
-          677.5664819717407
+          677.5664819717407,
+          675.1298058191935
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -24235,6 +24308,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2296,
           2296
         ],
         "borderColor": "#E84393",
@@ -24370,7 +24444,8 @@ window.BENCHMARK_DATA = {
           1481.7663016001384,
           1824.2905053456625,
           2267.8936973571776,
-          1984.6067141215005
+          1984.6067141215005,
+          1886.8118015289306
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -24477,6 +24552,7 @@ window.BENCHMARK_DATA = {
           5568,
           5568,
           5568,
+          5248,
           5248,
           5248,
           5248,
@@ -26466,6 +26542,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -26793,7 +26875,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -27124,7 +27207,8 @@ window.BENCHMARK_DATA = {
           123.36113365491231,
           135.75405643781025,
           74.81333372592925,
-          106.20290819803874
+          106.20290819803874,
+          102.58576390572956
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -27453,6 +27537,7 @@ window.BENCHMARK_DATA = {
           592,
           592,
           592,
+          600,
           600,
           600,
           600,
@@ -27799,7 +27884,8 @@ window.BENCHMARK_DATA = {
           3133.220026652018,
           3122.1153330485026,
           2390.937792264498,
-          3491.421331552359
+          3491.421331552359,
+          3295.0004580179852
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -28089,6 +28175,7 @@ window.BENCHMARK_DATA = {
           14902,
           14914,
           14906,
+          6552,
           6552,
           6552,
           6552,
@@ -28474,7 +28561,8 @@ window.BENCHMARK_DATA = {
           4265.244046020508,
           4330.633722577776,
           2868.8692888532364,
-          4440.318927219936
+          4440.318927219936,
+          4269.080073429988
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -28764,6 +28852,7 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9320,
+          9816,
           9816,
           9816,
           9816,
@@ -29149,7 +29238,8 @@ window.BENCHMARK_DATA = {
           2990.553205871582,
           3003.9591344197593,
           2388.541576930455,
-          3440.1223337809247
+          3440.1223337809247,
+          3222.7258595057897
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -29484,6 +29574,7 @@ window.BENCHMARK_DATA = {
           7517,
           7509,
           7509,
+          7517,
           7517,
           7517
         ],
@@ -29824,7 +29915,8 @@ window.BENCHMARK_DATA = {
           159.87384125391642,
           171.51261522219733,
           112.45912546316782,
-          163.93049265657152
+          163.93049265657152,
+          148.3251429115023
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -30114,6 +30206,7 @@ window.BENCHMARK_DATA = {
           728,
           728,
           728,
+          808,
           808,
           808,
           808,
@@ -30499,7 +30592,8 @@ window.BENCHMARK_DATA = {
           290.2871688842773,
           314.6783208847046,
           205.3564011133634,
-          292.69010601043703
+          292.69010601043703,
+          263.37571994463605
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -30810,6 +30904,7 @@ window.BENCHMARK_DATA = {
           2136,
           2136,
           2136,
+          1424,
           1424,
           1424,
           1424,
@@ -32799,6 +32894,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -33126,7 +33227,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -33457,7 +33559,8 @@ window.BENCHMARK_DATA = {
           315.18724393844604,
           307.64170125552585,
           234.8621074517568,
-          274.8295465707779
+          274.8295465707779,
+          272.08327858788624
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -33786,6 +33889,7 @@ window.BENCHMARK_DATA = {
           1096,
           1096,
           1096,
+          1104,
           1104,
           1104,
           1104,
@@ -34132,7 +34236,8 @@ window.BENCHMARK_DATA = {
           4822.547815958659,
           4799.700232914516,
           3621.421606336321,
-          4645.2884850135215
+          4645.2884850135215,
+          4707.60202898298
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -34422,6 +34527,7 @@ window.BENCHMARK_DATA = {
           18901,
           18906,
           18883,
+          10536,
           10536,
           10536,
           10536,
@@ -34807,7 +34913,8 @@ window.BENCHMARK_DATA = {
           6415.46321996053,
           6097.4192299476035,
           4337.168363717886,
-          6097.591770172119
+          6097.591770172119,
+          6204.841085706438
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -35140,6 +35247,7 @@ window.BENCHMARK_DATA = {
           12840,
           12840,
           12841,
+          12840,
           12840,
           12840,
           12840,
@@ -35482,7 +35590,8 @@ window.BENCHMARK_DATA = {
           5958.1038562229705,
           5773.240569481482,
           4317.6851561410085,
-          5833.3742268880205
+          5833.3742268880205,
+          5765.1354399461015
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -35817,6 +35926,7 @@ window.BENCHMARK_DATA = {
           15754,
           15748,
           15748,
+          15754,
           15754,
           15754
         ],
@@ -36157,7 +36267,8 @@ window.BENCHMARK_DATA = {
           328.0836016337077,
           333.7554594039917,
           251.41529350280763,
-          303.41535234451294
+          303.41535234451294,
+          293.9375162124634
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -36447,6 +36558,7 @@ window.BENCHMARK_DATA = {
           1088,
           1088,
           1088,
+          1168,
           1168,
           1168,
           1168,
@@ -36832,7 +36944,8 @@ window.BENCHMARK_DATA = {
           1026.0074860709053,
           1035.6592450459798,
           826.115091196696,
-          891.5941282419058
+          891.5941282419058,
+          893.5654447555542
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -37143,6 +37256,7 @@ window.BENCHMARK_DATA = {
           3888,
           3888,
           3888,
+          3288,
           3288,
           3288,
           3288,
@@ -39132,6 +39246,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -39459,7 +39579,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -39790,7 +39911,8 @@ window.BENCHMARK_DATA = {
           161.12502024968464,
           192.9586366812388,
           203.77026878084456,
-          237.8613328297933
+          237.8613328297933,
+          190.63445327832147
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -40119,6 +40241,7 @@ window.BENCHMARK_DATA = {
           920,
           920,
           920,
+          928,
           928,
           928,
           928,
@@ -40465,7 +40588,8 @@ window.BENCHMARK_DATA = {
           5193.516866048177,
           7480.302044208233,
           8049.475930350168,
-          10686.60893031529
+          10686.60893031529,
+          7569.7285847981775
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -40801,7 +40925,8 @@ window.BENCHMARK_DATA = {
           10568,
           10569,
           10569,
-          10458
+          10458,
+          10568
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -41140,7 +41265,8 @@ window.BENCHMARK_DATA = {
           3601.875527445475,
           5432.020428975423,
           5803.333950805664,
-          7533.123280334473
+          7533.123280334473,
+          5263.611893245152
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -41476,6 +41602,7 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11688,
+          11664,
           11664
         ],
         "borderColor": "#5E2750",
@@ -41815,7 +41942,8 @@ window.BENCHMARK_DATA = {
           3671.7094299316404,
           5170.585912068685,
           5835.826433454241,
-          7828.7594411214195
+          7828.7594411214195,
+          5247.06041935512
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -42145,6 +42273,7 @@ window.BENCHMARK_DATA = {
           11196,
           11196,
           11191,
+          11196,
           11196,
           11196,
           11196,
@@ -42490,7 +42619,8 @@ window.BENCHMARK_DATA = {
           108.8340692281723,
           133.96422295570375,
           138.93739575606125,
-          164.2293037970861
+          164.2293037970861,
+          132.44089069366456
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -42656,6 +42786,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -43165,7 +43296,8 @@ window.BENCHMARK_DATA = {
           224.33422656059264,
           285.92194379170735,
           323.40834459891687,
-          375.9985549109323
+          375.9985549109323,
+          280.8031995637076
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -43476,6 +43608,7 @@ window.BENCHMARK_DATA = {
           1672,
           1672,
           1672,
+          1464,
           1464,
           1464,
           1464,
@@ -45465,6 +45598,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -45792,7 +45931,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -46123,7 +46263,8 @@ window.BENCHMARK_DATA = {
           415.6900517463684,
           487.2441072463989,
           528.0955040114267,
-          589.9369858228243
+          589.9369858228243,
+          492.2290651957194
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -46452,6 +46593,7 @@ window.BENCHMARK_DATA = {
           1784,
           1784,
           1784,
+          1792,
           1792,
           1792,
           1792,
@@ -46798,7 +46940,8 @@ window.BENCHMARK_DATA = {
           8905.584553309849,
           12455.240585327148,
           13116.693469238282,
-          16958.6874025785
+          16958.6874025785,
+          12136.744309561593
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -47134,7 +47277,8 @@ window.BENCHMARK_DATA = {
           18505,
           18505,
           18505,
-          17385
+          17385,
+          18505
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -47473,7 +47617,8 @@ window.BENCHMARK_DATA = {
           8966.187895202636,
           12890.158322143554,
           13007.809841449443,
-          17184.933698214016
+          17184.933698214016,
+          13023.368723551432
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -47809,6 +47954,7 @@ window.BENCHMARK_DATA = {
           21529,
           21529,
           21553,
+          21529,
           21529
         ],
         "borderColor": "#5E2750",
@@ -48148,7 +48294,8 @@ window.BENCHMARK_DATA = {
           10284.301860046387,
           13107.89346923828,
           13980.446086629232,
-          19256.903126307898
+          19256.903126307898,
+          13067.190338134766
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -48478,6 +48625,7 @@ window.BENCHMARK_DATA = {
           30785,
           30785,
           30780,
+          30785,
           30785,
           30785,
           30785,
@@ -48823,7 +48971,8 @@ window.BENCHMARK_DATA = {
           255.98409783045452,
           245.2826258977254,
           265.94318911007474,
-          323.34983898798623
+          323.34983898798623,
+          255.3882167180379
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -48989,6 +49138,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -49498,7 +49648,8 @@ window.BENCHMARK_DATA = {
           919.0106468200684,
           1003.3550897325788,
           1108.4068463189262,
-          1295.841956615448
+          1295.841956615448,
+          1005.5925990513393
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -49809,6 +49960,7 @@ window.BENCHMARK_DATA = {
           4024,
           4024,
           4024,
+          3600,
           3600,
           3600,
           3600,
@@ -51798,6 +51950,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -52125,7 +52283,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -52456,7 +52615,8 @@ window.BENCHMARK_DATA = {
           15.329704701900482,
           9.90156688942359,
           17.435815115769703,
-          12.480142146348953
+          12.480142146348953,
+          16.022500419616698
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -52686,6 +52846,7 @@ window.BENCHMARK_DATA = {
           160,
           160,
           160,
+          136,
           136,
           136,
           136,
@@ -53131,7 +53292,8 @@ window.BENCHMARK_DATA = {
           85.40161473751068,
           62.05340609550476,
           89.72247231006622,
-          72.11557420400473
+          72.11557420400473,
+          86.77847212950388
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -53297,6 +53459,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -53806,7 +53969,8 @@ window.BENCHMARK_DATA = {
           25.99918626134212,
           18.298290890455245,
           27.442442977428435,
-          22.922281616500445
+          22.922281616500445,
+          25.56719287733237
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -53940,6 +54104,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -54481,7 +54646,8 @@ window.BENCHMARK_DATA = {
           1254.587336476644,
           804.672874323527,
           1272.5689089638847,
-          810.609737941197
+          810.609737941197,
+          1238.496233667646
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -54642,6 +54808,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -55156,7 +55323,8 @@ window.BENCHMARK_DATA = {
           1844.587832514445,
           1164.3837200164794,
           1852.4680601755779,
-          1094.0409991400581
+          1094.0409991400581,
+          1840.2964260394756
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -55317,6 +55485,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -55831,7 +56000,8 @@ window.BENCHMARK_DATA = {
           1502.0409698486328,
           991.7699297587078,
           1535.6106177012125,
-          954.4477603094919
+          954.4477603094919,
+          1512.333950996399
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -56167,7 +56337,8 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2755,
-          2751
+          2751,
+          2755
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -57033,6 +57204,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -57177,7 +57354,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -57325,7 +57503,8 @@ window.BENCHMARK_DATA = {
           1524.8261942545573,
           1510.8141907283239,
           2347.379477183024,
-          1702.01476465861
+          1702.01476465861,
+          2386.545793851217
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -57471,6 +57650,7 @@ window.BENCHMARK_DATA = {
           5264,
           5264,
           5264,
+          5296,
           5296,
           5296,
           5296,
@@ -57634,7 +57814,8 @@ window.BENCHMARK_DATA = {
           1727.6907774607341,
           1724.0665405818395,
           2514.1274809156143,
-          1992.0155199686685
+          1992.0155199686685,
+          2519.4248193594126
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -57787,6 +57968,7 @@ window.BENCHMARK_DATA = {
           7384,
           7384,
           7384,
+          7385,
           7385
         ],
         "borderColor": "#E84393",
@@ -57943,7 +58125,8 @@ window.BENCHMARK_DATA = {
           2979.972312927246,
           3080.020829274104,
           4526.119536179763,
-          3414.234745172354
+          3414.234745172354,
+          4735.061082967122
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -58071,6 +58254,7 @@ window.BENCHMARK_DATA = {
           17360,
           17360,
           17360,
+          10920,
           10920,
           10920,
           10920,
@@ -58252,7 +58436,8 @@ window.BENCHMARK_DATA = {
           794348.5740885417,
           793315.722516741,
           1079719.5232979911,
-          1008196.7547433035
+          1008196.7547433035,
+          1414827.42578125
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -58405,7 +58590,8 @@ window.BENCHMARK_DATA = {
           92661,
           92805,
           92291,
-          92675
+          92675,
+          92151
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -58561,7 +58747,8 @@ window.BENCHMARK_DATA = {
           249040.41071965144,
           250834.32966496394,
           343967.80198317306,
-          271075.8868582589
+          271075.8868582589,
+          312213.92515345983
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -58714,6 +58901,7 @@ window.BENCHMARK_DATA = {
           54356,
           54356,
           54356,
+          54382,
           54382
         ],
         "borderColor": "#5E2750",
@@ -58870,7 +59058,8 @@ window.BENCHMARK_DATA = {
           286025.8556640625,
           283006.4876627604,
           381551.1668526786,
-          306443.6180245536
+          306443.6180245536,
+          356793.4688476563
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -59023,7 +59212,8 @@ window.BENCHMARK_DATA = {
           65388,
           65628,
           65389,
-          65641
+          65641,
+          65399
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -59775,6 +59965,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -59900,7 +60096,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -60029,7 +60226,8 @@ window.BENCHMARK_DATA = {
           21871.717237200057,
           20796.021174839563,
           16147.643456595284,
-          20068.609036959133
+          20068.609036959133,
+          20163.504278564455
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -60156,6 +60354,7 @@ window.BENCHMARK_DATA = {
           56536,
           56536,
           56536,
+          56544,
           56544,
           56544,
           56544,
@@ -60300,7 +60499,8 @@ window.BENCHMARK_DATA = {
           18408.403700764975,
           17468.697408822867,
           13837.542307172504,
-          17714.241607666016
+          17714.241607666016,
+          17946.009898594446
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -60388,6 +60588,7 @@ window.BENCHMARK_DATA = {
           40688,
           40688,
           40688,
+          40768,
           40768,
           40768,
           40768,
@@ -60571,7 +60772,8 @@ window.BENCHMARK_DATA = {
           76919.10033365885,
           72792.03627366286,
           60328.4471609933,
-          62793.85465181791
+          62793.85465181791,
+          64194.15485088642
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -60705,6 +60907,7 @@ window.BENCHMARK_DATA = {
           178353,
           178353,
           178352,
+          178353,
           178353
         ],
         "borderColor": "#FF8C00",
@@ -60842,7 +61045,8 @@ window.BENCHMARK_DATA = {
           154242.42021833148,
           145325.78041294642,
           105175.42526041667,
-          143799.29560546874
+          143799.29560546874,
+          149017.21923828125
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -60976,7 +61180,8 @@ window.BENCHMARK_DATA = {
           423539,
           423539,
           423562,
-          423563
+          423563,
+          423564
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -61113,7 +61318,8 @@ window.BENCHMARK_DATA = {
           190585.99506835936,
           176229.01263427734,
           137701.4151436942,
-          207171.4111328125
+          207171.4111328125,
+          206923.4001953125
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -61247,7 +61453,8 @@ window.BENCHMARK_DATA = {
           378514,
           378514,
           378535,
-          378537
+          378537,
+          378535
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -61384,7 +61591,8 @@ window.BENCHMARK_DATA = {
           312088.259375,
           285030.8679361979,
           211858.54130859376,
-          286752.69921875
+          286752.69921875,
+          286652.0705078125
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -61518,6 +61726,7 @@ window.BENCHMARK_DATA = {
           943883,
           943883,
           943741,
+          943722,
           943722
         ],
         "borderColor": "#4A6FA5",
@@ -62270,6 +62479,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -62395,7 +62610,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -62524,7 +62740,8 @@ window.BENCHMARK_DATA = {
           29967.465489705402,
           33587.232458496095,
           34023.58808781551,
-          38761.59203694661
+          38761.59203694661,
+          34242.263017926896
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -62651,6 +62868,7 @@ window.BENCHMARK_DATA = {
           96824,
           96824,
           96824,
+          96832,
           96832,
           96832,
           96832,
@@ -62795,7 +63013,8 @@ window.BENCHMARK_DATA = {
           15945.344551595052,
           13028.470533243815,
           13635.128874460856,
-          16111.285710261418
+          16111.285710261418,
+          13534.518516031902
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -62923,6 +63142,7 @@ window.BENCHMARK_DATA = {
           32641,
           32641,
           32640,
+          32641,
           32641,
           32641,
           32641,
@@ -63066,7 +63286,8 @@ window.BENCHMARK_DATA = {
           75237.18144880023,
           74919.18371582031,
           78947.31133563702,
-          97220.76885516827
+          97220.76885516827,
+          85580.69128417969
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -63200,6 +63421,7 @@ window.BENCHMARK_DATA = {
           218305,
           218305,
           218304,
+          218305,
           218305
         ],
         "borderColor": "#FF8C00",
@@ -63337,7 +63559,8 @@ window.BENCHMARK_DATA = {
           382941.02877604164,
           522240.780203683,
           563854.2009114583,
-          632226.7641927083
+          632226.7641927083,
+          546659.9804036458
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -63471,7 +63694,8 @@ window.BENCHMARK_DATA = {
           836538,
           836540,
           836541,
-          724511
+          724511,
+          836541
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -63608,7 +63832,8 @@ window.BENCHMARK_DATA = {
           583060.1071614583,
           798799.0279017857,
           800647.9010416666,
-          1057128.575420673
+          1057128.575420673,
+          853198.9658854167
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -63742,7 +63967,8 @@ window.BENCHMARK_DATA = {
           1139702,
           1139701,
           1139726,
-          1139704
+          1139704,
+          1139701
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -63879,7 +64105,8 @@ window.BENCHMARK_DATA = {
           739463.2345703125,
           1002758.291796875,
           1056281.2641927083,
-          1289063.1575520833
+          1289063.1575520833,
+          1047133.3445870535
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -64013,7 +64240,8 @@ window.BENCHMARK_DATA = {
           2194325,
           2194325,
           2194290,
-          2194291
+          2194291,
+          2194290
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -64765,6 +64993,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -64890,7 +65124,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -65019,7 +65254,8 @@ window.BENCHMARK_DATA = {
           68682.39991861979,
           82272.57509358723,
           84469.22263183593,
-          86683.35252162388
+          86683.35252162388,
+          84315.97725132534
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -65146,6 +65382,7 @@ window.BENCHMARK_DATA = {
           105721,
           105721,
           105737,
+          105745,
           105745,
           105745,
           105745,
@@ -65290,7 +65527,8 @@ window.BENCHMARK_DATA = {
           29861.29186808268,
           39247.42048746745,
           50353.25348336356,
-          40930.32215983073
+          40930.32215983073,
+          42940.48369954427
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -65424,6 +65662,7 @@ window.BENCHMARK_DATA = {
           121101,
           121097,
           121101,
+          121097,
           121097
         ],
         "borderColor": "#E84393",
@@ -65561,7 +65800,8 @@ window.BENCHMARK_DATA = {
           601187.3530649039,
           829934.2213541666,
           1332087.4772135417,
-          837498.3578404018
+          837498.3578404018,
+          839350.6293619792
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -65695,7 +65935,8 @@ window.BENCHMARK_DATA = {
           1048315,
           1048197,
           1048406,
-          1049005
+          1049005,
+          1048357
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -65832,7 +66073,8 @@ window.BENCHMARK_DATA = {
           909014.6099330357,
           1250092.9346354166,
           1915434.4830979567,
-          1269238.2310267857
+          1269238.2310267857,
+          1270857.0689453124
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -65966,6 +66208,7 @@ window.BENCHMARK_DATA = {
           1515916,
           1515778,
           1515860,
+          1515722,
           1515722
         ],
         "borderColor": "#5E2750",
@@ -66103,7 +66346,8 @@ window.BENCHMARK_DATA = {
           824337.8178335336,
           1121343.2049386161,
           1725171.7268229167,
-          1192445.3424944195
+          1192445.3424944195,
+          1166981.7172154018
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -66237,7 +66481,8 @@ window.BENCHMARK_DATA = {
           2221517,
           2221357,
           2221384,
-          2221693
+          2221693,
+          2221357
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -66372,7 +66617,8 @@ window.BENCHMARK_DATA = {
           110092.89237060546,
           137588.55678710938,
           169852.6684407552,
-          145325.74259440103
+          145325.74259440103,
+          141831.52320963543
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -66479,6 +66725,7 @@ window.BENCHMARK_DATA = {
           300785,
           300785,
           300785,
+          299545,
           299545,
           299545,
           299545,
@@ -67208,6 +67455,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -67325,7 +67578,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -67446,7 +67700,8 @@ window.BENCHMARK_DATA = {
           479.6551457132612,
           435.4111100264958,
           318.3747810999552,
-          766.7839372634887
+          766.7839372634887,
+          429.8773042678833
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -67565,6 +67820,7 @@ window.BENCHMARK_DATA = {
           1544,
           1544,
           1560,
+          1568,
           1568,
           1568,
           1568,
@@ -67701,7 +67957,8 @@ window.BENCHMARK_DATA = {
           283.6646096229553,
           264.86752697137683,
           175.33441414151872,
-          249.4031684948848
+          249.4031684948848,
+          259.8163490931193
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -67713,6 +67970,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1088,
           1088,
           1088,
           1088,
@@ -67956,7 +68214,8 @@ window.BENCHMARK_DATA = {
           537.2311220169067,
           487.47472337087,
           338.07809127171834,
-          474.2234651361193
+          474.2234651361193,
+          471.4273862838745
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -68057,6 +68316,7 @@ window.BENCHMARK_DATA = {
           1856,
           1856,
           1856,
+          1784,
           1784,
           1784,
           1784,
@@ -68211,7 +68471,8 @@ window.BENCHMARK_DATA = {
           117556.1618326823,
           115669.49594726562,
           35347.611275809155,
-          114154.57224934896
+          114154.57224934896,
+          115239.00457356771
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -68337,6 +68598,7 @@ window.BENCHMARK_DATA = {
           10030,
           10030,
           10031,
+          10030,
           10030
         ],
         "borderColor": "#A052B0",
@@ -68466,7 +68728,8 @@ window.BENCHMARK_DATA = {
           7687.516992841448,
           7500.516691080729,
           4290.236530049642,
-          7833.902989705403
+          7833.902989705403,
+          7299.424989972796
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -68581,6 +68844,7 @@ window.BENCHMARK_DATA = {
           10248,
           10248,
           10416,
+          10248,
           10248,
           10248,
           10248,
@@ -68721,7 +68985,8 @@ window.BENCHMARK_DATA = {
           7865.946677652994,
           7629.503967793783,
           4242.032201639811,
-          7441.766188988318
+          7441.766188988318,
+          7416.235558573405
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -68847,6 +69112,7 @@ window.BENCHMARK_DATA = {
           11854,
           11966,
           11853,
+          11854,
           11854
         ],
         "borderColor": "#4A6FA5",
@@ -69551,6 +69817,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -69668,7 +69940,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -69789,7 +70062,8 @@ window.BENCHMARK_DATA = {
           1612.3721249444145,
           1564.267739704677,
           1148.219792429606,
-          1554.408245976766
+          1554.408245976766,
+          1553.2442169189453
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -69908,6 +70182,7 @@ window.BENCHMARK_DATA = {
           4016,
           4016,
           4032,
+          4040,
           4040,
           4040,
           4040,
@@ -70044,7 +70319,8 @@ window.BENCHMARK_DATA = {
           994.903138478597,
           968.340708051409,
           674.0774313926697,
-          921.4471357981364
+          921.4471357981364,
+          959.6211240632193
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -70056,6 +70332,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2960,
           2960,
           2960,
           2960,
@@ -70299,7 +70576,8 @@ window.BENCHMARK_DATA = {
           3247.6509923299154,
           3091.8999165126256,
           2069.799701145717,
-          3084.8680452982585
+          3084.8680452982585,
+          3136.020886230469
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -70400,6 +70678,7 @@ window.BENCHMARK_DATA = {
           8672,
           8672,
           8672,
+          8600,
           8600,
           8600,
           8600,
@@ -70554,7 +70833,8 @@ window.BENCHMARK_DATA = {
           132327.40297851563,
           130811.90152994792,
           40329.08692278181,
-          129359.35917154948
+          129359.35917154948,
+          130034.40346679688
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -70680,6 +70960,7 @@ window.BENCHMARK_DATA = {
           25115,
           25115,
           25114,
+          25115,
           25115
         ],
         "borderColor": "#A052B0",
@@ -70809,7 +71090,8 @@ window.BENCHMARK_DATA = {
           23668.286365763346,
           23884.671478271484,
           13095.857128397623,
-          23396.786208089194
+          23396.786208089194,
+          23390.82478114537
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -70929,6 +71211,7 @@ window.BENCHMARK_DATA = {
           23481,
           23480,
           23480,
+          23481,
           23481,
           23481,
           23481,
@@ -71064,7 +71347,8 @@ window.BENCHMARK_DATA = {
           28657.814841715495,
           28089.15870361328,
           16738.86755167643,
-          28141.334037272136
+          28141.334037272136,
+          27501.71176961263
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -71189,6 +71473,7 @@ window.BENCHMARK_DATA = {
           55328,
           55216,
           55328,
+          55216,
           55216,
           55216
         ],
@@ -71894,6 +72179,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -72011,7 +72302,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -72132,7 +72424,8 @@ window.BENCHMARK_DATA = {
           127489.22775065104,
           121218.2722516741,
           91569.86079758864,
-          124645.51049804688
+          124645.51049804688,
+          122782.44111328125
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -72251,6 +72544,7 @@ window.BENCHMARK_DATA = {
           273297,
           273297,
           273313,
+          273321,
           273321,
           273321,
           273321,
@@ -72387,7 +72681,8 @@ window.BENCHMARK_DATA = {
           83188.07014160157,
           81269.3057454427,
           58344.638690185544,
-          77548.02454552284
+          77548.02454552284,
+          78611.7184733073
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -72507,6 +72802,7 @@ window.BENCHMARK_DATA = {
           208883,
           208881,
           208881,
+          208883,
           208883,
           208883,
           208883,
@@ -72642,7 +72938,8 @@ window.BENCHMARK_DATA = {
           303180.03880208335,
           297654.12454427086,
           203935.91373697916,
-          294467.3098842076
+          294467.3098842076,
+          294404.26578776044
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -72768,6 +73065,7 @@ window.BENCHMARK_DATA = {
           707722,
           707722,
           707721,
+          707722,
           707722
         ],
         "borderColor": "#FF8C00",
@@ -72897,7 +73195,8 @@ window.BENCHMARK_DATA = {
           1555850.7820870536,
           1524660.1326622595,
           876992.3590959822,
-          1498329.532451923
+          1498329.532451923,
+          1645213.8266276042
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -73023,7 +73322,8 @@ window.BENCHMARK_DATA = {
           1692680,
           1692680,
           1692675,
-          1692680
+          1692680,
+          1692678
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -73152,7 +73452,8 @@ window.BENCHMARK_DATA = {
           1756414.7006138393,
           1812007.3895833334,
           1044965.1960100447,
-          1733661.9702845982
+          1733661.9702845982,
+          1762375.0141927083
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -73278,6 +73579,7 @@ window.BENCHMARK_DATA = {
           1468916,
           1468916,
           1468913,
+          1468916,
           1468916
         ],
         "borderColor": "#5E2750",
@@ -73407,7 +73709,8 @@ window.BENCHMARK_DATA = {
           2947632.3471354167,
           2970588.578255208,
           1937700.0713541666,
-          2863385.164192708
+          2863385.164192708,
+          3020128.5690104165
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -73533,6 +73836,7 @@ window.BENCHMARK_DATA = {
           4803385,
           4803673,
           4803383,
+          4803387,
           4803387
         ],
         "borderColor": "#4A6FA5",
@@ -74033,6 +74337,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -74116,7 +74426,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -74203,7 +74514,8 @@ window.BENCHMARK_DATA = {
           185.50630933897835,
           248.18577177183968,
           253.16179316838583,
-          275.20019691331044
+          275.20019691331044,
+          304.99251852035525
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -74288,6 +74600,7 @@ window.BENCHMARK_DATA = {
           1024,
           1024,
           1024,
+          1032,
           1032,
           1032,
           1032,
@@ -74390,7 +74703,8 @@ window.BENCHMARK_DATA = {
           261.71844186782835,
           347.40406153996787,
           354.5957833925883,
-          382.9404592880836
+          382.9404592880836,
+          401.6585154533386
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -74402,6 +74716,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1616,
           1616,
           1616,
           1616,
@@ -74577,7 +74892,8 @@ window.BENCHMARK_DATA = {
           496.91015872955325,
           637.2391377176557,
           651.7102135340373,
-          691.7706508000691
+          691.7706508000691,
+          713.8448070798602
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -74644,6 +74960,7 @@ window.BENCHMARK_DATA = {
           4464,
           4464,
           4464,
+          2632,
           2632,
           2632,
           2632,
@@ -74764,7 +75081,8 @@ window.BENCHMARK_DATA = {
           97170.3855329241,
           201458.17919921875,
           204834.94767878606,
-          207995.53356119792
+          207995.53356119792,
+          119195.29924665179
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -74856,7 +75174,8 @@ window.BENCHMARK_DATA = {
           23313,
           23302,
           23302,
-          23302
+          23302,
+          23307
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -74951,7 +75270,8 @@ window.BENCHMARK_DATA = {
           8007.607389177595,
           10868.598313467843,
           11852.741134643555,
-          11471.63253885905
+          11471.63253885905,
+          10662.402751042293
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -75043,7 +75363,8 @@ window.BENCHMARK_DATA = {
           19553,
           19553,
           19742,
-          19741
+          19741,
+          19515
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -75138,7 +75459,8 @@ window.BENCHMARK_DATA = {
           5965.210547892252,
           8293.7486038208,
           8530.65114375523,
-          8043.943817138672
+          8043.943817138672,
+          7006.586794535319
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -75230,7 +75552,8 @@ window.BENCHMARK_DATA = {
           14332,
           14412,
           14332,
-          14332
+          14332,
+          14325
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -75730,6 +76053,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -75813,7 +76142,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -75900,7 +76230,8 @@ window.BENCHMARK_DATA = {
           947.3468639667218,
           1212.6501829964775,
           1230.752342224121,
-          1224.3141790117536
+          1224.3141790117536,
+          1255.8417359987895
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -75985,6 +76316,7 @@ window.BENCHMARK_DATA = {
           3040,
           3040,
           3040,
+          3048,
           3048,
           3048,
           3048,
@@ -76087,7 +76419,8 @@ window.BENCHMARK_DATA = {
           891.9208775202434,
           1155.2838175637382,
           1579.5321315765382,
-          1173.9308480482835
+          1173.9308480482835,
+          1234.456841913859
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -76099,6 +76432,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          3488,
           3488,
           3488,
           3488,
@@ -76274,7 +76608,8 @@ window.BENCHMARK_DATA = {
           2689.128170285906,
           3449.991719818115,
           3767.8325490315756,
-          3332.731002807617
+          3332.731002807617,
+          3463.2744290669757
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -76341,6 +76676,7 @@ window.BENCHMARK_DATA = {
           10536,
           10536,
           10536,
+          9440,
           9440,
           9440,
           9440,
@@ -76461,7 +76797,8 @@ window.BENCHMARK_DATA = {
           119329.53112792969,
           239253.443359375,
           235678.1875751202,
-          238717.04275716146
+          238717.04275716146,
+          145506.14451497394
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -76553,7 +76890,8 @@ window.BENCHMARK_DATA = {
           41152,
           41153,
           41153,
-          41153
+          41153,
+          41142
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -76648,7 +76986,8 @@ window.BENCHMARK_DATA = {
           15022.216993478629,
           20187.99131673177,
           20285.660430908203,
-          20514.33399963379
+          20514.33399963379,
+          18347.41494140625
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -76740,7 +77079,8 @@ window.BENCHMARK_DATA = {
           30095,
           30101,
           31330,
-          32328
+          32328,
+          30082
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -76835,7 +77175,8 @@ window.BENCHMARK_DATA = {
           21581.62567952474,
           32281.710699462892,
           30549.21875469501,
-          30835.619746907552
+          30835.619746907552,
+          27741.791314697264
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -76927,7 +77268,8 @@ window.BENCHMARK_DATA = {
           60496,
           60577,
           60496,
-          60496
+          60496,
+          60493
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -77427,6 +77769,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -77510,7 +77858,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -77597,7 +77946,8 @@ window.BENCHMARK_DATA = {
           81590.4768851144,
           109495.9374186198,
           108287.97063337054,
-          107761.83530273437
+          107761.83530273437,
+          106104.77700195313
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -77685,6 +78035,7 @@ window.BENCHMARK_DATA = {
           224809,
           224809,
           224808,
+          224809,
           224809,
           224809,
           224809,
@@ -77784,7 +78135,8 @@ window.BENCHMARK_DATA = {
           70583.90526404747,
           90389.15313720703,
           88161.92258707683,
-          86943.59490559896
+          86943.59490559896,
+          90658.70411783854
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -77876,7 +78228,8 @@ window.BENCHMARK_DATA = {
           209408,
           209409,
           209409,
-          209409
+          209409,
+          209408
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -77971,7 +78324,8 @@ window.BENCHMARK_DATA = {
           229457.6076904297,
           284454.3955829327,
           325264.06875,
-          271838.9383719308
+          271838.9383719308,
+          280612.205859375
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -78061,6 +78415,7 @@ window.BENCHMARK_DATA = {
           653538,
           653538,
           653537,
+          653538,
           653538,
           653538,
           653538
@@ -78158,7 +78513,8 @@ window.BENCHMARK_DATA = {
           2214327.12421875,
           3220087.991927083,
           3135532.181640625,
-          3196101.9248798075
+          3196101.9248798075,
+          2442945.173697917
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -78250,7 +78606,8 @@ window.BENCHMARK_DATA = {
           1936410,
           1936410,
           1936410,
-          1936408
+          1936408,
+          1936120
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -78345,7 +78702,8 @@ window.BENCHMARK_DATA = {
           718786.457406851,
           908097.9706380208,
           984747.261328125,
-          1028974.7977864583
+          1028974.7977864583,
+          769354.5585286458
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -78437,7 +78795,8 @@ window.BENCHMARK_DATA = {
           1118986,
           1119052,
           1231501,
-          1343692
+          1343692,
+          1117063
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -78532,7 +78891,8 @@ window.BENCHMARK_DATA = {
           2441890.437109375,
           3016954.5053385417,
           3099225.0151041667,
-          2960960.8317522323
+          2960960.8317522323,
+          2808643.3
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -78624,7 +78984,8 @@ window.BENCHMARK_DATA = {
           5051807,
           5051817,
           5051809,
-          5051810
+          5051810,
+          5051646
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -79124,6 +79485,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 14:17:59 2026 \u002B0100",
         "message": "fix: compare a mock to itself as equal when Equals(object) is not set up (#1159)"
+      },
+      {
+        "sha": "0e2293ce3cf362d50e0ba56c64bbf156a9c923e2",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 18:02:42 2026 \u002B0100",
+        "message": "refactor: name literal arguments (#1165)"
       }
     ],
     "labels": [
@@ -79207,7 +79574,8 @@ window.BENCHMARK_DATA = {
       "609bbacb",
       "6b38ddbb",
       "0d7a20e9",
-      "887466da"
+      "887466da",
+      "0e2293ce"
     ],
     "datasets": [
       {
@@ -79294,7 +79662,8 @@ window.BENCHMARK_DATA = {
           2565.9783551534015,
           2605.1440452575685,
           1858.2270938328334,
-          3389.433125559489
+          3389.433125559489,
+          3606.9793479919435
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -79379,6 +79748,7 @@ window.BENCHMARK_DATA = {
           2288,
           2288,
           2288,
+          2296,
           2296,
           2296,
           2296,
@@ -79481,7 +79851,8 @@ window.BENCHMARK_DATA = {
           2405.510074908917,
           2326.9860270573545,
           1740.4657564163208,
-          3075.685607763437
+          3075.685607763437,
+          3044.7081530253095
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -79493,6 +79864,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2288,
           2288,
           2288,
           2288,
@@ -79668,7 +80040,8 @@ window.BENCHMARK_DATA = {
           2820.9412937164307,
           2728.2192390441896,
           2062.8587882995607,
-          3549.5197273890176
+          3549.5197273890176,
+          3568.141996002197
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -79735,6 +80108,7 @@ window.BENCHMARK_DATA = {
           3344,
           3344,
           3344,
+          2912,
           2912,
           2912,
           2912,
@@ -79855,7 +80229,8 @@ window.BENCHMARK_DATA = {
           10097.616962687174,
           9595.289918009441,
           6740.217043195452,
-          14227.134149169922
+          14227.134149169922,
+          12623.057608971229
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -79926,6 +80301,7 @@ window.BENCHMARK_DATA = {
           11048,
           11048,
           11049,
+          11048,
           11048,
           11048,
           11048,
@@ -80042,7 +80418,8 @@ window.BENCHMARK_DATA = {
           8689.600151570638,
           8415.278345743814,
           5652.8756169637045,
-          12337.048080444336
+          12337.048080444336,
+          11181.945699419293
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -80134,7 +80511,8 @@ window.BENCHMARK_DATA = {
           14633,
           14633,
           14633,
-          14633
+          14633,
+          14632
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -80229,7 +80607,8 @@ window.BENCHMARK_DATA = {
           8869.391872950962,
           8696.112360127767,
           5984.957036336263,
-          13317.702770996093
+          13317.702770996093,
+          11647.594545491536
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -80321,7 +80700,8 @@ window.BENCHMARK_DATA = {
           14620,
           14620,
           14620,
-          14620
+          14620,
+          14614
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
