@@ -30,6 +30,16 @@ internal static partial class SourceTemplates
 	}
 
 	/// <summary>
+	///     Appends <c>[DebuggerNonUserCode]</c>, but only in a Release build of the generator.
+	/// </summary>
+	private static void AppendDebuggerNonUserCode(StringBuilder sb, string indent)
+	{
+#if !DEBUG
+		sb.Append(indent).Append("[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
+#endif
+	}
+
+	/// <summary>
 	///     Generates a comma-separated list of generic type parameters (e.g., "T1, T2, T3").
 	/// </summary>
 	private static string GetGenericTypeParameters(int count, int startIndex = 1)

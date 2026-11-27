@@ -24,9 +24,7 @@ internal static partial class SourceTemplates
 		sb.Append("/// <summary>").AppendLine();
 		sb.Append("///     Extensions for setting up return values and throwing exceptions for <see langword=\"async\" /> methods.").AppendLine();
 		sb.Append("/// </summary>").AppendLine();
-#if !DEBUG
-		sb.Append("[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+		AppendDebuggerNonUserCode(sb, "");
 		sb.Append("[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 		sb.Append("internal static class ReturnsThrowsAsyncExtensions2").AppendLine();
 		sb.Append('{').AppendLine();

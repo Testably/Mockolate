@@ -23,9 +23,7 @@ internal static partial class SourceTemplates
 		              ///     If your type is a class without a default constructor, you can provide constructor parameters by passing an <c>object?[]?</c> to the corresponding <c>CreateMock(...)</c> overload.
 		              /// </remarks>
 		              """);
-#if !DEBUG
-		sb.Append("[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+		AppendDebuggerNonUserCode(sb, "");
 		sb.AppendLine("""
 		              [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 		              internal static partial class Mock

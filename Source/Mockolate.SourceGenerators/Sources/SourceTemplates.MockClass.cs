@@ -65,9 +65,7 @@ internal static partial class SourceTemplates
 		
 		sb.AppendXmlSummary($"A mock implementation for {classReference}.", "\t");
 		sb.Append("\t[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]").AppendLine();
-#if !DEBUG
-		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+		AppendDebuggerNonUserCode(sb, "\t");
 		sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 		sb.Append("\tinternal class ").Append(name).Append(" :").AppendLine();
 		sb.Append("\t\t").Append(@class.ClassFullName).Append(", IMockFor").Append(name).Append(", IMockSetupFor").Append(name);
@@ -378,9 +376,7 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 
 		#region VerifyMonitor
 		
-#if !DEBUG
-		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+		AppendDebuggerNonUserCode(sb, "\t");
 		sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 		sb.Append("\tprivate sealed class VerifyMonitor").Append(name).Append("(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyFor").Append(name);
 		if (hasGenericMethods)
@@ -408,9 +404,7 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 
 		#region MockInScenarioForXXX
 		
-#if !DEBUG
-		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+		AppendDebuggerNonUserCode(sb, "\t");
 		sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 		sb.Append("\tprivate sealed class MockInScenarioFor").Append(name).Append(" : global::Mockolate.Mock.IMockInScenarioFor").Append(name).Append(", global::Mockolate.Mock.IMockSetupFor").Append(name);
 		if (hasProtectedMembers)
@@ -875,9 +869,7 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 		#region MockForXXXExtensions
 
 		sb.AppendXmlSummary($"Mock extensions for {classReference}.", "");
-#if !DEBUG
-		sb.Append("[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+		AppendDebuggerNonUserCode(sb, "");
 		sb.Append("[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 		sb.Append("internal static partial class MockExtensionsFor").Append(name).AppendLine();
 		sb.Append('{').AppendLine();
@@ -1330,9 +1322,7 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 			sb.AppendLine();
 			
 			#region MockSetup
-#if !DEBUG
-			sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+			AppendDebuggerNonUserCode(sb, "\t");
 			sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 			sb.Append("\tinternal sealed class MockSetup(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockSetupFor").Append(name);
 			if (hasProtectedMembers)

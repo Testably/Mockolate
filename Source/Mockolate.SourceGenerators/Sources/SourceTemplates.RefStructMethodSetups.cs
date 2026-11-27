@@ -82,145 +82,27 @@ internal static partial class SourceTemplates
 
 	private static void AppendRefStructVoidMethodSetup(StringBuilder sb, int numberOfParameters)
 	{
-		string typeParams = GetGenericTypeParameters(numberOfParameters);
-		string iface = $"global::Mockolate.Setup.IRefStructVoidMethodSetup<{typeParams}>";
+		const string className = "RefStructVoidMethodSetup";
 		const string ifaceDoc = "global::Mockolate.Setup.IRefStructVoidMethodSetup{T}";
-		string whereClauses = BuildAllowsRefStructWhereClauses(numberOfParameters);
+		const string classDoc = "global::Mockolate.Setup.RefStructVoidMethodSetup{T}";
+		string typeParams = GetGenericTypeParameters(numberOfParameters);
+		string iface = RefStructSetupInterface(className, typeParams);
 
-		// Interface declaration.
-		sb.Append("\t/// <summary>").AppendLine();
-		sb.Append(
-				"\t///     Ref-struct-compatible void setup for arity ")
-			.Append(numberOfParameters).Append(". Mirrors the hand-written arity 1-4 surface.")
-			.AppendLine();
-		sb.Append("\t/// </summary>").AppendLine();
-		sb.Append("\tpublic interface IRefStructVoidMethodSetup<").Append(typeParams).Append("> : IMethodSetup")
-			.AppendLine();
-		sb.Append(whereClauses);
-		sb.Append("\t{").AppendLine();
-		AppendRefStructInheritdoc(sb, ifaceDoc + ".SkippingBaseClass(bool)");
-		sb.Append("\t\t").Append(iface).Append(" SkippingBaseClass(bool skipBaseClass = true);").AppendLine();
+		AppendRefStructMethodSetupInterfaceStart(sb, "void", className, typeParams, ifaceDoc, numberOfParameters);
 		AppendRefStructInheritdoc(sb, ifaceDoc + ".DoesNotThrow()");
 		sb.Append("\t\t").Append(iface).Append(" DoesNotThrow();").AppendLine();
-		AppendRefStructInheritdoc(sb, ifaceDoc + ".Throws{TException}()");
-		sb.Append("\t\t").Append(iface).Append(" Throws<TException>() where TException : global::System.Exception, new();")
-			.AppendLine();
-		AppendRefStructInheritdoc(sb, ifaceDoc + ".Throws(global::System.Exception)");
-		sb.Append("\t\t").Append(iface).Append(" Throws(global::System.Exception exception);").AppendLine();
-		AppendRefStructInheritdoc(sb, ifaceDoc + ".Throws(global::System.Func{global::System.Exception})");
-		sb.Append("\t\t").Append(iface).Append(" Throws(global::System.Func<global::System.Exception> exceptionFactory);")
-			.AppendLine();
-		sb.Append("\t}").AppendLine();
-		sb.AppendLine();
+		AppendRefStructMethodSetupInterfaceEnd(sb, className, typeParams, ifaceDoc);
 
-		// Concrete class.
-		sb.Append("\t/// <summary>").AppendLine();
-		sb.Append("\t///     Concrete ref-struct-compatible void setup for arity ").Append(numberOfParameters)
-			.Append(". See <see cref=\"global::Mockolate.Setup.RefStructVoidMethodSetup{T}\" />.").AppendLine();
-		sb.Append("\t/// </summary>").AppendLine();
-		sb.Append("#if !DEBUG").AppendLine();
-		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-		sb.Append("#endif").AppendLine();
-		sb.Append("\tpublic sealed class RefStructVoidMethodSetup<").Append(typeParams)
-			.Append("> : global::Mockolate.Setup.MethodSetup, ").Append(iface).AppendLine();
-		sb.Append(whereClauses);
-		sb.Append("\t{").AppendLine();
-		for (int i = 1; i <= numberOfParameters; i++)
-		{
-			sb.Append("\t\tprivate readonly global::Mockolate.Parameters.IParameterMatch<T").Append(i).Append(">? _matcher")
-				.Append(i).Append(';').AppendLine();
-		}
-
-		sb.Append("\t\tprivate global::System.Func<global::System.Exception?>? _returnAction;").AppendLine();
-		sb.Append("\t\tprivate bool? _skipBaseClass;").AppendLine();
-		sb.AppendLine();
-
-		// Constructor.
-		AppendRefStructInheritdoc(sb, $"global::Mockolate.Setup.RefStructVoidMethodSetup{{{typeParams}}}");
-		sb.Append("\t\tpublic RefStructVoidMethodSetup(string name");
-		for (int i = 1; i <= numberOfParameters; i++)
-		{
-			sb.Append(", global::Mockolate.Parameters.IParameterMatch<T").Append(i).Append(">? matcher").Append(i)
-				.Append(" = null");
-		}
-
-		sb.Append(") : base(name)").AppendLine();
-		sb.Append("\t\t{").AppendLine();
-		for (int i = 1; i <= numberOfParameters; i++)
-		{
-			sb.Append("\t\t\t_matcher").Append(i).Append(" = matcher").Append(i).Append(';').AppendLine();
-		}
-
-		sb.Append("\t\t}").AppendLine();
-		sb.AppendLine();
-
-		// Matches.
-		AppendRefStructInheritdoc(sb, "global::Mockolate.Setup.RefStructVoidMethodSetup{T}.Matches(T)");
-		sb.Append("\t\tpublic bool Matches(");
-		for (int i = 1; i <= numberOfParameters; i++)
-		{
-			if (i > 1)
-			{
-				sb.Append(", ");
-			}
-
-			sb.Append('T').Append(i).Append(" value").Append(i);
-		}
-
-		sb.Append(')').AppendLine();
-		for (int i = 1; i <= numberOfParameters; i++)
-		{
-			sb.Append(i == 1 ? "\t\t\t=> " : "\t\t\t   && ");
-			sb.Append("(_matcher").Append(i).Append(" is null || _matcher").Append(i).Append(".Matches(value")
-				.Append(i).Append("))");
-			sb.AppendLine();
-		}
-
-		// Strip the trailing newline appended by the loop so we can close with `;`. The
-		// StringBuilder uses `\r\n` via AppendLine on Windows and `\n` elsewhere; fall back to
-		// whichever terminator is present at the end.
-		while (sb.Length > 0 && (sb[sb.Length - 1] == '\n' || sb[sb.Length - 1] == '\r'))
-		{
-			sb.Length--;
-		}
-
-		sb.Append(';').AppendLine();
-		sb.AppendLine();
-
-		// Per-slot matcher accessors. Used by generated mock bodies to access
-		// IOutRefStructParameter<T>/IRefRefStructParameter<T> payloads on out/ref slots.
-		for (int i = 1; i <= numberOfParameters; i++)
-		{
-			sb.AppendXmlSummary(FormattableString.Invariant($"Returns the matcher for the parameter slot {i}."));
-			sb.Append(
-					"\t\t[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]")
-				.AppendLine();
-			sb.Append("\t\tpublic global::Mockolate.Parameters.IParameterMatch<T").Append(i)
-				.Append(">? GetMatcher").Append(i).Append("() => _matcher").Append(i).Append(';').AppendLine();
-		}
-
-		sb.AppendLine();
+		AppendRefStructMethodSetupClassStart(sb, "void", className, typeParams, classDoc, numberOfParameters,
+			"private global::System.Func<global::System.Exception?>? _returnAction;");
 
 		// Invoke.
-		AppendRefStructInheritdoc(sb, "global::Mockolate.Setup.RefStructVoidMethodSetup{T}.Invoke(T)");
+		AppendRefStructInheritdoc(sb, classDoc + ".Invoke(T)");
 		sb.Append("\t\tpublic void Invoke(");
-		for (int i = 1; i <= numberOfParameters; i++)
-		{
-			if (i > 1)
-			{
-				sb.Append(", ");
-			}
-
-			sb.Append('T').Append(i).Append(" value").Append(i);
-		}
-
+		AppendRefStructValueParameters(sb, numberOfParameters);
 		sb.Append(')').AppendLine();
 		sb.Append("\t\t{").AppendLine();
-		for (int i = 1; i <= numberOfParameters; i++)
-		{
-			sb.Append("\t\t\t_matcher").Append(i).Append("?.InvokeCallbacks(value").Append(i).Append(");").AppendLine();
-		}
-
+		AppendRefStructInvokeCallbacks(sb, numberOfParameters);
 		sb.Append("\t\t\tif (_returnAction is null)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
 		sb.Append("\t\t\t\treturn;").AppendLine();
@@ -234,20 +116,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
 
-		// SkipBaseClass.
-		AppendRefStructInheritdoc(sb, "global::Mockolate.Setup.RefStructVoidMethodSetup{T}.SkipBaseClass(global::Mockolate.MockBehavior)");
-		sb.Append("\t\tpublic bool SkipBaseClass(global::Mockolate.MockBehavior behavior)").AppendLine();
-		sb.Append("\t\t\t=> _skipBaseClass ?? behavior.SkipBaseClass;").AppendLine();
-		sb.AppendLine();
-
-		// Interface methods.
-		sb.Append("\t\t").Append(iface).Append(' ').Append(iface).Append(".SkippingBaseClass(bool skipBaseClass)")
-			.AppendLine();
-		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\t_skipBaseClass = skipBaseClass;").AppendLine();
-		sb.Append("\t\t\treturn this;").AppendLine();
-		sb.Append("\t\t}").AppendLine();
-		sb.AppendLine();
+		AppendRefStructSkipBaseClass(sb, iface, classDoc);
 
 		sb.Append("\t\t").Append(iface).Append(' ').Append(iface).Append(".DoesNotThrow()").AppendLine();
 		sb.Append("\t\t{").AppendLine();
@@ -256,205 +125,36 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
 
-		sb.Append("\t\t").Append(iface).Append(' ').Append(iface).Append(".Throws<TException>()").AppendLine();
-		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\t_returnAction = static () => new TException();").AppendLine();
-		sb.Append("\t\t\treturn this;").AppendLine();
-		sb.Append("\t\t}").AppendLine();
-		sb.AppendLine();
-
-		sb.Append("\t\t").Append(iface).Append(' ').Append(iface)
-			.Append(".Throws(global::System.Exception exception)").AppendLine();
-		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\t_returnAction = () => exception;").AppendLine();
-		sb.Append("\t\t\treturn this;").AppendLine();
-		sb.Append("\t\t}").AppendLine();
-		sb.AppendLine();
-
-		sb.Append("\t\t").Append(iface).Append(' ').Append(iface)
-			.Append(".Throws(global::System.Func<global::System.Exception> exceptionFactory)").AppendLine();
-		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\t_returnAction = exceptionFactory;").AppendLine();
-		sb.Append("\t\t\treturn this;").AppendLine();
-		sb.Append("\t\t}").AppendLine();
-		sb.AppendLine();
-
-		// MatchesInteraction.
-		AppendRefStructInheritdoc(sb, "global::Mockolate.Setup.MethodSetup.MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction)");
-		sb.Append(
-				"\t\tprotected override bool MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction interaction)")
-			.AppendLine();
-		sb.Append(
-				"\t\t\t=> interaction is global::Mockolate.Interactions.RefStructMethodInvocation invocation && invocation.Name == Name;")
-			.AppendLine();
-		sb.AppendLine();
-
-		// ToString.
-		AppendRefStructInheritdoc(sb, "object.ToString()");
-		sb.Append("\t\tpublic override string ToString()").AppendLine();
-		sb.Append("\t\t\t=> $\"void {Name}(");
-		for (int i = 1; i <= numberOfParameters; i++)
-		{
-			if (i > 1)
-			{
-				sb.Append(", ");
-			}
-
-			sb.Append("{_matcher").Append(i).Append("?.ToString() ?? $\"<{typeof(T").Append(i)
-				.Append(").Name} ref struct>\"}");
-		}
-
-		sb.Append(")\";").AppendLine();
-
-		sb.Append("\t}").AppendLine();
+		AppendRefStructThrowsImplementations(sb, iface, "_returnAction");
+		AppendRefStructMethodSetupClassEnd(sb, "void", numberOfParameters);
 	}
 
 	private static void AppendRefStructReturnMethodSetup(StringBuilder sb, int numberOfParameters)
 	{
-		string typeParams = GetGenericTypeParameters(numberOfParameters);
-		string ifaceGenerics = "TReturn, " + typeParams;
-		string iface = $"global::Mockolate.Setup.IRefStructReturnMethodSetup<{ifaceGenerics}>";
+		const string className = "RefStructReturnMethodSetup";
 		const string ifaceDoc = "global::Mockolate.Setup.IRefStructReturnMethodSetup{TReturn, T}";
-		string whereClauses = BuildAllowsRefStructWhereClauses(numberOfParameters);
+		const string classDoc = "global::Mockolate.Setup.RefStructReturnMethodSetup{TReturn, T}";
+		string ifaceGenerics = "TReturn, " + GetGenericTypeParameters(numberOfParameters);
+		string iface = RefStructSetupInterface(className, ifaceGenerics);
 
-		// Interface declaration.
-		sb.Append("\t/// <summary>").AppendLine();
-		sb.Append(
-				"\t///     Ref-struct-compatible return setup for arity ")
-			.Append(numberOfParameters).Append(". Mirrors the hand-written arity 1-4 surface.")
-			.AppendLine();
-		sb.Append("\t/// </summary>").AppendLine();
-		sb.Append("\tpublic interface IRefStructReturnMethodSetup<").Append(ifaceGenerics)
-			.Append("> : IMethodSetup").AppendLine();
-		sb.Append(whereClauses);
-		sb.Append("\t{").AppendLine();
-		AppendRefStructInheritdoc(sb, ifaceDoc + ".SkippingBaseClass(bool)");
-		sb.Append("\t\t").Append(iface).Append(" SkippingBaseClass(bool skipBaseClass = true);").AppendLine();
+		AppendRefStructMethodSetupInterfaceStart(sb, "return", className, ifaceGenerics, ifaceDoc, numberOfParameters);
 		AppendRefStructInheritdoc(sb, ifaceDoc + ".Returns(TReturn)");
 		sb.Append("\t\t").Append(iface).Append(" Returns(TReturn returnValue);").AppendLine();
 		AppendRefStructInheritdoc(sb, ifaceDoc + ".Returns(global::System.Func{TReturn})");
 		sb.Append("\t\t").Append(iface).Append(" Returns(global::System.Func<TReturn> returnFactory);").AppendLine();
-		AppendRefStructInheritdoc(sb, ifaceDoc + ".Throws{TException}()");
-		sb.Append("\t\t").Append(iface).Append(" Throws<TException>() where TException : global::System.Exception, new();")
-			.AppendLine();
-		AppendRefStructInheritdoc(sb, ifaceDoc + ".Throws(global::System.Exception)");
-		sb.Append("\t\t").Append(iface).Append(" Throws(global::System.Exception exception);").AppendLine();
-		AppendRefStructInheritdoc(sb, ifaceDoc + ".Throws(global::System.Func{global::System.Exception})");
-		sb.Append("\t\t").Append(iface).Append(" Throws(global::System.Func<global::System.Exception> exceptionFactory);")
-			.AppendLine();
-		sb.Append("\t}").AppendLine();
-		sb.AppendLine();
+		AppendRefStructMethodSetupInterfaceEnd(sb, className, ifaceGenerics, ifaceDoc);
 
-		// Concrete class.
-		sb.Append("\t/// <summary>").AppendLine();
-		sb.Append("\t///     Concrete ref-struct-compatible return setup for arity ").Append(numberOfParameters)
-			.Append(". See <see cref=\"global::Mockolate.Setup.RefStructReturnMethodSetup{TReturn, T}\" />.")
-			.AppendLine();
-		sb.Append("\t/// </summary>").AppendLine();
-		sb.Append("#if !DEBUG").AppendLine();
-		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-		sb.Append("#endif").AppendLine();
-		sb.Append("\tpublic sealed class RefStructReturnMethodSetup<").Append(ifaceGenerics)
-			.Append("> : global::Mockolate.Setup.MethodSetup, ").Append(iface).AppendLine();
-		sb.Append(whereClauses);
-		sb.Append("\t{").AppendLine();
-		for (int i = 1; i <= numberOfParameters; i++)
-		{
-			sb.Append("\t\tprivate readonly global::Mockolate.Parameters.IParameterMatch<T").Append(i).Append(">? _matcher")
-				.Append(i).Append(';').AppendLine();
-		}
-
-		sb.Append("\t\tprivate global::System.Func<TReturn>? _returnFactory;").AppendLine();
-		sb.Append("\t\tprivate global::System.Func<global::System.Exception?>? _throwAction;").AppendLine();
-		sb.Append("\t\tprivate bool? _skipBaseClass;").AppendLine();
-		sb.AppendLine();
-
-		// Constructor.
-		AppendRefStructInheritdoc(sb, $"global::Mockolate.Setup.RefStructReturnMethodSetup{{{ifaceGenerics}}}");
-		sb.Append("\t\tpublic RefStructReturnMethodSetup(string name");
-		for (int i = 1; i <= numberOfParameters; i++)
-		{
-			sb.Append(", global::Mockolate.Parameters.IParameterMatch<T").Append(i).Append(">? matcher").Append(i)
-				.Append(" = null");
-		}
-
-		sb.Append(") : base(name)").AppendLine();
-		sb.Append("\t\t{").AppendLine();
-		for (int i = 1; i <= numberOfParameters; i++)
-		{
-			sb.Append("\t\t\t_matcher").Append(i).Append(" = matcher").Append(i).Append(';').AppendLine();
-		}
-
-		sb.Append("\t\t}").AppendLine();
-		sb.AppendLine();
-
-		// Matches.
-		AppendRefStructInheritdoc(sb, "global::Mockolate.Setup.RefStructReturnMethodSetup{TReturn, T}.Matches(T)");
-		sb.Append("\t\tpublic bool Matches(");
-		for (int i = 1; i <= numberOfParameters; i++)
-		{
-			if (i > 1)
-			{
-				sb.Append(", ");
-			}
-
-			sb.Append('T').Append(i).Append(" value").Append(i);
-		}
-
-		sb.Append(')').AppendLine();
-		for (int i = 1; i <= numberOfParameters; i++)
-		{
-			sb.Append(i == 1 ? "\t\t\t=> " : "\t\t\t   && ");
-			sb.Append("(_matcher").Append(i).Append(" is null || _matcher").Append(i).Append(".Matches(value")
-				.Append(i).Append("))");
-			sb.AppendLine();
-		}
-
-		// Strip the trailing newline appended by the loop so we can close with `;`. The
-		// StringBuilder uses `\r\n` via AppendLine on Windows and `\n` elsewhere; fall back to
-		// whichever terminator is present at the end.
-		while (sb.Length > 0 && (sb[sb.Length - 1] == '\n' || sb[sb.Length - 1] == '\r'))
-		{
-			sb.Length--;
-		}
-
-		sb.Append(';').AppendLine();
-		sb.AppendLine();
-
-		// Per-slot matcher accessors. Used by generated mock bodies to access
-		// IOutRefStructParameter<T>/IRefRefStructParameter<T> payloads on out/ref slots.
-		for (int i = 1; i <= numberOfParameters; i++)
-		{
-			sb.AppendXmlSummary(FormattableString.Invariant($"Returns the matcher for the parameter slot {i}."));
-			sb.Append(
-					"\t\t[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]")
-				.AppendLine();
-			sb.Append("\t\tpublic global::Mockolate.Parameters.IParameterMatch<T").Append(i)
-				.Append(">? GetMatcher").Append(i).Append("() => _matcher").Append(i).Append(';').AppendLine();
-		}
-
-		sb.AppendLine();
+		AppendRefStructMethodSetupClassStart(sb, "return", className, ifaceGenerics, classDoc, numberOfParameters,
+			"private global::System.Func<TReturn>? _returnFactory;",
+			"private global::System.Func<global::System.Exception?>? _throwAction;");
 
 		// Invoke.
-		AppendRefStructInheritdoc(sb, "global::Mockolate.Setup.RefStructReturnMethodSetup{TReturn, T}.Invoke(T, global::System.Func{TReturn})");
+		AppendRefStructInheritdoc(sb, classDoc + ".Invoke(T, global::System.Func{TReturn})");
 		sb.Append("\t\tpublic TReturn Invoke(");
-		for (int i = 1; i <= numberOfParameters; i++)
-		{
-			if (i > 1)
-			{
-				sb.Append(", ");
-			}
-
-			sb.Append('T').Append(i).Append(" value").Append(i);
-		}
-
+		AppendRefStructValueParameters(sb, numberOfParameters);
 		sb.Append(", global::System.Func<TReturn>? defaultFactory = null)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
-		for (int i = 1; i <= numberOfParameters; i++)
-		{
-			sb.Append("\t\t\t_matcher").Append(i).Append("?.InvokeCallbacks(value").Append(i).Append(");").AppendLine();
-		}
-
+		AppendRefStructInvokeCallbacks(sb, numberOfParameters);
 		sb.Append("\t\t\tif (_throwAction is not null)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
 		sb.Append("\t\t\t\tglobal::System.Exception? exception = _throwAction();").AppendLine();
@@ -474,24 +174,11 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		// HasReturnValue.
-		AppendRefStructInheritdoc(sb, "global::Mockolate.Setup.RefStructReturnMethodSetup{TReturn, T}.HasReturnValue");
+		AppendRefStructInheritdoc(sb, classDoc + ".HasReturnValue");
 		sb.Append("\t\tpublic bool HasReturnValue => _returnFactory is not null;").AppendLine();
 		sb.AppendLine();
 
-		// SkipBaseClass.
-		AppendRefStructInheritdoc(sb, "global::Mockolate.Setup.RefStructReturnMethodSetup{TReturn, T}.SkipBaseClass(global::Mockolate.MockBehavior)");
-		sb.Append("\t\tpublic bool SkipBaseClass(global::Mockolate.MockBehavior behavior)").AppendLine();
-		sb.Append("\t\t\t=> _skipBaseClass ?? behavior.SkipBaseClass;").AppendLine();
-		sb.AppendLine();
-
-		// Interface methods.
-		sb.Append("\t\t").Append(iface).Append(' ').Append(iface).Append(".SkippingBaseClass(bool skipBaseClass)")
-			.AppendLine();
-		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\t_skipBaseClass = skipBaseClass;").AppendLine();
-		sb.Append("\t\t\treturn this;").AppendLine();
-		sb.Append("\t\t}").AppendLine();
-		sb.AppendLine();
+		AppendRefStructSkipBaseClass(sb, iface, classDoc);
 
 		sb.Append("\t\t").Append(iface).Append(' ').Append(iface).Append(".Returns(TReturn returnValue)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
@@ -508,9 +195,190 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
 
+		AppendRefStructThrowsImplementations(sb, iface, "_throwAction");
+		AppendRefStructMethodSetupClassEnd(sb, "{typeof(TReturn).Name}", numberOfParameters);
+	}
+
+	/// <summary>
+	///     Emits the interface up to and including <c>SkippingBaseClass</c>; the caller adds the
+	///     result-specific members before <see cref="AppendRefStructMethodSetupInterfaceEnd" />.
+	/// </summary>
+	private static void AppendRefStructMethodSetupInterfaceStart(StringBuilder sb, string kind, string className,
+		string generics, string ifaceDoc, int numberOfParameters)
+	{
+		sb.Append("\t/// <summary>").AppendLine();
+		sb.Append("\t///     Ref-struct-compatible ").Append(kind).Append(" setup for arity ")
+			.Append(numberOfParameters).Append(". Mirrors the hand-written arity 1-4 surface.")
+			.AppendLine();
+		sb.Append("\t/// </summary>").AppendLine();
+		sb.Append("\tpublic interface I").Append(className).Append('<').Append(generics).Append("> : IMethodSetup")
+			.AppendLine();
+		sb.Append(BuildAllowsRefStructWhereClauses(numberOfParameters));
+		sb.Append("\t{").AppendLine();
+		AppendRefStructInheritdoc(sb, ifaceDoc + ".SkippingBaseClass(bool)");
+		sb.Append("\t\t").Append(RefStructSetupInterface(className, generics))
+			.Append(" SkippingBaseClass(bool skipBaseClass = true);").AppendLine();
+	}
+
+	private static void AppendRefStructMethodSetupInterfaceEnd(StringBuilder sb, string className, string generics,
+		string ifaceDoc)
+	{
+		string iface = RefStructSetupInterface(className, generics);
+		AppendRefStructInheritdoc(sb, ifaceDoc + ".Throws{TException}()");
+		sb.Append("\t\t").Append(iface).Append(" Throws<TException>() where TException : global::System.Exception, new();")
+			.AppendLine();
+		AppendRefStructInheritdoc(sb, ifaceDoc + ".Throws(global::System.Exception)");
+		sb.Append("\t\t").Append(iface).Append(" Throws(global::System.Exception exception);").AppendLine();
+		AppendRefStructInheritdoc(sb, ifaceDoc + ".Throws(global::System.Func{global::System.Exception})");
+		sb.Append("\t\t").Append(iface).Append(" Throws(global::System.Func<global::System.Exception> exceptionFactory);")
+			.AppendLine();
+		sb.Append("\t}").AppendLine();
+		sb.AppendLine();
+	}
+
+	/// <summary>
+	///     Emits the class declaration, the fields, the constructor, <c>Matches</c> and the
+	///     <c>GetMatcherN</c> accessors. <paramref name="fields" /> are emitted between the matcher
+	///     fields and <c>_skipBaseClass</c>.
+	/// </summary>
+	private static void AppendRefStructMethodSetupClassStart(StringBuilder sb, string kind, string className,
+		string generics, string classDoc, int numberOfParameters, params string[] fields)
+	{
+		sb.Append("\t/// <summary>").AppendLine();
+		sb.Append("\t///     Concrete ref-struct-compatible ").Append(kind).Append(" setup for arity ")
+			.Append(numberOfParameters).Append(". See <see cref=\"").Append(classDoc).Append("\" />.").AppendLine();
+		sb.Append("\t/// </summary>").AppendLine();
+		sb.Append("#if !DEBUG").AppendLine();
+		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
+		sb.Append("#endif").AppendLine();
+		sb.Append("\tpublic sealed class ").Append(className).Append('<').Append(generics)
+			.Append("> : global::Mockolate.Setup.MethodSetup, ").Append(RefStructSetupInterface(className, generics))
+			.AppendLine();
+		sb.Append(BuildAllowsRefStructWhereClauses(numberOfParameters));
+		sb.Append("\t{").AppendLine();
+		for (int i = 1; i <= numberOfParameters; i++)
+		{
+			sb.Append("\t\tprivate readonly global::Mockolate.Parameters.IParameterMatch<T").Append(i).Append(">? _matcher")
+				.Append(i).Append(';').AppendLine();
+		}
+
+		foreach (string field in fields)
+		{
+			sb.Append("\t\t").Append(field).AppendLine();
+		}
+
+		sb.Append("\t\tprivate bool? _skipBaseClass;").AppendLine();
+		sb.AppendLine();
+
+		// Constructor.
+		AppendRefStructInheritdoc(sb, $"global::Mockolate.Setup.{className}{{{generics}}}");
+		sb.Append("\t\tpublic ").Append(className).Append("(string name");
+		for (int i = 1; i <= numberOfParameters; i++)
+		{
+			sb.Append(", global::Mockolate.Parameters.IParameterMatch<T").Append(i).Append(">? matcher").Append(i)
+				.Append(" = null");
+		}
+
+		sb.Append(") : base(name)").AppendLine();
+		sb.Append("\t\t{").AppendLine();
+		for (int i = 1; i <= numberOfParameters; i++)
+		{
+			sb.Append("\t\t\t_matcher").Append(i).Append(" = matcher").Append(i).Append(';').AppendLine();
+		}
+
+		sb.Append("\t\t}").AppendLine();
+		sb.AppendLine();
+
+		// Matches.
+		AppendRefStructInheritdoc(sb, classDoc + ".Matches(T)");
+		sb.Append("\t\tpublic bool Matches(");
+		AppendRefStructValueParameters(sb, numberOfParameters);
+		sb.Append(')').AppendLine();
+		for (int i = 1; i <= numberOfParameters; i++)
+		{
+			sb.Append(i == 1 ? "\t\t\t=> " : "\t\t\t   && ");
+			sb.Append("(_matcher").Append(i).Append(" is null || _matcher").Append(i).Append(".Matches(value")
+				.Append(i).Append("))");
+			sb.AppendLine();
+		}
+
+		// Strip the trailing newline appended by the loop so we can close with `;`. The
+		// StringBuilder uses `\r\n` via AppendLine on Windows and `\n` elsewhere; fall back to
+		// whichever terminator is present at the end.
+		while (sb.Length > 0 && (sb[sb.Length - 1] == '\n' || sb[sb.Length - 1] == '\r'))
+		{
+			sb.Length--;
+		}
+
+		sb.Append(';').AppendLine();
+		sb.AppendLine();
+
+		// Per-slot matcher accessors. Used by generated mock bodies to access
+		// IOutRefStructParameter<T>/IRefRefStructParameter<T> payloads on out/ref slots.
+		for (int i = 1; i <= numberOfParameters; i++)
+		{
+			sb.AppendXmlSummary(FormattableString.Invariant($"Returns the matcher for the parameter slot {i}."));
+			sb.Append(
+					"\t\t[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]")
+				.AppendLine();
+			sb.Append("\t\tpublic global::Mockolate.Parameters.IParameterMatch<T").Append(i)
+				.Append(">? GetMatcher").Append(i).Append("() => _matcher").Append(i).Append(';').AppendLine();
+		}
+
+		sb.AppendLine();
+	}
+
+	private static string RefStructSetupInterface(string className, string generics)
+		=> $"global::Mockolate.Setup.I{className}<{generics}>";
+
+	private static void AppendRefStructValueParameters(StringBuilder sb, int numberOfParameters)
+	{
+		for (int i = 1; i <= numberOfParameters; i++)
+		{
+			if (i > 1)
+			{
+				sb.Append(", ");
+			}
+
+			sb.Append('T').Append(i).Append(" value").Append(i);
+		}
+	}
+
+	private static void AppendRefStructInvokeCallbacks(StringBuilder sb, int numberOfParameters)
+	{
+		for (int i = 1; i <= numberOfParameters; i++)
+		{
+			sb.Append("\t\t\t_matcher").Append(i).Append("?.InvokeCallbacks(value").Append(i).Append(");").AppendLine();
+		}
+	}
+
+	/// <summary>
+	///     Emits <c>SkipBaseClass(MockBehavior)</c> and the explicit <c>SkippingBaseClass</c> implementation.
+	/// </summary>
+	private static void AppendRefStructSkipBaseClass(StringBuilder sb, string iface, string classDoc)
+	{
+		AppendRefStructInheritdoc(sb, classDoc + ".SkipBaseClass(global::Mockolate.MockBehavior)");
+		sb.Append("\t\tpublic bool SkipBaseClass(global::Mockolate.MockBehavior behavior)").AppendLine();
+		sb.Append("\t\t\t=> _skipBaseClass ?? behavior.SkipBaseClass;").AppendLine();
+		sb.AppendLine();
+
+		sb.Append("\t\t").Append(iface).Append(' ').Append(iface).Append(".SkippingBaseClass(bool skipBaseClass)")
+			.AppendLine();
+		sb.Append("\t\t{").AppendLine();
+		sb.Append("\t\t\t_skipBaseClass = skipBaseClass;").AppendLine();
+		sb.Append("\t\t\treturn this;").AppendLine();
+		sb.Append("\t\t}").AppendLine();
+		sb.AppendLine();
+	}
+
+	/// <summary>
+	///     Emits the explicit <c>Throws</c> implementations, which store the exception factory in <paramref name="field" />.
+	/// </summary>
+	private static void AppendRefStructThrowsImplementations(StringBuilder sb, string iface, string field)
+	{
 		sb.Append("\t\t").Append(iface).Append(' ').Append(iface).Append(".Throws<TException>()").AppendLine();
 		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\t_throwAction = static () => new TException();").AppendLine();
+		sb.Append("\t\t\t").Append(field).Append(" = static () => new TException();").AppendLine();
 		sb.Append("\t\t\treturn this;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
@@ -518,7 +386,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t").Append(iface).Append(' ').Append(iface)
 			.Append(".Throws(global::System.Exception exception)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\t_throwAction = () => exception;").AppendLine();
+		sb.Append("\t\t\t").Append(field).Append(" = () => exception;").AppendLine();
 		sb.Append("\t\t\treturn this;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
@@ -526,11 +394,17 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t").Append(iface).Append(' ').Append(iface)
 			.Append(".Throws(global::System.Func<global::System.Exception> exceptionFactory)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
-		sb.Append("\t\t\t_throwAction = exceptionFactory;").AppendLine();
+		sb.Append("\t\t\t").Append(field).Append(" = exceptionFactory;").AppendLine();
 		sb.Append("\t\t\treturn this;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
+	}
 
+	/// <summary>
+	///     Emits <c>MatchesInteraction</c>, <c>ToString</c> (prefixed with <paramref name="returnType" />) and closes the class.
+	/// </summary>
+	private static void AppendRefStructMethodSetupClassEnd(StringBuilder sb, string returnType, int numberOfParameters)
+	{
 		// MatchesInteraction.
 		AppendRefStructInheritdoc(sb, "global::Mockolate.Setup.MethodSetup.MatchesInteraction(global::Mockolate.Interactions.IMethodInteraction)");
 		sb.Append(
@@ -544,7 +418,7 @@ internal static partial class SourceTemplates
 		// ToString.
 		AppendRefStructInheritdoc(sb, "object.ToString()");
 		sb.Append("\t\tpublic override string ToString()").AppendLine();
-		sb.Append("\t\t\t=> $\"{typeof(TReturn).Name} {Name}(");
+		sb.Append("\t\t\t=> $\"").Append(returnType).Append(" {Name}(");
 		for (int i = 1; i <= numberOfParameters; i++)
 		{
 			if (i > 1)
