@@ -21,5 +21,6 @@ public sealed class ProvidesValuesForAttributeTests
 	}
 
 	[ProvidesValuesFor(typeof(int), typeof(long))]
+	[AttributeUsage(AttributeTargets.Parameter)]
 	private sealed class NumberAttribute : Attribute;
 }

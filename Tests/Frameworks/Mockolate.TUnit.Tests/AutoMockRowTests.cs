@@ -496,16 +496,19 @@ public sealed class AutoMockRowTests
 
 	public interface IUncreatableService;
 
+	[AttributeUsage(AttributeTargets.Parameter)]
 	internal sealed class ParameterNameAttribute : Attribute, IParameterValueProvider
 	{
 		public object? ProvideValue(ParameterInfo parameter) => parameter.Name;
 	}
 
+	[AttributeUsage(AttributeTargets.Parameter)]
 	internal sealed class NumberAttribute : Attribute, IParameterValueProvider
 	{
 		public object? ProvideValue(ParameterInfo parameter) => 42;
 	}
 
+	[AttributeUsage(AttributeTargets.Parameter)]
 	internal sealed class NullAttribute : Attribute, IParameterValueProvider
 	{
 		public object? ProvideValue(ParameterInfo parameter) => null;

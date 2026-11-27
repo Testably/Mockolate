@@ -48,6 +48,7 @@ internal sealed class ValueFromAttribute(string memberName) : Mockolate.Integrat
 ///     A value provider like one that a user writes.
 /// </summary>
 [ProvidesValuesFor(typeof(string))]
+[AttributeUsage(AttributeTargets.Parameter)]
 internal sealed class LocationAttribute : Attribute, IParameterValueProvider
 {
 	public object? ProvideValue(System.Reflection.ParameterInfo parameter) => $"{parameter.Name} hall";
