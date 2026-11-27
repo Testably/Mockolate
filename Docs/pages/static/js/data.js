@@ -1920,6 +1920,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -2242,7 +2248,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -2568,7 +2575,8 @@ window.BENCHMARK_DATA = {
           146.4583158322743,
           114.81640910307566,
           129.01301689147948,
-          170.92617494265238
+          170.92617494265238,
+          201.45689894358318
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -2897,6 +2905,7 @@ window.BENCHMARK_DATA = {
           800,
           800,
           800,
+          808,
           808,
           808,
           808
@@ -3233,7 +3242,8 @@ window.BENCHMARK_DATA = {
           32367.984004720052,
           29567.06154691256,
           29554.342818196616,
-          36080.538521321614
+          36080.538521321614,
+          76823.23500279018
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3564,7 +3574,8 @@ window.BENCHMARK_DATA = {
           9055,
           9055,
           9055,
-          9158
+          9158,
+          9056
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3898,7 +3909,8 @@ window.BENCHMARK_DATA = {
           2738.694969177246,
           2143.554173278809,
           2290.9701434544154,
-          3361.6698651631673
+          3361.6698651631673,
+          4399.017039489746
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -4059,6 +4071,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -4563,7 +4576,8 @@ window.BENCHMARK_DATA = {
           2709.150802884783,
           2102.1592952183314,
           2271.8122268089883,
-          2977.627682549613
+          2977.627682549613,
+          4250.8597279866535
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4894,7 +4908,8 @@ window.BENCHMARK_DATA = {
           6930,
           6930,
           6930,
-          6924
+          6924,
+          6930
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -5228,7 +5243,8 @@ window.BENCHMARK_DATA = {
           143.61013434614455,
           120.66470673878987,
           130.64325399398803,
-          189.77514548301696
+          189.77514548301696,
+          214.0615512053172
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -5394,6 +5410,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -5893,7 +5910,8 @@ window.BENCHMARK_DATA = {
           261.5348594372089,
           210.1672788143158,
           226.40423274040222,
-          322.46555414199827
+          322.46555414199827,
+          354.94688767653247
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -6204,6 +6222,7 @@ window.BENCHMARK_DATA = {
           2056,
           2056,
           2056,
+          1352,
           1352,
           1352,
           1352,
@@ -8158,6 +8177,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -8480,7 +8505,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -8806,7 +8832,8 @@ window.BENCHMARK_DATA = {
           149.90921068191528,
           94.11218232313792,
           100.65008200917926,
-          123.75941842397054
+          123.75941842397054,
+          86.33873547712962
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -9135,6 +9162,7 @@ window.BENCHMARK_DATA = {
           712,
           712,
           712,
+          720,
           720,
           720,
           720
@@ -9471,7 +9499,8 @@ window.BENCHMARK_DATA = {
           15194.955444335938,
           7780.0634094238285,
           7388.964176722935,
-          10955.209309895834
+          10955.209309895834,
+          7562.9838129679365
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9802,7 +9831,8 @@ window.BENCHMARK_DATA = {
           12761,
           12985,
           12760,
-          12761
+          12761,
+          12760
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10136,7 +10166,8 @@ window.BENCHMARK_DATA = {
           5681.253236498152,
           2849.2867769877116,
           2849.2072447458904,
-          4385.049251810709
+          4385.049251810709,
+          2914.242436472575
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10297,6 +10328,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -10801,7 +10833,8 @@ window.BENCHMARK_DATA = {
           222056.441015625,
           114223.98430524554,
           114510.65993088942,
-          195039.64435686384
+          195039.64435686384,
+          117617.49588216146
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11130,6 +11163,7 @@ window.BENCHMARK_DATA = {
           15619,
           15732,
           15618,
+          15619,
           15619,
           15619,
           15619
@@ -11466,7 +11500,8 @@ window.BENCHMARK_DATA = {
           179.8128719170888,
           119.22848399480183,
           116.2601177851359,
-          145.3765987078349
+          145.3765987078349,
+          108.95381496747335
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -11607,6 +11642,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -12131,7 +12167,8 @@ window.BENCHMARK_DATA = {
           173.1893115679423,
           98.32638549804688,
           101.16627119382223,
-          129.23572788238525
+          129.23572788238525,
+          94.55638817378453
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -12265,6 +12302,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -14396,6 +14434,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -14718,7 +14762,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -15044,7 +15089,8 @@ window.BENCHMARK_DATA = {
           352.23777367273965,
           454.19975009331336,
           392.4188360434312,
-          511.1798039163862
+          511.1798039163862,
+          458.59546988351
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -15373,6 +15419,7 @@ window.BENCHMARK_DATA = {
           1824,
           1824,
           1840,
+          1848,
           1848,
           1848,
           1848
@@ -15709,7 +15756,8 @@ window.BENCHMARK_DATA = {
           404750.86886160716,
           523556.84833233175,
           171778.66294642858,
-          534082.8019670759
+          534082.8019670759,
+          529228.7234825721
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16040,7 +16088,8 @@ window.BENCHMARK_DATA = {
           38379,
           38714,
           38500,
-          38635
+          38635,
+          38379
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16374,7 +16423,8 @@ window.BENCHMARK_DATA = {
           112580.5376499721,
           209264.5227376302,
           61364.8389851888,
-          212951.6005859375
+          212951.6005859375,
+          211213.14742838542
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16705,7 +16755,8 @@ window.BENCHMARK_DATA = {
           28160,
           28156,
           28154,
-          28100
+          28100,
+          28156
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17039,7 +17090,8 @@ window.BENCHMARK_DATA = {
           144226.92557198662,
           244380.75090680804,
           61799.35399576823,
-          244812.04892578124
+          244812.04892578124,
+          248852.0286395733
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17370,7 +17422,8 @@ window.BENCHMARK_DATA = {
           30273,
           30273,
           30247,
-          30259
+          30259,
+          30728
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17704,7 +17757,8 @@ window.BENCHMARK_DATA = {
           268.86943561690197,
           345.52450761795046,
           282.50562841551647,
-          356.51129592259724
+          356.51129592259724,
+          332.1156962834872
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -18035,6 +18089,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1216,
           1216
         ],
         "borderColor": "#E84393",
@@ -18165,7 +18220,8 @@ window.BENCHMARK_DATA = {
           501.3542509812575,
           679.8099356651306,
           510.62930079868863,
-          702.653584543864
+          702.653584543864,
+          640.4353927884783
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -18272,6 +18328,7 @@ window.BENCHMARK_DATA = {
           2856,
           2856,
           2856,
+          2208,
           2208,
           2208,
           2208,
@@ -20226,6 +20283,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -20548,7 +20611,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -20874,7 +20938,8 @@ window.BENCHMARK_DATA = {
           979.7278011866978,
           1253.688329188029,
           1151.685140101115,
-          1345.7345536549885
+          1345.7345536549885,
+          1280.9042106628417
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -21203,6 +21268,7 @@ window.BENCHMARK_DATA = {
           2760,
           2760,
           2776,
+          2784,
           2784,
           2784,
           2784
@@ -21539,7 +21605,8 @@ window.BENCHMARK_DATA = {
           419508.647273137,
           535416.8356119791,
           200409.64392903645,
-          536725.2172154018
+          536725.2172154018,
+          532783.2974609375
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -21870,7 +21937,8 @@ window.BENCHMARK_DATA = {
           46962,
           47280,
           48193,
-          48206
+          48206,
+          46945
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -22204,7 +22272,8 @@ window.BENCHMARK_DATA = {
           130583.29999248798,
           226334.45955403647,
           76037.01138509114,
-          232051.39711216517
+          232051.39711216517,
+          230506.75651041666
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -22535,7 +22604,8 @@ window.BENCHMARK_DATA = {
           41774,
           41271,
           41262,
-          41215
+          41215,
+          41271
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -22869,7 +22939,8 @@ window.BENCHMARK_DATA = {
           161441.03709309894,
           264794.4401157924,
           80072.25641276041,
-          268416.3407226562
+          268416.3407226562,
+          264955.9747314453
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -23200,7 +23271,8 @@ window.BENCHMARK_DATA = {
           49930,
           49926,
           49922,
-          49926
+          49926,
+          50382
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -23534,7 +23606,8 @@ window.BENCHMARK_DATA = {
           669.7609464009603,
           831.4658161799113,
           650.6457185745239,
-          874.7904241561889
+          874.7904241561889,
+          801.9956106821696
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -23865,6 +23938,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2296,
           2296
         ],
         "borderColor": "#E84393",
@@ -23995,7 +24069,8 @@ window.BENCHMARK_DATA = {
           1791.5683020273843,
           2312.701677594866,
           1759.144233556894,
-          2418.5726692199705
+          2418.5726692199705,
+          2308.9609751383464
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -24102,6 +24177,7 @@ window.BENCHMARK_DATA = {
           5568,
           5568,
           5568,
+          5248,
           5248,
           5248,
           5248,
@@ -26056,6 +26132,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -26378,7 +26460,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -26704,7 +26787,8 @@ window.BENCHMARK_DATA = {
           135.65442878405253,
           77.29922011068889,
           173.372789589564,
-          107.45291432312557
+          107.45291432312557,
+          124.53409279187521
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -27033,6 +27117,7 @@ window.BENCHMARK_DATA = {
           592,
           592,
           592,
+          600,
           600,
           600,
           600
@@ -27369,7 +27454,8 @@ window.BENCHMARK_DATA = {
           3242.062333424886,
           2742.4137162428638,
           4194.496121724446,
-          3460.714005606515
+          3460.714005606515,
+          4583.58984375
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -27659,6 +27745,7 @@ window.BENCHMARK_DATA = {
           14902,
           14914,
           14906,
+          6552,
           6552,
           6552,
           6552,
@@ -28034,7 +28121,8 @@ window.BENCHMARK_DATA = {
           4432.703191630046,
           3074.6193749564036,
           5586.984625752767,
-          4430.467508951823
+          4430.467508951823,
+          5813.279562143179
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -28324,6 +28412,7 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9320,
+          9816,
           9816,
           9816,
           9816,
@@ -28699,7 +28788,8 @@ window.BENCHMARK_DATA = {
           3080.06444829305,
           2590.6488845825197,
           3810.460319519043,
-          3488.84008992513
+          3488.84008992513,
+          4509.587866210937
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -29030,6 +29120,7 @@ window.BENCHMARK_DATA = {
           7509,
           7517,
           7509,
+          7517,
           7517
         ],
         "borderColor": "#4A6FA5",
@@ -29364,7 +29455,8 @@ window.BENCHMARK_DATA = {
           179.8765231291453,
           115.28921174151557,
           226.15462538401286,
-          155.72239576975505
+          155.72239576975505,
+          171.16022743497575
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -29654,6 +29746,7 @@ window.BENCHMARK_DATA = {
           728,
           728,
           728,
+          808,
           808,
           808,
           808,
@@ -30029,7 +30122,8 @@ window.BENCHMARK_DATA = {
           331.9217933336894,
           237.4652094523112,
           414.4711802800496,
-          272.31887941360475
+          272.31887941360475,
+          321.903571333204
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -30340,6 +30434,7 @@ window.BENCHMARK_DATA = {
           2136,
           2136,
           2136,
+          1424,
           1424,
           1424,
           1424,
@@ -32294,6 +32389,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -32616,7 +32717,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -32942,7 +33044,8 @@ window.BENCHMARK_DATA = {
           321.6308341662089,
           255.55975471224104,
           419.4955449104309,
-          278.7972315152486
+          278.7972315152486,
+          357.50037275950115
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -33271,6 +33374,7 @@ window.BENCHMARK_DATA = {
           1096,
           1096,
           1096,
+          1104,
           1104,
           1104,
           1104
@@ -33607,7 +33711,8 @@ window.BENCHMARK_DATA = {
           4906.527045186361,
           3788.2622548421223,
           6268.210139465332,
-          4964.723928833007
+          4964.723928833007,
+          6485.624487195696
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -33897,6 +34002,7 @@ window.BENCHMARK_DATA = {
           18901,
           18906,
           18883,
+          10536,
           10536,
           10536,
           10536,
@@ -34272,7 +34378,8 @@ window.BENCHMARK_DATA = {
           6250.105488116925,
           4866.469662257603,
           7971.077318318685,
-          6285.476386515299
+          6285.476386515299,
+          8606.27273123605
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -34603,7 +34710,8 @@ window.BENCHMARK_DATA = {
           12840,
           12840,
           12840,
-          12840
+          12840,
+          12841
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -34937,7 +35045,8 @@ window.BENCHMARK_DATA = {
           6044.665799967448,
           4609.591914585659,
           7363.945611063639,
-          6054.018104553223
+          6054.018104553223,
+          8145.511210850307
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -35268,6 +35377,7 @@ window.BENCHMARK_DATA = {
           15748,
           15754,
           15748,
+          15754,
           15754
         ],
         "borderColor": "#4A6FA5",
@@ -35602,7 +35712,8 @@ window.BENCHMARK_DATA = {
           343.00855185190835,
           269.70637092590334,
           440.4148569788252,
-          316.47004041671755
+          316.47004041671755,
+          360.9312354837145
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -35892,6 +36003,7 @@ window.BENCHMARK_DATA = {
           1088,
           1088,
           1088,
+          1168,
           1168,
           1168,
           1168,
@@ -36267,7 +36379,8 @@ window.BENCHMARK_DATA = {
           1065.1531105041504,
           845.2698699315389,
           1405.5639431817192,
-          934.723398844401
+          934.723398844401,
+          1113.987359046936
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -36578,6 +36691,7 @@ window.BENCHMARK_DATA = {
           3888,
           3888,
           3888,
+          3288,
           3288,
           3288,
           3288,
@@ -38532,6 +38646,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -38854,7 +38974,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -39180,7 +39301,8 @@ window.BENCHMARK_DATA = {
           201.77222427300043,
           251.21996946334838,
           260.1137275377909,
-          184.07378090222676
+          184.07378090222676,
+          252.38686590194703
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -39509,6 +39631,7 @@ window.BENCHMARK_DATA = {
           920,
           920,
           920,
+          928,
           928,
           928,
           928
@@ -39845,7 +39968,8 @@ window.BENCHMARK_DATA = {
           7808.316689046224,
           7504.971767171224,
           10685.387526292066,
-          5819.423102242606
+          5819.423102242606,
+          10764.35567533053
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -40176,7 +40300,8 @@ window.BENCHMARK_DATA = {
           10568,
           10568,
           10794,
-          10680
+          10680,
+          10458
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -40510,7 +40635,8 @@ window.BENCHMARK_DATA = {
           5445.647150166829,
           5200.706299336752,
           7300.128670283726,
-          3992.839370218913
+          3992.839370218913,
+          7632.4958638509115
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -40832,6 +40958,7 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11688,
+          11664,
           11664,
           11664,
           11664,
@@ -41175,7 +41302,8 @@ window.BENCHMARK_DATA = {
           5121.5289470127655,
           4772.478339059012,
           7784.078837076823,
-          3954.2741795857746
+          3954.2741795857746,
+          7913.816370646159
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -41505,6 +41633,7 @@ window.BENCHMARK_DATA = {
           11196,
           11196,
           11191,
+          11196,
           11196,
           11196
         ],
@@ -41840,7 +41969,8 @@ window.BENCHMARK_DATA = {
           138.3961762189865,
           162.19490404129027,
           159.35417254154498,
-          124.13568268503461
+          124.13568268503461,
+          159.91386604309082
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -42006,6 +42136,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -42505,7 +42636,8 @@ window.BENCHMARK_DATA = {
           297.9015309969584,
           334.3088034947713,
           361.20966973671545,
-          258.15485882759094
+          258.15485882759094,
+          377.82901706695554
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -42816,6 +42948,7 @@ window.BENCHMARK_DATA = {
           1672,
           1672,
           1672,
+          1464,
           1464,
           1464,
           1464,
@@ -44770,6 +44903,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -45092,7 +45231,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -45418,7 +45558,8 @@ window.BENCHMARK_DATA = {
           475.91494305928546,
           599.7623660223825,
           599.4253831863404,
-          442.48807116917203
+          442.48807116917203,
+          603.543416091374
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -45747,6 +45888,7 @@ window.BENCHMARK_DATA = {
           1784,
           1784,
           1784,
+          1792,
           1792,
           1792,
           1792
@@ -46083,7 +46225,8 @@ window.BENCHMARK_DATA = {
           12534.968671526227,
           12109.032166701098,
           17072.631992885046,
-          9133.710199991861
+          9133.710199991861,
+          17621.980358886718
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -46414,7 +46557,8 @@ window.BENCHMARK_DATA = {
           18505,
           18504,
           18729,
-          18617
+          18617,
+          17385
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -46748,7 +46892,8 @@ window.BENCHMARK_DATA = {
           12394.552619934082,
           12468.153952026367,
           16843.449494425455,
-          9183.488534780648
+          9183.488534780648,
+          17714.629915364585
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -47078,6 +47223,7 @@ window.BENCHMARK_DATA = {
           21529,
           21529,
           21528,
+          21529,
           21529,
           21529
         ],
@@ -47413,7 +47559,8 @@ window.BENCHMARK_DATA = {
           12806.973673893855,
           12545.62071119036,
           18765.487802358773,
-          9649.024457804362
+          9649.024457804362,
+          19948.39693123954
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -47743,6 +47890,7 @@ window.BENCHMARK_DATA = {
           30785,
           30785,
           30780,
+          30785,
           30785,
           30785
         ],
@@ -48078,7 +48226,8 @@ window.BENCHMARK_DATA = {
           251.8108870188395,
           353.748460261027,
           332.3647422393163,
-          272.01067788260326
+          272.01067788260326,
+          335.9722106615702
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -48244,6 +48393,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -48743,7 +48893,8 @@ window.BENCHMARK_DATA = {
           1027.7866973876953,
           1238.9696840558734,
           1316.7750508444649,
-          950.6857718149821
+          950.6857718149821,
+          1356.080123647054
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -49054,6 +49205,7 @@ window.BENCHMARK_DATA = {
           4024,
           4024,
           4024,
+          3600,
           3600,
           3600,
           3600,
@@ -51008,6 +51160,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -51330,7 +51488,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -51656,7 +51815,8 @@ window.BENCHMARK_DATA = {
           16.27594810525576,
           16.312425593535107,
           10.351039460301399,
-          10.837023319800695
+          10.837023319800695,
+          12.738616597652435
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -51886,6 +52046,7 @@ window.BENCHMARK_DATA = {
           160,
           160,
           160,
+          136,
           136,
           136,
           136,
@@ -52321,7 +52482,8 @@ window.BENCHMARK_DATA = {
           89.59125567334038,
           90.12713037218366,
           65.120782995224,
-          63.393818591322216
+          63.393818591322216,
+          77.60231451193492
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -52487,6 +52649,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -52986,7 +53149,8 @@ window.BENCHMARK_DATA = {
           27.15161972779494,
           26.511398911476135,
           18.789620266358057,
-          18.982917127864702
+          18.982917127864702,
+          22.36806466480096
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -53120,6 +53284,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -53651,7 +53816,8 @@ window.BENCHMARK_DATA = {
           1285.3634233474731,
           1354.6088939666747,
           803.0122050557818,
-          797.2565249715533
+          797.2565249715533,
+          972.5764970779419
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -53812,6 +53978,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -54316,7 +54483,8 @@ window.BENCHMARK_DATA = {
           1805.0044626871745,
           1860.102184840611,
           1185.3466668810163,
-          1067.4302327473958
+          1067.4302327473958,
+          1369.02926499503
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -54477,6 +54645,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -54981,7 +55150,8 @@ window.BENCHMARK_DATA = {
           1504.2376416070122,
           1708.5337027231851,
           994.4483958653042,
-          1018.1347311019897
+          1018.1347311019897,
+          1241.2376504262288
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -55303,6 +55473,7 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2751,
+          2755,
           2755,
           2755,
           2755,
@@ -56148,6 +56319,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -56287,7 +56464,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -56430,7 +56608,8 @@ window.BENCHMARK_DATA = {
           1648.352364095052,
           1388.2777641296386,
           1724.9784646352132,
-          2396.2477559407553
+          2396.2477559407553,
+          1700.5234559377034
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -56576,6 +56755,7 @@ window.BENCHMARK_DATA = {
           5264,
           5264,
           5264,
+          5296,
           5296,
           5296,
           5296
@@ -56729,7 +56909,8 @@ window.BENCHMARK_DATA = {
           1926.048086420695,
           1488.5855302174887,
           2047.733321598598,
-          2448.8239310128347
+          2448.8239310128347,
+          2060.290224011739
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -56877,6 +57058,7 @@ window.BENCHMARK_DATA = {
           7385,
           7385,
           7384,
+          7385,
           7385
         ],
         "borderColor": "#E84393",
@@ -57028,7 +57210,8 @@ window.BENCHMARK_DATA = {
           3301.581516265869,
           2596.8858642578125,
           3577.1774591299204,
-          4340.289594014485
+          4340.289594014485,
+          3597.1589581807452
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -57156,6 +57339,7 @@ window.BENCHMARK_DATA = {
           17360,
           17360,
           17360,
+          10920,
           10920,
           10920,
           10920,
@@ -57327,7 +57511,8 @@ window.BENCHMARK_DATA = {
           1024213.6723257211,
           656798.9045061384,
           816360.0178571428,
-          1437361.4188058036
+          1437361.4188058036,
+          1024028.8514122596
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -57475,7 +57660,8 @@ window.BENCHMARK_DATA = {
           92427,
           92191,
           92853,
-          92233
+          92233,
+          92021
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -57626,7 +57812,8 @@ window.BENCHMARK_DATA = {
           270100.850773738,
           215624.87687174478,
           254747.3169294085,
-          318642.23798828124
+          318642.23798828124,
+          270167.2863606771
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -57774,6 +57961,7 @@ window.BENCHMARK_DATA = {
           54382,
           54379,
           54356,
+          54382,
           54382
         ],
         "borderColor": "#5E2750",
@@ -57925,7 +58113,8 @@ window.BENCHMARK_DATA = {
           305082.90768229164,
           260920.79752604166,
           289713.08923339844,
-          356358.4080528846
+          356358.4080528846,
+          306814.26213191106
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -58073,7 +58262,8 @@ window.BENCHMARK_DATA = {
           65479,
           65398,
           65548,
-          65639
+          65639,
+          65479
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -58795,6 +58985,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -58915,7 +59111,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -59039,7 +59236,8 @@ window.BENCHMARK_DATA = {
           22008.126255289713,
           16147.753801618304,
           28980.607550484794,
-          20481.909670148576
+          20481.909670148576,
+          24908.09427533831
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -59166,6 +59364,7 @@ window.BENCHMARK_DATA = {
           56536,
           56536,
           56536,
+          56544,
           56544,
           56544,
           56544
@@ -59300,7 +59499,8 @@ window.BENCHMARK_DATA = {
           18426.59826863607,
           13493.340766906738,
           23790.026818847655,
-          18173.875044759116
+          18173.875044759116,
+          21483.620727539062
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -59388,6 +59588,7 @@ window.BENCHMARK_DATA = {
           40688,
           40688,
           40688,
+          40768,
           40768,
           40768,
           40768,
@@ -59561,7 +59762,8 @@ window.BENCHMARK_DATA = {
           77936.95654296875,
           59959.987365722656,
           102536.72110421317,
-          67279.71235351563
+          67279.71235351563,
+          76344.1052507673
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -59684,6 +59886,7 @@ window.BENCHMARK_DATA = {
           178353,
           178353,
           178352,
+          178353,
           178353,
           178353,
           178353,
@@ -59822,7 +60025,8 @@ window.BENCHMARK_DATA = {
           158637.16484375,
           112414.06680733817,
           193750.86352539062,
-          155078.38970075335
+          155078.38970075335,
+          180876.49959309897
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -59951,7 +60155,8 @@ window.BENCHMARK_DATA = {
           423539,
           423563,
           423539,
-          423563
+          423563,
+          423564
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -60083,7 +60288,8 @@ window.BENCHMARK_DATA = {
           182902.74319661458,
           154236.59744698662,
           238852.04093424478,
-          215063.05520833333
+          215063.05520833333,
+          267158.2960205078
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -60212,7 +60418,8 @@ window.BENCHMARK_DATA = {
           378514,
           378534,
           378514,
-          378536
+          378536,
+          378539
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -60344,7 +60551,8 @@ window.BENCHMARK_DATA = {
           313618.40670572914,
           220994.99312918526,
           388044.9845703125,
-          314142.0590983073
+          314142.0590983073,
+          389171.86579241074
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -60473,7 +60681,8 @@ window.BENCHMARK_DATA = {
           943883,
           943741,
           943882,
-          943722
+          943722,
+          943763
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -61195,6 +61404,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -61315,7 +61530,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -61439,7 +61655,8 @@ window.BENCHMARK_DATA = {
           32580.40788922991,
           41194.57290039062,
           38032.34041184645,
-          29282.603434244793
+          29282.603434244793,
+          40015.049678548174
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -61566,6 +61783,7 @@ window.BENCHMARK_DATA = {
           96824,
           96824,
           96824,
+          96832,
           96832,
           96832,
           96832
@@ -61700,7 +61918,8 @@ window.BENCHMARK_DATA = {
           13331.346506754557,
           22138.10746329171,
           16995.188682556152,
-          16124.416806734525
+          16124.416806734525,
+          18132.832876586916
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -61828,6 +62047,7 @@ window.BENCHMARK_DATA = {
           32641,
           32641,
           32640,
+          32641,
           32641,
           32641
         ],
@@ -61961,7 +62181,8 @@ window.BENCHMARK_DATA = {
           74563.93627057757,
           101050.80438639323,
           99553.07797677176,
-          77988.55377604166
+          77988.55377604166,
+          99838.46505533854
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -62071,6 +62292,7 @@ window.BENCHMARK_DATA = {
           242489,
           242489,
           218304,
+          218305,
           218305,
           218305,
           218305,
@@ -62222,7 +62444,8 @@ window.BENCHMARK_DATA = {
           511905.9119791667,
           486327.6787109375,
           727731.5942382812,
-          405560.41217447916
+          405560.41217447916,
+          662980.81640625
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -62351,7 +62574,8 @@ window.BENCHMARK_DATA = {
           836541,
           836452,
           836768,
-          836651
+          836651,
+          724511
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -62483,7 +62707,8 @@ window.BENCHMARK_DATA = {
           763057.6773856027,
           766998.8879743303,
           1050086.8150111607,
-          630463.7801920573
+          630463.7801920573,
+          1099672.4463541666
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -62612,7 +62837,8 @@ window.BENCHMARK_DATA = {
           1139702,
           1139619,
           1139704,
-          1139701
+          1139701,
+          1139704
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -62744,7 +62970,8 @@ window.BENCHMARK_DATA = {
           927379.9377790178,
           856726.7876302083,
           1293755.083984375,
-          769734.3087439904
+          769734.3087439904,
+          1340544.6541573661
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -62873,7 +63100,8 @@ window.BENCHMARK_DATA = {
           2194325,
           2194285,
           2194291,
-          2194322
+          2194322,
+          2194291
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -63595,6 +63823,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -63715,7 +63949,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -63839,7 +64074,8 @@ window.BENCHMARK_DATA = {
           71389.68538411458,
           84568.54003092447,
           85840.4478922526,
-          88465.00241699218
+          88465.00241699218,
+          84671.16849190848
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -63966,6 +64202,7 @@ window.BENCHMARK_DATA = {
           105721,
           105721,
           105737,
+          105745,
           105745,
           105745,
           105745
@@ -64100,7 +64337,8 @@ window.BENCHMARK_DATA = {
           44271.40609036959,
           54684.340270996094,
           41145.96995849609,
-          54783.162585449216
+          54783.162585449216,
+          51258.2245320638
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -64229,6 +64467,7 @@ window.BENCHMARK_DATA = {
           121101,
           121101,
           121097,
+          121101,
           121101
         ],
         "borderColor": "#E84393",
@@ -64361,7 +64600,8 @@ window.BENCHMARK_DATA = {
           1028383.3384114583,
           1340439.5086495536,
           803047.5834635417,
-          1410506.1681189905
+          1410506.1681189905,
+          1419632.8168247768
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -64490,7 +64730,8 @@ window.BENCHMARK_DATA = {
           936305,
           936641,
           1048317,
-          1048470
+          1048470,
+          936305
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -64622,7 +64863,8 @@ window.BENCHMARK_DATA = {
           1504920.6158854167,
           1849751.3688802083,
           1218707.1201822916,
-          2039425.534877232
+          2039425.534877232,
+          1816891.0045572917
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -64751,7 +64993,8 @@ window.BENCHMARK_DATA = {
           1571854,
           1515916,
           1515778,
-          1515871
+          1515871,
+          1515916
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -64883,7 +65126,8 @@ window.BENCHMARK_DATA = {
           1233185.259765625,
           1689418.5717447917,
           1102007.0466145833,
-          1776793.1731305805
+          1776793.1731305805,
+          1662864.9139229911
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -65012,7 +65256,8 @@ window.BENCHMARK_DATA = {
           2221423,
           2221384,
           2221357,
-          2221384
+          2221384,
+          2221840
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -65142,7 +65387,8 @@ window.BENCHMARK_DATA = {
           136691.0178548177,
           163385.85072544642,
           132330.82885742188,
-          171940.47696358818
+          171940.47696358818,
+          166488.72848074776
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -65249,6 +65495,7 @@ window.BENCHMARK_DATA = {
           300785,
           300785,
           300785,
+          299545,
           299545,
           299545,
           299545,
@@ -65943,6 +66190,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -66055,7 +66308,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -66171,7 +66425,8 @@ window.BENCHMARK_DATA = {
           546.2660802205404,
           433.04727265040077,
           811.1757246017456,
-          283.07124325207303
+          283.07124325207303,
+          368.3555634362357
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -66290,6 +66545,7 @@ window.BENCHMARK_DATA = {
           1544,
           1544,
           1560,
+          1568,
           1568,
           1568,
           1568
@@ -66416,7 +66672,8 @@ window.BENCHMARK_DATA = {
           324.20268932978314,
           264.6288919130961,
           266.67025058610096,
-          172.65788777669272
+          172.65788777669272,
+          248.2884734471639
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -66428,6 +66685,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1088,
           1088,
           1088,
           1088,
@@ -66661,7 +66919,8 @@ window.BENCHMARK_DATA = {
           594.0665046828134,
           465.84199657440183,
           481.1421243985494,
-          346.47287896474205
+          346.47287896474205,
+          415.52017339070636
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -66762,6 +67021,7 @@ window.BENCHMARK_DATA = {
           1856,
           1856,
           1856,
+          1784,
           1784,
           1784,
           1784,
@@ -66906,7 +67166,8 @@ window.BENCHMARK_DATA = {
           48878.71135602678,
           36550.49658203125,
           115733.339617048,
-          31509.22297363281
+          31509.22297363281,
+          70912.55966421273
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -67027,7 +67288,8 @@ window.BENCHMARK_DATA = {
           10009,
           10009,
           10173,
-          10029
+          10029,
+          10030
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -67151,7 +67413,8 @@ window.BENCHMARK_DATA = {
           7152.260883876255,
           5568.982627868652,
           7416.195562235514,
-          3905.1336176554364
+          3905.1336176554364,
+          5987.54097290039
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -67266,6 +67529,7 @@ window.BENCHMARK_DATA = {
           10248,
           10248,
           10416,
+          10248,
           10248,
           10248,
           10248,
@@ -67396,7 +67660,8 @@ window.BENCHMARK_DATA = {
           6268.099940999349,
           5079.595917765299,
           7316.048916952951,
-          3877.587975093297
+          3877.587975093297,
+          5795.203032938639
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -67517,7 +67782,8 @@ window.BENCHMARK_DATA = {
           11848,
           11848,
           11854,
-          11854
+          11854,
+          11966
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -68191,6 +68457,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -68303,7 +68575,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -68419,7 +68692,8 @@ window.BENCHMARK_DATA = {
           1878.6204889737642,
           1469.4910828517034,
           1560.1162384033203,
-          1091.5979580512414
+          1091.5979580512414,
+          1349.2174137660436
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -68538,6 +68812,7 @@ window.BENCHMARK_DATA = {
           4016,
           4016,
           4032,
+          4040,
           4040,
           4040,
           4040
@@ -68664,7 +68939,8 @@ window.BENCHMARK_DATA = {
           1150.4484296945425,
           932.100371615092,
           1029.2413486480714,
-          651.4584971155439
+          651.4584971155439,
+          858.0017009735108
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -68676,6 +68952,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2960,
           2960,
           2960,
           2960,
@@ -68909,7 +69186,8 @@ window.BENCHMARK_DATA = {
           3689.30195072719,
           3009.777505493164,
           3055.6516441345216,
-          2132.846082687378
+          2132.846082687378,
+          2793.416358402797
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -69010,6 +69288,7 @@ window.BENCHMARK_DATA = {
           8672,
           8672,
           8672,
+          8600,
           8600,
           8600,
           8600,
@@ -69154,7 +69433,8 @@ window.BENCHMARK_DATA = {
           66860.568132673,
           53258.78567708333,
           132238.0643391927,
-          38568.03706577846
+          38568.03706577846,
+          83624.67903019831
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -69275,6 +69555,7 @@ window.BENCHMARK_DATA = {
           25109,
           25108,
           25259,
+          25114,
           25114
         ],
         "borderColor": "#A052B0",
@@ -69399,7 +69680,8 @@ window.BENCHMARK_DATA = {
           20894.023059082032,
           15637.92694561298,
           23987.923266601563,
-          12502.245122637067
+          12502.245122637067,
+          18805.690165201824
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -69519,6 +69801,7 @@ window.BENCHMARK_DATA = {
           23481,
           23480,
           23480,
+          23481,
           23481,
           23481
         ],
@@ -69644,7 +69927,8 @@ window.BENCHMARK_DATA = {
           26496.782224382674,
           20939.079630533855,
           27671.386053902763,
-          15434.331974283854
+          15434.331974283854,
+          23035.89878133138
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -69765,7 +70049,8 @@ window.BENCHMARK_DATA = {
           55213,
           55213,
           55216,
-          55216
+          55216,
+          55328
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -70439,6 +70724,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -70551,7 +70842,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -70667,7 +70959,8 @@ window.BENCHMARK_DATA = {
           154220.18778483072,
           119143.99737141927,
           122748.89316030648,
-          87865.69501604352
+          87865.69501604352,
+          108495.66284179688
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -70786,6 +71079,7 @@ window.BENCHMARK_DATA = {
           273297,
           273297,
           273313,
+          273321,
           273321,
           273321,
           273321
@@ -70912,7 +71206,8 @@ window.BENCHMARK_DATA = {
           97249.11979792669,
           75818.35576171875,
           83142.17243652344,
-          55237.681788126625
+          55237.681788126625,
+          67622.51240757534
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -71032,6 +71327,7 @@ window.BENCHMARK_DATA = {
           208883,
           208881,
           208881,
+          208883,
           208883,
           208883
         ],
@@ -71157,7 +71453,8 @@ window.BENCHMARK_DATA = {
           335779.0889718192,
           267436.93876953126,
           294004.5536132812,
-          207932.29934895833
+          207932.29934895833,
+          260481.05279947916
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -71278,7 +71575,8 @@ window.BENCHMARK_DATA = {
           707722,
           707722,
           707722,
-          707721
+          707721,
+          707722
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -71402,7 +71700,8 @@ window.BENCHMARK_DATA = {
           1286664.9192243305,
           1048814.1401041667,
           1632211.3162760416,
-          818608.2271205357
+          818608.2271205357,
+          1255671.8627232143
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -71523,7 +71822,8 @@ window.BENCHMARK_DATA = {
           1692567,
           1692567,
           1692824,
-          1692670
+          1692670,
+          1692678
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -71647,7 +71947,8 @@ window.BENCHMARK_DATA = {
           1435048.0327845982,
           1071645.505078125,
           1799173.5404947917,
-          961474.5732421875
+          961474.5732421875,
+          1445323.458203125
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -71768,7 +72069,8 @@ window.BENCHMARK_DATA = {
           1468806,
           1468807,
           1468916,
-          1468910
+          1468910,
+          1468915
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -71892,7 +72194,8 @@ window.BENCHMARK_DATA = {
           2647316.8036458334,
           2333906.1921875,
           2875074.191015625,
-          1863170.0651041667
+          1863170.0651041667,
+          2410544.7421875
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -72013,7 +72316,8 @@ window.BENCHMARK_DATA = {
           4803191,
           4803191,
           4803387,
-          4803366
+          4803366,
+          4803672
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -72483,6 +72787,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -72561,7 +72871,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -72643,7 +72954,8 @@ window.BENCHMARK_DATA = {
           332.3678085962931,
           264.93113010724386,
           200.04619654587336,
-          242.156556002299
+          242.156556002299,
+          292.4923876982469
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -72728,6 +73040,7 @@ window.BENCHMARK_DATA = {
           1024,
           1024,
           1024,
+          1032,
           1032,
           1032,
           1032
@@ -72820,7 +73133,8 @@ window.BENCHMARK_DATA = {
           418.3600516001383,
           334.62162362612213,
           288.7240955352783,
-          331.96662082672117
+          331.96662082672117,
+          385.87314796447754
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -72832,6 +73146,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1616,
           1616,
           1616,
           1616,
@@ -72997,7 +73312,8 @@ window.BENCHMARK_DATA = {
           849.0989423751831,
           654.5207795461018,
           510.7086336135864,
-          600.7163028035845
+          600.7163028035845,
+          661.124638001124
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -73064,6 +73380,7 @@ window.BENCHMARK_DATA = {
           4464,
           4464,
           4464,
+          2632,
           2632,
           2632,
           2632,
@@ -73174,7 +73491,8 @@ window.BENCHMARK_DATA = {
           330793.3270733173,
           118222.59673200335,
           98074.89331054688,
-          108138.57393704928
+          108138.57393704928,
+          119648.5926920573
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -73261,7 +73579,8 @@ window.BENCHMARK_DATA = {
           23282,
           23307,
           23551,
-          23313
+          23313,
+          23307
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -73351,7 +73670,8 @@ window.BENCHMARK_DATA = {
           16261.350125826322,
           9881.07339477539,
           8123.930904681866,
-          9066.089385986328
+          9066.089385986328,
+          10242.687330881754
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -73438,7 +73758,8 @@ window.BENCHMARK_DATA = {
           19742,
           19515,
           19742,
-          19553
+          19553,
+          19515
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -73528,7 +73849,8 @@ window.BENCHMARK_DATA = {
           11847.09602762858,
           6085.158778054373,
           5986.487416585286,
-          6941.286764291616
+          6941.286764291616,
+          6913.130338228666
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -73615,7 +73937,8 @@ window.BENCHMARK_DATA = {
           14332,
           14325,
           14332,
-          14332
+          14332,
+          14324
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -74085,6 +74408,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -74163,7 +74492,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -74245,7 +74575,8 @@ window.BENCHMARK_DATA = {
           1653.5104061126708,
           1209.5574766794841,
           976.6856062962459,
-          1154.7143936157227
+          1154.7143936157227,
+          1199.672173500061
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -74330,6 +74661,7 @@ window.BENCHMARK_DATA = {
           3040,
           3040,
           3040,
+          3048,
           3048,
           3048,
           3048
@@ -74422,7 +74754,8 @@ window.BENCHMARK_DATA = {
           1459.508155441284,
           1087.087675857544,
           966.1677716118949,
-          1085.230123247419
+          1085.230123247419,
+          1248.6895393371583
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -74434,6 +74767,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          3488,
           3488,
           3488,
           3488,
@@ -74599,7 +74933,8 @@ window.BENCHMARK_DATA = {
           4471.696858978272,
           3022.4491214752197,
           2901.435724530901,
-          3241.8428736368814
+          3241.8428736368814,
+          3262.9519421895343
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -74666,6 +75001,7 @@ window.BENCHMARK_DATA = {
           10536,
           10536,
           10536,
+          9440,
           9440,
           9440,
           9440,
@@ -74776,7 +75112,8 @@ window.BENCHMARK_DATA = {
           374186.4513671875,
           146428.6079752604,
           120576.70718180339,
-          138128.78004673548
+          138128.78004673548,
+          140688.8519193209
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -74863,7 +75200,8 @@ window.BENCHMARK_DATA = {
           41155,
           41143,
           41391,
-          41152
+          41152,
+          41147
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -74953,7 +75291,8 @@ window.BENCHMARK_DATA = {
           30271.63769124349,
           16457.196753365653,
           15647.782610212054,
-          15974.652515956333
+          15974.652515956333,
+          17460.87970377604
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -75040,7 +75379,8 @@ window.BENCHMARK_DATA = {
           31336,
           30082,
           31330,
-          30101
+          30101,
+          30082
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -75130,7 +75470,8 @@ window.BENCHMARK_DATA = {
           43601.16911214193,
           26788.068259684245,
           24251.80181666783,
-          27464.2615041097
+          27464.2615041097,
+          26514.808900960288
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -75217,7 +75558,8 @@ window.BENCHMARK_DATA = {
           60496,
           60493,
           60496,
-          60496
+          60496,
+          60498
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -75687,6 +76029,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -75765,7 +76113,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -75847,7 +76196,8 @@ window.BENCHMARK_DATA = {
           150846.877734375,
           108437.73272298177,
           87219.73630464994,
-          96359.02145996093
+          96359.02145996093,
+          103050.3827749399
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -75934,7 +76284,8 @@ window.BENCHMARK_DATA = {
           224801,
           224809,
           224809,
-          224808
+          224808,
+          224809
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -76024,7 +76375,8 @@ window.BENCHMARK_DATA = {
           113524.6283569336,
           85562.30375453403,
           76363.30762532553,
-          83381.41902378628
+          83381.41902378628,
+          87360.60201009114
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -76111,7 +76463,8 @@ window.BENCHMARK_DATA = {
           209409,
           209409,
           209408,
-          209408
+          209408,
+          209409
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -76201,7 +76554,8 @@ window.BENCHMARK_DATA = {
           374373.9225135216,
           275264.312109375,
           254152.99208984376,
-          266203.36342773435
+          266203.36342773435,
+          271927.0919921875
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -76282,6 +76636,7 @@ window.BENCHMARK_DATA = {
           653538,
           653538,
           653537,
+          653538,
           653538,
           653538,
           653538,
@@ -76378,7 +76733,8 @@ window.BENCHMARK_DATA = {
           4326730.365625,
           2470939.2110877405,
           2251137.8046875,
-          2322712.7087053573
+          2322712.7087053573,
+          2418846.7806490385
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -76465,7 +76821,8 @@ window.BENCHMARK_DATA = {
           1936429,
           1936120,
           1936649,
-          1936392
+          1936392,
+          1936120
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -76555,7 +76912,8 @@ window.BENCHMARK_DATA = {
           1419723.0615234375,
           756410.2273297991,
           784000.4236188616,
-          750650.9270368303
+          750650.9270368303,
+          725257.9841796875
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -76642,7 +77000,8 @@ window.BENCHMARK_DATA = {
           1231501,
           1117063,
           1231480,
-          1118923
+          1118923,
+          1117064
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -76732,7 +77091,8 @@ window.BENCHMARK_DATA = {
           4015305.3411458335,
           2578561.8875558036,
           2510598.1704427083,
-          2711648.787369792
+          2711648.787369792,
+          2732666.8489583335
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -76819,7 +77179,8 @@ window.BENCHMARK_DATA = {
           5052251,
           5051646,
           5052190,
-          5051807
+          5051807,
+          5051646
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -77289,6 +77650,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 11:33:14 2026 \u002B0100",
         "message": "chore: remove unused LibGit2Sharp reference (#1152)"
+      },
+      {
+        "sha": "23f4955b991662920014e423380fe3cc7beb5a0a",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 11:47:23 2026 \u002B0100",
+        "message": "fix: name generic methods correctly in interaction and setup descriptions (#1154)"
       }
     ],
     "labels": [
@@ -77367,7 +77734,8 @@ window.BENCHMARK_DATA = {
       "7b45f183",
       "2a13614b",
       "96cc7143",
-      "95da4f1f"
+      "95da4f1f",
+      "23f4955b"
     ],
     "datasets": [
       {
@@ -77449,7 +77817,8 @@ window.BENCHMARK_DATA = {
           3700.3903010232107,
           1993.094492985652,
           1913.4121960957846,
-          3405.658417892456
+          3405.658417892456,
+          2771.757199859619
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -77534,6 +77903,7 @@ window.BENCHMARK_DATA = {
           2288,
           2288,
           2288,
+          2296,
           2296,
           2296,
           2296
@@ -77626,7 +77996,8 @@ window.BENCHMARK_DATA = {
           3018.2609278361,
           1741.065377507891,
           1783.6153779347737,
-          3145.511610921224
+          3145.511610921224,
+          2324.9288662501745
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -77638,6 +78009,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2288,
           2288,
           2288,
           2288,
@@ -77803,7 +78175,8 @@ window.BENCHMARK_DATA = {
           3621.3632868448894,
           2041.8919111887615,
           2133.4374693552654,
-          3680.478276824951
+          3680.478276824951,
+          2767.975360743205
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -77870,6 +78243,7 @@ window.BENCHMARK_DATA = {
           3344,
           3344,
           3344,
+          2912,
           2912,
           2912,
           2912,
@@ -77980,7 +78354,8 @@ window.BENCHMARK_DATA = {
           12611.084995814732,
           6994.676625932966,
           7486.712924194336,
-          14541.563512529645
+          14541.563512529645,
+          10105.535602823893
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -78051,6 +78426,7 @@ window.BENCHMARK_DATA = {
           11048,
           11048,
           11049,
+          11048,
           11048,
           11048,
           11048,
@@ -78157,7 +78533,8 @@ window.BENCHMARK_DATA = {
           11330.112171427409,
           5949.374725341797,
           6321.014386494954,
-          12645.510728018624
+          12645.510728018624,
+          9284.808435712543
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -78244,7 +78621,8 @@ window.BENCHMARK_DATA = {
           14632,
           14633,
           14633,
-          14633
+          14633,
+          15024
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -78334,7 +78712,8 @@ window.BENCHMARK_DATA = {
           11678.669694083077,
           6314.126768845778,
           6578.580187479655,
-          13278.698327871469
+          13278.698327871469,
+          9430.412781935473
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -78421,7 +78800,8 @@ window.BENCHMARK_DATA = {
           14614,
           14620,
           14620,
-          14620
+          14620,
+          14614
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
