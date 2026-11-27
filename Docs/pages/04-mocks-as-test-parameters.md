@@ -170,32 +170,20 @@ To reuse how a value is made across test classes, write an attribute that implem
 ```csharp
 using System.Reflection;
 
-[ProvidesValuesFor(typeof(string))]
-public sealed class FileNameAttribute : Attribute, IParameterValueProvider
+[ProvidesValuesFor(typeof(Discount))]
+public sealed class DiscountedAttribute(string type, int percentage) : Attribute, IParameterValueProvider
 {
-    public string Extension { get; set; } = ".txt";
-
-    public object? ProvideValue(ParameterInfo parameter) => $"{parameter.Name}-{Guid.NewGuid():N}{Extension}";
-}
-
-public interface IFileSystem
-{
-    void WriteAllText(string path, string contents);
-}
-
-public class ReportExporter(string fileName, IFileSystem fileSystem)
-{
-    public void Export(string report) => fileSystem.WriteAllText(fileName, report);
+    public object? ProvideValue(ParameterInfo parameter) => new Discount { Type = type, Percentage = percentage };
 }
 
 [Test]
 [AutoMockArguments]
-public async Task Export_ShouldWriteTheFile(ReportExporter sut, IFileSystem fileSystem,
-    [FileName(Extension = ".csv")] string fileName)
+public async Task GetPrice_ShouldApplyTheDiscount(ChocolateCashier sut, IChocolatePrices prices,
+    [Discounted("Dark", 10)] Discount discount)
 {
-    sut.Export("report");
+    prices.Mock.Setup.GetPrice(discount.Type).Returns(20m);
 
-    await That(fileSystem.Mock.Verify.WriteAllText(fileName, "report")).Once();
+    await That(sut.GetPrice(discount.Type)).IsEqualTo(18m);
 }
 ```
 
@@ -295,9 +283,14 @@ public interface IChocolateStock
     int Count(string type);
 }
 
-public class ChocolateDisplay(IChocolateStock stock)
+public class ChocolateDisplay
 {
-    public bool IsSoldOut { get; } = stock.Count("Dark") == 0;
+    public ChocolateDisplay(IChocolateStock stock)
+    {
+        IsSoldOut = stock.Count("Dark") == 0;
+    }
+
+    public bool IsSoldOut { get; }
 }
 
 [Test]
