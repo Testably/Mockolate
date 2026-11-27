@@ -11,8 +11,8 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task EventRecords_AppendBoxed_KindMatters()
 	{
-		FastMockInteractions subscribeStore = new(1);
-		FastMockInteractions unsubscribeStore = new(1);
+		MockInteractions subscribeStore = new(1);
+		MockInteractions unsubscribeStore = new(1);
 		EventRecords subscribe = InstallEventSubscribe(subscribeStore, 0);
 		EventRecords unsubscribe = InstallEventUnsubscribe(unsubscribeStore, 0);
 
@@ -26,7 +26,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task EventRecords_GetUnverifiedInteractions_ShouldSkipMatchedSlots()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		EventRecords buffer = InstallEventSubscribe(store, 0);
 		buffer.AppendSubscription("E", this, SampleMethod);
 		buffer.AppendSubscription("E", this, SampleMethod);
@@ -50,7 +50,7 @@ public class RecordsBoxingAndUnverifiedTests
 	{
 		// Pins the `r.Boxed ??= new EventSubscription(...)` cache in AppendBoxed. With the
 		// `??=` mutated to `=`, every AppendBoxed call would allocate a fresh record.
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		EventRecords buffer = InstallEventSubscribe(store, 0);
 		buffer.AppendSubscription("E", this, SampleMethod);
 
@@ -75,7 +75,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task EventRecords_Unsubscribe_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		EventRecords buffer = InstallEventUnsubscribe(store, 0);
 		buffer.AppendUnsubscription("E", this, SampleMethod);
 
@@ -92,7 +92,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task EventRecords_Unsubscribe_GetUnverifiedInteractions_ShouldBoxAsEventUnsubscription()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		EventRecords buffer = InstallEventUnsubscribe(store, 0);
 		buffer.AppendUnsubscription("E", this, SampleMethod);
 
@@ -123,7 +123,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerGetterRecords1_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerGetterRecords<int> buffer = InstallIndexerGetter<int>(store, 0);
 
 		buffer.Append(7);
@@ -158,7 +158,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerGetterRecords2_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerGetterRecords<int, string> buffer = InstallIndexerGetter<int, string>(store, 0);
 
 		buffer.Append(7, "k");
@@ -194,7 +194,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerGetterRecords3_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerGetterRecords<int, string, bool> buffer =
 			InstallIndexerGetter<int, string, bool>(store, 0);
 
@@ -232,7 +232,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerGetterRecords4_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerGetterRecords<int, string, bool, double> buffer =
 			InstallIndexerGetter<int, string, bool, double>(store, 0);
 
@@ -269,7 +269,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerSetterRecords1_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerSetterRecords<int, string> buffer = InstallIndexerSetter<int, string>(store, 0);
 
 		buffer.Append(7, "k");
@@ -305,7 +305,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerSetterRecords2_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerSetterRecords<int, string, bool> buffer =
 			InstallIndexerSetter<int, string, bool>(store, 0);
 
@@ -343,7 +343,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerSetterRecords3_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerSetterRecords<int, string, bool, double> buffer =
 			InstallIndexerSetter<int, string, bool, double>(store, 0);
 
@@ -381,7 +381,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerSetterRecords4_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerSetterRecords<int, string, bool, double, char> buffer =
 			InstallIndexerSetter<int, string, bool, double, char>(store, 0);
 
@@ -411,7 +411,7 @@ public class RecordsBoxingAndUnverifiedTests
 	public async Task MethodRecords0_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
 	{
 		// Pins the `r.Boxed ??= new MethodInvocation(r.Name)` cache in Method0 AppendBoxed.
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords buffer = new(store, 0);
 
 		buffer.Append("M");
@@ -437,7 +437,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task MethodRecords1_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int> buffer = new(store, 0);
 
 		buffer.Append("M", 1);
@@ -472,7 +472,7 @@ public class RecordsBoxingAndUnverifiedTests
 	public async Task MethodRecords3_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
 	{
 		// Pins the `r.Boxed ??= new MethodInvocation<T1,T2,T3>(...)` cache in Method3 AppendBoxed.
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int, string, bool> buffer = InstallMethod<int, string, bool>(store, 0);
 
 		buffer.Append("M", 1, "a", true);
@@ -490,7 +490,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task MethodRecords3_GetUnverifiedInteractions_ShouldSkipMatchedSlots()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int, string, bool> buffer = InstallMethod<int, string, bool>(store, 0);
 		buffer.Append("M", 0, "a", true);
 		buffer.Append("M", 1, "b", false);
@@ -521,7 +521,7 @@ public class RecordsBoxingAndUnverifiedTests
 	public async Task MethodRecords4_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
 	{
 		// Pins the `r.Boxed ??= new MethodInvocation<T1,T2,T3,T4>(...)` cache in Method4 AppendBoxed.
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int, string, bool, double> buffer =
 			InstallMethod<int, string, bool, double>(store, 0);
 
@@ -540,7 +540,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task MethodRecords4_GetUnverifiedInteractions_ShouldSkipMatchedSlots()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int, string, bool, double> buffer =
 			InstallMethod<int, string, bool, double>(store, 0);
 		buffer.Append("M", 0, "a", true, 0.5);
@@ -571,7 +571,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task PropertyGetterRecords_AppendBoxed_RepeatedCallsReturnSameSingleton()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		PropertyGetterRecords buffer = InstallPropertyGetter(store, 0);
 
 		buffer.Append();
@@ -589,7 +589,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task PropertyGetterRecords_AppendBoxed_ShouldReturnTheRecordedAccessForEachRecord()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		PropertyGetterRecords buffer = InstallPropertyGetter(store, 0);
 		PropertyGetterAccess access = new("P");
 
@@ -607,7 +607,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task PropertyGetterRecords_AppendBoxed_ShouldKeepTheRecordedAccessAcrossSnapshots()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		PropertyGetterRecords buffer = InstallPropertyGetter(store, 0);
 		PropertyGetterAccess access = new("P");
 
@@ -636,7 +636,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task PropertySetterRecords_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		PropertySetterRecords<int> buffer = InstallPropertySetter<int>(store, 0);
 
 		buffer.Append("P", 5);
@@ -654,7 +654,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task PropertySetterRecords_GetUnverifiedInteractions_ShouldSkipMatchedSlots()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		PropertySetterRecords<int> buffer = InstallPropertySetter<int>(store, 0);
 		buffer.Append("P", 1);
 		buffer.Append("P", 2);
@@ -672,7 +672,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task PropertySetterRecords_ConsumeMatching_ShouldMarkSlotsVerified()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		PropertySetterRecords<int> buffer = InstallPropertySetter<int>(store, 0);
 		buffer.Append("P", 1);
 		buffer.Append("P", 1);
@@ -690,7 +690,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerGetterRecords1_GetUnverifiedInteractions_ShouldSkipMatchedSlots()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerGetterRecords<int> buffer = InstallIndexerGetter<int>(store, 0);
 		buffer.Append(0);
 		buffer.Append(1);
@@ -708,7 +708,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerGetterRecords2_GetUnverifiedInteractions_ShouldSkipMatchedSlots()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerGetterRecords<int, string> buffer = InstallIndexerGetter<int, string>(store, 0);
 		buffer.Append(0, "a");
 		buffer.Append(1, "b");
@@ -728,7 +728,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerGetterRecords3_AppendBoxed_BoxesAsIndexerGetterAccess()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerGetterRecords<int, string, bool> buffer =
 			InstallIndexerGetter<int, string, bool>(store, 0);
 
@@ -744,7 +744,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerGetterRecords3_GetUnverifiedInteractions_ShouldSkipMatchedSlots()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerGetterRecords<int, string, bool> buffer =
 			InstallIndexerGetter<int, string, bool>(store, 0);
 		buffer.Append(0, "a", true);
@@ -766,7 +766,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerGetterRecords4_AppendBoxed_BoxesAsIndexerGetterAccess()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerGetterRecords<int, string, bool, double> buffer =
 			InstallIndexerGetter<int, string, bool, double>(store, 0);
 
@@ -783,7 +783,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerGetterRecords4_GetUnverifiedInteractions_ShouldSkipMatchedSlots()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerGetterRecords<int, string, bool, double> buffer =
 			InstallIndexerGetter<int, string, bool, double>(store, 0);
 		buffer.Append(0, "a", true, 0.5);
@@ -806,7 +806,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerSetterRecords1_GetUnverifiedInteractions_ShouldSkipMatchedSlots()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerSetterRecords<int, string> buffer = InstallIndexerSetter<int, string>(store, 0);
 		buffer.Append(0, "x");
 		buffer.Append(1, "y");
@@ -826,7 +826,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerSetterRecords2_GetUnverifiedInteractions_ShouldSkipMatchedSlots()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerSetterRecords<int, string, bool> buffer =
 			InstallIndexerSetter<int, string, bool>(store, 0);
 		buffer.Append(0, "x", true);
@@ -848,7 +848,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerSetterRecords3_AppendBoxed_BoxesAsIndexerSetterAccess()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerSetterRecords<int, string, bool, double> buffer =
 			InstallIndexerSetter<int, string, bool, double>(store, 0);
 
@@ -865,7 +865,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerSetterRecords3_GetUnverifiedInteractions_ShouldSkipMatchedSlots()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerSetterRecords<int, string, bool, double> buffer =
 			InstallIndexerSetter<int, string, bool, double>(store, 0);
 		buffer.Append(0, "x", true, 0.5);
@@ -888,7 +888,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerSetterRecords4_AppendBoxed_BoxesAsIndexerSetterAccess()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerSetterRecords<int, string, bool, double, char> buffer =
 			InstallIndexerSetter<int, string, bool, double, char>(store, 0);
 
@@ -906,7 +906,7 @@ public class RecordsBoxingAndUnverifiedTests
 	[Test]
 	public async Task IndexerSetterRecords4_GetUnverifiedInteractions_ShouldSkipMatchedSlots()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerSetterRecords<int, string, bool, double, char> buffer =
 			InstallIndexerSetter<int, string, bool, double, char>(store, 0);
 		buffer.Append(0, "x", true, 0.5, 'a');
@@ -927,52 +927,52 @@ public class RecordsBoxingAndUnverifiedTests
 		await That(((IndexerSetterAccess<int, string, bool, double, char>)dest[1]).Parameter1).IsEqualTo(2);
 	}
 
-	private static MethodRecords<T1, T2, T3> InstallMethod<T1, T2, T3>(FastMockInteractions store, int memberId)
+	private static MethodRecords<T1, T2, T3> InstallMethod<T1, T2, T3>(MockInteractions store, int memberId)
 		=> new MethodRecords<T1, T2, T3>(store, memberId);
 
-	private static MethodRecords<T1, T2, T3, T4> InstallMethod<T1, T2, T3, T4>(FastMockInteractions store, int memberId)
+	private static MethodRecords<T1, T2, T3, T4> InstallMethod<T1, T2, T3, T4>(MockInteractions store, int memberId)
 		=> new MethodRecords<T1, T2, T3, T4>(store, memberId);
 
-	private static IndexerGetterRecords<T1> InstallIndexerGetter<T1>(FastMockInteractions store, int memberId)
+	private static IndexerGetterRecords<T1> InstallIndexerGetter<T1>(MockInteractions store, int memberId)
 		=> new IndexerGetterRecords<T1>(store, memberId);
 
-	private static IndexerGetterRecords<T1, T2> InstallIndexerGetter<T1, T2>(FastMockInteractions store, int memberId)
+	private static IndexerGetterRecords<T1, T2> InstallIndexerGetter<T1, T2>(MockInteractions store, int memberId)
 		=> new IndexerGetterRecords<T1, T2>(store, memberId);
 
-	private static IndexerGetterRecords<T1, T2, T3> InstallIndexerGetter<T1, T2, T3>(FastMockInteractions store, int memberId)
+	private static IndexerGetterRecords<T1, T2, T3> InstallIndexerGetter<T1, T2, T3>(MockInteractions store, int memberId)
 		=> new IndexerGetterRecords<T1, T2, T3>(store, memberId);
 
-	private static IndexerGetterRecords<T1, T2, T3, T4> InstallIndexerGetter<T1, T2, T3, T4>(FastMockInteractions store, int memberId)
+	private static IndexerGetterRecords<T1, T2, T3, T4> InstallIndexerGetter<T1, T2, T3, T4>(MockInteractions store, int memberId)
 		=> new IndexerGetterRecords<T1, T2, T3, T4>(store, memberId);
 
-	private static IndexerSetterRecords<T1, TValue> InstallIndexerSetter<T1, TValue>(FastMockInteractions store, int memberId)
+	private static IndexerSetterRecords<T1, TValue> InstallIndexerSetter<T1, TValue>(MockInteractions store, int memberId)
 		=> new IndexerSetterRecords<T1, TValue>(store, memberId);
 
-	private static IndexerSetterRecords<T1, T2, TValue> InstallIndexerSetter<T1, T2, TValue>(FastMockInteractions store, int memberId)
+	private static IndexerSetterRecords<T1, T2, TValue> InstallIndexerSetter<T1, T2, TValue>(MockInteractions store, int memberId)
 		=> new IndexerSetterRecords<T1, T2, TValue>(store, memberId);
 
-	private static IndexerSetterRecords<T1, T2, T3, TValue> InstallIndexerSetter<T1, T2, T3, TValue>(FastMockInteractions store, int memberId)
+	private static IndexerSetterRecords<T1, T2, T3, TValue> InstallIndexerSetter<T1, T2, T3, TValue>(MockInteractions store, int memberId)
 		=> new IndexerSetterRecords<T1, T2, T3, TValue>(store, memberId);
 
-	private static IndexerSetterRecords<T1, T2, T3, T4, TValue> InstallIndexerSetter<T1, T2, T3, T4, TValue>(FastMockInteractions store, int memberId)
+	private static IndexerSetterRecords<T1, T2, T3, T4, TValue> InstallIndexerSetter<T1, T2, T3, T4, TValue>(MockInteractions store, int memberId)
 		=> new IndexerSetterRecords<T1, T2, T3, T4, TValue>(store, memberId);
 
-	private static EventRecords InstallEventSubscribe(FastMockInteractions store, int memberId)
+	private static EventRecords InstallEventSubscribe(MockInteractions store, int memberId)
 		=> new EventRecords(store, memberId);
 
-	private static EventRecords InstallEventUnsubscribe(FastMockInteractions store, int memberId)
+	private static EventRecords InstallEventUnsubscribe(MockInteractions store, int memberId)
 		=> new EventRecords(store, memberId);
 
-	private static PropertyGetterRecords InstallPropertyGetter(FastMockInteractions store, int memberId)
+	private static PropertyGetterRecords InstallPropertyGetter(MockInteractions store, int memberId)
 		=> new PropertyGetterRecords(store, memberId);
 
-	private static PropertySetterRecords<T> InstallPropertySetter<T>(FastMockInteractions store, int memberId)
+	private static PropertySetterRecords<T> InstallPropertySetter<T>(MockInteractions store, int memberId)
 		=> new PropertySetterRecords<T>(store, memberId);
 
 	private static async Task VerifyAppendWithAccessPublishesAndRaises(
-		Func<FastMockInteractions, (Action Append, Func<int> CountReader)> setupFactory)
+		Func<MockInteractions, (Action Append, Func<int> CountReader)> setupFactory)
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		(Action append, Func<int> countReader) = setupFactory(store);
 		int invocations = 0;
 		EventHandler handler = (_, _) => invocations++;
@@ -996,9 +996,9 @@ public class RecordsBoxingAndUnverifiedTests
 	{
 	}
 
-	private static async Task VerifyRaisesInteractionAdded(Func<FastMockInteractions, Action> appendFactory)
+	private static async Task VerifyRaisesInteractionAdded(Func<MockInteractions, Action> appendFactory)
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		Action append = appendFactory(store);
 		int invocations = 0;
 		EventHandler handler = (_, _) => invocations++;

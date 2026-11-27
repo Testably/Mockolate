@@ -11,10 +11,10 @@ namespace Mockolate.Internal.Tests.Verify;
 
 public class VerificationResultTests
 {
-	private static MethodRecords InstallMethod(FastMockInteractions store, int memberId)
+	private static MethodRecords InstallMethod(MockInteractions store, int memberId)
 		=> new MethodRecords(store, memberId);
 
-	private static MethodRecords<T> InstallMethod<T>(FastMockInteractions store, int memberId)
+	private static MethodRecords<T> InstallMethod<T>(MockInteractions store, int memberId)
 		=> new MethodRecords<T>(store, memberId);
 
 	public sealed class ConstructorTests
@@ -22,7 +22,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task WithLazyExpectation_ShouldCreateExpectationFromStateAndArgument()
 		{
-			IMockInteractions interactions = new FastMockInteractions(0);
+			IMockInteractions interactions = new MockInteractions(0);
 			VerificationResult<int> sut = new(1, interactions, _ => false,
 				new VerificationExpectation("foo", "bar", static (state, argument) => $"{state}-{argument}"));
 
@@ -34,7 +34,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task ShouldExposeInteractions()
 		{
-			IMockInteractions interactions = new FastMockInteractions(0);
+			IMockInteractions interactions = new MockInteractions(0);
 			VerificationResult<int> sut = new(1, interactions, _ => false,
 				new VerificationExpectation("foo", null, static (state, _) => (string)state!));
 
@@ -49,7 +49,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task Verify_WhenPredicateNeverSatisfies_ShouldTimeOut()
 		{
-			FastMockInteractions store = new(0);
+			MockInteractions store = new(0);
 			VerificationResult<object> result = new(
 				new object(),
 				store,
@@ -69,7 +69,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task Verify_WithFastPathAnyParameters_ShouldCollectAllInteractions()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -96,7 +96,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task Verify_WithFastPathLiteralSource_ShouldCollectOnlyMatchingInteractions()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -122,7 +122,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task Verify_WithFastPathLiteralSource_WhenNeverSatisfied_ShouldTimeOut()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -144,7 +144,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task VerifyAsync_WithFastPathLiteralSource_ShouldCollectOnlyMatchingInteractions()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -170,7 +170,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task VerifyCount_WhenPredicateNeverSatisfies_ShouldTimeOut()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			InstallMethod(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -193,7 +193,7 @@ public class VerificationResultTests
 			// here we assert against Exactly(1), which is the *filtered* count: only the false-branch
 			// (Count()) of the mutated conditional satisfies it synchronously, then short-circuits
 			// before the async loop can re-evaluate via the unmutated CountAll().
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -219,7 +219,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task WithCancellation_PreservesUseCountAllFlag()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -245,7 +245,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task Within_PreservesUseCountAllFlag()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -272,9 +272,9 @@ public class VerificationResultTests
 	public sealed class MapTests
 	{
 		[Test]
-		public async Task Map_WhenRecordsAndFastSourceBothNull_ShouldKeepBothNull()
+		public async Task Map_WhenRecordsAndCountSourceBothNull_ShouldKeepBothNull()
 		{
-			FastMockInteractions store = new(0);
+			MockInteractions store = new(0);
 			VerificationResult<object> source = new(
 				new object(), store, _ => true,
 				new VerificationExpectation("expected", null, static (state, _) => (string)state!));
@@ -284,20 +284,20 @@ public class VerificationResultTests
 			FieldInfo bufferField = typeof(VerificationResult<int>).GetField(
 				"_records", BindingFlags.Instance | BindingFlags.NonPublic)!;
 			FieldInfo fastSourceField = typeof(VerificationResult<int>).GetField(
-				"_fastCountSource", BindingFlags.Instance | BindingFlags.NonPublic)!;
+				"_recordCountSource", BindingFlags.Instance | BindingFlags.NonPublic)!;
 
 			await That(bufferField.GetValue(mapped)).IsNull();
 			await That(fastSourceField.GetValue(mapped)).IsNull();
 		}
 
 		[Test]
-		public async Task Map_WhenBufferOnlyAndFastSourceNull_PreservesBuffer()
+		public async Task Map_WhenBufferOnlyAndCountSourceNull_PreservesBuffer()
 		{
 			// The buffer-only IgnoreParameters constructor is wired with no fast source. Map must
 			// take the buffer-preserving branch — if it slips into the simple constructor, the next
 			// CollectMatching falls back to a global Where over _interactions, which would pick up
 			// records from OTHER buffers that satisfy the (un-name-filtered) predicate.
-			FastMockInteractions store = new(2);
+			MockInteractions store = new(2);
 			MethodRecords<int> bufA = InstallMethod<int>(store, 0);
 			MethodRecords<int> bufB = InstallMethod<int>(store, 1);
 			MockRegistry registry = new(MockBehavior.Default, store);
@@ -326,7 +326,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task Map_WithBuffer_PreservesFastPathSource()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MethodRecords buffer = InstallMethod(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -353,7 +353,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task Map_AfterAnyParameters_ShouldCountAllInteractions()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -378,7 +378,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task Map_AfterAnyParameters_ThenWithin_ShouldCountAllInteractions()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -401,7 +401,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task Map_AfterWithin_ShouldWaitForLateInteraction()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MethodRecords buffer = InstallMethod(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -429,7 +429,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task Map_AfterWithCancellation_ShouldWaitForLateInteraction()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MethodRecords buffer = InstallMethod(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 			using CancellationTokenSource cts = new(5.Seconds());
@@ -458,7 +458,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task Map_WithFastPathSource_ShouldCollectOnlyInteractionsMatchingTheSource()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -485,7 +485,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task Map_WithoutBuffer_StillCarriesPredicate()
 		{
-			FastMockInteractions store = new(0);
+			MockInteractions store = new(0);
 			VerificationResult<object> source = new(
 				new object(),
 				store,
@@ -507,7 +507,7 @@ public class VerificationResultTests
 			// Crosses the `records.Count > 1` boundary in CollectMatching at exactly N=2. Combined
 			// with the existing N=1 / N=3 / N=0 cases, this pins the boundary so flipping `> 1` to
 			// `>= 1` is no longer a silent rewrite of the sort path.
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -536,7 +536,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task WithBufferAndMultipleRecords_PreservesSequenceOrder()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -565,7 +565,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task WithBufferAndNoMatchingRecord_ReturnsEmpty()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -588,7 +588,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task WithBufferAndSingleRecord_ReturnsRecord()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MethodRecords buffer = InstallMethod(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -611,7 +611,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task WithEmptyBuffer_ReturnsEmpty()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			InstallMethod(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -632,7 +632,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task WithFastPathSource_ShouldCollectOnlyInteractionsMatchingTheSource()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -666,7 +666,7 @@ public class VerificationResultTests
 		{
 			// Same guard, Awaitable Verify (records-array) path. Constructed with a predicate-based
 			// VR (not a typed CountSource) so we exercise the slow CollectMatching branch.
-			FastMockInteractions store = new(0, true);
+			MockInteractions store = new(0, true);
 			VerificationResult<object> result = new(
 				new object(), store, _ => true,
 				new VerificationExpectation("expected", null, static (state, _) => (string)state!));
@@ -686,7 +686,7 @@ public class VerificationResultTests
 		public async Task VerifyCount_WhenRecordingDisabled_AndAwaitableViaWithin_ShouldThrowMockException()
 		{
 			// Same guard, Awaitable path (via Within). Distinct mutation site.
-			FastMockInteractions store = new(1, true);
+			MockInteractions store = new(1, true);
 			InstallMethod(store, 0);
 			MockRegistry registry = new(MockBehavior.Default with
 			{
@@ -707,9 +707,9 @@ public class VerificationResultTests
 		public async Task VerifyCount_WhenRecordingDisabled_ShouldThrowMockException()
 		{
 			// Kills the ThrowIfRecordingDisabled statement-removal mutation on the non-Awaitable
-			// IFastVerifyCountResult.VerifyCount path. Without the guard, Once() would silently
+			// ICountVerifiable.VerifyCount path. Without the guard, Once() would silently
 			// report a (probably false) count and never throw.
-			FastMockInteractions store = new(1, true);
+			MockInteractions store = new(1, true);
 			InstallMethod(store, 0);
 			MockRegistry registry = new(MockBehavior.Default with
 			{
@@ -731,7 +731,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task AnyParameters_WhenExpectationHasNoArgumentList_ShouldAppendAnyParameters()
 		{
-			IMockInteractions store = new FastMockInteractions(0);
+			IMockInteractions store = new MockInteractions(0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			VerificationResult<object>.IgnoreParameters result = registry.VerifyMethod<object, MethodInvocation<int>>(
@@ -749,7 +749,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task AnyParameters_WithoutBuffer_AndNoOverloadFilter_MatchesAllOfMethodName()
 		{
-			IMockInteractions store = new FastMockInteractions(0);
+			IMockInteractions store = new MockInteractions(0);
 
 			store.RegisterInteraction(new MethodInvocation<int>("Foo", 1));
 			store.RegisterInteraction(new MethodInvocation<string>("Foo", "x"));
@@ -774,7 +774,7 @@ public class VerificationResultTests
 		[Test]
 		public async Task AnyParameters_WithoutBuffer_KeepsOverloadFilter()
 		{
-			IMockInteractions store = new FastMockInteractions(0);
+			IMockInteractions store = new MockInteractions(0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			store.RegisterInteraction(new MethodInvocation<int>("Foo", 1));

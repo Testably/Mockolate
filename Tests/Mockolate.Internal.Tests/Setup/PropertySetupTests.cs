@@ -45,21 +45,21 @@ public sealed class PropertySetupTests
 	}
 
 	[Test]
-	public async Task DefaultInvokeGetterFast_WhenRequestedTypeIsBoxedSuperType_ShouldReturnStoredValueViaPatternMatch()
+	public async Task DefaultInvokeGetter_WithBehaviorBasedGenerator_WhenRequestedTypeIsBoxedSuperType_ShouldReturnStoredValueViaPatternMatch()
 	{
 		PropertySetup.Default<int> setup = new("p", 42);
 
-		object value = setup.InvokeGetterFast<object>(MockBehavior.Default, _ => 99);
+		object value = setup.InvokeGetter<object>(MockBehavior.Default, _ => 99);
 
 		await That(value).IsEqualTo(42);
 	}
 
 	[Test]
-	public async Task DefaultInvokeGetterFast_WhenStoredValueIsNullReference_ShouldReturnNullViaTypeofFastPath()
+	public async Task DefaultInvokeGetter_WithBehaviorBasedGenerator_WhenStoredValueIsNullReference_ShouldReturnNullViaTypeofFastPath()
 	{
 		PropertySetup.Default<string> setup = new("p", null!);
 
-		string value = setup.InvokeGetterFast<string>(MockBehavior.Default, _ => "fallback");
+		string value = setup.InvokeGetter<string>(MockBehavior.Default, _ => "fallback");
 
 		await That(value).IsNull();
 	}
@@ -110,7 +110,7 @@ public sealed class PropertySetupTests
 	public async Task PropertySetupInvokeGetter_WhenRequestedTypeIsBoxedSuperType_ShouldReturnStoredValueViaPatternMatch()
 	{
 		PropertySetup<int> setup = new(
-			new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)), "p");
+			new MockRegistry(MockBehavior.Default, new MockInteractions(0)), "p");
 		setup.InitializeWith(42);
 		IInteractivePropertySetup interactive = setup;
 
@@ -123,7 +123,7 @@ public sealed class PropertySetupTests
 	public async Task PropertySetupInvokeGetter_WhenStoredValueIsNullReference_ShouldReturnNullViaTypeofFastPath()
 	{
 		PropertySetup<string> setup = new(
-			new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)), "p");
+			new MockRegistry(MockBehavior.Default, new MockInteractions(0)), "p");
 		IInteractivePropertySetup interactive = setup;
 
 		string value = interactive.InvokeGetter<string>(null, MockBehavior.Default, () => "fallback");
@@ -132,13 +132,13 @@ public sealed class PropertySetupTests
 	}
 
 	[Test]
-	public async Task PropertySetupInvokeGetterFast_WhenRequestedTypeIsBoxedSuperType_ShouldReturnStoredValueViaPatternMatch()
+	public async Task PropertySetupInvokeGetter_WithBehaviorBasedGenerator_WhenRequestedTypeIsBoxedSuperType_ShouldReturnStoredValueViaPatternMatch()
 	{
 		PropertySetup<int> setup = new(
-			new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)), "p");
+			new MockRegistry(MockBehavior.Default, new MockInteractions(0)), "p");
 		setup.InitializeWith(42);
 
-		object value = setup.InvokeGetterFast<object>(MockBehavior.Default, _ => 99);
+		object value = setup.InvokeGetter<object>(MockBehavior.Default, _ => 99);
 
 		await That(value).IsEqualTo(42);
 	}

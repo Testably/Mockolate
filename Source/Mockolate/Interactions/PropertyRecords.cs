@@ -11,7 +11,7 @@ namespace Mockolate.Interactions;
 ///     <see cref="PropertyGetterAccess" /> when boxed for verification. Sharing one reference
 ///     across records is safe because property getters carry no parameters — every recorded
 ///     access is semantically identical — and the two reference-keyed verification paths in
-///     this codebase tolerate it: <c>FastMockInteractions._verified</c> filters all-or-nothing
+///     this codebase tolerate it: <c>MockInteractions._verified</c> filters all-or-nothing
 ///     per matched property, and <c>VerificationResultExtensions.Then</c> walks the snapshot
 ///     positionally so repeated occurrences of the same reference still resolve to distinct
 ///     positions.
@@ -25,14 +25,14 @@ internal sealed class PropertyGetterRecords : MemberRecords
 	/// <summary>
 	///     Creates a view that reads the recorded accesses of a property getter.
 	/// </summary>
-	internal PropertyGetterRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	internal PropertyGetterRecords(MockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, PropertyGetterAccess access)
+	public static void Append(MockInteractions owner, int memberId, PropertyGetterAccess access)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -61,14 +61,14 @@ internal sealed class PropertySetterRecords<T> : MemberRecords
 	/// </summary>
 	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public PropertySetterRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public PropertySetterRecords(MockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, string name, T value)
+	public static void Append(MockInteractions owner, int memberId, string name, T value)
 	{
 		Record r = new();
 		r.MemberId = memberId;

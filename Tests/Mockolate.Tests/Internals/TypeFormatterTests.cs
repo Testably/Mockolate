@@ -13,7 +13,7 @@ public sealed class TypeFormatterTests
 
 	public static IEnumerable<(string, string)> ProvideTestData()
 	{
-		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+		MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 
 		yield return (new PropertySetup<int>(registry, "Foo").ToString(), "int Foo");
 		yield return (new PropertySetup<uint>(registry, "Foo").ToString(), "uint Foo");

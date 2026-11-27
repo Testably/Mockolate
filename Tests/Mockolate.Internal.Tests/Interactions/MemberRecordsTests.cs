@@ -12,7 +12,7 @@ public class MemberRecordsTests
 	[Test]
 	public async Task Clear_AfterManyRecords_ResetsCountAndAllowsRefill()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int> buffer = CreateBuffer(store);
 		for (int i = 0; i < 50; i++)
 		{
@@ -31,7 +31,7 @@ public class MemberRecordsTests
 	[Test]
 	public async Task Clear_ShouldNotCarryOverVerifiedFlags()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int> buffer = CreateBuffer(store);
 		buffer.Append("Foo", 1);
 		buffer.ConsumeMatching((IParameterMatch<int>)It.IsAny<int>());
@@ -171,7 +171,7 @@ public class MemberRecordsTests
 	[Test]
 	public async Task Append_WithoutBuffer_ShouldBeVisibleInTheViewOfItsMemberOnly()
 	{
-		FastMockInteractions store = new(2);
+		MockInteractions store = new(2);
 
 		MethodRecords<int>.Append(store, 0, "Foo", 1);
 		MethodRecords<int>.Append(store, 1, "Bar", 2);
@@ -188,7 +188,7 @@ public class MemberRecordsTests
 	public async Task ConsumeMatching_ShouldMarkOnlyMatchingRecordsAsVerified()
 	{
 		const int total = 100;
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int> buffer = CreateBuffer(store);
 		for (int i = 0; i < total; i++)
 		{
@@ -205,7 +205,7 @@ public class MemberRecordsTests
 	[Test]
 	public async Task ConsumeMatching_WhenMatcherWaitsForAnotherThreadToRecordACall_ShouldNotDeadlock()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int> buffer = CreateBuffer(store);
 		buffer.Append("Foo", 1);
 
@@ -225,7 +225,7 @@ public class MemberRecordsTests
 	public async Task Enumeration_ShouldReturnRecordsInCallOrder()
 	{
 		const int total = 100;
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int> buffer = CreateBuffer(store);
 		for (int i = 0; i < total; i++)
 		{
@@ -235,7 +235,7 @@ public class MemberRecordsTests
 		await That(store.Select(x => ((MethodInvocation<int>)x).Parameter1)).IsEqualTo(Enumerable.Range(0, total));
 	}
 
-	private static MethodRecords<int> CreateBuffer(FastMockInteractions store)
+	private static MethodRecords<int> CreateBuffer(MockInteractions store)
 		=> new MethodRecords<int>(store, 0);
 
 	private static IntList CreateList(int count)
@@ -270,7 +270,7 @@ public class MemberRecordsTests
 
 	private sealed class IntList
 	{
-		private readonly FastMockInteractions _store = new(1);
+		private readonly MockInteractions _store = new(1);
 
 		public RecordNode? Head => _store.First;
 

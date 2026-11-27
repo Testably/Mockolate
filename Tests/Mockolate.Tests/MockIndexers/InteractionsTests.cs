@@ -7,7 +7,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerGetterAccess1_ToString_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerGetterAccess<string>(
@@ -20,7 +20,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerGetterAccess1_ToString_WithNull_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string?> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerGetterAccess<string?>(
@@ -33,7 +33,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerGetterAccess2_ToString_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string, int> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerGetterAccess<string, int>(
@@ -47,7 +47,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerGetterAccess2_ToString_WithNull_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string?, long?> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerGetterAccess<string?, long?>(
@@ -61,7 +61,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerGetterAccess3_ToString_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string, int, long?> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerGetterAccess<string, int, long?>(
@@ -76,7 +76,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerGetterAccess3_ToString_WithNull_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string?, int, long?> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerGetterAccess<string?, int, long?>(
@@ -91,7 +91,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerGetterAccess4_ToString_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string, int, long?, TimeSpan> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerGetterAccess<string, int, long?, TimeSpan>(
@@ -107,7 +107,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerGetterAccess4_ToString_WithNull_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string, int, long?, TimeSpan> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerGetterAccess<string, int, long?, TimeSpan>(
@@ -123,7 +123,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerGetterAccess5_ToString_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string, int, long?, TimeSpan, bool> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerGetterAccess<string, int, long?, TimeSpan, bool>(
@@ -140,7 +140,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerGetterAccess5_ToString_WithNull_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string?, int, long?, TimeSpan, bool?> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerGetterAccess<string?, int, long?, TimeSpan, bool?>(
@@ -157,7 +157,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerSetterAccess1_ToString_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string, int> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerSetterAccess<string, int>(
@@ -171,7 +171,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerSetterAccess1_ToString_WithNull_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string?, string?> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerSetterAccess<string?, string?>(
@@ -185,7 +185,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerSetterAccess2_ToString_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string, int, int> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerSetterAccess<string, int, int>(
@@ -200,7 +200,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerSetterAccess2_ToString_WithNull_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string?, long?, string?> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerSetterAccess<string?, long?, string?>(
@@ -215,7 +215,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerSetterAccess3_ToString_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string, int, long?, int> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerSetterAccess<string, int, long?, int>(
@@ -231,7 +231,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerSetterAccess3_ToString_WithNull_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string?, int, long?, string?> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerSetterAccess<string?, int, long?, string?>(
@@ -247,7 +247,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerSetterAccess4_ToString_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string, int, long?, TimeSpan, int> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerSetterAccess<string, int, long?, TimeSpan, int>(
@@ -264,7 +264,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerSetterAccess4_ToString_WithNull_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string, int, long?, TimeSpan, string?> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerSetterAccess<string, int, long?, TimeSpan, string?>(
@@ -281,7 +281,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerSetterAccess5_ToString_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string, int, long?, TimeSpan, bool, int> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerSetterAccess<string, int, long?, TimeSpan, bool, int>(
@@ -299,7 +299,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task IndexerSetterAccess5_ToString_WithNull_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string?, int, long?, TimeSpan, bool?, string?> interaction =
 			((IMockInteractions)interactions).RegisterInteraction(
 				new IndexerSetterAccess<string?, int, long?, TimeSpan, bool?, string?>(

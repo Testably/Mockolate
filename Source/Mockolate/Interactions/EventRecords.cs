@@ -30,14 +30,14 @@ internal sealed class EventRecords : MemberRecords
 	/// <summary>
 	///     Creates a view that reads the recorded subscriptions or unsubscriptions of an event.
 	/// </summary>
-	public EventRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public EventRecords(MockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, EventRecordKind kind, string name,
+	public static void Append(MockInteractions owner, int memberId, EventRecordKind kind, string name,
 		object? target, MethodInfo method)
 	{
 		Record r = new();

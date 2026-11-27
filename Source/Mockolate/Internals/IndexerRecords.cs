@@ -21,14 +21,14 @@ public sealed class IndexerGetterRecords<T1> : MemberRecords
 	/// </summary>
 	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public IndexerGetterRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public IndexerGetterRecords(MockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1)
+	public static void Append(MockInteractions owner, int memberId, T1 parameter1)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -39,7 +39,7 @@ public sealed class IndexerGetterRecords<T1> : MemberRecords
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, IndexerGetterAccess<T1> access)
+	public static void Append(MockInteractions owner, int memberId, IndexerGetterAccess<T1> access)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -92,14 +92,14 @@ public sealed class IndexerGetterRecords<T1, T2> : MemberRecords
 	/// </summary>
 	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public IndexerGetterRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public IndexerGetterRecords(MockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, T2 parameter2)
+	public static void Append(MockInteractions owner, int memberId, T1 parameter1, T2 parameter2)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -111,7 +111,7 @@ public sealed class IndexerGetterRecords<T1, T2> : MemberRecords
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, IndexerGetterAccess<T1, T2> access)
+	public static void Append(MockInteractions owner, int memberId, IndexerGetterAccess<T1, T2> access)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -166,14 +166,14 @@ public sealed class IndexerGetterRecords<T1, T2, T3> : MemberRecords
 	/// </summary>
 	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public IndexerGetterRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public IndexerGetterRecords(MockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, T2 parameter2, T3 parameter3)
+	public static void Append(MockInteractions owner, int memberId, T1 parameter1, T2 parameter2, T3 parameter3)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -186,7 +186,7 @@ public sealed class IndexerGetterRecords<T1, T2, T3> : MemberRecords
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, IndexerGetterAccess<T1, T2, T3> access)
+	public static void Append(MockInteractions owner, int memberId, IndexerGetterAccess<T1, T2, T3> access)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -243,14 +243,14 @@ public sealed class IndexerGetterRecords<T1, T2, T3, T4> : MemberRecords
 	/// </summary>
 	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public IndexerGetterRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public IndexerGetterRecords(MockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4)
+	public static void Append(MockInteractions owner, int memberId, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -264,7 +264,7 @@ public sealed class IndexerGetterRecords<T1, T2, T3, T4> : MemberRecords
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, IndexerGetterAccess<T1, T2, T3, T4> access)
+	public static void Append(MockInteractions owner, int memberId, IndexerGetterAccess<T1, T2, T3, T4> access)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -323,14 +323,14 @@ public sealed class IndexerSetterRecords<T1, TValue> : MemberRecords
 	/// </summary>
 	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public IndexerSetterRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public IndexerSetterRecords(MockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, TValue value)
+	public static void Append(MockInteractions owner, int memberId, T1 parameter1, TValue value)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -342,7 +342,7 @@ public sealed class IndexerSetterRecords<T1, TValue> : MemberRecords
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, IndexerSetterAccess<T1, TValue> access)
+	public static void Append(MockInteractions owner, int memberId, IndexerSetterAccess<T1, TValue> access)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -398,14 +398,14 @@ public sealed class IndexerSetterRecords<T1, T2, TValue> : MemberRecords
 	/// </summary>
 	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public IndexerSetterRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public IndexerSetterRecords(MockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, T2 parameter2, TValue value)
+	public static void Append(MockInteractions owner, int memberId, T1 parameter1, T2 parameter2, TValue value)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -418,7 +418,7 @@ public sealed class IndexerSetterRecords<T1, T2, TValue> : MemberRecords
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, IndexerSetterAccess<T1, T2, TValue> access)
+	public static void Append(MockInteractions owner, int memberId, IndexerSetterAccess<T1, T2, TValue> access)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -476,14 +476,14 @@ public sealed class IndexerSetterRecords<T1, T2, T3, TValue> : MemberRecords
 	/// </summary>
 	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public IndexerSetterRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public IndexerSetterRecords(MockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, T2 parameter2, T3 parameter3, TValue value)
+	public static void Append(MockInteractions owner, int memberId, T1 parameter1, T2 parameter2, T3 parameter3, TValue value)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -497,7 +497,7 @@ public sealed class IndexerSetterRecords<T1, T2, T3, TValue> : MemberRecords
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, IndexerSetterAccess<T1, T2, T3, TValue> access)
+	public static void Append(MockInteractions owner, int memberId, IndexerSetterAccess<T1, T2, T3, TValue> access)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -557,14 +557,14 @@ public sealed class IndexerSetterRecords<T1, T2, T3, T4, TValue> : MemberRecords
 	/// </summary>
 	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public IndexerSetterRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public IndexerSetterRecords(MockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, TValue value)
+	public static void Append(MockInteractions owner, int memberId, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, TValue value)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -579,7 +579,7 @@ public sealed class IndexerSetterRecords<T1, T2, T3, T4, TValue> : MemberRecords
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, IndexerSetterAccess<T1, T2, T3, T4, TValue> access)
+	public static void Append(MockInteractions owner, int memberId, IndexerSetterAccess<T1, T2, T3, T4, TValue> access)
 	{
 		Record r = new();
 		r.MemberId = memberId;

@@ -90,13 +90,13 @@ internal static partial class Mock
 		internal static readonly global::Mockolate.Interactions.PropertyGetterAccess PropertyAccess_StaticAbstractValue_Get = new global::Mockolate.Interactions.PropertyGetterAccess("global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.StaticAbstractValue");
 
 		/// <summary>
-		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
+		///     Creates a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
 		/// </summary>
-		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
-			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
+		internal static global::Mockolate.Internals.MockInteractions CreateInteractions(global::Mockolate.MockBehavior behavior)
+			=> new global::Mockolate.Internals.MockInteractions(MemberCount, behavior.SkipInteractionRecording);
 
 		/// <summary>
-		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
 		/// </summary>
 		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
@@ -299,14 +299,14 @@ internal static partial class Mock
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface)
 				{
 					global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps = (global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface)this.MockRegistry.Wraps;
-					return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSet_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_GetSet_Get, static b => b.DefaultValue.Generate(default(int)!), () => wraps.GetSet);
+					return this.MockRegistry.GetProperty<int>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSet_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_GetSet_Get, static b => b.DefaultValue.Generate(default(int)!), () => wraps.GetSet);
 				}
 
-				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSet_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_GetSet_Get, static b => b.DefaultValue.Generate(default(int)!));
+				return this.MockRegistry.GetProperty<int>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSet_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_GetSet_Get, static b => b.DefaultValue.Generate(default(int)!));
 			}
 			set
 			{
-				this.MockRegistry.SetPropertyFast<int>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSet_Get, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSet_Set, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSet", value);
+				this.MockRegistry.SetProperty<int>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSet_Get, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSet_Set, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSet", value);
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps)
 				{
 					wraps.GetSet = value;
@@ -322,10 +322,10 @@ internal static partial class Mock
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface)
 				{
 					global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps = (global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface)this.MockRegistry.Wraps;
-					return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetOnly_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_GetOnly_Get, static b => b.DefaultValue.Generate(default(int)!), () => wraps.GetOnly);
+					return this.MockRegistry.GetProperty<int>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetOnly_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_GetOnly_Get, static b => b.DefaultValue.Generate(default(int)!), () => wraps.GetOnly);
 				}
 
-				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetOnly_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_GetOnly_Get, static b => b.DefaultValue.Generate(default(int)!));
+				return this.MockRegistry.GetProperty<int>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetOnly_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_GetOnly_Get, static b => b.DefaultValue.Generate(default(int)!));
 			}
 		}
 
@@ -334,7 +334,7 @@ internal static partial class Mock
 		{
 			set
 			{
-				this.MockRegistry.SetPropertyFast<int>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_SetOnly_Get, global::Mockolate.Mock.IComprehensiveInterface.MemberId_SetOnly_Set, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.SetOnly", value);
+				this.MockRegistry.SetProperty<int>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_SetOnly_Get, global::Mockolate.Mock.IComprehensiveInterface.MemberId_SetOnly_Set, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.SetOnly", value);
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps)
 				{
 					wraps.SetOnly = value;
@@ -350,14 +350,14 @@ internal static partial class Mock
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface)
 				{
 					global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps = (global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface)this.MockRegistry.Wraps;
-					return this.MockRegistry.GetPropertyFast<string?>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_NullableProp_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_NullableProp_Get, static b => b.DefaultValue.Generate(default(string?)!), () => wraps.NullableProp);
+					return this.MockRegistry.GetProperty<string?>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_NullableProp_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_NullableProp_Get, static b => b.DefaultValue.Generate(default(string?)!), () => wraps.NullableProp);
 				}
 
-				return this.MockRegistry.GetPropertyFast<string?>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_NullableProp_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_NullableProp_Get, static b => b.DefaultValue.Generate(default(string?)!));
+				return this.MockRegistry.GetProperty<string?>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_NullableProp_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_NullableProp_Get, static b => b.DefaultValue.Generate(default(string?)!));
 			}
 			set
 			{
-				this.MockRegistry.SetPropertyFast<string?>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_NullableProp_Get, global::Mockolate.Mock.IComprehensiveInterface.MemberId_NullableProp_Set, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.NullableProp", value);
+				this.MockRegistry.SetProperty<string?>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_NullableProp_Get, global::Mockolate.Mock.IComprehensiveInterface.MemberId_NullableProp_Set, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.NullableProp", value);
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps)
 				{
 					wraps.NullableProp = value;
@@ -373,14 +373,14 @@ internal static partial class Mock
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface)
 				{
 					global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface wraps = (global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface)this.MockRegistry.Wraps;
-					return this.MockRegistry.GetPropertyFast<string>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_InitOnly_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_InitOnly_Get, static b => b.DefaultValue.Generate(default(string)!), () => wraps.InitOnly);
+					return this.MockRegistry.GetProperty<string>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_InitOnly_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_InitOnly_Get, static b => b.DefaultValue.Generate(default(string)!), () => wraps.InitOnly);
 				}
 
-				return this.MockRegistry.GetPropertyFast<string>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_InitOnly_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_InitOnly_Get, static b => b.DefaultValue.Generate(default(string)!));
+				return this.MockRegistry.GetProperty<string>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_InitOnly_Get, global::Mockolate.Mock.IComprehensiveInterface.PropertyAccess_InitOnly_Get, static b => b.DefaultValue.Generate(default(string)!));
 			}
 			init
 			{
-				this.MockRegistry.SetPropertyFast<string>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_InitOnly_Get, global::Mockolate.Mock.IComprehensiveInterface.MemberId_InitOnly_Set, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.InitOnly", value);
+				this.MockRegistry.SetProperty<string>(global::Mockolate.Mock.IComprehensiveInterface.MemberId_InitOnly_Get, global::Mockolate.Mock.IComprehensiveInterface.MemberId_InitOnly_Set, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.InitOnly", value);
 			}
 		}
 
@@ -391,7 +391,7 @@ internal static partial class Mock
 			{
 				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 				{
-					global::Mockolate.Internals.IndexerGetterRecords<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Indexer_int_Get, i);
+					global::Mockolate.Internals.IndexerGetterRecords<int>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Indexer_int_Get, i);
 				}
 				global::Mockolate.Setup.IndexerSetup<string, int>? setup = null;
 				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
@@ -421,7 +421,7 @@ internal static partial class Mock
 			{
 				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 				{
-					global::Mockolate.Internals.IndexerSetterRecords<int, string>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Indexer_int_Set, i, value);
+					global::Mockolate.Internals.IndexerSetterRecords<int, string>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Indexer_int_Set, i, value);
 				}
 				global::Mockolate.Setup.IndexerSetup<string, int>? setup = null;
 				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
@@ -532,7 +532,7 @@ internal static partial class Mock
 			{
 				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 				{
-					global::Mockolate.Internals.IndexerGetterRecords<double>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Indexer_double_Get, key);
+					global::Mockolate.Internals.IndexerGetterRecords<double>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Indexer_double_Get, key);
 				}
 				global::Mockolate.Setup.IndexerSetup<string, double>? setup = null;
 				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
@@ -567,7 +567,7 @@ internal static partial class Mock
 			{
 				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 				{
-					global::Mockolate.Internals.IndexerSetterRecords<char, string>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Indexer_char_Set, key, value);
+					global::Mockolate.Internals.IndexerSetterRecords<char, string>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Indexer_char_Set, key, value);
 				}
 				global::Mockolate.Setup.IndexerSetup<string, char>? setup = null;
 				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
@@ -648,7 +648,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (MockRegistryProvider.Value.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)MockRegistryProvider.Value.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_StaticAbstractMethod, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.StaticAbstractMethod");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)MockRegistryProvider.Value.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_StaticAbstractMethod, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.StaticAbstractMethod");
 			}
 			try
 			{
@@ -715,7 +715,7 @@ internal static partial class Mock
 			b = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<int, string, long, int[]>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", a, b, c, tail);
+				global::Mockolate.Internals.MethodRecords<int, string, long, int[]>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithModifiers, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithModifiers", a, b, c, tail);
 			}
 			try
 			{
@@ -797,7 +797,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", i, e, d, f, c, s, st);
+				global::Mockolate.Internals.MethodRecords<int, global::Mockolate.Tests.GeneratorCoverage.MyEnum, decimal, float, char, string?, global::Mockolate.Tests.GeneratorCoverage.MyStruct>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithDefaults, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithDefaults", i, e, d, f, c, s, st);
 			}
 			try
 			{
@@ -861,7 +861,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<int, int, int, int, int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithCollidingNames, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames", wraps, result, outParam1, methodExecution, returnValue);
+				global::Mockolate.Internals.MethodRecords<int, int, int, int, int>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_WithCollidingNames, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.WithCollidingNames", wraps, result, outParam1, methodExecution, returnValue);
 			}
 			try
 			{
@@ -926,7 +926,7 @@ internal static partial class Mock
 			string? wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<string?>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", s);
+				global::Mockolate.Internals.MethodRecords<string?>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetMaybeNull, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetMaybeNull", s);
 			}
 			try
 			{
@@ -996,7 +996,7 @@ internal static partial class Mock
 			bool wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<object?>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", obj);
+				global::Mockolate.Internals.MethodRecords<object?>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeObject", obj);
 			}
 			try
 			{
@@ -1066,7 +1066,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<object?, object?>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", first, second);
+				global::Mockolate.Internals.MethodRecords<object?, object?>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeTwoObjects, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeTwoObjects", first, second);
 			}
 			try
 			{
@@ -1136,7 +1136,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<int, object?>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", n, obj);
+				global::Mockolate.Internals.MethodRecords<int, object?>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_TakeIntAndObject, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.TakeIntAndObject", n, obj);
 			}
 			try
 			{
@@ -1206,7 +1206,7 @@ internal static partial class Mock
 			global::System.Threading.Tasks.Task wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoTask, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoTask");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoTask, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoTask");
 			}
 			try
 			{
@@ -1276,7 +1276,7 @@ internal static partial class Mock
 			global::System.Threading.Tasks.Task<int> wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoTaskOf, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoTaskOf");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoTaskOf, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoTaskOf");
 			}
 			try
 			{
@@ -1346,7 +1346,7 @@ internal static partial class Mock
 			global::System.Threading.Tasks.ValueTask wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoVT, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoVT");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoVT, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoVT");
 			}
 			try
 			{
@@ -1416,7 +1416,7 @@ internal static partial class Mock
 			global::System.Threading.Tasks.ValueTask<int> wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoVTOf, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoVTOf");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_DoVTOf, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.DoVTOf");
 			}
 			try
 			{
@@ -1486,7 +1486,7 @@ internal static partial class Mock
 			(int Code, string Msg) wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetTuple, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetTuple");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetTuple, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetTuple");
 			}
 			try
 			{
@@ -1556,7 +1556,7 @@ internal static partial class Mock
 			int? wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetNullable, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetNullable");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetNullable, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetNullable");
 			}
 			try
 			{
@@ -1626,7 +1626,7 @@ internal static partial class Mock
 			global::System.Span<char> wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", n);
+				global::Mockolate.Internals.MethodRecords<int>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetSpan", n);
 			}
 			try
 			{
@@ -1696,7 +1696,7 @@ internal static partial class Mock
 			global::System.ReadOnlySpan<char> wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetROSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", n);
+				global::Mockolate.Internals.MethodRecords<int>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetROSpan, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetROSpan", n);
 			}
 			try
 			{
@@ -1767,7 +1767,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetByRef, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRef");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetByRef, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRef");
 			}
 			try
 			{
@@ -1840,7 +1840,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetByRefReadonly, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRefReadonly");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_GetByRefReadonly, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.GetByRefReadonly");
 			}
 			try
 			{
@@ -2542,7 +2542,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<int, int, int, int, int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Five, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Five", a, b, c, d, e);
+				global::Mockolate.Internals.MethodRecords<int, int, int, int, int>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Five, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Five", a, b, c, d, e);
 			}
 			try
 			{
@@ -2612,7 +2612,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Seventeen, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Seventeen", a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17);
+				global::Mockolate.Internals.MethodRecords<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_Seventeen, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.Seventeen", a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17);
 			}
 			try
 			{
@@ -2681,7 +2681,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_SeventeenVoid, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.SeventeenVoid", a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17);
+				global::Mockolate.Internals.MethodRecords<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IComprehensiveInterface.MemberId_SeventeenVoid, "global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface.SeventeenVoid", a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17);
 			}
 			try
 			{
@@ -7456,7 +7456,7 @@ internal static partial class MockExtensionsForIComprehensiveInterface
 			if (mock is global::Mockolate.IMock mockInterface)
 			{
 				global::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);
-				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.IComprehensiveInterface.CreateFastInteractions(wrappingRegistry.Behavior));
+				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.IComprehensiveInterface.CreateInteractions(wrappingRegistry.Behavior));
 				return CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);
 			}
 			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");

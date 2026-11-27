@@ -79,7 +79,7 @@ public sealed partial class SetupPropertyTests
 	[Test]
 	public async Task ToString_ShouldReturnType()
 	{
-		PropertySetup<int> setup = new(new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)), "Foo");
+		PropertySetup<int> setup = new(new MockRegistry(MockBehavior.Default, new MockInteractions(0)), "Foo");
 
 		string result = setup.ToString();
 
@@ -116,7 +116,7 @@ public sealed partial class SetupPropertyTests
 	}
 
 	private sealed class MyPropertySetup<T>()
-		: PropertySetup<T>(new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)), "My.Property")
+		: PropertySetup<T>(new MockRegistry(MockBehavior.Default, new MockInteractions(0)), "My.Property")
 	{
 		public void InvokeSetter<TValue>(TValue value)
 			=> InvokeSetter(value, MockBehavior.Default);

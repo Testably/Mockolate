@@ -9,7 +9,7 @@ namespace Mockolate.Verify;
 ///     <see cref="VerificationResult{TVerify}" /> (and its awaitable variant) so the count
 ///     extensions can skip the fallback through <see cref="IVerificationResult.Verify" />.
 /// </summary>
-internal interface IFastVerifyCountResult
+internal interface ICountVerifiable
 {
 	/// <summary>
 	///     Counts the matching interactions and returns whether <paramref name="countPredicate" />

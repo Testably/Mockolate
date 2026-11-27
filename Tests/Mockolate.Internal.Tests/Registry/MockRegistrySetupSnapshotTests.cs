@@ -19,7 +19,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupMethod_WithIncreasingMemberIds_GrowsTableLazily()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup setup0 = new();
 			FakeMethodSetup setup7 = new();
 			FakeMethodSetup setup3 = new();
@@ -42,7 +42,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupMethod_WithMemberId_PublishesToSnapshot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup setup = new();
 
 			registry.SetupMethod(5, setup);
@@ -56,7 +56,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupMethod_WithMemberIdAndDefaultScenario_PublishesToSnapshot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup setup = new();
 
 			registry.SetupMethod(5, "", setup);
@@ -70,7 +70,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupMethod_WithMemberIdAndNamedScenario_DoesNotPublishToSnapshot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup setup = new();
 
 			registry.SetupMethod(5, "s1", setup);
@@ -81,7 +81,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupMethod_WithMemberIdAndNamedScenario_PreservesScenarioBucket()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup setup = new();
 
 			registry.SetupMethod(4, "s1", setup);
@@ -94,7 +94,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupMethod_WithSameMemberIdTwice_AppendsToBucket()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup setupA = new();
 			FakeMethodSetup setupB = new();
 
@@ -114,7 +114,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task PublishPropertyToMemberIdBucket_WhenResized_PreservesEarlierEntries()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setupLow = new(registry, "P5");
 			setupLow.InitializeWith(50);
 			PropertySetup<int> setupHigh = new(registry, "P10");
@@ -130,7 +130,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task PublishPropertyToMemberIdBucket_WithDefaultThenDefault_OverwritesInSnapshotTable()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup.Default<int> defaultA = new("P1", 0);
 			PropertySetup.Default<int> defaultB = new("P1", 0);
 
@@ -144,7 +144,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task PublishPropertyToMemberIdBucket_WithDefaultThenUserSetup_RetainsUserSetup()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> defaultSetup = new(registry, "P1");
 			defaultSetup.InitializeWith(0);
 			PropertySetup<int> userSetup = new(registry, "P1");
@@ -153,14 +153,14 @@ public sealed class MockRegistrySetupSnapshotTests
 			registry.SetupProperty(1, new PropertySetup.Default<int>("P1", 0));
 			registry.SetupProperty(1, userSetup);
 
-			int observed = registry.GetPropertyFast(1, new PropertyGetterAccess("P1"), _ => -1);
+			int observed = registry.GetProperty(1, new PropertyGetterAccess("P1"), _ => -1);
 			await That(observed).IsEqualTo(99);
 		}
 
 		[Test]
 		public async Task PublishPropertyToMemberIdBucket_WithUserThenDefault_RetainsUserSetupInSnapshotTable()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> userSetup = new(registry, "P1");
 			userSetup.InitializeWith(99);
 
@@ -174,21 +174,21 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task PublishPropertyToMemberIdBucket_WithUserThenDefaultSetup_RetainsUserSetup()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> userSetup = new(registry, "P1");
 			userSetup.InitializeWith(99);
 
 			registry.SetupProperty(1, userSetup);
 			registry.SetupProperty(1, new PropertySetup.Default<int>("P1", 0));
 
-			int observed = registry.GetPropertyFast(1, new PropertyGetterAccess("P1"), _ => -1);
+			int observed = registry.GetProperty(1, new PropertyGetterAccess("P1"), _ => -1);
 			await That(observed).IsEqualTo(99);
 		}
 
 		[Test]
 		public async Task SetupProperty_DefaultDoesNotOverwriteUserSetupAtSameMemberIdInSnapshot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> userSetup = new(registry, "Pg");
 			userSetup.InitializeWith(7);
 
@@ -203,7 +203,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupProperty_UserSetupDoesOverwriteDefaultAtSameMemberIdInSnapshot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> userSetup = new(registry, "Pg");
 			userSetup.InitializeWith(7);
 			PropertySetup.Default<int> defaultSetup = new("Pg", 0);
@@ -219,7 +219,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupProperty_WithGrowingMemberIds_PreservesEarlierEntriesViaArrayCopy()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setupA = new(registry, "Pa");
 			setupA.InitializeWith(1);
 			PropertySetup<int> setupB = new(registry, "Pb");
@@ -238,7 +238,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupProperty_WithIncreasingMemberIds_GrowsTableLazily()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setup0 = new(registry, "P0");
 			setup0.InitializeWith(10);
 			PropertySetup<int> setup7 = new(registry, "P7");
@@ -250,15 +250,15 @@ public sealed class MockRegistrySetupSnapshotTests
 			registry.SetupProperty(7, setup7);
 			registry.SetupProperty(3, setup3);
 
-			await That(registry.GetPropertyFast(0, new PropertyGetterAccess("P0"), _ => -1)).IsEqualTo(10);
-			await That(registry.GetPropertyFast(7, new PropertyGetterAccess("P7"), _ => -1)).IsEqualTo(70);
-			await That(registry.GetPropertyFast(3, new PropertyGetterAccess("P3"), _ => -1)).IsEqualTo(30);
+			await That(registry.GetProperty(0, new PropertyGetterAccess("P0"), _ => -1)).IsEqualTo(10);
+			await That(registry.GetProperty(7, new PropertyGetterAccess("P7"), _ => -1)).IsEqualTo(70);
+			await That(registry.GetProperty(3, new PropertyGetterAccess("P3"), _ => -1)).IsEqualTo(30);
 		}
 
 		[Test]
 		public async Task SetupProperty_WithMemberId_PopulatesSnapshotSlot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setup = new(registry, "P3");
 			setup.InitializeWith(33);
 
@@ -273,20 +273,20 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupProperty_WithMemberId_PublishesToSnapshot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setup = new(registry, "P5");
 			setup.InitializeWith(50);
 
 			registry.SetupProperty(5, setup);
 
-			int observed = registry.GetPropertyFast(5, new PropertyGetterAccess("P5"), _ => -1);
+			int observed = registry.GetProperty(5, new PropertyGetterAccess("P5"), _ => -1);
 			await That(observed).IsEqualTo(50);
 		}
 
 		[Test]
 		public async Task SetupProperty_WithMemberId_PublishesUserSetupToSnapshotTable()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setup = new(registry, "P5");
 			setup.InitializeWith(50);
 
@@ -299,7 +299,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupProperty_WithMemberIdAndDefaultScenario_PopulatesSnapshotSlot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setup = new(registry, "P3");
 			setup.InitializeWith(33);
 
@@ -313,20 +313,20 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupProperty_WithMemberIdAndDefaultScenario_PublishesToSnapshot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setup = new(registry, "P5");
 			setup.InitializeWith(50);
 
 			registry.SetupProperty(5, "", setup);
 
-			int observed = registry.GetPropertyFast(5, new PropertyGetterAccess("P5"), _ => -1);
+			int observed = registry.GetProperty(5, new PropertyGetterAccess("P5"), _ => -1);
 			await That(observed).IsEqualTo(50);
 		}
 
 		[Test]
 		public async Task SetupProperty_WithMemberIdAndDefaultScenario_PublishesUserSetupToSnapshotTable()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setup = new(registry, "P5");
 			setup.InitializeWith(50);
 
@@ -339,20 +339,20 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupProperty_WithMemberIdAndNamedScenario_DoesNotPublishToSnapshot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setup = new(registry, "P5");
 			setup.InitializeWith(50);
 
 			registry.SetupProperty(5, "s1", setup);
 
-			int observed = registry.GetPropertyFast(5, new PropertyGetterAccess("P5"), _ => -1);
+			int observed = registry.GetProperty(5, new PropertyGetterAccess("P5"), _ => -1);
 			await That(observed).IsEqualTo(-1);
 		}
 
 		[Test]
 		public async Task SetupProperty_WithMemberIdAndNamedScenario_LeavesSnapshotUnpublished()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setup = new(registry, "P3");
 			setup.InitializeWith(33);
 
@@ -365,7 +365,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupProperty_WithMemberIdAndNamedScenario_PreservesScenarioBucket()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakePropertySetup setup = new("P4");
 
 			registry.SetupProperty(4, "s1", setup);
@@ -378,7 +378,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupProperty_WithSameMemberIdTwice_RetainsLatestUserSetup()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setupA = new(registry, "P2");
 			setupA.InitializeWith(20);
 			PropertySetup<int> setupB = new(registry, "P2");
@@ -387,7 +387,7 @@ public sealed class MockRegistrySetupSnapshotTests
 			registry.SetupProperty(2, setupA);
 			registry.SetupProperty(2, setupB);
 
-			int observed = registry.GetPropertyFast(2, new PropertyGetterAccess("P2"), _ => -1);
+			int observed = registry.GetProperty(2, new PropertyGetterAccess("P2"), _ => -1);
 			await That(observed).IsEqualTo(99);
 		}
 	}
@@ -397,7 +397,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupIndexer_WithIncreasingMemberIds_GrowsTableLazily()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeIndexerSetup setup0 = new(true);
 			FakeIndexerSetup setup7 = new(true);
 			FakeIndexerSetup setup3 = new(true);
@@ -420,7 +420,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupIndexer_WithMemberId_PublishesToSnapshot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeIndexerSetup setup = new(true);
 
 			registry.SetupIndexer(5, setup);
@@ -434,7 +434,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupIndexer_WithMemberIdAndDefaultScenario_PublishesToSnapshot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeIndexerSetup setup = new(true);
 
 			registry.SetupIndexer(5, "", setup);
@@ -448,7 +448,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupIndexer_WithMemberIdAndNamedScenario_DoesNotPublishToSnapshot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeIndexerSetup setup = new(true);
 
 			registry.SetupIndexer(5, "s1", setup);
@@ -459,7 +459,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupIndexer_WithMemberIdAndNamedScenario_PreservesScenarioBucket()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeIndexerSetup setup = new(true);
 
 			registry.SetupIndexer(4, "s1", setup);
@@ -472,7 +472,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupIndexer_WithSameMemberIdTwice_AppendsToBucket()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeIndexerSetup setupA = new(true);
 			FakeIndexerSetup setupB = new(true);
 
@@ -492,7 +492,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupEvent_WithIncreasingMemberIds_GrowsTableLazily()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			EventSetup setup0 = new(registry, "E0");
 			EventSetup setup7 = new(registry, "E7");
 			EventSetup setup3 = new(registry, "E3");
@@ -515,7 +515,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupEvent_WithMemberId_PublishesToSnapshot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			EventSetup setup = new(registry, "Evt");
 
 			registry.SetupEvent(5, setup);
@@ -529,7 +529,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupEvent_WithMemberIdAndDefaultScenario_PublishesToSnapshot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			EventSetup setup = new(registry, "Evt");
 
 			registry.SetupEvent(5, "", setup);
@@ -543,7 +543,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupEvent_WithMemberIdAndNamedScenario_DoesNotPublishToSnapshot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			EventSetup setup = new(registry, "Evt");
 
 			registry.SetupEvent(5, "s1", setup);
@@ -554,7 +554,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupEvent_WithMemberIdAndNamedScenario_PreservesScenarioBucket()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			EventSetup setup = new(registry, "Evt");
 
 			registry.SetupEvent(4, "s1", setup);
@@ -567,7 +567,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		[Test]
 		public async Task SetupEvent_WithSameMemberIdTwice_AppendsToBucket()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			EventSetup setupA = new(registry, "Evt");
 			EventSetup setupB = new(registry, "Evt");
 

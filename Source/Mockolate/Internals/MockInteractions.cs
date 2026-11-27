@@ -25,7 +25,7 @@ namespace Mockolate.Internals;
 [DebuggerNonUserCode]
 #endif
 [EditorBrowsable(EditorBrowsableState.Never)]
-public class FastMockInteractions : IMockInteractions
+public class MockInteractions : IMockInteractions
 {
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	private RecordNode? _head;
@@ -56,17 +56,17 @@ public class FastMockInteractions : IMockInteractions
 	private HashSet<IInteraction>? _verified;
 
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-	private FastMockInteractions[]? _sharedVerifications;
+	private MockInteractions[]? _sharedVerifications;
 
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	private CallOrderTracker.TrackedMock? _trackedCallOrder;
 
 	/// <summary>
-	///     Creates a new <see cref="FastMockInteractions" /> for a mock with <paramref name="memberCount" /> members.
+	///     Creates a new <see cref="MockInteractions" /> for a mock with <paramref name="memberCount" /> members.
 	/// </summary>
 	/// <param name="memberCount">The number of distinct mockable members.</param>
 	/// <param name="skipInteractionRecording">Mirrors <see cref="MockBehavior.SkipInteractionRecording" />.</param>
-	public FastMockInteractions(int memberCount, bool skipInteractionRecording = false)
+	public MockInteractions(int memberCount, bool skipInteractionRecording = false)
 	{
 		MemberCount = memberCount;
 		SkipInteractionRecording = skipInteractionRecording;
@@ -174,7 +174,7 @@ public class FastMockInteractions : IMockInteractions
 	///     A member without typed records was either not called or recorded as an interaction. As long as the mock
 	///     holds no interaction record it is the former, and the empty view answers the verification.
 	/// </remarks>
-	internal TRecords? FindRecords<TRecords>(int memberId, Func<FastMockInteractions, int, TRecords> factory)
+	internal TRecords? FindRecords<TRecords>(int memberId, Func<MockInteractions, int, TRecords> factory)
 		where TRecords : MemberRecords
 	{
 		if (memberId < 0)
@@ -243,7 +243,7 @@ public class FastMockInteractions : IMockInteractions
 		MarkVerified(interactions);
 		if (Volatile.Read(ref _sharedVerifications) is { } sharedVerifications)
 		{
-			foreach (FastMockInteractions shared in sharedVerifications)
+			foreach (MockInteractions shared in sharedVerifications)
 			{
 				shared.MarkVerified(interactions);
 			}
@@ -254,10 +254,10 @@ public class FastMockInteractions : IMockInteractions
 	///     Marks the interactions that a verification on this store matched as verified on <paramref name="other" />
 	///     as well.
 	/// </summary>
-	internal void ShareVerificationsWith(FastMockInteractions other)
+	internal void ShareVerificationsWith(MockInteractions other)
 	{
-		FastMockInteractions[]? current;
-		FastMockInteractions[] updated;
+		MockInteractions[]? current;
+		MockInteractions[] updated;
 		do
 		{
 			current = Volatile.Read(ref _sharedVerifications);

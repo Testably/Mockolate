@@ -8,7 +8,7 @@ namespace Mockolate.Verify;
 ///     need a count (<c>Once</c>, <c>Exactly</c>, <c>AtLeast</c>, ...) can avoid materializing
 ///     <see cref="Mockolate.Interactions.IInteraction" /> instances.
 /// </summary>
-internal interface IFastCountSource
+internal interface IRecordCountSource
 {
 	/// <summary>
 	///     Counts recorded interactions whose parameters satisfy the source's captured matchers.
@@ -23,11 +23,11 @@ internal interface IFastCountSource
 }
 
 /// <summary>
-///     Method-only extension to <see cref="IFastCountSource" />. The <c>AnyParameters()</c> widener is
+///     Method-only extension to <see cref="IRecordCountSource" />. The <c>AnyParameters()</c> widener is
 ///     exposed by <see cref="VerificationResult{TVerify}.IgnoreParameters" />, which is only produced by
 ///     <c>VerifyMethod*</c> overloads — so only method count sources need an unmatched-count path.
 /// </summary>
-internal interface IFastMethodCountSource : IFastCountSource
+internal interface IMethodRecordCountSource : IRecordCountSource
 {
 	/// <summary>
 	///     Counts every recorded interaction, ignoring captured matchers.

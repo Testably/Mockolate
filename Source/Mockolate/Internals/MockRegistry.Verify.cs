@@ -49,7 +49,7 @@ public partial class MockRegistry
 	/// <summary>
 	///     Member-id-keyed fast-path overload of
 	///     <see cref="VerifyMethod{T, TMethod}(T, string, Func{TMethod, bool}, Func{string})" />. When the mock is
-	///     wired to a <see cref="FastMockInteractions" /> with typed records of the member <paramref name="memberId" />, the
+	///     wired to a <see cref="MockInteractions" /> with typed records of the member <paramref name="memberId" />, the
 	///     resulting <see cref="VerificationResult{T}.IgnoreParameters" /> walks only those records instead of the
 	///     full shared interaction list. Falls back to the legacy full-list scan otherwise.
 	/// </summary>
@@ -220,7 +220,7 @@ public partial class MockRegistry
 	/// <summary>
 	///     Member-id-keyed fast-path overload of
 	///     <see cref="IndexerGot{T}(T, Func{IInteraction, bool}, Func{string})" />. Walks only the typed indexer
-	///     getter records when the mock is wired to a <see cref="FastMockInteractions" />.
+	///     getter records when the mock is wired to a <see cref="MockInteractions" />.
 	/// </summary>
 	/// <typeparam name="T">The verification facade type.</typeparam>
 	/// <param name="subject">The verification facade the result is bound to.</param>
@@ -267,7 +267,7 @@ public partial class MockRegistry
 	/// <summary>
 	///     Member-id-keyed fast-path overload of
 	///     <see cref="IndexerSet{T, TValue}(T, Func{IInteraction, IParameterMatch{TValue}, bool}, IParameterMatch{TValue}, Func{string})" />.
-	///     Walks only the typed indexer setter records when the mock is wired to a <see cref="FastMockInteractions" />.
+	///     Walks only the typed indexer setter records when the mock is wired to a <see cref="MockInteractions" />.
 	/// </summary>
 	/// <typeparam name="T">The verification facade type.</typeparam>
 	/// <typeparam name="TValue">The indexer's value type.</typeparam>
@@ -338,7 +338,7 @@ public partial class MockRegistry
 
 	/// <summary>
 	///     Typed fast-path Verify for parameterless methods. Walks the typed
-	///     <see cref="MethodRecords" /> via <see cref="IFastCountSource" /> so count terminators
+	///     <see cref="MethodRecords" /> via <see cref="IRecordCountSource" /> so count terminators
 	///     run allocation-free.
 	/// </summary>
 	public VerificationResult<T>.IgnoreParameters VerifyMethod<T>(T subject, int memberId, string methodName,
@@ -1147,12 +1147,12 @@ public partial class MockRegistry
 	///     caller verifies against all interactions of the mock instead.
 	/// </summary>
 	private MemberRecords? TryGetRecords(int memberId)
-		=> Interactions is FastMockInteractions fast ? fast.FindRecords(memberId) : null;
+		=> Interactions is MockInteractions mockInteractions ? mockInteractions.FindRecords(memberId) : null;
 
 	/// <inheritdoc cref="TryGetRecords(int)" />
-	private TRecords? TryGetRecords<TRecords>(int memberId, Func<FastMockInteractions, int, TRecords> factory)
+	private TRecords? TryGetRecords<TRecords>(int memberId, Func<MockInteractions, int, TRecords> factory)
 		where TRecords : MemberRecords
-		=> Interactions is FastMockInteractions fast ? fast.FindRecords(memberId, factory) : null;
+		=> Interactions is MockInteractions mockInteractions ? mockInteractions.FindRecords(memberId, factory) : null;
 
 	/// <summary>
 	///     Returns every registered setup (indexer, property, method) that was not hit by any of the given

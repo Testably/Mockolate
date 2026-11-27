@@ -11,7 +11,7 @@ public sealed class AutoMocksTests
 			calls++;
 			return null;
 		});
-		MockRegistry registry = new(behavior, new FastMockInteractions(0));
+		MockRegistry registry = new(behavior, new MockInteractions(0));
 
 		IServiceWithoutMock? first = registry.AutoMockOr<IServiceWithoutMock?>(0, null);
 		IServiceWithoutMock? second = registry.AutoMockOr<IServiceWithoutMock?>(0, null);
@@ -26,7 +26,7 @@ public sealed class AutoMocksTests
 	{
 		MockBehavior behavior = AutoMocks.UseFactory(MockBehavior.Default, (type, _) =>
 			type == typeof(IServiceWithoutMock) ? new ServiceWithoutMock() : new OtherService());
-		MockRegistry registry = new(behavior, new FastMockInteractions(0));
+		MockRegistry registry = new(behavior, new MockInteractions(0));
 
 		IServiceWithoutMock? first = registry.AutoMockOr<IServiceWithoutMock?>(0, null);
 		IOtherService? second = registry.AutoMockOr<IOtherService?>(0, null);
@@ -39,7 +39,7 @@ public sealed class AutoMocksTests
 	[Test]
 	public async Task AutoMockOr_WithoutFactory_ShouldReturnNull()
 	{
-		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+		MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 
 		IServiceWithoutMock? result = registry.AutoMockOr<IServiceWithoutMock?>(0, null);
 

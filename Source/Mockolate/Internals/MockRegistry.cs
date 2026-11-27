@@ -29,7 +29,7 @@ public partial class MockRegistry
 	/// </summary>
 	/// <remarks>
 	///     The generator-emitted <c>CreateMock</c> paths use this overload to install a
-	///     <see cref="FastMockInteractions" /> tailored to the mocked type.
+	///     <see cref="MockInteractions" /> tailored to the mocked type.
 	/// </remarks>
 	/// <param name="behavior">The <see cref="MockBehavior" /> that governs how the mock responds without a matching setup.</param>
 	/// <param name="interactions">The interaction collection that new invocations should be appended to.</param>
@@ -55,7 +55,7 @@ public partial class MockRegistry
 
 	/// <summary>
 	///     Creates a new <see cref="MockRegistry" /> with the given <paramref name="behavior" /> whose interaction
-	///     store is a <see cref="FastMockInteractions" /> sized to <paramref name="memberCount" />, allocated lazily
+	///     store is a <see cref="MockInteractions" /> sized to <paramref name="memberCount" />, allocated lazily
 	///     on first access.
 	/// </summary>
 	/// <remarks>
@@ -85,7 +85,7 @@ public partial class MockRegistry
 	{
 		Behavior = registry.Behavior;
 		ConstructorParameters = registry.ConstructorParameters;
-		_interactions = new FastMockInteractions(0, registry.Behavior.SkipInteractionRecording);
+		_interactions = new MockInteractions(0, registry.Behavior.SkipInteractionRecording);
 		_setups = registry.Setup;
 		_scenarioState = registry.GetOrCreateScenarioState();
 		Wraps = wraps;

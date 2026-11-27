@@ -150,7 +150,7 @@ public sealed partial class SetupMethodTests
 			Mockolate.Internals.MockRegistry registry = ((Mockolate.IMock)sut).MockRegistry;
 
 			System.Collections.Generic.IReadOnlyCollection<Mockolate.Setup.ISetup> unused =
-				registry.GetUnusedSetups(new Mockolate.Internals.FastMockInteractions(0));
+				registry.GetUnusedSetups(new Mockolate.Internals.MockInteractions(0));
 			Mockolate.Setup.ISetup setup = await That(unused).HasSingle();
 
 			await That(setup.ToString()!).Contains("0.5")

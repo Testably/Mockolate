@@ -609,7 +609,7 @@ internal static partial class SourceTemplates
 	///     any type argument are searched together, so the latest matching one wins.
 	/// </summary>
 #pragma warning disable S107 // Methods should not have too many parameters
-	private static void EmitFastMethodSetupLookupWithGeneric(StringBuilder sb, string indent, string mockRegistry,
+	private static void EmitMethodSetupLookupWithGeneric(StringBuilder sb, string indent, string mockRegistry,
 		string methodSetup, string methodSetupType, string memberIdRef, string uniqueNameString, string matchArgs,
 		string genericSetup, string genericSetupType, string genericSetupName, string genericMatchArgs,
 		EquatableArray<MethodParameter> parameters)

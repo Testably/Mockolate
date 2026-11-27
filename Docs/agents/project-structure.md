@@ -30,7 +30,7 @@ The runtime library (`netstandard2.0`, `net8.0`, `net10.0`, `net11.0`).
 | `Monitor/` | `MockMonitor` for interactions within a scope |
 | `Web/` | `HttpClient` support: setups, verifications and `It` extensions for requests and content |
 | `Exceptions/` | `MockException`, `MockNotSetupException`, `MockVerificationException`, `MockVerificationTimeoutException` |
-| `Internals/` | Infrastructure that generated code calls (`MockRegistry`, the per-mock store that generated mocks delegate every member access to; `FastMockInteractions` and the `*Records` types, the allocation-sensitive recording path; `Callbacks<T>`, `Matchers`, ...), helpers and polyfills for older frameworks |
+| `Internals/` | Infrastructure that generated code calls (`MockRegistry`, the per-mock store that generated mocks delegate every member access to; `MockInteractions` and the `*Records` types, the allocation-sensitive recording path; `Callbacks<T>`, `Matchers`, ...), helpers and polyfills for older frameworks |
 
 ### `Source/Mockolate.SourceGenerators`
 

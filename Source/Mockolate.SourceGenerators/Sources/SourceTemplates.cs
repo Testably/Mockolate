@@ -146,7 +146,7 @@ internal static partial class SourceTemplates
 		{
 			sb.Append(indent).Append("\tglobal::Mockolate.Internals.IndexerGetterRecords<");
 			AppendIndexerParameterTypes(sb, parameters);
-			sb.Append(">.Append((global::Mockolate.Internals.FastMockInteractions)").Append(mockRegistry)
+			sb.Append(">.Append((global::Mockolate.Internals.MockInteractions)").Append(mockRegistry)
 				.Append(".Interactions, ").Append(memberIdRef).Append(", ");
 			AppendIndexerParameterArguments(sb, parameters);
 			sb.Append(");").AppendLine();
@@ -265,7 +265,7 @@ internal static partial class SourceTemplates
 			sb.Append(indent).Append("\tglobal::Mockolate.Internals.IndexerSetterRecords<");
 			AppendIndexerParameterTypes(sb, parameters);
 			sb.Append(", ").AppendTypeOrWrapper(propertyType)
-				.Append(">.Append((global::Mockolate.Internals.FastMockInteractions)").Append(mockRegistry)
+				.Append(">.Append((global::Mockolate.Internals.MockInteractions)").Append(mockRegistry)
 				.Append(".Interactions, ").Append(memberIdRef).Append(", ");
 			AppendIndexerParameterArguments(sb, parameters);
 			sb.Append(", value);").AppendLine();

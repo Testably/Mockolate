@@ -8,7 +8,7 @@ internal sealed class FakeIndexerSetup : IndexerSetup
 	private readonly Action? _onMatch;
 
 	internal FakeIndexerSetup(bool match, Action? onMatch = null)
-		: base(new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)))
+		: base(new MockRegistry(MockBehavior.Default, new MockInteractions(0)))
 	{
 		ShouldMatch = match;
 		_onMatch = onMatch;

@@ -84,7 +84,7 @@ public sealed class UncalledMemberVerificationTests
 
 	private static int CountCreatedInteractions(IUncalledService sut)
 	{
-		FastMockInteractions interactions = (FastMockInteractions)((IMock)sut).MockRegistry.Interactions;
+		MockInteractions interactions = (MockInteractions)((IMock)sut).MockRegistry.Interactions;
 		int created = 0;
 		for (RecordNode? node = interactions.First; node is not null; node = node.Next)
 		{

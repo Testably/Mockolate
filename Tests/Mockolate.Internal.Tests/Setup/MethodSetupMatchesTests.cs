@@ -8,7 +8,7 @@ namespace Mockolate.Internal.Tests.Setup;
 public sealed class MethodSetupMatchesTests
 {
 	private static MockRegistry CreateRegistry()
-		=> new(MockBehavior.Default, new FastMockInteractions(0));
+		=> new(MockBehavior.Default, new MockInteractions(0));
 
 	private sealed class RecordingParametersMatch(bool result) : IParameters, IParametersMatch
 	{

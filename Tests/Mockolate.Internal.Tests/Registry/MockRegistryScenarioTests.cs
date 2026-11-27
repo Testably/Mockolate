@@ -11,7 +11,7 @@ public sealed class MockRegistryScenarioTests
 	[Test]
 	public async Task ApplyIndexerGetter_WithLazyDefault_AndNonNullSetup_DispatchesToSetup()
 	{
-		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+		MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 		FakeIndexerSetup setup = new(true);
 		IndexerGetterAccess<int> access = new(1);
 
@@ -26,7 +26,7 @@ public sealed class MockRegistryScenarioTests
 	[Test]
 	public async Task GetIndexerSetup_ByAccess_WithActiveScenarioAndScopedMatching_ReturnsScoped()
 	{
-		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+		MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 		FakeIndexerSetup global = new(true);
 		FakeIndexerSetup scoped = new(true);
 		registry.Setup.Indexers.Add(global);
@@ -42,7 +42,7 @@ public sealed class MockRegistryScenarioTests
 	[Test]
 	public async Task GetIndexerSetup_ByAccess_WithActiveScenarioButScopedDoesNotMatchAccess_FallsBackToGlobal()
 	{
-		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+		MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 		FakeIndexerSetup global = new(true);
 		FakeIndexerSetup scopedNonMatching = new(false);
 		registry.Setup.Indexers.Add(global);
@@ -58,7 +58,7 @@ public sealed class MockRegistryScenarioTests
 	[Test]
 	public async Task GetIndexerSetup_ByPredicate_WithActiveScenarioButPredicateRejectsScoped_FallsBackToGlobal()
 	{
-		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+		MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 		FakeIndexerSetup global = new(true);
 		FakeIndexerSetup scoped = new(true);
 		registry.Setup.Indexers.Add(global);
@@ -74,7 +74,7 @@ public sealed class MockRegistryScenarioTests
 	[Test]
 	public async Task GetMethodSetups_WithActiveScenarioAndScopedSetup_YieldsScopedThenGlobal()
 	{
-		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+		MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 		FakeMethodSetup global = new();
 		FakeMethodSetup scoped = new();
 		registry.Setup.Methods.Add(global);
@@ -92,7 +92,7 @@ public sealed class MockRegistryScenarioTests
 	[Test]
 	public async Task GetMethodSetups_WithActiveScenarioButNoScopedBucket_FallsBackToGlobal()
 	{
-		MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+		MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 		FakeMethodSetup global = new();
 		registry.Setup.Methods.Add(global);
 

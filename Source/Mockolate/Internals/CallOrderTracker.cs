@@ -26,12 +26,12 @@ internal sealed class CallOrderTracker : IDisposable
 	private int _isRunning = 1;
 	private TrackedCall? _newest;
 
-	private CallOrderTracker(IReadOnlyList<(string Name, FastMockInteractions Interactions)> mocks)
+	private CallOrderTracker(IReadOnlyList<(string Name, MockInteractions Interactions)> mocks)
 	{
 		_mocks = new TrackedMock[mocks.Count];
 		for (int i = 0; i < mocks.Count; i++)
 		{
-			(string name, FastMockInteractions interactions) = mocks[i];
+			(string name, MockInteractions interactions) = mocks[i];
 			string displayName = mocks.Count(mock => string.Equals(mock.Name, name, StringComparison.Ordinal)) > 1
 				? $"{name} #{mocks.Take(i + 1).Count(mock => string.Equals(mock.Name, name, StringComparison.Ordinal))}"
 				: name;
@@ -51,7 +51,7 @@ internal sealed class CallOrderTracker : IDisposable
 	///     Starts tracking the order of the calls across the <paramref name="mocks" />.
 	/// </summary>
 	/// <exception cref="MockException">The call order of one of the <paramref name="mocks" /> is already tracked.</exception>
-	internal static CallOrderTracker Track(IReadOnlyList<(string Name, FastMockInteractions Interactions)> mocks)
+	internal static CallOrderTracker Track(IReadOnlyList<(string Name, MockInteractions Interactions)> mocks)
 	{
 		CallOrderTracker tracker = new(mocks);
 		TrackedMock?[] previous = new TrackedMock?[tracker._mocks.Length];
@@ -155,7 +155,7 @@ internal sealed class CallOrderTracker : IDisposable
 	private static TrackedMock[] GetTrackedMocks(IVerificationResult[] steps)
 	{
 		TrackedMock?[] mocks = steps
-			.Select(step => (step.Interactions as FastMockInteractions)?.TrackedCallOrder)
+			.Select(step => (step.Interactions as MockInteractions)?.TrackedCallOrder)
 			.ToArray();
 		IVerificationResult[] untracked = steps.Where((_, i) => mocks[i] is null).ToArray();
 		if (untracked.Length > 0)
@@ -230,7 +230,7 @@ internal sealed class CallOrderTracker : IDisposable
 	/// <summary>
 	///     A mock whose call order a <see cref="CallOrderTracker" /> tracks.
 	/// </summary>
-	internal sealed class TrackedMock(CallOrderTracker tracker, string name, FastMockInteractions interactions)
+	internal sealed class TrackedMock(CallOrderTracker tracker, string name, MockInteractions interactions)
 	{
 		private int _clearedOrder;
 
@@ -241,7 +241,7 @@ internal sealed class CallOrderTracker : IDisposable
 		public string Name { get; } = name;
 
 		/// <summary>The interactions of the mock.</summary>
-		public FastMockInteractions Interactions { get; } = interactions;
+		public MockInteractions Interactions { get; } = interactions;
 
 		/// <summary>The order of the newest call that was removed by clearing the interactions of the mock.</summary>
 		public int ClearedOrder => Volatile.Read(ref _clearedOrder);

@@ -18,7 +18,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task WithActiveScenarioAndScopedSetup_YieldsScopedThenSnapshot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup snapshotSetup = new();
 			FakeMethodSetup scopedSetup = new();
 			registry.SetupMethod(2, snapshotSetup);
@@ -36,7 +36,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task WithActiveScenarioButNoScopedBucket_FallsBackToSnapshot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup snapshotSetup = new();
 
 			registry.SetupMethod(2, snapshotSetup);
@@ -51,7 +51,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task WithSnapshotAndGlobalDictSetups_YieldsSnapshotBeforeGlobalDict()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup snapshotSetup = new();
 			FakeMethodSetup globalDictSetup = new();
 
@@ -68,7 +68,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task WithAlternativeName_ShouldYieldSetupsOfBothNames()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup fooSetup = new("foo");
 			FakeMethodSetup barSetup = new("bar");
 			registry.SetupMethod(1, fooSetup);
@@ -83,7 +83,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task WithAlternativeNameAndOnlyGlobalDictSetups_ShouldYieldSetupsOfBothNames()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup fooSetup = new("foo");
 			FakeMethodSetup barSetup = new("bar");
 			registry.Setup.Methods.Add(fooSetup);
@@ -98,7 +98,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task WithAlternativeNameAndActiveScenario_ShouldYieldScopedSetupsOfBothNamesFirst()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup globalSetup = new("foo");
 			FakeMethodSetup scopedSetup = new("bar");
 			registry.SetupMethod(1, globalSetup);
@@ -114,7 +114,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task WithMemberId_ShouldYieldItsBucketBeforeOtherBuckets()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup otherSetup = new("foo");
 			FakeMethodSetup olderSetup = new("foo");
 			FakeMethodSetup newerSetup = new("bar");
@@ -131,7 +131,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task WithMemberIdAndActiveScenario_ShouldYieldScopedSetupsThenItsBucketThenOtherBuckets()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup otherSetup = new("foo");
 			FakeMethodSetup memberSetup = new("foo");
 			FakeMethodSetup scopedSetup = new("foo");
@@ -148,7 +148,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task WithMemberIdOutsideTheSnapshot_ShouldYieldTheOtherBuckets()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup setup = new("foo");
 			registry.SetupMethod(1, setup);
 
@@ -160,7 +160,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task WithMemberIdAndNoSnapshot_ShouldYieldTheGlobalDictSetups()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup setup = new("foo");
 			registry.Setup.Methods.Add(setup);
 
@@ -172,7 +172,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task WithSnapshotSetupOnly_YieldsSnapshotSetup()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup setup = new();
 
 			registry.SetupMethod(2, setup);
@@ -189,7 +189,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task WithActiveScenario_ShouldIgnoreScenarioSetups()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			registry.Setup.GetOrCreateScenario("a").Methods.Add(new FakeMethodSetup());
 			registry.TransitionTo("a");
 
@@ -202,7 +202,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task WithGlobalDictSetup_ShouldYieldOnlyGlobalDictSetup()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup snapshotSetup = new();
 			FakeMethodSetup globalDictSetup = new();
 			registry.SetupMethod(2, snapshotSetup);
@@ -217,7 +217,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task WithoutSetups_ShouldBeNull()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 
 			IEnumerable<MethodSetup>? setups = registry.GetFallbackMethodSetups<MethodSetup>(2, "foo");
 
@@ -227,7 +227,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task WithSameNameInOtherBuckets_ShouldYieldOtherBucketsThenGlobalDict()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup firstBucketSetup = new();
 			FakeMethodSetup thirdBucketSetup = new();
 			FakeMethodSetup globalDictSetup = new();
@@ -247,7 +247,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task WithAlternativeNameInOtherBucket_ShouldYieldIt()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup alternativeSetup = new("bar");
 			registry.SetupMethod(1, alternativeSetup);
 			registry.SetupMethod(2, new FakeMethodSetup());
@@ -260,7 +260,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task WithOtherNameInOtherBucket_ShouldBeNull()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			registry.SetupMethod(1, new FakeMethodSetup("bar"));
 			registry.SetupMethod(2, new FakeMethodSetup());
 
@@ -272,7 +272,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task WithOtherSetupTypeInOtherBucket_ShouldBeNull()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			registry.SetupMethod(1, new FakeMethodSetup());
 
 			IEnumerable<VoidMethodSetup>? setups = registry.GetFallbackMethodSetups<VoidMethodSetup>(2, "foo");
@@ -283,7 +283,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task WithOnlyOwnBucket_ShouldBeNull()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			registry.SetupMethod(2, new FakeMethodSetup());
 
 			IEnumerable<MethodSetup>? setups = registry.GetFallbackMethodSetups<MethodSetup>(2, "foo");
@@ -297,7 +297,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task ByAccess_WithActiveScenarioAndScopedDoesNotMatch_FallsBackToSnapshot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeIndexerSetup snapshotSetup = new(true);
 			FakeIndexerSetup scopedNonMatching = new(false);
 			registry.SetupIndexer(0, snapshotSetup);
@@ -313,7 +313,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task ByAccess_WithSnapshotSetupOnly_ReturnsSnapshotSetup()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeIndexerSetup setup = new(true);
 
 			registry.SetupIndexer(0, setup);
@@ -326,7 +326,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task ByPredicate_WithActiveScenarioAndPredicateRejectsScoped_FallsBackToSnapshot()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeIndexerSetup snapshotSetup = new(true);
 			FakeIndexerSetup scopedSetup = new(true);
 			registry.SetupIndexer(0, snapshotSetup);
@@ -342,7 +342,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task ByPredicate_WithSnapshotSetupOnly_ReturnsSnapshotSetup()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeIndexerSetup setup = new(true);
 
 			registry.SetupIndexer(0, setup);
@@ -362,7 +362,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 			// event setup under the subscribe id only. The unsubscribe path therefore always misses the
 			// snapshot lookup-by-id and must fall through to the name-based snapshot scan inside
 			// EnumerateDefaultScopeEventSetupsByName for unsubscribed callbacks to fire.
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			int unsubscribedCount = 0;
 			EventSetup setup = new(registry, "OnFoo");
 			setup.OnUnsubscribed.Do(() => unsubscribedCount++);
@@ -382,7 +382,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task IncludesIndexerSnapshotSetup_WhenNoInteractionsMatch()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeIndexerSetup setup = new(false);
 
 			registry.SetupIndexer(2, setup);
@@ -395,7 +395,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task IncludesMethodSnapshotSetup_WhenNoInteractionsMatch()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup setup = new();
 
 			registry.SetupMethod(2, setup);
@@ -408,7 +408,7 @@ public sealed class MockRegistrySnapshotRetrievalTests
 		[Test]
 		public async Task IncludesMethodSnapshotSetupOnce_WhenRegisteredForSeveralMembers()
 		{
-			MockRegistry registry = new(MockBehavior.Default, new FastMockInteractions(0));
+			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup setup = new();
 
 			registry.SetupMethod(1, setup);

@@ -153,7 +153,7 @@ internal static partial class SourceTemplates
 		memberIds.Emit(sb, "\t\t", @class is { ClassFullName: "global::System.Net.Http.HttpClient", } ? "global::Mockolate.Mock.HttpMessageHandler.MemberCount" : null);
 		sb.AppendLine();
 
-		AppendCreateFastInteractions(sb, "\t\t");
+		AppendCreateInteractions(sb, "\t\t");
 		sb.AppendLine();
 
 		bool hasMockRegistryProvider = constructors?.Count > 0 || (@class.IsInterface && (hasStaticMembers || hasStaticEvents));
@@ -1072,7 +1072,7 @@ internal static partial class SourceTemplates
 		{
 			sb.Append("\t\t\tglobal::Mockolate.MockBehavior effectiveBehavior = mockBehavior ?? global::Mockolate.MockBehavior.Default;").AppendLine();
 			AppendUseAutoMockFactory(sb, "\t\t\t", "effectiveBehavior", autoMocking);
-			sb.Append("\t\t\tglobal::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(effectiveBehavior, global::Mockolate.Mock.").Append(name).Append(".CreateFastInteractions(effectiveBehavior), constructorParameters);").AppendLine();
+			sb.Append("\t\t\tglobal::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(effectiveBehavior, global::Mockolate.Mock.").Append(name).Append(".CreateInteractions(effectiveBehavior), constructorParameters);").AppendLine();
 			sb.Append("\t\t\tif (constructorParameters is null)").AppendLine();
 			sb.Append("\t\t\t{").AppendLine();
 			sb.Append("\t\t\t\tconstructorParameters = [new global::Mockolate.Mock.HttpMessageHandler(mockRegistry),];").AppendLine();
@@ -1258,7 +1258,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t\tif (mock is global::Mockolate.IMock mockInterface)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
 		sb.Append("\t\t\t\tglobal::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);").AppendLine();
-		sb.Append("\t\t\t\twrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.").Append(name).Append(".CreateFastInteractions(wrappingRegistry.Behavior));").AppendLine();
+		sb.Append("\t\t\t\twrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.").Append(name).Append(".CreateInteractions(wrappingRegistry.Behavior));").AppendLine();
 		sb.Append("\t\t\t\treturn CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.Append("\t\t\tthrow new global::Mockolate.Exceptions.MockException(\"The subject is no mock.\");").AppendLine();
@@ -1758,7 +1758,7 @@ internal static partial class SourceTemplates
 	/// <summary>
 	///     Emits a static helper that creates a <c>MockRegistry</c> for the members of the mock from a
 	///     <c>MockBehavior</c>. Used by the generator-emitted <c>(MockBehavior)</c> constructors so
-	///     subclasses of the generated mock can construct from a behavior without bypassing the FastMockInteractions
+	///     subclasses of the generated mock can construct from a behavior without bypassing the MockInteractions
 	///     sizing. When <paramref name="setsMockRegistryProvider" /> is true, the helper also primes the
 	///     <c>MockRegistryProvider</c> AsyncLocal so virtual calls during base-class construction can resolve
 	///     the registry before the chained constructor body has run.
@@ -1767,7 +1767,7 @@ internal static partial class SourceTemplates
 		bool setsMockRegistryProvider, AutoMockingOptions? autoMocking)
 	{
 		sb.Append(indent).Append("/// <summary>").AppendLine();
-		sb.Append(indent).Append("///     Builds a <see cref=\"global::Mockolate.Internals.MockRegistry\" /> backed by a ").Append("<see cref=\"global::Mockolate.Internals.FastMockInteractions\" /> for the members of the mock, from <paramref name=\"behavior\" />.").AppendLine();
+		sb.Append(indent).Append("///     Builds a <see cref=\"global::Mockolate.Internals.MockRegistry\" /> backed by a ").Append("<see cref=\"global::Mockolate.Internals.MockInteractions\" /> for the members of the mock, from <paramref name=\"behavior\" />.").AppendLine();
 		sb.Append(indent).Append("/// </summary>").AppendLine();
 		sb.Append(indent).Append("private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)").AppendLine();
 		sb.Append(indent).Append("{").AppendLine();
@@ -1931,13 +1931,13 @@ internal static partial class SourceTemplates
 #pragma warning restore S107
 	{
 		string mockRegistry = @event.IsStatic ? "MockRegistryProvider.Value" : $"this.{mockRegistryName}";
-		bool useFast = useTypedRecords && IsTypedRecordingEligibleEvent(@event);
+		bool useTypedRecordsForEvent = useTypedRecords && IsTypedRecordingEligibleEvent(@event);
 		string subscribeIdRef = memberIdPrefix + memberIds.GetEventSubscribeIdentifier(@event);
 		string unsubscribeIdRef = memberIdPrefix + memberIds.GetEventUnsubscribeIdentifier(@event);
-		string addCall = useFast
+		string addCall = useTypedRecordsForEvent
 			? $".AddEvent({subscribeIdRef}, "
 			: ".AddEvent(";
-		string removeCall = useFast
+		string removeCall = useTypedRecordsForEvent
 			? $".RemoveEvent({unsubscribeIdRef}, "
 			: ".RemoveEvent(";
 		string backingFieldName = @event.GetBackingFieldName();
@@ -2082,8 +2082,8 @@ internal static partial class SourceTemplates
 		// one reachable through the mocked interface (CS0266), and an implicit member declared by several
 		// sibling interfaces is ambiguous on the mocked interface (CS0229/CS0121).
 		string wrapsType = isClassInterface ? property.ContainingType : className;
-		bool useFastForProperty = useTypedRecords && !property.IsIndexer && IsTypedRecordingEligibleProperty(property);
-		bool useFastForIndexer = useTypedRecords && property.IsIndexer && IsTypedRecordingEligibleIndexer(property);
+		bool useTypedRecordsForProperty = useTypedRecords && !property.IsIndexer && IsTypedRecordingEligibleProperty(property);
+		bool useTypedRecordsForIndexer = useTypedRecords && property.IsIndexer && IsTypedRecordingEligibleIndexer(property);
 		string indexerGetIdRef = property.IsIndexer
 			? memberIdPrefix + memberIds.GetIndexerGetIdentifier(property)
 			: string.Empty;
@@ -2091,9 +2091,9 @@ internal static partial class SourceTemplates
 			? memberIdPrefix + memberIds.GetIndexerSetIdentifier(property)
 			: string.Empty;
 		bool typedIndexerGet = property.IndexerParameters is not null &&
-		                       UsesTypedIndexerDispatch(property.IndexerParameters.Value, useFastForIndexer);
+		                       UsesTypedIndexerDispatch(property.IndexerParameters.Value, useTypedRecordsForIndexer);
 		bool typedIndexerSet = property.IndexerParameters is not null &&
-		                       UsesTypedIndexerDispatch(property.IndexerParameters.Value, useFastForIndexer);
+		                       UsesTypedIndexerDispatch(property.IndexerParameters.Value, useTypedRecordsForIndexer);
 
 		void AppendIndexerGetReturn(string indent, string accessVarName, string setupVarName)
 		{
@@ -2159,10 +2159,10 @@ internal static partial class SourceTemplates
 			sb.Append(suffix).AppendLine();
 		}
 
-		string propertyGetMemberArg = useFastForProperty
+		string propertyGetMemberArg = useTypedRecordsForProperty
 			? memberIdPrefix + memberIds.GetPropertyGetIdentifier(property) + ", "
 			: string.Empty;
-		string propertySetMemberArg = useFastForProperty
+		string propertySetMemberArg = useTypedRecordsForProperty
 			? memberIdPrefix + memberIds.GetPropertySetIdentifier(property) + ", "
 			: string.Empty;
 		sb.Append("\t\t/// <inheritdoc cref=\"").Append(property.Cref).AppendLine("\" />");
@@ -2328,8 +2328,8 @@ internal static partial class SourceTemplates
 						Helpers.GetUniqueLocalVariableName("wraps", property.IndexerParameters.Value);
 
 					EmitIndexerGetterAccessAndSetup(sb, "\t\t\t\t", mockRegistry, accessVarName, setupVarName,
-						property.Type, property.IndexerParameters.Value, useFastForIndexer,
-						useFastForIndexer ? indexerGetIdRef : null);
+						property.Type, property.IndexerParameters.Value, useTypedRecordsForIndexer,
+						useTypedRecordsForIndexer ? indexerGetIdRef : null);
 					sb.Append("\t\t\t\tif (").Append(mockRegistry).Append(".Wraps is not ").Append(wrapsType)
 						.Append(' ').Append(wrapsVarName).Append(')').AppendLine();
 					sb.Append("\t\t\t\t{").AppendLine();
@@ -2344,11 +2344,11 @@ internal static partial class SourceTemplates
 				else
 				{
 					string accessFieldRef = memberIdPrefix + memberIds.GetPropertyGetterAccessFieldName(property);
-					if (useFastForProperty)
+					if (useTypedRecordsForProperty)
 					{
-						void AppendGetPropertyFastCall(string indent, string? baseValueAccessor)
+						void AppendGetPropertyCall(string indent, string? baseValueAccessor)
 						{
-							sb.Append(indent).Append("return ").Append(mockRegistry).Append(".GetPropertyFast<")
+							sb.Append(indent).Append("return ").Append(mockRegistry).Append(".GetProperty<")
 								.AppendTypeOrWrapper(property.Type).Append(">(")
 								.Append(memberIdPrefix).Append(memberIds.GetPropertyGetIdentifier(property))
 								.Append(", ").Append(accessFieldRef).Append(", static b => ")
@@ -2370,12 +2370,12 @@ internal static partial class SourceTemplates
 							sb.Append("\t\t\t\t{").AppendLine();
 							sb.Append("\t\t\t\t\t").Append(wrapsType).Append(" wraps = (").Append(wrapsType)
 								.Append(')').Append(mockRegistry).Append(".Wraps;").AppendLine();
-							AppendGetPropertyFastCall("\t\t\t\t\t", "() => wraps." + property.Name);
+							AppendGetPropertyCall("\t\t\t\t\t", "() => wraps." + property.Name);
 							sb.Append("\t\t\t\t}").AppendLine();
 							sb.AppendLine();
 						}
 
-						AppendGetPropertyFastCall("\t\t\t\t", null);
+						AppendGetPropertyCall("\t\t\t\t", null);
 					}
 					else
 					{
@@ -2412,8 +2412,8 @@ internal static partial class SourceTemplates
 						Helpers.GetUniqueLocalVariableName("wraps", property.IndexerParameters.Value);
 
 					EmitIndexerGetterAccessAndSetup(sb, "\t\t\t\t", mockRegistry, accessVarName, setupVarName,
-						property.Type, property.IndexerParameters.Value, useFastForIndexer,
-						useFastForIndexer ? indexerGetIdRef : null);
+						property.Type, property.IndexerParameters.Value, useTypedRecordsForIndexer,
+						useTypedRecordsForIndexer ? indexerGetIdRef : null);
 					sb.Append("\t\t\t\tif (!(").Append(setupVarName).Append("?.SkipBaseClass() ?? ")
 						.Append(mockRegistry).Append(".Behavior.SkipBaseClass))").AppendLine();
 					sb.Append("\t\t\t\t{").AppendLine();
@@ -2444,9 +2444,9 @@ internal static partial class SourceTemplates
 				else
 				{
 					string accessFieldRef = memberIdPrefix + memberIds.GetPropertyGetterAccessFieldName(property);
-					if (useFastForProperty)
+					if (useTypedRecordsForProperty)
 					{
-						sb.Append("\t\t\t\treturn ").Append(mockRegistry).Append(".GetPropertyFast<")
+						sb.Append("\t\t\t\treturn ").Append(mockRegistry).Append(".GetProperty<")
 							.AppendTypeOrWrapper(property.Type).Append(">(")
 							.Append(memberIdPrefix).Append(memberIds.GetPropertyGetIdentifier(property))
 							.Append(", ").Append(accessFieldRef).Append(", static b => ")
@@ -2495,16 +2495,16 @@ internal static partial class SourceTemplates
 					Helpers.GetUniqueLocalVariableName("setup", property.IndexerParameters.Value);
 
 				EmitIndexerGetterAccessAndSetup(sb, "\t\t\t\t", mockRegistry, accessVarName, setupVarName,
-					property.Type, property.IndexerParameters.Value, useFastForIndexer,
-					useFastForIndexer ? indexerGetIdRef : null);
+					property.Type, property.IndexerParameters.Value, useTypedRecordsForIndexer,
+					useTypedRecordsForIndexer ? indexerGetIdRef : null);
 				AppendIndexerGetReturn("\t\t\t\t", accessVarName, setupVarName);
 			}
 			else
 			{
 				string accessFieldRef = memberIdPrefix + memberIds.GetPropertyGetterAccessFieldName(property);
-				if (useFastForProperty)
+				if (useTypedRecordsForProperty)
 				{
-					sb.Append("\t\t\t\treturn ").Append(mockRegistry).Append(".GetPropertyFast<")
+					sb.Append("\t\t\t\treturn ").Append(mockRegistry).Append(".GetProperty<")
 						.AppendTypeOrWrapper(property.Type).Append(">(")
 						.Append(memberIdPrefix).Append(memberIds.GetPropertyGetIdentifier(property))
 						.Append(", ").Append(accessFieldRef)
@@ -2561,9 +2561,9 @@ internal static partial class SourceTemplates
 						Helpers.GetUniqueLocalVariableName("wraps", property.IndexerParameters.Value);
 
 					EmitIndexerSetterAccessAndSetup(sb, "\t\t\t\t", mockRegistry, accessVarName, setupVarName,
-						property.Type, property.IndexerParameters.Value, useFastForIndexer,
-						useFastForIndexer ? indexerSetIdRef : null,
-						useFastForIndexer ? indexerGetIdRef : null);
+						property.Type, property.IndexerParameters.Value, useTypedRecordsForIndexer,
+						useTypedRecordsForIndexer ? indexerSetIdRef : null,
+						useTypedRecordsForIndexer ? indexerGetIdRef : null);
 					AppendIndexerSetCall("\t\t\t\t", ";", accessVarName, setupVarName);
 
 					sb.Append("\t\t\t\tif (").Append(mockRegistry).Append(".Wraps is ").Append(wrapsType)
@@ -2576,9 +2576,9 @@ internal static partial class SourceTemplates
 				}
 				else
 				{
-					if (useFastForProperty)
+					if (useTypedRecordsForProperty)
 					{
-						sb.Append("\t\t\t\t").Append(mockRegistry).Append(".SetPropertyFast<")
+						sb.Append("\t\t\t\t").Append(mockRegistry).Append(".SetProperty<")
 							.AppendTypeOrWrapper(property.Type).Append(">(")
 							.Append(memberIdPrefix).Append(memberIds.GetPropertyGetIdentifier(property)).Append(", ")
 							.Append(memberIdPrefix).Append(memberIds.GetPropertySetIdentifier(property)).Append(", ")
@@ -2614,9 +2614,9 @@ internal static partial class SourceTemplates
 				if (!isClassInterface && !property.IsAbstract)
 				{
 					EmitIndexerSetterAccessAndSetup(sb, "\t\t\t\t", mockRegistry, accessVarName, setupVarName,
-						property.Type, property.IndexerParameters.Value, useFastForIndexer,
-						useFastForIndexer ? indexerSetIdRef : null,
-						useFastForIndexer ? indexerGetIdRef : null);
+						property.Type, property.IndexerParameters.Value, useTypedRecordsForIndexer,
+						useTypedRecordsForIndexer ? indexerSetIdRef : null,
+						useTypedRecordsForIndexer ? indexerGetIdRef : null);
 					AppendIndexerSetCall("\t\t\t\tif (!", ")", accessVarName, setupVarName);
 					sb.Append("\t\t\t\t{").AppendLine();
 					if (property.Setter?.IsProtected != true)
@@ -2647,9 +2647,9 @@ internal static partial class SourceTemplates
 				else
 				{
 					EmitIndexerSetterAccessAndSetup(sb, "\t\t\t\t", mockRegistry, accessVarName, setupVarName,
-						property.Type, property.IndexerParameters.Value, useFastForIndexer,
-						useFastForIndexer ? indexerSetIdRef : null,
-						useFastForIndexer ? indexerGetIdRef : null);
+						property.Type, property.IndexerParameters.Value, useTypedRecordsForIndexer,
+						useTypedRecordsForIndexer ? indexerSetIdRef : null,
+						useTypedRecordsForIndexer ? indexerGetIdRef : null);
 					AppendIndexerSetCall("\t\t\t\t", ";", accessVarName, setupVarName);
 				}
 			}
@@ -2657,9 +2657,9 @@ internal static partial class SourceTemplates
 			{
 				if (!isClassInterface && !property.IsAbstract)
 				{
-					if (useFastForProperty)
+					if (useTypedRecordsForProperty)
 					{
-						sb.Append("\t\t\t\tif (!").Append(mockRegistry).Append(".SetPropertyFast<")
+						sb.Append("\t\t\t\tif (!").Append(mockRegistry).Append(".SetProperty<")
 							.AppendTypeOrWrapper(property.Type).Append(">(")
 							.Append(memberIdPrefix).Append(memberIds.GetPropertyGetIdentifier(property)).Append(", ")
 							.Append(memberIdPrefix).Append(memberIds.GetPropertySetIdentifier(property)).Append(", ")
@@ -2695,9 +2695,9 @@ internal static partial class SourceTemplates
 				}
 				else
 				{
-					if (useFastForProperty)
+					if (useTypedRecordsForProperty)
 					{
-						sb.Append("\t\t\t\t").Append(mockRegistry).Append(".SetPropertyFast<")
+						sb.Append("\t\t\t\t").Append(mockRegistry).Append(".SetProperty<")
 							.AppendTypeOrWrapper(property.Type).Append(">(")
 							.Append(memberIdPrefix).Append(memberIds.GetPropertyGetIdentifier(property)).Append(", ")
 							.Append(memberIdPrefix).Append(memberIds.GetPropertySetIdentifier(property)).Append(", ")
@@ -2959,13 +2959,13 @@ internal static partial class SourceTemplates
 			: Helpers.GetUniqueLocalVariableName("genericMethodSetup", method.Parameters);
 		if (genericDispatch is { } dispatch)
 		{
-			EmitFastMethodSetupLookupWithGeneric(sb, "\t\t\t", mockRegistry, methodSetup, methodSetupType, memberIdRef,
+			EmitMethodSetupLookupWithGeneric(sb, "\t\t\t", mockRegistry, methodSetup, methodSetupType, memberIdRef,
 				method.GetUniqueNameString(), sb2.ToString(), genericSetup!, dispatch.Type, GetGenericSetupName(method),
 				dispatch.MatchArgs, method.Parameters);
 		}
 		else
 		{
-			EmitFastMethodSetupLookup(sb, "\t\t\t", mockRegistry, methodSetup, methodSetupType, memberIdRef,
+			EmitMethodSetupLookup(sb, "\t\t\t", mockRegistry, methodSetup, methodSetupType, memberIdRef,
 				method.GetUniqueNameString(), sb2.ToString(), isGeneric, method.Parameters);
 		}
 		sb.Append("\t\t\tbool ").Append(hasWrappedResult).Append(" = false;").AppendLine();
@@ -2996,7 +2996,7 @@ internal static partial class SourceTemplates
 			string recordsType = $"global::Mockolate.Internals.MethodRecords{typeArgs}";
 
 			sb.Append("\t\t\t\t").Append(recordsType)
-				.Append(".Append((global::Mockolate.Internals.FastMockInteractions)")
+				.Append(".Append((global::Mockolate.Internals.MockInteractions)")
 				.Append(mockRegistry).Append(".Interactions, ").Append(memberIdRef).Append(", ")
 				.Append(method.GetUniqueNameString());
 			if (arity > 0)
@@ -6140,11 +6140,11 @@ internal static partial class SourceTemplates
 			return;
 		}
 
-		bool useFastForIndexer = useTypedRecords && IsTypedRecordingEligibleIndexer(indexer);
-		string indexerGetMemberId = useFastForIndexer
+		bool useTypedRecordsForIndexer = useTypedRecords && IsTypedRecordingEligibleIndexer(indexer);
+		string indexerGetMemberId = useTypedRecordsForIndexer
 			? memberIdPrefix + memberIds.GetIndexerGetIdentifier(indexer)
 			: "-1";
-		string indexerSetMemberId = useFastForIndexer
+		string indexerSetMemberId = useTypedRecordsForIndexer
 			? memberIdPrefix + memberIds.GetIndexerSetIdentifier(indexer)
 			: "-1";
 
@@ -6824,11 +6824,11 @@ internal static partial class SourceTemplates
 			   property.MemberType == memberType && !property.Type.NeedsRefStructPipeline();
 		foreach (Property property in @class.AllProperties().Where(propertyPredicate))
 		{
-			bool useFastForProperty = useTypedRecords && IsTypedRecordingEligibleProperty(property);
-			string propertyGetMemberId = useFastForProperty
+			bool useTypedRecordsForProperty = useTypedRecords && IsTypedRecordingEligibleProperty(property);
+			string propertyGetMemberId = useTypedRecordsForProperty
 				? memberIdPrefix + memberIds.GetPropertyGetIdentifier(property)
 				: "-1";
-			string propertySetMemberId = useFastForProperty
+			string propertySetMemberId = useTypedRecordsForProperty
 				? memberIdPrefix + memberIds.GetPropertySetIdentifier(property)
 				: "-1";
 			sb.Append("\t\t/// <inheritdoc />").AppendLine();
@@ -6975,11 +6975,11 @@ internal static partial class SourceTemplates
 		                                             @event.MemberType == memberType;
 		foreach (Event @event in @class.AllEvents().Where(eventPredicate))
 		{
-			bool useFastForEvent = useTypedRecords && IsTypedRecordingEligibleEvent(@event);
-			string subMemberId = useFastForEvent
+			bool useTypedRecordsForEvent = useTypedRecords && IsTypedRecordingEligibleEvent(@event);
+			string subMemberId = useTypedRecordsForEvent
 				? memberIdPrefix + memberIds.GetEventSubscribeIdentifier(@event)
 				: "-1";
-			string unsubMemberId = useFastForEvent
+			string unsubMemberId = useTypedRecordsForEvent
 				? memberIdPrefix + memberIds.GetEventUnsubscribeIdentifier(@event)
 				: "-1";
 			sb.AppendXmlSummary(
@@ -7017,8 +7017,8 @@ internal static partial class SourceTemplates
 			return;
 		}
 
-		bool useFastForMethod = useTypedRecords && IsTypedRecordingEligibleMethod(method);
-		string methodMemberId = useFastForMethod
+		bool useTypedRecordsForMethod = useTypedRecords && IsTypedRecordingEligibleMethod(method);
+		string methodMemberId = useTypedRecordsForMethod
 			? memberIdPrefix + memberIds.GetMethodIdentifier(method)
 			: "-1";
 		string methodName = methodNameOverride ?? method.Name;
@@ -7115,7 +7115,7 @@ internal static partial class SourceTemplates
 		// literal nor the typed fast path can render (both assume a whole-array IParameter<TElement[]>). Route it
 		// through the slow predicate path, where the composite matcher is built explicitly.
 		bool canUseTypedVerify = !perElementParams
-		                         && useFastForMethod
+		                         && useTypedRecordsForMethod
 		                         && !useParameters
 		                         && method.Parameters.Count <= 4
 		                         && (method.GenericParameters is null || method.GenericParameters.Value.Count == 0)
@@ -7457,13 +7457,13 @@ internal static partial class SourceTemplates
 
 	#endregion Verify Helpers
 
-	private static void AppendCreateFastInteractions(StringBuilder sb, string indent)
+	private static void AppendCreateInteractions(StringBuilder sb, string indent)
 	{
 		sb.Append(indent).Append("/// <summary>").AppendLine();
-		sb.Append(indent).Append("///     Creates a <see cref=\"global::Mockolate.Internals.FastMockInteractions\" /> sized to ").Append("<see cref=\"MemberCount\" /> for use as the mock's interaction store.").AppendLine();
+		sb.Append(indent).Append("///     Creates a <see cref=\"global::Mockolate.Internals.MockInteractions\" /> sized to ").Append("<see cref=\"MemberCount\" /> for use as the mock's interaction store.").AppendLine();
 		sb.Append(indent).Append("/// </summary>").AppendLine();
-		sb.Append(indent).Append("internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)").AppendLine();
-		sb.Append(indent).Append("\t=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);").AppendLine();
+		sb.Append(indent).Append("internal static global::Mockolate.Internals.MockInteractions CreateInteractions(global::Mockolate.MockBehavior behavior)").AppendLine();
+		sb.Append(indent).Append("\t=> new global::Mockolate.Internals.MockInteractions(MemberCount, behavior.SkipInteractionRecording);").AppendLine();
 	}
 
 	/// <summary>
