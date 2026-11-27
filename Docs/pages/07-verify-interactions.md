@@ -136,7 +136,7 @@ Only the calls until the scope is disposed are compared, so calls made before `T
 - Recording the order of calls on several mocks has a cost, so a mock only records it while it is tracked. `Then` throws a `MockException` when the verifications belong to mocks whose call order was not tracked together.
 - A mock can only be tracked by one scope at a time. After the scope is disposed, it can be tracked again; the calls of different scopes are never compared.
 - Verifications of the same mock can also be passed to `Then` directly, e.g. `dispenser.Mock.Verify.Dispense("Dark", 1).Then(dispenser.Mock.Verify.Dispense("Milk", 2))`. Within one mock, no tracking is needed.
-- When the verifications belong to different mocks, `Within(TimeSpan)` on any of them waits for calls from a background thread, as described [below](#waiting-for-background-calls).
+- To wait for calls from a background thread, add `Within(TimeSpan)` to each verification whose call can still arrive, as described [below](#waiting-for-background-calls), and verify while the scope is open, e.g. with a `using` declaration instead of a `using` block, because calls after the scope do not count.
 - Verifications on a [monitor](08-advanced-features/04-monitor-interactions.md) (`monitor.Verify`) cannot be combined with other verifications in `Then`, not even with those of the monitored mock, because a monitor keeps its own copy of the calls.
 
 </details>
