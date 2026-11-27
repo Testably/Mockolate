@@ -236,6 +236,10 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveDelegate> IMockForComprehensiveDelegate.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveDelegate>(this.MockRegistry.Interactions, interactions => new VerifyMonitorComprehensiveDelegate(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+
+		/// <inheritdoc />
+		global::System.IDisposable IMockForComprehensiveDelegate.TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more)
+			=> this.MockRegistry.TrackCallOrder(this, other, more);
 	}
 
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -312,7 +316,7 @@ internal static partial class Mock
 	///     Accesses the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ComprehensiveDelegate">ComprehensiveDelegate</see>.
 	/// </summary>
 	internal interface IMockForComprehensiveDelegate :
-		 IMockSetupForComprehensiveDelegate, IMockVerifyForComprehensiveDelegate
+		 IMockSetupForComprehensiveDelegate, IMockVerifyForComprehensiveDelegate, global::Mockolate.IMock
 	{
 		/// <summary>
 		///     Verifies the method invocations for the <paramref name="setup" /> on the mock.
@@ -338,6 +342,18 @@ internal static partial class Mock
 		///     Provides monitoring capabilities for a mocked instance of the specified type, allowing inspection of accessed properties, invoked methods, and event subscriptions.
 		/// </summary>
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveDelegate> Monitor();
+
+		/// <summary>
+		///     Tracks the order of the calls across this mock and the <paramref name="other" /> mocks until the returned scope is disposed, so that <c>Then</c> can verify the order of calls on different mocks.
+		/// </summary>
+		/// <remarks>
+		///     Only the calls while the scope is not disposed are compared, e.g. <c>using (sut.Mock.TrackCallOrder(other.Mock)) { ... }</c>.
+		/// </remarks>
+		/// <param name="other">The <c>Mock</c> property of another mock.</param>
+		/// <param name="more">The <c>Mock</c> properties of further mocks.</param>
+		/// <returns>A scope that ends the tracking when it is disposed.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The call order of one of the mocks cannot be tracked or is already tracked.</exception>
+		global::System.IDisposable TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more);
 	}
 
 	/// <summary>

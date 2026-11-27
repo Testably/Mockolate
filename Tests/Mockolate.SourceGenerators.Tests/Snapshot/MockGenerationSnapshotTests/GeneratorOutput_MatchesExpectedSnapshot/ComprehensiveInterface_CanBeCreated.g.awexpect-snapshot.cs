@@ -174,6 +174,9 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForIComprehensiveInterface> IMockForIComprehensiveInterface.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForIComprehensiveInterface>(this.MockRegistry.Interactions, interactions => new VerifyMonitorIComprehensiveInterface(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+		/// <inheritdoc />
+		global::System.IDisposable IMockForIComprehensiveInterface.TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more)
+			=> this.MockRegistry.TrackCallOrder(this, other, more);
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
@@ -5725,7 +5728,7 @@ internal static partial class Mock
 	/// <remarks>
 	///     Groups every operation that acts on the mock rather than on the mocked subject: setups, verifications, event raising, scenarios and monitoring.
 	/// </remarks>
-	internal interface IMockForIComprehensiveInterface
+	internal interface IMockForIComprehensiveInterface : global::Mockolate.IMock
 	{
 		/// <summary>
 		///     Configures how members of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IComprehensiveInterface">IComprehensiveInterface</see> respond when invoked.
@@ -5861,6 +5864,18 @@ internal static partial class Mock
 		/// </remarks>
 		/// <returns>A <see cref="global::Mockolate.Monitor.MockMonitor{T}">MockMonitor&lt;T&gt;</see> that exposes <c>Verify</c> over the monitored interactions and a <c>Run()</c> method that opens the recording scope.</returns>
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForIComprehensiveInterface> Monitor();
+
+		/// <summary>
+		///     Tracks the order of the calls across this mock and the <paramref name="other" /> mocks until the returned scope is disposed, so that <c>Then</c> can verify the order of calls on different mocks.
+		/// </summary>
+		/// <remarks>
+		///     Only the calls while the scope is not disposed are compared, e.g. <c>using (sut.Mock.TrackCallOrder(other.Mock)) { ... }</c>.
+		/// </remarks>
+		/// <param name="other">The <c>Mock</c> property of another mock.</param>
+		/// <param name="more">The <c>Mock</c> properties of further mocks.</param>
+		/// <returns>A scope that ends the tracking when it is disposed.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The call order of one of the mocks cannot be tracked or is already tracked.</exception>
+		global::System.IDisposable TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more);
 	}
 
 	/// <summary>
@@ -7319,7 +7334,7 @@ internal static partial class MockExtensionsForIComprehensiveInterface
 		///       <item><description><c>SetupStatic</c> / <c>VerifyStatic</c> / <c>RaiseStatic</c> - target <see langword="static" /> members on interface mocks.</description></item><br />
 		///       <item><description><c>SetupGeneric</c> / <c>VerifyGeneric</c> (and <c>SetupProtectedGeneric</c> / <c>VerifyProtectedGeneric</c>) - target generic methods for any type argument.</description></item><br />
 		///       <item><description><c>InScenario</c> / <c>TransitionTo</c> - scope setups and behavior to a named scenario and switch between scenarios.</description></item><br />
-		///       <item><description><c>Monitor</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
+		///       <item><description><c>Monitor</c>, <c>TrackCallOrder</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
 		///       <item><description><c>VerifySetup</c> - verify how often a specific setup matched.</description></item><br />
 		///     </list>
 		/// </remarks>

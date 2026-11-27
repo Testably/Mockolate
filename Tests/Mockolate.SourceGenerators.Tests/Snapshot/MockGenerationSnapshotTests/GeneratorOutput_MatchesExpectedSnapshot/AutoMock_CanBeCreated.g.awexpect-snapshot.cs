@@ -158,6 +158,10 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForAutoMockChildFactory> IMockForAutoMockChildFactory.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForAutoMockChildFactory>(this.MockRegistry.Interactions, interactions => new VerifyMonitorAutoMockChildFactory(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+
+		/// <inheritdoc />
+		global::System.IDisposable IMockForAutoMockChildFactory.TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more)
+			=> this.MockRegistry.TrackCallOrder(this, other, more);
 	}
 
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -189,7 +193,7 @@ internal static partial class Mock
 	///     Accesses the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.AutoMockChildFactory">AutoMockChildFactory</see>.
 	/// </summary>
 	internal interface IMockForAutoMockChildFactory :
-		 IMockSetupForAutoMockChildFactory, IMockVerifyForAutoMockChildFactory
+		 IMockSetupForAutoMockChildFactory, IMockVerifyForAutoMockChildFactory, global::Mockolate.IMock
 	{
 		/// <summary>
 		///     Verifies the method invocations for the <paramref name="setup" /> on the mock.
@@ -215,6 +219,18 @@ internal static partial class Mock
 		///     Provides monitoring capabilities for a mocked instance of the specified type, allowing inspection of accessed properties, invoked methods, and event subscriptions.
 		/// </summary>
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForAutoMockChildFactory> Monitor();
+
+		/// <summary>
+		///     Tracks the order of the calls across this mock and the <paramref name="other" /> mocks until the returned scope is disposed, so that <c>Then</c> can verify the order of calls on different mocks.
+		/// </summary>
+		/// <remarks>
+		///     Only the calls while the scope is not disposed are compared, e.g. <c>using (sut.Mock.TrackCallOrder(other.Mock)) { ... }</c>.
+		/// </remarks>
+		/// <param name="other">The <c>Mock</c> property of another mock.</param>
+		/// <param name="more">The <c>Mock</c> properties of further mocks.</param>
+		/// <returns>A scope that ends the tracking when it is disposed.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The call order of one of the mocks cannot be tracked or is already tracked.</exception>
+		global::System.IDisposable TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more);
 	}
 
 	/// <summary>
@@ -443,6 +459,9 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForIAutoMockChild> IMockForIAutoMockChild.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForIAutoMockChild>(this.MockRegistry.Interactions, interactions => new VerifyMonitorIAutoMockChild(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+		/// <inheritdoc />
+		global::System.IDisposable IMockForIAutoMockChild.TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more)
+			=> this.MockRegistry.TrackCallOrder(this, other, more);
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
@@ -757,7 +776,7 @@ internal static partial class Mock
 	/// <remarks>
 	///     Groups every operation that acts on the mock rather than on the mocked subject: setups, verifications, event raising, scenarios and monitoring.
 	/// </remarks>
-	internal interface IMockForIAutoMockChild
+	internal interface IMockForIAutoMockChild : global::Mockolate.IMock
 	{
 		/// <summary>
 		///     Configures how members of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockChild">IAutoMockChild</see> respond when invoked.
@@ -853,6 +872,18 @@ internal static partial class Mock
 		/// </remarks>
 		/// <returns>A <see cref="global::Mockolate.Monitor.MockMonitor{T}">MockMonitor&lt;T&gt;</see> that exposes <c>Verify</c> over the monitored interactions and a <c>Run()</c> method that opens the recording scope.</returns>
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForIAutoMockChild> Monitor();
+
+		/// <summary>
+		///     Tracks the order of the calls across this mock and the <paramref name="other" /> mocks until the returned scope is disposed, so that <c>Then</c> can verify the order of calls on different mocks.
+		/// </summary>
+		/// <remarks>
+		///     Only the calls while the scope is not disposed are compared, e.g. <c>using (sut.Mock.TrackCallOrder(other.Mock)) { ... }</c>.
+		/// </remarks>
+		/// <param name="other">The <c>Mock</c> property of another mock.</param>
+		/// <param name="more">The <c>Mock</c> properties of further mocks.</param>
+		/// <returns>A scope that ends the tracking when it is disposed.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The call order of one of the mocks cannot be tracked or is already tracked.</exception>
+		global::System.IDisposable TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more);
 	}
 
 	/// <summary>
@@ -933,7 +964,7 @@ internal static partial class MockExtensionsForIAutoMockChild
 		///       <item><description><c>Setup</c> - configure how members respond when invoked (<c>Returns</c>, <c>Throws</c>, <c>Do</c>, <c>InitializeWith</c>, ...).</description></item><br />
 		///       <item><description><c>Verify</c> - assert how often (and in which order) members were invoked.</description></item><br />
 		///       <item><description><c>InScenario</c> / <c>TransitionTo</c> - scope setups and behavior to a named scenario and switch between scenarios.</description></item><br />
-		///       <item><description><c>Monitor</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
+		///       <item><description><c>Monitor</c>, <c>TrackCallOrder</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
 		///       <item><description><c>VerifySetup</c> - verify how often a specific setup matched.</description></item><br />
 		///     </list>
 		/// </remarks>
@@ -1176,6 +1207,9 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForIAutoMockGeneric_int> IMockForIAutoMockGeneric_int.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForIAutoMockGeneric_int>(this.MockRegistry.Interactions, interactions => new VerifyMonitorIAutoMockGeneric_int(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+		/// <inheritdoc />
+		global::System.IDisposable IMockForIAutoMockGeneric_int.TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more)
+			=> this.MockRegistry.TrackCallOrder(this, other, more);
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
@@ -1306,7 +1340,7 @@ internal static partial class Mock
 	/// <remarks>
 	///     Groups every operation that acts on the mock rather than on the mocked subject: setups, verifications, event raising, scenarios and monitoring.
 	/// </remarks>
-	internal interface IMockForIAutoMockGeneric_int
+	internal interface IMockForIAutoMockGeneric_int : global::Mockolate.IMock
 	{
 		/// <summary>
 		///     Configures how members of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockGeneric{T}">IAutoMockGeneric&lt;int&gt;</see> respond when invoked.
@@ -1402,6 +1436,18 @@ internal static partial class Mock
 		/// </remarks>
 		/// <returns>A <see cref="global::Mockolate.Monitor.MockMonitor{T}">MockMonitor&lt;T&gt;</see> that exposes <c>Verify</c> over the monitored interactions and a <c>Run()</c> method that opens the recording scope.</returns>
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForIAutoMockGeneric_int> Monitor();
+
+		/// <summary>
+		///     Tracks the order of the calls across this mock and the <paramref name="other" /> mocks until the returned scope is disposed, so that <c>Then</c> can verify the order of calls on different mocks.
+		/// </summary>
+		/// <remarks>
+		///     Only the calls while the scope is not disposed are compared, e.g. <c>using (sut.Mock.TrackCallOrder(other.Mock)) { ... }</c>.
+		/// </remarks>
+		/// <param name="other">The <c>Mock</c> property of another mock.</param>
+		/// <param name="more">The <c>Mock</c> properties of further mocks.</param>
+		/// <returns>A scope that ends the tracking when it is disposed.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The call order of one of the mocks cannot be tracked or is already tracked.</exception>
+		global::System.IDisposable TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more);
 	}
 
 	/// <summary>
@@ -1460,7 +1506,7 @@ internal static partial class MockExtensionsForIAutoMockGeneric_int
 		///       <item><description><c>Setup</c> - configure how members respond when invoked (<c>Returns</c>, <c>Throws</c>, <c>Do</c>, <c>InitializeWith</c>, ...).</description></item><br />
 		///       <item><description><c>Verify</c> - assert how often (and in which order) members were invoked.</description></item><br />
 		///       <item><description><c>InScenario</c> / <c>TransitionTo</c> - scope setups and behavior to a named scenario and switch between scenarios.</description></item><br />
-		///       <item><description><c>Monitor</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
+		///       <item><description><c>Monitor</c>, <c>TrackCallOrder</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
 		///       <item><description><c>VerifySetup</c> - verify how often a specific setup matched.</description></item><br />
 		///     </list>
 		/// </remarks>
@@ -1717,6 +1763,9 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForIAutoMockRoot> IMockForIAutoMockRoot.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForIAutoMockRoot>(this.MockRegistry.Interactions, interactions => new VerifyMonitorIAutoMockRoot(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+		/// <inheritdoc />
+		global::System.IDisposable IMockForIAutoMockRoot.TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more)
+			=> this.MockRegistry.TrackCallOrder(this, other, more);
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
@@ -2843,7 +2892,7 @@ internal static partial class Mock
 	/// <remarks>
 	///     Groups every operation that acts on the mock rather than on the mocked subject: setups, verifications, event raising, scenarios and monitoring.
 	/// </remarks>
-	internal interface IMockForIAutoMockRoot
+	internal interface IMockForIAutoMockRoot : global::Mockolate.IMock
 	{
 		/// <summary>
 		///     Configures how members of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.IAutoMockRoot">IAutoMockRoot</see> respond when invoked.
@@ -2939,6 +2988,18 @@ internal static partial class Mock
 		/// </remarks>
 		/// <returns>A <see cref="global::Mockolate.Monitor.MockMonitor{T}">MockMonitor&lt;T&gt;</see> that exposes <c>Verify</c> over the monitored interactions and a <c>Run()</c> method that opens the recording scope.</returns>
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForIAutoMockRoot> Monitor();
+
+		/// <summary>
+		///     Tracks the order of the calls across this mock and the <paramref name="other" /> mocks until the returned scope is disposed, so that <c>Then</c> can verify the order of calls on different mocks.
+		/// </summary>
+		/// <remarks>
+		///     Only the calls while the scope is not disposed are compared, e.g. <c>using (sut.Mock.TrackCallOrder(other.Mock)) { ... }</c>.
+		/// </remarks>
+		/// <param name="other">The <c>Mock</c> property of another mock.</param>
+		/// <param name="more">The <c>Mock</c> properties of further mocks.</param>
+		/// <returns>A scope that ends the tracking when it is disposed.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The call order of one of the mocks cannot be tracked or is already tracked.</exception>
+		global::System.IDisposable TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more);
 	}
 
 	/// <summary>
@@ -3193,7 +3254,7 @@ internal static partial class MockExtensionsForIAutoMockRoot
 		///       <item><description><c>Setup</c> - configure how members respond when invoked (<c>Returns</c>, <c>Throws</c>, <c>Do</c>, <c>InitializeWith</c>, ...).</description></item><br />
 		///       <item><description><c>Verify</c> - assert how often (and in which order) members were invoked.</description></item><br />
 		///       <item><description><c>InScenario</c> / <c>TransitionTo</c> - scope setups and behavior to a named scenario and switch between scenarios.</description></item><br />
-		///       <item><description><c>Monitor</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
+		///       <item><description><c>Monitor</c>, <c>TrackCallOrder</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
 		///       <item><description><c>VerifySetup</c> - verify how often a specific setup matched.</description></item><br />
 		///     </list>
 		/// </remarks>

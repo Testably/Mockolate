@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Mockolate.Exceptions;
 using Mockolate.Interactions;
+using Mockolate.Internals;
 
 namespace Mockolate.Verify;
 
@@ -302,66 +303,102 @@ public static class VerificationResultExtensions
 		/// </exception>
 		public void Then(params Func<TMock, VerificationResult<TMock>>[] orderedChecks)
 		{
-			string? error = null;
-			List<string> expectations = [];
-			IVerificationResult result = verificationResult;
 			TMock mockVerify = ((IVerificationResult<TMock>)verificationResult).Object;
-			IInteraction[] snapshot = result.Interactions.ToArray();
+			VerifyInOrderOnOneMock(verificationResult, orderedChecks.Length, i => orderedChecks[i](mockVerify));
+		}
 
-			int after = -1;
-			foreach (Func<TMock, VerificationResult<TMock>> check in orderedChecks)
+		/// <summary>
+		///     Asserts that the current verification, <paramref name="next" /> and each of the <paramref name="more" />
+		///     verifications occurred in the specified order, also when they belong to different mocks.
+		/// </summary>
+		/// <remarks>
+		///     The order of calls on different mocks is only known while it is tracked: call <c>TrackCallOrder</c> on
+		///     one of the mocks with the others (<c>sut.Mock.TrackCallOrder(other.Mock)</c>) before the calls. Only the
+		///     calls until the returned scope is disposed are compared.
+		/// </remarks>
+		/// <param name="next">The verification whose interaction must have been recorded after the current one.</param>
+		/// <param name="more">Further verifications, each recorded after the previous one.</param>
+		/// <exception cref="MockVerificationException">
+		///     Thrown when the expected interactions did not occur in the given order.
+		/// </exception>
+		/// <exception cref="MockException">
+		///     Thrown when the verifications belong to different mocks whose call order was not tracked together.
+		/// </exception>
+		public void Then(IVerificationResult next, params IVerificationResult[] more)
+		{
+			IVerificationResult[] steps = [verificationResult, next, ..more,];
+			if (steps.All(step => ReferenceEquals(step.Interactions, steps[0].Interactions)))
 			{
-				expectations.Add(result.Expectation);
-				IVerificationResult currentResult = result;
-				// In case of an error, `after` is set to int.MaxValue and all following verifications will fail
-				_ = result.Verify(interactions => VerifyInteractions(interactions, currentResult));
-				result = check(mockVerify);
+				VerifyInOrderOnOneMock(steps[0], steps.Length - 1, i => steps[i + 1]);
 			}
+			else
+			{
+				CallOrderTracker.VerifyInOrder(steps);
+			}
+		}
+	}
 
+	private static void VerifyInOrderOnOneMock(IVerificationResult first, int followingCount,
+		Func<int, IVerificationResult> getFollowing)
+	{
+		string? error = null;
+		List<string> expectations = [];
+		IVerificationResult result = first;
+		IInteraction[] snapshot = result.Interactions.ToArray();
+
+		int after = -1;
+		for (int i = 0; i < followingCount; i++)
+		{
 			expectations.Add(result.Expectation);
-			if (!result.Verify(interactions => VerifyInteractions(interactions, result)))
-			{
-				string separator = ", then ";
-				throw new MockVerificationException(
-					$"Expected that mock {string.Join(separator, expectations)} in order, but it {error}.");
-			}
+			IVerificationResult currentResult = result;
+			// In case of an error, `after` is set to int.MaxValue and all following verifications will fail
+			_ = result.Verify(interactions => VerifyInteractions(interactions, currentResult));
+			result = getFollowing(i);
+		}
 
-			bool VerifyInteractions(IInteraction[] interactions, IVerificationResult currentResult)
+		expectations.Add(result.Expectation);
+		if (!result.Verify(interactions => VerifyInteractions(interactions, result)))
+		{
+			string separator = ", then ";
+			throw new MockVerificationException(
+				$"Expected that mock {string.Join(separator, expectations)} in order, but it {error}.");
+		}
+
+		bool VerifyInteractions(IInteraction[] interactions, IVerificationResult currentResult)
+		{
+			// Walk the snapshot from `after + 1` and stop on the first slot whose interaction
+			// is in the verification's matched set. The membership check uses reference
+			// equality, but the search is positional — repeated entries with the same
+			// reference (e.g. shared property-getter access singletons) still resolve to
+			// distinct positions because each call to this lambda picks up where the
+			// previous one stopped.
+			int firstPos = -1;
+			// `after == int.MaxValue` is the "earlier step already failed" signal — skip the
+			// walk so subsequent steps cascade to failure without going through the loop
+			// (and without triggering int overflow on `after + 1`).
+			if (after < snapshot.Length)
 			{
-				// Walk the snapshot from `after + 1` and stop on the first slot whose interaction
-				// is in the verification's matched set. The membership check uses reference
-				// equality, but the search is positional — repeated entries with the same
-				// reference (e.g. shared property-getter access singletons) still resolve to
-				// distinct positions because each call to this lambda picks up where the
-				// previous one stopped.
-				int firstPos = -1;
-				// `after == int.MaxValue` is the "earlier step already failed" signal — skip the
-				// walk so subsequent steps cascade to failure without going through the loop
-				// (and without triggering int overflow on `after + 1`).
-				if (after < snapshot.Length)
+				HashSet<IInteraction> matched = new(interactions);
+				for (int i = after + 1; i < snapshot.Length; i++)
 				{
-					HashSet<IInteraction> matched = new(interactions);
-					for (int i = after + 1; i < snapshot.Length; i++)
+					if (matched.Contains(snapshot[i]))
 					{
-						if (matched.Contains(snapshot[i]))
-						{
-							firstPos = i;
-							break;
-						}
+						firstPos = i;
+						break;
 					}
 				}
-
-				bool hasInteractionAfter = firstPos >= 0;
-				after = hasInteractionAfter ? firstPos : int.MaxValue;
-				if (!hasInteractionAfter && error is null)
-				{
-					error = interactions.Length > 0
-						? $"{currentResult.Expectation} too early"
-						: $"{currentResult.Expectation} not at all";
-				}
-
-				return hasInteractionAfter;
 			}
+
+			bool hasInteractionAfter = firstPos >= 0;
+			after = hasInteractionAfter ? firstPos : int.MaxValue;
+			if (!hasInteractionAfter && error is null)
+			{
+				error = interactions.Length > 0
+					? $"{currentResult.Expectation} too early"
+					: $"{currentResult.Expectation} not at all";
+			}
+
+			return hasInteractionAfter;
 		}
 	}
 }

@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Mockolate.Internals;
 
 namespace Mockolate;
@@ -24,6 +25,7 @@ public interface IMock
 	///     the preferred entry point; reach for <see cref="MockRegistry" /> directly only when you need to interact
 	///     with the underlying state (for example in custom extensions or diagnostic tooling).
 	/// </remarks>
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	MockRegistry MockRegistry { get; }
 
 	/// <summary>

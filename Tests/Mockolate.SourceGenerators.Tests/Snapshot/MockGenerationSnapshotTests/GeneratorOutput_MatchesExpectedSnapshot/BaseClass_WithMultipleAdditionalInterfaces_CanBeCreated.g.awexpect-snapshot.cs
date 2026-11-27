@@ -113,6 +113,9 @@ internal static partial class Mock
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveAbstractClass> IMockForComprehensiveAbstractClass.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveAbstractClass>(this.MockRegistry.Interactions, interactions => new VerifyMonitorComprehensiveAbstractClass(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
 		/// <inheritdoc />
+		global::System.IDisposable IMockForComprehensiveAbstractClass.TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more)
+			=> this.MockRegistry.TrackCallOrder(this, other, more);
+		/// <inheritdoc />
 		T IMockForComprehensiveAbstractClass.ConstructorArgument<T>()
 			=> (this.MockolateConstructorArguments ?? throw new global::Mockolate.Exceptions.MockException("The mock of Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass was created without constructor arguments.")).Get<T>();
 		/// <inheritdoc />
@@ -506,7 +509,7 @@ internal static partial class Mock
 	/// <remarks>
 	///     Groups every operation that acts on the mock rather than on the mocked subject: setups, verifications, event raising, scenarios and monitoring.
 	/// </remarks>
-	internal interface IMockForComprehensiveAbstractClass
+	internal interface IMockForComprehensiveAbstractClass : global::Mockolate.IMock
 	{
 		/// <summary>
 		///     Configures how members of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass">ComprehensiveAbstractClass</see> respond when invoked.
@@ -618,6 +621,18 @@ internal static partial class Mock
 		/// </remarks>
 		/// <returns>A <see cref="global::Mockolate.Monitor.MockMonitor{T}">MockMonitor&lt;T&gt;</see> that exposes <c>Verify</c> over the monitored interactions and a <c>Run()</c> method that opens the recording scope.</returns>
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveAbstractClass> Monitor();
+
+		/// <summary>
+		///     Tracks the order of the calls across this mock and the <paramref name="other" /> mocks until the returned scope is disposed, so that <c>Then</c> can verify the order of calls on different mocks.
+		/// </summary>
+		/// <remarks>
+		///     Only the calls while the scope is not disposed are compared, e.g. <c>using (sut.Mock.TrackCallOrder(other.Mock)) { ... }</c>.
+		/// </remarks>
+		/// <param name="other">The <c>Mock</c> property of another mock.</param>
+		/// <param name="more">The <c>Mock</c> properties of further mocks.</param>
+		/// <returns>A scope that ends the tracking when it is disposed.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The call order of one of the mocks cannot be tracked or is already tracked.</exception>
+		global::System.IDisposable TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more);
 
 		/// <summary>
 		///     Gets the only argument of type <typeparamref name="T" /> that the constructor of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass">ComprehensiveAbstractClass</see> received.
@@ -734,7 +749,7 @@ internal static partial class MockExtensionsForComprehensiveAbstractClass
 		///       <item><description><c>Verify</c> - assert how often (and in which order) members were invoked.</description></item><br />
 		///       <item><description><c>SetupProtected</c> / <c>VerifyProtected</c> / <c>RaiseProtected</c> - target <see langword="protected" /> members on class mocks.</description></item><br />
 		///       <item><description><c>InScenario</c> / <c>TransitionTo</c> - scope setups and behavior to a named scenario and switch between scenarios.</description></item><br />
-		///       <item><description><c>Monitor</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
+		///       <item><description><c>Monitor</c>, <c>TrackCallOrder</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
 		///       <item><description><c>VerifySetup</c> - verify how often a specific setup matched.</description></item><br />
 		///     </list>
 		/// </remarks>
@@ -1282,6 +1297,9 @@ internal static partial class Mock
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveAbstractClass> IMockForComprehensiveAbstractClass.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveAbstractClass>(this.MockRegistry.Interactions, interactions => new VerifyMonitorComprehensiveAbstractClass(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
 		/// <inheritdoc />
+		global::System.IDisposable IMockForComprehensiveAbstractClass.TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more)
+			=> this.MockRegistry.TrackCallOrder(this, other, more);
+		/// <inheritdoc />
 		T IMockForComprehensiveAbstractClass.ConstructorArgument<T>()
 			=> (this.MockolateConstructorArguments ?? throw new global::Mockolate.Exceptions.MockException("The mock of Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass was created without constructor arguments.")).Get<T>();
 		/// <inheritdoc />
@@ -1328,6 +1346,9 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForICombinationMockA> IMockForICombinationMockA.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForICombinationMockA>(this.MockRegistry.Interactions, interactions => new VerifyMonitorICombinationMockA(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+		/// <inheritdoc />
+		global::System.IDisposable IMockForICombinationMockA.TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more)
+			=> this.MockRegistry.TrackCallOrder(this, other, more);
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
@@ -1923,6 +1944,9 @@ internal static partial class Mock
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveAbstractClass> IMockForComprehensiveAbstractClass.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForComprehensiveAbstractClass>(this.MockRegistry.Interactions, interactions => new VerifyMonitorComprehensiveAbstractClass(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
 		/// <inheritdoc />
+		global::System.IDisposable IMockForComprehensiveAbstractClass.TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more)
+			=> this.MockRegistry.TrackCallOrder(this, other, more);
+		/// <inheritdoc />
 		T IMockForComprehensiveAbstractClass.ConstructorArgument<T>()
 			=> (this.MockolateConstructorArguments ?? throw new global::Mockolate.Exceptions.MockException("The mock of Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass was created without constructor arguments.")).Get<T>();
 		/// <inheritdoc />
@@ -1969,6 +1993,9 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForICombinationMockA> IMockForICombinationMockA.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForICombinationMockA>(this.MockRegistry.Interactions, interactions => new VerifyMonitorICombinationMockA(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+		/// <inheritdoc />
+		global::System.IDisposable IMockForICombinationMockA.TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more)
+			=> this.MockRegistry.TrackCallOrder(this, other, more);
 
 		/// <inheritdoc />
 		[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]
@@ -2010,6 +2037,9 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForICombinationMockB> IMockForICombinationMockB.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForICombinationMockB>(this.MockRegistry.Interactions, interactions => new VerifyMonitorICombinationMockB(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+		/// <inheritdoc />
+		global::System.IDisposable IMockForICombinationMockB.TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more)
+			=> this.MockRegistry.TrackCallOrder(this, other, more);
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
@@ -2708,6 +2738,9 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForICombinationMockA> IMockForICombinationMockA.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForICombinationMockA>(this.MockRegistry.Interactions, interactions => new VerifyMonitorICombinationMockA(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+		/// <inheritdoc />
+		global::System.IDisposable IMockForICombinationMockA.TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more)
+			=> this.MockRegistry.TrackCallOrder(this, other, more);
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
@@ -2924,7 +2957,7 @@ internal static partial class Mock
 	/// <remarks>
 	///     Groups every operation that acts on the mock rather than on the mocked subject: setups, verifications, event raising, scenarios and monitoring.
 	/// </remarks>
-	internal interface IMockForICombinationMockA
+	internal interface IMockForICombinationMockA : global::Mockolate.IMock
 	{
 		/// <summary>
 		///     Configures how members of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA">ICombinationMockA</see> respond when invoked.
@@ -3020,6 +3053,18 @@ internal static partial class Mock
 		/// </remarks>
 		/// <returns>A <see cref="global::Mockolate.Monitor.MockMonitor{T}">MockMonitor&lt;T&gt;</see> that exposes <c>Verify</c> over the monitored interactions and a <c>Run()</c> method that opens the recording scope.</returns>
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForICombinationMockA> Monitor();
+
+		/// <summary>
+		///     Tracks the order of the calls across this mock and the <paramref name="other" /> mocks until the returned scope is disposed, so that <c>Then</c> can verify the order of calls on different mocks.
+		/// </summary>
+		/// <remarks>
+		///     Only the calls while the scope is not disposed are compared, e.g. <c>using (sut.Mock.TrackCallOrder(other.Mock)) { ... }</c>.
+		/// </remarks>
+		/// <param name="other">The <c>Mock</c> property of another mock.</param>
+		/// <param name="more">The <c>Mock</c> properties of further mocks.</param>
+		/// <returns>A scope that ends the tracking when it is disposed.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The call order of one of the mocks cannot be tracked or is already tracked.</exception>
+		global::System.IDisposable TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more);
 	}
 
 	/// <summary>
@@ -3087,7 +3132,7 @@ internal static partial class MockExtensionsForICombinationMockA
 		///       <item><description><c>Setup</c> - configure how members respond when invoked (<c>Returns</c>, <c>Throws</c>, <c>Do</c>, <c>InitializeWith</c>, ...).</description></item><br />
 		///       <item><description><c>Verify</c> - assert how often (and in which order) members were invoked.</description></item><br />
 		///       <item><description><c>InScenario</c> / <c>TransitionTo</c> - scope setups and behavior to a named scenario and switch between scenarios.</description></item><br />
-		///       <item><description><c>Monitor</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
+		///       <item><description><c>Monitor</c>, <c>TrackCallOrder</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
 		///       <item><description><c>VerifySetup</c> - verify how often a specific setup matched.</description></item><br />
 		///     </list>
 		/// </remarks>
@@ -3331,6 +3376,9 @@ internal static partial class Mock
 		/// <inheritdoc />
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForICombinationMockB> IMockForICombinationMockB.Monitor()
 			=> new global::Mockolate.Monitor.MockMonitor<IMockVerifyForICombinationMockB>(this.MockRegistry.Interactions, interactions => new VerifyMonitorICombinationMockB(new global::Mockolate.Internals.MockRegistry(this.MockRegistry, interactions)));
+		/// <inheritdoc />
+		global::System.IDisposable IMockForICombinationMockB.TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more)
+			=> this.MockRegistry.TrackCallOrder(this, other, more);
 
 		/// <inheritdoc />
 		string global::Mockolate.IMock.ToString()
@@ -3547,7 +3595,7 @@ internal static partial class Mock
 	/// <remarks>
 	///     Groups every operation that acts on the mock rather than on the mocked subject: setups, verifications, event raising, scenarios and monitoring.
 	/// </remarks>
-	internal interface IMockForICombinationMockB
+	internal interface IMockForICombinationMockB : global::Mockolate.IMock
 	{
 		/// <summary>
 		///     Configures how members of the mock of <see cref="global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB">ICombinationMockB</see> respond when invoked.
@@ -3643,6 +3691,18 @@ internal static partial class Mock
 		/// </remarks>
 		/// <returns>A <see cref="global::Mockolate.Monitor.MockMonitor{T}">MockMonitor&lt;T&gt;</see> that exposes <c>Verify</c> over the monitored interactions and a <c>Run()</c> method that opens the recording scope.</returns>
 		global::Mockolate.Monitor.MockMonitor<IMockVerifyForICombinationMockB> Monitor();
+
+		/// <summary>
+		///     Tracks the order of the calls across this mock and the <paramref name="other" /> mocks until the returned scope is disposed, so that <c>Then</c> can verify the order of calls on different mocks.
+		/// </summary>
+		/// <remarks>
+		///     Only the calls while the scope is not disposed are compared, e.g. <c>using (sut.Mock.TrackCallOrder(other.Mock)) { ... }</c>.
+		/// </remarks>
+		/// <param name="other">The <c>Mock</c> property of another mock.</param>
+		/// <param name="more">The <c>Mock</c> properties of further mocks.</param>
+		/// <returns>A scope that ends the tracking when it is disposed.</returns>
+		/// <exception cref="global::Mockolate.Exceptions.MockException">The call order of one of the mocks cannot be tracked or is already tracked.</exception>
+		global::System.IDisposable TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more);
 	}
 
 	/// <summary>
@@ -3710,7 +3770,7 @@ internal static partial class MockExtensionsForICombinationMockB
 		///       <item><description><c>Setup</c> - configure how members respond when invoked (<c>Returns</c>, <c>Throws</c>, <c>Do</c>, <c>InitializeWith</c>, ...).</description></item><br />
 		///       <item><description><c>Verify</c> - assert how often (and in which order) members were invoked.</description></item><br />
 		///       <item><description><c>InScenario</c> / <c>TransitionTo</c> - scope setups and behavior to a named scenario and switch between scenarios.</description></item><br />
-		///       <item><description><c>Monitor</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
+		///       <item><description><c>Monitor</c>, <c>TrackCallOrder</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item><br />
 		///       <item><description><c>VerifySetup</c> - verify how often a specific setup matched.</description></item><br />
 		///     </list>
 		/// </remarks>

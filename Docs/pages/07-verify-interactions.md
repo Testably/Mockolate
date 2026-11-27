@@ -111,6 +111,48 @@ dispenser.Mock.Verify.Dispense("Dark", 1).Then(
 
 If the order is different or a call is missing, a `MockVerificationException` is thrown.
 
+### Across mocks
+
+To verify the order of calls on different mocks, track their call order with `TrackCallOrder` before the calls, and pass the verifications of the other mocks to `Then`:
+
+```csharp
+IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
+IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
+
+using (warehouse.Mock.TrackCallOrder(dispenser.Mock))
+{
+    // Act
+}
+
+warehouse.Mock.Verify.Restock("Dark", 5)
+    .Then(dispenser.Mock.Verify.Dispense("Dark", 1));
+```
+
+Only the calls until the scope is disposed are compared, so calls made before `TrackCallOrder` or after the `using` block do not count. Pass further mocks as additional arguments, e.g. `warehouse.Mock.TrackCallOrder(dispenser.Mock, shelf.Mock)`.
+
+<details>
+<summary>Details</summary>
+
+- Recording the order of calls on several mocks has a cost, so a mock only records it while it is tracked. `Then` throws a `MockException` when the verifications belong to mocks whose call order was not tracked together.
+- A mock can only be tracked by one scope at a time. After the scope is disposed, it can be tracked again; the calls of different scopes are never compared.
+- Verifications of the same mock can also be passed to `Then` directly, e.g. `dispenser.Mock.Verify.Dispense("Dark", 1).Then(dispenser.Mock.Verify.Dispense("Milk", 2))`. Within one mock, no tracking is needed.
+- When the verifications belong to different mocks, `Within(TimeSpan)` on any of them waits for calls from a background thread, as described [below](#waiting-for-background-calls).
+- Verifications on a [monitor](08-advanced-features/04-monitor-interactions.md) (`monitor.Verify`) cannot be combined with other verifications in `Then`, not even with those of the monitored mock, because a monitor keeps its own copy of the calls.
+
+</details>
+
+<details>
+<summary>Example types used in this section</summary>
+
+```csharp
+public interface IChocolateWarehouse
+{
+    void Restock(string type, int amount);
+}
+```
+
+</details>
+
 ## Waiting for background calls
 
 If the code under test calls the mock from a background thread, use `Within(TimeSpan)` to wait until the expected

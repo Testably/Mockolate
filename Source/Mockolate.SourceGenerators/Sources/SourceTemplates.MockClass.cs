@@ -496,7 +496,7 @@ internal static partial class SourceTemplates
 
 		sb.AppendXmlSummary($"The Mockolate accessor for a mock of {classReference}, reached through <c>.Mock</c> on the mocked instance.", "\t");
 		sb.AppendXmlRemarks(["Groups every operation that acts on the mock rather than on the mocked subject: setups, verifications, event raising, scenarios and monitoring.",], "\t");
-		sb.Append("\tinternal interface IMockFor").Append(name).AppendLine();
+		sb.Append("\tinternal interface IMockFor").Append(name).Append(" : global::Mockolate.IMock").AppendLine();
 		sb.Append("\t{").AppendLine();
 		sb.AppendXmlSummary($"Configures how members of the mock of {classReference} respond when invoked.");
 		sb.AppendXmlRemarks(
@@ -653,6 +653,8 @@ internal static partial class SourceTemplates
 		sb.AppendXmlRemarks(["The underlying mock keeps recording all interactions as usual - only the monitor's <c>Verify</c> view is scoped. Useful to verify only the interactions produced by a specific block of test code without resetting the mock.",]);
 		sb.AppendXmlReturns("A <see cref=\"global::Mockolate.Monitor.MockMonitor{T}\" /> that exposes <c>Verify</c> over the monitored interactions and a <c>Run()</c> method that opens the recording scope.");
 		sb.Append("\t\tglobal::Mockolate.Monitor.MockMonitor<IMockVerifyFor").Append(name).Append("> Monitor();").AppendLine();
+		sb.AppendLine();
+		AppendTrackCallOrderDeclaration(sb);
 		if (hasConstructorArguments)
 		{
 			sb.AppendLine();
@@ -931,7 +933,7 @@ internal static partial class SourceTemplates
 		}
 
 		mockPropertyRemarks.Add("  <item><description><c>InScenario</c> / <c>TransitionTo</c> - scope setups and behavior to a named scenario and switch between scenarios.</description></item>");
-		mockPropertyRemarks.Add("  <item><description><c>Monitor</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item>");
+		mockPropertyRemarks.Add("  <item><description><c>Monitor</c>, <c>TrackCallOrder</c>, <c>ClearAllInteractions</c>, <c>VerifyThatAllInteractionsAreVerified</c>, <c>VerifyThatAllSetupsAreUsed</c> - manage recorded interactions.</description></item>");
 		mockPropertyRemarks.Add("  <item><description><c>VerifySetup</c> - verify how often a specific setup matched.</description></item>");
 		mockPropertyRemarks.Add("</list>");
 
@@ -1567,6 +1569,7 @@ internal static partial class SourceTemplates
 			.Append(mockRegistryName).Append(".Interactions, interactions => new VerifyMonitor").Append(name)
 			.Append("(new global::Mockolate.Internals.MockRegistry(this.").Append(mockRegistryName).Append(", interactions)));")
 			.AppendLine();
+		AppendTrackCallOrderImplementation(sb, name, mockRegistryName);
 		if (constructorArgumentsName is not null)
 		{
 			string recorded = $"(this.{constructorArgumentsName} ?? throw new global::Mockolate.Exceptions.MockException(\"The mock of {classDisplay} was created without constructor arguments.\"))";
@@ -1583,6 +1586,24 @@ internal static partial class SourceTemplates
 #pragma warning restore S107 // Methods should not have too many parameters
 
 	#region Mock Helpers
+
+	private static void AppendTrackCallOrderDeclaration(StringBuilder sb)
+	{
+		sb.AppendXmlSummary("Tracks the order of the calls across this mock and the <paramref name=\"other\" /> mocks until the returned scope is disposed, so that <c>Then</c> can verify the order of calls on different mocks.");
+		sb.AppendXmlRemarks(["Only the calls while the scope is not disposed are compared, e.g. <c>using (sut.Mock.TrackCallOrder(other.Mock)) { ... }</c>.",]);
+		sb.AppendXmlParam("other", "The <c>Mock</c> property of another mock.");
+		sb.AppendXmlParam("more", "The <c>Mock</c> properties of further mocks.");
+		sb.AppendXmlReturns("A scope that ends the tracking when it is disposed.");
+		sb.AppendXmlException("global::Mockolate.Exceptions.MockException", "The call order of one of the mocks cannot be tracked or is already tracked.");
+		sb.Append("\t\tglobal::System.IDisposable TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more);").AppendLine();
+	}
+
+	private static void AppendTrackCallOrderImplementation(StringBuilder sb, string name, string mockRegistryName)
+	{
+		sb.Append("\t\t/// <inheritdoc />").AppendLine();
+		sb.Append("\t\tglobal::System.IDisposable IMockFor").Append(name).Append(".TrackCallOrder(global::Mockolate.IMock other, params global::Mockolate.IMock[] more)").AppendLine();
+		sb.Append("\t\t\t=> this.").Append(mockRegistryName).Append(".TrackCallOrder(this, other, more);").AppendLine();
+	}
 
 	/// <summary>
 	///     Declares the field that holds the <c>ConstructorArguments</c> of a class mock and returns its name.
