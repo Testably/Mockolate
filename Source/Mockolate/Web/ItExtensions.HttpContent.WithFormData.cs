@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Text;
 #if NETSTANDARD2_0
@@ -52,7 +51,7 @@ public static partial class ItExtensions
 		/// <param name="values">A URL-encoded key/value string; a leading <c>?</c> is stripped. Keys and values are URL-decoded.</param>
 		/// <returns>A <see cref="IFormDataContentParameter" /> that can be narrowed further or tightened with <see cref="IFormDataContentParameter.Exactly" />.</returns>
 		public IFormDataContentParameter WithFormData(string values)
-			=> parameter.WithFormData(FormDataMatcher.ParseFormDataParameters(values)
+			=> parameter.WithFormData(ParseUrlEncodedParameters(values)
 				.Select(pair => (pair.Key, new HttpFormDataValue(pair.Value))));
 	}
 
@@ -141,22 +140,10 @@ public static partial class ItExtensions
 			return _isExactly ? $"exactly {parameters}" : parameters;
 		}
 
-		internal static IEnumerable<(string Key, string Value)> ParseFormDataParameters(string input)
-			=> input.TrimStart('?')
-				.Split('&')
-				.Select(pair => pair.Split('=', 2))
-				.Where(pair => !string.IsNullOrWhiteSpace(pair[0]))
-				.Select(pair =>
-					(
-						WebUtility.UrlDecode(pair[0]),
-						pair.Length == 2 ? WebUtility.UrlDecode(pair[1]) : ""
-					)
-				);
-
 		private static IEnumerable<(string, string)> GetFormData(string rawContent)
 		{
 			string rawFormData = ExtractFormDataFromMultipartContent(rawContent);
-			return ParseFormDataParameters(rawFormData);
+			return ParseUrlEncodedParameters(rawFormData);
 		}
 
 		private static string ExtractFormDataFromMultipartContent(string rawContent)

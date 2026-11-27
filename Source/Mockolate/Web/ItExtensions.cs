@@ -43,12 +43,12 @@ public static partial class ItExtensions
 
 		public void AddRequiredQueryParameter(string queryParameters)
 			=> _requiredQueryParameters.AddRange(
-				ParseQueryParameters(queryParameters)
+				ParseUrlEncodedParameters(queryParameters)
 					.Select(pair => (pair.Key, new HttpQueryParameterValue(pair.Value))));
 
 		public bool Matches(Uri uri)
 		{
-			List<(string Key, string Value)> queryParameters = ParseQueryParameters(uri.Query).ToList();
+			List<(string Key, string Value)> queryParameters = ParseUrlEncodedParameters(uri.Query).ToList();
 			foreach ((string Name, HttpQueryParameterValue Value) requiredParameter in _requiredQueryParameters)
 			{
 				if (!ContainsMatch(queryParameters, requiredParameter.Name, requiredParameter.Value))
@@ -74,20 +74,23 @@ public static partial class ItExtensions
 			return false;
 		}
 
-		private static IEnumerable<(string Key, string Value)> ParseQueryParameters(string input)
-			=> input.TrimStart('?')
-				.Split('&')
-				.Select(pair => pair.Split('=', 2))
-				.Where(pair => !string.IsNullOrWhiteSpace(pair[0]))
-				.Select(pair =>
-					(
-						WebUtility.UrlDecode(pair[0]),
-						pair.Length == 2 ? WebUtility.UrlDecode(pair[1]) : ""
-					)
-				);
-
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
 			=> string.Join(", ", _requiredQueryParameters.Select(p => $"\"{p.Name}={p.Value}\""));
 	}
+
+	/// <summary>
+	///     Parses a URL-encoded <c>key=value&amp;...</c> string, as used by query strings and form data.
+	/// </summary>
+	private static IEnumerable<(string Key, string Value)> ParseUrlEncodedParameters(string input)
+		=> input.TrimStart('?')
+			.Split('&')
+			.Select(pair => pair.Split('=', 2))
+			.Where(pair => !string.IsNullOrWhiteSpace(pair[0]))
+			.Select(pair =>
+				(
+					WebUtility.UrlDecode(pair[0]),
+					pair.Length == 2 ? WebUtility.UrlDecode(pair[1]) : ""
+				)
+			);
 }
