@@ -76,13 +76,6 @@ public class NullParametersAnalyzer : DiagnosticAnalyzer
 	}
 
 	private static bool IsParameters(ITypeSymbol type)
-		=> type is
-		{
-			Name: "IParameters",
-			ContainingNamespace:
-			{
-				Name: "Parameters",
-				ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, },
-			},
-		};
+		=> type is { Name: "IParameters", ContainingNamespace: { Name: "Parameters", } ns, } &&
+		   AnalyzerHelpers.IsMockolateNamespace(ns.ContainingNamespace);
 }

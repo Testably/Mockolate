@@ -365,14 +365,8 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		=> parameter.GetAttributes().Any(attribute => IsMarker(attribute, markerName));
 
 	private static bool IsMarker(AttributeData attribute, string markerName)
-		=> attribute.AttributeClass?.BaseType is
-		{
-			ContainingNamespace:
-			{
-				Name: "Integrations",
-				ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, },
-			},
-		} marker && marker.Name == markerName;
+		=> attribute.AttributeClass?.BaseType is { ContainingNamespace: { Name: "Integrations", } ns, } marker &&
+		   AnalyzerHelpers.IsMockolateNamespace(ns.ContainingNamespace) && marker.Name == markerName;
 
 	/// <summary>
 	///     Why Mockolate cannot create a value of the <paramref name="type" />, or <see langword="null" /> when it can or
@@ -689,9 +683,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 
 	internal static bool IsMockDataSourceAttribute(AttributeData attribute)
 		=> attribute.AttributeClass is { } attributeClass &&
-		   attributeClass.AllInterfaces.Any(@interface => @interface is
-		   {
-			   Name: "IMockDataSource",
-			   ContainingNamespace: { Name: "Internals", ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, }, },
-		   });
+		   attributeClass.AllInterfaces.Any(@interface
+			   => @interface is { Name: "IMockDataSource", ContainingNamespace: { Name: "Internals", } ns, } &&
+			      AnalyzerHelpers.IsMockolateNamespace(ns.ContainingNamespace));
 }

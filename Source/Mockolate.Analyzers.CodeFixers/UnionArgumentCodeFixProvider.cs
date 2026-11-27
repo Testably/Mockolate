@@ -117,11 +117,8 @@ public class UnionArgumentCodeFixProvider : CodeFixProvider
 			parameterType = nullable.TypeArguments[0];
 		}
 
-		return parameterType is INamedTypeSymbol
-		{
-			Name: "ParameterArg", Arity: 1, ContainingType: null,
-			ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, },
-		} union
+		return parameterType is INamedTypeSymbol { Name: "ParameterArg", Arity: 1, ContainingType: null, } union &&
+		       AnalyzerHelpers.IsMockolateNamespace(union.ContainingNamespace)
 			? union.TypeArguments[0]
 			: null;
 	}
