@@ -1866,6 +1866,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -2179,7 +2185,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -2496,7 +2503,8 @@ window.BENCHMARK_DATA = {
           166.3056304136912,
           120.73125391801199,
           119.92764404614766,
-          232.10839537473825
+          232.10839537473825,
+          164.85619178840093
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -2766,6 +2774,7 @@ window.BENCHMARK_DATA = {
           792,
           792,
           792,
+          800,
           800,
           800,
           800,
@@ -3143,7 +3152,8 @@ window.BENCHMARK_DATA = {
           35846.83229573568,
           29498.216670445032,
           29150.00072806222,
-          107131.62243652344
+          107131.62243652344,
+          60385.697012765064
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3465,6 +3475,7 @@ window.BENCHMARK_DATA = {
           9046,
           9055,
           9055,
+          9056,
           9056
         ],
         "borderColor": "#A052B0",
@@ -3790,7 +3801,8 @@ window.BENCHMARK_DATA = {
           3308.9321484883626,
           2357.06848852975,
           2289.3693136487686,
-          4921.202244567871
+          4921.202244567871,
+          3463.373390470232
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -3951,6 +3963,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -4437,7 +4450,8 @@ window.BENCHMARK_DATA = {
           2952.7193331400554,
           2407.4829922993977,
           2305.9601142883303,
-          4786.569739205496
+          4786.569739205496,
+          3439.9141186934253
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4757,6 +4771,7 @@ window.BENCHMARK_DATA = {
           6930,
           6924,
           6924,
+          6930,
           6930,
           6930,
           6930
@@ -5084,7 +5099,8 @@ window.BENCHMARK_DATA = {
           176.9443994363149,
           122.49064871470134,
           125.29844304231497,
-          224.917853752772
+          224.917853752772,
+          158.3800378016063
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -5250,6 +5266,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -5731,7 +5748,8 @@ window.BENCHMARK_DATA = {
           308.46339689890544,
           218.24470843587602,
           219.48010164040787,
-          395.7505148887634
+          395.7505148887634,
+          281.90949026743573
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -6042,6 +6060,7 @@ window.BENCHMARK_DATA = {
           2056,
           2056,
           2056,
+          1352,
           1352,
           1352,
           1352,
@@ -7933,6 +7952,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -8246,7 +8271,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -8563,7 +8589,8 @@ window.BENCHMARK_DATA = {
           96.97321979488645,
           152.2817485491435,
           162.9172441959381,
-          86.31670520305633
+          86.31670520305633,
+          148.20161790847777
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -8833,6 +8860,7 @@ window.BENCHMARK_DATA = {
           704,
           704,
           704,
+          712,
           712,
           712,
           712,
@@ -9210,7 +9238,8 @@ window.BENCHMARK_DATA = {
           7999.469079589844,
           15086.226582845053,
           15005.905691964286,
-          7629.284486897786
+          7629.284486897786,
+          14601.79961504255
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9532,6 +9561,7 @@ window.BENCHMARK_DATA = {
           12760,
           12761,
           12761,
+          12760,
           12760
         ],
         "borderColor": "#A052B0",
@@ -9857,7 +9887,8 @@ window.BENCHMARK_DATA = {
           3265.4006711324055,
           5673.979794311524,
           5614.7139165242515,
-          2720.196659234854
+          2720.196659234854,
+          5540.138107886682
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10018,6 +10049,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -10504,7 +10536,8 @@ window.BENCHMARK_DATA = {
           116027.04922250602,
           225161.3074951172,
           214112.81040736608,
-          110638.36846454327
+          110638.36846454327,
+          224153.84300013952
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -10826,7 +10859,8 @@ window.BENCHMARK_DATA = {
           15619,
           15620,
           15586,
-          15619
+          15619,
+          15618
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11151,7 +11185,8 @@ window.BENCHMARK_DATA = {
           115.4383892416954,
           173.9708777109782,
           182.3372925122579,
-          104.3594121507236
+          104.3594121507236,
+          169.49838547706605
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -11292,6 +11327,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -11798,7 +11834,8 @@ window.BENCHMARK_DATA = {
           118.03978411356609,
           166.53590534283563,
           171.35302532513936,
-          96.48109309673309
+          96.48109309673309,
+          151.09948148727418
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -11932,6 +11969,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -14000,6 +14038,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -14313,7 +14357,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -14630,7 +14675,8 @@ window.BENCHMARK_DATA = {
           349.43116654668535,
           442.0624965985616,
           557.7930192629497,
-          446.2097275098165
+          446.2097275098165,
+          582.7740932192121
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -14920,6 +14966,7 @@ window.BENCHMARK_DATA = {
           1680,
           1680,
           1680,
+          1824,
           1824,
           1824,
           1824,
@@ -15277,7 +15324,8 @@ window.BENCHMARK_DATA = {
           408313.6661551339,
           176475.89306640625,
           537359.1577148438,
-          530473.786328125
+          530473.786328125,
+          241277.40171595983
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -15599,7 +15647,8 @@ window.BENCHMARK_DATA = {
           38491,
           38540,
           38459,
-          38714
+          38714,
+          38384
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -15924,7 +15973,8 @@ window.BENCHMARK_DATA = {
           117194.13990129743,
           60268.18602701823,
           212676.8556640625,
-          211582.60970052084
+          211582.60970052084,
+          77413.53413609097
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16246,7 +16296,8 @@ window.BENCHMARK_DATA = {
           28160,
           28086,
           28100,
-          28156
+          28156,
+          28086
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16571,7 +16622,8 @@ window.BENCHMARK_DATA = {
           146225.08178710938,
           67410.5003568209,
           246464.38943917412,
-          240431.14716796874
+          240431.14716796874,
+          91263.41463797433
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -16893,7 +16945,8 @@ window.BENCHMARK_DATA = {
           30273,
           30247,
           30259,
-          30259
+          30259,
+          30247
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17218,7 +17271,8 @@ window.BENCHMARK_DATA = {
           270.8360982577006,
           309.5057589326586,
           337.93372256415233,
-          313.4469899813334
+          313.4469899813334,
+          394.9592231114705
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -17540,6 +17594,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1216,
           1216
         ],
         "borderColor": "#E84393",
@@ -17661,7 +17716,8 @@ window.BENCHMARK_DATA = {
           500.65932909647626,
           560.434897104899,
           672.0344102541605,
-          646.5203764255231
+          646.5203764255231,
+          737.7694452830723
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -17768,6 +17824,7 @@ window.BENCHMARK_DATA = {
           2856,
           2856,
           2856,
+          2208,
           2208,
           2208,
           2208,
@@ -19659,6 +19716,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -19972,7 +20035,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -20289,7 +20353,8 @@ window.BENCHMARK_DATA = {
           1039.9871504465739,
           1141.7571006188025,
           1321.4010650634766,
-          1281.3864020029703
+          1281.3864020029703,
+          1608.8381373087566
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -20579,6 +20644,7 @@ window.BENCHMARK_DATA = {
           2616,
           2616,
           2616,
+          2760,
           2760,
           2760,
           2760,
@@ -20936,7 +21002,8 @@ window.BENCHMARK_DATA = {
           415305.6032877604,
           207330.8228062221,
           552595.6530598958,
-          537874.275390625
+          537874.275390625,
+          270431.7707356771
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -21258,7 +21325,8 @@ window.BENCHMARK_DATA = {
           48079,
           48233,
           47024,
-          48286
+          48286,
+          48075
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -21583,7 +21651,8 @@ window.BENCHMARK_DATA = {
           130271.41447566106,
           78649.94272460937,
           235813.60996791295,
-          231104.41217447916
+          231104.41217447916,
+          99726.80535481771
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -21905,7 +21974,8 @@ window.BENCHMARK_DATA = {
           41271,
           41204,
           41215,
-          41271
+          41271,
+          41209
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -22230,7 +22300,8 @@ window.BENCHMARK_DATA = {
           164338.6767752511,
           84791.88112967355,
           279624.97783203126,
-          265083.5929827009
+          265083.5929827009,
+          110104.98888221153
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -22552,7 +22623,8 @@ window.BENCHMARK_DATA = {
           49930,
           49922,
           49926,
-          49926
+          49926,
+          49922
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -22877,7 +22949,8 @@ window.BENCHMARK_DATA = {
           665.7509554545085,
           682.5534753799438,
           820.6012293497721,
-          779.8781450271606
+          779.8781450271606,
+          869.8235646656582
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -23199,6 +23272,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2296,
           2296
         ],
         "borderColor": "#E84393",
@@ -23320,7 +23394,8 @@ window.BENCHMARK_DATA = {
           2001.7915911356608,
           1945.0233210245767,
           2437.177668162755,
-          2250.850612640381
+          2250.850612640381,
+          2533.4777554829916
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -23427,6 +23502,7 @@ window.BENCHMARK_DATA = {
           5568,
           5568,
           5568,
+          5248,
           5248,
           5248,
           5248,
@@ -25318,6 +25394,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -25631,7 +25713,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -25948,7 +26031,8 @@ window.BENCHMARK_DATA = {
           100.92755147389003,
           103.56269155343374,
           168.80678820610046,
-          124.16591512362162
+          124.16591512362162,
+          130.17680537700653
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -26238,6 +26322,7 @@ window.BENCHMARK_DATA = {
           608,
           608,
           608,
+          592,
           592,
           592,
           592,
@@ -26595,7 +26680,8 @@ window.BENCHMARK_DATA = {
           3423.5599658672627,
           3552.5534304105317,
           4156.630689348493,
-          3117.2411374409994
+          3117.2411374409994,
+          4347.045233590262
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -26885,6 +26971,7 @@ window.BENCHMARK_DATA = {
           14902,
           14914,
           14906,
+          6552,
           6552,
           6552,
           6552,
@@ -27242,7 +27329,8 @@ window.BENCHMARK_DATA = {
           4388.72914995466,
           4335.540897623698,
           5644.793058268229,
-          4203.607662455241
+          4203.607662455241,
+          5757.873982020787
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -27532,6 +27620,7 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9320,
+          9816,
           9816,
           9816,
           9816,
@@ -27889,7 +27978,8 @@ window.BENCHMARK_DATA = {
           3468.6989282461313,
           3314.0301246643066,
           3804.993462195763,
-          3136.710383351644
+          3136.710383351644,
+          4440.566752115886
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -28211,7 +28301,8 @@ window.BENCHMARK_DATA = {
           7517,
           7517,
           7510,
-          7734
+          7734,
+          7517
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -28536,7 +28627,8 @@ window.BENCHMARK_DATA = {
           150.37923405965168,
           158.18384901682535,
           228.75238806860787,
-          160.50693360964456
+          160.50693360964456,
+          171.64344138758523
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -28826,6 +28918,7 @@ window.BENCHMARK_DATA = {
           728,
           728,
           728,
+          808,
           808,
           808,
           808,
@@ -29183,7 +29276,8 @@ window.BENCHMARK_DATA = {
           261.37855478922523,
           289.9855634689331,
           417.38041631992047,
-          288.08204511006676
+          288.08204511006676,
+          325.993515253067
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -29494,6 +29588,7 @@ window.BENCHMARK_DATA = {
           2136,
           2136,
           2136,
+          1424,
           1424,
           1424,
           1424,
@@ -31385,6 +31480,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -31698,7 +31799,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -32015,7 +32117,8 @@ window.BENCHMARK_DATA = {
           276.6279029112596,
           277.0312080383301,
           416.731437587738,
-          294.46265036265055
+          294.46265036265055,
+          351.2876817703247
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -32305,6 +32408,7 @@ window.BENCHMARK_DATA = {
           1112,
           1112,
           1112,
+          1096,
           1096,
           1096,
           1096,
@@ -32662,7 +32766,8 @@ window.BENCHMARK_DATA = {
           4742.624724251883,
           4987.44593556722,
           6258.361608378093,
-          4750.373670959472
+          4750.373670959472,
+          6361.470723724366
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -32952,6 +33057,7 @@ window.BENCHMARK_DATA = {
           18901,
           18906,
           18883,
+          10536,
           10536,
           10536,
           10536,
@@ -33309,7 +33415,8 @@ window.BENCHMARK_DATA = {
           6118.256213378906,
           6942.225806681315,
           8181.491906302316,
-          6163.585961914063
+          6163.585961914063,
+          8557.018355305989
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -33631,7 +33738,8 @@ window.BENCHMARK_DATA = {
           12840,
           12840,
           12840,
-          12840
+          12840,
+          12841
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -33956,7 +34064,8 @@ window.BENCHMARK_DATA = {
           5639.464856974284,
           6211.7902183532715,
           7541.389224751791,
-          5869.372340901693
+          5869.372340901693,
+          8075.461652628581
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -34278,7 +34387,8 @@ window.BENCHMARK_DATA = {
           15754,
           15754,
           15748,
-          15972
+          15972,
+          15754
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -34603,7 +34713,8 @@ window.BENCHMARK_DATA = {
           303.4289749145508,
           300.2932983807155,
           435.59479772127594,
-          319.97239535195484
+          319.97239535195484,
+          361.54243102440466
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -34893,6 +35004,7 @@ window.BENCHMARK_DATA = {
           1088,
           1088,
           1088,
+          1168,
           1168,
           1168,
           1168,
@@ -35250,7 +35362,8 @@ window.BENCHMARK_DATA = {
           904.2795262654622,
           923.060737101237,
           1376.698780332293,
-          1039.4343671798706
+          1039.4343671798706,
+          1115.0475524902345
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -35561,6 +35674,7 @@ window.BENCHMARK_DATA = {
           3888,
           3888,
           3888,
+          3288,
           3288,
           3288,
           3288,
@@ -37452,6 +37566,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -37765,7 +37885,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -38082,7 +38203,8 @@ window.BENCHMARK_DATA = {
           253.03983971277873,
           196.0327411379133,
           268.67255268096926,
-          247.81530823026384
+          247.81530823026384,
+          193.92061126232147
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -38352,6 +38474,7 @@ window.BENCHMARK_DATA = {
           912,
           912,
           912,
+          920,
           920,
           920,
           920,
@@ -38729,7 +38852,8 @@ window.BENCHMARK_DATA = {
           6977.88102722168,
           7907.649483816965,
           10747.039692179362,
-          6856.274928166316
+          6856.274928166316,
+          7549.371673583984
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -39051,7 +39175,8 @@ window.BENCHMARK_DATA = {
           10456,
           10569,
           10568,
-          10568
+          10568,
+          10569
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -39376,7 +39501,8 @@ window.BENCHMARK_DATA = {
           5224.28925374349,
           5549.399272373745,
           7507.796708243234,
-          5173.950805119106
+          5173.950805119106,
+          5421.173780314128
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -39698,6 +39824,7 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11688,
+          11664,
           11664
         ],
         "borderColor": "#5E2750",
@@ -40023,7 +40150,8 @@ window.BENCHMARK_DATA = {
           4893.68721110026,
           5758.869413248698,
           8015.099302164714,
-          4737.894425964356
+          4737.894425964356,
+          5160.185022481282
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -40345,7 +40473,8 @@ window.BENCHMARK_DATA = {
           11191,
           11276,
           11196,
-          11191
+          11191,
+          11196
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -40670,7 +40799,8 @@ window.BENCHMARK_DATA = {
           168.55095705986022,
           133.8126651128133,
           176.7934296766917,
-          162.2356128522328
+          162.2356128522328,
+          133.44656270345052
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -40836,6 +40966,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -41317,7 +41448,8 @@ window.BENCHMARK_DATA = {
           348.98263141087125,
           297.6866084098816,
           375.55407797495525,
-          332.4284086227417
+          332.4284086227417,
+          292.9295734258798
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -41628,6 +41760,7 @@ window.BENCHMARK_DATA = {
           1672,
           1672,
           1672,
+          1464,
           1464,
           1464,
           1464,
@@ -43519,6 +43652,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -43832,7 +43971,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -44149,7 +44289,8 @@ window.BENCHMARK_DATA = {
           591.8085977554322,
           482.20709807078043,
           617.1589823404948,
-          582.5241158803304
+          582.5241158803304,
+          485.2472891807556
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -44419,6 +44560,7 @@ window.BENCHMARK_DATA = {
           1776,
           1776,
           1776,
+          1784,
           1784,
           1784,
           1784,
@@ -44796,7 +44938,8 @@ window.BENCHMARK_DATA = {
           11574.742658342633,
           12309.858692423502,
           17588.568619791666,
-          11510.808073933918
+          11510.808073933918,
+          12559.858317057291
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -45118,7 +45261,8 @@ window.BENCHMARK_DATA = {
           17384,
           18505,
           18505,
-          18504
+          18504,
+          18505
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -45443,7 +45587,8 @@ window.BENCHMARK_DATA = {
           11938.130631510418,
           12739.531595083383,
           18162.325125558036,
-          11616.282224214994
+          11616.282224214994,
+          12325.76151929583
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -45765,7 +45910,8 @@ window.BENCHMARK_DATA = {
           21528,
           21529,
           21553,
-          21528
+          21528,
+          21529
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -46090,7 +46236,8 @@ window.BENCHMARK_DATA = {
           13168.000295003256,
           13121.736768595378,
           19471.400793457033,
-          12472.89974975586
+          12472.89974975586,
+          12879.286010742188
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -46412,7 +46559,8 @@ window.BENCHMARK_DATA = {
           30780,
           30866,
           30785,
-          30780
+          30780,
+          30785
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -46737,7 +46885,8 @@ window.BENCHMARK_DATA = {
           342.5323420592717,
           249.95581112589156,
           346.3904828071594,
-          338.96230429869433
+          338.96230429869433,
+          263.8602083524068
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -46903,6 +47052,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -47384,7 +47534,8 @@ window.BENCHMARK_DATA = {
           1285.320257949829,
           1022.6349455969674,
           1362.6917471204486,
-          1235.810441462199
+          1235.810441462199,
+          1025.6241176605224
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -47695,6 +47846,7 @@ window.BENCHMARK_DATA = {
           4024,
           4024,
           4024,
+          3600,
           3600,
           3600,
           3600,
@@ -49586,6 +49738,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -49899,7 +50057,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -50216,7 +50375,8 @@ window.BENCHMARK_DATA = {
           9.142337224880855,
           15.04701583981514,
           20.75904298424721,
-          15.784241354465484
+          15.784241354465484,
+          15.890626962979635
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -50446,6 +50606,7 @@ window.BENCHMARK_DATA = {
           160,
           160,
           160,
+          136,
           136,
           136,
           136,
@@ -50863,7 +51024,8 @@ window.BENCHMARK_DATA = {
           56.18081803321839,
           86.83701458147594,
           115.9825302532741,
-          89.70068666764668
+          89.70068666764668,
+          91.21006497314998
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -51029,6 +51191,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -51510,7 +51673,8 @@ window.BENCHMARK_DATA = {
           16.364700440565745,
           25.46861721078555,
           34.699280416965486,
-          26.142969437440236
+          26.142969437440236,
+          26.74157555745198
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -51644,6 +51808,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -52157,7 +52322,8 @@ window.BENCHMARK_DATA = {
           721.6333285845243,
           1293.4061707716721,
           1109.4188270568848,
-          1306.1404059092204
+          1306.1404059092204,
+          1261.4740407307943
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -52318,6 +52484,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -52804,7 +52971,8 @@ window.BENCHMARK_DATA = {
           1005.6283444722493,
           1874.149743593656,
           1647.0199310302735,
-          1770.9379051753453
+          1770.9379051753453,
+          1823.406373160226
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -52965,6 +53133,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -53451,7 +53620,8 @@ window.BENCHMARK_DATA = {
           895.8111021041871,
           1641.9597777048746,
           1323.718696721395,
-          1558.3078938892909
+          1558.3078938892909,
+          1498.7937249501547
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -53773,6 +53943,7 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2751,
+          2755,
           2755
         ],
         "borderColor": "#4A6FA5",
@@ -54555,6 +54726,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -54685,7 +54862,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -54819,7 +54997,8 @@ window.BENCHMARK_DATA = {
           2178.2014337267196,
           2260.600209917341,
           2374.998563639323,
-          1278.4781177520751
+          1278.4781177520751,
+          1746.4788956275354
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -54922,6 +55101,7 @@ window.BENCHMARK_DATA = {
           5248,
           5248,
           5248,
+          5264,
           5264,
           5264,
           5264,
@@ -55100,7 +55280,8 @@ window.BENCHMARK_DATA = {
           2479.7910919189453,
           2337.44921875,
           2383.1785691579184,
-          1463.3980023701986
+          1463.3980023701986,
+          2123.259651184082
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -55237,6 +55418,7 @@ window.BENCHMARK_DATA = {
           7385,
           7384,
           7384,
+          7385,
           7385,
           7385,
           7385
@@ -55381,7 +55563,8 @@ window.BENCHMARK_DATA = {
           4407.580347188314,
           4368.937303270613,
           4556.818067823137,
-          2677.912764485677
+          2677.912764485677,
+          3424.337779490153
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -55509,6 +55692,7 @@ window.BENCHMARK_DATA = {
           17360,
           17360,
           17360,
+          10920,
           10920,
           10920,
           10920,
@@ -55662,7 +55846,8 @@ window.BENCHMARK_DATA = {
           1071992.7820870536,
           1427414.337890625,
           1398781.7488839286,
-          700878.9036458334
+          700878.9036458334,
+          1029188.234235491
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -55801,7 +55986,8 @@ window.BENCHMARK_DATA = {
           92108,
           92157,
           92102,
-          92102
+          92102,
+          92949
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -55943,7 +56129,8 @@ window.BENCHMARK_DATA = {
           345427.2945963542,
           310174.6292317708,
           314597.8455636161,
-          220871.62759164663
+          220871.62759164663,
+          271271.8210797991
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -56082,7 +56269,8 @@ window.BENCHMARK_DATA = {
           54356,
           54382,
           54382,
-          54995
+          54995,
+          54382
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -56224,7 +56412,8 @@ window.BENCHMARK_DATA = {
           383656.90208333335,
           356554.2703125,
           354929.1214192708,
-          265196.7451985677
+          265196.7451985677,
+          306372.09912109375
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -56363,7 +56552,8 @@ window.BENCHMARK_DATA = {
           65540,
           65398,
           65408,
-          65640
+          65640,
+          65560
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -57031,6 +57221,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -57142,7 +57338,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -57257,7 +57454,8 @@ window.BENCHMARK_DATA = {
           19692.60942195012,
           20395.378232683455,
           28589.944303240096,
-          21046.126357014975
+          21046.126357014975,
+          24284.772742135185
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -57345,6 +57543,7 @@ window.BENCHMARK_DATA = {
           56552,
           56552,
           56552,
+          56536,
           56536,
           56536,
           56536,
@@ -57500,7 +57699,8 @@ window.BENCHMARK_DATA = {
           17792.361644199915,
           18196.488657633465,
           23907.776700701033,
-          16532.166081355168
+          16532.166081355168,
+          21357.79318033854
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -57588,6 +57788,7 @@ window.BENCHMARK_DATA = {
           40688,
           40688,
           40688,
+          40768,
           40768,
           40768,
           40768,
@@ -57743,7 +57944,8 @@ window.BENCHMARK_DATA = {
           63866.311165945874,
           67128.90493977864,
           102704.43668619792,
-          72985.69643554688
+          72985.69643554688,
+          76370.52896554129
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -57852,6 +58054,7 @@ window.BENCHMARK_DATA = {
           203633,
           203633,
           203633,
+          178353,
           178353,
           178353,
           178353,
@@ -57986,7 +58189,8 @@ window.BENCHMARK_DATA = {
           152081.55436197916,
           162352.0725003756,
           200961.70108468193,
-          145800.03095703124
+          145800.03095703124,
+          182486.2141864483
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -58106,7 +58310,8 @@ window.BENCHMARK_DATA = {
           423564,
           423563,
           423539,
-          423539
+          423539,
+          423564
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -58229,7 +58434,8 @@ window.BENCHMARK_DATA = {
           221101.0142578125,
           225213.66693987165,
           256580.73076923078,
-          169357.21013997396
+          169357.21013997396,
+          244963.94892578124
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -58349,7 +58555,8 @@ window.BENCHMARK_DATA = {
           378537,
           378536,
           378516,
-          378514
+          378514,
+          378537
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -58472,7 +58679,8 @@ window.BENCHMARK_DATA = {
           287108.03252704325,
           300854.76533203124,
           389563.8512486049,
-          267947.50634765625
+          267947.50634765625,
+          374063.89482421876
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -58592,7 +58800,8 @@ window.BENCHMARK_DATA = {
           943722,
           943722,
           943883,
-          943946
+          943946,
+          943763
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -59260,6 +59469,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -59371,7 +59586,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -59486,7 +59702,8 @@ window.BENCHMARK_DATA = {
           39495.02932035006,
           33156.968359375,
           41439.44621930803,
-          38679.45693766276
+          38679.45693766276,
+          33000.55915120443
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -59575,6 +59792,7 @@ window.BENCHMARK_DATA = {
           96824,
           96824,
           96825,
+          96824,
           96824,
           96824,
           96824,
@@ -59729,7 +59947,8 @@ window.BENCHMARK_DATA = {
           19342.119831630163,
           13219.250620160785,
           17691.1697652181,
-          19413.790818277994
+          19413.790818277994,
+          13308.381161499023
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -59849,7 +60068,8 @@ window.BENCHMARK_DATA = {
           32640,
           32641,
           32641,
-          32640
+          32640,
+          32641
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -59972,7 +60192,8 @@ window.BENCHMARK_DATA = {
           100424.18435058594,
           75428.73037484977,
           101544.98090820313,
-          96575.62666015625
+          96575.62666015625,
+          75382.594140625
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -60082,6 +60303,7 @@ window.BENCHMARK_DATA = {
           242489,
           242489,
           218304,
+          218305,
           218305,
           218305,
           218305,
@@ -60215,7 +60437,8 @@ window.BENCHMARK_DATA = {
           437369.7131184896,
           515190.7733561198,
           728020.5530598959,
-          446264.91150841344
+          446264.91150841344,
+          553976.0488978794
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -60335,7 +60558,8 @@ window.BENCHMARK_DATA = {
           724445,
           836540,
           836541,
-          836449
+          836449,
+          836541
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -60458,7 +60682,8 @@ window.BENCHMARK_DATA = {
           712573.058733259,
           812798.9796875,
           1116419.4839564732,
-          699799.1734375
+          699799.1734375,
+          801718.9039713541
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -60578,7 +60803,8 @@ window.BENCHMARK_DATA = {
           1139621,
           1139702,
           1139728,
-          1139621
+          1139621,
+          1139701
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -60701,7 +60927,8 @@ window.BENCHMARK_DATA = {
           900168.7604817708,
           1000376.1417317708,
           1352268.5171875,
-          894838.1410807292
+          894838.1410807292,
+          929539.819140625
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -60821,7 +61048,8 @@ window.BENCHMARK_DATA = {
           2194285,
           2194405,
           2194291,
-          2194285
+          2194285,
+          2194325
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -61489,6 +61717,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -61600,7 +61834,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -61715,7 +61950,8 @@ window.BENCHMARK_DATA = {
           71572.07450984075,
           81538.05549316407,
           86534.22516276041,
-          88341.3908203125
+          88341.3908203125,
+          115783.10605294364
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -61832,6 +62068,7 @@ window.BENCHMARK_DATA = {
           105721,
           105721,
           105720,
+          105721,
           105721,
           105721,
           105721,
@@ -61958,7 +62195,8 @@ window.BENCHMARK_DATA = {
           42935.678330485025,
           42459.91342366536,
           53060.662866210936,
-          49850.82805582682
+          49850.82805582682,
+          53476.00725010463
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -62078,7 +62316,8 @@ window.BENCHMARK_DATA = {
           121101,
           121097,
           121101,
-          121101
+          121101,
+          121097
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -62201,7 +62440,8 @@ window.BENCHMARK_DATA = {
           1047783.4874441965,
           846424.1893229167,
           1333982.706640625,
-          1329316.7848958333
+          1329316.7848958333,
+          1040389.5072544643
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -62321,7 +62561,8 @@ window.BENCHMARK_DATA = {
           1048326,
           1048356,
           936385,
-          1048550
+          1048550,
+          1048206
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -62444,7 +62685,8 @@ window.BENCHMARK_DATA = {
           1396690.9588448661,
           1307481.4086216518,
           1957172.208705357,
-          1900257.7608072916
+          1900257.7608072916,
+          1613583.442578125
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -62564,7 +62806,8 @@ window.BENCHMARK_DATA = {
           1515916,
           1515722,
           1515860,
-          1515916
+          1515916,
+          1515722
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -62687,7 +62930,8 @@ window.BENCHMARK_DATA = {
           1238842.537484976,
           1178749.1172626202,
           1785963.2679966518,
-          1634413.9459134615
+          1634413.9459134615,
+          1437854.9881417411
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -62807,7 +63051,8 @@ window.BENCHMARK_DATA = {
           2221424,
           2221357,
           2221384,
-          2221384
+          2221384,
+          2221357
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -62928,7 +63173,8 @@ window.BENCHMARK_DATA = {
           138286.7858014788,
           144496.48473307292,
           170627.2737141927,
-          163971.71079101562
+          163971.71079101562,
+          186382.65422712054
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -63035,6 +63281,7 @@ window.BENCHMARK_DATA = {
           300785,
           300785,
           300785,
+          299545,
           299545,
           299545,
           299545,
@@ -63666,6 +63913,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -63769,7 +64022,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -63876,7 +64130,8 @@ window.BENCHMARK_DATA = {
           445.4541661898295,
           429.25976280065686,
           539.6290727342878,
-          285.66198507944745
+          285.66198507944745,
+          978.2349576950073
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -63936,6 +64191,7 @@ window.BENCHMARK_DATA = {
           1536,
           1536,
           1536,
+          1544,
           1544,
           1544,
           1544,
@@ -64103,7 +64359,8 @@ window.BENCHMARK_DATA = {
           290.41166095733644,
           248.30818066230188,
           312.65892435709634,
-          166.7708433696202
+          166.7708433696202,
+          282.1525785739605
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -64115,6 +64372,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1088,
           1088,
           1088,
           1088,
@@ -64330,7 +64588,8 @@ window.BENCHMARK_DATA = {
           499.03723017374676,
           463.9460042953491,
           592.0045954386393,
-          356.36667846043906
+          356.36667846043906,
+          503.3809299468994
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -64431,6 +64690,7 @@ window.BENCHMARK_DATA = {
           1856,
           1856,
           1856,
+          1784,
           1784,
           1784,
           1784,
@@ -64557,7 +64817,8 @@ window.BENCHMARK_DATA = {
           116390.2333170573,
           114949.44174804687,
           48707.13546048678,
-          33632.0612135667
+          33632.0612135667,
+          113281.36368233817
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -64669,7 +64930,8 @@ window.BENCHMARK_DATA = {
           10030,
           10030,
           10009,
-          10031
+          10031,
+          10030
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -64784,7 +65046,8 @@ window.BENCHMARK_DATA = {
           7670.590300423758,
           7672.886978149414,
           7277.7517298380535,
-          4119.5835282461985
+          4119.5835282461985,
+          7689.223915100098
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -64896,6 +65159,7 @@ window.BENCHMARK_DATA = {
           10248,
           10248,
           10416,
+          10248,
           10248
         ],
         "borderColor": "#5E2750",
@@ -65011,7 +65275,8 @@ window.BENCHMARK_DATA = {
           7623.472314453125,
           7391.320948282878,
           6158.090111287435,
-          4149.8257075718475
+          4149.8257075718475,
+          7694.437612406413
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -65123,6 +65388,7 @@ window.BENCHMARK_DATA = {
           11854,
           11854,
           11848,
+          11854,
           11854
         ],
         "borderColor": "#4A6FA5",
@@ -65743,6 +66009,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -65846,7 +66118,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -65953,7 +66226,8 @@ window.BENCHMARK_DATA = {
           1602.1863450368246,
           1502.5082731246948,
           1890.4589426858086,
-          1083.2810212544032
+          1083.2810212544032,
+          1581.8122776031494
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -66013,6 +66287,7 @@ window.BENCHMARK_DATA = {
           4008,
           4008,
           4008,
+          4016,
           4016,
           4016,
           4016,
@@ -66180,7 +66455,8 @@ window.BENCHMARK_DATA = {
           1038.067237218221,
           912.9420511539166,
           1131.8618569691976,
-          663.3992351804461
+          663.3992351804461,
+          998.5871682484944
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -66192,6 +66468,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2960,
           2960,
           2960,
           2960,
@@ -66407,7 +66684,8 @@ window.BENCHMARK_DATA = {
           3152.777202606201,
           3041.8993304116384,
           3585.8989194234214,
-          2039.363113085429
+          2039.363113085429,
+          3411.8614969889322
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -66508,6 +66786,7 @@ window.BENCHMARK_DATA = {
           8672,
           8672,
           8672,
+          8600,
           8600,
           8600,
           8600,
@@ -66634,7 +66913,8 @@ window.BENCHMARK_DATA = {
           130103.0396484375,
           129934.49528620794,
           66959.59423014322,
-          41582.76137898763
+          41582.76137898763,
+          128557.02716936384
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -66746,7 +67026,8 @@ window.BENCHMARK_DATA = {
           25115,
           25115,
           25109,
-          25114
+          25114,
+          25115
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -66861,7 +67142,8 @@ window.BENCHMARK_DATA = {
           23033.385570819562,
           24592.203987630208,
           20557.529083251953,
-          12549.087354219877
+          12549.087354219877,
+          22409.768469238283
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -66973,6 +67255,7 @@ window.BENCHMARK_DATA = {
           23481,
           25497,
           25664,
+          23481,
           23481
         ],
         "borderColor": "#5E2750",
@@ -67088,7 +67371,8 @@ window.BENCHMARK_DATA = {
           28264.100814819336,
           26979.505810546874,
           25991.247224934898,
-          15368.621366228375
+          15368.621366228375,
+          29311.25359090169
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -67200,6 +67484,7 @@ window.BENCHMARK_DATA = {
           55216,
           55216,
           55213,
+          55216,
           55216
         ],
         "borderColor": "#4A6FA5",
@@ -67820,6 +68105,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -67923,7 +68214,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -68030,7 +68322,8 @@ window.BENCHMARK_DATA = {
           125974.97986778847,
           118552.40483398437,
           153405.50458984374,
-          92139.17753383091
+          92139.17753383091,
+          124341.70481770833
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -68142,7 +68435,8 @@ window.BENCHMARK_DATA = {
           273297,
           273297,
           273297,
-          273296
+          273296,
+          273297
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -68257,7 +68551,8 @@ window.BENCHMARK_DATA = {
           87785.56739908854,
           75671.37399727957,
           95555.27026367188,
-          58667.566432407926
+          58667.566432407926,
+          83207.71419270833
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -68369,6 +68664,7 @@ window.BENCHMARK_DATA = {
           208883,
           208883,
           208881,
+          208883,
           208883
         ],
         "borderColor": "#E84393",
@@ -68484,7 +68780,8 @@ window.BENCHMARK_DATA = {
           305723.92811802455,
           288767.60313197545,
           328754.85423177085,
-          206246.19779459634
+          206246.19779459634,
+          316837.73919270834
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -68596,7 +68893,8 @@ window.BENCHMARK_DATA = {
           707722,
           707722,
           707722,
-          707721
+          707721,
+          707722
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -68711,7 +69009,8 @@ window.BENCHMARK_DATA = {
           1502064.2592075893,
           1504999.5054408482,
           1284734.9830729167,
-          856143.2474190848
+          856143.2474190848,
+          1572789.3150540865
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -68823,7 +69122,8 @@ window.BENCHMARK_DATA = {
           1692680,
           1692680,
           1692567,
-          1692674
+          1692674,
+          1692680
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -68938,7 +69238,8 @@ window.BENCHMARK_DATA = {
           1693876.746940104,
           1855134.730859375,
           1432543.583203125,
-          1005604.9279436384
+          1005604.9279436384,
+          1600311.0231770833
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -69050,7 +69351,8 @@ window.BENCHMARK_DATA = {
           1468916,
           1692727,
           1692753,
-          1468910
+          1468910,
+          1468916
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -69165,7 +69467,8 @@ window.BENCHMARK_DATA = {
           2957368.8697916665,
           2733142.340401786,
           2518174.6221354166,
-          1989089.6453683036
+          1989089.6453683036,
+          2880886.491927083
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -69277,7 +69580,8 @@ window.BENCHMARK_DATA = {
           4803387,
           4803387,
           4803183,
-          4803384
+          4803384,
+          4803387
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -69693,6 +69997,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -69762,7 +70072,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -69835,7 +70146,8 @@ window.BENCHMARK_DATA = {
           325.64769728978473,
           478.86051729747226,
           387.6882049696786,
-          398.910335949489
+          398.910335949489,
+          358.36199680964154
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -69861,6 +70173,7 @@ window.BENCHMARK_DATA = {
           1016,
           1016,
           1016,
+          1024,
           1024,
           1024,
           1024,
@@ -69994,7 +70307,8 @@ window.BENCHMARK_DATA = {
           454.15480831691195,
           343.4283457438151,
           506.2030523935954,
-          512.3390031178792
+          512.3390031178792,
+          470.42994117736816
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -70006,6 +70320,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1616,
           1616,
           1616,
           1616,
@@ -70153,7 +70468,8 @@ window.BENCHMARK_DATA = {
           852.9062779744467,
           647.7858153751919,
           917.9673766408648,
-          911.7785795075553
+          911.7785795075553,
+          852.4110123316447
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -70220,6 +70536,7 @@ window.BENCHMARK_DATA = {
           4464,
           4464,
           4464,
+          2632,
           2632,
           2632,
           2632,
@@ -70312,7 +70629,8 @@ window.BENCHMARK_DATA = {
           270339.48573521205,
           206404.27952223556,
           149393.9546549479,
-          149821.60463169642
+          149821.60463169642,
+          152695.61245117188
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -70390,7 +70708,8 @@ window.BENCHMARK_DATA = {
           23526,
           23302,
           23246,
-          23246
+          23246,
+          23307
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -70471,7 +70790,8 @@ window.BENCHMARK_DATA = {
           14354.555716881385,
           11383.569526163737,
           14110.169225056967,
-          13942.477236234225
+          13942.477236234225,
+          13278.09169108073
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -70549,6 +70869,7 @@ window.BENCHMARK_DATA = {
           19742,
           19741,
           19745,
+          19515,
           19515
         ],
         "borderColor": "#5E2750",
@@ -70630,7 +70951,8 @@ window.BENCHMARK_DATA = {
           10257.976852416992,
           8045.6490427653,
           9238.467520577567,
-          8941.254480634418
+          8941.254480634418,
+          8682.12687479655
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -70707,6 +71029,7 @@ window.BENCHMARK_DATA = {
           14332,
           14444,
           14332,
+          14324,
           14324,
           14324
         ],
@@ -71124,6 +71447,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -71193,7 +71522,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -71266,7 +71596,8 @@ window.BENCHMARK_DATA = {
           1598.0069358008247,
           1217.996322631836,
           1617.357726233346,
-          1604.6092675072807
+          1604.6092675072807,
+          1550.2593529040996
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -71292,6 +71623,7 @@ window.BENCHMARK_DATA = {
           3032,
           3032,
           3032,
+          3040,
           3040,
           3040,
           3040,
@@ -71425,7 +71757,8 @@ window.BENCHMARK_DATA = {
           1537.3117210388184,
           1131.7875677744548,
           1576.7337198893229,
-          1598.0323776245118
+          1598.0323776245118,
+          1538.6913762773786
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -71437,6 +71770,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          3488,
           3488,
           3488,
           3488,
@@ -71584,7 +71918,8 @@ window.BENCHMARK_DATA = {
           4641.595280456543,
           3315.7292205810545,
           4522.59931233724,
-          4405.226202828543
+          4405.226202828543,
+          4297.841368611654
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -71651,6 +71986,7 @@ window.BENCHMARK_DATA = {
           10536,
           10536,
           10536,
+          9440,
           9440,
           9440,
           9440,
@@ -71743,7 +72079,8 @@ window.BENCHMARK_DATA = {
           313920.99972098216,
           243415.5216471354,
           194065.57685546874,
-          192693.91868373327
+          192693.91868373327,
+          189691.69648088727
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -71820,6 +72157,7 @@ window.BENCHMARK_DATA = {
           41152,
           41378,
           41155,
+          41147,
           41147,
           41147
         ],
@@ -71902,7 +72240,8 @@ window.BENCHMARK_DATA = {
           27457.174612862724,
           20798.454526774087,
           25622.298264567056,
-          24012.47699991862
+          24012.47699991862,
+          24512.85105074369
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -71980,6 +72319,7 @@ window.BENCHMARK_DATA = {
           31336,
           32328,
           31315,
+          30082,
           30082
         ],
         "borderColor": "#5E2750",
@@ -72061,7 +72401,8 @@ window.BENCHMARK_DATA = {
           42174.24682210286,
           31409.935017903645,
           37459.749459402905,
-          36335.0671081543
+          36335.0671081543,
+          35454.741149902344
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -72138,6 +72479,7 @@ window.BENCHMARK_DATA = {
           60496,
           60607,
           60496,
+          60493,
           60493,
           60493
         ],
@@ -72555,6 +72897,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -72624,7 +72972,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -72697,7 +73046,8 @@ window.BENCHMARK_DATA = {
           137397.85024414063,
           105848.86397879464,
           140653.80461774554,
-          140125.75741141182
+          140125.75741141182,
+          135494.97563825335
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -72774,6 +73124,7 @@ window.BENCHMARK_DATA = {
           224800,
           224801,
           224800,
+          224801,
           224801,
           224801
         ],
@@ -72856,7 +73207,8 @@ window.BENCHMARK_DATA = {
           113519.99068777902,
           87234.56697300503,
           122821.54380580357,
-          122843.59580078124
+          122843.59580078124,
+          117591.8287109375
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -72931,6 +73283,7 @@ window.BENCHMARK_DATA = {
           209409,
           209408,
           209408,
+          209409,
           209409,
           209409,
           209409,
@@ -73015,7 +73368,8 @@ window.BENCHMARK_DATA = {
           397958.85087890626,
           287287.53020833334,
           383762.90684291295,
-          370573.0787109375
+          370573.0787109375,
+          359073.4641113281
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -73090,6 +73444,7 @@ window.BENCHMARK_DATA = {
           653538,
           653538,
           653537,
+          653538,
           653538,
           653538,
           653538,
@@ -73174,7 +73529,8 @@ window.BENCHMARK_DATA = {
           4088071.4563802085,
           3298527.573660714,
           3239334.821875,
-          3190388.106863839
+          3190388.106863839,
+          3118537.165264423
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -73252,7 +73608,8 @@ window.BENCHMARK_DATA = {
           1936640,
           1936410,
           1936119,
-          1936120
+          1936120,
+          1936119
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -73333,7 +73690,8 @@ window.BENCHMARK_DATA = {
           1338448.5893880208,
           1048728.3822866587,
           1073606.779575893,
-          1053182.5048828125
+          1053182.5048828125,
+          1081445.6890625
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -73411,6 +73769,7 @@ window.BENCHMARK_DATA = {
           1231501,
           1343690,
           1229256,
+          1117076,
           1117076
         ],
         "borderColor": "#5E2750",
@@ -73492,7 +73851,8 @@ window.BENCHMARK_DATA = {
           4024026.69921875,
           2980754.279166667,
           3600097.128645833,
-          3463858.070052083
+          3463858.070052083,
+          3344403.6791666667
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -73569,6 +73929,7 @@ window.BENCHMARK_DATA = {
           5052209,
           5052369,
           5051810,
+          5051646,
           5051646,
           5051646
         ],
@@ -73986,6 +74347,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 07:50:25 2026 \u002B0100",
         "message": "feat: take test parameters from a member of the test class with [ValueFrom] (#1144)"
+      },
+      {
+        "sha": "9decdf35139a531b6d6677324f14ab517012eb63",
+        "author": "Valentin Breu\u00DF",
+        "date": "Fri Nov 27 08:32:43 2026 \u002B0100",
+        "message": "feat: add SetupGeneric and VerifyGeneric to match a generic method for any type argument (#1142)"
       }
     ],
     "labels": [
@@ -74055,7 +74422,8 @@ window.BENCHMARK_DATA = {
       "41be7858",
       "25d7c949",
       "664120e9",
-      "5276d548"
+      "5276d548",
+      "9decdf35"
     ],
     "datasets": [
       {
@@ -74128,7 +74496,8 @@ window.BENCHMARK_DATA = {
           2587.5882041931154,
           3713.1026323954266,
           1799.3438084920247,
-          2840.058258874076
+          2840.058258874076,
+          1999.3748325347901
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -74154,6 +74523,7 @@ window.BENCHMARK_DATA = {
           2280,
           2280,
           2280,
+          2288,
           2288,
           2288,
           2288,
@@ -74287,7 +74657,8 @@ window.BENCHMARK_DATA = {
           2335.7326369652383,
           3146.631175994873,
           1691.0021555973933,
-          2353.5101977757045
+          2353.5101977757045,
+          1830.8477318627495
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -74299,6 +74670,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2288,
           2288,
           2288,
           2288,
@@ -74446,7 +74818,8 @@ window.BENCHMARK_DATA = {
           2728.171301621657,
           3670.43862101237,
           1966.4785759265606,
-          2817.8227701822916
+          2817.8227701822916,
+          2127.995643870036
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -74513,6 +74886,7 @@ window.BENCHMARK_DATA = {
           3344,
           3344,
           3344,
+          2912,
           2912,
           2912,
           2912,
@@ -74605,7 +74979,8 @@ window.BENCHMARK_DATA = {
           9748.646624051607,
           12962.098997933525,
           6780.444393920899,
-          10001.723105294364
+          10001.723105294364,
+          7100.7833727323095
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -74676,6 +75051,7 @@ window.BENCHMARK_DATA = {
           11048,
           11048,
           11049,
+          11048,
           11048,
           11048,
           11048,
@@ -74764,7 +75140,8 @@ window.BENCHMARK_DATA = {
           8394.090507507324,
           11579.20344543457,
           5799.275006103516,
-          9097.687057495117
+          9097.687057495117,
+          6137.424480983189
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -74842,7 +75219,8 @@ window.BENCHMARK_DATA = {
           14633,
           14632,
           14633,
-          14632
+          14632,
+          14633
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -74923,7 +75301,8 @@ window.BENCHMARK_DATA = {
           8797.409015110561,
           11897.656591142926,
           5982.810943310077,
-          9528.20030110677
+          9528.20030110677,
+          6555.908416748047
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -75001,7 +75380,8 @@ window.BENCHMARK_DATA = {
           14620,
           14614,
           14620,
-          14614
+          14614,
+          14620
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
