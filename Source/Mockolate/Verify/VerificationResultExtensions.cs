@@ -29,11 +29,11 @@ public static class VerificationResultExtensions
 			(0, "") => "never",
 			(1, "") => "once",
 			(2, "") => "twice",
-			(_, "") => $"{amount} times",
+			(_, "") => FormattableString.Invariant($"{amount} times"),
 			(0, _) => $"never {verb}",
 			(1, _) => $"{verb} once",
 			(2, _) => $"{verb} twice",
-			(_, _) => $"{verb} {amount} times",
+			(_, _) => FormattableString.Invariant($"{verb} {amount} times"),
 		};
 
 	/// <summary>
@@ -164,13 +164,13 @@ public static class VerificationResultExtensions
 				if (!result.VerifyCount(minimum, maximum, out int found))
 				{
 					throw new MockVerificationException(
-						$"Expected that mock {result.Expectation} between {minimum} and {maximum} times, but it {found.ToTimes("did")}.");
+						FormattableString.Invariant($"Expected that mock {result.Expectation} between {minimum} and {maximum} times, but it {found.ToTimes("did")}."));
 				}
 			}
 			catch (MockVerificationTimeoutException timeoutException)
 			{
 				throw new MockVerificationException(
-					$"Expected that mock {result.Expectation} between {minimum} and {maximum} times, but {timeoutException.Message}.");
+					FormattableString.Invariant($"Expected that mock {result.Expectation} between {minimum} and {maximum} times, but {timeoutException.Message}."));
 			}
 		}
 

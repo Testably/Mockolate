@@ -29,7 +29,7 @@ internal static partial class SourceTemplates
 
 			// Static extension members of different receivers in one class must not have the same parameters, so every
 			// sealed class gets a class of its own.
-			string container = $"MockolateSealedCreation{index++}";
+			string container = FormattableString.Invariant($"MockolateSealedCreation{index++}");
 			sb.Append("\t/// <summary>").AppendLine();
 			sb.Append("\t///     The <c>CreateMock(out ...)</c> overload of <see cref=\"").Append(sealedClass.ClassFullName)
 				.Append("\" />.").AppendLine();
@@ -113,7 +113,7 @@ internal static partial class SourceTemplates
 				.Append(SealedArgument(parameter, name, index, behavior, value, created, className)).Append(';').AppendLine();
 		}
 
-		string locals = string.Join(", ", parameters.Select((_, index) => $"{local}{index}"));
+		string locals = string.Join(", ", parameters.Select((_, index) => FormattableString.Invariant($"{local}{index}")));
 		// Qualified, because a constructor parameter can be named like the field.
 		sb.Append("\t\t\t\t").Append(arguments).Append(" = global::Mockolate.").Append(container)
 			.Append(".Signature.Record(new object?[] { ").Append(locals).Append(" });").AppendLine();
@@ -132,7 +132,7 @@ internal static partial class SourceTemplates
 
 		if (parameter.IsParams)
 		{
-			return $"{name} is {{ }} {value}{index} ? {value}{index} : []";
+			return FormattableString.Invariant($"{name} is {{ }} {value}{index} ? {value}{index} : []");
 		}
 
 		if (string.Equals(parameter.DefaultValue, "null", StringComparison.Ordinal))
@@ -149,7 +149,7 @@ internal static partial class SourceTemplates
 			? $"{parameter.TypeFullName}.CreateMock({behavior})"
 			: $"throw new global::Mockolate.Exceptions.MockException(\"There is no argument for the constructor parameter '{parameter.Name}' of {className}. Pass it, or register a default value for its type with WithDefaultValueFor.\")";
 		string generated = $"global::Mockolate.Internals.ConstructorDefaultValue.Get({behavior}, static mockolateBehavior => mockolateBehavior.DefaultValue.Generate(default({parameter.TypeFullName})!))";
-		return $"{name} is {{ }} {value}{index} ? {value}{index} : {generated} is {{ }} {created}{index} ? {created}{index} : {lastResort}";
+		return FormattableString.Invariant($"{name} is {{ }} {value}{index} ? {value}{index} : {generated} is {{ }} {created}{index} ? {created}{index} : {lastResort}");
 	}
 
 	private static string NullableName(string typeName)
@@ -163,7 +163,7 @@ internal static partial class SourceTemplates
 		while (parameters.Any(parameter => parameter.Name.StartsWith(unique, StringComparison.Ordinal) &&
 		                                   parameter.Name.Skip(unique.Length).All(char.IsDigit)))
 		{
-			unique = $"{name}_{suffix++}";
+			unique = FormattableString.Invariant($"{name}_{suffix++}");
 		}
 
 		return unique;

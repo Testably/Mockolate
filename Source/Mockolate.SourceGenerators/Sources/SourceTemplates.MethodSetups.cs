@@ -59,7 +59,7 @@ internal static partial class SourceTemplates
 			string setupCallbackPrefix = item.Item2
 				? "global::Mockolate.Setup.IVoidMethodSetupCallbackWhenBuilder"
 				: "global::Mockolate.Setup.IReturnMethodSetupCallbackWhenBuilder";
-			sb.Append($$"""
+			sb.Append(FormattableString.Invariant($$"""
 			            		/// <summary>
 			            		///     Extensions for method callback setup {{xmlDocSummary}} with {{item.Item1}} parameters.
 			            		/// </summary>
@@ -91,7 +91,7 @@ internal static partial class SourceTemplates
 			            			public {{setupTypePrefix}}<{{genericParameters}}> OnlyOnce()
 			            				=> setup.Only(1);
 			            		}
-			            """).AppendLine();
+			            """)).AppendLine();
 		}
 
 		sb.Append("""
@@ -102,14 +102,14 @@ internal static partial class SourceTemplates
 		sb.Append("{").AppendLine();
 		foreach (int count in methodSetups.GroupBy(x => x.Item1).Select(x => x.Key))
 		{
-			sb.AppendXmlSummary($"An invocation of a method with {count} parameters {string.Join(", ", Enumerable.Range(1, count - 1).Select(x => $"<paramref name=\"parameter{x}\"/>"))} and <paramref name=\"parameter{count}\"/>.", "\t");
+			sb.AppendXmlSummary(FormattableString.Invariant($"An invocation of a method with {count} parameters {string.Join(", ", Enumerable.Range(1, count - 1).Select(x => FormattableString.Invariant($"<paramref name=\"parameter{x}\"/>")))} and <paramref name=\"parameter{count}\"/>."), "\t");
 			sb.Append("\t[global::System.Diagnostics.DebuggerDisplay(\"{ToString()}\")]").AppendLine();
 #if !DEBUG
 			sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
 #endif
 			sb.Append("\tinternal class MethodInvocation<")
-				.Append(string.Join(", ", Enumerable.Range(1, count).Select(x => $"T{x}"))).Append(">(string name, ")
-				.Append(string.Join(", ", Enumerable.Range(1, count).Select(x => $"T{x} parameter{x}")))
+				.Append(string.Join(", ", Enumerable.Range(1, count).Select(x => FormattableString.Invariant($"T{x}")))).Append(">(string name, ")
+				.Append(string.Join(", ", Enumerable.Range(1, count).Select(x => FormattableString.Invariant($"T{x} parameter{x}"))))
 				.Append(") : IMethodInteraction, global::Mockolate.Internals.IMethodInvocationParameters").AppendLine();
 			sb.Append("\t{").AppendLine();
 			sb.AppendXmlSummary("The name of the method.");
@@ -121,7 +121,7 @@ internal static partial class SourceTemplates
 					1 => "first",
 					2 => "second",
 					3 => "third",
-					_ => $"{i}th",
+					_ => FormattableString.Invariant($"{i}th"),
 				};
 				sb.AppendXmlSummary($"The {comment} parameter value of the method.");
 				sb.Append("\t\tpublic T").Append(i).Append(" Parameter").Append(i).Append(" { get; } = parameter").Append(i).Append(";").AppendLine();
@@ -156,7 +156,7 @@ internal static partial class SourceTemplates
 			sb.Append("\t\tpublic override string ToString()").AppendLine();
 			sb.Append("\t\t{").AppendLine();
 			sb.Append("\t\t\treturn $\"invoke method {(global::Mockolate.Internals.ValueFormatter.FormatMethodName(Name))}(")
-				.Append(string.Join(", ", Enumerable.Range(1, count).Select(x => $"{{(global::Mockolate.Internals.ValueFormatter.Format(Parameter{x}))}}"))).Append(")\";").AppendLine();
+				.Append(string.Join(", ", Enumerable.Range(1, count).Select(x => FormattableString.Invariant($"{{(global::Mockolate.Internals.ValueFormatter.Format(Parameter{x}))}}")))).Append(")\";").AppendLine();
 			sb.Append("\t\t}").AppendLine();
 			sb.Append("\t}").AppendLine();
 		}
@@ -177,16 +177,16 @@ internal static partial class SourceTemplates
 
 	private static void AppendMethodRecords(StringBuilder sb, int count)
 	{
-		string typeArgs = string.Join(", ", Enumerable.Range(1, count).Select(x => $"T{x}"));
-		string parameters = string.Join(", ", Enumerable.Range(1, count).Select(x => $"T{x} parameter{x}"));
+		string typeArgs = string.Join(", ", Enumerable.Range(1, count).Select(x => FormattableString.Invariant($"T{x}")));
+		string parameters = string.Join(", ", Enumerable.Range(1, count).Select(x => FormattableString.Invariant($"T{x} parameter{x}")));
 		string assignments = string.Concat(Enumerable.Range(1, count).Select(x =>
-			$"\t\t\tr.P{x} = parameter{x};\n"));
+			FormattableString.Invariant($"\t\t\tr.P{x} = parameter{x};\n")));
 		string fields = string.Concat(Enumerable.Range(1, count).Select(x =>
-			$"\t\t\tpublic T{x} P{x} = default!;\n"));
-		string interactionArgs = string.Join(", ", Enumerable.Range(1, count).Select(x => $"P{x}"));
+			FormattableString.Invariant($"\t\t\tpublic T{x} P{x} = default!;\n")));
+		string interactionArgs = string.Join(", ", Enumerable.Range(1, count).Select(x => FormattableString.Invariant($"P{x}")));
 
 		sb.AppendXmlSummary(
-			$"Records the calls of {count}-parameter methods, synthesized for arity {count} use sites.",
+			FormattableString.Invariant($"Records the calls of {count}-parameter methods, synthesized for arity {count} use sites."),
 			"\t");
 #if !DEBUG
 		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
@@ -219,11 +219,11 @@ internal static partial class SourceTemplates
 	private static void AppendVoidMethodSetup(StringBuilder sb, int numberOfParameters)
 	{
 		string typeParams = GetGenericTypeParameters(numberOfParameters);
-		string parameters = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"p{i}"));
+		string parameters = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"p{i}")));
 		string discards = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(_ => "_"));
 
 		sb.AppendXmlSummary(
-			$"Sets up a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <see langword=\"void\" />.",
+			FormattableString.Invariant($"Sets up a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <see langword=\"void\" />."),
 			"\t");
 		sb.Append("\tinternal interface IVoidMethodSetup<").Append(typeParams).Append("> : IMethodSetup").AppendLine();
 		sb.Append("\t{").AppendLine();
@@ -266,7 +266,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		sb.AppendXmlSummary(
-			$"Sets up a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <see langword=\"void\" /> with callback support for the parameters.",
+			FormattableString.Invariant($"Sets up a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <see langword=\"void\" /> with callback support for the parameters."),
 			"\t");
 		sb.Append("\tinternal interface IVoidMethodSetupWithCallback<").Append(typeParams)
 			.Append("> : global::Mockolate.Setup.IVoidMethodSetup<").Append(typeParams).Append(">").AppendLine();
@@ -290,7 +290,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		sb.AppendXmlSummary(
-			$"Sets up a callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <see langword=\"void\" />.",
+			FormattableString.Invariant($"Sets up a callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <see langword=\"void\" />."),
 			"\t");
 		sb.Append("\tinternal interface IVoidMethodSetupCallbackBuilder<").Append(typeParams)
 			.Append("> : global::Mockolate.Setup.IVoidMethodSetupParallelCallbackBuilder<").Append(typeParams).Append(">")
@@ -303,7 +303,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		sb.AppendXmlSummary(
-			$"Sets up a callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <see langword=\"void\" />.",
+			FormattableString.Invariant($"Sets up a callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <see langword=\"void\" />."),
 			"\t");
 		sb.Append("\tinternal interface IVoidMethodSetupParallelCallbackBuilder<").Append(typeParams)
 			.Append("> : global::Mockolate.Setup.IVoidMethodSetupCallbackWhenBuilder<").Append(typeParams).Append(">").AppendLine();
@@ -315,7 +315,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		sb.AppendXmlSummary(
-			$"Sets up a when callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <see langword=\"void\" />.",
+			FormattableString.Invariant($"Sets up a when callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <see langword=\"void\" />."),
 			"\t");
 		sb.Append("\tinternal interface IVoidMethodSetupCallbackWhenBuilder<").Append(typeParams)
 			.Append("> : global::Mockolate.Setup.IVoidMethodSetupWithCallback<").Append(typeParams).Append(">").AppendLine();
@@ -342,7 +342,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		sb.AppendXmlSummary(
-			$"Sets up a return callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <see langword=\"void\" />.",
+			FormattableString.Invariant($"Sets up a return callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <see langword=\"void\" />."),
 			"\t");
 		sb.Append("\tinternal interface IVoidMethodSetupReturnBuilder<").Append(typeParams)
 			.Append("> : global::Mockolate.Setup.IVoidMethodSetupReturnWhenBuilder<").Append(typeParams).Append(">").AppendLine();
@@ -357,7 +357,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		sb.AppendXmlSummary(
-			$"Sets up a when return callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <see langword=\"void\" />.",
+			FormattableString.Invariant($"Sets up a when return callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <see langword=\"void\" />."),
 			"\t");
 		sb.Append("\tinternal interface IVoidMethodSetupReturnWhenBuilder<").Append(typeParams)
 			.Append("> : global::Mockolate.Setup.IVoidMethodSetupWithCallback<").Append(typeParams).Append(">").AppendLine();
@@ -393,7 +393,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		sb.AppendXmlSummary(
-			$"Sets up a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <see langword=\"void\" />.",
+			FormattableString.Invariant($"Sets up a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <see langword=\"void\" />."),
 			"\t");
 #if !DEBUG
 		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
@@ -639,7 +639,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tif (interaction is global::Mockolate.Interactions.MethodInvocation<").Append(typeParams).Append("> invocation)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\treturn Matches(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"invocation.Parameter{i}"))).Append(");").AppendLine();
+		sb.Append("\t\t\t\treturn Matches(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"invocation.Parameter{i}")))).Append(");").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.Append("\t\t\treturn false;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
@@ -665,11 +665,11 @@ internal static partial class SourceTemplates
 		sb.Append(");").AppendLine();
 		sb.AppendLine();
 
-		string parameterTuple = "(" + string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(x => $"parameter{x}")) + ")";
-		string stateArgs = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(x => $"state.parameter{x}"));
+		string parameterTuple = "(" + string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(x => FormattableString.Invariant($"parameter{x}"))) + ")";
+		string stateArgs = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(x => FormattableString.Invariant($"state.parameter{x}")));
 
 		sb.AppendXmlSummary("Triggers any configured parameter callbacks for the method setup with the specified parameters.");
-		sb.Append("\t\tpublic virtual void TriggerCallbacks(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"T{i} parameter{i}"))).Append(")").AppendLine();
+		sb.Append("\t\tpublic virtual void TriggerCallbacks(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"T{i} parameter{i}")))).Append(")").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tif (_callbacks is not null)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
@@ -730,7 +730,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 		sb.Append("\t\t\tprivate global::Mockolate.Parameters.IParameters Parameters { get; }").AppendLine();
 		sb.AppendLine();
-		sb.Append("\t\t\t/// <inheritdoc cref=\"VoidMethodSetup{").Append(typeParams).Append("}.Matches(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"T{i}"))).Append(")\" />").AppendLine();
+		sb.Append("\t\t\t/// <inheritdoc cref=\"VoidMethodSetup{").Append(typeParams).Append("}.Matches(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"T{i}")))).Append(")\" />").AppendLine();
 		sb.Append("\t\t\tpublic override bool Matches(");
 		for (int i = 1; i <= numberOfParameters; i++)
 		{
@@ -745,8 +745,8 @@ internal static partial class SourceTemplates
 		sb.Append(")").AppendLine();
 		sb.Append("\t\t\t\t=> Parameters switch").AppendLine();
 		sb.Append("\t\t\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\t\t\tglobal::Mockolate.Parameters.IParametersMatch m => m.Matches([").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"p{i}Value"))).Append("]),").AppendLine();
-		sb.Append("\t\t\t\t\t\tglobal::Mockolate.Parameters.INamedParametersMatch m => m.Matches([").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"(_parameterName{i}, p{i}Value)"))).Append("]),").AppendLine();
+		sb.Append("\t\t\t\t\t\tglobal::Mockolate.Parameters.IParametersMatch m => m.Matches([").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"p{i}Value")))).Append("]),").AppendLine();
+		sb.Append("\t\t\t\t\t\tglobal::Mockolate.Parameters.INamedParametersMatch m => m.Matches([").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"(_parameterName{i}, p{i}Value)")))).Append("]),").AppendLine();
 		sb.Append("\t\t\t\t\t\t_ => true,").AppendLine();
 		sb.Append("\t\t\t\t\t};").AppendLine();
 		sb.AppendLine();
@@ -786,7 +786,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 		for (int i = 1; i <= numberOfParameters; i++)
 		{
-			string ordinal = i switch { 1 => "first", 2 => "second", 3 => "third", _ => $"{i}th", };
+			string ordinal = i switch { 1 => "first", 2 => "second", 3 => "third", _ => FormattableString.Invariant($"{i}th"), };
 			sb.Append("\t\t\t/// <summary>The ").Append(ordinal).Append(" parameter of the method.</summary>").AppendLine();
 			sb.Append("\t\t\tpublic global::Mockolate.Parameters.IParameterMatch<T").Append(i).Append("> Parameter").Append(i).Append(" { get; }").AppendLine();
 			sb.AppendLine();
@@ -828,30 +828,30 @@ internal static partial class SourceTemplates
 		sb.Append(");").AppendLine();
 		sb.AppendLine();
 		sb.Append("\t\t\t/// <inheritdoc cref=\"VoidMethodSetup{").Append(typeParams).Append("}.TriggerCallbacks\" />").AppendLine();
-		sb.Append("\t\t\tpublic override void TriggerCallbacks(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"T{i} parameter{i}"))).Append(")").AppendLine();
+		sb.Append("\t\t\tpublic override void TriggerCallbacks(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"T{i} parameter{i}")))).Append(")").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
 		for (int i = 1; i <= numberOfParameters; i++)
 		{
 			sb.Append("\t\t\t\tParameter").Append(i).Append("?.InvokeCallbacks(parameter").Append(i).Append(");").AppendLine();
 		}
 
-		sb.Append("\t\t\t\tbase.TriggerCallbacks(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"parameter{i}"))).Append(");").AppendLine();
+		sb.Append("\t\t\t\tbase.TriggerCallbacks(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"parameter{i}")))).Append(");").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.AppendLine();
 		sb.Append("\t\t\t/// <inheritdoc cref=\"object.ToString()\" />").AppendLine();
 		sb.Append("\t\t\tpublic override string ToString()").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
 		sb.Append("\t\t\t\treturn $\"void {(global::Mockolate.Internals.ValueFormatter.FormatMethodName(Name))}(")
-			.Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(x => $"{{Parameter{x}}}")))
+			.Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(x => FormattableString.Invariant($"{{Parameter{x}}}"))))
 			.Append(")\";").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
 
-		string parameterNames = string.Concat(Enumerable.Range(1, numberOfParameters).Select(i => $", string parameterName{i}"));
-		string parameterNameArgs = string.Concat(Enumerable.Range(1, numberOfParameters).Select(i => $", parameterName{i}"));
-		string parameterMatches = string.Concat(Enumerable.Range(1, numberOfParameters).Select(i => $", global::Mockolate.Parameters.IParameterMatch<T{i}> parameter{i}"));
-		string parameterMatchArgs = string.Concat(Enumerable.Range(1, numberOfParameters).Select(i => $", parameter{i}"));
+		string parameterNames = string.Concat(Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($", string parameterName{i}")));
+		string parameterNameArgs = string.Concat(Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($", parameterName{i}")));
+		string parameterMatches = string.Concat(Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($", global::Mockolate.Parameters.IParameterMatch<T{i}> parameter{i}")));
+		string parameterMatchArgs = string.Concat(Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($", parameter{i}")));
 		const string isCallOf = ", global::System.Func<global::Mockolate.Internals.IMethodInvocationParameters, bool>? isCallOf";
 		AppendAnyTypeArgumentsSetup("WithParametersForAnyTypeArguments", "WithParameters",
 			"matching against <see cref=\"global::Mockolate.Parameters.IParameters\" />",
@@ -893,7 +893,7 @@ internal static partial class SourceTemplates
 			}
 
 			sb.Append(" &&").AppendLine();
-			sb.Append("\t\t\t\t   Matches(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"p{i}Value")))
+			sb.Append("\t\t\t\t   Matches(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"p{i}Value"))))
 				.Append(");").AppendLine();
 			sb.Append("\t\t}").AppendLine();
 			sb.AppendLine();
@@ -902,12 +902,12 @@ internal static partial class SourceTemplates
 
 	private static void AppendReturnMethodSetup(StringBuilder sb, int numberOfParameters)
 	{
-		string typeParams = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"T{i}"));
-		string parameters = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"p{i}"));
+		string typeParams = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"T{i}")));
+		string parameters = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"p{i}")));
 		string discards = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(_ => "_"));
 
 		sb.AppendXmlSummary(
-			$"Sets up a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <typeparamref name=\"TReturn\" />.",
+			FormattableString.Invariant($"Sets up a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <typeparamref name=\"TReturn\" />."),
 			"\t");
 		sb.Append("\tinternal interface IReturnMethodSetup<TReturn, ").Append(typeParams).Append("> : global::Mockolate.Setup.IMethodSetup")
 			.AppendLine();
@@ -960,7 +960,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		sb.AppendXmlSummary(
-			$"Sets up a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <typeparamref name=\"TReturn\" /> with callback support for the parameters.",
+			FormattableString.Invariant($"Sets up a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <typeparamref name=\"TReturn\" /> with callback support for the parameters."),
 			"\t");
 		sb.Append("\tinternal interface IReturnMethodSetupWithCallback<TReturn, ").Append(typeParams)
 			.Append("> : global::Mockolate.Setup.IReturnMethodSetup<TReturn, ").Append(typeParams).Append(">")
@@ -989,7 +989,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		sb.AppendXmlSummary(
-			$"Sets up a callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <typeparamref name=\"TReturn\" />.",
+			FormattableString.Invariant($"Sets up a callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <typeparamref name=\"TReturn\" />."),
 			"\t");
 		sb.Append("\tinternal interface IReturnMethodSetupCallbackBuilder<TReturn, ").Append(typeParams)
 			.Append("> : global::Mockolate.Setup.IReturnMethodSetupParallelCallbackBuilder<TReturn, ").Append(typeParams).Append(">")
@@ -1002,7 +1002,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		sb.AppendXmlSummary(
-			$"Sets up a parallel callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <typeparamref name=\"TReturn\" />.",
+			FormattableString.Invariant($"Sets up a parallel callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <typeparamref name=\"TReturn\" />."),
 			"\t");
 		sb.Append("\tinternal interface IReturnMethodSetupParallelCallbackBuilder<TReturn, ").Append(typeParams)
 			.Append("> : global::Mockolate.Setup.IReturnMethodSetupCallbackWhenBuilder<TReturn, ").Append(typeParams).Append(">")
@@ -1018,7 +1018,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		sb.AppendXmlSummary(
-			$"Sets up a when callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <typeparamref name=\"TReturn\" />.",
+			FormattableString.Invariant($"Sets up a when callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <typeparamref name=\"TReturn\" />."),
 			"\t");
 		sb.Append("\tinternal interface IReturnMethodSetupCallbackWhenBuilder<TReturn, ").Append(typeParams)
 			.Append("> : global::Mockolate.Setup.IReturnMethodSetupWithCallback<TReturn, ").Append(typeParams).Append(">")
@@ -1040,7 +1040,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		sb.AppendXmlSummary(
-			$"Sets up a return callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <typeparamref name=\"TReturn\" />.",
+			FormattableString.Invariant($"Sets up a return callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <typeparamref name=\"TReturn\" />."),
 			"\t");
 		sb.Append("\tinternal interface IReturnMethodSetupReturnBuilder<TReturn, ").Append(typeParams)
 			.Append("> : global::Mockolate.Setup.IReturnMethodSetupReturnWhenBuilder<TReturn, ").Append(typeParams).Append(">")
@@ -1057,7 +1057,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		sb.AppendXmlSummary(
-			$"Sets up a when return callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <typeparamref name=\"TReturn\" />.",
+			FormattableString.Invariant($"Sets up a when return callback for a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <typeparamref name=\"TReturn\" />."),
 			"\t");
 		sb.Append("\tinternal interface IReturnMethodSetupReturnWhenBuilder<TReturn, ").Append(typeParams)
 			.Append("> : global::Mockolate.Setup.IReturnMethodSetupWithCallback<TReturn, ").Append(typeParams).Append(">")
@@ -1088,7 +1088,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		sb.AppendXmlSummary(
-			$"Sets up a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <typeparamref name=\"TReturn\" />.",
+			FormattableString.Invariant($"Sets up a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <typeparamref name=\"TReturn\" />."),
 			"\t");
 #if !DEBUG
 		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
@@ -1365,7 +1365,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tif (interaction is global::Mockolate.Interactions.MethodInvocation<").Append(typeParams).Append("> invocation)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\treturn Matches(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"invocation.Parameter{i}"))).Append(");").AppendLine();
+		sb.Append("\t\t\t\treturn Matches(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"invocation.Parameter{i}")))).Append(");").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.Append("\t\t\treturn false;").AppendLine();
 		sb.Append("\t\t}").AppendLine();
@@ -1381,13 +1381,13 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t\t=> _skipBaseClass ?? behavior.SkipBaseClass;").AppendLine();
 		sb.AppendLine();
 
-		string parameterTuple = "(" + string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(x => $"p{x}")) + ")";
-		string parameterStateArgs = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(x => $"state.p{x}"));
-		string triggerTuple = "(" + string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(x => $"parameter{x}")) + ")";
-		string triggerStateArgs = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(x => $"state.parameter{x}"));
+		string parameterTuple = "(" + string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(x => FormattableString.Invariant($"p{x}"))) + ")";
+		string parameterStateArgs = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(x => FormattableString.Invariant($"state.p{x}")));
+		string triggerTuple = "(" + string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(x => FormattableString.Invariant($"parameter{x}"))) + ")";
+		string triggerStateArgs = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(x => FormattableString.Invariant($"state.parameter{x}")));
 
 		sb.AppendXmlSummary("Gets the registered return value.");
-		sb.Append("\t\tpublic bool TryGetReturnValue(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"T{i} p{i}"))).Append(", out TReturn returnValue)").AppendLine();
+		sb.Append("\t\tpublic bool TryGetReturnValue(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"T{i} p{i}")))).Append(", out TReturn returnValue)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tif (_hasReturnValue)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
@@ -1431,7 +1431,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		sb.AppendXmlSummary("Triggers any configured parameter callbacks for the method setup with the specified parameters.");
-		sb.Append("\t\tpublic virtual void TriggerCallbacks(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"T{i} parameter{i}"))).Append(")").AppendLine();
+		sb.Append("\t\tpublic virtual void TriggerCallbacks(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"T{i} parameter{i}")))).Append(")").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tif (_callbacks is not null)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
@@ -1480,7 +1480,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 		sb.Append("\t\t\tprivate global::Mockolate.Parameters.IParameters Parameters { get; }").AppendLine();
 		sb.AppendLine();
-		sb.Append("\t\t\t/// <inheritdoc cref=\"ReturnMethodSetup{TReturn, ").Append(typeParams).Append("}.Matches(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"T{i}"))).Append(")\" />").AppendLine();
+		sb.Append("\t\t\t/// <inheritdoc cref=\"ReturnMethodSetup{TReturn, ").Append(typeParams).Append("}.Matches(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"T{i}")))).Append(")\" />").AppendLine();
 		sb.Append("\t\t\tpublic override bool Matches(");
 		for (int i = 1; i <= numberOfParameters; i++)
 		{
@@ -1495,8 +1495,8 @@ internal static partial class SourceTemplates
 		sb.Append(")").AppendLine();
 		sb.Append("\t\t\t\t=> Parameters switch").AppendLine();
 		sb.Append("\t\t\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\t\t\tglobal::Mockolate.Parameters.IParametersMatch m => m.Matches([").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"p{i}Value"))).Append("]),").AppendLine();
-		sb.Append("\t\t\t\t\t\tglobal::Mockolate.Parameters.INamedParametersMatch m => m.Matches([").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"(_parameterName{i}, p{i}Value)"))).Append("]),").AppendLine();
+		sb.Append("\t\t\t\t\t\tglobal::Mockolate.Parameters.IParametersMatch m => m.Matches([").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"p{i}Value")))).Append("]),").AppendLine();
+		sb.Append("\t\t\t\t\t\tglobal::Mockolate.Parameters.INamedParametersMatch m => m.Matches([").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"(_parameterName{i}, p{i}Value)")))).Append("]),").AppendLine();
 		sb.Append("\t\t\t\t\t\t_ => true,").AppendLine();
 		sb.Append("\t\t\t\t\t};").AppendLine();
 		sb.AppendLine();
@@ -1536,7 +1536,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 		for (int i = 1; i <= numberOfParameters; i++)
 		{
-			string ordinal = i switch { 1 => "first", 2 => "second", 3 => "third", _ => $"{i}th", };
+			string ordinal = i switch { 1 => "first", 2 => "second", 3 => "third", _ => FormattableString.Invariant($"{i}th"), };
 			sb.Append("\t\t\t/// <summary>The ").Append(ordinal).Append(" parameter of the method.</summary>").AppendLine();
 			sb.Append("\t\t\tpublic global::Mockolate.Parameters.IParameterMatch<T").Append(i).Append("> Parameter").Append(i).Append(" { get; }").AppendLine();
 			sb.AppendLine();
@@ -1578,21 +1578,21 @@ internal static partial class SourceTemplates
 		sb.Append(");").AppendLine();
 		sb.AppendLine();
 		sb.Append("\t\t\t/// <inheritdoc cref=\"ReturnMethodSetup{TReturn, ").Append(typeParams).Append("}.TriggerCallbacks\" />").AppendLine();
-		sb.Append("\t\t\tpublic override void TriggerCallbacks(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"T{i} parameter{i}"))).Append(")").AppendLine();
+		sb.Append("\t\t\tpublic override void TriggerCallbacks(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"T{i} parameter{i}")))).Append(")").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
 		for (int i = 1; i <= numberOfParameters; i++)
 		{
 			sb.Append("\t\t\t\tParameter").Append(i).Append("?.InvokeCallbacks(parameter").Append(i).Append(");").AppendLine();
 		}
 
-		sb.Append("\t\t\t\tbase.TriggerCallbacks(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"parameter{i}"))).Append(");").AppendLine();
+		sb.Append("\t\t\t\tbase.TriggerCallbacks(").Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"parameter{i}")))).Append(");").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.AppendLine();
 		sb.Append("\t\t\t/// <inheritdoc cref=\"object.ToString()\" />").AppendLine();
 		sb.Append("\t\t\tpublic override string ToString()").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
 		sb.Append("\t\t\t\treturn $\"{FormatType(typeof(TReturn))} {(global::Mockolate.Internals.ValueFormatter.FormatMethodName(Name))}(")
-			.Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(x => $"{{Parameter{x}}}")))
+			.Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(x => FormattableString.Invariant($"{{Parameter{x}}}"))))
 			.Append(")\";").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.Append("\t\t}").AppendLine();

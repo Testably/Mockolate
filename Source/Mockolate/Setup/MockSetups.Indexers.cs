@@ -67,7 +67,7 @@ internal partial class MockSetups
 			if (slot is not IndexerValueStorage<TValue> typed)
 			{
 				throw new InvalidOperationException(
-					$"Indexer storage at signature index {signatureIndex} was created as '{slot.GetType()}' but is being accessed as 'IndexerValueStorage<{typeof(TValue)}>'. This indicates a signature-index collision between distinct indexer signatures - please report a bug against the source generator.");
+					FormattableString.Invariant($"Indexer storage at signature index {signatureIndex} was created as '{slot.GetType()}' but is being accessed as 'IndexerValueStorage<{typeof(TValue)}>'. This indicates a signature-index collision between distinct indexer signatures - please report a bug against the source generator."));
 			}
 
 			return typed;

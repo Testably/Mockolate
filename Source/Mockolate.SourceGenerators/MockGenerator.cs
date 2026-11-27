@@ -939,7 +939,7 @@ public class MockGenerator : IIncrementalGenerator
 				string actualName = baseName;
 				while (!classNames.Add(actualName))
 				{
-					actualName = $"{baseName}_{suffix++}";
+					actualName = FormattableString.Invariant($"{baseName}_{suffix++}");
 				}
 
 				baseClassNames[@class.ClassFullName] = actualName;
@@ -979,7 +979,7 @@ public class MockGenerator : IIncrementalGenerator
 			string actualName = combinedName;
 			while (!classNames.Add(actualName))
 			{
-				actualName = $"{combinedName}_{suffix++}";
+				actualName = FormattableString.Invariant($"{combinedName}_{suffix++}");
 			}
 
 			NamedClass[] additionalNamed = mc.AdditionalImplementations

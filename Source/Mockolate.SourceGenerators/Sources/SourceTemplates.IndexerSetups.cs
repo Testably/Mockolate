@@ -51,7 +51,7 @@ internal static partial class SourceTemplates
 		{
 			int item = setup.Arity;
 			string types = GetGenericTypeParameters(item);
-			sb.Append($$"""
+			sb.Append(FormattableString.Invariant($$"""
 			            		/// <summary>
 			            		///     Extensions for indexer getter callback setups with {{item}} parameters.
 			            		/// </summary>
@@ -95,12 +95,12 @@ internal static partial class SourceTemplates
 			            			public global::Mockolate.Setup.IIndexerSetup<TValue, {{types}}> OnlyOnce()
 			            				=> setup.Only(1);
 			            		}
-			            """).AppendLine();
+			            """)).AppendLine();
 
 			if (setup.NeedsGetterOnly)
 			{
 				sb.AppendLine();
-				sb.Append($$"""
+				sb.Append(FormattableString.Invariant($$"""
 				            		/// <summary>
 				            		///     Extensions for setups of get-only indexers with {{item}} parameters.
 				            		/// </summary>
@@ -132,13 +132,13 @@ internal static partial class SourceTemplates
 				            			public global::Mockolate.Setup.IIndexerGetterOnlySetup<TValue, {{types}}> OnlyOnce()
 				            				=> setup.Only(1);
 				            		}
-				            """).AppendLine();
+				            """)).AppendLine();
 			}
 
 			if (setup.NeedsSetterOnly)
 			{
 				sb.AppendLine();
-				sb.Append($$"""
+				sb.Append(FormattableString.Invariant($$"""
 				            		/// <summary>
 				            		///     Extensions for setter callback setups of set-only indexers with {{item}} parameters.
 				            		/// </summary>
@@ -150,7 +150,7 @@ internal static partial class SourceTemplates
 				            			public global::Mockolate.Setup.IIndexerSetterOnlySetup<TValue, {{types}}> OnlyOnce()
 				            				=> setup.Only(1);
 				            		}
-				            """).AppendLine();
+				            """)).AppendLine();
 			}
 		}
 
@@ -198,20 +198,20 @@ internal static partial class SourceTemplates
 	{
 		string typeParams = GetGenericTypeParameters(numberOfParameters);
 		sb.AppendXmlSummary(
-			$"An access of an indexer getter with {numberOfParameters} typed parameters.", "\t");
+			FormattableString.Invariant($"An access of an indexer getter with {numberOfParameters} typed parameters."), "\t");
 		sb.Append("\t[global::System.Diagnostics.DebuggerDisplay(\"{ToString()}\")]").AppendLine();
 #if !DEBUG
 		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
 #endif
 		sb.Append("\tinternal class IndexerGetterAccess<").Append(typeParams).Append(">(")
 			.Append(string.Join(", ",
-				Enumerable.Range(1, numberOfParameters).Select(x => $"T{x} parameter{x}")))
+				Enumerable.Range(1, numberOfParameters).Select(x => FormattableString.Invariant($"T{x} parameter{x}"))))
 			.Append(")").AppendLine();
 		sb.Append("\t\t: global::Mockolate.Interactions.IndexerAccess").AppendLine();
 		sb.Append("\t{").AppendLine();
 		for (int i = 1; i <= numberOfParameters; i++)
 		{
-			sb.AppendXmlSummary($"The value of parameter {i}.");
+			sb.AppendXmlSummary(FormattableString.Invariant($"The value of parameter {i}."));
 			sb.Append("\t\tpublic T").Append(i).Append(" Parameter").Append(i).Append(" { get; } = parameter")
 				.Append(i).Append(";").AppendLine();
 		}
@@ -221,7 +221,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t/// <inheritdoc cref=\"object.ToString()\" />").AppendLine();
 		sb.Append("\t\tpublic override string ToString()").AppendLine();
 		sb.Append("\t\t\t=> $\"get indexer [").Append(string.Join(", ",
-			Enumerable.Range(1, numberOfParameters).Select(i => $"{{(global::Mockolate.Internals.ValueFormatter.Format(Parameter{i}))}}"))).Append("]\";").AppendLine();
+			Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"{{(global::Mockolate.Internals.ValueFormatter.Format(Parameter{i}))}}")))).Append("]\";").AppendLine();
 		sb.Append("\t}").AppendLine();
 	}
 
@@ -229,20 +229,20 @@ internal static partial class SourceTemplates
 	{
 		string typeParams = GetGenericTypeParameters(numberOfParameters);
 		sb.AppendXmlSummary(
-			$"An access of an indexer setter with {numberOfParameters} typed parameters.", "\t");
+			FormattableString.Invariant($"An access of an indexer setter with {numberOfParameters} typed parameters."), "\t");
 		sb.Append("\t[global::System.Diagnostics.DebuggerDisplay(\"{ToString()}\")]").AppendLine();
 #if !DEBUG
 		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
 #endif
 		sb.Append("\tinternal class IndexerSetterAccess<").Append(typeParams).Append(", TValue>(")
 			.Append(string.Join(", ",
-				Enumerable.Range(1, numberOfParameters).Select(x => $"T{x} parameter{x}")))
+				Enumerable.Range(1, numberOfParameters).Select(x => FormattableString.Invariant($"T{x} parameter{x}"))))
 			.Append(", TValue value)").AppendLine();
 		sb.Append("\t\t: global::Mockolate.Interactions.IndexerAccess").AppendLine();
 		sb.Append("\t{").AppendLine();
 		for (int i = 1; i <= numberOfParameters; i++)
 		{
-			sb.AppendXmlSummary($"The value of parameter {i}.");
+			sb.AppendXmlSummary(FormattableString.Invariant($"The value of parameter {i}."));
 			sb.Append("\t\tpublic T").Append(i).Append(" Parameter").Append(i).Append(" { get; } = parameter")
 				.Append(i).Append(";").AppendLine();
 		}
@@ -255,7 +255,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t/// <inheritdoc cref=\"object.ToString()\" />").AppendLine();
 		sb.Append("\t\tpublic override string ToString()").AppendLine();
 		sb.Append("\t\t\t=> $\"set indexer [").Append(string.Join(", ",
-			Enumerable.Range(1, numberOfParameters).Select(i => $"{{(global::Mockolate.Internals.ValueFormatter.Format(Parameter{i}))}}"))).Append("] to {(global::Mockolate.Internals.ValueFormatter.Format(TypedValue))}\";").AppendLine();
+			Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"{{(global::Mockolate.Internals.ValueFormatter.Format(Parameter{i}))}}")))).Append("] to {(global::Mockolate.Internals.ValueFormatter.Format(TypedValue))}\";").AppendLine();
 		sb.Append("\t}").AppendLine();
 	}
 
@@ -304,8 +304,8 @@ internal static partial class SourceTemplates
 	{
 		string typeParams = GetGenericTypeParameters(numberOfParameters);
 		string outTypeParams = GetOutGenericTypeParameters(numberOfParameters);
-		string parameters = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"p{i}"));
-		string stateParameters = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"state.p{i}"));
+		string parameters = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"p{i}")));
+		string stateParameters = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"state.p{i}")));
 		string discards = string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(_ => "_"));
 
 		sb.AppendXmlSummary($"Sets up a <typeparamref name=\"TValue\"/> indexer getter for {GetTypeParametersDescription(numberOfParameters)}.", "\t");
@@ -555,7 +555,7 @@ internal static partial class SourceTemplates
 			.Append("global::Mockolate.Internals.MockRegistry mockRegistry")
 			.Append(", ")
 			.Append(
-				string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"global::Mockolate.Parameters.IParameterMatch<T{i}> parameter{i}")))
+				string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"global::Mockolate.Parameters.IParameterMatch<T{i}> parameter{i}"))))
 			.Append(") : global::Mockolate.Setup.IndexerSetup(mockRegistry),")
 			.AppendLine();
 		sb.Append("\t\tglobal::Mockolate.Setup.IIndexerSetupWithCallback<TValue, ").Append(typeParams).Append(">,").AppendLine();
@@ -1012,11 +1012,11 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t///     Check if the setup matches the specified parameter values.").AppendLine();
 		sb.Append("\t\t/// </summary>").AppendLine();
 		sb.Append("\t\tpublic virtual bool Matches(").Append(
-			string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"T{i} p{i}"))).Append(")").AppendLine();
+			string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"T{i} p{i}")))).Append(")").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tif (");
 		sb.Append(string.Join(" || ",
-			Enumerable.Range(1, numberOfParameters).Select(i => $"!parameter{i}.Matches(p{i})")));
+			Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"!parameter{i}.Matches(p{i})"))));
 		sb.Append(")").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
 		sb.Append("\t\t\t\treturn false;").AppendLine();
@@ -1036,7 +1036,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t///     Check if the setup matches the specified parameter values.").AppendLine();
 		sb.Append("\t\t/// </summary>").AppendLine();
 		sb.Append("\t\tpublic virtual bool Matches(").Append(
-			string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"T{i} p{i}"))).Append(", TValue value)").AppendLine();
+			string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"T{i} p{i}")))).Append(", TValue value)").AppendLine();
 		sb.Append("\t\t\t=> Matches(").Append(parameters).Append(");").AppendLine();
 		sb.AppendLine();
 
@@ -1047,13 +1047,13 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t\tif (access is global::Mockolate.Interactions.IndexerGetterAccess<").Append(typeParams).Append("> getter)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
 		sb.Append("\t\t\t\treturn Matches(").Append(
-			string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"getter.Parameter{i}"))).Append(");").AppendLine();
+			string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"getter.Parameter{i}")))).Append(");").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.AppendLine();
 		sb.Append("\t\t\tif (access is global::Mockolate.Interactions.IndexerSetterAccess<").Append(typeParams).Append(", TValue> setter)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
 		sb.Append("\t\t\t\treturn Matches(").Append(
-			string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"setter.Parameter{i}"))).Append(", setter.TypedValue);").AppendLine();
+			string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"setter.Parameter{i}")))).Append(", setter.TypedValue);").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.AppendLine();
 		sb.Append("\t\t\treturn false;").AppendLine();
@@ -1204,7 +1204,7 @@ internal static partial class SourceTemplates
 
 		// ExecuteGetterCallbacks (private)
 		sb.Append("\t\tprivate TValue ExecuteGetterCallbacks(").Append(
-			string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"T{i} p{i}"))).Append(", TValue currentValue)").AppendLine();
+			string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"T{i} p{i}")))).Append(", TValue currentValue)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tif (_getterCallbacks is not null)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
@@ -1228,7 +1228,7 @@ internal static partial class SourceTemplates
 
 		// ExecuteReturnCallbacks (private)
 		sb.Append("\t\tprivate TValue ExecuteReturnCallbacks(").Append(
-			string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => $"T{i} p{i}"))).Append(", TValue currentValue)").AppendLine();
+			string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"T{i} p{i}")))).Append(", TValue currentValue)").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tif (_returnCallbacks is not null)").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
@@ -1291,7 +1291,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t/// <inheritdoc cref=\"object.ToString()\" />").AppendLine();
 		sb.Append("\t\tpublic override string ToString()").AppendLine();
 		sb.Append("\t\t\t=> $\"{FormatType(typeof(TValue))} this[").Append(string.Join(", ",
-			Enumerable.Range(1, numberOfParameters).Select(i => $"{{parameter{i}}}"))).Append("]\";").AppendLine();
+			Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"{{parameter{i}}}")))).Append("]\";").AppendLine();
 		sb.AppendLine();
 
 		if (needsGetterOnly)
@@ -1808,7 +1808,7 @@ internal static partial class SourceTemplates
 		string tp = GetGenericTypeParameters(numberOfParameters);
 		string description = GetTypeParametersDescription(numberOfParameters);
 
-		sb.Append($$"""
+		sb.Append(FormattableString.Invariant($$"""
 		            	/// <summary>
 		            	///     Verifications on a {{numberOfParameters}}-key indexer for {{description}} that the mock only reads.
 		            	/// </summary>
@@ -1817,7 +1817,7 @@ internal static partial class SourceTemplates
 		            	///     mock has no setter to intercept. Writes then never reach the mock, so offering <c>Set(...)</c> here would
 		            	///     always report zero interactions.
 		            	/// </remarks>
-		            """).AppendLine();
+		            """)).AppendLine();
 #if !DEBUG
 		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
 #endif
@@ -1843,7 +1843,7 @@ internal static partial class SourceTemplates
 		string tp = GetGenericTypeParameters(numberOfParameters);
 		string description = GetTypeParametersDescription(numberOfParameters);
 
-		sb.Append($$"""
+		sb.Append(FormattableString.Invariant($$"""
 		            	/// <summary>
 		            	///     Verifications on a {{numberOfParameters}}-key indexer of type <typeparamref name="TParameter" /> for {{description}} that the mock only writes.
 		            	/// </summary>
@@ -1851,7 +1851,7 @@ internal static partial class SourceTemplates
 		            	///     Used instead of <see cref="global::Mockolate.Verify.VerificationIndexerResult{TSubject, TParameter}" /> when the
 		            	///     mock has no getter to intercept, so <c>Got()</c> is not offered.
 		            	/// </remarks>
-		            """).AppendLine();
+		            """)).AppendLine();
 #if !DEBUG
 		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
 #endif
