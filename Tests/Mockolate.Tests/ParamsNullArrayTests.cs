@@ -5,7 +5,7 @@ namespace Mockolate.Tests;
 public sealed class ParamsNullArrayTests
 {
 	[Test]
-	public async Task NullArray_ShouldMatchOnlyANullArray()
+	public async Task NullArray_OfReferenceTypeElements_ShouldMatchOnlyANullArray()
 	{
 		IParamsMethods sut = IParamsMethods.CreateMock();
 		sut.Mock.Setup.Strings(null!).Returns(1);
@@ -74,8 +74,14 @@ public sealed class ParamsNullArrayTests
 		_ = sut.Integers(null!);
 		_ = sut.Integers(0);
 		_ = sut.Leading(1, null!);
+		_ = sut.Leading(1, (string)null!);
+		_ = sut.Leading(1);
 		_ = sut.Five(1, 2, 3, 4, null!);
+		_ = sut.Five(1, 2, 3, 4, (string)null!);
+		_ = sut.Five(1, 2, 3, 4);
 		_ = sut.Objects(null!);
+		_ = sut.Objects((object)null!);
+		_ = sut.Objects();
 
 		await That(sut.Mock.Verify.Strings(null!)).Once();
 		await That(sut.Mock.Verify.Integers(null!)).Once();
