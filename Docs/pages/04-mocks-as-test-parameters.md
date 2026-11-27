@@ -158,19 +158,19 @@ private static Discount TenPercentOffDark => new() { Type = "Dark", Percentage =
 ```
 
 - The member is a static property or a static method without parameters of the test class or one of its base classes. Mockolate reads it once per test case, so a property or method that creates the value gives each test case its own instance. A field is not supported, because it would share one instance with all test cases.
-- The class under test receives the value like a parameter that Mockolate creates. Combine it with [`[Transient]`](#keep-a-mock-out-of-the-class-under-test) to keep it from the class under test, or with [`[AsDefault]`](#return-the-same-instance-from-every-mock) to let the mocks return it.
+- The class under test receives the value like a parameter that Mockolate creates. Combine it with [`[NotShared]`](#keep-a-mock-out-of-the-class-under-test) to keep it from the class under test, or with [`[AsDefault]`](#return-the-same-instance-from-every-mock) to let the mocks return it.
 - The values of the attribute still fill the first parameters, so a `[ValueFrom]` parameter comes after them.
 
 The [Mockolate0013](10-analyzers.md#mockolate0013) analyzer reports a member that does not exist, is not static, is a field or has a type that is not assignable to the parameter.
 
 ## Keep a mock out of the class under test
 
-Mark a parameter with `[Transient]` to get a mock that the class under test does not receive:
+Mark a parameter with `[NotShared]` to get a mock that the class under test does not receive:
 
 ```csharp
 [Test]
 [AutoMockArguments]
-public async Task Buy_ShouldNotUseAnotherDispenser(VendingMachine sut, [Transient] IChocolateDispenser other)
+public async Task Buy_ShouldNotUseAnotherDispenser(VendingMachine sut, [NotShared] IChocolateDispenser other)
 {
     sut.Buy("Dark", 4);
 
@@ -275,7 +275,7 @@ Each call creates a new instance, exactly like a parameter of type `T`: a class 
 
 The test framework does not dispose what the delegate creates, so dispose it in the test, e.g. with `using ChocolateDisplay sut = createSut();`.
 
-The delegate is not passed to the constructor of a class under test. Without `[Deferred]`, a `Func<T>` parameter gets a [default value](03-create-mocks.md#default-values) like other framework types. The [Mockolate0012](10-analyzers.md#mockolate0012) analyzer reports a `[Deferred]` parameter that is not a `Func<T>`, or that is also `[AsDefault]` or `[Transient]`.
+The delegate is not passed to the constructor of a class under test. Without `[Deferred]`, a `Func<T>` parameter gets a [default value](03-create-mocks.md#default-values) like other framework types. The [Mockolate0012](10-analyzers.md#mockolate0012) analyzer reports a `[Deferred]` parameter that is not a `Func<T>`, or that is also `[AsDefault]` or `[NotShared]`.
 
 ## Choose the mock behavior
 

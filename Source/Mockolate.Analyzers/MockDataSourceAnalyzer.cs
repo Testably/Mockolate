@@ -41,7 +41,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 
 	/// <summary>
 	///     An <c>[AsDefault]</c> test parameter that is used for a type of another one, that is not assignable to one of
-	///     its types, or that is also <c>[Transient]</c>.
+	///     its types, or that is also <c>[NotShared]</c>.
 	/// </summary>
 	public static readonly DiagnosticDescriptor AsDefaultParameterRule = new(
 		"Mockolate0011",
@@ -57,7 +57,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 
 	/// <summary>
 	///     A <c>[Deferred]</c> test parameter that is not a <c>Func&lt;T&gt;</c>, or that is also <c>[AsDefault]</c> or
-	///     <c>[Transient]</c>.
+	///     <c>[NotShared]</c>.
 	/// </summary>
 	public static readonly DiagnosticDescriptor DeferredParameterRule = new(
 		"Mockolate0012",
@@ -265,9 +265,9 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		ITypeSymbol[] types, List<(IParameterSymbol Parameter, ITypeSymbol[] Types)> asDefaultParameters,
 		Compilation compilation)
 	{
-		if (HasMarker(parameter, "TransientParameterAttribute"))
+		if (HasMarker(parameter, "NotSharedParameterAttribute"))
 		{
-			return Resources.Mockolate0011TransientReason;
+			return Resources.Mockolate0011NotSharedReason;
 		}
 
 		foreach (ITypeSymbol? otherType in otherTypes)
@@ -347,7 +347,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			return Resources.Mockolate0012AsDefaultReason;
 		}
 
-		return HasMarker(parameter, "TransientParameterAttribute") ? Resources.Mockolate0012TransientReason : null;
+		return HasMarker(parameter, "NotSharedParameterAttribute") ? Resources.Mockolate0012NotSharedReason : null;
 	}
 
 	/// <summary>

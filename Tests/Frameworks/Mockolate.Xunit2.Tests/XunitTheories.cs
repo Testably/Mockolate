@@ -37,8 +37,8 @@ public sealed class XunitTheories
 
 	[Theory]
 	[AutoMockArguments]
-	public void TransientParameter(OrderService sut, IOrderRepository repository,
-		[Transient] IShippingClient shippingClient)
+	public void NotSharedParameter(OrderService sut, IOrderRepository repository,
+		[NotShared] IShippingClient shippingClient)
 	{
 		Order order = new(42, 10m);
 		repository.Mock.Setup.Find(42).Returns(order);

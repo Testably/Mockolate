@@ -29,7 +29,7 @@ public sealed class TestFrameworkCompatibilityTests
 				{
 					[global::TUnit.Core.Test]
 					[AutoMockArguments("Dark")]
-					public void Buy(string type, IChocolateDispenser dispenser, [Transient] IChocolateDispenser other) { }
+					public void Buy(string type, IChocolateDispenser dispenser, [NotShared] IChocolateDispenser other) { }
 				}
 			}
 			""");
@@ -54,7 +54,7 @@ public sealed class TestFrameworkCompatibilityTests
 				{
 					[global::Xunit.Theory]
 					[AutoMockArguments("Dark", Skip = "Compiled only")]
-					public void Buy(string type, IChocolateDispenser dispenser, [Transient] IChocolateDispenser other) { }
+					public void Buy(string type, IChocolateDispenser dispenser, [NotShared] IChocolateDispenser other) { }
 				}
 			}
 			""");
@@ -80,7 +80,7 @@ public sealed class TestFrameworkCompatibilityTests
 				{
 					[global::Xunit.Theory]
 					[AutoMockArguments("Dark")]
-					public void Buy(string type, IChocolateDispenser dispenser, [Transient] IChocolateDispenser other) { }
+					public void Buy(string type, IChocolateDispenser dispenser, [NotShared] IChocolateDispenser other) { }
 				}
 			}
 			""");
@@ -103,7 +103,7 @@ public sealed class TestFrameworkCompatibilityTests
 				public class Tests
 				{
 					[AutoMockArguments("Dark")]
-					public void Buy(string type, IChocolateDispenser dispenser, [Transient] IChocolateDispenser other) { }
+					public void Buy(string type, IChocolateDispenser dispenser, [NotShared] IChocolateDispenser other) { }
 				}
 			}
 			""");
@@ -130,7 +130,7 @@ public sealed class TestFrameworkCompatibilityTests
 				{
 					[global::Microsoft.VisualStudio.TestTools.UnitTesting.TestMethod]
 					[AutoMockArguments("Dark")]
-					public void Buy(string type, IChocolateDispenser dispenser, [Transient] IChocolateDispenser other) { }
+					public void Buy(string type, IChocolateDispenser dispenser, [NotShared] IChocolateDispenser other) { }
 				}
 			}
 			""");

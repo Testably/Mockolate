@@ -263,7 +263,7 @@ The rule fires for a type parameter or a type that contains one, a type that the
 
 **An `[AsDefault]` parameter that is ambiguous or invalid.**
 
-An [`[AsDefault]`](04-mocks-as-test-parameters.md#return-the-same-instance-from-every-mock) parameter is the default value of its type and of the [types it names](04-mocks-as-test-parameters.md#use-a-fake-for-an-interface) for all mocks of the test case. Two of them for the same type are ambiguous, the parameter must be assignable to each named type, and a `[Transient]` marker contradicts it:
+An [`[AsDefault]`](04-mocks-as-test-parameters.md#return-the-same-instance-from-every-mock) parameter is the default value of its type and of the [types it names](04-mocks-as-test-parameters.md#use-a-fake-for-an-interface) for all mocks of the test case. Two of them for the same type are ambiguous, the parameter must be assignable to each named type, and a `[NotShared]` marker contradicts it:
 
 ```csharp
 [Test]
@@ -275,13 +275,13 @@ public void Buy_ShouldUseTheDispenser(IVendingMachine machine, [AsDefault] IChoc
     [AsDefault<IChocolateDispenser>] int count) { }
 ```
 
-Use each type in only one `[AsDefault]` parameter, name only types that the parameter implements or derives from, and remove either `[AsDefault]` or `[Transient]` from a parameter that has both.
+Use each type in only one `[AsDefault]` parameter, name only types that the parameter implements or derives from, and remove either `[AsDefault]` or `[NotShared]` from a parameter that has both.
 
 ## Mockolate0012
 
 **A `[Deferred]` parameter that is invalid.**
 
-A [`[Deferred]`](04-mocks-as-test-parameters.md#create-the-class-under-test-in-the-test) parameter must be a `Func<T>`, whose calls each create a new `T`. Mockolate cannot create any other type for it, so the test fails at runtime. The delegate is never passed to a class under test, so `[Transient]` has no effect, and the mocks cannot return it, so it cannot be `[AsDefault]`:
+A [`[Deferred]`](04-mocks-as-test-parameters.md#create-the-class-under-test-in-the-test) parameter must be a `Func<T>`, whose calls each create a new `T`. Mockolate cannot create any other type for it, so the test fails at runtime. The delegate is never passed to a class under test, so `[NotShared]` has no effect, and the mocks cannot return it, so it cannot be `[AsDefault]`:
 
 ```csharp
 [Test]
@@ -293,7 +293,7 @@ public void Buy_ShouldDispenseTheChocolate(
     [Deferred, AsDefault] Func<IChocolateDispenser> createDispenser) { }
 ```
 
-Declare the parameter as a `Func<T>` of the type to create, and remove `[AsDefault]` and `[Transient]` from it. [Mockolate0010](#mockolate0010) reports a `T` that Mockolate cannot create.
+Declare the parameter as a `Func<T>` of the type to create, and remove `[AsDefault]` and `[NotShared]` from it. [Mockolate0010](#mockolate0010) reports a `T` that Mockolate cannot create.
 
 ## Mockolate0013
 

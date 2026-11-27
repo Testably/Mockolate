@@ -18,7 +18,7 @@ public sealed class AutoMockRowTests
 			=> row.Create();
 
 		await That(Act).Throws<MockException>()
-			.WithMessage("The constructor parameter 'source' of type 'Mockolate.Frameworks.TestHelpers.Domain.IAccount' matches the test parameters 'first', 'second'; name one of them 'source' or mark the others [Transient].");
+			.WithMessage("The constructor parameter 'source' of type 'Mockolate.Frameworks.TestHelpers.Domain.IAccount' matches the test parameters 'first', 'second'; name one of them 'source' or mark the others [NotShared].");
 	}
 
 	[Test]
@@ -69,7 +69,7 @@ public sealed class AutoMockRowTests
 	}
 
 	[Test]
-	public async Task Create_ShouldOnlyAskForTheTransientMarkerOfParametersOfAMatchingType()
+	public async Task Create_ShouldOnlyAskForTheNotSharedMarkerOfParametersOfAMatchingType()
 	{
 		List<int> asked = [];
 		AutoMockRow row = new(typeof(AutoMockRowTests).Assembly, GetTypes(nameof(DifferentCase)),

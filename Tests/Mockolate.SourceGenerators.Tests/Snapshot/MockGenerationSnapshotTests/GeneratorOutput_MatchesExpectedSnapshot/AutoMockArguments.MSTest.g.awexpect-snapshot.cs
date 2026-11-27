@@ -21,7 +21,7 @@ namespace Mockolate.Integrations.MSTest
 	///     A constructor dependency of a class under test gets the argument of the test parameter of the same type, so the
 	///     test can set up and verify the mock that the class under test uses. When several test parameters have the type,
 	///     the one with the name of the constructor parameter (ignoring case) is used; a value type or string is only
-	///     shared with a constructor parameter of its name. The given arguments and a <see cref="TransientAttribute">TransientAttribute</see>
+	///     shared with a constructor parameter of its name. The given arguments and a <see cref="NotSharedAttribute">NotSharedAttribute</see>
 	///     parameter are not shared. An <see cref="AsDefaultAttribute">AsDefaultAttribute</see> parameter is the default value of its type and
 	///     of the types it names for all mocks, and is also shared with constructor dependencies of the types it names.
 	///     Each attribute on a method is one test case.
@@ -67,7 +67,7 @@ namespace Mockolate.Integrations.MSTest
 				global::System.Array.ConvertAll(parameters, parameter => parameter.ParameterType),
 				global::System.Array.ConvertAll(parameters, parameter => parameter.Name ?? ""),
 				index => global::System.Reflection.CustomAttributeExtensions.IsDefined(parameters[index],
-					typeof(global::Mockolate.Integrations.TransientParameterAttribute), false),
+					typeof(global::Mockolate.Integrations.NotSharedParameterAttribute), false),
 				index => global::System.Reflection.CustomAttributeExtensions.IsDefined(parameters[index],
 					typeof(global::Mockolate.Integrations.DeferredParameterAttribute), false),
 				index => global::Mockolate.Integrations.AutoMockRow.GetAsDefaultTypes(parameters[index]),
@@ -100,12 +100,12 @@ namespace Mockolate.Integrations.MSTest
 
 	/// <summary>
 	///     Excludes the test parameter from the arguments that <see cref="AutoMockArgumentsAttribute">AutoMockArgumentsAttribute</see> shares with the
-	///     classes under test, like a transient service in dependency injection.
+	///     classes under test, so that they get their own instances.
 	/// </summary>
 	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 	[global::Microsoft.CodeAnalysis.Embedded]
-	internal sealed class TransientAttribute : global::Mockolate.Integrations.TransientParameterAttribute
+	internal sealed class NotSharedAttribute : global::Mockolate.Integrations.NotSharedParameterAttribute
 	{
 	}
 

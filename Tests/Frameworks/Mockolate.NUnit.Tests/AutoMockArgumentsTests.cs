@@ -74,8 +74,8 @@ public sealed class AutoMockArgumentsTests
 	}
 
 	[AutoMockArguments]
-	public async Task AutoMockArguments_WithTransientParameter_ShouldNotShareItWithTheClassUnderTest(
-		OrderService sut, IOrderRepository repository, [Transient] IShippingClient shippingClient)
+	public async Task AutoMockArguments_WithNotSharedParameter_ShouldNotShareItWithTheClassUnderTest(
+		OrderService sut, IOrderRepository repository, [NotShared] IShippingClient shippingClient)
 	{
 		Order order = new(42, 10m);
 		repository.Mock.Setup.Find(42).Returns(order);
