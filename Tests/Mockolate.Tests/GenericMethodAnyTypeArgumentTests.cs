@@ -544,6 +544,37 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
+	public async Task OverloadsWithAsManyTypeParametersAndParameters_WithAnAnonymousTypeArgument_ShouldBeCounted()
+	{
+		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
+		IVoidMethodSetupWithCallback<object?> setup = sut.Mock.SetupGeneric.SameShape(It.IsAny<object>());
+
+		sut.SameShape(new { Value = 1, });
+
+		await That(sut.Mock.VerifyGeneric.SameShape(It.IsAny<object>())).Once()
+			.Because("the name of an anonymous type contains a '<'");
+		await That(sut.Mock.VerifySetup(setup)).Once();
+	}
+
+	[Test]
+	public async Task OverloadsThatDifferInANullableTypeArgument_ShouldBeToldApart()
+	{
+		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
+
+		sut.NullableStruct<long>(5);
+
+		await That(sut.Mock.VerifyGeneric.NullableStruct(It.IsAny<object>())).Never()
+			.Because("the parameter of the call is an int, not a nullable type argument");
+		await That(sut.Mock.VerifyGeneric.NullableStruct(It.IsAny<int>())).Once();
+
+		sut.NullableStruct<long>(null);
+		sut.NullableStruct<int>((int?)5);
+
+		await That(sut.Mock.VerifyGeneric.NullableStruct(It.IsAny<object>())).Twice();
+		await That(sut.Mock.VerifyGeneric.NullableStruct(It.IsAny<int>())).Once();
+	}
+
+	[Test]
 	public async Task OverloadThatIsNotOffered_ShouldNotBeCounted()
 	{
 		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();

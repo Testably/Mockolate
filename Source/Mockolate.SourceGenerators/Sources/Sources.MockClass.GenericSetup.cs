@@ -69,11 +69,12 @@ internal static partial class Sources
 				}
 				else if (Array.FindIndex(genericParameters, genericParameter
 					         => parameter.Type.Fullname == genericParameter.Name ||
-					            (parameter.Type.Fullname == genericParameter.Name + "?" && !genericParameter.IsValueType))
+					            parameter.Type.Fullname == genericParameter.Name + "?")
 				         is >= 0 and int typeArgumentIndex)
 				{
+					bool isNullable = parameter.Type.Fullname.EndsWith("?") && genericParameters[typeArgumentIndex].IsValueType;
 					checks.Add(
-						$"global::Mockolate.Internals.GenericMethodInvocations.IsTypeArgument({invocation}, {index}, {typeArgumentIndex})");
+						$"global::Mockolate.Internals.GenericMethodInvocations.IsTypeArgument({invocation}, {setupName}, {index}, {typeArgumentIndex}{(isNullable ? ", true" : "")})");
 				}
 
 				index++;

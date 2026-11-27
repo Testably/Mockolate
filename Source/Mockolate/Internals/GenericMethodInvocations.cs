@@ -66,15 +66,31 @@ public static class GenericMethodInvocations
 	///     Checks whether the parameter at the zero-based <paramref name="parameterIndex" /> has the type of the type
 	///     argument at the zero-based <paramref name="typeArgumentIndex" /> of the called generic method.
 	/// </summary>
-	public static bool IsTypeArgument(IMethodInvocationParameters invocation, int parameterIndex, int typeArgumentIndex)
+	/// <param name="invocation">The invocation of the generic method.</param>
+	/// <param name="genericMethodName">The name of the generic method without its type arguments, e.g. <c>Ns.IFoo.Send&lt;,&gt;</c>.</param>
+	/// <param name="parameterIndex">The zero-based index of the parameter.</param>
+	/// <param name="typeArgumentIndex">The zero-based index of the type argument.</param>
+	/// <param name="isNullable">Whether the parameter is a <see cref="Nullable{T}" /> of the type argument.</param>
+	public static bool IsTypeArgument(IMethodInvocationParameters invocation, string genericMethodName, int parameterIndex,
+		int typeArgumentIndex, bool isNullable = false)
 	{
 		if (invocation is not IMethodInteraction method || invocation.GetParameterTypeAt(parameterIndex) is not { } type)
 		{
 			return false;
 		}
 
+		if (isNullable)
+		{
+			type = Nullable.GetUnderlyingType(type);
+			if (type is null)
+			{
+				return false;
+			}
+		}
+
 		string name = method.Name;
-		int start = name.LastIndexOf('<') + 1;
+		// The name of a type argument can itself contain a '<', e.g. for an anonymous type.
+		int start = genericMethodName.LastIndexOf('<') + 1;
 		for (int i = 0; i < typeArgumentIndex; i++)
 		{
 			start = name.IndexOf(", ", start, StringComparison.Ordinal) + 2;

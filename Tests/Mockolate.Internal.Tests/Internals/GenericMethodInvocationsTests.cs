@@ -58,23 +58,39 @@ public sealed class GenericMethodInvocationsTests
 	}
 
 	[Test]
-	[Arguments("Ns.IFoo.Send<System.Int32>", 0, true)]
-	[Arguments("Ns.IFoo.Send<System.String>", 0, false)]
-	[Arguments("Ns.IFoo.Send<System.String, System.Int32>", 0, false)]
-	[Arguments("Ns.IFoo.Send<System.String, System.Int32>", 1, true)]
-	[Arguments("Ns.IFoo.Send<System.Int32, System.String>", 0, true)]
-	[Arguments("Ns.IFoo.Send<System.Int32, System.String>", 1, false)]
-	[Arguments("Ns.IFoo.Send<System.Int32, System.String>", 2, false)]
-	[Arguments("Ns.IFoo.Send<System.Int32[]>", 0, false)]
-	[Arguments("Ns.IFoo<System.Int32>.Send<System.String>", 0, false)]
-	public async Task IsTypeArgument_ShouldCompareTheParameterTypeWithTheTypeArgument(string name, int typeArgumentIndex,
-		bool expected)
+	[Arguments("Ns.IFoo.Send<System.Int32>", "Ns.IFoo.Send<>", 0, true)]
+	[Arguments("Ns.IFoo.Send<System.String>", "Ns.IFoo.Send<>", 0, false)]
+	[Arguments("Ns.IFoo.Send<System.String, System.Int32>", "Ns.IFoo.Send<,>", 0, false)]
+	[Arguments("Ns.IFoo.Send<System.String, System.Int32>", "Ns.IFoo.Send<,>", 1, true)]
+	[Arguments("Ns.IFoo.Send<System.Int32, System.String>", "Ns.IFoo.Send<,>", 0, true)]
+	[Arguments("Ns.IFoo.Send<System.Int32, System.String>", "Ns.IFoo.Send<,>", 1, false)]
+	[Arguments("Ns.IFoo.Send<System.Int32, System.String>", "Ns.IFoo.Send<,>", 2, false)]
+	[Arguments("Ns.IFoo.Send<System.Int32[]>", "Ns.IFoo.Send<>", 0, false)]
+	[Arguments("Ns.IFoo<System.Int32>.Send<System.String>", "Ns.IFoo<System.Int32>.Send<>", 0, false)]
+	[Arguments("Ns.IFoo.Send<System.String, <>f__AnonymousType0`1[System.Int32]>", "Ns.IFoo.Send<,>", 0, false)]
+	[Arguments("Ns.IFoo.Send<<>f__AnonymousType0`1[System.Int32], System.Int32>", "Ns.IFoo.Send<,>", 1, true)]
+	public async Task IsTypeArgument_ShouldCompareTheParameterTypeWithTheTypeArgument(string name,
+		string genericMethodName, int typeArgumentIndex, bool expected)
 	{
 		MethodInvocation<int> invocation = new(name, 1);
 
-		bool result = GenericMethodInvocations.IsTypeArgument(invocation, 0, typeArgumentIndex);
+		bool result = GenericMethodInvocations.IsTypeArgument(invocation, genericMethodName, 0, typeArgumentIndex);
 
 		await That(result).IsEqualTo(expected);
+	}
+
+	[Test]
+	public async Task IsTypeArgument_WhenNullable_ShouldCompareTheUnderlyingType()
+	{
+		MethodInvocation<int?, int> invocation = new("Ns.IFoo.Send<System.Int32>", 1, 2);
+
+		bool ofNullable = GenericMethodInvocations.IsTypeArgument(invocation, "Ns.IFoo.Send<>", 0, 0, true);
+		bool ofNullableAsPlain = GenericMethodInvocations.IsTypeArgument(invocation, "Ns.IFoo.Send<>", 0, 0);
+		bool ofPlainAsNullable = GenericMethodInvocations.IsTypeArgument(invocation, "Ns.IFoo.Send<>", 1, 0, true);
+
+		await That(ofNullable).IsTrue();
+		await That(ofNullableAsPlain).IsFalse();
+		await That(ofPlainAsNullable).IsFalse();
 	}
 
 	[Test]
@@ -82,7 +98,7 @@ public sealed class GenericMethodInvocationsTests
 	{
 		MethodInvocation<int> invocation = new("Ns.IFoo.Send<System.Int32>", 1);
 
-		bool result = GenericMethodInvocations.IsTypeArgument(invocation, 1, 0);
+		bool result = GenericMethodInvocations.IsTypeArgument(invocation, "Ns.IFoo.Send<>", 1, 0);
 
 		await That(result).IsFalse();
 	}

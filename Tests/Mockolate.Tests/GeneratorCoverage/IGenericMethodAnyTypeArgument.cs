@@ -41,6 +41,8 @@ public interface IGenericMethodAnyTypeArgument
 	void Prefixed<T>(T foo, int TFoo);
 	void SameShape<T>(T value);
 	void SameShape<T>(int value);
+	void NullableStruct<T>(T? value) where T : struct;
+	void NullableStruct<T>(int value);
 	void WithParams<T>(T value);
 	void WithParams<T>(params T[] values);
 	void TupleNames<T>((int First, int Second) value);
