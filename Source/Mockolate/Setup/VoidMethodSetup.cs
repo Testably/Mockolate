@@ -239,7 +239,7 @@ public abstract class VoidMethodSetup : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"void {Name.SubstringAfterLast('.')}()";
+			=> $"void {ValueFormatter.FormatMethodName(Name)}()";
 	}
 
 	/// <summary>
@@ -540,7 +540,7 @@ public abstract class VoidMethodSetup<T1> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"void {Name.SubstringAfterLast('.')}({Parameters})";
+			=> $"void {ValueFormatter.FormatMethodName(Name)}({Parameters})";
 	}
 
 	/// <summary>
@@ -583,7 +583,7 @@ public abstract class VoidMethodSetup<T1> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"void {Name.SubstringAfterLast('.')}({Parameter1})";
+			=> $"void {ValueFormatter.FormatMethodName(Name)}({Parameter1})";
 	}
 
 	/// <summary>
@@ -617,7 +617,7 @@ public abstract class VoidMethodSetup<T1> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"void {Name.SubstringAfterLast('.')}({FormatLiteralValue(_value1)})";
+			=> $"void {ValueFormatter.FormatMethodName(Name)}({FormatLiteralValue(_value1)})";
 	}
 
 	/// <summary>
@@ -953,7 +953,7 @@ public abstract class VoidMethodSetup<T1, T2> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"void {Name.SubstringAfterLast('.')}({Parameters})";
+			=> $"void {ValueFormatter.FormatMethodName(Name)}({Parameters})";
 	}
 
 	/// <summary>
@@ -1007,7 +1007,7 @@ public abstract class VoidMethodSetup<T1, T2> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"void {Name.SubstringAfterLast('.')}({Parameter1}, {Parameter2})";
+			=> $"void {ValueFormatter.FormatMethodName(Name)}({Parameter1}, {Parameter2})";
 	}
 
 	/// <summary>
@@ -1045,7 +1045,7 @@ public abstract class VoidMethodSetup<T1, T2> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"void {Name.SubstringAfterLast('.')}({FormatLiteralValue(_value1)}, {FormatLiteralValue(_value2)})";
+			=> $"void {ValueFormatter.FormatMethodName(Name)}({FormatLiteralValue(_value1)}, {FormatLiteralValue(_value2)})";
 	}
 
 	/// <summary>
@@ -1387,7 +1387,7 @@ public abstract class VoidMethodSetup<T1, T2, T3> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"void {Name.SubstringAfterLast('.')}({Parameters})";
+			=> $"void {ValueFormatter.FormatMethodName(Name)}({Parameters})";
 	}
 
 	/// <summary>
@@ -1450,7 +1450,7 @@ public abstract class VoidMethodSetup<T1, T2, T3> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"void {Name.SubstringAfterLast('.')}({Parameter1}, {Parameter2}, {Parameter3})";
+			=> $"void {ValueFormatter.FormatMethodName(Name)}({Parameter1}, {Parameter2}, {Parameter3})";
 	}
 
 	/// <summary>
@@ -1492,7 +1492,7 @@ public abstract class VoidMethodSetup<T1, T2, T3> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"void {Name.SubstringAfterLast('.')}({FormatLiteralValue(_value1)}, {FormatLiteralValue(_value2)}, {FormatLiteralValue(_value3)})";
+			=> $"void {ValueFormatter.FormatMethodName(Name)}({FormatLiteralValue(_value1)}, {FormatLiteralValue(_value2)}, {FormatLiteralValue(_value3)})";
 	}
 
 	/// <summary>
@@ -1838,7 +1838,7 @@ public abstract class VoidMethodSetup<T1, T2, T3, T4> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"void {Name.SubstringAfterLast('.')}({Parameters})";
+			=> $"void {ValueFormatter.FormatMethodName(Name)}({Parameters})";
 	}
 
 	/// <summary>
@@ -1910,7 +1910,7 @@ public abstract class VoidMethodSetup<T1, T2, T3, T4> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"void {Name.SubstringAfterLast('.')}({Parameter1}, {Parameter2}, {Parameter3}, {Parameter4})";
+			=> $"void {ValueFormatter.FormatMethodName(Name)}({Parameter1}, {Parameter2}, {Parameter3}, {Parameter4})";
 	}
 
 	/// <summary>
@@ -1955,7 +1955,7 @@ public abstract class VoidMethodSetup<T1, T2, T3, T4> : MethodSetup,
 
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
-			=> $"void {Name.SubstringAfterLast('.')}({FormatLiteralValue(_value1)}, {FormatLiteralValue(_value2)}, {FormatLiteralValue(_value3)}, {FormatLiteralValue(_value4)})";
+			=> $"void {ValueFormatter.FormatMethodName(Name)}({FormatLiteralValue(_value1)}, {FormatLiteralValue(_value2)}, {FormatLiteralValue(_value3)}, {FormatLiteralValue(_value4)})";
 	}
 
 	/// <summary>

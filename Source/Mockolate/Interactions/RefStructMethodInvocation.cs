@@ -50,7 +50,7 @@ public sealed class RefStructMethodInvocation : IMethodInteraction
 	/// <inheritdoc cref="object.ToString()" />
 	public override string ToString()
 	{
-		string shortName = Name.SubstringAfterLast('.');
+		string shortName = ValueFormatter.FormatMethodName(Name);
 		if (ParameterNames.Count == 0)
 		{
 			return $"invoke method {shortName}()";

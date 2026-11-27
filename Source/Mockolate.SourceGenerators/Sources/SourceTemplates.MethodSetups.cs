@@ -155,13 +155,8 @@ internal static partial class SourceTemplates
 			sb.Append("\t\t/// <inheritdoc cref=\"object.ToString()\" />").AppendLine();
 			sb.Append("\t\tpublic override string ToString()").AppendLine();
 			sb.Append("\t\t{").AppendLine();
-			sb.Append("\t\t\treturn $\"invoke method {SubstringAfterLast(Name, '.')}(")
+			sb.Append("\t\t\treturn $\"invoke method {(global::Mockolate.Internals.ValueFormatter.FormatMethodName(Name))}(")
 				.Append(string.Join(", ", Enumerable.Range(1, count).Select(x => $"{{(global::Mockolate.Internals.ValueFormatter.Format(Parameter{x}))}}"))).Append(")\";").AppendLine();
-			sb.Append("\t\t\tstatic string SubstringAfterLast(string name, char c)").AppendLine();
-			sb.Append("\t\t\t{").AppendLine();
-			sb.Append("\t\t\t\tint index = name.LastIndexOf(c);").AppendLine();
-			sb.Append("\t\t\t\treturn index >= 0 ? name.Substring(index + 1) : name;").AppendLine();
-			sb.Append("\t\t\t}").AppendLine();
 			sb.Append("\t\t}").AppendLine();
 			sb.Append("\t}").AppendLine();
 		}
@@ -758,12 +753,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t\t/// <inheritdoc cref=\"object.ToString()\" />").AppendLine();
 		sb.Append("\t\t\tpublic override string ToString()").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\treturn $\"void {SubstringAfterLast(Name, '.')}({Parameters})\";").AppendLine();
-		sb.Append("\t\t\t\tstatic string SubstringAfterLast(string name, char c)").AppendLine();
-		sb.Append("\t\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\t\tint index = name.LastIndexOf(c);").AppendLine();
-		sb.Append("\t\t\t\t\treturn index >= 0 ? name.Substring(index + 1) : name;").AppendLine();
-		sb.Append("\t\t\t\t}").AppendLine();
+		sb.Append("\t\t\t\treturn $\"void {(global::Mockolate.Internals.ValueFormatter.FormatMethodName(Name))}({Parameters})\";").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
@@ -851,14 +841,9 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t\t/// <inheritdoc cref=\"object.ToString()\" />").AppendLine();
 		sb.Append("\t\t\tpublic override string ToString()").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\treturn $\"void {SubstringAfterLast(Name, '.')}(")
+		sb.Append("\t\t\t\treturn $\"void {(global::Mockolate.Internals.ValueFormatter.FormatMethodName(Name))}(")
 			.Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(x => $"{{Parameter{x}}}")))
 			.Append(")\";").AppendLine();
-		sb.Append("\t\t\t\tstatic string SubstringAfterLast(string name, char c)").AppendLine();
-		sb.Append("\t\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\t\tint index = name.LastIndexOf(c);").AppendLine();
-		sb.Append("\t\t\t\t\treturn index >= 0 ? name.Substring(index + 1) : name;").AppendLine();
-		sb.Append("\t\t\t\t}").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
@@ -1518,12 +1503,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t\t/// <inheritdoc cref=\"object.ToString()\" />").AppendLine();
 		sb.Append("\t\t\tpublic override string ToString()").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\treturn $\"{FormatType(typeof(TReturn))} {SubstringAfterLast(Name, '.')}({Parameters})\";").AppendLine();
-		sb.Append("\t\t\t\tstatic string SubstringAfterLast(string name, char c)").AppendLine();
-		sb.Append("\t\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\t\tint index = name.LastIndexOf(c);").AppendLine();
-		sb.Append("\t\t\t\t\treturn index >= 0 ? name.Substring(index + 1) : name;").AppendLine();
-		sb.Append("\t\t\t\t}").AppendLine();
+		sb.Append("\t\t\t\treturn $\"{FormatType(typeof(TReturn))} {(global::Mockolate.Internals.ValueFormatter.FormatMethodName(Name))}({Parameters})\";").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
@@ -1611,14 +1591,9 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t\t/// <inheritdoc cref=\"object.ToString()\" />").AppendLine();
 		sb.Append("\t\t\tpublic override string ToString()").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\treturn $\"{FormatType(typeof(TReturn))} {SubstringAfterLast(Name, '.')}(")
+		sb.Append("\t\t\t\treturn $\"{FormatType(typeof(TReturn))} {(global::Mockolate.Internals.ValueFormatter.FormatMethodName(Name))}(")
 			.Append(string.Join(", ", Enumerable.Range(1, numberOfParameters).Select(x => $"{{Parameter{x}}}")))
 			.Append(")\";").AppendLine();
-		sb.Append("\t\t\t\tstatic string SubstringAfterLast(string name, char c)").AppendLine();
-		sb.Append("\t\t\t\t{").AppendLine();
-		sb.Append("\t\t\t\t\tint index = name.LastIndexOf(c);").AppendLine();
-		sb.Append("\t\t\t\t\treturn index >= 0 ? name.Substring(index + 1) : name;").AppendLine();
-		sb.Append("\t\t\t\t}").AppendLine();
 		sb.Append("\t\t\t}").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.Append("\t}").AppendLine();

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace Mockolate.Internals;
@@ -66,6 +68,100 @@ internal static class TypeFormatter
 			typeof(nuint), "nuint"
 		},
 	};
+
+	private static readonly Dictionary<string, string> AliasesByFullName = Aliases.ToDictionary(
+		alias => alias.Key.FullName!, alias => alias.Value, StringComparer.Ordinal);
+
+	internal static string FormatTypeNames(string typeNames)
+	{
+		int position = 0;
+		return string.Join(", ", ParseTypeNames(typeNames, ref position));
+	}
+
+	private static List<string> ParseTypeNames(string text, ref int position)
+	{
+		List<string> types = [];
+		while (position < text.Length && text[position] != ']')
+		{
+			if (text[position] is ',' or ' ')
+			{
+				position++;
+				continue;
+			}
+
+			types.Add(ParseTypeName(text, ref position));
+		}
+
+		return types;
+	}
+
+	private static string ParseTypeName(string text, ref int position)
+	{
+		int start = position;
+		while (position < text.Length && text[position] is not ('[' or ',' or ']'))
+		{
+			position++;
+		}
+
+		string name = text.Substring(start, position - start);
+		List<string>? arguments = null;
+		if (position + 1 < text.Length && text[position] == '[' && text[position + 1] is not (']' or ','))
+		{
+			position++;
+			arguments = ParseTypeNames(text, ref position);
+			position++;
+		}
+
+		StringBuilder stringBuilder = new(FormatTypeName(name, arguments));
+		while (position < text.Length && text[position] == '[')
+		{
+			do
+			{
+				stringBuilder.Append(text[position]);
+			} while (text[position++] != ']');
+		}
+
+		return stringBuilder.ToString();
+	}
+
+	private static string FormatTypeName(string name, List<string>? arguments)
+	{
+		if (arguments is null && AliasesByFullName.TryGetValue(name, out string? alias))
+		{
+			return alias;
+		}
+
+		if (arguments is { Count: 1, } && string.Equals(name, "System.Nullable`1", StringComparison.Ordinal))
+		{
+			return arguments[0] + "?";
+		}
+
+		int nestedStart = name.IndexOf('+');
+		int namespaceEnd = name.AsSpan(0, nestedStart < 0 ? name.Length : nestedStart).LastIndexOf('.');
+		StringBuilder stringBuilder = new();
+		int argumentIndex = 0;
+		foreach (string segment in name.Substring(namespaceEnd + 1).Split('+'))
+		{
+			if (stringBuilder.Length > 0)
+			{
+				stringBuilder.Append('.');
+			}
+
+			int arityStart = segment.IndexOf('`');
+			if (arityStart < 0 || arguments is null)
+			{
+				stringBuilder.Append(segment);
+				continue;
+			}
+
+			int arity = int.Parse(segment.Substring(arityStart + 1), CultureInfo.InvariantCulture);
+			stringBuilder.Append(segment, 0, arityStart).Append('<')
+				.Append(string.Join(", ", arguments.Skip(argumentIndex).Take(arity))).Append('>');
+			argumentIndex += arity;
+		}
+
+		return stringBuilder.ToString();
+	}
 
 	internal static string FormatType(this Type value)
 	{

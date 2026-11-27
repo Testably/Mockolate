@@ -485,12 +485,7 @@ namespace Mockolate.Setup
 			/// <inheritdoc cref="object.ToString()" />
 			public override string ToString()
 			{
-				return $"{FormatType(typeof(TReturn))} {SubstringAfterLast(Name, '.')}({Parameters})";
-				static string SubstringAfterLast(string name, char c)
-				{
-					int index = name.LastIndexOf(c);
-					return index >= 0 ? name.Substring(index + 1) : name;
-				}
+				return $"{FormatType(typeof(TReturn))} {(global::Mockolate.Internals.ValueFormatter.FormatMethodName(Name))}({Parameters})";
 			}
 		}
 
@@ -558,12 +553,7 @@ namespace Mockolate.Setup
 			/// <inheritdoc cref="object.ToString()" />
 			public override string ToString()
 			{
-				return $"{FormatType(typeof(TReturn))} {SubstringAfterLast(Name, '.')}({Parameter1}, {Parameter2}, {Parameter3}, {Parameter4}, {Parameter5})";
-				static string SubstringAfterLast(string name, char c)
-				{
-					int index = name.LastIndexOf(c);
-					return index >= 0 ? name.Substring(index + 1) : name;
-				}
+				return $"{FormatType(typeof(TReturn))} {(global::Mockolate.Internals.ValueFormatter.FormatMethodName(Name))}({Parameter1}, {Parameter2}, {Parameter3}, {Parameter4}, {Parameter5})";
 			}
 		}
 	}
@@ -988,12 +978,7 @@ namespace Mockolate.Setup
 			/// <inheritdoc cref="object.ToString()" />
 			public override string ToString()
 			{
-				return $"void {SubstringAfterLast(Name, '.')}({Parameters})";
-				static string SubstringAfterLast(string name, char c)
-				{
-					int index = name.LastIndexOf(c);
-					return index >= 0 ? name.Substring(index + 1) : name;
-				}
+				return $"void {(global::Mockolate.Internals.ValueFormatter.FormatMethodName(Name))}({Parameters})";
 			}
 		}
 
@@ -1061,12 +1046,7 @@ namespace Mockolate.Setup
 			/// <inheritdoc cref="object.ToString()" />
 			public override string ToString()
 			{
-				return $"void {SubstringAfterLast(Name, '.')}({Parameter1}, {Parameter2}, {Parameter3}, {Parameter4}, {Parameter5})";
-				static string SubstringAfterLast(string name, char c)
-				{
-					int index = name.LastIndexOf(c);
-					return index >= 0 ? name.Substring(index + 1) : name;
-				}
+				return $"void {(global::Mockolate.Internals.ValueFormatter.FormatMethodName(Name))}({Parameter1}, {Parameter2}, {Parameter3}, {Parameter4}, {Parameter5})";
 			}
 		}
 
@@ -1245,12 +1225,7 @@ namespace Mockolate.Interactions
 		/// <inheritdoc cref="object.ToString()" />
 		public override string ToString()
 		{
-			return $"invoke method {SubstringAfterLast(Name, '.')}({(global::Mockolate.Internals.ValueFormatter.Format(Parameter1))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter2))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter3))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter4))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter5))})";
-			static string SubstringAfterLast(string name, char c)
-			{
-				int index = name.LastIndexOf(c);
-				return index >= 0 ? name.Substring(index + 1) : name;
-			}
+			return $"invoke method {(global::Mockolate.Internals.ValueFormatter.FormatMethodName(Name))}({(global::Mockolate.Internals.ValueFormatter.Format(Parameter1))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter2))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter3))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter4))}, {(global::Mockolate.Internals.ValueFormatter.Format(Parameter5))})";
 		}
 	}
 }

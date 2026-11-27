@@ -68,6 +68,27 @@ public class ValueFormatterTests
 		await That(result).IsEqualTo("null");
 	}
 
+	[Test]
+	[Arguments("global::Foo.IBar.Baz", "Baz")]
+	[Arguments("Baz", "Baz")]
+	[Arguments("global::Foo.IBar.Baz<System.String>", "Baz<string>")]
+	[Arguments("global::Foo.IBar<global::System.String>.Baz<System.Int32>", "Baz<int>")]
+	[Arguments("global::Foo.IBar.Baz<System.String, Foo.Qux>", "Baz<string, Qux>")]
+	[Arguments("global::Foo.IBar.Baz<System.Collections.Generic.Dictionary`2[System.String,System.Collections.Generic.List`1[System.Int32]]>", "Baz<Dictionary<string, List<int>>>")]
+	[Arguments("global::Foo.IBar.Baz<System.Nullable`1[System.Int32]>", "Baz<int?>")]
+	[Arguments("global::Foo.IBar.Baz<System.Int32[]>", "Baz<int[]>")]
+	[Arguments("global::Foo.IBar.Baz<System.Int32[,][]>", "Baz<int[,][]>")]
+	[Arguments("global::Foo.IBar.Baz<System.Collections.Generic.List`1[System.String][]>", "Baz<List<string>[]>")]
+	[Arguments("global::Foo.IBar.Baz<Foo.Outer`1+Inner`1[System.String,System.Int32]>", "Baz<Outer<string>.Inner<int>>")]
+	[Arguments("global::Foo.IBar.Baz<Foo.Outer+Inner>", "Baz<Outer.Inner>")]
+	[Arguments("global::Foo.IBar.Baz<<>f__AnonymousType0`1[System.Int32]>", "Baz<<>f__AnonymousType0<int>>")]
+	public async Task FormatMethodName_ShouldStripTheContainingTypeAndShowTheTypeArgumentsInCSharp(string name, string expected)
+	{
+		string result = ValueFormatter.FormatMethodName(name);
+
+		await That(result).IsEqualTo(expected);
+	}
+
 	private sealed class FixedToString(string? value)
 	{
 		public override string? ToString() => value;
