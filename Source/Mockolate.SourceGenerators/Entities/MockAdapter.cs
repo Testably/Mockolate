@@ -46,7 +46,17 @@ ClearHook: null, new EquatableArray<string>([]),
 		]),
 		"ClearFactoryInteractions", new EquatableArray<string>(["CreateLogger",]));
 
-	internal static MockAdapter[] All { get; } = [Logger, LoggerFactory,];
+	internal static MockAdapter MemoryCache { get; } = new(
+		"Microsoft.Extensions.Caching.Memory", "IMemoryCache", MockAdapterClasses.WithAbstractMembers, "global::Mockolate.MockolateCaching",
+		new EquatableArray<MockAdapterMember>([
+			new MockAdapterMember("TryGetValue", MockAdapterMemberKind.AnsweredWithoutSetup, "TryGetValue", IsIgnoredByVerifyAll: false,
+				HookReceivesWhetherSetupMatched: true),
+			new MockAdapterMember("CreateEntry", MockAdapterMemberKind.AnsweredWithoutSetup, "CreateEntry", IsIgnoredByVerifyAll: true, "RecordEntry"),
+			new MockAdapterMember("Remove", MockAdapterMemberKind.AnsweredWithoutSetup, "Remove", IsIgnoredByVerifyAll: false),
+		]),
+		ClearHook: null, new EquatableArray<string>([]));
+
+	internal static MockAdapter[] All { get; } = [Logger, LoggerFactory, MemoryCache,];
 
 	/// <summary>
 	///     The fully qualified name of the adapted interface, as members state their containing type.

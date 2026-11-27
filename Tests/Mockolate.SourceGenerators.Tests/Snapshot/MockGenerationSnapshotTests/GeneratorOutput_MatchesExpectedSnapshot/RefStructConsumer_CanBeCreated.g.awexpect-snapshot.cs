@@ -386,13 +386,13 @@ internal static partial class Mock
 				{
 					if (methodSetup is global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.SpanWrapper<int>>.WithParameterCollection wpc)
 					{
-						if (wpc.Parameter1 is not global::Mockolate.Parameters.IOutParameter<global::Mockolate.Setup.SpanWrapper<int>> outParam1 || !outParam1.TryGetValue(out global::Mockolate.Setup.SpanWrapper<int> outTemp1))
-						{
-							span = this.MockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Setup.SpanWrapper<int>)!);
-						}
-						else
+						if (wpc.Parameter1 is global::Mockolate.Parameters.IOutParameter<global::Mockolate.Setup.SpanWrapper<int>> outParam1 && outParam1.TryGetValue(out global::Mockolate.Setup.SpanWrapper<int> outTemp1))
 						{
 							span = outTemp1;
+						}
+						else if (!hasWrappedResult)
+						{
+							span = this.MockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Setup.SpanWrapper<int>)!);
 						}
 					}
 					else
@@ -547,13 +547,13 @@ internal static partial class Mock
 				{
 					if (methodSetup is global::Mockolate.Setup.VoidMethodSetup<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>.WithParameterCollection wpc)
 					{
-						if (wpc.Parameter1 is not global::Mockolate.Parameters.IOutParameter<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> outParam1 || !outParam1.TryGetValue(out global::Mockolate.Setup.ReadOnlySpanWrapper<int> outTemp1))
-						{
-							span = this.MockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Setup.ReadOnlySpanWrapper<int>)!);
-						}
-						else
+						if (wpc.Parameter1 is global::Mockolate.Parameters.IOutParameter<global::Mockolate.Setup.ReadOnlySpanWrapper<int>> outParam1 && outParam1.TryGetValue(out global::Mockolate.Setup.ReadOnlySpanWrapper<int> outTemp1))
 						{
 							span = outTemp1;
+						}
+						else if (!hasWrappedResult)
+						{
+							span = this.MockRegistry.Behavior.DefaultValue.Generate(default(global::Mockolate.Setup.ReadOnlySpanWrapper<int>)!);
 						}
 					}
 					else

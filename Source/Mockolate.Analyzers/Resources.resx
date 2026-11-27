@@ -333,6 +333,15 @@
 		<value>is also marked [NotShared], which has no effect</value>
 		<comment>Completes Mockolate0012MessageFormat.</comment>
 	</data>
+	<data name="Mockolate0015Description" xml:space="preserve">
+		<value>The memory cache setups and verifications need a mock that behaves like a cache, so the mock of a class that implements IMemoryCache only supports them when TryGetValue, CreateEntry and Remove are abstract. Otherwise the mock calls the base implementations.</value>
+	</data>
+	<data name="Mockolate0015MessageFormat" xml:space="preserve">
+		<value>The memory cache setups and verifications are not supported on the mock of class '{0}', because it calls the base implementations of TryGetValue, CreateEntry or Remove</value>
+	</data>
+	<data name="Mockolate0015Title" xml:space="preserve">
+		<value>Memory cache setups and verifications need a mock that behaves like a cache</value>
+	</data>
 	<data name="Mockolate0013Description" xml:space="preserve">
 		<value>A [ValueFrom] parameter takes its value from a static property or parameterless static method of the test class or a non-private one of its base classes, whose type must be assignable to the parameter. A field is not supported, because it would share one instance with all test cases. A given argument of the attribute replaces the value, and a [Deferred] marker contradicts it.</value>
 	</data>

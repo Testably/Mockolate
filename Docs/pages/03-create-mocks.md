@@ -431,7 +431,7 @@ The arguments are filled by the same rules. Pass your own by name, and the other
 <details>
 <summary>Details and limitations</summary>
 
-- A parameter is mockable when its type is an interface outside the global, `System`, `Microsoft` and `Windows` namespaces that the generator can mock without a `CreateMock` call of its own, by the same mockability rules as an auto-mock (see the limitations of [auto-mocking](#auto-mocking)). `ILogger`, `ILogger<T>` and `ILoggerFactory` are mockable too, because Mockolate has [dedicated mocks](09-special-types/03-logging.md) for them.
+- A parameter is mockable when its type is an interface outside the global, `System`, `Microsoft` and `Windows` namespaces that the generator can mock without a `CreateMock` call of its own, by the same mockability rules as an auto-mock (see the limitations of [auto-mocking](#auto-mocking)). `ILogger`, `ILogger<T>`, `ILoggerFactory` and `IMemoryCache` are mockable too, because Mockolate has dedicated mocks for [logging](09-special-types/03-logging.md) and the [memory cache](09-special-types/04-memory-cache.md).
 - A class with a constructor that can be called without arguments uses that constructor, so its optional parameters keep their defaults instead of getting mocks.
 - When several constructors share the most parameters, `CreateMock()` fails with a `MockException`; pass the constructor parameters yourself. Constructors with `ref`, `out`, pointer or ref struct parameters and obsolete constructors are not filled.
 - A class dependency is not created for you: it needs a [default value](#default-values) or an argument.

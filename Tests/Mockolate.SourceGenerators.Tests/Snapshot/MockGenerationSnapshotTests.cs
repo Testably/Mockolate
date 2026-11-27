@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using aweXpect.Core;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
 namespace Mockolate.SourceGenerators.Tests.Snapshot;
@@ -304,6 +305,14 @@ public sealed partial class MockGenerationSnapshotTests
             LeafLogger sut2 = LeafLogger.CreateMock();
             """,
             [typeof(ILogger),],
+            Snapshot: true),
+        new(
+            "MemoryCache_CanBeCreated",
+            [],
+            """
+            Microsoft.Extensions.Caching.Memory.IMemoryCache sut1 = Microsoft.Extensions.Caching.Memory.IMemoryCache.CreateMock();
+            """,
+            [typeof(IMemoryCache), typeof(Microsoft.Extensions.Primitives.IChangeToken),],
             Snapshot: true),
         new(
             "MethodConstrainedToTypeArgument_CanBeCreated",

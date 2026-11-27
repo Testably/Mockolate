@@ -554,7 +554,7 @@ internal static partial class SourceTemplates
 		          			=> true;
 
 		          		private static global::Mockolate.Internals.IMockAdapterAccess GetAccess(object mock)
-		          			=> mock as global::Mockolate.Internals.IMockAdapterAccess ?? throw new global::Mockolate.Exceptions.MockException($"The logging setups and verifications do not support '{mock}'.");
+		          			=> mock is global::Mockolate.Internals.IMockAdapterAccess access && (access.GetMemberId("Log") >= 0 || access.GetMemberId("CreateLogger") >= 0) ? access : throw new global::Mockolate.Exceptions.MockException($"The logging setups and verifications do not support '{mock}'.");
 
 		          		private static global::Mockolate.Setup.ILogSetup SetupLog(object setup, global::Microsoft.Extensions.Logging.LogLevel? logLevel, string entry)
 		          		{
