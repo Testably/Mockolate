@@ -77,6 +77,16 @@ public sealed class AutoMockArgumentsTests
 		await That(((DiscountRule)row[1]).Percentage).IsEqualTo(10m);
 	}
 
+	[Test]
+	public async Task GetData_WithValueProviderParameter_ShouldPassTheValueToTheClassUnderTest()
+	{
+		object[] row = GetSingleRow(nameof(ValueProvider));
+		PriceCalculator sut = (PriceCalculator)row[0];
+
+		await That(sut.Rule).IsSameAs(row[1]);
+		await That(((DiscountRule)row[1]).Percentage).IsEqualTo(25m);
+	}
+
 	private static object[] GetSingleRow(string methodName)
 	{
 		MethodInfo method = typeof(AutoMockArgumentsTests).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)!;
@@ -111,6 +121,11 @@ public sealed class AutoMockArgumentsTests
 
 	[AutoMockArguments]
 	private static void ValueFrom(PriceCalculator sut, [ValueFrom(nameof(TenPercentOff))] DiscountRule rule)
+	{
+	}
+
+	[AutoMockArguments]
+	private static void ValueProvider(PriceCalculator sut, [Discount(25)] DiscountRule rule)
 	{
 	}
 

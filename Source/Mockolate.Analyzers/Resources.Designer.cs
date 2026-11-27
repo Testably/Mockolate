@@ -690,6 +690,69 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to has a value provider and is also marked [Deferred].
+        /// </summary>
+        internal static string Mockolate0014DeferredReason {
+            get {
+                return ResourceManager.GetString("Mockolate0014DeferredReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to An attribute that implements IParameterValueProvider provides the value of a test parameter. When the attribute declares the types of its values with [ProvidesValuesFor], one of them must be assignable to the parameter. A parameter can have only one value provider or [ValueFrom]. A given argument of the attribute replaces the value, and a [Deferred] marker contradicts it..
+        /// </summary>
+        internal static string Mockolate0014Description {
+            get {
+                return ResourceManager.GetString("Mockolate0014Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to gets a given argument of the attribute, which replaces the value of its value provider.
+        /// </summary>
+        internal static string Mockolate0014GivenArgumentReason {
+            get {
+                return ResourceManager.GetString("Mockolate0014GivenArgumentReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The parameter &apos;{0}&apos; {1}.
+        /// </summary>
+        internal static string Mockolate0014MessageFormat {
+            get {
+                return ResourceManager.GetString("Mockolate0014MessageFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to has more than one value provider or [ValueFrom].
+        /// </summary>
+        internal static string Mockolate0014MultipleReason {
+            get {
+                return ResourceManager.GetString("Mockolate0014MultipleReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to has the value provider &apos;{0}&apos;, which provides only values of type {1}.
+        /// </summary>
+        internal static string Mockolate0014NotProvidedReason {
+            get {
+                return ResourceManager.GetString("Mockolate0014NotProvidedReason", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to A parameter with a value provider is invalid.
+        /// </summary>
+        internal static string Mockolate0014Title {
+            get {
+                return ResourceManager.GetString("Mockolate0014Title", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Add the explicit type '{0}'.
         /// </summary>
         internal static string UnionArgumentCodeFixTitle {

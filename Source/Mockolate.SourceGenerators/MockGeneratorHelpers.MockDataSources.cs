@@ -271,6 +271,11 @@ internal static partial class MockGeneratorHelpers
 				continue;
 			}
 
+			if (HasValueProvider(parameter))
+			{
+				continue;
+			}
+
 			ITypeSymbol parameterType = parameter.Type.WithDynamicAsObject(compilation)
 				.WithNullableAnnotation(NullableAnnotation.NotAnnotated);
 			// A [Deferred] Func<T> creates its T when the test calls it, so T is filled like a parameter instead.
@@ -657,6 +662,14 @@ internal static partial class MockGeneratorHelpers
 				ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, },
 			},
 		});
+
+	private static bool HasValueProvider(IParameterSymbol parameter)
+		=> parameter.GetAttributes().Any(attribute => attribute.AttributeClass?.AllInterfaces.Any(@interface =>
+			@interface is
+			{
+				Name: "IParameterValueProvider",
+				ContainingNamespace: { Name: "Mockolate", ContainingNamespace.IsGlobalNamespace: true, },
+			}) == true);
 
 	private sealed record DataSourceTargets(
 		List<DataSourceClass> Classes,

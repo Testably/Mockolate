@@ -44,6 +44,14 @@ public interface IMockDataValueFromOnly
 }
 
 /// <summary>
+///     Only a parameter with a value provider asks for it, so no mock is generated for it.
+/// </summary>
+public interface IMockDataValueProviderOnly
+{
+	int GetValue();
+}
+
+/// <summary>
 ///     A class whose concrete constructor dependency is created with the same resolver.
 /// </summary>
 public class MockDataService(
@@ -232,6 +240,9 @@ public static class MockDataSourceTargets
 	public static object ValueFrom([MockDataValueFrom(nameof(ValueFromOnly))] IMockDataValueFromOnly value) => value;
 
 	private static IMockDataValueFromOnly ValueFromOnly => null!;
+
+	[MockData]
+	public static object ValueProvider([MockDataValueProvider] IMockDataValueProviderOnly value) => value;
 
 	public static class Nested
 	{

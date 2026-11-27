@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Threading;
 using Mockolate.Integrations.TUnit;
 using Mockolate.Frameworks.TestHelpers.Domain;
@@ -391,6 +392,48 @@ public sealed class AutoMockArgumentsTests
 	{
 		await That(amount).IsEqualTo(5);
 		await That(sut.Rule).IsSameAs(rule);
+	}
+
+	[Test]
+	[AutoMockArguments]
+	public async Task ValueProvider_ShouldPassItsValueToTheClassUnderTest(PriceCalculator sut,
+		[Discount(25)] DiscountRule rule)
+	{
+		await That(sut.Rule).IsSameAs(rule);
+		await That(rule.Percentage).IsEqualTo(25m);
+		await That(rule.ProductCode).IsEqualTo("rule").Because("the provider gets the parameter");
+	}
+
+	[Test]
+	[AutoMockArguments]
+	public async Task ValueProvider_WithNotShared_ShouldNotPassItToTheClassUnderTest(PriceCalculator sut,
+		[NotShared] [Discount(25)] DiscountRule rule)
+	{
+		await That(sut.Rule).IsNotSameAs(rule);
+		await That(sut.Rule.Percentage).IsEqualTo(0m).Because("the class under test gets a created rule");
+	}
+
+	[Test]
+	[AutoMockArguments]
+	public async Task ValueProvider_WithAsDefault_ShouldBeReturnedByMembersWithoutSetup(IWarehouse warehouse,
+		[AsDefault] [OrderRepository] IOrderRepository repository)
+	{
+		await That(warehouse.Repository).IsSameAs(repository);
+	}
+
+	[Test]
+	[AutoMockArguments(5)]
+	public async Task ValueProvider_WithGivenArguments_ShouldFillTheParameterAfterThem(int amount,
+		PriceCalculator sut, [Discount(25)] DiscountRule rule)
+	{
+		await That(amount).IsEqualTo(5);
+		await That(sut.Rule).IsSameAs(rule);
+	}
+
+	[AttributeUsage(AttributeTargets.Parameter)]
+	internal sealed class OrderRepositoryAttribute : Attribute, IParameterValueProvider
+	{
+		public object? ProvideValue(ParameterInfo parameter) => IOrderRepository.CreateMock();
 	}
 
 	private static DiscountRule TenPercentOff => new()

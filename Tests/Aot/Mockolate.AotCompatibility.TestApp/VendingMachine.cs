@@ -44,8 +44,21 @@ internal sealed class DeferredAttribute : Mockolate.Integrations.DeferredParamet
 /// </summary>
 internal sealed class ValueFromAttribute(string memberName) : Mockolate.Integrations.ValueFromParameterAttribute(memberName);
 
+/// <summary>
+///     A value provider like one that a user writes.
+/// </summary>
+[ProvidesValuesFor(typeof(string))]
+[AttributeUsage(AttributeTargets.Parameter)]
+internal sealed class LocationAttribute : Attribute, IParameterValueProvider
+{
+	public object? ProvideValue(System.Reflection.ParameterInfo parameter) => $"{parameter.Name} hall";
+}
+
 public static class MockDataSourceTargets
 {
+	[MockArguments]
+	internal static string FromProvider([Location] string entrance) => entrance;
+
 	[MockArguments]
 	public static bool Buy(VendingMachine sut, IChocolateDispenser dispenser, string type) => sut.Buy(type, 1) && dispenser.Stock > 0;
 

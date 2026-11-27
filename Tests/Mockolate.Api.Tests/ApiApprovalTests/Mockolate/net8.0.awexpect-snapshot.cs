@@ -93,6 +93,10 @@ namespace Mockolate
         bool TryGet<T>([System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out T value);
         bool TryGetConstructorParameters<T>([System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out object?[]? parameters);
     }
+    public interface IParameterValueProvider
+    {
+        object? ProvideValue(System.Reflection.ParameterInfo parameter);
+    }
     public class It
     {
         public static Mockolate.It.IContainsParameter<T> Contains<T>(T item, [System.Runtime.CompilerServices.CallerArgumentExpression("item")] string doNotPopulateThisValue = "") { }
@@ -263,6 +267,12 @@ namespace Mockolate
         {
             public Mockolate.Parameters.IRefParameter<T> Monitor(out Mockolate.Parameters.IParameterMonitor<T> monitor) { }
         }
+    }
+    [System.AttributeUsage(System.AttributeTargets.Class)]
+    public sealed class ProvidesValuesForAttribute : System.Attribute
+    {
+        public ProvidesValuesForAttribute(params System.Type[]? types) { }
+        public System.Type[] Types { get; }
     }
     public static class ReturnsThrowsAsyncExtensions
     {

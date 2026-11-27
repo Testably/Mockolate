@@ -318,6 +318,12 @@ internal static class Checks
 				new Func<string, string>(MockDataSourceTargets.Nested.FromNestedMember).Method.GetParameters()[0];
 			return Equal(AutoMockRow.GetValueFrom(parameter)?.Invoke(), (object?)"Hall");
 		}),
+		new("a value provider AutoMockArguments parameter gets the value of its attribute", () =>
+		{
+			System.Reflection.ParameterInfo parameter =
+				new Func<string, string>(MockDataSourceTargets.FromProvider).Method.GetParameters()[0];
+			return Equal(AutoMockRow.GetValueFrom(parameter)?.Invoke(), (object?)"entrance hall");
+		}),
 		new("CreateMock with an out parameter creates a sealed class with mocked dependencies", () =>
 		{
 			SealedVendingMachine sut = SealedVendingMachine.CreateMock(out ConstructorArguments arguments, location: "Lobby");
