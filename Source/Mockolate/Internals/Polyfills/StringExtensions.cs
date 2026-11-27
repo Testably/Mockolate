@@ -1,6 +1,8 @@
 #if NETSTANDARD2_0
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Text;
 
 namespace Mockolate.Internals.Polyfills;
 
@@ -58,6 +60,16 @@ internal static class StringExtensionMethods
 		StringComparison comparisonType)
 		=> @this.Replace(oldValue, newValue);
 #pragma warning restore MA0001
+
+	/// <summary>
+	///     Concatenates the <paramref name="values" />, using the <paramref name="separator" /> between each of them, and
+	///     appends the result to the <paramref name="builder" />.
+	/// </summary>
+	internal static StringBuilder AppendJoin(
+		this StringBuilder builder,
+		string separator,
+		IEnumerable<string> values)
+		=> builder.Append(string.Join(separator, values));
 
 	/// <summary>
 	///     Splits a string into a maximum number of substrings based on the provided character <paramref name="separator" />,

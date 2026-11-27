@@ -32,7 +32,7 @@ internal static partial class SourceTemplates
 		string otherReference)
 	{
 		sb.Append("internal static partial class MockExtensionsFor").Append(otherName).AppendLine();
-		sb.Append("{").AppendLine();
+		sb.Append('{').AppendLine();
 		sb.Append("\textension(global::Mockolate.Mock.IMockFor").Append(sourceName).Append(" mock)").AppendLine();
 		sb.Append("\t{").AppendLine();
 		sb.AppendXmlSummary($"Reinterprets this mock as a mock of {otherReference} to reach its Setup/Verify/Raise surface.");
@@ -50,7 +50,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t\tthrow new global::Mockolate.Exceptions.MockException($\"The subject does not support type {typeof(T)}.\");").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.Append("\t}").AppendLine();
-		sb.Append("}").AppendLine();
+		sb.Append('}').AppendLine();
 		sb.AppendLine();
 	}
 }

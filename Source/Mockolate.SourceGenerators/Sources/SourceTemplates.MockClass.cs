@@ -59,7 +59,7 @@ internal static partial class SourceTemplates
 		#region Mock
 
 		sb.Append("internal static partial class Mock").AppendLine();
-		sb.Append("{").AppendLine();
+		sb.Append('{').AppendLine();
 		
 		#region MockForXXX
 		
@@ -142,7 +142,7 @@ internal static partial class SourceTemplates
 				sb.Append(", IMockStaticVerifyFor").Append(hiddenBase.Name);
 			}
 
-			sb.Append(",").AppendLine();
+			sb.Append(',').AppendLine();
 		}
 
 		sb.Append("\t\tglobal::Mockolate.IMock");
@@ -715,7 +715,7 @@ internal static partial class SourceTemplates
 		sb.Append("\tinternal interface IMockSetupFor").Append(name);
 		if (!hasStaticMembers && !hasStaticEvents)
 		{
-			sb.Append(" : global::Mockolate.Setup.IMockSetup<").Append(@class.ClassFullName).Append(">").AppendLine();
+			sb.Append(" : global::Mockolate.Setup.IMockSetup<").Append(@class.ClassFullName).Append('>').AppendLine();
 		}
 		else
 		{
@@ -817,7 +817,7 @@ internal static partial class SourceTemplates
 		sb.Append("\tinternal interface IMockVerifyFor").Append(name);
 		if (!hasStaticMembers && !hasStaticEvents)
 		{
-			sb.Append(" : global::Mockolate.Verify.IMockVerify<").Append(@class.ClassFullName).Append(">").AppendLine();
+			sb.Append(" : global::Mockolate.Verify.IMockVerify<").Append(@class.ClassFullName).Append('>').AppendLine();
 		}
 		else
 		{
@@ -868,7 +868,7 @@ internal static partial class SourceTemplates
 
 		#endregion Mock Interfaces
 
-		sb.Append("}").AppendLine();
+		sb.Append('}').AppendLine();
 		
 		#endregion Mock
 		
@@ -880,7 +880,7 @@ internal static partial class SourceTemplates
 #endif
 		sb.Append("[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 		sb.Append("internal static partial class MockExtensionsFor").Append(name).AppendLine();
-		sb.Append("{").AppendLine();
+		sb.Append('{').AppendLine();
 
 		#region Mock Type extensions
 
@@ -1172,10 +1172,10 @@ internal static partial class SourceTemplates
 						.Append(", mockRegistry.Behavior, out ").Append(parameter.Type.Fullname).Append(" c")
 						.Append(constructorIndex)
 						.Append('p')
-						.Append(constructorParameterIndex).Append(")");
+						.Append(constructorParameterIndex).Append(')');
 				}
 
-				sb.Append(")").AppendLine();
+				sb.Append(')').AppendLine();
 				sb.Append("\t\t\t{").AppendLine();
 				sb.Append("\t\t\t\tglobal::Mockolate.Mock.").Append(name).Append(".MockRegistryProvider.Value = mockRegistry;").AppendLine();
 				sb.Append("\t\t\t\tglobal::Mockolate.MockExtensionsFor").Append(name).Append(".MockSetup? setupTarget = null;").AppendLine();
@@ -1373,7 +1373,7 @@ internal static partial class SourceTemplates
 
 		#endregion Setup helpers
 
-		sb.Append("}").AppendLine();
+		sb.Append('}').AppendLine();
 
 		#endregion MockForXXXExtensions
 		
@@ -1722,7 +1722,7 @@ internal static partial class SourceTemplates
 			}
 		}
 
-		sb.Append(")").AppendLine();
+		sb.Append(')').AppendLine();
 		sb.Append("\t\t\t: base(");
 		int index = 0;
 		foreach (MethodParameter parameter in constructor.Parameters)
@@ -1770,7 +1770,7 @@ internal static partial class SourceTemplates
 		sb.Append(indent).Append("///     Builds a <see cref=\"global::Mockolate.Internals.MockRegistry\" /> backed by a ").Append("<see cref=\"global::Mockolate.Internals.MockInteractions\" /> for the members of the mock, from <paramref name=\"behavior\" />.").AppendLine();
 		sb.Append(indent).Append("/// </summary>").AppendLine();
 		sb.Append(indent).Append("private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)").AppendLine();
-		sb.Append(indent).Append("{").AppendLine();
+		sb.Append(indent).Append('{').AppendLine();
 		AppendUseAutoMockFactory(sb, indent + "\t", "behavior", autoMocking);
 		sb.Append(indent).Append("\tglobal::Mockolate.Internals.MockRegistry registry = new global::Mockolate.Internals.MockRegistry(behavior, MemberCount);").AppendLine();
 		if (setsMockRegistryProvider)
@@ -1779,7 +1779,7 @@ internal static partial class SourceTemplates
 		}
 
 		sb.Append(indent).Append("\treturn registry;").AppendLine();
-		sb.Append(indent).Append("}").AppendLine();
+		sb.Append(indent).Append('}').AppendLine();
 	}
 
 	/// <summary>
@@ -1830,14 +1830,14 @@ internal static partial class SourceTemplates
 			}
 		}
 
-		sb.Append(")").AppendLine();
-		sb.Append("\t\t\t: this(MockolateCreateRegistryFromBehavior(").Append(behavior).Append(")");
+		sb.Append(')').AppendLine();
+		sb.Append("\t\t\t: this(MockolateCreateRegistryFromBehavior(").Append(behavior).Append(')');
 		foreach (MethodParameter parameter in constructor.Parameters)
 		{
 			sb.Append(", ").Append(parameter.Name);
 		}
 
-		sb.Append(")").AppendLine();
+		sb.Append(')').AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t}").AppendLine();
 		sb.AppendLine();
@@ -2113,7 +2113,7 @@ internal static partial class SourceTemplates
 			sb.Append(indent).Append("return ").Append(setupVarName).Append(" is null").AppendLine();
 			sb.Append(indent).Append("\t? ").Append(mockRegistry).Append(".GetIndexerFallback<")
 				.AppendTypeOrWrapper(property.Type).Append(">(").Append(accessVarName).Append(", ")
-				.Append(defaultValueGenerator).Append(", ").Append(signatureIndex).Append(")")
+				.Append(defaultValueGenerator).Append(", ").Append(signatureIndex).Append(')')
 				.AppendLine();
 			sb.Append(indent).Append("\t: ").Append(mockRegistry).Append(".ApplyIndexerSetup<")
 				.AppendTypeOrWrapper(property.Type).Append(">(").Append(accessVarName).Append(", ")
@@ -2170,7 +2170,7 @@ internal static partial class SourceTemplates
 		if (explicitInterfaceImplementation)
 		{
 			sb.Append(property.IsStatic ? "\t\tstatic " : "\t\t").Append(property.Type.Fullname)
-				.Append(" ").Append(property.ContainingType).Append('.').Append(property.IndexerParameters is not null
+				.Append(' ').Append(property.ContainingType).Append('.').Append(property.IndexerParameters is not null
 					? property.Name.Replace("[]",
 						$"[{string.Join(", ", property.IndexerParameters.Value.Select(p => $"{p.Type.Fullname} {p.Name}"))}]")
 					: property.Name).AppendLine();
@@ -2194,7 +2194,7 @@ internal static partial class SourceTemplates
 					sb.Append("new ");
 				}
 
-				sb.Append(property.Type.Fullname).Append(" ");
+				sb.Append(property.Type.Fullname).Append(' ');
 			}
 			else
 			{
@@ -2205,7 +2205,7 @@ internal static partial class SourceTemplates
 					sb.Append("static ");
 				}
 
-				sb.Append(property.Type.Fullname).Append(" ").Append(property.ExplicitImplementation)
+				sb.Append(property.Type.Fullname).Append(' ').Append(property.ExplicitImplementation)
 					.Append('.');
 			}
 
@@ -2971,7 +2971,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t\tbool ").Append(hasWrappedResult).Append(" = false;").AppendLine();
 		if (method.ReturnType != Type.Void)
 		{
-			sb.Append("\t\t\t").Append(method.ReturnType.Fullname).Append(" ").Append(wrappedResult)
+			sb.Append("\t\t\t").Append(method.ReturnType.Fullname).Append(' ').Append(wrappedResult)
 				.Append(" = default!;")
 				.AppendLine();
 		}
@@ -3016,7 +3016,7 @@ internal static partial class SourceTemplates
 					.Append('>');
 			}
 
-			sb.Append("(").Append(method.GetUniqueNameString());
+			sb.Append('(').Append(method.GetUniqueNameString());
 			if (method.Parameters.Count > 0)
 			{
 				sb.Append(", ").Append(string.Join(", ", method.Parameters.Select(p => p.ToNameOrWrapper())));
@@ -3171,7 +3171,7 @@ internal static partial class SourceTemplates
 						.Append(" is global::Mockolate.Parameters.IRefParameter<")
 						.Append(parameter.Type.ToTypeOrWrapper()).Append("> ").Append(refParamBase)
 						.Append(parameterIndex)
-						.Append(")").AppendLine();
+						.Append(')').AppendLine();
 					sb.Append("\t\t\t\t\t\t{").AppendLine();
 					sb.Append("\t\t\t\t\t\t\t").Append(parameter.Name).Append(" = ").Append(refParamBase)
 						.Append(parameterIndex)
@@ -3254,13 +3254,13 @@ internal static partial class SourceTemplates
 			bool isRefReturn = method.IsRefReturn || method.IsRefReadonlyReturn;
 			string returnValue = Helpers.GetUniqueLocalVariableName("returnValue", method.Parameters);
 			sb.Append("\t\t\tif (").Append(methodSetup).Append("?.HasReturnCallbacks != true && ")
-				.Append(hasWrappedResult).Append(")").AppendLine();
+				.Append(hasWrappedResult).Append(')').AppendLine();
 			sb.Append("\t\t\t{").AppendLine();
 			if (isRefReturn)
 			{
 				sb.Append("\t\t\t\tthis.").Append(refReturnStorageField).Append(" = ")
-					.Append(wrappedResult).Append(";").AppendLine();
-				sb.Append("\t\t\t\treturn ref this.").Append(refReturnStorageField).Append(";").AppendLine();
+					.Append(wrappedResult).Append(';').AppendLine();
+				sb.Append("\t\t\t\treturn ref this.").Append(refReturnStorageField).Append(';').AppendLine();
 			}
 			else if (answeringMember is { Member.WrappedResultHook: { } wrappedResultHook, } wrappedAnswering)
 			{
@@ -3270,7 +3270,7 @@ internal static partial class SourceTemplates
 			}
 			else
 			{
-				sb.Append("\t\t\t\treturn ").Append(wrappedResult).Append(";").AppendLine();
+				sb.Append("\t\t\t\treturn ").Append(wrappedResult).Append(';').AppendLine();
 			}
 
 			sb.Append("\t\t\t}").AppendLine();
@@ -3323,7 +3323,7 @@ internal static partial class SourceTemplates
 			sb.Append(';').AppendLine();
 			if (isRefReturn)
 			{
-				sb.Append("\t\t\treturn ref this.").Append(refReturnStorageField).Append(";").AppendLine();
+				sb.Append("\t\t\treturn ref this.").Append(refReturnStorageField).Append(';').AppendLine();
 			}
 		}
 
@@ -3434,7 +3434,7 @@ internal static partial class SourceTemplates
 				string refVar = Helpers.GetUniqueLocalVariableName(FormattableString.Invariant($"refParam{refStructSlotIndex}"), method.Parameters);
 				sb.Append("\t\t\t\tif (").Append(setupVar).Append(".GetMatcher").Append(refStructSlotIndex)
 					.Append("() is global::Mockolate.Parameters.IRefRefStructParameter<")
-					.Append(parameter.Type.Fullname).Append("> ").Append(refVar).Append(")").AppendLine();
+					.Append(parameter.Type.Fullname).Append("> ").Append(refVar).Append(')').AppendLine();
 				sb.Append("\t\t\t\t{").AppendLine();
 				sb.Append("\t\t\t\t\t").Append(parameter.Name).Append(" = ").Append(refVar).Append(".GetValue(")
 					.Append(parameter.Name).Append(");").AppendLine();
@@ -4798,7 +4798,7 @@ internal static partial class SourceTemplates
 				.Append(string.Join(", ", method.Parameters.Take(kept).Select(p => $"<paramref name=\"{p.Name.TrimStart('@')}\"/>")));
 		}
 
-		sb.Append(".").AppendLine();
+		sb.Append('.').AppendLine();
 		sb.Append("\t\t/// </summary>").AppendLine();
 		if (!emptyParams)
 		{
@@ -4844,7 +4844,7 @@ internal static partial class SourceTemplates
 			}
 
 			sb.Append("> ");
-			sb.Append(methodName).Append("(");
+			sb.Append(methodName).Append('(');
 		}
 		else
 		{
@@ -4890,7 +4890,7 @@ internal static partial class SourceTemplates
 				sb.Append('>');
 			}
 
-			sb.Append(' ').Append(methodName).Append("(");
+			sb.Append(' ').Append(methodName).Append('(');
 		}
 
 		if (useParameters)
@@ -4949,7 +4949,7 @@ internal static partial class SourceTemplates
 				i++;
 			}
 
-			sb.Append(")");
+			sb.Append(')');
 		}
 
 		if (method.GenericParameters is not null && method.GenericParameters.Value.Count > 0)
@@ -4960,7 +4960,7 @@ internal static partial class SourceTemplates
 			}
 		}
 
-		sb.Append(";").AppendLine();
+		sb.Append(';').AppendLine();
 		sb.AppendLine();
 	}
 
@@ -5203,7 +5203,7 @@ internal static partial class SourceTemplates
 			}
 
 			sb.Append("> global::Mockolate.Mock.").Append(setupName).Append('.');
-			sb.Append(methodName).Append("(");
+			sb.Append(methodName).Append('(');
 		}
 		else
 		{
@@ -5235,7 +5235,7 @@ internal static partial class SourceTemplates
 				sb.Append('>');
 			}
 
-			sb.Append(" global::Mockolate.Mock.").Append(setupName).Append('.').Append(methodName).Append("(");
+			sb.Append(" global::Mockolate.Mock.").Append(setupName).Append('.').Append(methodName).Append('(');
 		}
 
 		if (useParameters)
@@ -5288,7 +5288,7 @@ internal static partial class SourceTemplates
 				i++;
 			}
 
-			sb.Append(")");
+			sb.Append(')');
 		}
 
 		if (method.GenericParameters is not null && method.GenericParameters.Value.Count > 0)
@@ -5421,7 +5421,7 @@ internal static partial class SourceTemplates
 				{
 					sb.Append("new global::Mockolate.Internals.ParamsArrayParameterMatch<")
 						.Append(parameter.Type.ElementType.Fullname).Append(">(").Append(parameter.Name)
-						.Append(")");
+						.Append(')');
 				}
 				else if (valueFlags?[j] == true)
 				{
@@ -5472,7 +5472,7 @@ internal static partial class SourceTemplates
 				sb.Append(", ").AppendTypeOrWrapper(parameter.Type);
 			}
 
-			sb.Append(">");
+			sb.Append('>');
 		}
 		else
 		{
@@ -5535,7 +5535,7 @@ internal static partial class SourceTemplates
 		sb.AppendXmlSummary(
 			$"Setup for the method {method.XmlDocReference}" +
 			" — ref-struct parameter pipeline (narrow setup surface).");
-		sb.Append("\t\t").Append(iface).Append(' ').Append(methodName).Append("(");
+		sb.Append("\t\t").Append(iface).Append(' ').Append(methodName).Append('(');
 		int i = 0;
 		foreach (MethodParameter parameter in method.Parameters)
 		{
@@ -5588,7 +5588,7 @@ internal static partial class SourceTemplates
 		sb.Append("#if NET9_0_OR_GREATER").AppendLine();
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\t").Append(iface).Append(" global::Mockolate.Mock.").Append(setupName).Append('.')
-			.Append(methodName).Append("(");
+			.Append(methodName).Append('(');
 		int i = 0;
 		foreach (MethodParameter parameter in method.Parameters)
 		{
@@ -5600,7 +5600,7 @@ internal static partial class SourceTemplates
 			sb.Append(parameter.ToParameter()).Append("? ").Append(parameter.Name);
 		}
 
-		sb.Append(")").AppendLine();
+		sb.Append(')').AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		// The concrete setup constructor takes (string name, IParameterMatch<T1>? matcher1, ...).
 		// All framework-provided matchers (It.IsAnyRefStruct<T>, It.IsRefStruct<T>, It.IsAny<T>, ...)
@@ -5781,7 +5781,7 @@ internal static partial class SourceTemplates
 		string[] indexerNames = Enumerable.Range(1, indexer.IndexerParameters!.Value.Count)
 			.Select(i => FormattableString.Invariant($"parameter{i}")).ToArray();
 		AppendIndexerKeyParameters(sb, indexer, indexerNames, keptCount, valueFlags);
-		sb.Append("]").AppendLine();
+		sb.Append(']').AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tget").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
@@ -5816,10 +5816,10 @@ internal static partial class SourceTemplates
 					.Append(paramRef);
 				if (parameter.CanUseNullableParameterOverload())
 				{
-					sb.Append($" ?? global::Mockolate.Internals.Matchers.IsNull<{parameter.ToNullableType()}>()");
+					sb.Append(" ?? global::Mockolate.Internals.Matchers.IsNull<").Append(parameter.ToNullableType()).Append(">()");
 				}
 
-				sb.Append(")");
+				sb.Append(')');
 			}
 
 			j++;
@@ -6162,7 +6162,7 @@ internal static partial class SourceTemplates
 		sb.Append(' ').Append(verifyName).Append(".this[");
 		MethodParameter[] keys = indexer.IndexerParameters!.Value.AsArray();
 		AppendIndexerKeyParameters(sb, indexer, keys.Select(p => p.Name).ToArray(), keptCount, valueFlags);
-		sb.Append("]").AppendLine();
+		sb.Append(']').AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tget").AppendLine();
 		sb.Append("\t\t\t{").AppendLine();
@@ -6207,7 +6207,7 @@ internal static partial class SourceTemplates
 			}
 
 			sb.Append(">(this, this.").Append(mockRegistryName)
-				.Append(", ").Append(verifyMemberIds).Append(",").AppendLine();
+				.Append(", ").Append(verifyMemberIds).Append(',').AppendLine();
 
 			AppendIndexerVerifyTypedMatches(sb, indexer.IndexerParameters.Value, keptCount, valueFlags);
 		}
@@ -6226,7 +6226,7 @@ internal static partial class SourceTemplates
 					}
 
 					sb.Append(">(this, this.").Append(mockRegistryName)
-						.Append(", ").Append(indexerGetMemberId).Append(",").AppendLine();
+						.Append(", ").Append(indexerGetMemberId).Append(',').AppendLine();
 					break;
 				case PropertyAccessors.SetOnly:
 					sb.Append("\t\t\t\treturn new global::Mockolate.Verify.VerificationIndexerSetterResult<")
@@ -6237,12 +6237,12 @@ internal static partial class SourceTemplates
 					}
 
 					sb.Append(", ").AppendTypeOrWrapper(indexer.Type).Append(">(this, this.").Append(mockRegistryName)
-						.Append(", ").Append(indexerSetMemberId).Append(",").AppendLine();
+						.Append(", ").Append(indexerSetMemberId).Append(',').AppendLine();
 					break;
 				default:
 					sb.Append("\t\t\t\treturn new global::Mockolate.Verify.VerificationIndexerResult<").Append(verifyName)
 						.Append(", ").AppendTypeOrWrapper(indexer.Type).Append(">(this, this.").Append(mockRegistryName)
-						.Append(", ").Append(indexerGetMemberId).Append(", ").Append(indexerSetMemberId).Append(",").AppendLine();
+						.Append(", ").Append(indexerGetMemberId).Append(", ").Append(indexerSetMemberId).Append(',').AppendLine();
 					break;
 			}
 
@@ -6263,7 +6263,7 @@ internal static partial class SourceTemplates
 
 				sb.Append("> g");
 				AppendIndexerVerifyParameterMatches(sb, indexer.IndexerParameters.Value, keptCount, valueFlags, "g");
-				sb.Append(",").AppendLine();
+				sb.Append(',').AppendLine();
 			}
 
 			if (interceptedAccessors != PropertyAccessors.GetOnly)
@@ -6290,7 +6290,7 @@ internal static partial class SourceTemplates
 				sb.Append(", ");
 			}
 
-			sb.Append("{").Append(k).Append("}");
+			sb.Append('{').Append(k).Append('}');
 		}
 
 		sb.Append("]\"");
@@ -6335,7 +6335,7 @@ internal static partial class SourceTemplates
 						.Append(">()");
 				}
 
-				sb.Append(")");
+				sb.Append(')');
 			}
 
 			sb.Append(',').AppendLine();
@@ -6355,7 +6355,7 @@ internal static partial class SourceTemplates
 			{
 				sb.Append("global::System.Collections.Generic.EqualityComparer<")
 					.AppendTypeOrWrapper(parameter.Type).Append(">.Default.Equals(").Append(parameter.Name)
-					.Append(", ").Append(interactionVar).Append(".Parameter").Append(j + 1).Append(")");
+					.Append(", ").Append(interactionVar).Append(".Parameter").Append(j + 1).Append(')');
 			}
 			else
 			{
@@ -6367,7 +6367,7 @@ internal static partial class SourceTemplates
 						.Append(">()");
 				}
 
-				sb.Append(").Matches(").Append(interactionVar).Append(".Parameter").Append(j + 1).Append(")");
+				sb.Append(").Matches(").Append(interactionVar).Append(".Parameter").Append(j + 1).Append(')');
 			}
 
 			j++;
@@ -6400,7 +6400,7 @@ internal static partial class SourceTemplates
 		{
 			sb.AppendXmlSummary(
 				$"Raise the {@event.XmlDocReference} event.");
-			sb.Append("\t\tvoid ").Append(@event.Name).Append("(")
+			sb.Append("\t\tvoid ").Append(@event.Name).Append('(')
 				.Append(FormatParametersWithTypeAndName(@event.Delegate.Parameters)).Append(");").AppendLine();
 			sb.AppendLine();
 		}
@@ -6433,9 +6433,9 @@ internal static partial class SourceTemplates
 				? $"{@event.GetBackingFieldName()}.Value"
 				: $"this.{@event.GetBackingFieldName()}";
 			sb.Append("\t\t/// <inheritdoc />").AppendLine();
-			sb.Append("\t\tvoid ").Append(raiseOnName).Append('.').Append(@event.Name).Append("(")
+			sb.Append("\t\tvoid ").Append(raiseOnName).Append('.').Append(@event.Name).Append('(')
 				.Append(FormatParametersWithTypeAndName(@event.Delegate.Parameters))
-				.Append(")").AppendLine();
+				.Append(')').AppendLine();
 			sb.AppendLine("\t\t{");
 			// Pre-assign declared `out` parameters: when no subscriber exists the conditional
 			// Invoke is skipped, so the compiler-required definite assignment must come from us.
@@ -6491,7 +6491,7 @@ internal static partial class SourceTemplates
 				{
 					string local = FormattableString.Invariant($"__arg{idx}");
 					sb.Append("\t\t\t").Append(p.Type.Fullname).Append(' ').Append(local).Append(" = ")
-						.Append(defaultExpr).Append(";").AppendLine();
+						.Append(defaultExpr).Append(';').AppendLine();
 					argNames.Add($"{p.RefKind.GetString()}{local}");
 				}
 				else
@@ -6709,7 +6709,7 @@ internal static partial class SourceTemplates
 				.Append(string.Join(", ", method.Parameters.Take(kept).Select(p => $"<paramref name=\"{p.Name.TrimStart('@')}\"/>")));
 		}
 
-		sb.Append(".").AppendLine();
+		sb.Append('.').AppendLine();
 		sb.Append("\t\t/// </summary>").AppendLine();
 		if (!emptyParams)
 		{
@@ -6730,7 +6730,7 @@ internal static partial class SourceTemplates
 			}
 
 			sb.Append("\t\tglobal::Mockolate.Verify.VerificationResult<").Append(verifyName)
-				.Append(">.IgnoreParameters ").Append(methodName).Append("(");
+				.Append(">.IgnoreParameters ").Append(methodName).Append('(');
 		}
 		else
 		{
@@ -6743,7 +6743,7 @@ internal static partial class SourceTemplates
 			}
 
 			sb.Append("\t\tglobal::Mockolate.Verify.VerificationResult<").Append(verifyName).Append("> ")
-				.Append(methodName).Append("(");
+				.Append(methodName).Append('(');
 		}
 
 		if (useParameters)
@@ -6803,7 +6803,7 @@ internal static partial class SourceTemplates
 			}
 		}
 
-		sb.Append(")");
+		sb.Append(')');
 		if (method.GenericParameters is not null && method.GenericParameters.Value.Count > 0)
 		{
 			foreach (GenericParameter gp in method.GenericParameters.Value)
@@ -6812,7 +6812,7 @@ internal static partial class SourceTemplates
 			}
 		}
 
-		sb.Append(";").AppendLine();
+		sb.Append(';').AppendLine();
 		sb.AppendLine();
 	}
 
@@ -7035,7 +7035,7 @@ internal static partial class SourceTemplates
 			sb.Append(".IgnoreParameters");
 		}
 
-		sb.Append(' ').Append(verifyName).Append('.').Append(methodName).Append("(");
+		sb.Append(' ').Append(verifyName).Append('.').Append(methodName).Append('(');
 		if (useParameters)
 		{
 			sb.Append("global::Mockolate.Parameters.IParameters").Append(forwardsLoneNull ? "? " : " ").Append("parameters");
@@ -7087,7 +7087,7 @@ internal static partial class SourceTemplates
 			}
 		}
 
-		sb.Append(")");
+		sb.Append(')');
 		if (method.GenericParameters is not null && method.GenericParameters.Value.Count > 0)
 		{
 			foreach (GenericParameter gp in method.GenericParameters.Value)
@@ -7205,7 +7205,7 @@ internal static partial class SourceTemplates
 				if (usesDeclaredDefault[i])
 				{
 					sb.Append(", global::Mockolate.CovariantParameterAdapter<").Append(paramType).Append(">.Wrap(")
-						.Append(parameter.Name).Append(")");
+						.Append(parameter.Name).Append(')');
 					continue;
 				}
 
@@ -7213,7 +7213,7 @@ internal static partial class SourceTemplates
 					.Append("(global::Mockolate.Parameters.IParameterMatch<").Append(paramType)
 					.Append(">)global::Mockolate.It.Is<").Append(paramType).Append(">(default!) : ")
 					.Append("global::Mockolate.CovariantParameterAdapter<").Append(paramType).Append(">.Wrap(").Append(parameter.Name)
-					.Append(")");
+					.Append(')');
 			}
 
 			if (method.Parameters.Count == 0)
@@ -7296,7 +7296,7 @@ internal static partial class SourceTemplates
 			.Append(", global::Mockolate.Interactions.MethodInvocation");
 		if (method.Parameters.Count > 0)
 		{
-			sb.Append("<").Append(string.Join(", ", method.Parameters.Select(p => p.ToTypeOrWrapper()))).Append(">");
+			sb.Append('<').Append(string.Join(", ", method.Parameters.Select(p => p.ToTypeOrWrapper()))).Append('>');
 		}
 
 		sb.Append(">(this, ").Append(methodMemberId).Append(", ").Append(method.GetUniqueNameString());
@@ -7368,7 +7368,7 @@ internal static partial class SourceTemplates
 			}
 		}
 
-		sb.Append(", () => $\"").Append(method.Name).Append("(")
+		sb.Append(", () => $\"").Append(method.Name).Append('(')
 			.Append(useParameters
 				? "{parameters}"
 				: string.Join(", ", method.Parameters.Select(ParameterPlaceholder)))
@@ -7432,7 +7432,7 @@ internal static partial class SourceTemplates
 	private static void AppendStaticExpectationLambda(StringBuilder sb, Method method)
 	{
 		string parameters = string.Join(", ", method.Parameters.Select(p => p.Name));
-		sb.Append(", static (").Append(parameters).Append(") => $\"").Append(method.Name).Append("(")
+		sb.Append(", static (").Append(parameters).Append(") => $\"").Append(method.Name).Append('(')
 			.Append(string.Join(", ", method.Parameters.Select(ExpectationPlaceholder))).Append(")\");").AppendLine();
 	}
 
@@ -7450,13 +7450,17 @@ internal static partial class SourceTemplates
 		string type = parameter.ToTypeOrWrapper();
 		if (parameter.RefKind is RefKind.Out or RefKind.Ref or RefKind.RefReadOnlyParameter)
 		{
-			sb.Append(
-				$"({parameter.Name} is global::Mockolate.Parameters.IParameterMatch<{type}> {parameter.Name}Match ? {parameter.Name}Match.Matches({invocationValue}) : global::System.Collections.Generic.EqualityComparer<{type}>.Default.Equals({invocationValue}, default({type})))");
+			sb.Append('(').Append(parameter.Name).Append(" is global::Mockolate.Parameters.IParameterMatch<").Append(type).Append("> ")
+				.Append(parameter.Name).Append("Match ? ").Append(parameter.Name).Append("Match.Matches(").Append(invocationValue)
+				.Append(") : global::System.Collections.Generic.EqualityComparer<").Append(type).Append(">.Default.Equals(")
+				.Append(invocationValue).Append(", default(").Append(type).Append(")))");
 		}
 		else
 		{
-			sb.Append(
-				$"({parameter.Name} is not null ? global::Mockolate.CovariantParameterAdapter<{type}>.Wrap({parameter.Name}).Matches({invocationValue}) : global::System.Collections.Generic.EqualityComparer<{type}>.Default.Equals({invocationValue}, default({type})))");
+			sb.Append('(').Append(parameter.Name).Append(" is not null ? global::Mockolate.CovariantParameterAdapter<").Append(type)
+				.Append(">.Wrap(").Append(parameter.Name).Append(").Matches(").Append(invocationValue)
+				.Append(") : global::System.Collections.Generic.EqualityComparer<").Append(type).Append(">.Default.Equals(")
+				.Append(invocationValue).Append(", default(").Append(type).Append(")))");
 		}
 	}
 
@@ -7910,7 +7914,7 @@ internal static partial class SourceTemplates
 			}
 		}
 
-		sb.Append(")").AppendLine();
+		sb.Append(')').AppendLine();
 		sb.Append("\t\t\t=> CreateMock(").Append(includeMockBehavior ? mockBehaviorName : "null").Append(", ")
 			.Append(includeSetup ? setupName : "null").Append(", new object?[] { ");
 		int argIndex = 0;

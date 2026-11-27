@@ -573,6 +573,7 @@ internal static partial class SourceTemplates
 
 		                              """).ToString();
 
+#pragma warning disable MA0028 // Replace string interpolation with multiple Append calls or use an interpolated string
 	private static string AutoMockArgumentsAttribute(string condition, string @namespace, string timing, string baseType,
 		string members)
 		=> InitializeBuilder().Append($$"""
@@ -750,4 +751,5 @@ internal static partial class SourceTemplates
 		                                #endif
 
 		                                """).ToString();
+#pragma warning restore MA0028
 }

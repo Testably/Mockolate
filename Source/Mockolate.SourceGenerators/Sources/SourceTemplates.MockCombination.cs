@@ -65,7 +65,7 @@ internal static partial class SourceTemplates
 		#region Mock
 
 		sb.Append("internal static partial class Mock").AppendLine();
-		sb.Append("{").AppendLine();
+		sb.Append('{').AppendLine();
 		
 		#region MockForXXX
 		
@@ -144,7 +144,7 @@ internal static partial class SourceTemplates
 				sb.Append(", IMockStaticVerifyFor").Append(additional.Name);
 			}
 
-			sb.Append(",").AppendLine();
+			sb.Append(',').AppendLine();
 		}
 
 		sb.Append("\t\tglobal::Mockolate.IMock");
@@ -157,7 +157,7 @@ internal static partial class SourceTemplates
 
 		sb.Append("\t\t/// <inheritdoc />").AppendLine();
 		sb.Append("\t\t[global::System.Diagnostics.DebuggerBrowsable(global::System.Diagnostics.DebuggerBrowsableState.Never)]").AppendLine();
-		sb.Append("\t\tglobal::Mockolate.Internals.MockRegistry global::Mockolate.IMock.MockRegistry => this.").Append(mockRegistryName).Append(";").AppendLine();
+		sb.Append("\t\tglobal::Mockolate.Internals.MockRegistry global::Mockolate.IMock.MockRegistry => this.").Append(mockRegistryName).Append(';').AppendLine();
 		sb.Append("\t\tprivate global::Mockolate.Internals.MockRegistry ").Append(mockRegistryName).Append(" { get; }").AppendLine();
 		if (hasAnyStaticMembers || hasAnyStaticEvents)
 		{
@@ -418,7 +418,7 @@ internal static partial class SourceTemplates
 		
 		#endregion MockForXXX
 		
-		sb.Append("}").AppendLine();
+		sb.Append('}').AppendLine();
 		sb.AppendLine();
 
 		#endregion Mock
@@ -431,7 +431,7 @@ internal static partial class SourceTemplates
 #endif
 		sb.Append("[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 		sb.Append("internal static partial class MockExtensionsFor").Append(fileName).AppendLine();
-		sb.Append("{").AppendLine();
+		sb.Append('{').AppendLine();
 
 		#region Implementing
 
@@ -504,10 +504,10 @@ internal static partial class SourceTemplates
 						.Append(", mock.MockRegistry.Behavior, out ").Append(parameter.Type.Fullname).Append(" c")
 						.Append(constructorIndex)
 						.Append('p')
-						.Append(constructorParameterIndex).Append(")");
+						.Append(constructorParameterIndex).Append(')');
 				}
 
-				sb.Append(")").AppendLine();
+				sb.Append(')').AppendLine();
 				sb.Append("\t\t{").AppendLine();
 				sb.Append("\t\t\tvalue = new global::Mockolate.Mock.").Append(fileName).Append("(mock.MockRegistry");
 				for (int j = 1; j <= constructorParameters.Count; j++)
@@ -591,7 +591,7 @@ internal static partial class SourceTemplates
 
 		#endregion Implementing
 
-		sb.Append("}").AppendLine();
+		sb.Append('}').AppendLine();
 		sb.AppendLine();
 
 		#endregion Extensions

@@ -29,7 +29,7 @@ internal static partial class SourceTemplates
 #endif
 		sb.Append("[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 		sb.Append("internal static class ReturnsThrowsAsyncExtensions2").AppendLine();
-		sb.Append("{").AppendLine();
+		sb.Append('{').AppendLine();
 		foreach (int number in numberOfParameters)
 		{
 			string types = string.Join(", ", Enumerable.Range(1, number).Select(i => FormattableString.Invariant($"T{i}")));
@@ -257,7 +257,7 @@ internal static partial class SourceTemplates
 		}
 
 		sb.AppendLine("#endif");
-		sb.Append("}").AppendLine();
+		sb.Append('}').AppendLine();
 
 		sb.AppendLine("#nullable disable");
 		return sb.ToString();
