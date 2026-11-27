@@ -24,7 +24,7 @@ public partial class It
 #endif
 	internal sealed class NullParameterMatch<T>(string? toString) : TypedMatch<T>(isShared: true)
 	{
-		internal static readonly NullParameterMatch<T> Shared = new(null);
+		internal static readonly NullParameterMatch<T> Shared = new(toString: null);
 
 		/// <inheritdoc cref="TypedMatch{T}.Matches(T)" />
 		protected override bool Matches(T value) => value is null;

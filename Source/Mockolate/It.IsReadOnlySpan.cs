@@ -21,7 +21,7 @@ public partial class It
 	///     <see cref="IsReadOnlySpan{T}(Func{T[], bool}, string)" /> receives this array.
 	/// </remarks>
 	public static IVerifyReadOnlySpanParameter<T> IsAnyReadOnlySpan<T>()
-		=> new ReadOnlySpanParameterMatch<T>(null);
+		=> new ReadOnlySpanParameterMatch<T>(predicate: null);
 
 	/// <summary>
 	///     Matches a <see cref="ReadOnlySpan{T}" /> of <typeparamref name="T" /> parameter whose contents (copied to a

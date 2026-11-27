@@ -26,7 +26,7 @@ public static partial class ItExtensions
 		/// </remarks>
 		public IStringContentBodyParameter WithString(string expected)
 		{
-			StringMatcher data = new(expected, true);
+			StringMatcher data = new(expected, isExact: true);
 			StringContentParameter contentParameter = new(parameter, data);
 			return contentParameter;
 		}
@@ -43,7 +43,7 @@ public static partial class ItExtensions
 		/// </returns>
 		public IStringContentBodyMatchingParameter WithStringMatching(string pattern)
 		{
-			StringMatcher data = new(pattern, false);
+			StringMatcher data = new(pattern, isExact: false);
 			StringContentParameter contentParameter = new(parameter, data);
 			return contentParameter;
 		}

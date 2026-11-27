@@ -60,7 +60,7 @@ public static class Rules
 			typeof(Resources)),
 		category,
 		severity,
-		true,
+isEnabledByDefault: true,
 		new LocalizableResourceString(diagnosticId + "Description", Resources.ResourceManager,
 			typeof(Resources)),
 		customTags: customTags

@@ -54,7 +54,7 @@ public partial class It
 		RefStructProjection<T, TProjected> projection)
 		where T : allows ref struct
 		where TProjected : notnull
-		=> new RefStructProjectionMatch<T, TProjected>(projection, null);
+		=> new RefStructProjectionMatch<T, TProjected>(projection, projectedPredicate: null);
 
 	/// <summary>
 	///     Matches a ref struct value of type <typeparamref name="T" /> whose

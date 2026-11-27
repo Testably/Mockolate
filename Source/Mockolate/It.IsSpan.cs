@@ -21,7 +21,7 @@ public partial class It
 	///     <see cref="IsSpan{T}(Func{T[], bool}, string)" /> receives this array.
 	/// </remarks>
 	public static IVerifySpanParameter<T> IsAnySpan<T>()
-		=> new SpanParameterMatch<T>(null);
+		=> new SpanParameterMatch<T>(predicate: null);
 
 	/// <summary>
 	///     Matches a <see cref="Span{T}" /> of <typeparamref name="T" /> parameter whose contents (copied to a

@@ -12,7 +12,7 @@ internal static partial class SourceTemplates
 		AutoMockingOptions? autoMocking, bool hasOverloadResolutionPriority = false, bool useUnionOverloads = false)
 	{
 		string mockRegistryName = @class.GetUniqueName("MockRegistry", "MockolateMockRegistry");
-		int omittable = OmittableMethodParameterCount(null, delegateMethod, hasOverloadResolutionPriority);
+		int omittable = OmittableMethodParameterCount(@class:null, delegateMethod, hasOverloadResolutionPriority);
 		string classReference = @class.XmlDocReference;
 		MemberIdTable memberIds = new(new MemberAliases());
 		memberIds.AddMethod(delegateMethod);
@@ -75,9 +75,9 @@ internal static partial class SourceTemplates
 		}
 		sb.AppendLine();
 
-		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
+		if (UseUnionOverloads(delegateMethod, hasUniqueName: true, useUnionOverloads))
 		{
-			AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", true, memberIds, memberIdPrefix, "Setup", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, true));
+			AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", useParameters: true, memberIds, memberIdPrefix, "Setup", forwardsLoneNull: ForwardsLoneNull(@class:null, delegateMethod, useUnionOverloads: true));
 			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters, allowOmission: true))
 			{
 				AppendUnionMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", memberIds, memberIdPrefix, slots, "Setup");
@@ -85,28 +85,28 @@ internal static partial class SourceTemplates
 		}
 		else
 		{
-			AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup", omittable: omittable);
+			AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", useParameters: false, memberIds, memberIdPrefix, "Setup", omittable: omittable);
 
 			if (delegateMethod.Parameters.Count > 0)
 			{
-				AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", true, memberIds, memberIdPrefix, "Setup", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
+				AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", useParameters: true, memberIds, memberIdPrefix, "Setup", forwardsLoneNull: ForwardsLoneNull(@class:null, delegateMethod, useUnionOverloads: false));
 			}
 
 			if (TryGetPerElementParamsParameter(delegateMethod))
 			{
-				AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup", perElementParams: true);
+				AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", useParameters: false, memberIds, memberIdPrefix, "Setup", perElementParams: true);
 			}
 
 			if (HasEmptyParamsOverload(@class, delegateMethod, hasOverloadResolutionPriority))
 			{
-				AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup", valueFlags: EmptyParamsValueFlags(delegateMethod), emptyParams: true);
+				AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", useParameters: false, memberIds, memberIdPrefix, "Setup", valueFlags: EmptyParamsValueFlags(delegateMethod), emptyParams: true);
 			}
 
 			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
 			{
 				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
 				{
-					AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup", valueFlags, omittable: omittable);
+					AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", useParameters: false, memberIds, memberIdPrefix, "Setup", valueFlags, omittable: omittable);
 				}
 			}
 			else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
@@ -114,48 +114,48 @@ internal static partial class SourceTemplates
 				bool[] allValueFlags = delegateMethod.Parameters.Select(p => p.CanUseNullableParameterOverload()).ToArray();
 				if (allValueFlags.Any(f => f))
 				{
-					AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup", allValueFlags, omittable: omittable);
+					AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", useParameters: false, memberIds, memberIdPrefix, "Setup", allValueFlags, omittable: omittable);
 				}
 			}
 
 			foreach ((int keptCount, bool[]? valueFlags) in GenerateOmittedMethodOverloads(delegateMethod, omittable))
 			{
-				AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", false, memberIds, memberIdPrefix, "Setup", valueFlags, omittable: omittable, keptCount: keptCount);
+				AppendMethodSetupImplementation(sb, delegateMethod, mockRegistryName, $"IMockSetupFor{name}", useParameters: false, memberIds, memberIdPrefix, "Setup", valueFlags, omittable: omittable, keptCount: keptCount);
 			}
 		}
 
 		// Delegate mocks record through RegisterInteraction, so emit the slow Verify path.
-		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
+		if (UseUnionOverloads(delegateMethod, hasUniqueName: true, useUnionOverloads))
 		{
-			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, true));
+			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", useParameters: true, memberIds, memberIdPrefix, useTypedRecords: false, "Verify", forwardsLoneNull: ForwardsLoneNull(@class:null, delegateMethod, useUnionOverloads: true));
 			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters, allowOmission: true))
 			{
-				AppendUnionMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", memberIds, memberIdPrefix, false, slots, "Verify");
+				AppendUnionMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", memberIds, memberIdPrefix, useTypedRecords: false, slots, "Verify");
 			}
 		}
 		else
 		{
-			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", omittable: omittable);
+			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", useParameters: false, memberIds, memberIdPrefix, useTypedRecords: false, "Verify", omittable: omittable);
 			if (delegateMethod.Parameters.Count > 0)
 			{
-				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
+				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", useParameters: true, memberIds, memberIdPrefix, useTypedRecords: false, "Verify", forwardsLoneNull: ForwardsLoneNull(@class:null, delegateMethod, useUnionOverloads: false));
 			}
 
 			if (TryGetPerElementParamsParameter(delegateMethod))
 			{
-				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", perElementParams: true);
+				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", useParameters: false, memberIds, memberIdPrefix, useTypedRecords: false, "Verify", perElementParams: true);
 			}
 
 			if (HasEmptyParamsOverload(@class, delegateMethod, hasOverloadResolutionPriority))
 			{
-				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", valueFlags: EmptyParamsValueFlags(delegateMethod), emptyParams: true);
+				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", useParameters: false, memberIds, memberIdPrefix, useTypedRecords: false, "Verify", valueFlags: EmptyParamsValueFlags(delegateMethod), emptyParams: true);
 			}
 
 			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
 			{
 				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
 				{
-					AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", valueFlags, omittable: omittable);
+					AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", useParameters: false, memberIds, memberIdPrefix, useTypedRecords: false, "Verify", valueFlags, omittable: omittable);
 				}
 			}
 			else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
@@ -163,15 +163,15 @@ internal static partial class SourceTemplates
 				bool[] allValueFlags = delegateMethod.Parameters.Select(p => p.CanUseNullableParameterOverload()).ToArray();
 				if (allValueFlags.Any(f => f))
 				{
-					AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false,
-						memberIds, memberIdPrefix, false, "Verify", allValueFlags, omittable: omittable);
+					AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", useParameters: false,
+						memberIds, memberIdPrefix, useTypedRecords: false, "Verify", allValueFlags, omittable: omittable);
 				}
 			}
 
 			foreach ((int keptCount, bool[]? valueFlags) in GenerateOmittedMethodOverloads(delegateMethod, omittable))
 			{
-				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false,
-					memberIds, memberIdPrefix, false, "Verify", valueFlags, omittable: omittable, keptCount: keptCount);
+				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", useParameters: false,
+					memberIds, memberIdPrefix, useTypedRecords: false, "Verify", valueFlags, omittable: omittable, keptCount: keptCount);
 			}
 		}
 
@@ -218,38 +218,38 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 		
 		// Delegate mocks record through RegisterInteraction, so emit the slow Verify path.
-		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
+		if (UseUnionOverloads(delegateMethod, hasUniqueName: true, useUnionOverloads))
 		{
-			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, true));
+			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", useParameters: true, memberIds, memberIdPrefix, useTypedRecords: false, "Verify", forwardsLoneNull: ForwardsLoneNull(@class:null, delegateMethod, useUnionOverloads: true));
 			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters, allowOmission: true))
 			{
-				AppendUnionMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", memberIds, memberIdPrefix, false, slots, "Verify");
+				AppendUnionMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", memberIds, memberIdPrefix, useTypedRecords: false, slots, "Verify");
 			}
 		}
 		else
 		{
-			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", omittable: omittable);
+			AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", useParameters: false, memberIds, memberIdPrefix, useTypedRecords: false, "Verify", omittable: omittable);
 
 			if (delegateMethod.Parameters.Count > 0)
 			{
-				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", true, memberIds, memberIdPrefix, false, "Verify", forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
+				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", useParameters: true, memberIds, memberIdPrefix, useTypedRecords: false, "Verify", forwardsLoneNull: ForwardsLoneNull(@class:null, delegateMethod, useUnionOverloads: false));
 			}
 
 			if (TryGetPerElementParamsParameter(delegateMethod))
 			{
-				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", perElementParams: true);
+				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", useParameters: false, memberIds, memberIdPrefix, useTypedRecords: false, "Verify", perElementParams: true);
 			}
 
 			if (HasEmptyParamsOverload(@class, delegateMethod, hasOverloadResolutionPriority))
 			{
-				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", valueFlags: EmptyParamsValueFlags(delegateMethod), emptyParams: true);
+				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", useParameters: false, memberIds, memberIdPrefix, useTypedRecords: false, "Verify", valueFlags: EmptyParamsValueFlags(delegateMethod), emptyParams: true);
 			}
 
 			if (delegateMethod.Parameters.Count is > 0 and <= MaxExplicitParameters)
 			{
 				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
 				{
-					AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", valueFlags, omittable: omittable);
+					AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", useParameters: false, memberIds, memberIdPrefix, useTypedRecords: false, "Verify", valueFlags, omittable: omittable);
 				}
 			}
 			else if (delegateMethod.Parameters.Count > MaxExplicitParameters)
@@ -257,14 +257,14 @@ internal static partial class SourceTemplates
 				bool[] allValueFlags = delegateMethod.Parameters.Select(p => p.CanUseNullableParameterOverload()).ToArray();
 				if (allValueFlags.Any(f => f))
 				{
-					AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false, memberIds, memberIdPrefix, false, "Verify", allValueFlags, omittable: omittable);
+					AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", useParameters: false, memberIds, memberIdPrefix, useTypedRecords: false, "Verify", allValueFlags, omittable: omittable);
 				}
 			}
 
 			foreach ((int keptCount, bool[]? valueFlags) in GenerateOmittedMethodOverloads(delegateMethod, omittable))
 			{
-				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", false,
-					memberIds, memberIdPrefix, false, "Verify", valueFlags, omittable: omittable, keptCount: keptCount);
+				AppendMethodVerifyImplementation(sb, delegateMethod, mockRegistryName, $"IMockVerifyFor{name}", useParameters: false,
+					memberIds, memberIdPrefix, useTypedRecords: false, "Verify", valueFlags, omittable: omittable, keptCount: keptCount);
 			}
 		}
 
@@ -309,11 +309,11 @@ internal static partial class SourceTemplates
 		sb.Append("\tinternal interface IMockSetupFor").Append(name).Append(" : global::Mockolate.Setup.IMockSetup<").Append(@class.ClassFullName).Append('>').AppendLine();
 		sb.Append("\t{").AppendLine();
 		
-		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
+		if (UseUnionOverloads(delegateMethod, hasUniqueName: true, useUnionOverloads))
 		{
 			// Without the priority (guaranteed in union mode) the IParameters overload loses to the union overloads.
-			AppendMethodSetupDefinition(sb, @class, delegateMethod, true, "Setup",
-				hasOverloadResolutionPriority: true, forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, true));
+			AppendMethodSetupDefinition(sb, @class, delegateMethod, useParameters: true, "Setup",
+				hasOverloadResolutionPriority: true, forwardsLoneNull: ForwardsLoneNull(@class:null, delegateMethod, useUnionOverloads: true));
 			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters, allowOmission: true))
 			{
 				AppendUnionMethodSetupDefinition(sb, @class, delegateMethod, slots, "Setup");
@@ -321,24 +321,24 @@ internal static partial class SourceTemplates
 		}
 		else
 		{
-			AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup",
+			AppendMethodSetupDefinition(sb, @class, delegateMethod, useParameters: false, "Setup",
 				hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable);
 
 			if (delegateMethod.Parameters.Count > 0)
 			{
-				AppendMethodSetupDefinition(sb, @class, delegateMethod, true, "Setup",
-					hasOverloadResolutionPriority: hasOverloadResolutionPriority, forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
+				AppendMethodSetupDefinition(sb, @class, delegateMethod, useParameters: true, "Setup",
+					hasOverloadResolutionPriority: hasOverloadResolutionPriority, forwardsLoneNull: ForwardsLoneNull(@class:null, delegateMethod, useUnionOverloads: false));
 			}
 
 			if (TryGetPerElementParamsParameter(delegateMethod))
 			{
-				AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup",
+				AppendMethodSetupDefinition(sb, @class, delegateMethod, useParameters: false, "Setup",
 					hasOverloadResolutionPriority: hasOverloadResolutionPriority, perElementParams: true);
 			}
 
 			if (HasEmptyParamsOverload(@class, delegateMethod, hasOverloadResolutionPriority))
 			{
-				AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup", valueFlags: EmptyParamsValueFlags(delegateMethod),
+				AppendMethodSetupDefinition(sb, @class, delegateMethod, useParameters: false, "Setup", valueFlags: EmptyParamsValueFlags(delegateMethod),
 					hasOverloadResolutionPriority: hasOverloadResolutionPriority, emptyParams: true);
 			}
 
@@ -346,7 +346,7 @@ internal static partial class SourceTemplates
 			{
 				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
 				{
-					AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup", valueFlags,
+					AppendMethodSetupDefinition(sb, @class, delegateMethod, useParameters: false, "Setup", valueFlags,
 						hasOverloadResolutionPriority, omittable: omittable);
 				}
 			}
@@ -355,14 +355,14 @@ internal static partial class SourceTemplates
 				bool[] allValueFlags = delegateMethod.Parameters.Select(p => p.CanUseNullableParameterOverload()).ToArray();
 				if (allValueFlags.Any(f => f))
 				{
-					AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup", allValueFlags,
+					AppendMethodSetupDefinition(sb, @class, delegateMethod, useParameters: false, "Setup", allValueFlags,
 						hasOverloadResolutionPriority, omittable: omittable);
 				}
 			}
 
 			foreach ((int keptCount, bool[]? valueFlags) in GenerateOmittedMethodOverloads(delegateMethod, omittable))
 			{
-				AppendMethodSetupDefinition(sb, @class, delegateMethod, false, "Setup", valueFlags,
+				AppendMethodSetupDefinition(sb, @class, delegateMethod, useParameters: false, "Setup", valueFlags,
 					hasOverloadResolutionPriority, omittable: omittable, keptCount: keptCount);
 			}
 		}
@@ -378,11 +378,11 @@ internal static partial class SourceTemplates
 		sb.Append("\tinternal interface IMockVerifyFor").Append(name).Append(" : global::Mockolate.Verify.IMockVerify<").Append(@class.ClassFullName).Append('>').AppendLine();
 		sb.Append("\t{").AppendLine();
 		
-		if (UseUnionOverloads(delegateMethod, true, useUnionOverloads))
+		if (UseUnionOverloads(delegateMethod, hasUniqueName: true, useUnionOverloads))
 		{
 			// Without the priority (guaranteed in union mode) the IParameters overload loses to the union overloads.
-			AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", true, "Verify",
-				hasOverloadResolutionPriority: true, forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, true));
+			AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", useParameters: true, "Verify",
+				hasOverloadResolutionPriority: true, forwardsLoneNull: ForwardsLoneNull(@class:null, delegateMethod, useUnionOverloads: true));
 			foreach (UnionSlot[] slots in GenerateUnionSlotCombinations(delegateMethod.Parameters, allowOmission: true))
 			{
 				AppendUnionMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", slots, "Verify");
@@ -390,24 +390,24 @@ internal static partial class SourceTemplates
 		}
 		else
 		{
-			AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify",
+			AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", useParameters: false, "Verify",
 				hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable);
 
 			if (delegateMethod.Parameters.Count > 0)
 			{
-				AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", true, "Verify",
-					hasOverloadResolutionPriority: hasOverloadResolutionPriority, forwardsLoneNull: ForwardsLoneNull(null, delegateMethod, false));
+				AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", useParameters: true, "Verify",
+					hasOverloadResolutionPriority: hasOverloadResolutionPriority, forwardsLoneNull: ForwardsLoneNull(@class:null, delegateMethod, useUnionOverloads: false));
 			}
 
 			if (TryGetPerElementParamsParameter(delegateMethod))
 			{
-				AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify",
+				AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", useParameters: false, "Verify",
 					hasOverloadResolutionPriority: hasOverloadResolutionPriority, perElementParams: true);
 			}
 
 			if (HasEmptyParamsOverload(@class, delegateMethod, hasOverloadResolutionPriority))
 			{
-				AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify",
+				AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", useParameters: false, "Verify",
 					valueFlags: EmptyParamsValueFlags(delegateMethod), hasOverloadResolutionPriority: hasOverloadResolutionPriority, emptyParams: true);
 			}
 
@@ -415,7 +415,7 @@ internal static partial class SourceTemplates
 			{
 				foreach (bool[] valueFlags in GenerateValueFlagCombinations(delegateMethod.Parameters))
 				{
-					AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify", valueFlags,
+					AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", useParameters: false, "Verify", valueFlags,
 						hasOverloadResolutionPriority, omittable: omittable);
 				}
 			}
@@ -424,14 +424,14 @@ internal static partial class SourceTemplates
 				bool[] allValueFlags = delegateMethod.Parameters.Select(p => p.CanUseNullableParameterOverload()).ToArray();
 				if (allValueFlags.Any(f => f))
 				{
-					AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify",
+					AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", useParameters: false, "Verify",
 						allValueFlags, hasOverloadResolutionPriority, omittable: omittable);
 				}
 			}
 
 			foreach ((int keptCount, bool[]? valueFlags) in GenerateOmittedMethodOverloads(delegateMethod, omittable))
 			{
-				AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", false, "Verify",
+				AppendMethodVerifyDefinition(sb, @class, delegateMethod, $"IMockVerifyFor{name}", useParameters: false, "Verify",
 					valueFlags, hasOverloadResolutionPriority, omittable: omittable, keptCount: keptCount);
 			}
 		}

@@ -490,7 +490,7 @@ internal static partial class MockGeneratorHelpers
 		List<INamedTypeSymbol> ignored = [];
 		return new DataSourceClass(ToFullName(type), new EquatableArray<DataSourceParameter>(constructor.Parameters
 			.Select(parameter => CreateDataSourceParameter(parameter, compilation, typesToMock, ignored))
-			.ToArray()), false);
+			.ToArray()), IsMock: false);
 	}
 
 	private static bool IsCreatableDependency(INamedTypeSymbol type, Compilation compilation)

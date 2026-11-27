@@ -502,7 +502,7 @@ public class PropertySetup<T> : PropertySetup,
 
 			_value = value;
 			// Stryker disable once Boolean : flipping this to false only leaves IsValueInitialized wrong for one redundant auto-init cycle that is no-op'd by the _isUserInitialized guard on the next line.
-			Volatile.Write(ref _isInitialized, true);
+			Volatile.Write(ref _isInitialized, value: true);
 			_isUserInitialized = true;
 		}
 

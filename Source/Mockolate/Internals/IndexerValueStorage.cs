@@ -88,7 +88,7 @@ internal sealed class IndexerValueStorage<TValue> : IndexerValueStorage
 	///     first reads of the key all return the same configurable mock.
 	/// </summary>
 	internal TValue ShareAutoMock(TValue autoMock)
-		=> (TValue)(Interlocked.CompareExchange(ref _autoMock, autoMock, null) ?? autoMock)!;
+		=> (TValue)(Interlocked.CompareExchange(ref _autoMock, autoMock, comparand: null) ?? autoMock)!;
 
 	/// <inheritdoc cref="IndexerValueStorage.GetChildDispatch{TKey}(TKey)" />
 	public override IndexerValueStorage? GetChildDispatch<TKey>(TKey key) => GetChild(key);
@@ -119,7 +119,7 @@ internal sealed class IndexerValueStorage<TValue> : IndexerValueStorage
 		{
 			if (_nullChild is null)
 			{
-				Interlocked.CompareExchange(ref _nullChild, new IndexerValueStorage<TValue>(), null);
+				Interlocked.CompareExchange(ref _nullChild, new IndexerValueStorage<TValue>(), comparand: null);
 			}
 
 			return _nullChild!;
@@ -146,7 +146,7 @@ internal sealed class IndexerValueStorage<TValue> : IndexerValueStorage
 	{
 		if (_childIndex is not IndexerChildIndex<TKey, TValue> typedIndex)
 		{
-			Interlocked.CompareExchange(ref _childIndex, new IndexerChildIndex<TKey, TValue>(), null);
+			Interlocked.CompareExchange(ref _childIndex, new IndexerChildIndex<TKey, TValue>(), comparand: null);
 			typedIndex = (IndexerChildIndex<TKey, TValue>)_childIndex!;
 		}
 

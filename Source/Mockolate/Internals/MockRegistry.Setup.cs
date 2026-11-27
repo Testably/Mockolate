@@ -19,7 +19,7 @@ public partial class MockRegistry
 				return existing;
 			}
 
-			Interlocked.CompareExchange(ref field, new object(), null);
+			Interlocked.CompareExchange(ref field, new object(), comparand: null);
 			return field!;
 		}
 	}
@@ -54,7 +54,7 @@ public partial class MockRegistry
 
 	private MockSetups EnsureSetups()
 	{
-		Interlocked.CompareExchange(ref _setups, new MockSetups(), null);
+		Interlocked.CompareExchange(ref _setups, new MockSetups(), comparand: null);
 		return _setups!;
 	}
 

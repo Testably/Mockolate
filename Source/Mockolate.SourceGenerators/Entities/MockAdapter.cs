@@ -32,17 +32,17 @@ internal sealed record MockAdapter(
 	internal static MockAdapter Logger { get; } = new(
 		"Microsoft.Extensions.Logging", "ILogger", MockAdapterClasses.WithInterceptedMembers, "global::Mockolate.MockolateLogging",
 		new EquatableArray<MockAdapterMember>([
-			new MockAdapterMember("Log", MockAdapterMemberKind.Intercepted, "DispatchLog", false),
-			new MockAdapterMember("IsEnabled", MockAdapterMemberKind.AnsweredWithoutSetup, "IsEnabled", true),
-			new MockAdapterMember("BeginScope", MockAdapterMemberKind.AnsweredWithoutSetup, null, true),
+			new MockAdapterMember("Log", MockAdapterMemberKind.Intercepted, "DispatchLog", IsIgnoredByVerifyAll: false),
+			new MockAdapterMember("IsEnabled", MockAdapterMemberKind.AnsweredWithoutSetup, "IsEnabled", IsIgnoredByVerifyAll: true),
+			new MockAdapterMember("BeginScope", MockAdapterMemberKind.AnsweredWithoutSetup, Hook: null, IsIgnoredByVerifyAll: true),
 		]),
-		null, new EquatableArray<string>([]),
+ClearHook: null, new EquatableArray<string>([]),
 		("ILogger`1", "global::Mockolate.MockolateLogging.CategoryName<{0}>.Value"));
 
 	internal static MockAdapter LoggerFactory { get; } = new(
 		"Microsoft.Extensions.Logging", "ILoggerFactory", MockAdapterClasses.None, "global::Mockolate.MockolateLogging",
 		new EquatableArray<MockAdapterMember>([
-			new MockAdapterMember("CreateLogger", MockAdapterMemberKind.AnsweredWithoutSetup, "CreateLogger", true),
+			new MockAdapterMember("CreateLogger", MockAdapterMemberKind.AnsweredWithoutSetup, "CreateLogger", IsIgnoredByVerifyAll: true),
 		]),
 		"ClearFactoryInteractions", new EquatableArray<string>(["CreateLogger",]));
 

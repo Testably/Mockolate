@@ -361,7 +361,7 @@ public partial class MockRegistry
 	{
 		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1>(f, id)) is { } typed)
 		{
-			return new Method1CountSource<T, T1>(subject, Interactions, typed, methodName, match1, null,
+			return new Method1CountSource<T, T1>(subject, Interactions, typed, methodName, match1, parameter1: null,
 				expectation, static (_, e) => InvokedMethodText(e));
 		}
 
@@ -378,7 +378,7 @@ public partial class MockRegistry
 		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1, T2>(f, id)) is { } typed)
 		{
 			return new Method2CountSource<T, T1, T2>(subject, Interactions, typed, methodName, match1, match2,
-				null, null, expectation, static (_, e) => InvokedMethodText(e));
+				parameter1: null, parameter2: null, expectation, static (_, e) => InvokedMethodText(e));
 		}
 
 		return VerifyMethod<T, MethodInvocation<T1, T2>>(subject, methodName,
@@ -394,7 +394,8 @@ public partial class MockRegistry
 		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1, T2, T3>(f, id)) is { } typed)
 		{
 			return new Method3CountSource<T, T1, T2, T3>(subject, Interactions, typed, methodName,
-				match1, match2, match3, null, null, null, expectation, static (_, e) => InvokedMethodText(e));
+				match1, match2, match3, parameter1: null, parameter2: null, parameter3: null, expectation,
+				static (_, e) => InvokedMethodText(e));
 		}
 
 		return VerifyMethod<T, MethodInvocation<T1, T2, T3>>(subject, methodName,
@@ -411,7 +412,7 @@ public partial class MockRegistry
 		if (TryGetRecords(memberId, static (f, id) => new MethodRecords<T1, T2, T3, T4>(f, id)) is { } typed)
 		{
 			return new Method4CountSource<T, T1, T2, T3, T4>(subject, Interactions, typed, methodName,
-				match1, match2, match3, match4, null, null, null, null,
+				match1, match2, match3, match4, parameter1: null, parameter2: null, parameter3: null, parameter4: null,
 				expectation, static (_, e) => InvokedMethodText(e));
 		}
 
@@ -1098,28 +1099,28 @@ public partial class MockRegistry
 	}
 
 	private static VerificationExpectation InvokedMethodExpectation(Func<string> expectation)
-		=> new(expectation, null, static (state, _) => InvokedMethodText(state));
+		=> new(expectation, argument: null, static (state, _) => InvokedMethodText(state));
 
 	private static VerificationExpectation InvokedMethodSetupExpectation(IMethodSetup methodSetup)
-		=> new(methodSetup, null, static (state, _) => $"invoked method {state}");
+		=> new(methodSetup, argument: null, static (state, _) => $"invoked method {state}");
 
 	private static VerificationExpectation GotPropertyExpectation(string propertyName)
-		=> new(propertyName, null, static (state, _) => GotPropertyText(state));
+		=> new(propertyName, argument: null, static (state, _) => GotPropertyText(state));
 
 	private static VerificationExpectation SetPropertyExpectation(string propertyName, object value)
 		=> new(propertyName, value, static (state, value) => SetPropertyText(state, value));
 
 	private static VerificationExpectation GotIndexerExpectation(Func<string> parametersDescription)
-		=> new(parametersDescription, null, static (state, _) => GotIndexerText(state));
+		=> new(parametersDescription, argument: null, static (state, _) => GotIndexerText(state));
 
 	private static VerificationExpectation SetIndexerExpectation(Func<string> parametersDescription, object value)
 		=> new(parametersDescription, value, static (state, value) => SetIndexerText(state, value));
 
 	private static VerificationExpectation SubscribedToEventExpectation(string eventName)
-		=> new(eventName, null, static (state, _) => SubscribedToEventText(state));
+		=> new(eventName, argument: null, static (state, _) => SubscribedToEventText(state));
 
 	private static VerificationExpectation UnsubscribedFromEventExpectation(string eventName)
-		=> new(eventName, null, static (state, _) => UnsubscribedFromEventText(state));
+		=> new(eventName, argument: null, static (state, _) => UnsubscribedFromEventText(state));
 
 	private static string InvokedMethodText(object? expectation)
 		=> $"invoked method {((Func<string>)expectation!)()}";

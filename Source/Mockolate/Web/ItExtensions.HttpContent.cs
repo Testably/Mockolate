@@ -151,7 +151,7 @@ public static partial class ItExtensions
 			}
 			else if (value is null)
 			{
-				InvokeCallbacks(null);
+				InvokeCallbacks(value: null);
 			}
 		}
 
@@ -192,7 +192,7 @@ public static partial class ItExtensions
 
 		/// <inheritdoc cref="IParameterMatch{T}.Matches(T)" />
 		public bool Matches(HttpContent? value)
-			=> Matches(value, null);
+			=> Matches(value, requestMessage: null);
 
 		/// <inheritdoc cref="IParameterMatch{T}.InvokeCallbacks(T)" />
 		public void InvokeCallbacks(HttpContent? value)
@@ -300,7 +300,7 @@ public static partial class ItExtensions
 					lock (content)
 					{
 						long position = stream.Position;
-						using StreamReader reader = new(stream, encoding, true, 1024, true);
+						using StreamReader reader = new(stream, encoding, detectEncodingFromByteOrderMarks: true, 1024, leaveOpen: true);
 						stringContent = reader.ReadToEnd();
 						stream.Position = position;
 					}

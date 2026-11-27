@@ -73,7 +73,7 @@ internal static partial class SourceTemplates
 	///     Formats method parameters with ref/out keywords and names for method invocations.
 	/// </summary>
 	private static string FormatMethodParametersWithRefKind(IEnumerable<MethodParameter> parameters)
-		=> string.Join(", ", parameters.Select(p => $"{p.RefKind.GetString(true)}{p.Name}"));
+		=> string.Join(", ", parameters.Select(p => $"{p.RefKind.GetString(replaceRefReadonlyWithIn: true)}{p.Name}"));
 
 	/// <summary>
 	///     Appends a typed parameter list for indexer accesses, e.g. <c>T1, T2</c>.
@@ -161,7 +161,7 @@ internal static partial class SourceTemplates
 		sb.Append(indent).Append('}').AppendLine();
 
 		EmitIndexerSetupLookup(sb, indent, mockRegistry, accessVarName, setupVarName, propertyType, parameters,
-			setupMemberIdRef ?? memberIdRef, false, deferAccess,
+			setupMemberIdRef ?? memberIdRef, isSetter: false, deferAccess,
 			deferAccess
 				? sbInner => EmitIndexerGetterAccessDeclaration(sbInner, indent, accessVarName, parameters)
 				: null);
@@ -280,7 +280,7 @@ internal static partial class SourceTemplates
 		sb.Append(indent).Append('}').AppendLine();
 
 		EmitIndexerSetupLookup(sb, indent, mockRegistry, accessVarName, setupVarName, propertyType, parameters,
-			setupMemberIdRef, true, deferAccess,
+			setupMemberIdRef, isSetter: true, deferAccess,
 			deferAccess
 				? sbInner => EmitIndexerSetterAccessDeclaration(sbInner, indent, accessVarName, propertyType, parameters)
 				: null);

@@ -249,7 +249,7 @@ public abstract class ReturnMethodSetup<TReturn>
 			{
 				Callback<Func<int, TReturn>> returnCallback =
 					_returnCallbacks[_returnCallbacks.CurrentIndex % _returnCallbacks.Count];
-				if (returnCallback.Invoke<object?, TReturn>(ref _returnCallbacks.CurrentIndex, null,
+				if (returnCallback.Invoke<object?, TReturn>(ref _returnCallbacks.CurrentIndex, state: null,
 					    static (count, @delegate, _) => @delegate(count),
 					    out TReturn? newValue))
 				{
@@ -281,7 +281,7 @@ public abstract class ReturnMethodSetup<TReturn>
 			{
 				Callback<Action<int>> callback =
 					_callbacks[(currentCallbacksIndex + i) % _callbacks.Count];
-				if (callback.Invoke<object?>(wasInvoked, ref _callbacks.CurrentIndex, null,
+				if (callback.Invoke<object?>(wasInvoked, ref _callbacks.CurrentIndex, state: null,
 					    static (count, @delegate, _) => @delegate(count)))
 				{
 					wasInvoked = true;

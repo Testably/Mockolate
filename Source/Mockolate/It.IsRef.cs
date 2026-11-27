@@ -25,7 +25,7 @@ public partial class It
 	/// <returns>An <see cref="IRefParameter{T}" /> that mutates the caller's ref-variable via <paramref name="setter" />.</returns>
 	public static IRefParameter<T> IsRef<T>(Func<T, T> setter,
 		[CallerArgumentExpression("setter")] string doNotPopulateThisValue = "")
-		=> new RefParameterMatch<T>(_ => true, setter, null, doNotPopulateThisValue);
+		=> new RefParameterMatch<T>(_ => true, setter, predicateExpression: null, doNotPopulateThisValue);
 
 	/// <summary>
 	///     Matches a <see langword="ref" /> parameter of type <typeparamref name="T" /> whose current value satisfies
@@ -61,7 +61,7 @@ public partial class It
 	public static IRefParameter<T> IsRef<T>(Func<T, bool> predicate,
 		[CallerArgumentExpression("predicate")]
 		string doNotPopulateThisValue = "")
-		=> new RefParameterMatch<T>(predicate, null, doNotPopulateThisValue, null);
+		=> new RefParameterMatch<T>(predicate, setter: null, doNotPopulateThisValue, setterExpression: null);
 
 	/// <summary>
 	///     Matches any <see langword="ref" /> argument of type <typeparamref name="T" /> &#8212; for <c>Verify</c> only;
@@ -106,7 +106,7 @@ public partial class It
 	public static IRefParameter<Setup.SpanWrapper<T>> IsRefSpan<T>(
 		Func<Setup.SpanWrapper<T>, Setup.SpanWrapper<T>> setter,
 		[CallerArgumentExpression("setter")] string doNotPopulateThisValue = "")
-		=> new RefParameterMatch<Setup.SpanWrapper<T>>(_ => true, setter, null, doNotPopulateThisValue);
+		=> new RefParameterMatch<Setup.SpanWrapper<T>>(_ => true, setter, predicateExpression: null, doNotPopulateThisValue);
 
 	/// <summary>
 	///     Matches a <see langword="ref" /> <see cref="Span{T}" /> parameter whose wrapped current value
@@ -139,7 +139,7 @@ public partial class It
 		Func<Setup.SpanWrapper<T>, bool> predicate,
 		[CallerArgumentExpression("predicate")]
 		string doNotPopulateThisValue = "")
-		=> new RefParameterMatch<Setup.SpanWrapper<T>>(predicate, null, doNotPopulateThisValue, null);
+		=> new RefParameterMatch<Setup.SpanWrapper<T>>(predicate, setter: null, doNotPopulateThisValue, setterExpression: null);
 
 	/// <summary>
 	///     Matches any <see langword="ref" /> <see cref="Span{T}" /> parameter without replacing its value.
@@ -160,7 +160,7 @@ public partial class It
 	public static IRefParameter<Setup.ReadOnlySpanWrapper<T>> IsRefReadOnlySpan<T>(
 		Func<Setup.ReadOnlySpanWrapper<T>, Setup.ReadOnlySpanWrapper<T>> setter,
 		[CallerArgumentExpression("setter")] string doNotPopulateThisValue = "")
-		=> new RefParameterMatch<Setup.ReadOnlySpanWrapper<T>>(_ => true, setter, null, doNotPopulateThisValue);
+		=> new RefParameterMatch<Setup.ReadOnlySpanWrapper<T>>(_ => true, setter, predicateExpression: null, doNotPopulateThisValue);
 
 	/// <summary>
 	///     Matches a <see langword="ref" /> <see cref="ReadOnlySpan{T}" /> parameter whose wrapped current
@@ -193,7 +193,7 @@ public partial class It
 		Func<Setup.ReadOnlySpanWrapper<T>, bool> predicate,
 		[CallerArgumentExpression("predicate")]
 		string doNotPopulateThisValue = "")
-		=> new RefParameterMatch<Setup.ReadOnlySpanWrapper<T>>(predicate, null, doNotPopulateThisValue, null);
+		=> new RefParameterMatch<Setup.ReadOnlySpanWrapper<T>>(predicate, setter: null, doNotPopulateThisValue, setterExpression: null);
 
 	/// <summary>
 	///     Matches any <see langword="ref" /> <see cref="ReadOnlySpan{T}" /> parameter without replacing
@@ -349,7 +349,7 @@ public partial class It
 	public static IRefRefStructParameter<T> IsRef<T>(RefStructTransform<T> setter,
 		[CallerArgumentExpression("setter")] string doNotPopulateThisValue = "")
 		where T : allows ref struct
-		=> new RefRefStructParameterMatch<T>(static _ => true, setter, null, doNotPopulateThisValue);
+		=> new RefRefStructParameterMatch<T>(static _ => true, setter, predicateExpression: null, doNotPopulateThisValue);
 
 	/// <summary>
 	///     Matches a <see langword="ref" /> parameter of a ref struct type whose current value
@@ -383,7 +383,7 @@ public partial class It
 		[CallerArgumentExpression("predicate")]
 		string doNotPopulateThisValue = "")
 		where T : allows ref struct
-		=> new RefRefStructParameterMatch<T>(predicate, null, doNotPopulateThisValue, null);
+		=> new RefRefStructParameterMatch<T>(predicate, setter: null, doNotPopulateThisValue, setterExpression: null);
 
 	/// <summary>
 	///     Matches any <see langword="ref" /> parameter of a ref struct type

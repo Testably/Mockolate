@@ -119,7 +119,7 @@ public static partial class ItExtensions
 
 		public TParameter WhoseUriIs(Action<IUriParameter> configureUri)
 		{
-			IUriParameter parameter = new UriParameter(null);
+			IUriParameter parameter = new UriParameter(pattern: null);
 			configureUri.Invoke(parameter);
 			_uriParameter = parameter;
 			return GetThis;

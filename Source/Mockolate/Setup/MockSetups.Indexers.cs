@@ -34,7 +34,7 @@ internal partial class MockSetups
 		{
 			if (_valueStorages is null)
 			{
-				Interlocked.CompareExchange(ref _valueStorages, new IndexerValueStorage?[count], null);
+				Interlocked.CompareExchange(ref _valueStorages, new IndexerValueStorage?[count], comparand: null);
 			}
 		}
 
@@ -61,7 +61,7 @@ internal partial class MockSetups
 			if (slot is null)
 			{
 				IndexerValueStorage<TValue> created = new();
-				slot = Interlocked.CompareExchange(ref storages[signatureIndex], created, null) ?? created;
+				slot = Interlocked.CompareExchange(ref storages[signatureIndex], created, comparand: null) ?? created;
 			}
 
 			if (slot is not IndexerValueStorage<TValue> typed)

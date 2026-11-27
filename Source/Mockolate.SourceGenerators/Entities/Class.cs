@@ -72,7 +72,7 @@ internal class Class : IEquatable<Class>
 		{
 			if (FindPartlyReachableFilledSlot(member, sourceAssembly) is { } partlyReachableSlot)
 			{
-				propertyFilledCandidates.Add(new Property(partlyReachableSlot, null, sourceAssembly));
+				propertyFilledCandidates.Add(new Property(partlyReachableSlot, alreadyDefinedProperties: null, sourceAssembly));
 			}
 
 			if (!FillsInaccessibleBaseSlot(member, sourceAssembly))
@@ -83,13 +83,13 @@ internal class Class : IEquatable<Class>
 			switch (member)
 			{
 				case IMethodSymbol methodSymbol:
-					methodExceptCandidates.Add(new Method(methodSymbol, null, sourceAssembly));
+					methodExceptCandidates.Add(new Method(methodSymbol, alreadyDefinedMethods: null, sourceAssembly));
 					break;
 				case IPropertySymbol propertySymbol:
-					propertyExceptCandidates.Add(new Property(propertySymbol, null, sourceAssembly));
+					propertyExceptCandidates.Add(new Property(propertySymbol, alreadyDefinedProperties: null, sourceAssembly));
 					break;
 				case IEventSymbol { Type: INamedTypeSymbol { DelegateInvokeMethod: { } eventInvoke, }, } eventSymbol:
-					eventExceptCandidates.Add(new Event(eventSymbol, eventInvoke, null, sourceAssembly));
+					eventExceptCandidates.Add(new Event(eventSymbol, eventInvoke, alreadyDefinedEvents: null, sourceAssembly));
 					break;
 			}
 		}
@@ -111,7 +111,7 @@ internal class Class : IEquatable<Class>
 
 						if (methodSymbol.IsSealed || HidesBaseOverridable(methodSymbol, type))
 						{
-							methodExceptCandidates.Add(new Method(methodSymbol, null, sourceAssembly));
+							methodExceptCandidates.Add(new Method(methodSymbol, alreadyDefinedMethods: null, sourceAssembly));
 						}
 
 						break;
@@ -130,7 +130,7 @@ internal class Class : IEquatable<Class>
 
 						if (propertySymbol.IsSealed || HidesBaseOverridable(propertySymbol, type))
 						{
-							propertyExceptCandidates.Add(new Property(propertySymbol, null, sourceAssembly));
+							propertyExceptCandidates.Add(new Property(propertySymbol, alreadyDefinedProperties: null, sourceAssembly));
 						}
 
 						break;
@@ -155,7 +155,7 @@ internal class Class : IEquatable<Class>
 
 						if (eventSymbol.IsSealed || HidesBaseOverridable(eventSymbol, type))
 						{
-							eventExceptCandidates.Add(new Event(eventSymbol, invoke, null, sourceAssembly));
+							eventExceptCandidates.Add(new Event(eventSymbol, invoke, alreadyDefinedEvents: null, sourceAssembly));
 						}
 
 						break;
@@ -863,7 +863,7 @@ internal class Class : IEquatable<Class>
 			    (mostDerived.IsAbstract || adapter.Classes != MockAdapterClasses.WithAbstractMembers) &&
 			    GetDeclaration(mostDerived) is { } declaration)
 			{
-				Method method = new(declaration, null, sourceAssembly);
+				Method method = new(declaration, alreadyDefinedMethods: null, sourceAssembly);
 				if (AllMethods().Any(candidate => Method.EqualityComparer.Equals(candidate, method)))
 				{
 					classMembers.Add(new MockAdapterClassMember(member.Name, method));

@@ -39,7 +39,7 @@ internal partial class MockSetups : MockScenarioSetup
 		if (autoMocks is null)
 		{
 			ConcurrentDictionary<(int MemberId, int Element, Type Type), object> created = new();
-			autoMocks = Interlocked.CompareExchange(ref _autoMocks, created, null) ?? created;
+			autoMocks = Interlocked.CompareExchange(ref _autoMocks, created, comparand: null) ?? created;
 		}
 
 		if (!autoMocks.TryGetValue((memberId, element, type), out object? stored))
@@ -99,7 +99,7 @@ internal class MockScenarioSetup
 		{
 			if (_events is null)
 			{
-				Interlocked.CompareExchange(ref _events, new MockSetups.EventSetups(), null);
+				Interlocked.CompareExchange(ref _events, new MockSetups.EventSetups(), comparand: null);
 			}
 
 			return _events!;
@@ -112,7 +112,7 @@ internal class MockScenarioSetup
 		{
 			if (_indexers is null)
 			{
-				Interlocked.CompareExchange(ref _indexers, new MockSetups.IndexerSetups(), null);
+				Interlocked.CompareExchange(ref _indexers, new MockSetups.IndexerSetups(), comparand: null);
 			}
 
 			return _indexers!;
@@ -125,7 +125,7 @@ internal class MockScenarioSetup
 		{
 			if (_methods is null)
 			{
-				Interlocked.CompareExchange(ref _methods, new MockSetups.MethodSetups(), null);
+				Interlocked.CompareExchange(ref _methods, new MockSetups.MethodSetups(), comparand: null);
 			}
 
 			return _methods!;
@@ -138,7 +138,7 @@ internal class MockScenarioSetup
 		{
 			if (_properties is null)
 			{
-				Interlocked.CompareExchange(ref _properties, new MockSetups.PropertySetups(), null);
+				Interlocked.CompareExchange(ref _properties, new MockSetups.PropertySetups(), comparand: null);
 			}
 
 			return _properties!;

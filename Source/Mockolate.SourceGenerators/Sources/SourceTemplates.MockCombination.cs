@@ -178,8 +178,8 @@ internal static partial class SourceTemplates
 		{
 			ImplementMockForInterface(sb, mockRegistryName, additionalInterfaceName,
 				additionalInterface.AllEvents().Any(x => !x.IsStatic),
-				false /* Interfaces cannot have protected members */,
-				false /* Interfaces cannot have protected events */,
+hasProtectedMembers: false /* Interfaces cannot have protected members */,
+hasProtectedEvents: false /* Interfaces cannot have protected events */,
 				additionalInterface.AllMethods().Any(x => x.IsStatic) || additionalInterface.AllProperties().Any(x => x.IsStatic),
 				additionalInterface.AllEvents().Any(x => x.IsStatic),
 				adapterIgnoredNames, adapterClearHook, hasGenericMethods: HasGenericFacadeMethods(additionalInterface, MemberType.Public));
@@ -226,7 +226,7 @@ internal static partial class SourceTemplates
 		Dictionary<string, int> signatureIndices = new();
 		int[] nextSignatureIndex = [0,];
 		
-		AppendMockSubject_ImplementClass(sb, @class, mockRegistryName, null, memberIds, memberIdPrefix, autoMocking, signatureIndices, nextSignatureIndex);
+		AppendMockSubject_ImplementClass(sb, @class, mockRegistryName, mockClass: null, memberIds, memberIdPrefix, autoMocking, signatureIndices, nextSignatureIndex);
 		
 		List<Class> implementedInterfaces = [];
 		foreach ((string Name, Class Class) item in additionalInterfaces)

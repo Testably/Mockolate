@@ -46,7 +46,7 @@ public abstract class IndexerAccess : IInteraction
 	/// </summary>
 	public bool TryFindStoredValue<T>(out T value)
 	{
-		if (TraverseStorage(Storage, false) is IndexerValueStorage<T> typedLeaf && typedLeaf.HasValue)
+		if (TraverseStorage(Storage, createMissing: false) is IndexerValueStorage<T> typedLeaf && typedLeaf.HasValue)
 		{
 			value = typedLeaf.Value;
 			return true;
@@ -61,7 +61,7 @@ public abstract class IndexerAccess : IInteraction
 	/// </summary>
 	public void StoreValue<T>(T value)
 	{
-		if (TraverseStorage(Storage, true) is IndexerValueStorage<T> typedLeaf)
+		if (TraverseStorage(Storage, createMissing: true) is IndexerValueStorage<T> typedLeaf)
 		{
 			typedLeaf.Value = value;
 			typedLeaf.HasValue = true;
@@ -72,5 +72,5 @@ public abstract class IndexerAccess : IInteraction
 	///     The storage node of this access, created if necessary, or <see langword="null" /> when no storage is attached.
 	/// </summary>
 	internal IndexerValueStorage<T>? GetOrCreateLeaf<T>()
-		=> TraverseStorage(Storage, true) as IndexerValueStorage<T>;
+		=> TraverseStorage(Storage, createMissing: true) as IndexerValueStorage<T>;
 }

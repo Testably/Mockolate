@@ -30,7 +30,7 @@ public class MatcherAsValueAnalyzer : DiagnosticAnalyzer
 			Resources.ResourceManager, typeof(Resources)),
 		"Usage",
 		DiagnosticSeverity.Warning,
-		true,
+isEnabledByDefault: true,
 		new LocalizableResourceString(nameof(Resources.Mockolate0007Description),
 			Resources.ResourceManager, typeof(Resources)));
 

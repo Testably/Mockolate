@@ -25,7 +25,7 @@ public partial class MockRegistry
 	private IMockInteractions EnsureInteractions()
 	{
 		Interlocked.CompareExchange(ref _interactions,
-			new MockInteractions(_interactionMemberCount, Behavior.SkipInteractionRecording), null);
+			new MockInteractions(_interactionMemberCount, Behavior.SkipInteractionRecording), comparand: null);
 		return _interactions!;
 	}
 
@@ -237,7 +237,7 @@ public partial class MockRegistry
 	/// <param name="methodName">The simple method name.</param>
 	/// <returns>A lazy stream of matching setups, scenario-scoped first.</returns>
 	public IEnumerable<T> GetMethodSetups<T>(string methodName) where T : MethodSetup
-		=> GetMethodSetups<T>(methodName, null);
+		=> GetMethodSetups<T>(methodName, alternativeMethodName: null);
 
 	/// <summary>
 	///     Enumerates method setups of type <typeparamref name="T" /> named <paramref name="methodName" /> or
@@ -342,7 +342,7 @@ public partial class MockRegistry
 	///     A lazy stream of the remaining default-scope setups, or <see langword="null" /> when there are none.
 	/// </returns>
 	public IEnumerable<T>? GetFallbackMethodSetups<T>(int memberId, string methodName) where T : MethodSetup
-		=> GetFallbackMethodSetups<T>(memberId, methodName, null);
+		=> GetFallbackMethodSetups<T>(memberId, methodName, alternativeMethodName: null);
 
 	/// <summary>
 	///     Enumerates the default-scope method setups of type <typeparamref name="T" /> named
@@ -918,7 +918,7 @@ public partial class MockRegistry
 			return ReadPropertySetup(snapshot, defaultValueGenerator);
 		}
 
-		TResult value = ResolvePropertySlow(propertyName, defaultValueGenerator, null);
+		TResult value = ResolvePropertySlow(propertyName, defaultValueGenerator, baseValueAccessor: null);
 		PublishResolvedPropertySetup(memberId, propertyName);
 		return value;
 	}
@@ -970,7 +970,7 @@ public partial class MockRegistry
 		// the closure captures a parameter and would otherwise be allocated on the hot path, too.
 		MockBehavior behavior = Behavior;
 		Func<TResult> bridge = () => defaultValueGenerator(behavior);
-		return ResolveGetterInternal(propertyName, bridge, baseValueAccessor, null);
+		return ResolveGetterInternal(propertyName, bridge, baseValueAccessor, interaction: null);
 	}
 
 	private void RecordPropertyGetter(int memberId, PropertyGetterAccess access)
@@ -991,7 +991,7 @@ public partial class MockRegistry
 		if (baseValueAccessor is null)
 		{
 			// Stryker disable once Boolean : forceReinit only matters when a base class accessor exists; on this branch there is none, so flipping it to true triggers an extra InitializeWith call that is gated by _isUserInitialized || _isInitialized and becomes a no-op.
-			matchingSetup = ResolvePropertySetup(propertyName, defaultValueGenerator, null, false);
+			matchingSetup = ResolvePropertySetup(propertyName, defaultValueGenerator, baseValueAccessor: null, forceReinitWhenFound: false);
 
 			return ((IInteractivePropertySetup)matchingSetup).InvokeGetter(interaction, Behavior,
 				defaultValueGenerator);
@@ -1012,7 +1012,7 @@ public partial class MockRegistry
 		};
 
 		matchingSetup = ResolvePropertySetup(
-			propertyName, defaultValueGenerator, safeBaseValueAccessor, true);
+			propertyName, defaultValueGenerator, safeBaseValueAccessor, forceReinitWhenFound: true);
 
 		TResult result = ((IInteractivePropertySetup)matchingSetup).InvokeGetter(interaction, Behavior,
 			defaultValueGenerator);
@@ -1041,7 +1041,7 @@ public partial class MockRegistry
 				new PropertySetterAccess<T>(propertyName, value));
 		}
 
-		PropertySetup matchingSetup = ResolvePropertySetup<T>(propertyName, null, null, false);
+		PropertySetup matchingSetup = ResolvePropertySetup<T>(propertyName, defaultValueGenerator: null, baseValueAccessor: null, forceReinitWhenFound: false);
 
 		((IInteractivePropertySetup)matchingSetup).InvokeSetter(interaction, value, Behavior);
 		return ((IInteractivePropertySetup)matchingSetup).SkipBaseClass() ?? Behavior.SkipBaseClass;
@@ -1065,9 +1065,9 @@ public partial class MockRegistry
 		}
 
 		// Stryker disable once Boolean : forceReinitWhenFound only has an observable effect when defaultValueGenerator is non-null. Here it is null, so the only side effect of flipping to true is an extra InitializeWith(null) call that early-returns under the _isUserInitialized || _isInitialized guard inside PropertySetup<T>.InitializeValue.
-		PropertySetup matchingSetup = ResolvePropertySetup<T>(propertyName, null, null, false);
+		PropertySetup matchingSetup = ResolvePropertySetup<T>(propertyName, defaultValueGenerator: null, baseValueAccessor: null, forceReinitWhenFound: false);
 
-		((IInteractivePropertySetup)matchingSetup).InvokeSetter(null, value, Behavior);
+		((IInteractivePropertySetup)matchingSetup).InvokeSetter(invocation: null, value, Behavior);
 		return ((IInteractivePropertySetup)matchingSetup).SkipBaseClass() ?? Behavior.SkipBaseClass;
 	}
 
@@ -1106,13 +1106,13 @@ public partial class MockRegistry
 				// Mirror the OLD ResolvePropertySetup<T>(propertyName, null, null, false) call: mark the
 				// setup as initialized without overwriting _value, so a subsequent reader's IsValueInitialized
 				// check short-circuits to the value about to be written below.
-				((IInteractivePropertySetup)matchingSetup).InitializeWith(null);
+				((IInteractivePropertySetup)matchingSetup).InitializeWith(value: null);
 			}
 		}
 		else
 		{
 			// Stryker disable once Boolean : same equivalence as the SetProperty(int, string, T) path — defaultValueGenerator is null here, so flipping forceReinit only triggers an InitializeWith(null) call that early-returns under the _isUserInitialized || _isInitialized guard.
-			matchingSetup = ResolvePropertySetup<T>(propertyName, null, null, false);
+			matchingSetup = ResolvePropertySetup<T>(propertyName, defaultValueGenerator: null, baseValueAccessor: null, forceReinitWhenFound: false);
 			if (string.IsNullOrEmpty(Scenario))
 			{
 				PublishResolvedPropertySetup(memberId, propertyName);
@@ -1131,7 +1131,7 @@ public partial class MockRegistry
 		}
 		else
 		{
-			((IInteractivePropertySetup)matchingSetup).InvokeSetter(null, value, Behavior);
+			((IInteractivePropertySetup)matchingSetup).InvokeSetter(invocation: null, value, Behavior);
 		}
 
 		return ((IInteractivePropertySetup)matchingSetup).SkipBaseClass() ?? Behavior.SkipBaseClass;
@@ -1275,7 +1275,7 @@ public partial class MockRegistry
 
 		if (!Behavior.SkipInteractionRecording)
 		{
-			RecordEvent(memberId, name, target, method, true);
+			RecordEvent(memberId, name, target, method, isSubscribe: true);
 		}
 
 		// Hot path: setups registered via SetupEvent(int, ...), no scenario active.
@@ -1346,7 +1346,7 @@ public partial class MockRegistry
 
 		if (!Behavior.SkipInteractionRecording)
 		{
-			RecordEvent(memberId, name, target, method, false);
+			RecordEvent(memberId, name, target, method, isSubscribe: false);
 		}
 
 		// Hot path: setups registered via SetupEvent(int, ...), no scenario active. The proxy passes the
