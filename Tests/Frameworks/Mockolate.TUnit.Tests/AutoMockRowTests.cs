@@ -336,6 +336,61 @@ public sealed class AutoMockRowTests
 		await That(valueFrom()).IsNull();
 	}
 
+	[Test]
+	public async Task GetValueFrom_WithValueProvider_ShouldCallItWithTheParameter()
+	{
+		Func<object?> valueFrom = AutoMockRow.GetValueFrom(GetParameters(nameof(FromProvider))[0])!;
+
+		await That(valueFrom()).IsEqualTo("fileName");
+	}
+
+	[Test]
+	public async Task GetValueFrom_WithValueProviderOfAnotherType_ShouldThrow()
+	{
+		Func<object?> valueFrom = AutoMockRow.GetValueFrom(GetParameters(nameof(FromProviderOfOtherType))[0])!;
+
+		void Act()
+			=> valueFrom();
+
+		await That(Act).Throws<MockException>()
+			.WithMessage("The value provider 'Mockolate.TUnit.Tests.AutoMockRowTests+NumberAttribute' returned a 'System.Int32', which is not assignable to the parameter 'text' of type 'System.String'.");
+	}
+
+	[Test]
+	[Arguments(nameof(FromTwoProviders))]
+	[Arguments(nameof(FromProviderAndValueFrom))]
+	public async Task GetValueFrom_WithMoreThanOneValueProvider_ShouldThrow(string methodName)
+	{
+		void Act()
+			=> AutoMockRow.GetValueFrom(GetParameters(methodName)[0]);
+
+		await That(Act).Throws<MockException>()
+			.WithMessage("The parameter 'value' has more than one value provider or [ValueFrom].");
+	}
+
+	[Test]
+	public async Task GetValueFrom_WithValueProviderReturningNullForAValueType_ShouldThrow()
+	{
+		Func<object?> valueFrom = AutoMockRow.GetValueFrom(GetParameters(nameof(FromNullProvider))[0])!;
+
+		void Act()
+			=> valueFrom();
+
+		await That(Act).Throws<MockException>()
+			.WithMessage("The value provider 'Mockolate.TUnit.Tests.AutoMockRowTests+NullAttribute' returned null for the parameter 'count' of the value type 'System.Int32'.");
+	}
+
+	[Test]
+	[Arguments(nameof(FromNullProviderForNullable))]
+	[Arguments(nameof(FromNullProviderForReference))]
+	public async Task GetValueFrom_WithValueProviderReturningNullForANullableParameter_ShouldReturnNull(
+		string methodName)
+	{
+		Func<object?> valueFrom = AutoMockRow.GetValueFrom(GetParameters(methodName)[0])!;
+
+		await That(valueFrom()).IsNull();
+	}
+
 	private static AutoMockRow CreateRow(string methodName, params object?[] arguments)
 		=> new(typeof(AutoMockRowTests).Assembly, GetTypes(methodName), GetNames(methodName), _ => false, _ => false, _ => null,
 			_ => null, arguments, null);
@@ -370,6 +425,34 @@ public sealed class AutoMockRowTests
 	}
 
 	private static void FromProperty([ValueFrom(nameof(NewService))] IUncreatableService service)
+	{
+	}
+
+	private static void FromProvider([ParameterName] string fileName)
+	{
+	}
+
+	private static void FromProviderOfOtherType([Number] string text)
+	{
+	}
+
+	private static void FromNullProvider([Null] int count)
+	{
+	}
+
+	private static void FromNullProviderForNullable([Null] int? count)
+	{
+	}
+
+	private static void FromNullProviderForReference([Null] string? text)
+	{
+	}
+
+	private static void FromTwoProviders([ParameterName] [Number] object value)
+	{
+	}
+
+	private static void FromProviderAndValueFrom([ParameterName] [ValueFrom(nameof(Text))] object value)
 	{
 	}
 
@@ -412,6 +495,21 @@ public sealed class AutoMockRowTests
 #pragma warning restore CA1822
 
 	public interface IUncreatableService;
+
+	internal sealed class ParameterNameAttribute : Attribute, IParameterValueProvider
+	{
+		public object? ProvideValue(ParameterInfo parameter) => parameter.Name;
+	}
+
+	internal sealed class NumberAttribute : Attribute, IParameterValueProvider
+	{
+		public object? ProvideValue(ParameterInfo parameter) => 42;
+	}
+
+	internal sealed class NullAttribute : Attribute, IParameterValueProvider
+	{
+		public object? ProvideValue(ParameterInfo parameter) => null;
+	}
 
 	private sealed class UncreatableService : IUncreatableService;
 

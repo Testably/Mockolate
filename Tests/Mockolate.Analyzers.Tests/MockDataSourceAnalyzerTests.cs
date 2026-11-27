@@ -19,6 +19,68 @@ public class MockDataSourceAnalyzerTests
 	                                     public sealed class OtherAttribute : System.Attribute;
 	                                     """;
 
+	private const string ValueProviders = """
+	                                      [Mockolate.ProvidesValuesFor(typeof(int), typeof(long))]
+	                                      public sealed class MaxAttribute : System.Attribute, Mockolate.IParameterValueProvider
+	                                      {
+	                                          public object? ProvideValue(System.Reflection.ParameterInfo parameter) => null;
+	                                      }
+
+	                                      [Mockolate.ProvidesValuesFor(typeof(string))]
+	                                      public class NameAttribute : System.Attribute, Mockolate.IParameterValueProvider
+	                                      {
+	                                          public object? ProvideValue(System.Reflection.ParameterInfo parameter) => null;
+	                                      }
+
+	                                      public sealed class DerivedNameAttribute : NameAttribute;
+
+	                                      public sealed class AnyAttribute : System.Attribute, Mockolate.IParameterValueProvider
+	                                      {
+	                                          public object? ProvideValue(System.Reflection.ParameterInfo parameter) => null;
+	                                      }
+
+	                                      [Mockolate.ProvidesValuesFor(typeof(System.Collections.Generic.List<>))]
+	                                      public sealed class ListsAttribute : System.Attribute, Mockolate.IParameterValueProvider
+	                                      {
+	                                          public object? ProvideValue(System.Reflection.ParameterInfo parameter) => null;
+	                                      }
+
+	                                      [Mockolate.ProvidesValuesFor(typeof(System.Collections.Generic.KeyValuePair<,>))]
+	                                      public sealed class PairsAttribute : System.Attribute, Mockolate.IParameterValueProvider
+	                                      {
+	                                          public object? ProvideValue(System.Reflection.ParameterInfo parameter) => null;
+	                                      }
+
+	                                      [Mockolate.ProvidesValuesFor]
+	                                      public sealed class NoTypesAttribute : System.Attribute, Mockolate.IParameterValueProvider
+	                                      {
+	                                          public object? ProvideValue(System.Reflection.ParameterInfo parameter) => null;
+	                                      }
+
+	                                      [Mockolate.ProvidesValuesFor(null)]
+	                                      public sealed class NullTypesAttribute : System.Attribute, Mockolate.IParameterValueProvider
+	                                      {
+	                                          public object? ProvideValue(System.Reflection.ParameterInfo parameter) => null;
+	                                      }
+	                                      """;
+
+	/// <summary>
+	///     Declared in the source, because the referenced Mockolate assembly binds <c>typeof</c> arguments to another
+	///     <c>System.Type</c> in the test compilation.
+	/// </summary>
+	private const string ValueProviderTypes = """
+	                                          namespace Mockolate
+	                                          {
+	                                              public interface IParameterValueProvider
+	                                              {
+	                                                  object? ProvideValue(System.Reflection.ParameterInfo parameter);
+	                                              }
+
+	                                              [System.AttributeUsage(System.AttributeTargets.Class)]
+	                                              public sealed class ProvidesValuesForAttribute(params System.Type[]? types) : System.Attribute;
+	                                          }
+	                                          """;
+
 	private const string Markers = """
 	                               namespace Mockolate.Integrations
 	                               {
@@ -703,6 +765,105 @@ public class MockDataSourceAnalyzerTests
 				.WithArguments("a", "gets a given argument of the attribute, which replaces the value"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(1)
 				.WithArguments("a", "gets a given argument of the attribute, which replaces the value")
+		);
+
+	[Test]
+	public async Task WhenValueProviderProvidesTheParameterType_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  #nullable enable
+			  namespace MyCode
+			  {
+			      using System;
+			      using Mockolate.Integrations;
+
+			      public interface IDep { int Get(); }
+
+			      public class Tests
+			      {
+			          [Data]
+			          public void Test([Max] int a, [Max] long? b, [Max] object c, [Name] string? d,
+			              [DerivedName] IComparable e, [Any] IDep f, [AsDefault, Any] IDep g, [NotShared, Max] int h,
+			              [Lists] System.Collections.Generic.List<int> i,
+			              [Lists] System.Collections.Generic.IEnumerable<string> j, [Lists] object k,
+			              [NoTypes] IDep l, [NullTypes] IDep m,
+			              [Pairs] System.Collections.Generic.KeyValuePair<string, int>? n, [Pairs] dynamic o) { }
+
+			          [Data]
+			          public void Generic<T>([Max] T value, [Max] System.Collections.Generic.List<T> values) { }
+
+			          [Other]
+			          public void NoDataSource([Max] string a, [Max, Any] int b) { }
+			      }
+
+			      {{ValueProviders}}
+
+			      {{DataAttribute}}
+			  }
+
+			  {{Markers}}
+
+			  {{ValueProviderTypes}}
+			  """
+		);
+
+	[Test]
+	public async Task WhenValueProviderIsInvalid_ShouldBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			$$"""
+			  #nullable enable
+			  namespace MyCode
+			  {
+			      using System;
+			      using Mockolate.Integrations;
+
+			      public interface IDep { int Get(); }
+
+			      public class Tests
+			      {
+			          [Data]
+			          public void Test([Max] string {|#0:a|}, [DerivedName] int {|#1:b|}, [Max, Any] int {|#2:c|},
+			              [Any, ValueFrom(nameof(Number))] int {|#3:d|}, [Any, Deferred] Func<IDep> {|#4:e|},
+			              [Lists] System.Collections.Generic.Dictionary<int, int> {|#6:f|}) { }
+
+			          private static int Number => 1;
+			      }
+
+			      [ArgsData(1)]
+			      public class ClassTests
+			      {
+			          public ClassTests([Any] int {|#5:a|}, [Any] int b) { }
+			      }
+
+			      [System.AttributeUsage(System.AttributeTargets.Method | System.AttributeTargets.Class, AllowMultiple = true)]
+			      public sealed class ArgsDataAttribute : System.Attribute, Mockolate.Internals.IMockDataSource
+			      {
+			          public ArgsDataAttribute(params object?[]? arguments) { }
+			      }
+
+			      {{ValueProviders}}
+
+			      {{DataAttribute}}
+			  }
+
+			  {{Markers}}
+
+			  {{ValueProviderTypes}}
+			  """,
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueProviderParameterRule).WithLocation(0)
+				.WithArguments("a", "has the value provider 'MyCode.MaxAttribute', which provides only values of type 'int', 'long'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueProviderParameterRule).WithLocation(1)
+				.WithArguments("b", "has the value provider 'MyCode.DerivedNameAttribute', which provides only values of type 'string'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueProviderParameterRule).WithLocation(2)
+				.WithArguments("c", "has more than one value provider or [ValueFrom]"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueProviderParameterRule).WithLocation(3)
+				.WithArguments("d", "has more than one value provider or [ValueFrom]"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueProviderParameterRule).WithLocation(4)
+				.WithArguments("e", "has a value provider and is also marked [Deferred]"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueProviderParameterRule).WithLocation(5)
+				.WithArguments("a", "gets a given argument of the attribute, which replaces the value of its value provider"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueProviderParameterRule).WithLocation(6)
+				.WithArguments("f", "has the value provider 'MyCode.ListsAttribute', which provides only values of type 'System.Collections.Generic.List<>'")
 		);
 
 	[Test]

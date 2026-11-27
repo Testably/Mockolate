@@ -130,6 +130,15 @@ public sealed class AutoMockArgumentsTests
 		await That(rule.Percentage).IsEqualTo(10m);
 	}
 
+	[Theory]
+	[AutoMockArguments]
+	public async Task ValueProvider_ShouldPassTheValueToTheClassUnderTest(PriceCalculator sut,
+		[Discount(25)] DiscountRule rule)
+	{
+		await That(sut.Rule).IsSameAs(rule);
+		await That(rule.Percentage).IsEqualTo(25m);
+	}
+
 	private static DiscountRule TenPercentOff => new()
 	{
 		Percentage = 10m,

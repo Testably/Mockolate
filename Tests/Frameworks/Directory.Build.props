@@ -11,6 +11,8 @@
 		<ProjectReference Include="$(MSBuildThisFileDirectory)/../../Source/Mockolate.Analyzers/Mockolate.Analyzers.csproj"
 		                  PrivateAssets="all" ReferenceOutputAssembly="false" OutputItemType="Analyzer"/>
 		<ProjectReference Include="$(MSBuildThisFileDirectory)/Mockolate.Frameworks.TestHelpers/Mockolate.Frameworks.TestHelpers.csproj"/>
+		<!-- Compiled into each test project, because the shared helper project does not reference Mockolate. -->
+		<Compile Include="$(MSBuildThisFileDirectory)/Shared/*.cs" Link="Shared/%(Filename)%(Extension)"/>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(IsTestProject)' == 'true'">

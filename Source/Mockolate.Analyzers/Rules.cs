@@ -22,7 +22,7 @@ public static class Rules
 	public static readonly DiagnosticDescriptor MockabilityRule =
 		CreateDescriptor("Mockolate0002", UsageCategory, DiagnosticSeverity.Error);
 
-	// Mockolate0003 (ref-struct-mockability), Mockolate0005 to Mockolate0007 and Mockolate0010 are declared in-place
+	// Mockolate0003 (ref-struct-mockability), Mockolate0005 to Mockolate0007 and Mockolate0010 to Mockolate0014 are declared in-place
 	// on their analyzers rather than here. The Roslyn ReleaseTrackingAnalyzer needs the descriptor
 	// in the same assembly as the analyzer that lists it in SupportedDiagnostics; defining it here
 	// as a cross-file static confused it (RS2002).

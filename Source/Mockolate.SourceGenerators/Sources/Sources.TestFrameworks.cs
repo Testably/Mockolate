@@ -147,7 +147,7 @@ internal static partial class Sources
 		                              		///     is not the default value of its own type either.
 		                              		/// </param>
 		                              		/// <param name="getValueFrom">
-		                              		///     The member that provides the value of the parameter at an index, or <see langword="null" /> when
+		                              		///     The value provider or member that provides the value of the parameter at an index, or <see langword="null" /> when
 		                              		///     Mockolate creates it.
 		                              		/// </param>
 		                              		/// <param name="arguments">The given arguments of the first parameters, which are not shared.</param>
@@ -202,19 +202,55 @@ internal static partial class Sources
 		                              		}
 
 		                              		/// <summary>
-		                              		///     Reads the static property or calls the parameterless static method of the test class that the
-		                              		///     <see cref="ValueFromParameterAttribute" /> of the <paramref name="parameter" /> names, or
-		                              		///     <see langword="null" /> when it has none.
+		                              		///     Calls the <see cref="global::Mockolate.IParameterValueProvider" /> attribute of the <paramref name="parameter" />,
+		                              		///     or reads the static property or calls the parameterless static method of the test class that its
+		                              		///     <see cref="ValueFromParameterAttribute" /> names, or <see langword="null" /> when it has neither.
 		                              		/// </summary>
 		                              		public static global::System.Func<object?>? GetValueFrom(global::System.Reflection.ParameterInfo parameter)
 		                              		{
-		                              			object[] attributes = parameter.GetCustomAttributes(typeof(ValueFromParameterAttribute), false);
-		                              			if (attributes.Length == 0)
+		                              			object? source = null;
+		                              			foreach (object attribute in parameter.GetCustomAttributes(false))
+		                              			{
+		                              				if (attribute is global::Mockolate.IParameterValueProvider or ValueFromParameterAttribute)
+		                              				{
+		                              					if (source is not null)
+		                              					{
+		                              						throw new global::Mockolate.Exceptions.MockException(
+		                              							$"The parameter '{parameter.Name}' has more than one value provider or [ValueFrom].");
+		                              					}
+
+		                              					source = attribute;
+		                              				}
+		                              			}
+
+		                              			if (source is global::Mockolate.IParameterValueProvider provider)
+		                              			{
+		                              				return () =>
+		                              				{
+		                              					object? value = provider.ProvideValue(parameter);
+		                              					if (value is null && parameter.ParameterType.IsValueType &&
+		                              					    global::System.Nullable.GetUnderlyingType(parameter.ParameterType) is null)
+		                              					{
+		                              						throw new global::Mockolate.Exceptions.MockException(
+		                              							$"The value provider '{provider.GetType()}' returned null for the parameter '{parameter.Name}' of the value type '{parameter.ParameterType}'.");
+		                              					}
+
+		                              					if (value is not null && !parameter.ParameterType.IsInstanceOfType(value))
+		                              					{
+		                              						throw new global::Mockolate.Exceptions.MockException(
+		                              							$"The value provider '{provider.GetType()}' returned a '{value.GetType()}', which is not assignable to the parameter '{parameter.Name}' of type '{parameter.ParameterType}'.");
+		                              					}
+
+		                              					return value;
+		                              				};
+		                              			}
+
+		                              			if (source is not ValueFromParameterAttribute valueFrom)
 		                              			{
 		                              				return null;
 		                              			}
 
-		                              			string memberName = ((ValueFromParameterAttribute)attributes[0]).MemberName;
+		                              			string memberName = valueFrom.MemberName;
 		                              			global::System.Type? testClass = parameter.Member.DeclaringType;
 		                              			if (testClass is { ContainsGenericParameters: true, })
 		                              			{

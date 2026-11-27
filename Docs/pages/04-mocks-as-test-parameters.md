@@ -163,6 +163,48 @@ private static Discount TenPercentOffDark => new() { Type = "Dark", Percentage =
 
 The [Mockolate0013](10-analyzers.md#mockolate0013) analyzer reports a member that does not exist, is not static, is a field or has a type that is not assignable to the parameter.
 
+## Provide a value with an attribute
+
+To reuse how a value is made across test classes, write an attribute that implements `IParameterValueProvider` and put it on the parameter. Mockolate calls `ProvideValue` with the parameter, so the attribute can use its type or name:
+
+```csharp
+using System.Reflection;
+
+[ProvidesValuesFor(typeof(string))]
+public sealed class FileNameAttribute : Attribute, IParameterValueProvider
+{
+    public string Extension { get; set; } = ".txt";
+
+    public object? ProvideValue(ParameterInfo parameter) => $"{parameter.Name}-{Guid.NewGuid():N}{Extension}";
+}
+
+public interface IFileSystem
+{
+    void WriteAllText(string path, string contents);
+}
+
+public class ReportExporter(string fileName, IFileSystem fileSystem)
+{
+    public void Export(string report) => fileSystem.WriteAllText(fileName, report);
+}
+
+[Test]
+[AutoMockArguments]
+public async Task Export_ShouldWriteTheFile(ReportExporter sut, IFileSystem fileSystem,
+    [FileName(Extension = ".csv")] string fileName)
+{
+    sut.Export("report");
+
+    await That(fileSystem.Mock.Verify.WriteAllText(fileName, "report")).Once();
+}
+```
+
+- Mockolate calls the attribute once per test case. The class under test receives the value like a `[ValueFrom]` value, so [`[NotShared]`](#keep-a-mock-out-of-the-class-under-test) and [`[AsDefault]`](#return-the-same-instance-from-every-mock) work the same way.
+- `[ProvidesValuesFor]` declares the types of the values. It is optional, but without it the analyzer cannot check the parameter type. An attribute that serves several types lists them all, e.g. `[ProvidesValuesFor(typeof(int), typeof(long))]`, and an open generic type such as `typeof(List<>)` stands for all of its constructed types.
+- A parameter has at most one value provider or `[ValueFrom]`, and the values of `[AutoMockArguments]` still fill the first parameters.
+
+The [Mockolate0014](10-analyzers.md#mockolate0014) analyzer reports a parameter whose type cannot hold any of the declared types, a parameter with more than one value provider, and a value provider on a `[Deferred]` parameter or on a parameter that gets a value of `[AutoMockArguments]`.
+
 ## Keep a mock out of the class under test
 
 Mark a parameter with `[NotShared]` to get a mock that the class under test does not receive:

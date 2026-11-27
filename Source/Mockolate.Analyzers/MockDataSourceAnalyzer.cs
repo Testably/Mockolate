@@ -87,6 +87,22 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		new LocalizableResourceString(nameof(Resources.Mockolate0013Description),
 			Resources.ResourceManager, typeof(Resources)));
 
+	/// <summary>
+	///     A test parameter with a value provider that does not provide its type, with more than one value provider, or
+	///     that is also <c>[Deferred]</c> or gets a given argument.
+	/// </summary>
+	public static readonly DiagnosticDescriptor ValueProviderParameterRule = new(
+		"Mockolate0014",
+		new LocalizableResourceString(nameof(Resources.Mockolate0014Title),
+			Resources.ResourceManager, typeof(Resources)),
+		new LocalizableResourceString(nameof(Resources.Mockolate0014MessageFormat),
+			Resources.ResourceManager, typeof(Resources)),
+		"Usage",
+		DiagnosticSeverity.Warning,
+		true,
+		new LocalizableResourceString(nameof(Resources.Mockolate0014Description),
+			Resources.ResourceManager, typeof(Resources)));
+
 	/// <inheritdoc cref="DiagnosticAnalyzer.SupportedDiagnostics" />
 	public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
 	[
@@ -94,6 +110,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		AsDefaultParameterRule,
 		DeferredParameterRule,
 		ValueFromParameterRule,
+		ValueProviderParameterRule,
 	];
 
 	/// <inheritdoc cref="DiagnosticAnalyzer.Initialize(AnalysisContext)" />
@@ -147,16 +164,13 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 	private static void AnalyzeParameter(SymbolAnalysisContext context, IParameterSymbol parameter, Location location,
 		int createdFrom, int valueFromAfter)
 	{
-		// Mockolate does not create a [ValueFrom] parameter, so neither Mockolate0010 nor Mockolate0012 applies.
-		if (GetValueFromAttribute(parameter) is { } valueFrom)
+		// Mockolate does not create a parameter with a value provider or [ValueFrom], so neither Mockolate0010 nor
+		// Mockolate0012 applies.
+		if (HasValueSource(parameter, location, valueFromAfter, context.Compilation, out Diagnostic? valueSourceDiagnostic))
 		{
-			string? valueFromReason = parameter.Ordinal < valueFromAfter
-				? Resources.Mockolate0013GivenArgumentReason
-				: GetValueFromReason(parameter, valueFrom, context.Compilation);
-			if (valueFromReason is not null)
+			if (valueSourceDiagnostic is not null)
 			{
-				context.ReportDiagnostic(Diagnostic.Create(ValueFromParameterRule, location, parameter.Name,
-					valueFromReason));
+				context.ReportDiagnostic(valueSourceDiagnostic);
 			}
 
 			return;
@@ -183,6 +197,130 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			context.ReportDiagnostic(Diagnostic.Create(DeferredParameterRule, location, parameter.Name,
 				deferredReason));
 		}
+	}
+
+	/// <summary>
+	///     Whether the value of the <paramref name="parameter" /> comes from a value provider or a <c>[ValueFrom]</c>
+	///     member, with the <paramref name="diagnostic" /> when that source is invalid.
+	/// </summary>
+	private static bool HasValueSource(IParameterSymbol parameter, Location location, int valueFromAfter,
+		Compilation compilation, out Diagnostic? diagnostic)
+	{
+		diagnostic = null;
+		INamedTypeSymbol[] providers = GetValueProviders(parameter);
+		if (providers.Length > 0)
+		{
+			if (GetValueProviderReason(parameter, providers, parameter.Ordinal < valueFromAfter, compilation) is
+			    { } providerReason)
+			{
+				diagnostic = Diagnostic.Create(ValueProviderParameterRule, location, parameter.Name, providerReason);
+			}
+
+			return true;
+		}
+
+		if (GetValueFromAttribute(parameter) is not { } valueFrom)
+		{
+			return false;
+		}
+
+		if ((parameter.Ordinal < valueFromAfter
+			    ? Resources.Mockolate0013GivenArgumentReason
+			    : GetValueFromReason(parameter, valueFrom, compilation)) is { } valueFromReason)
+		{
+			diagnostic = Diagnostic.Create(ValueFromParameterRule, location, parameter.Name, valueFromReason);
+		}
+
+		return true;
+	}
+
+	private static INamedTypeSymbol[] GetValueProviders(IParameterSymbol parameter)
+		=> parameter.GetAttributes()
+			.Select(attribute => attribute.AttributeClass)
+			.OfType<INamedTypeSymbol>()
+			.Where(attributeClass => attributeClass.AllInterfaces.Any(@interface =>
+				@interface.Name == "IParameterValueProvider" &&
+				AnalyzerHelpers.IsMockolateNamespace(@interface.ContainingNamespace)))
+			.ToArray();
+
+	private static string? GetValueProviderReason(IParameterSymbol parameter, INamedTypeSymbol[] providers,
+		bool hasGivenArgument, Compilation compilation)
+	{
+		if (providers.Length > 1 || GetValueFromAttribute(parameter) is not null)
+		{
+			return Resources.Mockolate0014MultipleReason;
+		}
+
+		if (hasGivenArgument)
+		{
+			return Resources.Mockolate0014GivenArgumentReason;
+		}
+
+		if (HasMarker(parameter, "DeferredParameterAttribute"))
+		{
+			return Resources.Mockolate0014DeferredReason;
+		}
+
+		ITypeSymbol[]? providedTypes = GetProvidedTypes(providers[0]);
+		return providedTypes is null || ConstructorRules.ContainsTypeParameter(parameter.Type) ||
+		       providedTypes.Any(type => IsProvided(type, parameter.Type, compilation))
+			? null
+			: string.Format(CultureInfo.InvariantCulture, Resources.Mockolate0014NotProvidedReason,
+				providers[0].ToDisplayString(),
+				string.Join(", ", providedTypes.Select(type => $"'{type.ToDisplayString()}'")));
+	}
+
+	/// <summary>
+	///     The types of the <c>[ProvidesValuesFor]</c> attribute of the <paramref name="provider" /> or its nearest base
+	///     class, or <see langword="null" /> when it has none, names no type or does not bind, so that any type is allowed.
+	/// </summary>
+	private static ITypeSymbol[]? GetProvidedTypes(INamedTypeSymbol provider)
+	{
+		for (INamedTypeSymbol? type = provider; type is not null; type = type.BaseType)
+		{
+			if (type.GetAttributes().FirstOrDefault(attribute =>
+				    attribute.AttributeClass is { Name: "ProvidesValuesForAttribute", } attributeClass &&
+				    AnalyzerHelpers.IsMockolateNamespace(attributeClass.ContainingNamespace)) is { } providesValuesFor)
+			{
+				ITypeSymbol[] types = providesValuesFor.ConstructorArguments
+					.Where(argument => argument.Kind == TypedConstantKind.Array && !argument.IsNull)
+					.SelectMany(argument => argument.Values)
+					.Select(value => value.Value)
+					.OfType<ITypeSymbol>()
+					.ToArray();
+				return types.Length > 0 ? types : null;
+			}
+		}
+
+		return null;
+	}
+
+	/// <summary>
+	///     Whether a value of the <paramref name="provided" /> type can be assigned to the <paramref name="parameterType" />.
+	///     An open generic type, such as <c>List&lt;&gt;</c>, provides any of its constructed types, so it matches its own
+	///     definition, the definitions of its base types and interfaces, <see langword="object" /> and
+	///     <see langword="dynamic" />, also inside a <see cref="System.Nullable{T}" />.
+	/// </summary>
+	private static bool IsProvided(ITypeSymbol provided, ITypeSymbol parameterType, Compilation compilation)
+	{
+		if (provided is not INamedTypeSymbol { IsUnboundGenericType: true, } unbound)
+		{
+			return IsAssignable(provided, parameterType, compilation);
+		}
+
+		if (parameterType is INamedTypeSymbol
+		    {
+			    OriginalDefinition.SpecialType: SpecialType.System_Nullable_T,
+		    } nullable)
+		{
+			parameterType = nullable.TypeArguments[0];
+		}
+
+		INamedTypeSymbol definition = unbound.OriginalDefinition;
+		return parameterType.SpecialType == SpecialType.System_Object || parameterType.TypeKind == TypeKind.Dynamic ||
+		       new ITypeSymbol[] { definition, }.Concat(GetBaseTypes(definition)).Concat(definition.AllInterfaces)
+			       .Any(type => SymbolEqualityComparer.Default.Equals(type.OriginalDefinition,
+				       parameterType.OriginalDefinition));
 	}
 
 	private static AttributeData? GetValueFromAttribute(IParameterSymbol parameter)

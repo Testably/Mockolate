@@ -9,3 +9,4 @@
  Mockolate0011 | Usage    | Warning  | An [AsDefault] parameter is ambiguous or invalid
  Mockolate0012 | Usage    | Warning  | A [Deferred] parameter is invalid
  Mockolate0013 | Usage    | Warning  | A [ValueFrom] parameter is invalid
+ Mockolate0014 | Usage    | Warning  | A parameter with a value provider is invalid

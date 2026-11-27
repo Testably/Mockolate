@@ -319,6 +319,30 @@ public class DiscountTests
 
 The rule also fires for a member that does not exist or is not static, for a parameter that is also `[Deferred]`, whose delegate Mockolate creates, and for a parameter that gets a value of the attribute, which replaces the value of the member. Name a static property or method that returns the type of the parameter, and turn a field into a property, e.g. `private static Discount Shared => new() { … };`.
 
+## Mockolate0014
+
+**A parameter with a value provider that is invalid.**
+
+An attribute that implements `IParameterValueProvider` [provides the value](04-mocks-as-test-parameters.md#provide-a-value-with-an-attribute) of a test parameter. When it declares the types of its values with `[ProvidesValuesFor]`, one of them must be assignable to the parameter. Otherwise, the test fails at runtime:
+
+```csharp
+using System.Reflection;
+
+[ProvidesValuesFor(typeof(string))]
+public sealed class FileNameAttribute : Attribute, IParameterValueProvider
+{
+    public object? ProvideValue(ParameterInfo parameter) => $"{Guid.NewGuid():N}.txt";
+}
+
+[Test]
+[AutoMockArguments]
+public void Export_ShouldWriteTheFile(
+    // Mockolate0014: The parameter 'count' has the value provider 'FileNameAttribute', which provides only values of type 'string'
+    [FileName] int count) { }
+```
+
+The rule also fires for a parameter with more than one value provider or `[ValueFrom]`, for a parameter that is also `[Deferred]`, whose delegate Mockolate creates, and for a parameter that gets a value of the attribute, which replaces the provided value. Use a value provider that declares the type of the parameter, and keep one value provider per parameter.
+
 ## Mockolate1001
 
 **IDE0060 is suppressed for an `[AsDefault]` parameter.**
