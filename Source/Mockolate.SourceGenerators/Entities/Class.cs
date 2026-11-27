@@ -876,7 +876,7 @@ internal class Class : IEquatable<Class>
 
 	/// <summary>
 	///     The declaration that represents the overridable slot of the <paramref name="method" /> in
-	///     <see cref="Methods" />: an <c>override</c> is not listed there, but the virtual or abstract method it
+	///     <see cref="Methods" />: an <see langword="override" /> is not listed there, but the virtual or abstract method it
 	///     overrides is.
 	/// </summary>
 	private static IMethodSymbol? GetDeclaration(IMethodSymbol method)

@@ -602,7 +602,7 @@ internal static partial class MockGeneratorHelpers
 		};
 
 	/// <summary>
-	///     Whether the generated factory can name the <paramref name="type" />, as a type argument or in <c>typeof</c>.
+	///     Whether the generated factory can name the <paramref name="type" />, as a type argument or in <see langword="typeof" />.
 	/// </summary>
 	private static bool CanBeTypeArgument(ITypeSymbol type, Compilation compilation)
 		=> type is not (IPointerTypeSymbol or IFunctionPointerTypeSymbol or IDynamicTypeSymbol or IErrorTypeSymbol) &&

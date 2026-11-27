@@ -448,7 +448,7 @@ isEnabledByDefault: true,
 
 	/// <summary>
 	///     Mirrors <c>Type.IsAssignableFrom</c>, which the test parameters are checked with at runtime: it knows no
-	///     lifted conversion like <c>int</c> to <c>long?</c>, and a <c>Nullable&lt;T&gt;</c> implements no interfaces.
+	///     lifted conversion like <see langword="int" /> to <c>long?</c>, and a <c>Nullable&lt;T&gt;</c> implements no interfaces.
 	/// </summary>
 	private static bool IsAssignable(ITypeSymbol source, ITypeSymbol destination, Compilation compilation)
 	{

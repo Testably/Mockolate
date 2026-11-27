@@ -37,7 +37,7 @@ internal static partial class SourceTemplates
 
 	/// <summary>
 	///     The expression that recognizes the calls of the <paramref name="overloads" /> by the types of their
-	///     parameters, or <c>null</c> when their name and their numbers of type parameters and parameters already do.
+	///     parameters, or <see langword="null" /> when their name and their numbers of type parameters and parameters already do.
 	/// </summary>
 	/// <remarks>
 	///     A call is recorded with the name of the method, its type arguments and the types of its parameters. Another

@@ -260,7 +260,7 @@ isEnabledByDefault: true,
 	/// <summary>
 	///     Yields the members of <paramref name="type" /> that the generator will actually emit a mock
 	///     override for. Mirrors <c>Source/Mockolate.SourceGenerators/Entities/Class.cs</c>: every
-	///     non-sealed member on an interface; every non-sealed <c>virtual</c>/<c>abstract</c> member on
+	///     non-sealed member on an interface; every non-sealed <see langword="virtual" />/<see langword="abstract" /> member on
 	///     a class (including its base hierarchy). Members are de-duplicated by signature so an
 	///     override and its virtual base don't produce two diagnostics for the same logical method.
 	/// </summary>
@@ -387,9 +387,9 @@ isEnabledByDefault: true,
 	///     and there is nothing for the user to act on. Mirrors <c>forwardsUnsupportedRefStructValue</c>
 	///     and <c>AppendUnsupportedRefStructReturnBody</c> in <c>SourceTemplates.MockClass</c>: only a member
 	///     with a real implementation behind it - a non-abstract member declared on a class - can
-	///     forward to the wrapped instance or to <c>base</c>. Static members need no handling here:
+	///     forward to the wrapped instance or to <see langword="base" />. Static members need no handling here:
 	///     <see cref="IsOverriddenByGenerator" /> already drops them, since a class member the
-	///     generator overrides is necessarily <c>abstract</c> or <c>virtual</c>.
+	///     generator overrides is necessarily <see langword="abstract" /> or <see langword="virtual" />.
 	/// </summary>
 	private static bool ForwardsToBaseImplementation(ISymbol member)
 	{
@@ -906,7 +906,7 @@ isEnabledByDefault: true,
 
 	/// <summary>
 	///     A member (or accessor) declared in another assembly is overridable only if the overriding
-	///     assembly can actually see it. <c>internal</c> and <c>private protected</c> are invisible
+	///     assembly can actually see it. <see langword="internal" /> and <c>private protected</c> are invisible
 	///     across assembly boundaries unless the declaring assembly grants InternalsVisibleTo.
 	///     <c>protected internal</c> (= protected OR internal) is always reachable via the protected
 	///     half from a derived class.

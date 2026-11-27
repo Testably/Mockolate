@@ -87,7 +87,7 @@ public abstract class PropertySetup : IInteractivePropertySetup
 
 	/// <summary>
 	///     Allocation-free variant of <see cref="InvokeGetter{TResult}(MockBehavior, Func{TResult})" /> that
-	///     accepts a behavior-keyed default-value generator. The source generator passes a <c>static</c>
+	///     accepts a behavior-keyed default-value generator. The source generator passes a <see langword="static" />
 	///     lambda (cached by the C# compiler) so the proxy property body does not allocate a closure per call.
 	/// </summary>
 	internal abstract TResult InvokeGetter<TResult>(MockBehavior behavior, Func<MockBehavior, TResult> defaultValueGenerator);

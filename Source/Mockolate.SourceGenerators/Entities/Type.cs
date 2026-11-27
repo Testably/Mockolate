@@ -142,7 +142,7 @@ internal record Type
 	public EquatableArray<Type>? GenericTypeParameters { get; }
 
 	/// <summary>
-	///     The element type when this type is an array (e.g. <c>bool</c> for <c>bool[]</c>); otherwise <see langword="null" />.
+	///     The element type when this type is an array (e.g. <see langword="bool" /> for <c>bool[]</c>); otherwise <see langword="null" />.
 	/// </summary>
 	public Type? ElementType { get; }
 	public string? Namespace { get; }

@@ -9,7 +9,7 @@ namespace Mockolate.SourceGenerators.Entities;
 ///     The hook method. For an intercepted member it is required and called with the registry, the member id, the
 ///     recorded name, the context, the arguments and, when there is a base implementation, a callback of it. For an
 ///     <see cref="MockAdapterMemberKind.AnsweredWithoutSetup" /> member it is optional and called with the registry and
-///     the arguments (with their ref kinds): when no setup returns a value, or for a <c>void</c> member on every call
+///     the arguments (with their ref kinds): when no setup returns a value, or for a <see langword="void" /> member on every call
 ///     that neither a wrapped instance nor a base implementation handles.
 /// </param>
 /// <param name="IsIgnoredByVerifyAll">Whether <c>VerifyThatAllInteractionsAreVerified</c> ignores the calls of the member.</param>

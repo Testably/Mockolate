@@ -303,7 +303,7 @@ internal static class Helpers
 	///     Conservative visibility test for a type the generator names verbatim (attribute names,
 	///     constructor parameter types, member signatures): every type in the containing chain and
 	///     every composed type (array element, pointed-at type, type argument) must be public, or
-	///     internal/protected internal with access granted. The <c>protected</c> half never counts,
+	///     internal/protected internal with access granted. The <see langword="protected" /> half never counts,
 	///     because the surfaces naming the type do not derive from the mocked type.
 	/// </summary>
 	public static bool IsAccessibleFrom(ITypeSymbol type, IAssemblySymbol? sourceAssembly)
@@ -434,7 +434,7 @@ internal static class Helpers
 	///         which is illegal for a ref struct, so they cannot carry the <c>allows ref struct</c>
 	///         anti-constraint the parameter positions use. Members matching this in a value position get
 	///         no setup/verify surface: a virtual class member forwards to the wrapped instance or to
-	///         <c>base</c>, everything else gets a <c>NotSupportedException</c> stub.
+	///         <see langword="base" />, everything else gets a <c>NotSupportedException</c> stub.
 	///     </para>
 	/// </remarks>
 	public static bool NeedsRefStructPipeline(this Type type)
@@ -444,7 +444,7 @@ internal static class Helpers
 	/// <summary>
 	///     Returns true if the parameter must flow through the ref-struct setup pipeline. The
 	///     <see cref="Type" /> overload excludes <c>Span&lt;T&gt;</c> and <c>ReadOnlySpan&lt;T&gt;</c>
-	///     because <c>by-value</c>, <c>out</c>, and <c>ref</c> positions use the
+	///     because <c>by-value</c>, <see langword="out" />, and <see langword="ref" /> positions use the
 	///     <c>SpanWrapper&lt;T&gt;</c> / <c>ReadOnlySpanWrapper&lt;T&gt;</c> non-ref-struct carve-out.
 	///     <c>ref readonly</c> Span/ROS, however, has no dedicated wrapper-based emit branch, so it
 	///     falls back to the generic ref-struct pipeline.
@@ -961,7 +961,7 @@ internal static class Helpers
 
 		/// <summary>
 		///     Returns true if the parameter can be used as an explicit value in a T overload.
-		///     Ambiguity with the <c>IParameter&lt;T&gt;?</c> overload when <c>null</c> is passed is
+		///     Ambiguity with the <c>IParameter&lt;T&gt;?</c> overload when <see langword="null" /> is passed is
 		///     resolved via the OverloadResolutionPriorityAttribute.
 		/// </summary>
 		public bool CanUseNullableParameterOverload()

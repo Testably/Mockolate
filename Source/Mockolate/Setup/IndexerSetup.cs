@@ -68,7 +68,7 @@ public abstract class IndexerSetup : IInteractiveIndexerSetup
 	///     <paramref name="defaultValueGenerator" /> when no stored value or initialization is present.
 	/// </summary>
 	/// <remarks>
-	///     The source generator emits a <c>static</c> lambda for the <paramref name="defaultValueGenerator" />, so that
+	///     The source generator emits a <see langword="static" /> lambda for the <paramref name="defaultValueGenerator" />, so that
 	///     the typed default value of the indexer's declared type is used without a closure allocation.
 	/// </remarks>
 	/// <typeparam name="TResult">The indexer's value type.</typeparam>

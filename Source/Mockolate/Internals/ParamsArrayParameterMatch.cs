@@ -6,7 +6,7 @@ using Mockolate.Parameters;
 namespace Mockolate.Internals;
 
 /// <summary>
-///     Matches a <c>params</c> array argument element-by-element against a set of per-element matchers.
+///     Matches a <see langword="params" /> array argument element-by-element against a set of per-element matchers.
 ///     The recorded array matches when its length equals the number of matchers and each element
 ///     satisfies the matcher at the same position. A <see langword="null" /> matcher, which a <see langword="null" />
 ///     literal becomes, stands for <c>default(TElement)</c>: a <see langword="null" /> element, or the default value
@@ -17,7 +17,7 @@ namespace Mockolate.Internals;
 ///     matchers into a single instance of this type, which then flows through the regular whole-array
 ///     <see cref="IParameterMatch{T}" /> pipeline (where <c>T</c> is <typeparamref name="TElement" /> array).
 /// </remarks>
-/// <typeparam name="TElement">The element type of the <c>params</c> array.</typeparam>
+/// <typeparam name="TElement">The element type of the <see langword="params" /> array.</typeparam>
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif

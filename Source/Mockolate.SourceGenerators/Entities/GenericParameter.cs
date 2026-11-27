@@ -42,7 +42,7 @@ internal readonly record struct GenericParameter
 	public bool HasInheritedOnlyConstraint { get; }
 
 	/// <summary>
-	///     Whether a declaration states <c>class</c> in place of the inherited-only constraints, so that the type
+	///     Whether a declaration states <see langword="class" /> in place of the inherited-only constraints, so that the type
 	///     parameter stays a reference type, as the <c>where T : class</c> of its explicit implementations requires.
 	/// </summary>
 	public bool DeclaresClassForInheritedOnlyConstraint { get; }
