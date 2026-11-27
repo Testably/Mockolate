@@ -48,10 +48,10 @@ internal record Property
 		                        Helpers.HasAccessibleSignature(propertySymbol, sourceAssembly);
 
 		Getter = propertySymbol.GetMethod is { } getter && getterOverridable
-			? new Method(getter, null, sourceAssembly)
+			? new Method(getter, alreadyDefinedMethods: null, sourceAssembly)
 			: null;
 		Setter = propertySymbol.SetMethod is { } setter && setterOverridable
-			? new Method(setter, null, sourceAssembly)
+			? new Method(setter, alreadyDefinedMethods: null, sourceAssembly)
 			: null;
 	}
 

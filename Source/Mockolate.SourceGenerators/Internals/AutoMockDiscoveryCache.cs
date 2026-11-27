@@ -100,7 +100,7 @@ internal static class AutoMockDiscoveryCache
 					? unchanged
 					: FileState.Read(tree, cancellationToken);
 				files[tree.FilePath] = file;
-				Count(namespaceCounts, null, file.Namespaces, 1);
+				Count(namespaceCounts, changed: null, file.Namespaces, 1);
 			}
 
 			return new State(settings, WithoutServices(compilation.Options),

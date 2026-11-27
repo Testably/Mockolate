@@ -126,7 +126,7 @@ internal static partial class SourceTemplates
 	private static void ImplementGenericFacade(StringBuilder sb, Class @class, string name, string mockRegistryName,
 		MemberIdTable memberIds, string memberIdPrefix)
 	{
-		ImplementGenericSetupFacade(sb, @class, name, mockRegistryName, memberIds, memberIdPrefix, null);
+		ImplementGenericSetupFacade(sb, @class, name, mockRegistryName, memberIds, memberIdPrefix, scenario: null);
 		foreach (MemberType memberType in new[] { MemberType.Public, MemberType.Protected, })
 		{
 			ImplementGenericVerifyFacade(sb, @class, name, memberType, mockRegistryName);
@@ -402,7 +402,7 @@ internal static partial class SourceTemplates
 				AppendRegisterGenericSetup(sb, mockRegistryName, memberIdRefs, "methodSetup", scenario);
 			}
 
-			AppendSetup(parameterTypes, null);
+			AppendSetup(parameterTypes, genericTypeParameters: null);
 			if (GetGenericMatcherOverload(method, parameterTypes) is (string[] matcherTypes, string typeParameters))
 			{
 				AppendSetup(matcherTypes, typeParameters);
@@ -550,7 +550,7 @@ internal static partial class SourceTemplates
 				sb.AppendLine();
 			}
 
-			AppendVerify(parameterTypes, null);
+			AppendVerify(parameterTypes, genericTypeParameters: null);
 			if (GetGenericMatcherOverload(method, parameterTypes) is (string[] matcherTypes, string typeParameters))
 			{
 				AppendVerify(matcherTypes, typeParameters);

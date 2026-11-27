@@ -20,7 +20,7 @@ internal record Event
 		ContainingType = eventSymbol.ContainingType.ToQualifiedDisplayString(Helpers.TypeDisplayFormat);
 		Cref = Helpers.ToMemberCref(eventSymbol.OriginalDefinition, Name);
 		XmlDocReference = Helpers.ToXmlDocReference(Cref, Helpers.ToMemberCref(eventSymbol, Name));
-		Delegate = new Method(delegateInvokeMethod, null, sourceAssembly);
+		Delegate = new Method(delegateInvokeMethod, alreadyDefinedMethods: null, sourceAssembly);
 		Attributes = eventSymbol.GetAttributes().ToAttributeArray(sourceAssembly);
 		IsStatic = eventSymbol.IsStatic;
 

@@ -47,7 +47,7 @@ public class MockInteractions : IMockInteractions
 				return existing;
 			}
 
-			Interlocked.CompareExchange(ref field, new MockolateLock(), null);
+			Interlocked.CompareExchange(ref field, new MockolateLock(), comparand: null);
 			return field!;
 		}
 	}
@@ -196,9 +196,9 @@ public class MockInteractions : IMockInteractions
 		{
 			// Set before and after publishing: a concurrent Clear may reset the flag in between, and it must
 			// never be unset while the record is in the list.
-			Volatile.Write(ref _hasInteractionRecords, true);
+			Volatile.Write(ref _hasInteractionRecords, value: true);
 			Push(new InteractionRecord(interaction));
-			Volatile.Write(ref _hasInteractionRecords, true);
+			Volatile.Write(ref _hasInteractionRecords, value: true);
 		}
 
 		return interaction;
@@ -281,8 +281,8 @@ public class MockInteractions : IMockInteractions
 	public void Clear()
 	{
 		Volatile.Read(ref _trackedCallOrder)?.Clear();
-		Volatile.Write(ref _hasInteractionRecords, false);
-		Volatile.Write(ref _head, null);
+		Volatile.Write(ref _hasInteractionRecords, value: false);
+		Volatile.Write(ref _head, value: null);
 
 		lock (VerifiedLock)
 		{

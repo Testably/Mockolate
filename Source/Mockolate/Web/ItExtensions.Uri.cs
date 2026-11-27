@@ -150,7 +150,7 @@ public static partial class ItExtensions
 			}
 			else if (value is null)
 			{
-				((IParameterMatch<Uri?>)this).InvokeCallbacks(null);
+				((IParameterMatch<Uri?>)this).InvokeCallbacks(value: null);
 			}
 		}
 
@@ -221,7 +221,7 @@ public static partial class ItExtensions
 			}
 
 			if (pattern is not null &&
-			    !Wildcard.Pattern(pattern, true, false).Matches(uri.ToString()))
+			    !Wildcard.Pattern(pattern, ignoreCase: true, fullMatch: false).Matches(uri.ToString()))
 			{
 				return false;
 			}
@@ -238,13 +238,13 @@ public static partial class ItExtensions
 			}
 
 			if (_hostPattern is not null &&
-			    !Wildcard.Pattern(_hostPattern, true).Matches(uri.Host))
+			    !Wildcard.Pattern(_hostPattern, ignoreCase: true).Matches(uri.Host))
 			{
 				return false;
 			}
 
 			if (_pathPattern is not null &&
-			    !Wildcard.Pattern(_pathPattern, true).Matches(WebUtility.UrlDecode(uri.AbsolutePath)))
+			    !Wildcard.Pattern(_pathPattern, ignoreCase: true).Matches(WebUtility.UrlDecode(uri.AbsolutePath)))
 			{
 				return false;
 			}

@@ -29,7 +29,7 @@ public class NullParametersAnalyzer : DiagnosticAnalyzer
 			Resources.ResourceManager, typeof(Resources)),
 		"Usage",
 		DiagnosticSeverity.Warning,
-		true,
+isEnabledByDefault: true,
 		new LocalizableResourceString(nameof(Resources.Mockolate0006Description),
 			Resources.ResourceManager, typeof(Resources)));
 

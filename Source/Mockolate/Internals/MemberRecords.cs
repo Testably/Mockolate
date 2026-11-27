@@ -153,7 +153,7 @@ public abstract class RecordNode
 	///     single instance.
 	/// </summary>
 	public IInteraction Interaction
-		=> _boxed ?? Interlocked.CompareExchange(ref _boxed, CreateInteraction(), null) ?? _boxed!;
+		=> _boxed ?? Interlocked.CompareExchange(ref _boxed, CreateInteraction(), comparand: null) ?? _boxed!;
 
 	/// <summary>Creates the interaction of the call.</summary>
 	protected abstract IInteraction CreateInteraction();

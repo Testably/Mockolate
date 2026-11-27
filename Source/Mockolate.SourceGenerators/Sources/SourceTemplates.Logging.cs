@@ -927,14 +927,14 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t/// <inheritdoc cref=\"MockolateLogging\" />").AppendLine();
 		sb.Append("\t\textension").Append(receiver).AppendLine();
 		sb.Append("\t\t{").AppendLine();
-		AppendLogEntry(sb, returnType, "Log", "", $"{call}null, \"Log()\")", $"{summary} on any level.", false);
+		AppendLogEntry(sb, returnType, "Log", "", $"{call}null, \"Log()\")", $"{summary} on any level.", hasLogLevel: false);
 		AppendLogEntry(sb, returnType, "Log", "global::Microsoft.Extensions.Logging.LogLevel logLevel",
-			$"{call}logLevel, \"Log(\" + logLevel + \")\")", $"{summary} on the <paramref name=\"logLevel\" />.", true);
+			$"{call}logLevel, \"Log(\" + logLevel + \")\")", $"{summary} on the <paramref name=\"logLevel\" />.", hasLogLevel: true);
 		foreach (string level in LogLevelNames)
 		{
 			AppendLogEntry(sb, returnType, "Log" + level, "",
 				$"{call}global::Microsoft.Extensions.Logging.LogLevel.{level}, \"Log{level}()\")",
-				$"{summary} on the level <c>{level}</c>.", false);
+				$"{summary} on the level <c>{level}</c>.", hasLogLevel: false);
 		}
 
 		sb.Append("\t\t}").AppendLine();

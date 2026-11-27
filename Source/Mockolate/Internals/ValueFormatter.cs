@@ -30,7 +30,7 @@ public static class ValueFormatter
 		{
 			null => "null",
 			string s => $"\"{s}\"",
-			IFormattable formattable => formattable.ToString(null, CultureInfo.InvariantCulture) ?? "null",
+			IFormattable formattable => formattable.ToString(format: null, CultureInfo.InvariantCulture) ?? "null",
 			_ => value.ToString() ?? "null",
 		};
 

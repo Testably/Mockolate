@@ -17,7 +17,7 @@ internal readonly record struct MethodParameter
 		HasExplicitDefaultValue = parameterSymbol.HasExplicitDefaultValue;
 		if (HasExplicitDefaultValue)
 		{
-			string? explicitDefaultValue = SymbolDisplay.FormatPrimitive(parameterSymbol.ExplicitDefaultValue, true, false);
+			string? explicitDefaultValue = SymbolDisplay.FormatPrimitive(parameterSymbol.ExplicitDefaultValue, quoteStrings: true, useHexadecimalNumbers: false);
 			ITypeSymbol effectiveType = GetEffectiveType(parameterSymbol.Type);
 			if (string.Equals(explicitDefaultValue, "null", StringComparison.Ordinal)
 			    && parameterSymbol.Type is { IsValueType: true, } or ITypeParameterSymbol { IsReferenceType: false, }

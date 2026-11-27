@@ -805,7 +805,7 @@ public class MockGenerator : IIncrementalGenerator
 					set.Add(new MethodSetupKey(m.Parameters.Count, m.ReturnType == Type.Void));
 					if (SourceTemplates.HasGenericFacadeShape(m))
 					{
-						set.Add(new MethodSetupKey(m.Parameters.Count, true));
+						set.Add(new MethodSetupKey(m.Parameters.Count, IsVoid: true));
 					}
 				}
 			}
@@ -961,7 +961,7 @@ public class MockGenerator : IIncrementalGenerator
 					.ToArray());
 			}
 
-			result.Add(new NamedMock(actualName, actualName, @class, null, hiddenBases));
+			result.Add(new NamedMock(actualName, actualName, @class, additionalClasses: null, hiddenBases));
 		}
 
 		// Pass 2: combination mocks (additional implementations).

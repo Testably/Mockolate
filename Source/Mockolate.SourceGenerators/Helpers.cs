@@ -602,7 +602,7 @@ internal static class Helpers
 
 			if (type.TupleTypes is not null)
 			{
-				sb.Append('(').AppendTupleFactoryValue(type, defaultValueName, suffix, true).Append(" ?? ");
+				sb.Append('(').AppendTupleFactoryValue(type, defaultValueName, suffix, isValueTuple: true).Append(" ?? ");
 				switch (type.TupleTypes.Value.Count)
 				{
 					case 0:
@@ -629,7 +629,7 @@ internal static class Helpers
 
 			if (IsConstructibleTuple(type))
 			{
-				sb.Append('(').AppendTupleFactoryValue(type, defaultValueName, suffix, false)
+				sb.Append('(').AppendTupleFactoryValue(type, defaultValueName, suffix, isValueTuple: false)
 					.Append(" ?? new ").Append(type.Fullname.TrimEnd('?')).Append('(');
 				sb.AppendTupleElementDefaultValues(type.GenericTypeParameters!.Value, defaultValueName, suffix,
 					taskSuffix, autoMock);

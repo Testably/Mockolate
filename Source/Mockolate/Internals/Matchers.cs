@@ -21,7 +21,7 @@ public static class Matchers
 	/// <param name="value">The expected value.</param>
 	/// <returns>A parameter matcher that only accepts arguments equal to <paramref name="value" />.</returns>
 	public static It.IIsParameter<T> IsValue<T>(T value)
-		=> new It.ParameterEqualsMatch<T>(value, null);
+		=> new It.ParameterEqualsMatch<T>(value, valueExpression: null);
 
 	/// <summary>
 	///     Matches like <see cref="IsValue{T}" />, unless <paramref name="value" /> is a matcher: a parameter typed with a
@@ -32,7 +32,7 @@ public static class Matchers
 	/// <param name="value">The expected value or a matcher.</param>
 	/// <returns>A parameter matcher for <paramref name="value" />.</returns>
 	public static IParameterMatch<T> IsValueOrMatcher<T>(T value)
-		=> AsMatcher(value) ?? new It.ParameterEqualsMatch<T>(value, null);
+		=> AsMatcher(value) ?? new It.ParameterEqualsMatch<T>(value, valueExpression: null);
 
 	/// <summary>
 	///     The matcher that <paramref name="value" /> is, or <see langword="null" /> when it is a plain value.

@@ -616,7 +616,7 @@ internal static partial class MockGeneratorHelpers
 				// Whether a candidate is discovered depends on its members, unless its own declaration rejects it.
 				if (IsAutoMockable(candidate) && CanDiscoverNamespace(candidate, options))
 				{
-					dependencies?.Add(candidate, true, cancellationToken);
+					dependencies?.Add(candidate, withMembers: true, cancellationToken);
 				}
 
 				if (CanBeDiscovered(candidate, sourceAssembly, options))
@@ -690,7 +690,7 @@ internal static partial class MockGeneratorHelpers
 		{
 			cancellationToken.ThrowIfCancellationRequested();
 			ITypeSymbol currentType = typesToProcess.Dequeue();
-			dependencies?.Add(currentType, true, cancellationToken);
+			dependencies?.Add(currentType, withMembers: true, cancellationToken);
 			foreach (INamedTypeSymbol returnType in GetAutoMockableReturnTypes(currentType, sourceAssembly,
 				         options, dependencies, cancellationToken))
 			{

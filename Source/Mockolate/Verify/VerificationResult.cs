@@ -122,7 +122,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		_verify = verify;
 		_interactions = interactions;
 		_predicate = filtered.IsFilteredMatch;
-		_expectation = new VerificationExpectation(this, null,
+		_expectation = new VerificationExpectation(this, argument: null,
 			static (state, _) => ((FilteredVerificationResult<TVerify>)state!).GetFilteredExpectation());
 	}
 
@@ -363,7 +363,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 
 				if (_cancellationToken?.IsCancellationRequested == true)
 				{
-					throw new MockVerificationTimeoutException(null, ex);
+					throw new MockVerificationTimeoutException(timeout: null, ex);
 				}
 
 				throw new MockVerificationTimeoutException(_timeout, ex);
@@ -547,7 +547,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 			string methodName,
 			Func<IInteraction, bool> predicate,
 			VerificationExpectation expectation)
-			: this(verify, interactions, methodName, predicate, null, expectation)
+			: this(verify, interactions, methodName, predicate, overloadFilter: null, expectation)
 		{
 		}
 

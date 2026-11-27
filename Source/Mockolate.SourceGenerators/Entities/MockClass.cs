@@ -40,7 +40,7 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 		if (!IsInterface && types[0] is INamedTypeSymbol namedTypeSymbol)
 		{
 			IMethodSymbol[] constructors = MockGeneratorHelpers.GetMockConstructors(namedTypeSymbol, sourceAssembly);
-			Constructors = new EquatableArray<Method>(constructors.Select(x => new Method(x, null, sourceAssembly)).ToArray());
+			Constructors = new EquatableArray<Method>(constructors.Select(x => new Method(x, alreadyDefinedMethods: null, sourceAssembly)).ToArray());
 			ConstructorWithoutArguments = MockConstructorSelector.FindConstructorWithoutArguments(constructors, compilation);
 			if (ConstructorWithoutArguments is null && namedTypeSymbol.TypeKind == TypeKind.Class &&
 			    MockGeneratorHelpers.GetDependencyConstructor(constructors) is { } dependencyConstructor)
@@ -52,7 +52,7 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 
 			if (namedTypeSymbol.DelegateInvokeMethod is not null)
 			{
-				Delegate = new Method(namedTypeSymbol.DelegateInvokeMethod, null, sourceAssembly);
+				Delegate = new Method(namedTypeSymbol.DelegateInvokeMethod, alreadyDefinedMethods: null, sourceAssembly);
 			}
 		}
 
@@ -265,14 +265,14 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 						case IMethodSymbol { MethodKind: MethodKind.Ordinary, } interfaceMethod
 							when implementation is IMethodSymbol classMethod:
 							methods.Add(new ImplementedMember<Method>(
-								new Method(interfaceMethod, null, sourceAssembly),
-								new Method(classMethod, null, sourceAssembly)));
+								new Method(interfaceMethod, alreadyDefinedMethods: null, sourceAssembly),
+								new Method(classMethod, alreadyDefinedMethods: null, sourceAssembly)));
 							break;
 						case IPropertySymbol interfaceProperty
 							when implementation is IPropertySymbol classProperty:
 							properties.Add(new ImplementedMember<Property>(
-								new Property(interfaceProperty, null, sourceAssembly),
-								new Property(classProperty, null, sourceAssembly)));
+								new Property(interfaceProperty, alreadyDefinedProperties: null, sourceAssembly),
+								new Property(classProperty, alreadyDefinedProperties: null, sourceAssembly)));
 							break;
 						case IEventSymbol
 							{
@@ -283,8 +283,8 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 								Type: INamedTypeSymbol { DelegateInvokeMethod: { } classInvoke, },
 							} classEvent:
 							events.Add(new ImplementedMember<Event>(
-								new Event(interfaceEvent, interfaceInvoke, null, sourceAssembly),
-								new Event(classEvent, classInvoke, null, sourceAssembly)));
+								new Event(interfaceEvent, interfaceInvoke, alreadyDefinedEvents: null, sourceAssembly),
+								new Event(classEvent, classInvoke, alreadyDefinedEvents: null, sourceAssembly)));
 							break;
 					}
 				}

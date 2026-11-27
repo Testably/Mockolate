@@ -237,7 +237,7 @@ public partial class MockRegistry
 			return existing;
 		}
 
-		Interlocked.CompareExchange(ref _scenarioState, new ScenarioState(), null);
+		Interlocked.CompareExchange(ref _scenarioState, new ScenarioState(), comparand: null);
 		return _scenarioState!;
 	}
 

@@ -36,7 +36,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			Resources.ResourceManager, typeof(Resources)),
 		"Usage",
 		DiagnosticSeverity.Warning,
-		true,
+isEnabledByDefault: true,
 		new LocalizableResourceString(nameof(Resources.Mockolate0010Description),
 			Resources.ResourceManager, typeof(Resources)));
 
@@ -52,7 +52,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			Resources.ResourceManager, typeof(Resources)),
 		"Usage",
 		DiagnosticSeverity.Warning,
-		true,
+isEnabledByDefault: true,
 		new LocalizableResourceString(nameof(Resources.Mockolate0011Description),
 			Resources.ResourceManager, typeof(Resources)));
 
@@ -68,7 +68,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			Resources.ResourceManager, typeof(Resources)),
 		"Usage",
 		DiagnosticSeverity.Warning,
-		true,
+isEnabledByDefault: true,
 		new LocalizableResourceString(nameof(Resources.Mockolate0012Description),
 			Resources.ResourceManager, typeof(Resources)));
 
@@ -84,7 +84,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			Resources.ResourceManager, typeof(Resources)),
 		"Usage",
 		DiagnosticSeverity.Warning,
-		true,
+isEnabledByDefault: true,
 		new LocalizableResourceString(nameof(Resources.Mockolate0013Description),
 			Resources.ResourceManager, typeof(Resources)));
 
@@ -100,7 +100,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			Resources.ResourceManager, typeof(Resources)),
 		"Usage",
 		DiagnosticSeverity.Warning,
-		true,
+isEnabledByDefault: true,
 		new LocalizableResourceString(nameof(Resources.Mockolate0014Description),
 			Resources.ResourceManager, typeof(Resources)));
 
@@ -657,7 +657,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 		// A delegate mock only implements Invoke, not the virtual members of MulticastDelegate.
 		if (type.DelegateInvokeMethod is { } invoke)
 		{
-			return invoke.ReturnsByRef || invoke.ReturnsByRefReadonly || IsUnsupportedMember(invoke, true) ? invoke : null;
+			return invoke.ReturnsByRef || invoke.ReturnsByRefReadonly || IsUnsupportedMember(invoke, isClass: true) ? invoke : null;
 		}
 
 		bool isClass = type.TypeKind != TypeKind.Interface;

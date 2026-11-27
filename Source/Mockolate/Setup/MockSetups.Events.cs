@@ -23,7 +23,7 @@ internal partial class MockSetups
 		{
 			if (_storage is null)
 			{
-				Interlocked.CompareExchange(ref _storage, [], null);
+				Interlocked.CompareExchange(ref _storage, [], comparand: null);
 			}
 
 			return _storage!;

@@ -197,7 +197,7 @@ public abstract class VoidMethodSetup : MethodSetup,
 			{
 				Callback<Action<int>> callback =
 					_callbacks[(currentCallbacksIndex + i) % _callbacks.Count];
-				if (callback.Invoke<object?>(wasInvoked, ref _callbacks.CurrentIndex, null,
+				if (callback.Invoke<object?>(wasInvoked, ref _callbacks.CurrentIndex, state: null,
 					    static (count, @delegate, _) => @delegate(count)))
 				{
 					wasInvoked = true;
@@ -211,7 +211,7 @@ public abstract class VoidMethodSetup : MethodSetup,
 			{
 				Callback<Action<int>> returnCallback =
 					_returnCallbacks[_returnCallbacks.CurrentIndex % _returnCallbacks.Count];
-				if (returnCallback.Invoke<object?>(ref _returnCallbacks.CurrentIndex, null,
+				if (returnCallback.Invoke<object?>(ref _returnCallbacks.CurrentIndex, state: null,
 					    static (count, @delegate, _) => @delegate(count)))
 				{
 					return;
@@ -255,7 +255,7 @@ public abstract class VoidMethodSetup : MethodSetup,
 
 		/// <inheritdoc cref="MethodSetup.MatchesInteraction(IMethodInteraction)" />
 		protected override bool MatchesInteraction(IMethodInteraction interaction)
-			=> GenericMethodInvocations.TryGetInvocation(interaction, Name, 0, null, out _);
+			=> GenericMethodInvocations.TryGetInvocation(interaction, Name, 0, isCallOf: null, out _);
 	}
 }
 

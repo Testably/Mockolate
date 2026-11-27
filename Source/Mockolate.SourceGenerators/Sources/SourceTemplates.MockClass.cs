@@ -198,8 +198,8 @@ internal static partial class SourceTemplates
 		{
 			ImplementMockForInterface(sb, mockRegistryName, hiddenBase.Name,
 				hiddenBase.Class.AllEvents().Any(x => !x.IsStatic),
-				false /* interfaces have no protected members */,
-				false /* interfaces have no protected events */,
+hasProtectedMembers: false /* interfaces have no protected members */,
+hasProtectedEvents: false /* interfaces have no protected events */,
 				hiddenBase.Class.AllMethods().Any(x => x.IsStatic) || hiddenBase.Class.AllProperties().Any(x => x.IsStatic),
 				hiddenBase.Class.AllEvents().Any(x => x.IsStatic),
 				adapterIgnoredNames, adapterClearHook, hasGenericMethods: HasGenericFacadeMethods(hiddenBase.Class, MemberType.Public));
@@ -244,7 +244,7 @@ internal static partial class SourceTemplates
 			}
 		}
 
-		AppendMockSubject_ImplementClass(sb, @class, mockRegistryName, null, memberIds, memberIdPrefix, autoMocking);
+		AppendMockSubject_ImplementClass(sb, @class, mockRegistryName, mockClass: null, memberIds, memberIdPrefix, autoMocking);
 		
 		sb.AppendLine();
 
@@ -359,7 +359,7 @@ internal static partial class SourceTemplates
 			sb.AppendLine();
 			sb.Append("\t\t#region IMockVerifyFor").Append(hiddenBase.Name).AppendLine();
 			sb.AppendLine();
-			ImplementVerifyInterface(sb, hiddenBase.Class, mockRegistryName, $"IMockVerifyFor{hiddenBase.Name}", MemberType.Public, memberIds, memberIdPrefix, hasOverloadResolutionPriority, false, useUnionOverloads);
+			ImplementVerifyInterface(sb, hiddenBase.Class, mockRegistryName, $"IMockVerifyFor{hiddenBase.Name}", MemberType.Public, memberIds, memberIdPrefix, hasOverloadResolutionPriority, useTypedRecords: false, useUnionOverloads);
 			sb.Append("\t\t#endregion IMockVerifyFor").Append(hiddenBase.Name).AppendLine();
 		}
 
@@ -2375,7 +2375,7 @@ internal static partial class SourceTemplates
 							sb.AppendLine();
 						}
 
-						AppendGetPropertyCall("\t\t\t\t", null);
+						AppendGetPropertyCall("\t\t\t\t", baseValueAccessor: null);
 					}
 					else
 					{
@@ -3912,7 +3912,7 @@ internal static partial class SourceTemplates
 		for (int keptCount = parameters.Length - 1; keptCount >= parameters.Length - omittable; keptCount--)
 		{
 			yield return (keptCount, null);
-			bool[] omitted = Enumerable.Repeat(true, parameters.Length - keptCount).ToArray();
+			bool[] omitted = Enumerable.Repeat(element: true, parameters.Length - keptCount).ToArray();
 			if (parameters.Length <= MaxExplicitParameters)
 			{
 				EquatableArray<MethodParameter> kept = new(parameters.Take(keptCount).ToArray());
@@ -4544,7 +4544,7 @@ internal static partial class SourceTemplates
 				Method? method = methodGroup.Single();
 				if (method.Parameters.Count > 0)
 				{
-					AppendMethodSetupDefinition(sb, @class, method, true,
+					AppendMethodSetupDefinition(sb, @class, method, useParameters: true,
 						hasOverloadResolutionPriority: hasOverloadResolutionPriority,
 						forwardsLoneNull: ForwardsLoneNull(@class, method, UseUnionOverloads(@class, method, useUnionOverloads)));
 				}
@@ -4554,7 +4554,7 @@ internal static partial class SourceTemplates
 			{
 				if (method.Parameters.Count == 0)
 				{
-					AppendMethodSetupDefinition(sb, @class, method, false,
+					AppendMethodSetupDefinition(sb, @class, method, useParameters: false,
 						hasOverloadResolutionPriority: hasOverloadResolutionPriority);
 				}
 				else if (UseUnionOverloads(@class, method, useUnionOverloads))
@@ -4567,17 +4567,17 @@ internal static partial class SourceTemplates
 				else
 				{
 					int omittable = OmittableMethodParameterCount(@class, method, hasOverloadResolutionPriority);
-					AppendMethodSetupDefinition(sb, @class, method, false,
+					AppendMethodSetupDefinition(sb, @class, method, useParameters: false,
 						hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable);
 					if (TryGetPerElementParamsParameter(method))
 					{
-						AppendMethodSetupDefinition(sb, @class, method, false,
+						AppendMethodSetupDefinition(sb, @class, method, useParameters: false,
 							hasOverloadResolutionPriority: hasOverloadResolutionPriority, perElementParams: true);
 					}
 
 					if (HasEmptyParamsOverload(@class, method, hasOverloadResolutionPriority))
 					{
-						AppendMethodSetupDefinition(sb, @class, method, false, valueFlags: EmptyParamsValueFlags(method),
+						AppendMethodSetupDefinition(sb, @class, method, useParameters: false, valueFlags: EmptyParamsValueFlags(method),
 							hasOverloadResolutionPriority: hasOverloadResolutionPriority, emptyParams: true);
 					}
 
@@ -4585,7 +4585,7 @@ internal static partial class SourceTemplates
 					{
 						foreach (bool[] valueFlags in GenerateValueFlagCombinations(method.Parameters))
 						{
-							AppendMethodSetupDefinition(sb, @class, method, false, valueFlags: valueFlags,
+							AppendMethodSetupDefinition(sb, @class, method, useParameters: false, valueFlags: valueFlags,
 								hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable);
 						}
 					}
@@ -4593,14 +4593,14 @@ internal static partial class SourceTemplates
 					{
 						foreach (bool[] valueFlags in GenerateValueFlagsAboveMaxExplicitParameters(method.Parameters))
 						{
-							AppendMethodSetupDefinition(sb, @class, method, false, valueFlags: valueFlags,
+							AppendMethodSetupDefinition(sb, @class, method, useParameters: false, valueFlags: valueFlags,
 								hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable);
 						}
 					}
 
 					foreach ((int keptCount, bool[]? valueFlags) in GenerateOmittedMethodOverloads(method, omittable))
 					{
-						AppendMethodSetupDefinition(sb, @class, method, false, valueFlags: valueFlags,
+						AppendMethodSetupDefinition(sb, @class, method, useParameters: false, valueFlags: valueFlags,
 							hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable,
 							keptCount: keptCount);
 					}
@@ -4802,7 +4802,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t/// </summary>").AppendLine();
 		if (!emptyParams)
 		{
-			AppendMethodOverloadRemark(sb, method, useParameters, valueFlags, false, kept);
+			AppendMethodOverloadRemark(sb, method, useParameters, valueFlags, isVerify: false, kept);
 		}
 
 		string? omittedPriority = keptCount is not null ? OmittedMethodOverloadPriority(method, kept, valueFlags) : null;
@@ -5075,7 +5075,7 @@ internal static partial class SourceTemplates
 				Method? method = methodGroup.Single();
 				if (method.Parameters.Count > 0)
 				{
-					AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, true,
+					AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, useParameters: true,
 						memberIds, memberIdPrefix, scopeExpression: scopeExpression,
 						forwardsLoneNull: ForwardsLoneNull(@class, method, UseUnionOverloads(@class, method, useUnionOverloads)));
 				}
@@ -5085,7 +5085,7 @@ internal static partial class SourceTemplates
 			{
 				if (method.Parameters.Count == 0)
 				{
-					AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, false,
+					AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, useParameters: false,
 						memberIds, memberIdPrefix, scopeExpression: scopeExpression);
 				}
 				else if (UseUnionOverloads(@class, method, useUnionOverloads))
@@ -5099,17 +5099,17 @@ internal static partial class SourceTemplates
 				else
 				{
 					int omittable = OmittableMethodParameterCount(@class, method, hasOverloadResolutionPriority);
-					AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, false,
+					AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, useParameters: false,
 						memberIds, memberIdPrefix, scopeExpression: scopeExpression, omittable: omittable);
 					if (TryGetPerElementParamsParameter(method))
 					{
-						AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, false,
+						AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, useParameters: false,
 							memberIds, memberIdPrefix, scopeExpression: scopeExpression, perElementParams: true);
 					}
 
 					if (HasEmptyParamsOverload(@class, method, hasOverloadResolutionPriority))
 					{
-						AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, false,
+						AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, useParameters: false,
 							memberIds, memberIdPrefix, valueFlags: EmptyParamsValueFlags(method), scopeExpression: scopeExpression,
 							emptyParams: true);
 					}
@@ -5118,7 +5118,7 @@ internal static partial class SourceTemplates
 					{
 						foreach (bool[] valueFlags in GenerateValueFlagCombinations(method.Parameters))
 						{
-							AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, false,
+							AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, useParameters: false,
 								memberIds, memberIdPrefix, valueFlags: valueFlags, scopeExpression: scopeExpression,
 								omittable: omittable);
 						}
@@ -5127,7 +5127,7 @@ internal static partial class SourceTemplates
 					{
 						foreach (bool[] valueFlags in GenerateValueFlagsAboveMaxExplicitParameters(method.Parameters))
 						{
-							AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, false,
+							AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, useParameters: false,
 								memberIds, memberIdPrefix, valueFlags: valueFlags, scopeExpression: scopeExpression,
 								omittable: omittable);
 						}
@@ -5135,7 +5135,7 @@ internal static partial class SourceTemplates
 
 					foreach ((int keptCount, bool[]? valueFlags) in GenerateOmittedMethodOverloads(method, omittable))
 					{
-						AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, false,
+						AppendMethodSetupImplementation(sb, method, mockRegistryName, setupName, useParameters: false,
 							memberIds, memberIdPrefix, valueFlags: valueFlags, scopeExpression: scopeExpression,
 							omittable: omittable, keptCount: keptCount);
 					}
@@ -5295,7 +5295,7 @@ internal static partial class SourceTemplates
 		{
 			foreach (GenericParameter gp in method.GenericParameters.Value)
 			{
-				gp.AppendWhereConstraint(sb, "\t\t\t", true, true);
+				gp.AppendWhereConstraint(sb, "\t\t\t", inheritsConstraints: true, isExplicitInterfaceImpl: true);
 			}
 		}
 
@@ -5660,7 +5660,7 @@ internal static partial class SourceTemplates
 			$"Setup for the {indexer.Type.Fullname.EscapeForXmlDoc()} indexer {indexer.XmlDocReference}");
 		string[] indexerNames = Enumerable.Range(1, indexer.IndexerParameters!.Value.Count)
 			.Select(i => FormattableString.Invariant($"parameter{i}")).ToArray();
-		AppendIndexerOverloadRemark(sb, indexerNames, keptCount, valueFlags, false);
+		AppendIndexerOverloadRemark(sb, indexerNames, keptCount, valueFlags, isVerify: false);
 		if (hasOverloadResolutionPriority)
 		{
 			sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
@@ -5695,7 +5695,7 @@ internal static partial class SourceTemplates
 		string omission = keptCount < names.Length
 			? $" It uses the declared default value for {string.Join(", ", names.Skip(keptCount).Select(name => $"<c>{name}</c>"))}."
 			: "";
-		AppendOverloadDifferentiatorRemark(sb, names.Take(keptCount).ToArray(), false,
+		AppendOverloadDifferentiatorRemark(sb, names.Take(keptCount).ToArray(), useParameters: false,
 			valueFlags?.Take(keptCount).ToArray(), isVerify, omission);
 	}
 
@@ -6119,7 +6119,7 @@ internal static partial class SourceTemplates
 		sb.AppendXmlSummary(
 			$"Verify interactions with the {indexer.Type.Fullname.EscapeForXmlDoc()} indexer {indexer.XmlDocReference}.");
 		string[] names = indexer.IndexerParameters!.Value.Select(p => p.Name).ToArray();
-		AppendIndexerOverloadRemark(sb, names, keptCount, valueFlags, true);
+		AppendIndexerOverloadRemark(sb, names, keptCount, valueFlags, isVerify: true);
 		if (hasOverloadResolutionPriority)
 		{
 			sb.Append("\t\t[global::System.Runtime.CompilerServices.OverloadResolutionPriority(")
@@ -6579,7 +6579,7 @@ internal static partial class SourceTemplates
 				Method? method = methodGroup.Single();
 				if (method.Parameters.Count > 0)
 				{
-					AppendMethodVerifyDefinition(sb, @class, method, verifyName, true,
+					AppendMethodVerifyDefinition(sb, @class, method, verifyName, useParameters: true,
 						hasOverloadResolutionPriority: hasOverloadResolutionPriority,
 						forwardsLoneNull: ForwardsLoneNull(@class, method, UseUnionOverloads(@class, method, useUnionOverloads)));
 				}
@@ -6589,7 +6589,7 @@ internal static partial class SourceTemplates
 			{
 				if (method.Parameters.Count == 0)
 				{
-					AppendMethodVerifyDefinition(sb, @class, method, verifyName, false,
+					AppendMethodVerifyDefinition(sb, @class, method, verifyName, useParameters: false,
 						hasOverloadResolutionPriority: hasOverloadResolutionPriority);
 				}
 				else if (UseUnionOverloads(@class, method, useUnionOverloads))
@@ -6602,17 +6602,17 @@ internal static partial class SourceTemplates
 				else
 				{
 					int omittable = OmittableMethodParameterCount(@class, method, hasOverloadResolutionPriority);
-					AppendMethodVerifyDefinition(sb, @class, method, verifyName, false,
+					AppendMethodVerifyDefinition(sb, @class, method, verifyName, useParameters: false,
 						hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable);
 					if (TryGetPerElementParamsParameter(method))
 					{
-						AppendMethodVerifyDefinition(sb, @class, method, verifyName, false,
+						AppendMethodVerifyDefinition(sb, @class, method, verifyName, useParameters: false,
 							hasOverloadResolutionPriority: hasOverloadResolutionPriority, perElementParams: true);
 					}
 
 					if (HasEmptyParamsOverload(@class, method, hasOverloadResolutionPriority))
 					{
-						AppendMethodVerifyDefinition(sb, @class, method, verifyName, false, valueFlags: EmptyParamsValueFlags(method),
+						AppendMethodVerifyDefinition(sb, @class, method, verifyName, useParameters: false, valueFlags: EmptyParamsValueFlags(method),
 							hasOverloadResolutionPriority: hasOverloadResolutionPriority, emptyParams: true);
 					}
 
@@ -6620,7 +6620,7 @@ internal static partial class SourceTemplates
 					{
 						foreach (bool[] valueFlags in GenerateValueFlagCombinations(method.Parameters))
 						{
-							AppendMethodVerifyDefinition(sb, @class, method, verifyName, false, valueFlags: valueFlags,
+							AppendMethodVerifyDefinition(sb, @class, method, verifyName, useParameters: false, valueFlags: valueFlags,
 								hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable);
 						}
 					}
@@ -6628,14 +6628,14 @@ internal static partial class SourceTemplates
 					{
 						foreach (bool[] valueFlags in GenerateValueFlagsAboveMaxExplicitParameters(method.Parameters))
 						{
-							AppendMethodVerifyDefinition(sb, @class, method, verifyName, false, valueFlags: valueFlags,
+							AppendMethodVerifyDefinition(sb, @class, method, verifyName, useParameters: false, valueFlags: valueFlags,
 								hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable);
 						}
 					}
 
 					foreach ((int keptCount, bool[]? valueFlags) in GenerateOmittedMethodOverloads(method, omittable))
 					{
-						AppendMethodVerifyDefinition(sb, @class, method, verifyName, false, valueFlags: valueFlags,
+						AppendMethodVerifyDefinition(sb, @class, method, verifyName, useParameters: false, valueFlags: valueFlags,
 							hasOverloadResolutionPriority: hasOverloadResolutionPriority, omittable: omittable,
 							keptCount: keptCount);
 					}
@@ -6713,7 +6713,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t/// </summary>").AppendLine();
 		if (!emptyParams)
 		{
-			AppendMethodOverloadRemark(sb, method, useParameters, valueFlags, true, kept);
+			AppendMethodOverloadRemark(sb, method, useParameters, valueFlags, isVerify: true, kept);
 		}
 
 		string? omittedPriority = keptCount is not null ? OmittedMethodOverloadPriority(method, kept, valueFlags) : null;
@@ -6907,7 +6907,7 @@ internal static partial class SourceTemplates
 				Method? method = methodGroup.Single();
 				if (method.Parameters.Count > 0)
 				{
-					AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, true,
+					AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, useParameters: true,
 						memberIds, memberIdPrefix, useTypedRecords,
 						forwardsLoneNull: ForwardsLoneNull(@class, method, UseUnionOverloads(@class, method, useUnionOverloads)));
 				}
@@ -6917,7 +6917,7 @@ internal static partial class SourceTemplates
 			{
 				if (method.Parameters.Count == 0)
 				{
-					AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
+					AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, useParameters: false,
 						memberIds, memberIdPrefix, useTypedRecords);
 				}
 				else if (UseUnionOverloads(@class, method, useUnionOverloads))
@@ -6931,17 +6931,17 @@ internal static partial class SourceTemplates
 				else
 				{
 					int omittable = OmittableMethodParameterCount(@class, method, hasOverloadResolutionPriority);
-					AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
+					AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, useParameters: false,
 						memberIds, memberIdPrefix, useTypedRecords, omittable: omittable);
 					if (TryGetPerElementParamsParameter(method))
 					{
-						AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
+						AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, useParameters: false,
 							memberIds, memberIdPrefix, useTypedRecords, perElementParams: true);
 					}
 
 					if (HasEmptyParamsOverload(@class, method, hasOverloadResolutionPriority))
 					{
-						AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
+						AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, useParameters: false,
 							memberIds, memberIdPrefix, useTypedRecords, valueFlags: EmptyParamsValueFlags(method), emptyParams: true);
 					}
 
@@ -6949,7 +6949,7 @@ internal static partial class SourceTemplates
 					{
 						foreach (bool[] valueFlags in GenerateValueFlagCombinations(method.Parameters))
 						{
-							AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
+							AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, useParameters: false,
 								memberIds, memberIdPrefix, useTypedRecords, valueFlags: valueFlags, omittable: omittable);
 						}
 					}
@@ -6957,14 +6957,14 @@ internal static partial class SourceTemplates
 					{
 						foreach (bool[] valueFlags in GenerateValueFlagsAboveMaxExplicitParameters(method.Parameters))
 						{
-							AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
+							AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, useParameters: false,
 								memberIds, memberIdPrefix, useTypedRecords, valueFlags: valueFlags, omittable: omittable);
 						}
 					}
 
 					foreach ((int keptCount, bool[]? valueFlags) in GenerateOmittedMethodOverloads(method, omittable))
 					{
-						AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, false,
+						AppendMethodVerifyImplementation(sb, method, mockRegistryName, verifyName, useParameters: false,
 							memberIds, memberIdPrefix, useTypedRecords, valueFlags: valueFlags, omittable: omittable,
 							keptCount: keptCount);
 					}
@@ -7092,7 +7092,7 @@ internal static partial class SourceTemplates
 		{
 			foreach (GenericParameter gp in method.GenericParameters.Value)
 			{
-				gp.AppendWhereConstraint(sb, "\t\t\t", true, true);
+				gp.AppendWhereConstraint(sb, "\t\t\t", inheritsConstraints: true, isExplicitInterfaceImpl: true);
 			}
 		}
 
@@ -7755,16 +7755,16 @@ internal static partial class SourceTemplates
 				constructor.Parameters.Select(p => p.Type.Fullname));
 
 			TryEmitTypedCreateMockOverload(sb, @class, constructor, setupType, classReference, createMockReturns,
-				false, false, mockBehaviorName, setupName, baseSig,
+includeMockBehavior: false, includeSetup: false, mockBehaviorName, setupName, baseSig,
 				emittedSignatures);
 			TryEmitTypedCreateMockOverload(sb, @class, constructor, setupType, classReference, createMockReturns,
-				true, false, mockBehaviorName, setupName, baseSig,
+includeMockBehavior: true, includeSetup: false, mockBehaviorName, setupName, baseSig,
 				emittedSignatures);
 			TryEmitTypedCreateMockOverload(sb, @class, constructor, setupType, classReference, createMockReturns,
-				false, true, mockBehaviorName, setupName, baseSig,
+includeMockBehavior: false, includeSetup: true, mockBehaviorName, setupName, baseSig,
 				emittedSignatures);
 			TryEmitTypedCreateMockOverload(sb, @class, constructor, setupType, classReference, createMockReturns,
-				true, true, mockBehaviorName, setupName, baseSig,
+includeMockBehavior: true, includeSetup: true, mockBehaviorName, setupName, baseSig,
 				emittedSignatures);
 		}
 	}
