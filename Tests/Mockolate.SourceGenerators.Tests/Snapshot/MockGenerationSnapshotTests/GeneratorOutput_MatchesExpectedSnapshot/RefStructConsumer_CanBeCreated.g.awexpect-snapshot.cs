@@ -37,13 +37,13 @@ internal static partial class Mock
 		internal const int MemberCount = 12;
 
 		/// <summary>
-		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
+		///     Creates a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
 		/// </summary>
-		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
-			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
+		internal static global::Mockolate.Internals.MockInteractions CreateInteractions(global::Mockolate.MockBehavior behavior)
+			=> new global::Mockolate.Internals.MockInteractions(MemberCount, behavior.SkipInteractionRecording);
 
 		/// <summary>
-		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
 		/// </summary>
 		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
@@ -373,7 +373,7 @@ internal static partial class Mock
 			span = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<global::Mockolate.Setup.SpanWrapper<int>>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceSpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceSpan", new global::Mockolate.Setup.SpanWrapper<int>(span));
+				global::Mockolate.Internals.MethodRecords<global::Mockolate.Setup.SpanWrapper<int>>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceSpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceSpan", new global::Mockolate.Setup.SpanWrapper<int>(span));
 			}
 			try
 			{
@@ -456,7 +456,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<global::Mockolate.Setup.SpanWrapper<int>>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateSpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateSpan", new global::Mockolate.Setup.SpanWrapper<int>(span));
+				global::Mockolate.Internals.MethodRecords<global::Mockolate.Setup.SpanWrapper<int>>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateSpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateSpan", new global::Mockolate.Setup.SpanWrapper<int>(span));
 			}
 			try
 			{
@@ -534,7 +534,7 @@ internal static partial class Mock
 			span = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceReadOnlySpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceReadOnlySpan", new global::Mockolate.Setup.ReadOnlySpanWrapper<int>(span));
+				global::Mockolate.Internals.MethodRecords<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IRefStructConsumer.MemberId_ProduceReadOnlySpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.ProduceReadOnlySpan", new global::Mockolate.Setup.ReadOnlySpanWrapper<int>(span));
 			}
 			try
 			{
@@ -617,7 +617,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateReadOnlySpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateReadOnlySpan", new global::Mockolate.Setup.ReadOnlySpanWrapper<int>(span));
+				global::Mockolate.Internals.MethodRecords<global::Mockolate.Setup.ReadOnlySpanWrapper<int>>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IRefStructConsumer.MemberId_MutateReadOnlySpan, "global::Mockolate.Tests.GeneratorCoverage.IRefStructConsumer.MutateReadOnlySpan", new global::Mockolate.Setup.ReadOnlySpanWrapper<int>(span));
 			}
 			try
 			{
@@ -1565,7 +1565,7 @@ internal static partial class MockExtensionsForIRefStructConsumer
 			if (mock is global::Mockolate.IMock mockInterface)
 			{
 				global::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);
-				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.IRefStructConsumer.CreateFastInteractions(wrappingRegistry.Behavior));
+				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.IRefStructConsumer.CreateInteractions(wrappingRegistry.Behavior));
 				return CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);
 			}
 			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");

@@ -25,7 +25,7 @@ public partial class MockRegistry
 	private IMockInteractions EnsureInteractions()
 	{
 		Interlocked.CompareExchange(ref _interactions,
-			new FastMockInteractions(_interactionMemberCount, Behavior.SkipInteractionRecording), null);
+			new MockInteractions(_interactionMemberCount, Behavior.SkipInteractionRecording), null);
 		return _interactions!;
 	}
 
@@ -82,8 +82,8 @@ public partial class MockRegistry
 	/// <param name="other">The registry that records some of the interactions of this registry as well.</param>
 	public void ShareVerifiedInteractions(MockRegistry other)
 	{
-		if (Interactions is FastMockInteractions interactions &&
-		    other.Interactions is FastMockInteractions otherInteractions)
+		if (Interactions is MockInteractions interactions &&
+		    other.Interactions is MockInteractions otherInteractions)
 		{
 			interactions.ShareVerificationsWith(otherInteractions);
 			otherInteractions.ShareVerificationsWith(interactions);
@@ -104,7 +104,7 @@ public partial class MockRegistry
 	/// </exception>
 	public IDisposable TrackCallOrder(IMock mock, IMock other, IMock[] more)
 	{
-		List<(string Name, FastMockInteractions Interactions)> mocks = [];
+		List<(string Name, MockInteractions Interactions)> mocks = [];
 		Add(mock.ToString(), Interactions);
 		Add(other.ToString(), other.MockRegistry.Interactions);
 		foreach (IMock another in more)
@@ -116,15 +116,15 @@ public partial class MockRegistry
 
 		void Add(string name, IMockInteractions interactions)
 		{
-			if (interactions is not FastMockInteractions fastInteractions)
+			if (interactions is not MockInteractions mockInteractions)
 			{
 				throw new MockException(
 					$"The call order of the {name} cannot be tracked, because it records its interactions in a {interactions.GetType()}.");
 			}
 
-			if (!mocks.Exists(tracked => ReferenceEquals(tracked.Interactions, fastInteractions)))
+			if (!mocks.Exists(tracked => ReferenceEquals(tracked.Interactions, mockInteractions)))
 			{
-				mocks.Add((name, fastInteractions));
+				mocks.Add((name, mockInteractions));
 			}
 		}
 	}
@@ -201,7 +201,7 @@ public partial class MockRegistry
 	///     <paramref name="memberId" />, or <see langword="null" /> when no setup has been registered.
 	/// </summary>
 	/// <remarks>
-	///     Property dispatch reads the snapshot via <see cref="GetPropertyFast{TResult}(int, PropertyGetterAccess, System.Func{Mockolate.MockBehavior,TResult}, Func{TResult}?)" />
+	///     Property dispatch reads the snapshot via <see cref="GetProperty{TResult}(int, PropertyGetterAccess, System.Func{Mockolate.MockBehavior,TResult}, Func{TResult}?)" />
 	///     and falls back to the cold path when the snapshot is empty, so this accessor is intended for
 	///     diagnostics and tests that need to verify the fast-path table directly.
 	/// </remarks>
@@ -873,7 +873,7 @@ public partial class MockRegistry
 	}
 
 	/// <summary>
-	///     Allocation-free fast-path overload of <see cref="GetProperty{TResult}(string, Func{TResult}, Func{TResult}?)" />
+	///     Allocation-free overload of <see cref="GetProperty{TResult}(PropertyGetterAccess, Func{TResult}, Func{TResult}?)" />
 	///     that records the shared <paramref name="access" /> singleton emitted by the source generator,
 	///     avoiding the per-call <see cref="PropertyGetterAccess" /> allocation. The
 	///     <see cref="PropertyGetterRecords" /> stores only a sequence number per call and emits the
@@ -892,7 +892,7 @@ public partial class MockRegistry
 	/// <param name="baseValueAccessor">Optional accessor for the base-class getter; when <see langword="null" /> only the default/initial value is considered. Pass <see langword="null" /> for the no-wrapping fast path.</param>
 	/// <returns>The resolved getter value.</returns>
 	/// <exception cref="MockNotSetupException">No setup exists for the property and <see cref="MockBehavior.ThrowWhenNotSetup" /> is <see langword="true" />.</exception>
-	public TResult GetPropertyFast<TResult>(int memberId, PropertyGetterAccess access,
+	public TResult GetProperty<TResult>(int memberId, PropertyGetterAccess access,
 		Func<MockBehavior, TResult> defaultValueGenerator, Func<TResult>? baseValueAccessor = null)
 	{
 		if (!Behavior.SkipInteractionRecording)
@@ -900,10 +900,10 @@ public partial class MockRegistry
 			RecordPropertyGetter(memberId, access);
 		}
 
-		return ResolvePropertyFast(memberId, access.Name, defaultValueGenerator, baseValueAccessor);
+		return ResolveProperty(memberId, access.Name, defaultValueGenerator, baseValueAccessor);
 	}
 
-	private TResult ResolvePropertyFast<TResult>(int memberId, string propertyName,
+	private TResult ResolveProperty<TResult>(int memberId, string propertyName,
 		Func<MockBehavior, TResult> defaultValueGenerator, Func<TResult>? baseValueAccessor)
 	{
 		if (baseValueAccessor is not null || !string.IsNullOrEmpty(Scenario))
@@ -944,7 +944,7 @@ public partial class MockRegistry
 			return defaultSetup.Value;
 		}
 
-		return setup.InvokeGetterFast(Behavior, defaultValueGenerator);
+		return setup.InvokeGetter(Behavior, defaultValueGenerator);
 	}
 
 	/// <summary>
@@ -975,9 +975,9 @@ public partial class MockRegistry
 
 	private void RecordPropertyGetter(int memberId, PropertyGetterAccess access)
 	{
-		if (memberId >= 0 && Interactions is FastMockInteractions fast)
+		if (memberId >= 0 && Interactions is MockInteractions mockInteractions)
 		{
-			PropertyGetterRecords.Append(fast, memberId, access);
+			PropertyGetterRecords.Append(mockInteractions, memberId, access);
 			return;
 		}
 
@@ -1050,7 +1050,7 @@ public partial class MockRegistry
 	/// <summary>
 	///     Member-id-keyed overload of <see cref="SetProperty{T}(string, T)" /> that records via the typed
 	///     <see cref="PropertySetterRecords{T}" /> when the mock is wired to a
-	///     <see cref="FastMockInteractions" />, falling back to the legacy list otherwise.
+	///     <see cref="MockInteractions" />, falling back to the legacy list otherwise.
 	/// </summary>
 	/// <typeparam name="T">The property's value type.</typeparam>
 	/// <param name="memberId">The generator-emitted member id for the property setter.</param>
@@ -1072,7 +1072,7 @@ public partial class MockRegistry
 	}
 
 	/// <summary>
-	///     Allocation-free fast-path overload of <see cref="SetProperty{T}(int, string, T)" /> that uses the
+	///     Allocation-free overload of <see cref="SetProperty{T}(string, T)" /> that uses the
 	///     member-id-keyed property setup snapshot for default-scope dispatch and bypasses the string-keyed
 	///     dictionary scan when a snapshot setup is registered.
 	/// </summary>
@@ -1082,7 +1082,7 @@ public partial class MockRegistry
 	/// <param name="setterMemberId">The generator-emitted member id for the property setter accessor (for PropertySetterRecords dispatch).</param>
 	/// <param name="value">The value being assigned.</param>
 	/// <returns><see langword="true" /> when the base-class setter should be skipped.</returns>
-	public bool SetPropertyFast<T>(int memberId, int setterMemberId, string propertyName, T value)
+	public bool SetProperty<T>(int memberId, int setterMemberId, string propertyName, T value)
 	{
 		if (!Behavior.SkipInteractionRecording)
 		{
@@ -1139,9 +1139,9 @@ public partial class MockRegistry
 
 	private void RecordPropertySetter<T>(int memberId, string propertyName, T value)
 	{
-		if (memberId >= 0 && Interactions is FastMockInteractions fast)
+		if (memberId >= 0 && Interactions is MockInteractions mockInteractions)
 		{
-			PropertySetterRecords<T>.Append(fast, memberId, propertyName, value);
+			PropertySetterRecords<T>.Append(mockInteractions, memberId, propertyName, value);
 			return;
 		}
 
@@ -1258,7 +1258,7 @@ public partial class MockRegistry
 
 	/// <summary>
 	///     Member-id-keyed overload of <see cref="AddEvent(string, object?, MethodInfo?)" /> that records via the
-	///     typed <see cref="EventRecords" /> when the mock is wired to a <see cref="FastMockInteractions" />,
+	///     typed <see cref="EventRecords" /> when the mock is wired to a <see cref="MockInteractions" />,
 	///     falling back to the legacy list otherwise.
 	/// </summary>
 	/// <param name="memberId">The generator-emitted member id for the event subscribe.</param>
@@ -1329,7 +1329,7 @@ public partial class MockRegistry
 
 	/// <summary>
 	///     Member-id-keyed overload of <see cref="RemoveEvent(string, object?, MethodInfo?)" /> that records via
-	///     the typed <see cref="EventRecords" /> when the mock is wired to a <see cref="FastMockInteractions" />,
+	///     the typed <see cref="EventRecords" /> when the mock is wired to a <see cref="MockInteractions" />,
 	///     falling back to the legacy list otherwise.
 	/// </summary>
 	/// <param name="memberId">The generator-emitted member id for the event unsubscribe.</param>
@@ -1375,9 +1375,9 @@ public partial class MockRegistry
 
 	private void RecordEvent(int memberId, string name, object? target, MethodInfo method, bool isSubscribe)
 	{
-		if (memberId >= 0 && Interactions is FastMockInteractions fast)
+		if (memberId >= 0 && Interactions is MockInteractions mockInteractions)
 		{
-			EventRecords.Append(fast, memberId,
+			EventRecords.Append(mockInteractions, memberId,
 				isSubscribe ? EventRecordKind.Subscribe : EventRecordKind.Unsubscribe, name, target, method);
 			return;
 		}

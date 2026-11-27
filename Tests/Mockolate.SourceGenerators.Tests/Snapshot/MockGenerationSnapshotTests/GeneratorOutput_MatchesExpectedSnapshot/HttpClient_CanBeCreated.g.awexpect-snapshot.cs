@@ -28,13 +28,13 @@ internal static partial class Mock
 		internal const int MemberCount = global::Mockolate.Mock.HttpMessageHandler.MemberCount + 3;
 
 		/// <summary>
-		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
+		///     Creates a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
 		/// </summary>
-		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
-			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
+		internal static global::Mockolate.Internals.MockInteractions CreateInteractions(global::Mockolate.MockBehavior behavior)
+			=> new global::Mockolate.Internals.MockInteractions(MemberCount, behavior.SkipInteractionRecording);
 
 		/// <summary>
-		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
 		/// </summary>
 		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
@@ -220,7 +220,7 @@ internal static partial class Mock
 			global::System.Net.Http.HttpResponseMessage wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.HttpClient.MemberId_Send, "global::System.Net.Http.HttpMessageInvoker.Send", request, cancellationToken);
+				global::Mockolate.Internals.MethodRecords<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.HttpClient.MemberId_Send, "global::System.Net.Http.HttpMessageInvoker.Send", request, cancellationToken);
 			}
 			try
 			{
@@ -307,7 +307,7 @@ internal static partial class Mock
 			global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage> wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.HttpClient.MemberId_SendAsync, "global::System.Net.Http.HttpMessageInvoker.SendAsync", request, cancellationToken);
+				global::Mockolate.Internals.MethodRecords<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.HttpClient.MemberId_SendAsync, "global::System.Net.Http.HttpMessageInvoker.SendAsync", request, cancellationToken);
 			}
 			try
 			{
@@ -393,7 +393,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<bool>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.HttpClient.MemberId_Dispose, "global::System.Net.Http.HttpMessageInvoker.Dispose", disposing);
+				global::Mockolate.Internals.MethodRecords<bool>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.HttpClient.MemberId_Dispose, "global::System.Net.Http.HttpMessageInvoker.Dispose", disposing);
 			}
 			try
 			{
@@ -1461,7 +1461,7 @@ internal static partial class MockExtensionsForHttpClient
 
 			global::Mockolate.MockBehavior effectiveBehavior = mockBehavior ?? global::Mockolate.MockBehavior.Default;
 			effectiveBehavior = global::Mockolate.Internals.AutoMocks.UseFactory(effectiveBehavior, null);
-			global::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(effectiveBehavior, global::Mockolate.Mock.HttpClient.CreateFastInteractions(effectiveBehavior), constructorParameters);
+			global::Mockolate.Internals.MockRegistry mockRegistry = new global::Mockolate.Internals.MockRegistry(effectiveBehavior, global::Mockolate.Mock.HttpClient.CreateInteractions(effectiveBehavior), constructorParameters);
 			if (constructorParameters is null)
 			{
 				constructorParameters = [new global::Mockolate.Mock.HttpMessageHandler(mockRegistry),];
@@ -1558,7 +1558,7 @@ internal static partial class MockExtensionsForHttpClient
 			if (mock is global::Mockolate.IMock mockInterface)
 			{
 				global::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);
-				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.HttpClient.CreateFastInteractions(wrappingRegistry.Behavior));
+				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.HttpClient.CreateInteractions(wrappingRegistry.Behavior));
 				return CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);
 			}
 			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");
@@ -1746,13 +1746,13 @@ internal static partial class Mock
 		internal const int MemberCount = 3;
 
 		/// <summary>
-		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
+		///     Creates a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
 		/// </summary>
-		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
-			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
+		internal static global::Mockolate.Internals.MockInteractions CreateInteractions(global::Mockolate.MockBehavior behavior)
+			=> new global::Mockolate.Internals.MockInteractions(MemberCount, behavior.SkipInteractionRecording);
 
 		/// <summary>
-		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
 		/// </summary>
 		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
@@ -1894,7 +1894,7 @@ internal static partial class Mock
 			global::System.Net.Http.HttpResponseMessage wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.HttpMessageHandler.MemberId_Send, "global::System.Net.Http.HttpMessageHandler.Send", request, cancellationToken);
+				global::Mockolate.Internals.MethodRecords<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.HttpMessageHandler.MemberId_Send, "global::System.Net.Http.HttpMessageHandler.Send", request, cancellationToken);
 			}
 			try
 			{
@@ -1964,7 +1964,7 @@ internal static partial class Mock
 			global::System.Threading.Tasks.Task<global::System.Net.Http.HttpResponseMessage> wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.HttpMessageHandler.MemberId_SendAsync, "global::System.Net.Http.HttpMessageHandler.SendAsync", request, cancellationToken);
+				global::Mockolate.Internals.MethodRecords<global::System.Net.Http.HttpRequestMessage, global::System.Threading.CancellationToken>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.HttpMessageHandler.MemberId_SendAsync, "global::System.Net.Http.HttpMessageHandler.SendAsync", request, cancellationToken);
 			}
 			try
 			{
@@ -2028,7 +2028,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<bool>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.HttpMessageHandler.MemberId_Dispose, "global::System.Net.Http.HttpMessageHandler.Dispose", disposing);
+				global::Mockolate.Internals.MethodRecords<bool>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.HttpMessageHandler.MemberId_Dispose, "global::System.Net.Http.HttpMessageHandler.Dispose", disposing);
 			}
 			try
 			{
@@ -2955,7 +2955,7 @@ internal static partial class MockExtensionsForHttpMessageHandler
 			if (mock is global::Mockolate.IMock mockInterface)
 			{
 				global::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);
-				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.HttpMessageHandler.CreateFastInteractions(wrappingRegistry.Behavior));
+				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.HttpMessageHandler.CreateInteractions(wrappingRegistry.Behavior));
 				return CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);
 			}
 			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");

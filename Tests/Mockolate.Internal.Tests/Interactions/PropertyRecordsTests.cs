@@ -8,7 +8,7 @@ public class PropertyRecordsTests
 	[Test]
 	public async Task PropertyGet_BufferRecordsArePreservedOnEnumeration()
 	{
-		IFastPropertyService sut = IFastPropertyService.CreateMock();
+		IPropertyService sut = IPropertyService.CreateMock();
 		sut.Mock.Setup.Counter.InitializeWith(42);
 
 		_ = sut.Counter;
@@ -25,31 +25,31 @@ public class PropertyRecordsTests
 	[Test]
 	public async Task PropertyGet_RoutesThroughTypedBuffer()
 	{
-		IFastPropertyService sut = IFastPropertyService.CreateMock();
+		IPropertyService sut = IPropertyService.CreateMock();
 		sut.Mock.Setup.Counter.InitializeWith(42);
 
 		_ = sut.Counter;
 		_ = sut.Counter;
 
-		FastMockInteractions fast = (FastMockInteractions)((IMock)sut).MockRegistry.Interactions;
-		int getterId = Mock.PropertyRecordsTests_IFastPropertyService.MemberId_Counter_Get;
-		PropertyGetterRecords buffer = new(fast, getterId);
+		MockInteractions mockInteractions = (MockInteractions)((IMock)sut).MockRegistry.Interactions;
+		int getterId = Mock.PropertyRecordsTests_IPropertyService.MemberId_Counter_Get;
+		PropertyGetterRecords buffer = new(mockInteractions, getterId);
 		await That(buffer.Count).IsEqualTo(2);
-		await That(fast.Count).IsEqualTo(2);
+		await That(mockInteractions.Count).IsEqualTo(2);
 	}
 
 	[Test]
 	public async Task PropertySet_RoutesThroughTypedBuffer()
 	{
-		IFastPropertyService sut = IFastPropertyService.CreateMock();
+		IPropertyService sut = IPropertyService.CreateMock();
 
 		sut.Counter = 7;
 		sut.Counter = 9;
 		sut.Counter = 11;
 
-		FastMockInteractions fast = (FastMockInteractions)((IMock)sut).MockRegistry.Interactions;
-		int setterId = Mock.PropertyRecordsTests_IFastPropertyService.MemberId_Counter_Set;
-		PropertySetterRecords<int> buffer = new(fast, setterId);
+		MockInteractions mockInteractions = (MockInteractions)((IMock)sut).MockRegistry.Interactions;
+		int setterId = Mock.PropertyRecordsTests_IPropertyService.MemberId_Counter_Set;
+		PropertySetterRecords<int> buffer = new(mockInteractions, setterId);
 		await That(buffer.Count).IsEqualTo(3);
 	}
 
@@ -60,17 +60,17 @@ public class PropertyRecordsTests
 		{
 			SkipInteractionRecording = true,
 		};
-		IFastPropertyService sut = IFastPropertyService.CreateMock(behavior);
+		IPropertyService sut = IPropertyService.CreateMock(behavior);
 		sut.Mock.Setup.Counter.InitializeWith(42);
 
 		_ = sut.Counter;
 		_ = sut.Counter;
 
-		FastMockInteractions fast = (FastMockInteractions)((IMock)sut).MockRegistry.Interactions;
-		await That(fast.Count).IsEqualTo(0);
+		MockInteractions mockInteractions = (MockInteractions)((IMock)sut).MockRegistry.Interactions;
+		await That(mockInteractions.Count).IsEqualTo(0);
 	}
 
-	public interface IFastPropertyService
+	public interface IPropertyService
 	{
 		int Counter { get; set; }
 	}

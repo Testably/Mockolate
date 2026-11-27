@@ -199,7 +199,7 @@ internal static partial class SourceTemplates
 		sb.Append("\tinternal static class MethodRecords<").Append(typeArgs).Append(">")
 			.AppendLine();
 		sb.Append("\t{").AppendLine();
-		sb.Append("\t\tpublic static void Append(global::Mockolate.Internals.FastMockInteractions owner, int memberId, string name, ")
+		sb.Append("\t\tpublic static void Append(global::Mockolate.Internals.MockInteractions owner, int memberId, string name, ")
 			.Append(parameters).Append(")").AppendLine();
 		sb.Append("\t\t{").AppendLine();
 		sb.Append("\t\t\tRecord r = new Record();").AppendLine();

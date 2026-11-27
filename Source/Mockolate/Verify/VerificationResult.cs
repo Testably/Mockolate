@@ -36,12 +36,12 @@ namespace Mockolate.Verify;
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerificationResult, IFastVerifyCountResult
+public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerificationResult, ICountVerifiable
 {
 	private readonly VerificationExpectation _expectation;
 	private readonly IMockInteractions _interactions;
 	private readonly MemberRecords? _records;
-	private readonly IFastCountSource? _fastCountSource;
+	private readonly IRecordCountSource? _recordCountSource;
 	private Func<IInteraction, bool>? _predicate;
 	private readonly TVerify _verify;
 
@@ -77,22 +77,22 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 	private VerificationResult(TVerify verify,
 		IMockInteractions interactions,
 		MemberRecords? records,
-		IFastCountSource? fastCountSource,
+		IRecordCountSource? recordCountSource,
 		Func<IInteraction, bool>? predicate,
 		VerificationExpectation expectation)
 	{
 		_verify = verify;
 		_interactions = interactions;
 		_records = records;
-		_fastCountSource = fastCountSource;
+		_recordCountSource = recordCountSource;
 		_predicate = predicate;
 		_expectation = expectation;
 	}
 
 	/// <summary>
-	///     For a subclass that is its own <see cref="IFastCountSource" />, so a fast-path verification allocates
-	///     a single object. The predicate is the source's <see cref="IFastCountSource.Matches" /> and the
-	///     expectation state is the subclass itself. The derived type must implement <see cref="IFastCountSource" />,
+	///     For a subclass that is its own <see cref="IRecordCountSource" />, so a fast-path verification allocates
+	///     a single object. The predicate is the source's <see cref="IRecordCountSource.Matches" /> and the
+	///     expectation state is the subclass itself. The derived type must implement <see cref="IRecordCountSource" />,
 	///     otherwise the constructor throws an <see cref="InvalidCastException" />.
 	/// </summary>
 	private protected VerificationResult(TVerify verify,
@@ -104,7 +104,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		_verify = verify;
 		_interactions = interactions;
 		_records = records;
-		_fastCountSource = (IFastCountSource)this;
+		_recordCountSource = (IRecordCountSource)this;
 		_expectation = new VerificationExpectation(this, expectationArgument, expectationFactory);
 	}
 
@@ -134,7 +134,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 	internal VerificationResult<T> Map<T>(T mock)
 	{
 		VerificationResult<T> mapped =
-			new(mock, _interactions, _records, _fastCountSource, _predicate, _expectation);
+			new(mock, _interactions, _records, _recordCountSource, _predicate, _expectation);
 		if (_useCountAll)
 		{
 			mapped.EnableCountAll();
@@ -153,7 +153,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		=> _predicate = predicate;
 
 	private bool IsMatch(IInteraction interaction)
-		=> _predicate is null ? _fastCountSource!.Matches(interaction) : _predicate(interaction);
+		=> _predicate is null ? _recordCountSource!.Matches(interaction) : _predicate(interaction);
 
 	private IInteraction[] CollectMatching()
 	{
@@ -234,7 +234,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 	///     An awaitable <see cref="VerificationResult{TVerify}" /> that uses the timeout or cancellation token to wait for the
 	///     expected interactions to occur.
 	/// </summary>
-	internal class Awaitable : VerificationResult<TVerify>, IAsyncVerificationResult, IFastVerifyCountResult
+	internal class Awaitable : VerificationResult<TVerify>, IAsyncVerificationResult, ICountVerifiable
 	{
 		private CancellationToken? _cancellationToken;
 		private TimeSpan? _timeout;
@@ -261,7 +261,7 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		}
 
 		private Awaitable(VerificationResult<TVerify> inner)
-			: base(inner._verify, inner._interactions, inner._records, inner._fastCountSource, inner._predicate, inner._expectation)
+			: base(inner._verify, inner._interactions, inner._records, inner._recordCountSource, inner._predicate, inner._expectation)
 		{
 			if (inner._useCountAll)
 			{
@@ -385,23 +385,23 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 			return cts.Token;
 		}
 
-		/// <inheritdoc cref="IFastVerifyCountResult.VerifyCount(Func{int, Boolean})" />
-		bool IFastVerifyCountResult.VerifyCount(Func<int, bool> countPredicate)
+		/// <inheritdoc cref="ICountVerifiable.VerifyCount(Func{int, Boolean})" />
+		bool ICountVerifiable.VerifyCount(Func<int, bool> countPredicate)
 		{
 			ThrowIfRecordingDisabled(_interactions);
-			if (_fastCountSource is not null)
+			if (_recordCountSource is not null)
 			{
 				int count = _useCountAll
-					? ((IFastMethodCountSource)_fastCountSource).CountAll()
-					: _fastCountSource.Count();
+					? ((IMethodRecordCountSource)_recordCountSource).CountAll()
+					: _recordCountSource.Count();
 				if (countPredicate(count))
 				{
 					return true;
 				}
 
 				return WaitUntilAsync(() => countPredicate(_useCountAll
-						? ((IFastMethodCountSource)_fastCountSource!).CountAll()
-						: _fastCountSource!.Count()), CancellationToken.None)
+						? ((IMethodRecordCountSource)_recordCountSource!).CountAll()
+						: _recordCountSource!.Count()), CancellationToken.None)
 					.ConfigureAwait(false).GetAwaiter().GetResult();
 			}
 
@@ -415,11 +415,11 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 			return VerifyAsync(arr => countPredicate(arr.Length)).ConfigureAwait(false).GetAwaiter().GetResult();
 		}
 
-		/// <inheritdoc cref="IFastVerifyCountResult.VerifyCount(int, int, out int)" />
-		bool IFastVerifyCountResult.VerifyCount(int minimum, int maximum, out int found)
+		/// <inheritdoc cref="ICountVerifiable.VerifyCount(int, int, out int)" />
+		bool ICountVerifiable.VerifyCount(int minimum, int maximum, out int found)
 		{
 			int last = 0;
-			bool result = ((IFastVerifyCountResult)this).VerifyCount(count =>
+			bool result = ((ICountVerifiable)this).VerifyCount(count =>
 			{
 				last = count;
 				return count >= minimum && count <= maximum;
@@ -488,15 +488,15 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		return predicate(matchingInteractions);
 	}
 
-	/// <inheritdoc cref="IFastVerifyCountResult.VerifyCount(Func{int, Boolean})" />
-	bool IFastVerifyCountResult.VerifyCount(Func<int, bool> countPredicate)
+	/// <inheritdoc cref="ICountVerifiable.VerifyCount(Func{int, Boolean})" />
+	bool ICountVerifiable.VerifyCount(Func<int, bool> countPredicate)
 	{
 		ThrowIfRecordingDisabled(_interactions);
-		if (_fastCountSource is not null)
+		if (_recordCountSource is not null)
 		{
 			int count = _useCountAll
-				? ((IFastMethodCountSource)_fastCountSource).CountAll()
-				: _fastCountSource.Count();
+				? ((IMethodRecordCountSource)_recordCountSource).CountAll()
+				: _recordCountSource.Count();
 			return countPredicate(count);
 		}
 
@@ -505,15 +505,15 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		return countPredicate(matchingInteractions.Length);
 	}
 
-	/// <inheritdoc cref="IFastVerifyCountResult.VerifyCount(int, int, out int)" />
-	bool IFastVerifyCountResult.VerifyCount(int minimum, int maximum, out int found)
+	/// <inheritdoc cref="ICountVerifiable.VerifyCount(int, int, out int)" />
+	bool ICountVerifiable.VerifyCount(int minimum, int maximum, out int found)
 	{
 		ThrowIfRecordingDisabled(_interactions);
-		if (_fastCountSource is not null)
+		if (_recordCountSource is not null)
 		{
 			found = _useCountAll
-				? ((IFastMethodCountSource)_fastCountSource).CountAll()
-				: _fastCountSource.Count();
+				? ((IMethodRecordCountSource)_recordCountSource).CountAll()
+				: _recordCountSource.Count();
 		}
 		else
 		{

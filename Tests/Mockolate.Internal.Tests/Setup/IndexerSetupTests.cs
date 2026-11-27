@@ -118,7 +118,7 @@ public sealed class IndexerSetupTests
 	public async Task GetResult_WithBaseValue_StoresComputedValueForLaterLookup()
 	{
 		IndexerSetup<string, int> setup = new(
-			new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)),
+			new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
 			(IParameterMatch<int>)It.IsAny<int>());
 		IndexerValueStorage<string> storage = new();
 		IndexerGetterAccess<int> access1 = new(42)
@@ -143,7 +143,7 @@ public sealed class IndexerSetupTests
 	public async Task GetResult_WithDefaultValueGenerator_StoresComputedValueForLaterLookup()
 	{
 		IndexerSetup<string, int> setup = new(
-			new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)),
+			new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
 			(IParameterMatch<int>)It.IsAny<int>());
 		IndexerValueStorage<string> storage = new();
 		IndexerGetterAccess<int> access1 = new(42)
@@ -168,7 +168,7 @@ public sealed class IndexerSetupTests
 	public async Task MatchesAccess_WithUnknownAccessType_ShouldReturnFalse()
 	{
 		IndexerSetup<int, string> setup = new(
-			new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)),
+			new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
 			(IParameterMatch<string>)It.IsAny<string>());
 		FakeIndexerAccess access = new();
 
@@ -333,7 +333,7 @@ public sealed class IndexerSetupTests
 		public async Task GetResult_WithBaseValue_StoresComputedValueForLaterLookup()
 		{
 			IndexerSetup<string, int, int> setup = new(
-				new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)),
+				new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
 				(IParameterMatch<int>)It.IsAny<int>(),
 				(IParameterMatch<int>)It.IsAny<int>());
 			IndexerValueStorage<string> storage = new();
@@ -359,7 +359,7 @@ public sealed class IndexerSetupTests
 		public async Task GetResult_WithFuncGenerator_AndInitialization_ShouldUseInitializationValue()
 		{
 			IndexerSetup<string, int, int> setup = new(
-				new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)),
+				new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
 				(IParameterMatch<int>)It.IsAny<int>(),
 				(IParameterMatch<int>)It.IsAny<int>());
 			setup.InitializeWith((p1, p2) => $"{p1}-{p2}");
@@ -386,7 +386,7 @@ public sealed class IndexerSetupTests
 		public async Task MatchesAccess_WithUnknownAccessType_ShouldReturnFalse()
 		{
 			IndexerSetup<string, int, int> setup = new(
-				new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)),
+				new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
 				(IParameterMatch<int>)It.IsAny<int>(),
 				(IParameterMatch<int>)It.IsAny<int>());
 			FakeIndexerAccess access = new();
@@ -398,7 +398,7 @@ public sealed class IndexerSetupTests
 
 		private sealed class MyIndexerSetup<T1, T2>()
 			: IndexerSetup<string, T1, T2>(
-				new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)),
+				new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
 				(IParameterMatch<T1>)It.IsAny<T1>(),
 				(IParameterMatch<T2>)It.IsAny<T2>())
 		{
@@ -546,7 +546,7 @@ public sealed class IndexerSetupTests
 		public async Task GetResult_WithBaseValue_StoresComputedValueForLaterLookup()
 		{
 			IndexerSetup<string, int, int, int> setup = new(
-				new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)),
+				new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
 				(IParameterMatch<int>)It.IsAny<int>(),
 				(IParameterMatch<int>)It.IsAny<int>(),
 				(IParameterMatch<int>)It.IsAny<int>());
@@ -575,7 +575,7 @@ public sealed class IndexerSetupTests
 		public async Task GetResult_WithFuncGenerator_AndInitialization_ShouldUseInitializationValue()
 		{
 			IndexerSetup<string, int, int, int> setup = new(
-				new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)),
+				new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
 				(IParameterMatch<int>)It.IsAny<int>(),
 				(IParameterMatch<int>)It.IsAny<int>(),
 				(IParameterMatch<int>)It.IsAny<int>());
@@ -603,7 +603,7 @@ public sealed class IndexerSetupTests
 		public async Task MatchesAccess_WithUnknownAccessType_ShouldReturnFalse()
 		{
 			IndexerSetup<string, int, int, int> setup = new(
-				new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)),
+				new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
 				(IParameterMatch<int>)It.IsAny<int>(),
 				(IParameterMatch<int>)It.IsAny<int>(),
 				(IParameterMatch<int>)It.IsAny<int>());
@@ -616,7 +616,7 @@ public sealed class IndexerSetupTests
 
 		private sealed class MyIndexerSetup<T1, T2, T3>()
 			: IndexerSetup<string, T1, T2, T3>(
-				new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)),
+				new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
 				(IParameterMatch<T1>)It.IsAny<T1>(),
 				(IParameterMatch<T2>)It.IsAny<T2>(),
 				(IParameterMatch<T3>)It.IsAny<T3>())
@@ -773,7 +773,7 @@ public sealed class IndexerSetupTests
 		public async Task GetResult_WithBaseValue_StoresComputedValueForLaterLookup()
 		{
 			IndexerSetup<string, int, int, int, int> setup = new(
-				new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)),
+				new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
 				(IParameterMatch<int>)It.IsAny<int>(),
 				(IParameterMatch<int>)It.IsAny<int>(),
 				(IParameterMatch<int>)It.IsAny<int>(),
@@ -803,7 +803,7 @@ public sealed class IndexerSetupTests
 		public async Task GetResult_WithFuncGenerator_AndInitialization_ShouldUseInitializationValue()
 		{
 			IndexerSetup<string, int, int, int, int> setup = new(
-				new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)),
+				new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
 				(IParameterMatch<int>)It.IsAny<int>(),
 				(IParameterMatch<int>)It.IsAny<int>(),
 				(IParameterMatch<int>)It.IsAny<int>(),
@@ -832,7 +832,7 @@ public sealed class IndexerSetupTests
 		public async Task MatchesAccess_WithUnknownAccessType_ShouldReturnFalse()
 		{
 			IndexerSetup<string, int, int, int, int> setup = new(
-				new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)),
+				new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
 				(IParameterMatch<int>)It.IsAny<int>(),
 				(IParameterMatch<int>)It.IsAny<int>(),
 				(IParameterMatch<int>)It.IsAny<int>(),
@@ -846,7 +846,7 @@ public sealed class IndexerSetupTests
 
 		private sealed class MyIndexerSetup<T1, T2, T3, T4>()
 			: IndexerSetup<string, T1, T2, T3, T4>(
-				new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)),
+				new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
 				(IParameterMatch<T1>)It.IsAny<T1>(),
 				(IParameterMatch<T2>)It.IsAny<T2>(),
 				(IParameterMatch<T3>)It.IsAny<T3>(),
@@ -997,7 +997,7 @@ public sealed class IndexerSetupTests
 
 		private sealed class MyIndexerSetup<T1, T2, T3, T4, T5>()
 			: IndexerSetup<string, T1, T2, T3, T4, T5>(
-				new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)),
+				new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
 				(IParameterMatch<T1>)It.IsAny<T1>(),
 				(IParameterMatch<T2>)It.IsAny<T2>(),
 				(IParameterMatch<T3>)It.IsAny<T3>(),
@@ -1024,7 +1024,7 @@ public sealed class IndexerSetupTests
 
 	private sealed class MyIndexerSetup<T1>()
 		: IndexerSetup<string, T1>(
-			new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)),
+			new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
 			(IParameterMatch<T1>)It.IsAny<T1>())
 	{
 		private readonly IndexerValueStorage<string> _storage = new();

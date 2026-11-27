@@ -28,13 +28,13 @@ internal static partial class Mock
 		internal const int MemberCount = 3;
 
 		/// <summary>
-		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
+		///     Creates a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
 		/// </summary>
-		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
-			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
+		internal static global::Mockolate.Internals.MockInteractions CreateInteractions(global::Mockolate.MockBehavior behavior)
+			=> new global::Mockolate.Internals.MockInteractions(MemberCount, behavior.SkipInteractionRecording);
 
 		/// <summary>
-		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
 		/// </summary>
 		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
@@ -285,7 +285,7 @@ internal static partial class Mock
 			bool wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<global::Microsoft.Extensions.Logging.LogLevel>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ConcreteLogger.MemberId_IsEnabled, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.IsEnabled", logLevel);
+				global::Mockolate.Internals.MethodRecords<global::Microsoft.Extensions.Logging.LogLevel>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ConcreteLogger.MemberId_IsEnabled, "global::Mockolate.Tests.GeneratorCoverage.AbstractLoggerBase.IsEnabled", logLevel);
 			}
 			try
 			{
@@ -1418,7 +1418,7 @@ internal static partial class MockExtensionsForConcreteLogger
 			if (mock is global::Mockolate.IMock mockInterface)
 			{
 				global::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);
-				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.ConcreteLogger.CreateFastInteractions(wrappingRegistry.Behavior));
+				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.ConcreteLogger.CreateInteractions(wrappingRegistry.Behavior));
 				return CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);
 			}
 			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");
@@ -1598,13 +1598,13 @@ internal static partial class Mock
 		internal const int MemberCount = 3;
 
 		/// <summary>
-		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
+		///     Creates a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
 		/// </summary>
-		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
-			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
+		internal static global::Mockolate.Internals.MockInteractions CreateInteractions(global::Mockolate.MockBehavior behavior)
+			=> new global::Mockolate.Internals.MockInteractions(MemberCount, behavior.SkipInteractionRecording);
 
 		/// <summary>
-		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
 		/// </summary>
 		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
@@ -1855,7 +1855,7 @@ internal static partial class Mock
 			bool wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<global::Microsoft.Extensions.Logging.LogLevel>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.LeafLogger.MemberId_IsEnabled, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.IsEnabled", logLevel);
+				global::Mockolate.Internals.MethodRecords<global::Microsoft.Extensions.Logging.LogLevel>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.LeafLogger.MemberId_IsEnabled, "global::Mockolate.Tests.GeneratorCoverage.VirtualLoggerBase.IsEnabled", logLevel);
 			}
 			try
 			{
@@ -2988,7 +2988,7 @@ internal static partial class MockExtensionsForLeafLogger
 			if (mock is global::Mockolate.IMock mockInterface)
 			{
 				global::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);
-				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.LeafLogger.CreateFastInteractions(wrappingRegistry.Behavior));
+				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.LeafLogger.CreateInteractions(wrappingRegistry.Behavior));
 				return CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);
 			}
 			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");

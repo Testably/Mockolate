@@ -13,7 +13,7 @@ namespace Mockolate.Verify;
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class Method0CountSource<TVerify> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
+internal sealed class Method0CountSource<TVerify> : VerificationResult<TVerify>.IgnoreParameters, IMethodRecordCountSource
 {
 	private readonly MethodRecords _records;
 
@@ -35,7 +35,7 @@ internal sealed class Method0CountSource<TVerify> : VerificationResult<TVerify>.
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class Method1CountSource<TVerify, T1> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
+internal sealed class Method1CountSource<TVerify, T1> : VerificationResult<TVerify>.IgnoreParameters, IMethodRecordCountSource
 {
 	private readonly MethodRecords<T1> _records;
 	private readonly IParameterMatch<T1> _match1;
@@ -67,7 +67,7 @@ internal sealed class Method1CountSource<TVerify, T1> : VerificationResult<TVeri
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class Method2CountSource<TVerify, T1, T2> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
+internal sealed class Method2CountSource<TVerify, T1, T2> : VerificationResult<TVerify>.IgnoreParameters, IMethodRecordCountSource
 {
 	private readonly MethodRecords<T1, T2> _records;
 	private readonly IParameterMatch<T1> _match1;
@@ -104,7 +104,7 @@ internal sealed class Method2CountSource<TVerify, T1, T2> : VerificationResult<T
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class Method3CountSource<TVerify, T1, T2, T3> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
+internal sealed class Method3CountSource<TVerify, T1, T2, T3> : VerificationResult<TVerify>.IgnoreParameters, IMethodRecordCountSource
 {
 	private readonly MethodRecords<T1, T2, T3> _records;
 	private readonly IParameterMatch<T1> _match1;
@@ -149,7 +149,7 @@ internal sealed class Method3CountSource<TVerify, T1, T2, T3> : VerificationResu
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class Method4CountSource<TVerify, T1, T2, T3, T4> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
+internal sealed class Method4CountSource<TVerify, T1, T2, T3, T4> : VerificationResult<TVerify>.IgnoreParameters, IMethodRecordCountSource
 #pragma warning restore S2436
 {
 	private readonly MethodRecords<T1, T2, T3, T4> _records;
@@ -202,7 +202,7 @@ internal sealed class Method4CountSource<TVerify, T1, T2, T3, T4> : Verification
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class Method1LiteralCountSource<TVerify, T1> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
+internal sealed class Method1LiteralCountSource<TVerify, T1> : VerificationResult<TVerify>.IgnoreParameters, IMethodRecordCountSource
 {
 	private readonly MethodRecords<T1> _records;
 	private readonly T1 _value1;
@@ -233,7 +233,7 @@ internal sealed class Method1LiteralCountSource<TVerify, T1> : VerificationResul
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class Method2LiteralCountSource<TVerify, T1, T2> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
+internal sealed class Method2LiteralCountSource<TVerify, T1, T2> : VerificationResult<TVerify>.IgnoreParameters, IMethodRecordCountSource
 {
 	private readonly MethodRecords<T1, T2> _records;
 	private readonly T1 _value1;
@@ -267,7 +267,7 @@ internal sealed class Method2LiteralCountSource<TVerify, T1, T2> : VerificationR
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class Method3LiteralCountSource<TVerify, T1, T2, T3> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
+internal sealed class Method3LiteralCountSource<TVerify, T1, T2, T3> : VerificationResult<TVerify>.IgnoreParameters, IMethodRecordCountSource
 {
 	private readonly MethodRecords<T1, T2, T3> _records;
 	private readonly T1 _value1;
@@ -305,7 +305,7 @@ internal sealed class Method3LiteralCountSource<TVerify, T1, T2, T3> : Verificat
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class Method4LiteralCountSource<TVerify, T1, T2, T3, T4> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
+internal sealed class Method4LiteralCountSource<TVerify, T1, T2, T3, T4> : VerificationResult<TVerify>.IgnoreParameters, IMethodRecordCountSource
 #pragma warning restore S2436
 {
 	private readonly MethodRecords<T1, T2, T3, T4> _records;
@@ -349,7 +349,7 @@ internal sealed class Method4LiteralCountSource<TVerify, T1, T2, T3, T4> : Verif
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class Method1StateCountSource<TVerify, T1, TState> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
+internal sealed class Method1StateCountSource<TVerify, T1, TState> : VerificationResult<TVerify>.IgnoreParameters, IMethodRecordCountSource
 {
 	private readonly MethodRecords<T1> _records;
 	private readonly IParameterMatch<T1> _match1;
@@ -382,7 +382,7 @@ internal sealed class Method1StateCountSource<TVerify, T1, TState> : Verificatio
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class Method2StateCountSource<TVerify, T1, T2, TState> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
+internal sealed class Method2StateCountSource<TVerify, T1, T2, TState> : VerificationResult<TVerify>.IgnoreParameters, IMethodRecordCountSource
 {
 	private readonly MethodRecords<T1, T2> _records;
 	private readonly IParameterMatch<T1> _match1;
@@ -418,7 +418,7 @@ internal sealed class Method2StateCountSource<TVerify, T1, T2, TState> : Verific
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class Method3StateCountSource<TVerify, T1, T2, T3, TState> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
+internal sealed class Method3StateCountSource<TVerify, T1, T2, T3, TState> : VerificationResult<TVerify>.IgnoreParameters, IMethodRecordCountSource
 #pragma warning restore S2436
 {
 	private readonly MethodRecords<T1, T2, T3> _records;
@@ -460,7 +460,7 @@ internal sealed class Method3StateCountSource<TVerify, T1, T2, T3, TState> : Ver
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class Method4StateCountSource<TVerify, T1, T2, T3, T4, TState> : VerificationResult<TVerify>.IgnoreParameters, IFastMethodCountSource
+internal sealed class Method4StateCountSource<TVerify, T1, T2, T3, T4, TState> : VerificationResult<TVerify>.IgnoreParameters, IMethodRecordCountSource
 #pragma warning restore S2436
 {
 	private readonly MethodRecords<T1, T2, T3, T4> _records;
@@ -503,7 +503,7 @@ internal sealed class Method4StateCountSource<TVerify, T1, T2, T3, T4, TState> :
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class PropertyGetterCountSource<TVerify> : VerificationResult<TVerify>, IFastCountSource
+internal sealed class PropertyGetterCountSource<TVerify> : VerificationResult<TVerify>, IRecordCountSource
 {
 	private readonly PropertyGetterRecords _records;
 
@@ -524,7 +524,7 @@ internal sealed class PropertyGetterCountSource<TVerify> : VerificationResult<TV
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class PropertySetterCountSource<TVerify, T> : VerificationResult<TVerify>, IFastCountSource
+internal sealed class PropertySetterCountSource<TVerify, T> : VerificationResult<TVerify>, IRecordCountSource
 {
 	private readonly PropertySetterRecords<T> _records;
 
@@ -550,7 +550,7 @@ internal sealed class PropertySetterCountSource<TVerify, T> : VerificationResult
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class IndexerGetter1CountSource<TVerify, T1> : VerificationResult<TVerify>, IFastCountSource
+internal sealed class IndexerGetter1CountSource<TVerify, T1> : VerificationResult<TVerify>, IRecordCountSource
 {
 	private readonly IndexerGetterRecords<T1> _records;
 	private readonly IParameterMatch<T1> _match1;
@@ -575,7 +575,7 @@ internal sealed class IndexerGetter1CountSource<TVerify, T1> : VerificationResul
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class IndexerGetter2CountSource<TVerify, T1, T2> : VerificationResult<TVerify>, IFastCountSource
+internal sealed class IndexerGetter2CountSource<TVerify, T1, T2> : VerificationResult<TVerify>, IRecordCountSource
 {
 	private readonly IndexerGetterRecords<T1, T2> _records;
 	private readonly IParameterMatch<T1> _match1;
@@ -603,7 +603,7 @@ internal sealed class IndexerGetter2CountSource<TVerify, T1, T2> : VerificationR
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class IndexerGetter3CountSource<TVerify, T1, T2, T3> : VerificationResult<TVerify>, IFastCountSource
+internal sealed class IndexerGetter3CountSource<TVerify, T1, T2, T3> : VerificationResult<TVerify>, IRecordCountSource
 {
 	private readonly IndexerGetterRecords<T1, T2, T3> _records;
 	private readonly IParameterMatch<T1> _match1;
@@ -635,7 +635,7 @@ internal sealed class IndexerGetter3CountSource<TVerify, T1, T2, T3> : Verificat
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class IndexerGetter4CountSource<TVerify, T1, T2, T3, T4> : VerificationResult<TVerify>, IFastCountSource
+internal sealed class IndexerGetter4CountSource<TVerify, T1, T2, T3, T4> : VerificationResult<TVerify>, IRecordCountSource
 #pragma warning restore S2436
 {
 	private readonly IndexerGetterRecords<T1, T2, T3, T4> _records;
@@ -672,7 +672,7 @@ internal sealed class IndexerGetter4CountSource<TVerify, T1, T2, T3, T4> : Verif
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class IndexerSetter1CountSource<TVerify, T1, TValue> : VerificationResult<TVerify>, IFastCountSource
+internal sealed class IndexerSetter1CountSource<TVerify, T1, TValue> : VerificationResult<TVerify>, IRecordCountSource
 {
 	private readonly IndexerSetterRecords<T1, TValue> _records;
 	private readonly IParameterMatch<T1> _match1;
@@ -701,7 +701,7 @@ internal sealed class IndexerSetter1CountSource<TVerify, T1, TValue> : Verificat
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class IndexerSetter2CountSource<TVerify, T1, T2, TValue> : VerificationResult<TVerify>, IFastCountSource
+internal sealed class IndexerSetter2CountSource<TVerify, T1, T2, TValue> : VerificationResult<TVerify>, IRecordCountSource
 {
 	private readonly IndexerSetterRecords<T1, T2, TValue> _records;
 	private readonly IParameterMatch<T1> _match1;
@@ -734,7 +734,7 @@ internal sealed class IndexerSetter2CountSource<TVerify, T1, T2, TValue> : Verif
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class IndexerSetter3CountSource<TVerify, T1, T2, T3, TValue> : VerificationResult<TVerify>, IFastCountSource
+internal sealed class IndexerSetter3CountSource<TVerify, T1, T2, T3, TValue> : VerificationResult<TVerify>, IRecordCountSource
 #pragma warning restore S2436
 {
 	private readonly IndexerSetterRecords<T1, T2, T3, TValue> _records;
@@ -773,7 +773,7 @@ internal sealed class IndexerSetter3CountSource<TVerify, T1, T2, T3, TValue> : V
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class IndexerSetter4CountSource<TVerify, T1, T2, T3, T4, TValue> : VerificationResult<TVerify>, IFastCountSource
+internal sealed class IndexerSetter4CountSource<TVerify, T1, T2, T3, T4, TValue> : VerificationResult<TVerify>, IRecordCountSource
 #pragma warning restore S2436 // Types and methods should not have too many generic parameters
 {
 	private readonly IndexerSetterRecords<T1, T2, T3, T4, TValue> _records;
@@ -814,7 +814,7 @@ internal sealed class IndexerSetter4CountSource<TVerify, T1, T2, T3, T4, TValue>
 #if !DEBUG
 [System.Diagnostics.DebuggerNonUserCode]
 #endif
-internal sealed class EventCountSource<TVerify> : VerificationResult<TVerify>, IFastCountSource
+internal sealed class EventCountSource<TVerify> : VerificationResult<TVerify>, IRecordCountSource
 {
 	private readonly EventRecords _records;
 

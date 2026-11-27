@@ -12,7 +12,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task IndexerGotTyped_FourKeys_FailureMessageIncludesGotIndexerPrefix()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -32,7 +32,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task IndexerGotTyped_OneKey_FailureMessageIncludesGotIndexerPrefix()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -49,7 +49,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task IndexerGotTyped_ThreeKeys_FailureMessageIncludesGotIndexerPrefix()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -68,7 +68,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task IndexerGotTyped_TwoKeys_FailureMessageIncludesGotIndexerPrefix()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -86,7 +86,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task IndexerSetTyped_FourKeys_FailureMessageIncludesSetIndexerPrefix()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -107,7 +107,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task IndexerSetTyped_OneKey_FailureMessageIncludesSetIndexerPrefix()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -125,7 +125,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task IndexerSetTyped_ThreeKeys_FailureMessageIncludesSetIndexerPrefix()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -145,7 +145,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task IndexerSetTyped_TwoKeys_FailureMessageIncludesSetIndexerPrefix()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -164,7 +164,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task SubscribedToTyped_FailureMessageIncludesSubscribedToEventPrefix()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -179,7 +179,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task UnsubscribedFromTyped_FailureMessageIncludesUnsubscribedFromEventPrefix()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -194,7 +194,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task VerifyMethodTyped_FourParameters_FailureMessageIncludesInvokedMethodPrefix()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -214,7 +214,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task VerifyMethodTyped_OneParameter_FailureMessageIncludesInvokedMethodPrefix()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -231,7 +231,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task VerifyMethodTyped_Parameterless_FailureMessageIncludesInvokedMethodPrefix()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -246,7 +246,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task VerifyMethodTyped_ThreeParameters_FailureMessageIncludesInvokedMethodPrefix()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -265,7 +265,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task VerifyMethodTyped_TwoParameters_FailureMessageIncludesInvokedMethodPrefix()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -283,7 +283,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task VerifyPropertyTyped_Getter_FailureMessageIncludesGotPropertyPrefix()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -298,7 +298,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task VerifyPropertyTyped_Setter_FailureMessageIncludesSetPropertyPrefix()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -321,7 +321,7 @@ public class MockRegistryVerifyTests
 			// Mutation `<=` would let memberId == buffers.Length pass the bounds check and
 			// IndexOutOfRangeException-crash on `buffers[memberId]`. Asserting the verify
 			// resolves cleanly via the slow-path fallback documents the boundary.
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -335,7 +335,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task VerifyMethodTyped_WithMemberIdFarOutOfRange_ShouldFallToSlowPath()
 		{
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -353,7 +353,7 @@ public class MockRegistryVerifyTests
 		public async Task VerifyMethodTyped_FourParam_SlowPath_AllMatchersTrue_Counts()
 		{
 			// Positive case for the same slow-path lambda — the matched record must be counted.
-			FastMockInteractions store = new(0);
+			MockInteractions store = new(0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			IMockInteractions interactions = store;
@@ -376,7 +376,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task VerifyMethodTyped_FourParam_SlowPath_RejectsWhenLastMatcherFails()
 		{
-			FastMockInteractions store = new(0);
+			MockInteractions store = new(0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			IMockInteractions interactions = store;
@@ -399,7 +399,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task VerifyMethodTyped_ThreeParam_SlowPath_RejectsWhenLastMatcherFails()
 		{
-			FastMockInteractions store = new(0);
+			MockInteractions store = new(0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			IMockInteractions interactions = store;
@@ -424,7 +424,7 @@ public class MockRegistryVerifyTests
 			// returns null. With an out-of-range memberId we force that branch; then we record an
 			// interaction that satisfies match2 but NOT match1, and verify it is correctly excluded.
 			// This kills the mutation that drops the `&& match1` term from the AND-chain.
-			FastMockInteractions store = new(0);
+			MockInteractions store = new(0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			IMockInteractions interactions = store;
@@ -444,7 +444,7 @@ public class MockRegistryVerifyTests
 		[Test]
 		public async Task VerifyMethodTyped_TwoParam_SlowPath_RejectsWhenSecondMatcherFails()
 		{
-			FastMockInteractions store = new(0);
+			MockInteractions store = new(0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			IMockInteractions interactions = store;
@@ -469,7 +469,7 @@ public class MockRegistryVerifyTests
 		{
 			// Pins `() => $"got indexer {parametersDescription()}"` in the public memberId-keyed
 			// IndexerGot expression body against the string-removal mutation.
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -488,7 +488,7 @@ public class MockRegistryVerifyTests
 		{
 			// Pins `() => $"set indexer {parametersDescription()} to {value}"` against the
 			// string-removal mutation.
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			void Act()
@@ -508,7 +508,7 @@ public class MockRegistryVerifyTests
 		{
 			// Pins the local Predicate body in the memberId-keyed IndexerSet overload — the
 			// block-removal mutant would turn it into `return default;` and skip every record.
-			FastMockInteractions store = new(1);
+			MockInteractions store = new(1);
 			IndexerSetterRecords<int, string> buffer = new(store, 0);
 			buffer.Append(1, "x");
 			MockRegistry registry = new(MockBehavior.Default, store);
@@ -535,7 +535,7 @@ public class MockRegistryVerifyTests
 			// of `VerifyMethod<T>(subject, memberId, methodName, expectation)`. We enter the
 			// fallback because no MethodRecords is installed at memberId 0; the registered
 			// MethodInvocation must still be counted.
-			FastMockInteractions store = new(0);
+			MockInteractions store = new(0);
 			MockRegistry registry = new(MockBehavior.Default, store);
 
 			IMockInteractions interactions = store;

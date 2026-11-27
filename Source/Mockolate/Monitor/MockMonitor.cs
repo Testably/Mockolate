@@ -26,7 +26,7 @@ public abstract class MockMonitor
 	protected MockMonitor(IMockInteractions mockInteractions)
 	{
 		_monitoredInteractions = mockInteractions;
-		Interactions = new FastMockInteractions(0, mockInteractions.SkipInteractionRecording);
+		Interactions = new MockInteractions(0, mockInteractions.SkipInteractionRecording);
 	}
 
 	/// <summary>

@@ -509,7 +509,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t\t\tmockBehavior ??= global::Mockolate.MockBehavior.Default;").AppendLine();
 		AppendUseAutoMockFactory(sb, "\t\t\t", "mockBehavior", autoMocking);
 		sb.Append(
-				"\t\t\tvar mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, new global::Mockolate.Internals.FastMockInteractions(0, mockBehavior.SkipInteractionRecording));")
+				"\t\t\tvar mockRegistry = new global::Mockolate.Internals.MockRegistry(mockBehavior, new global::Mockolate.Internals.MockInteractions(0, mockBehavior.SkipInteractionRecording));")
 			.AppendLine();
 		sb.Append("\t\t\tglobal::Mockolate.Mock.").Append(name).Append(" mockTarget = new global::Mockolate.Mock.")
 			.Append(name).Append("(mockRegistry);")
@@ -606,7 +606,7 @@ internal static partial class SourceTemplates
 		string memberIdRef = memberIdPrefix + memberIds.GetMethodIdentifier(delegateMethod);
 		bool isGeneric = delegateMethod.GenericParameters is not null &&
 		                 delegateMethod.GenericParameters.Value.Count > 0;
-		EmitFastMethodSetupLookup(sb, "\t\t\t", $"this.{mockRegistryName}", methodSetup, methodSetupType,
+		EmitMethodSetupLookup(sb, "\t\t\t", $"this.{mockRegistryName}", methodSetup, methodSetupType,
 			memberIdRef, delegateMethod.GetUniqueNameString(), sb2.ToString(), isGeneric, delegateMethod.Parameters);
 
 		if (hasOutParams)

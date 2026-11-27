@@ -6,7 +6,7 @@ using Mockolate.Interactions;
 namespace Mockolate.Internals;
 
 /// <summary>
-///     Typed view on the calls that a <see cref="FastMockInteractions" /> recorded for one mocked member.
+///     Typed view on the calls that a <see cref="MockInteractions" /> recorded for one mocked member.
 /// </summary>
 /// <remarks>
 ///     This type is public only so that generated code can use it; it is not intended to be used directly.
@@ -22,14 +22,14 @@ namespace Mockolate.Internals;
 public abstract class MemberRecords
 {
 	/// <inheritdoc cref="MemberRecords" />
-	protected MemberRecords(FastMockInteractions owner, int memberId)
+	protected MemberRecords(MockInteractions owner, int memberId)
 	{
 		Owner = owner;
 		MemberId = memberId;
 	}
 
 	/// <summary>The interactions of the mock that the calls are recorded in.</summary>
-	internal FastMockInteractions Owner { get; }
+	internal MockInteractions Owner { get; }
 
 	/// <summary>The member id of the calls.</summary>
 	public int MemberId { get; }
@@ -97,7 +97,7 @@ public abstract class MemberRecords
 }
 
 /// <summary>
-///     A call recorded in a <see cref="FastMockInteractions" />.
+///     A call recorded in a <see cref="MockInteractions" />.
 /// </summary>
 /// <remarks>
 ///     This type is public only so that generated code can use it; it is not intended to be used directly.
@@ -177,4 +177,4 @@ internal sealed class InteractionRecord : RecordNode
 /// <summary>
 ///     View on the calls of a member whose record type is not known.
 /// </summary>
-internal sealed class UntypedMemberRecords(FastMockInteractions owner, int memberId) : MemberRecords(owner, memberId);
+internal sealed class UntypedMemberRecords(MockInteractions owner, int memberId) : MemberRecords(owner, memberId);

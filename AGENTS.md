@@ -20,7 +20,7 @@ Correctness is a must. The other goals are strong defaults and win in this order
 - **Arity**: the library hand-writes setup and verification types for up to four parameters; the generator emits the same shapes for more. A change to one arity applies to every arity in both places.
 - **Analyzers**: rule IDs are `MockolateNNNN`. Add the descriptor in `Rules.cs`, its texts in `Resources.resx`, the row in `AnalyzerReleases.Unshipped.md` and the user docs in `Docs/pages/10-analyzers.md`.
 - **AOT and trimming**: the runtime library sets `IsAotCompatible` and `IsTrimmable` for `net8.0`+ with warnings as errors. Do not add reflection-based dispatch to the library or the generated code.
-- **Performance**: recording, setup matching and verification are hot paths with allocation-free fast paths (`FastMockInteractions`, the `*Records` types). Measure hot-path changes with the benchmarks before and after.
+- **Performance**: recording, setup matching and verification are hot paths with allocation-free fast paths (`MockInteractions`, the `*Records` types). Measure hot-path changes with the benchmarks before and after.
 - **Public API**: every change to the public surface of `Mockolate` shows up in the API snapshots. Document new public members with XML comments. Mark breaking changes with `!` in the PR title (`feat!:`, `refactor!:`).
 - **Strong naming**: all assemblies are signed with `strongname.snk`; an `InternalsVisibleTo` needs `PublicKey="$(PublicKey)"`.
 - **Style**: follow `.editorconfig`: tabs, explicit types instead of `var`, no `this.`, `System` usings first; private fields are `_camelCase`. New extension members use C# 14 `extension` blocks. Tests use TUnit with aweXpect (`await That(...)`) and are preferably named `<Subject>_Should<Outcome>`.

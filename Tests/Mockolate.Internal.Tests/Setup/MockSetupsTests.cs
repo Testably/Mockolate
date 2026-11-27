@@ -10,7 +10,7 @@ public partial class MockSetupsTests
 	[Test]
 	public async Task EventSetup_ToString_ShouldReturnEventName()
 	{
-		EventSetup setup = new(new MockRegistry(MockBehavior.Default, new FastMockInteractions(0)),
+		EventSetup setup = new(new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
 			"global::MyCode.IMyService.SomeEvent");
 
 		string result = setup.ToString();

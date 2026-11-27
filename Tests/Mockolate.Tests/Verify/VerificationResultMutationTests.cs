@@ -58,13 +58,13 @@ public sealed class VerificationResultMutationTests
 	}
 
 	[Test]
-	public async Task AwaitableVerifyCount_NoFastCountSource_AfterSuccess_MarksMatchingInteractionsAsVerified()
+	public async Task AwaitableVerifyCount_NoRecordCountSource_AfterSuccess_MarksMatchingInteractionsAsVerified()
 	{
 		// Pins the `_interactions.Verified(matchingInteractions);` call inside Awaitable's
-		// IFastVerifyCountResult.VerifyCount second branch (when `_fastCountSource is null`).
+		// ICountVerifiable.VerifyCount second branch (when `_recordCountSource is null`).
 		// IndexerGot(memberId, ...) returns a VerificationResult with a buffer but no fast-count
 		// source, so wrapping it with .Within(...) walks exactly that branch.
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerGetterRecords<int>.Append(store, 0, 1);
 		MockRegistry registry = new(MockBehavior.Default, store);
 
@@ -79,7 +79,7 @@ public sealed class VerificationResultMutationTests
 	[Test]
 	public async Task CollectMatching_WithMultipleRecords_ShouldReturnThemInRecordedOrder()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int>.Append(store, 0, "Foo", 1);
 		MethodRecords<int>.Append(store, 0, "Foo", 3);
 		MethodRecords<int>.Append(store, 0, "Foo", 5);
@@ -105,11 +105,11 @@ public sealed class VerificationResultMutationTests
 	}
 
 	[Test]
-	public async Task SyncVerifyCount_NoFastCountSource_AfterSuccess_MarksMatchingInteractionsAsVerified()
+	public async Task SyncVerifyCount_NoRecordCountSource_AfterSuccess_MarksMatchingInteractionsAsVerified()
 	{
 		// Pins the `_interactions.Verified(matchingInteractions);` call inside the non-Awaitable
-		// IFastVerifyCountResult.VerifyCount second branch (when `_fastCountSource is null`).
-		FastMockInteractions store = new(1);
+		// ICountVerifiable.VerifyCount second branch (when `_recordCountSource is null`).
+		MockInteractions store = new(1);
 		IndexerGetterRecords<int>.Append(store, 0, 1);
 		MockRegistry registry = new(MockBehavior.Default, store);
 

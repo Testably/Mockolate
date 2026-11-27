@@ -3456,7 +3456,7 @@ namespace Mockolate.Internals
 	/// </summary>
 	internal static class MethodRecords<T1, T2, T3, T4, T5>
 	{
-		public static void Append(global::Mockolate.Internals.FastMockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5)
+		public static void Append(global::Mockolate.Internals.MockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5)
 		{
 			Record r = new Record();
 			r.MemberId = memberId;
@@ -3487,7 +3487,7 @@ namespace Mockolate.Internals
 	/// </summary>
 	internal static class MethodRecords<T1, T2, T3, T4, T5, T6, T7>
 	{
-		public static void Append(global::Mockolate.Internals.FastMockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5, T6 parameter6, T7 parameter7)
+		public static void Append(global::Mockolate.Internals.MockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5, T6 parameter6, T7 parameter7)
 		{
 			Record r = new Record();
 			r.MemberId = memberId;
@@ -3522,7 +3522,7 @@ namespace Mockolate.Internals
 	/// </summary>
 	internal static class MethodRecords<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>
 	{
-		public static void Append(global::Mockolate.Internals.FastMockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5, T6 parameter6, T7 parameter7, T8 parameter8, T9 parameter9, T10 parameter10, T11 parameter11, T12 parameter12, T13 parameter13, T14 parameter14, T15 parameter15, T16 parameter16, T17 parameter17)
+		public static void Append(global::Mockolate.Internals.MockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4, T5 parameter5, T6 parameter6, T7 parameter7, T8 parameter8, T9 parameter9, T10 parameter10, T11 parameter11, T12 parameter12, T13 parameter13, T14 parameter14, T15 parameter15, T16 parameter16, T17 parameter17)
 		{
 			Record r = new Record();
 			r.MemberId = memberId;

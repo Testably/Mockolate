@@ -30,13 +30,13 @@ internal static partial class Mock
 		internal static readonly global::Mockolate.Interactions.PropertyGetterAccess PropertyAccess_V_Get = new global::Mockolate.Interactions.PropertyGetterAccess("global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.V");
 
 		/// <summary>
-		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
+		///     Creates a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
 		/// </summary>
-		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
-			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
+		internal static global::Mockolate.Internals.MockInteractions CreateInteractions(global::Mockolate.MockBehavior behavior)
+			=> new global::Mockolate.Internals.MockInteractions(MemberCount, behavior.SkipInteractionRecording);
 
 		/// <summary>
-		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
 		/// </summary>
 		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
@@ -202,11 +202,11 @@ internal static partial class Mock
 		{
 			get
 			{
-				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.ComprehensiveAbstractClass.MemberId_V_Get, global::Mockolate.Mock.ComprehensiveAbstractClass.PropertyAccess_V_Get, static b => b.DefaultValue.Generate(default(int)!), this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass wraps ? () => wraps.V : () => base.V);
+				return this.MockRegistry.GetProperty<int>(global::Mockolate.Mock.ComprehensiveAbstractClass.MemberId_V_Get, global::Mockolate.Mock.ComprehensiveAbstractClass.PropertyAccess_V_Get, static b => b.DefaultValue.Generate(default(int)!), this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass wraps ? () => wraps.V : () => base.V);
 			}
 			set
 			{
-				if (!this.MockRegistry.SetPropertyFast<int>(global::Mockolate.Mock.ComprehensiveAbstractClass.MemberId_V_Get, global::Mockolate.Mock.ComprehensiveAbstractClass.MemberId_V_Set, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.V", value))
+				if (!this.MockRegistry.SetProperty<int>(global::Mockolate.Mock.ComprehensiveAbstractClass.MemberId_V_Get, global::Mockolate.Mock.ComprehensiveAbstractClass.MemberId_V_Set, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.V", value))
 				{
 					if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass wraps)
 					{
@@ -265,7 +265,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass.MemberId_A, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.A");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass.MemberId_A, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.A");
 			}
 			try
 			{
@@ -335,7 +335,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass.MemberId_P, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.P");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass.MemberId_P, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.P");
 			}
 			try
 			{
@@ -1118,7 +1118,7 @@ internal static partial class MockExtensionsForComprehensiveAbstractClass
 			if (mock is global::Mockolate.IMock mockInterface)
 			{
 				global::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);
-				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.ComprehensiveAbstractClass.CreateFastInteractions(wrappingRegistry.Behavior));
+				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.ComprehensiveAbstractClass.CreateInteractions(wrappingRegistry.Behavior));
 				return CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);
 			}
 			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");
@@ -1402,11 +1402,11 @@ internal static partial class Mock
 		{
 			get
 			{
-				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_V_Get, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.PropertyAccess_V_Get, static b => b.DefaultValue.Generate(default(int)!), this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass wraps ? () => wraps.V : () => base.V);
+				return this.MockRegistry.GetProperty<int>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_V_Get, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.PropertyAccess_V_Get, static b => b.DefaultValue.Generate(default(int)!), this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass wraps ? () => wraps.V : () => base.V);
 			}
 			set
 			{
-				if (!this.MockRegistry.SetPropertyFast<int>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_V_Get, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_V_Set, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.V", value))
+				if (!this.MockRegistry.SetProperty<int>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_V_Get, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_V_Set, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.V", value))
 				{
 					if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass wraps)
 					{
@@ -1465,7 +1465,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_A, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.A");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_A, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.A");
 			}
 			try
 			{
@@ -1535,7 +1535,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_P, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.P");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_P, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.P");
 			}
 			try
 			{
@@ -1569,7 +1569,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_Value_Get, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.PropertyAccess_Value_Get, static b => b.DefaultValue.Generate(default(int)!));
+				return this.MockRegistry.GetProperty<int>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_Value_Get, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.PropertyAccess_Value_Get, static b => b.DefaultValue.Generate(default(int)!));
 			}
 		}
 
@@ -1617,7 +1617,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_Run, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA.Run");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA.MemberId_Run, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA.Run");
 			}
 			try
 			{
@@ -2093,11 +2093,11 @@ internal static partial class Mock
 		{
 			get
 			{
-				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_V_Get, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.PropertyAccess_V_Get, static b => b.DefaultValue.Generate(default(int)!), this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass wraps ? () => wraps.V : () => base.V);
+				return this.MockRegistry.GetProperty<int>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_V_Get, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.PropertyAccess_V_Get, static b => b.DefaultValue.Generate(default(int)!), this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass wraps ? () => wraps.V : () => base.V);
 			}
 			set
 			{
-				if (!this.MockRegistry.SetPropertyFast<int>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_V_Get, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_V_Set, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.V", value))
+				if (!this.MockRegistry.SetProperty<int>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_V_Get, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_V_Set, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.V", value))
 				{
 					if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass wraps)
 					{
@@ -2156,7 +2156,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_A, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.A");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_A, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.A");
 			}
 			try
 			{
@@ -2226,7 +2226,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_P, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.P");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_P, "global::Mockolate.Tests.GeneratorCoverage.ComprehensiveAbstractClass.P");
 			}
 			try
 			{
@@ -2260,7 +2260,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_Value_Get, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.PropertyAccess_Value_Get, static b => b.DefaultValue.Generate(default(int)!));
+				return this.MockRegistry.GetProperty<int>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_Value_Get, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.PropertyAccess_Value_Get, static b => b.DefaultValue.Generate(default(int)!));
 			}
 		}
 
@@ -2308,7 +2308,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_Run, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA.Run");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_Run, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA.Run");
 			}
 			try
 			{
@@ -2332,7 +2332,7 @@ internal static partial class Mock
 		{
 			get
 			{
-				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_Value_Get_2, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.PropertyAccess_Value_Get_2, static b => b.DefaultValue.Generate(default(int)!));
+				return this.MockRegistry.GetProperty<int>(global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_Value_Get_2, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.PropertyAccess_Value_Get_2, static b => b.DefaultValue.Generate(default(int)!));
 			}
 		}
 
@@ -2380,7 +2380,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_Run_2, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB.Run");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ComprehensiveAbstractClass__ICombinationMockA__ICombinationMockB.MemberId_Run_2, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB.Run");
 			}
 			try
 			{
@@ -2677,13 +2677,13 @@ internal static partial class Mock
 		internal static readonly global::Mockolate.Interactions.PropertyGetterAccess PropertyAccess_Value_Get = new global::Mockolate.Interactions.PropertyGetterAccess("global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA.Value");
 
 		/// <summary>
-		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
+		///     Creates a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
 		/// </summary>
-		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
-			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
+		internal static global::Mockolate.Internals.MockInteractions CreateInteractions(global::Mockolate.MockBehavior behavior)
+			=> new global::Mockolate.Internals.MockInteractions(MemberCount, behavior.SkipInteractionRecording);
 
 		/// <summary>
-		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
 		/// </summary>
 		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
@@ -2772,10 +2772,10 @@ internal static partial class Mock
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA)
 				{
 					global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA wraps = (global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA)this.MockRegistry.Wraps;
-					return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.ICombinationMockA.MemberId_Value_Get, global::Mockolate.Mock.ICombinationMockA.PropertyAccess_Value_Get, static b => b.DefaultValue.Generate(default(int)!), () => wraps.Value);
+					return this.MockRegistry.GetProperty<int>(global::Mockolate.Mock.ICombinationMockA.MemberId_Value_Get, global::Mockolate.Mock.ICombinationMockA.PropertyAccess_Value_Get, static b => b.DefaultValue.Generate(default(int)!), () => wraps.Value);
 				}
 
-				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.ICombinationMockA.MemberId_Value_Get, global::Mockolate.Mock.ICombinationMockA.PropertyAccess_Value_Get, static b => b.DefaultValue.Generate(default(int)!));
+				return this.MockRegistry.GetProperty<int>(global::Mockolate.Mock.ICombinationMockA.MemberId_Value_Get, global::Mockolate.Mock.ICombinationMockA.PropertyAccess_Value_Get, static b => b.DefaultValue.Generate(default(int)!));
 			}
 		}
 
@@ -2823,7 +2823,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ICombinationMockA.MemberId_Run, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA.Run");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ICombinationMockA.MemberId_Run, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockA.Run");
 			}
 			try
 			{
@@ -3253,7 +3253,7 @@ internal static partial class MockExtensionsForICombinationMockA
 			if (mock is global::Mockolate.IMock mockInterface)
 			{
 				global::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);
-				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.ICombinationMockA.CreateFastInteractions(wrappingRegistry.Behavior));
+				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.ICombinationMockA.CreateInteractions(wrappingRegistry.Behavior));
 				return CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);
 			}
 			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");
@@ -3315,13 +3315,13 @@ internal static partial class Mock
 		internal static readonly global::Mockolate.Interactions.PropertyGetterAccess PropertyAccess_Value_Get = new global::Mockolate.Interactions.PropertyGetterAccess("global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB.Value");
 
 		/// <summary>
-		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
+		///     Creates a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
 		/// </summary>
-		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
-			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
+		internal static global::Mockolate.Internals.MockInteractions CreateInteractions(global::Mockolate.MockBehavior behavior)
+			=> new global::Mockolate.Internals.MockInteractions(MemberCount, behavior.SkipInteractionRecording);
 
 		/// <summary>
-		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
 		/// </summary>
 		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
@@ -3410,10 +3410,10 @@ internal static partial class Mock
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB)
 				{
 					global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB wraps = (global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB)this.MockRegistry.Wraps;
-					return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.ICombinationMockB.MemberId_Value_Get, global::Mockolate.Mock.ICombinationMockB.PropertyAccess_Value_Get, static b => b.DefaultValue.Generate(default(int)!), () => wraps.Value);
+					return this.MockRegistry.GetProperty<int>(global::Mockolate.Mock.ICombinationMockB.MemberId_Value_Get, global::Mockolate.Mock.ICombinationMockB.PropertyAccess_Value_Get, static b => b.DefaultValue.Generate(default(int)!), () => wraps.Value);
 				}
 
-				return this.MockRegistry.GetPropertyFast<int>(global::Mockolate.Mock.ICombinationMockB.MemberId_Value_Get, global::Mockolate.Mock.ICombinationMockB.PropertyAccess_Value_Get, static b => b.DefaultValue.Generate(default(int)!));
+				return this.MockRegistry.GetProperty<int>(global::Mockolate.Mock.ICombinationMockB.MemberId_Value_Get, global::Mockolate.Mock.ICombinationMockB.PropertyAccess_Value_Get, static b => b.DefaultValue.Generate(default(int)!));
 			}
 		}
 
@@ -3461,7 +3461,7 @@ internal static partial class Mock
 			bool hasWrappedResult = false;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ICombinationMockB.MemberId_Run, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB.Run");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.ICombinationMockB.MemberId_Run, "global::Mockolate.Tests.GeneratorCoverage.ICombinationMockB.Run");
 			}
 			try
 			{
@@ -3891,7 +3891,7 @@ internal static partial class MockExtensionsForICombinationMockB
 			if (mock is global::Mockolate.IMock mockInterface)
 			{
 				global::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);
-				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.ICombinationMockB.CreateFastInteractions(wrappingRegistry.Behavior));
+				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.ICombinationMockB.CreateInteractions(wrappingRegistry.Behavior));
 				return CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);
 			}
 			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");

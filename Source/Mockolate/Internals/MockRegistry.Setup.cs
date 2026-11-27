@@ -26,11 +26,11 @@ public partial class MockRegistry
 
 	/// <summary>
 	///     Returns the generator-known member count hint when <see cref="Interactions" /> is a
-	///     <see cref="FastMockInteractions" />, so dispatch tables can be sized once on first allocation
+	///     <see cref="MockInteractions" />, so dispatch tables can be sized once on first allocation
 	///     instead of growing one slot at a time as setups for higher-numbered members come in.
 	/// </summary>
 	private int GetMemberCountHint()
-		=> _interactions is FastMockInteractions fast ? fast.MemberCount : _interactionMemberCount;
+		=> _interactions is MockInteractions mockInteractions ? mockInteractions.MemberCount : _interactionMemberCount;
 
 	[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 	private EventSetup[]?[]? _eventSetupsByMemberId;

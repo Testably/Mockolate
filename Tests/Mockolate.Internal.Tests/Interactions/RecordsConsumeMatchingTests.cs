@@ -9,7 +9,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task EventRecords_ConsumeMatching_ShouldReturnCount()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		EventRecords buffer = new(store, 0);
 
 		await That(buffer.ConsumeAll()).IsEqualTo(0);
@@ -25,7 +25,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task IndexerGetterRecords1_ConsumeMatching_ShouldHonorMatcher()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerGetterRecords<int> buffer = new(store, 0);
 
 		buffer.Append(1);
@@ -40,7 +40,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task IndexerGetterRecords2_ConsumeMatching_ShouldHonorAllMatchers()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerGetterRecords<int, string> buffer = new(store, 0);
 
 		buffer.Append(1, "a");
@@ -58,7 +58,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task IndexerGetterRecords3_ConsumeMatching_ShouldHonorAllMatchers()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerGetterRecords<int, string, bool> buffer = new(store, 0);
 
 		buffer.Append(1, "a", true);
@@ -82,7 +82,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task IndexerGetterRecords4_ConsumeMatching_ShouldHonorAllMatchers()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerGetterRecords<int, string, bool, double> buffer = new(store, 0);
 
 		buffer.Append(1, "a", true, 1.0);
@@ -109,7 +109,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task IndexerSetterRecords1_ConsumeMatching_ShouldHonorMatchers()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerSetterRecords<int, string> buffer = new(store, 0);
 
 		buffer.Append(1, "a");
@@ -130,7 +130,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task IndexerSetterRecords2_ConsumeMatching_ShouldHonorAllMatchers()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerSetterRecords<int, string, bool> buffer = new(store, 0);
 
 		buffer.Append(1, "a", true);
@@ -154,7 +154,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task IndexerSetterRecords3_ConsumeMatching_ShouldHonorAllMatchers()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerSetterRecords<int, string, bool, double> buffer = new(store, 0);
 
 		buffer.Append(1, "a", true, 1.0);
@@ -181,7 +181,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task IndexerSetterRecords4_ConsumeMatching_ShouldHonorAllMatchers()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		IndexerSetterRecords<int, string, bool, double, char> buffer = new(store, 0);
 
 		buffer.Append(1, "a", true, 1.0, 'x');
@@ -211,7 +211,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task MethodRecords0_ConsumeMatching_ShouldReturnCount()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords buffer = new(store, 0);
 
 		await That(buffer.ConsumeAll()).IsEqualTo(0);
@@ -226,7 +226,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task MethodRecords1_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int> buffer = new(store, 0);
 
 		int consumed = buffer.ConsumeAll();
@@ -239,7 +239,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task MethodRecords1_ConsumeMatching_ShouldHonorMatcher()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int> buffer = new(store, 0);
 
 		buffer.Append("Foo", 1);
@@ -254,7 +254,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task MethodRecords2_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int, string> buffer = new(store, 0);
 
 		int consumed = buffer.ConsumeAll();
@@ -265,7 +265,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task MethodRecords2_ConsumeMatching_ShouldHonorAllMatchers()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int, string> buffer = new(store, 0);
 
 		buffer.Append("Foo", 1, "a");
@@ -289,7 +289,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task MethodRecords3_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int, string, bool> buffer = new(store, 0);
 
 		int consumed = buffer.ConsumeAll();
@@ -300,7 +300,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task MethodRecords3_ConsumeMatching_ShouldHonorAllMatchers()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int, string, bool> buffer = new(store, 0);
 
 		buffer.Append("Foo", 1, "a", true);
@@ -328,7 +328,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task MethodRecords4_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int, string, bool, double> buffer = new(store, 0);
 
 		int consumed = buffer.ConsumeAll();
@@ -339,7 +339,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task MethodRecords4_ConsumeMatching_ShouldHonorAllMatchers()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int, string, bool, double> buffer = new(store, 0);
 
 		buffer.Append("Foo", 1, "a", true, 1.0);
@@ -376,7 +376,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task PropertyGetterRecords_ConsumeMatching_ShouldReturnCount()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		PropertyGetterRecords buffer = new(store, 0);
 
 		await That(buffer.ConsumeAll()).IsEqualTo(0);
@@ -390,7 +390,7 @@ public class RecordsConsumeMatchingTests
 	[Test]
 	public async Task PropertySetterRecords_ConsumeMatching_ShouldHonorMatcher()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		PropertySetterRecords<int> buffer = new(store, 0);
 
 		buffer.Append("Bar", 1);

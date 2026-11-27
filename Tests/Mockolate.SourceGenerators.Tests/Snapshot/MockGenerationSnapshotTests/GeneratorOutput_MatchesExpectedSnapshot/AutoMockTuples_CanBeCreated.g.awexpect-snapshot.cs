@@ -26,13 +26,13 @@ internal static partial class Mock
 		internal const int MemberCount = 1;
 
 		/// <summary>
-		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
+		///     Creates a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
 		/// </summary>
-		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
-			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
+		internal static global::Mockolate.Internals.MockInteractions CreateInteractions(global::Mockolate.MockBehavior behavior)
+			=> new global::Mockolate.Internals.MockInteractions(MemberCount, behavior.SkipInteractionRecording);
 
 		/// <summary>
-		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
 		/// </summary>
 		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
@@ -158,7 +158,7 @@ internal static partial class Mock
 			int wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTupleElement.MemberId_GetValue, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement.GetValue");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTupleElement.MemberId_GetValue, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement.GetValue");
 			}
 			try
 			{
@@ -541,7 +541,7 @@ internal static partial class MockExtensionsForIAutoMockTupleElement
 			if (mock is global::Mockolate.IMock mockInterface)
 			{
 				global::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);
-				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.IAutoMockTupleElement.CreateFastInteractions(wrappingRegistry.Behavior));
+				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.IAutoMockTupleElement.CreateInteractions(wrappingRegistry.Behavior));
 				return CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);
 			}
 			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");
@@ -618,13 +618,13 @@ internal static partial class Mock
 		internal static readonly global::Mockolate.Interactions.PropertyGetterAccess PropertyAccess_Pair_Get = new global::Mockolate.Interactions.PropertyGetterAccess("global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.Pair");
 
 		/// <summary>
-		///     Creates a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
+		///     Creates a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> sized to <see cref="MemberCount">MemberCount</see> for use as the mock's interaction store.
 		/// </summary>
-		internal static global::Mockolate.Internals.FastMockInteractions CreateFastInteractions(global::Mockolate.MockBehavior behavior)
-			=> new global::Mockolate.Internals.FastMockInteractions(MemberCount, behavior.SkipInteractionRecording);
+		internal static global::Mockolate.Internals.MockInteractions CreateInteractions(global::Mockolate.MockBehavior behavior)
+			=> new global::Mockolate.Internals.MockInteractions(MemberCount, behavior.SkipInteractionRecording);
 
 		/// <summary>
-		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.FastMockInteractions">FastMockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
+		///     Builds a <see cref="global::Mockolate.Internals.MockRegistry">MockRegistry</see> backed by a <see cref="global::Mockolate.Internals.MockInteractions">MockInteractions</see> for the members of the mock, from <paramref name="behavior" />.
 		/// </summary>
 		private static global::Mockolate.Internals.MockRegistry MockolateCreateRegistryFromBehavior(global::Mockolate.MockBehavior behavior)
 		{
@@ -713,10 +713,10 @@ internal static partial class Mock
 				if (this.MockRegistry.Wraps is global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples)
 				{
 					global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples wraps = (global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples)this.MockRegistry.Wraps;
-					return this.MockRegistry.GetPropertyFast<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element)>(global::Mockolate.Mock.IAutoMockTuples.MemberId_Pair_Get, global::Mockolate.Mock.IAutoMockTuples.PropertyAccess_Pair_Get, static b => ((b.DefaultValue.Probe<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element)>() switch { global::Mockolate.Internals.DefaultValueSource.None => null, _ => b.DefaultValue.GenerateOrNull<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element)>() }) ?? (b.DefaultValue.Generate(default(int)!), global::Mockolate.Internals.AutoMocks.Or<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(b, b.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement)!)))), () => wraps.Pair);
+					return this.MockRegistry.GetProperty<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element)>(global::Mockolate.Mock.IAutoMockTuples.MemberId_Pair_Get, global::Mockolate.Mock.IAutoMockTuples.PropertyAccess_Pair_Get, static b => ((b.DefaultValue.Probe<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element)>() switch { global::Mockolate.Internals.DefaultValueSource.None => null, _ => b.DefaultValue.GenerateOrNull<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element)>() }) ?? (b.DefaultValue.Generate(default(int)!), global::Mockolate.Internals.AutoMocks.Or<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(b, b.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement)!)))), () => wraps.Pair);
 				}
 
-				return this.MockRegistry.GetPropertyFast<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element)>(global::Mockolate.Mock.IAutoMockTuples.MemberId_Pair_Get, global::Mockolate.Mock.IAutoMockTuples.PropertyAccess_Pair_Get, static b => ((b.DefaultValue.Probe<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element)>() switch { global::Mockolate.Internals.DefaultValueSource.None => null, _ => b.DefaultValue.GenerateOrNull<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element)>() }) ?? (b.DefaultValue.Generate(default(int)!), global::Mockolate.Internals.AutoMocks.Or<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(b, b.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement)!)))));
+				return this.MockRegistry.GetProperty<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element)>(global::Mockolate.Mock.IAutoMockTuples.MemberId_Pair_Get, global::Mockolate.Mock.IAutoMockTuples.PropertyAccess_Pair_Get, static b => ((b.DefaultValue.Probe<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element)>() switch { global::Mockolate.Internals.DefaultValueSource.None => null, _ => b.DefaultValue.GenerateOrNull<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element)>() }) ?? (b.DefaultValue.Generate(default(int)!), global::Mockolate.Internals.AutoMocks.Or<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>(b, b.DefaultValue.Generate(default(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement)!)))));
 			}
 		}
 
@@ -727,7 +727,7 @@ internal static partial class Mock
 			{
 				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 				{
-					global::Mockolate.Internals.IndexerGetterRecords<int>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_Indexer_int_Get, key);
+					global::Mockolate.Internals.IndexerGetterRecords<int>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_Indexer_int_Get, key);
 				}
 				global::Mockolate.Setup.IndexerSetup<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element), int>? setup = null;
 				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
@@ -762,7 +762,7 @@ internal static partial class Mock
 			{
 				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 				{
-					global::Mockolate.Internals.IndexerGetterRecords<string>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_Indexer_string_Get, key);
+					global::Mockolate.Internals.IndexerGetterRecords<string>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_Indexer_string_Get, key);
 				}
 				global::Mockolate.Setup.IndexerSetup<global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>, string>? setup = null;
 				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
@@ -797,7 +797,7 @@ internal static partial class Mock
 			{
 				if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 				{
-					global::Mockolate.Internals.IndexerGetterRecords<long>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_Indexer_long_Get, key);
+					global::Mockolate.Internals.IndexerGetterRecords<long>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_Indexer_long_Get, key);
 				}
 				global::Mockolate.Setup.IndexerSetup<(int Stock, global::System.Threading.Tasks.Task<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> Element), long>? setup = null;
 				if (string.IsNullOrEmpty(this.MockRegistry.Scenario))
@@ -870,7 +870,7 @@ internal static partial class Mock
 			(global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement First, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Second) wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetTwo, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetTwo");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetTwo, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetTwo");
 			}
 			try
 			{
@@ -940,7 +940,7 @@ internal static partial class Mock
 			((int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element) Inner, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Outer) wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetNested, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetNested");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetNested, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetNested");
 			}
 			try
 			{
@@ -1010,7 +1010,7 @@ internal static partial class Mock
 			global::System.Threading.Tasks.Task<(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element)> wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairAsync, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairAsync");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairAsync, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairAsync");
 			}
 			try
 			{
@@ -1080,7 +1080,7 @@ internal static partial class Mock
 			global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTuple, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTuple");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTuple, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTuple");
 			}
 			try
 			{
@@ -1150,7 +1150,7 @@ internal static partial class Mock
 			global::System.Tuple<int, int, int, int, int, int, int, global::System.Tuple<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement>> wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetLongReferenceTuple, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetLongReferenceTuple");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetLongReferenceTuple, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetLongReferenceTuple");
 			}
 			try
 			{
@@ -1220,7 +1220,7 @@ internal static partial class Mock
 			(int, int, int, int, int, int, int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Eighth) wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetLongValueTuple, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetLongValueTuple");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetLongValueTuple, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetLongValueTuple");
 			}
 			try
 			{
@@ -1290,7 +1290,7 @@ internal static partial class Mock
 			global::System.ValueTuple<global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetSingle, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetSingle");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetSingle, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetSingle");
 			}
 			try
 			{
@@ -1360,7 +1360,7 @@ internal static partial class Mock
 			global::System.ValueTuple wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetNothing, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetNothing");
+				global::Mockolate.Internals.MethodRecords.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetNothing, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetNothing");
 			}
 			try
 			{
@@ -1430,7 +1430,7 @@ internal static partial class Mock
 			(int Stock, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement Element) wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<string>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor", type);
+				global::Mockolate.Internals.MethodRecords<string>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetPairFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetPairFor", type);
 			}
 			try
 			{
@@ -1500,7 +1500,7 @@ internal static partial class Mock
 			global::System.Tuple<int, global::Mockolate.Tests.GeneratorCoverage.IAutoMockTupleElement> wrappedResult = default!;
 			if (this.MockRegistry.Behavior.SkipInteractionRecording == false)
 			{
-				global::Mockolate.Internals.MethodRecords<string>.Append((global::Mockolate.Internals.FastMockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTupleFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor", type);
+				global::Mockolate.Internals.MethodRecords<string>.Append((global::Mockolate.Internals.MockInteractions)this.MockRegistry.Interactions, global::Mockolate.Mock.IAutoMockTuples.MemberId_GetReferenceTupleFor, "global::Mockolate.Tests.GeneratorCoverage.IAutoMockTuples.GetReferenceTupleFor", type);
 			}
 			try
 			{
@@ -2822,7 +2822,7 @@ internal static partial class MockExtensionsForIAutoMockTuples
 			if (mock is global::Mockolate.IMock mockInterface)
 			{
 				global::Mockolate.Internals.MockRegistry wrappingRegistry = new global::Mockolate.Internals.MockRegistry(mockInterface.MockRegistry, instance);
-				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.IAutoMockTuples.CreateFastInteractions(wrappingRegistry.Behavior));
+				wrappingRegistry = new global::Mockolate.Internals.MockRegistry(wrappingRegistry, global::Mockolate.Mock.IAutoMockTuples.CreateInteractions(wrappingRegistry.Behavior));
 				return CreateMockInstance(wrappingRegistry, mockInterface.MockRegistry.ConstructorParameters, null);
 			}
 			throw new global::Mockolate.Exceptions.MockException("The subject is no mock.");

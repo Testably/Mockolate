@@ -12,7 +12,7 @@ public class RecordsConcurrencyTests
 		const int writerCount = 8;
 		const int appendsPerWriter = 1000;
 
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int> buffer = new(store, 0);
 
 		Task[] writers = new Task[writerCount];
@@ -38,7 +38,7 @@ public class RecordsConcurrencyTests
 	[Test]
 	public async Task MethodRecords1_InteractionAdded_ShouldFireWhenSubscribed()
 	{
-		FastMockInteractions store = new(1);
+		MockInteractions store = new(1);
 		MethodRecords<int> buffer = new(store, 0);
 
 		int invocations = 0;

@@ -21,14 +21,14 @@ public sealed class MethodRecords : MemberRecords
 	/// </summary>
 	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public MethodRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public MethodRecords(MockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, string name)
+	public static void Append(MockInteractions owner, int memberId, string name)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -60,14 +60,14 @@ public sealed class MethodRecords<T1> : MemberRecords
 	/// </summary>
 	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public MethodRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public MethodRecords(MockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, string name, T1 parameter1)
+	public static void Append(MockInteractions owner, int memberId, string name, T1 parameter1)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -147,14 +147,14 @@ public sealed class MethodRecords<T1, T2> : MemberRecords
 	/// </summary>
 	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public MethodRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public MethodRecords(MockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2)
+	public static void Append(MockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -235,14 +235,14 @@ public sealed class MethodRecords<T1, T2, T3> : MemberRecords
 	/// </summary>
 	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public MethodRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public MethodRecords(MockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2, T3 parameter3)
+	public static void Append(MockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2, T3 parameter3)
 	{
 		Record r = new();
 		r.MemberId = memberId;
@@ -325,14 +325,14 @@ public sealed class MethodRecords<T1, T2, T3, T4> : MemberRecords
 	/// </summary>
 	/// <param name="owner">The interactions of the mock that the calls are recorded in.</param>
 	/// <param name="memberId">The id of the member whose calls the view reads.</param>
-	public MethodRecords(FastMockInteractions owner, int memberId) : base(owner, memberId)
+	public MethodRecords(MockInteractions owner, int memberId) : base(owner, memberId)
 	{
 	}
 
 	/// <summary>
 	///     Records a call of the member <paramref name="memberId" /> in the <paramref name="owner" />.
 	/// </summary>
-	public static void Append(FastMockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4)
+	public static void Append(MockInteractions owner, int memberId, string name, T1 parameter1, T2 parameter2, T3 parameter3, T4 parameter4)
 	{
 		Record r = new();
 		r.MemberId = memberId;

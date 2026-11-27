@@ -12,7 +12,7 @@ public sealed class InternalsSurfaceTests
 	{
 		const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static |
 		                           BindingFlags.DeclaredOnly;
-		IEnumerable<string> offenders = typeof(FastMockInteractions).Assembly.GetTypes()
+		IEnumerable<string> offenders = typeof(MockInteractions).Assembly.GetTypes()
 			.Where(type => type.Namespace == "Mockolate.Internals" && (type.IsPublic || type.IsNestedPublic))
 			.SelectMany(type => type.GetMembers(flags).SelectMany(member => SignatureTypes(member)
 				.Where(IsLockType)

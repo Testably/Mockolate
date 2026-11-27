@@ -90,7 +90,7 @@ public abstract class PropertySetup : IInteractivePropertySetup
 	///     accepts a behavior-keyed default-value generator. The source generator passes a <c>static</c>
 	///     lambda (cached by the C# compiler) so the proxy property body does not allocate a closure per call.
 	/// </summary>
-	internal abstract TResult InvokeGetterFast<TResult>(MockBehavior behavior, Func<MockBehavior, TResult> defaultValueGenerator);
+	internal abstract TResult InvokeGetter<TResult>(MockBehavior behavior, Func<MockBehavior, TResult> defaultValueGenerator);
 
 #if !DEBUG
 	[DebuggerNonUserCode]
@@ -129,7 +129,7 @@ public abstract class PropertySetup : IInteractivePropertySetup
 
 		/// <summary>
 		///     The current value, for a getter of exactly <typeparamref name="T" /> that avoids the generic virtual
-		///     call of <see cref="InvokeGetterFast{TResult}(MockBehavior, Func{MockBehavior, TResult})" />.
+		///     call of <see cref="InvokeGetter{TResult}(MockBehavior, Func{MockBehavior, TResult})" />.
 		/// </summary>
 		internal T Value
 		{
@@ -172,8 +172,8 @@ public abstract class PropertySetup : IInteractivePropertySetup
 			return defaultValueGenerator.Invoke();
 		}
 
-		/// <inheritdoc cref="PropertySetup.InvokeGetterFast{TResult}(MockBehavior, Func{MockBehavior, TResult})" />
-		internal override TResult InvokeGetterFast<TResult>(MockBehavior behavior,
+		/// <inheritdoc cref="PropertySetup.InvokeGetter{TResult}(MockBehavior, Func{MockBehavior, TResult})" />
+		internal override TResult InvokeGetter<TResult>(MockBehavior behavior,
 			Func<MockBehavior, TResult> defaultValueGenerator)
 		{
 			if (typeof(TResult) == typeof(T))
@@ -331,8 +331,8 @@ public class PropertySetup<T> : PropertySetup,
 		return defaultValueGenerator();
 	}
 
-	/// <inheritdoc cref="PropertySetup.InvokeGetterFast{TResult}(MockBehavior, Func{MockBehavior, TResult})" />
-	internal override TResult InvokeGetterFast<TResult>(MockBehavior behavior,
+	/// <inheritdoc cref="PropertySetup.InvokeGetter{TResult}(MockBehavior, Func{MockBehavior, TResult})" />
+	internal override TResult InvokeGetter<TResult>(MockBehavior behavior,
 		Func<MockBehavior, TResult> defaultValueGenerator)
 	{
 		RunGetterCallbacks();
@@ -351,7 +351,7 @@ public class PropertySetup<T> : PropertySetup,
 	}
 
 	/// <summary>
-	///     Counterpart of <see cref="InvokeGetterFast{TResult}(MockBehavior, Func{MockBehavior, TResult})" /> for a
+	///     Counterpart of <see cref="InvokeGetter{TResult}(MockBehavior, Func{MockBehavior, TResult})" /> for a
 	///     getter of exactly <typeparamref name="T" />. It is not virtual, because a generic virtual call is
 	///     resolved at runtime on every property read.
 	/// </summary>

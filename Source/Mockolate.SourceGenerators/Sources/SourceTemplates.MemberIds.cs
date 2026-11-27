@@ -29,7 +29,7 @@ internal static partial class SourceTemplates
 	///     </para>
 	/// </remarks>
 #pragma warning disable S107 // Methods should not have too many parameters
-	internal static void EmitFastMethodSetupLookup(StringBuilder sb, string indent, string mockRegistry,
+	internal static void EmitMethodSetupLookup(StringBuilder sb, string indent, string mockRegistry,
 		string methodSetup, string methodSetupType, string memberIdRef, string uniqueNameString, string matchArgs,
 		bool isGeneric, EquatableArray<MethodParameter> parameters)
 #pragma warning restore S107
@@ -239,7 +239,7 @@ internal static partial class SourceTemplates
 			// static readonly per-property singleton next to MemberId_<X>_Get and reuses it for
 			// every recorded access. Sharing one reference is safe because the only two
 			// reference-keyed verification paths in the codebase tolerate it: the
-			// FastMockInteractions._verified filter is all-or-nothing per matched property
+			// MockInteractions._verified filter is all-or-nothing per matched property
 			// (every recording of a getter shares the same predicate result), and
 			// VerificationResultExtensions.Then walks the snapshot positionally so repeated
 			// occurrences of the same reference still resolve to distinct positions.

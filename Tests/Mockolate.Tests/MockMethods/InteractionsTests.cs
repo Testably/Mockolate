@@ -7,7 +7,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task MethodInvocation_ToString_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		MethodInvocation interaction = ((IMockInteractions)interactions).RegisterInteraction(
 			new MethodInvocation("global::Mockolate.InteractionsTests.SomeMethod"));
 		string expectedValue = "invoke method SomeMethod()";
@@ -18,7 +18,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task MethodInvocation1_ToString_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		MethodInvocation<int> interaction = ((IMockInteractions)interactions).RegisterInteraction(
 			new MethodInvocation<int>(
 				"global::Mockolate.InteractionsTests.SomeMethod",
@@ -31,7 +31,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task MethodInvocation1_ToString_WithNull_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		MethodInvocation<string?> interaction = ((IMockInteractions)interactions).RegisterInteraction(
 			new MethodInvocation<string?>(
 				"SomeMethod",
@@ -44,7 +44,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task MethodInvocation2_ToString_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		MethodInvocation<int, string> interaction = ((IMockInteractions)interactions).RegisterInteraction(
 			new MethodInvocation<int, string>(
 				"global::Mockolate.InteractionsTests.SomeMethod",
@@ -58,7 +58,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task MethodInvocation2_ToString_WithNull_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		MethodInvocation<string?, long?> interaction = ((IMockInteractions)interactions).RegisterInteraction(
 			new MethodInvocation<string?, long?>(
 				"SomeMethod",
@@ -72,7 +72,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task MethodInvocation3_ToString_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		MethodInvocation<int, long?, TimeSpan> interaction = ((IMockInteractions)interactions).RegisterInteraction(
 			new MethodInvocation<int, long?, TimeSpan>(
 				"global::Mockolate.InteractionsTests.SomeMethod",
@@ -87,7 +87,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task MethodInvocation3_ToString_WithNull_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		MethodInvocation<int?, long?, TimeSpan?> interaction = ((IMockInteractions)interactions).RegisterInteraction(
 			new MethodInvocation<int?, long?, TimeSpan?>(
 				"global::Mockolate.InteractionsTests.SomeMethod",
@@ -102,7 +102,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task MethodInvocation4_ToString_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		MethodInvocation<string, int, long?, TimeSpan> interaction = ((IMockInteractions)interactions).RegisterInteraction(
 			new MethodInvocation<string, int, long?, TimeSpan>(
 				"global::Mockolate.InteractionsTests.SomeMethod",
@@ -118,7 +118,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task MethodInvocation4_ToString_WithNull_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		MethodInvocation<string?, int?, long?, TimeSpan?> interaction = ((IMockInteractions)interactions).RegisterInteraction(
 			new MethodInvocation<string?, int?, long?, TimeSpan?>(
 				"SomeMethod",
@@ -134,7 +134,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task MethodInvocation5_ToString_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		MethodInvocation<string, int, long?, TimeSpan, bool> interaction = ((IMockInteractions)interactions).RegisterInteraction(
 			new MethodInvocation<string, int, long?, TimeSpan, bool>(
 				"global::Mockolate.InteractionsTests.SomeMethod",
@@ -151,7 +151,7 @@ public sealed partial class InteractionsTests
 	[Test]
 	public async Task MethodInvocation5_ToString_WithNull_ShouldReturnExpectedValue()
 	{
-		FastMockInteractions interactions = new(0);
+		MockInteractions interactions = new(0);
 		MethodInvocation<string?, int?, long?, TimeSpan?, bool?> interaction = ((IMockInteractions)interactions).RegisterInteraction(
 			new MethodInvocation<string?, int?, long?, TimeSpan?, bool?>(
 				"SomeMethod",

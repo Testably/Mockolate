@@ -38,14 +38,14 @@ public static class VerificationResultExtensions
 
 	/// <summary>
 	///     Routes count terminators to the allocation-free fast path when the result implements
-	///     <see cref="IFastVerifyCountResult" />; otherwise falls back to materialising the matching
+	///     <see cref="ICountVerifiable" />; otherwise falls back to materialising the matching
 	///     interactions through <see cref="IVerificationResult.Verify" /> and counting them. Lets
 	///     external implementers of <see cref="IVerificationResult" /> remain whole-interface
 	///     implementable while still letting the framework's own results take the fast path.
 	/// </summary>
 	internal static bool VerifyCount(this IVerificationResult result, Func<int, bool> countPredicate)
-		=> result is IFastVerifyCountResult fast
-			? fast.VerifyCount(countPredicate)
+		=> result is ICountVerifiable countVerifiable
+			? countVerifiable.VerifyCount(countPredicate)
 			: result.Verify(arr => countPredicate(arr.Length));
 
 	/// <summary>
@@ -53,8 +53,8 @@ public static class VerificationResultExtensions
 	///     <paramref name="maximum" /> (both inclusive), without a delegate or a closure on the fast path.
 	/// </summary>
 	private static bool VerifyCount(this IVerificationResult result, int minimum, int maximum, out int found)
-		=> result is IFastVerifyCountResult fast
-			? fast.VerifyCount(minimum, maximum, out found)
+		=> result is ICountVerifiable countVerifiable
+			? countVerifiable.VerifyCount(minimum, maximum, out found)
 			: VerifyCountByInteractions(result, minimum, maximum, out found);
 
 	private static bool VerifyCountByInteractions(IVerificationResult result, int minimum, int maximum,

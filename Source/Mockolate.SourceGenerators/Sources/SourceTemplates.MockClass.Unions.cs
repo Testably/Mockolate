@@ -670,8 +670,8 @@ internal static partial class SourceTemplates
 #pragma warning restore S107
 	{
 		MethodParameter[] parameters = method.Parameters.AsArray();
-		bool useFastForMethod = useTypedRecords && IsTypedRecordingEligibleMethod(method);
-		string methodMemberId = useFastForMethod
+		bool useTypedRecordsForMethod = useTypedRecords && IsTypedRecordingEligibleMethod(method);
+		string methodMemberId = useTypedRecordsForMethod
 			? memberIdPrefix + memberIds.GetMethodIdentifier(method)
 			: "-1";
 		string typeArguments = string.Join(", ", parameters.Select(p => p.ToTypeOrWrapper()));
@@ -690,7 +690,7 @@ internal static partial class SourceTemplates
 		bool noFixedSlots = slots.All(s => s != UnionSlot.Fixed);
 		bool literalEligible = parameters.Length <= MaxExplicitParameters && noFixedSlots &&
 		                       slots.All(s => s is UnionSlot.Union or UnionSlot.RawDelegate or UnionSlot.Omitted);
-		bool typedEligible = useFastForMethod && parameters.Length <= MaxExplicitParameters && noFixedSlots;
+		bool typedEligible = useTypedRecordsForMethod && parameters.Length <= MaxExplicitParameters && noFixedSlots;
 		if (literalEligible)
 		{
 			string literalCondition = UnionLiteralCondition(method, slots);
@@ -1022,11 +1022,11 @@ internal static partial class SourceTemplates
 		MethodParameter[] parameters = indexer.IndexerParameters!.Value.AsArray();
 		string[] names = UnionIndexerVerifyNames(indexer);
 		string[] expressionNames = UnionIndexerExpressionNames(indexer, names);
-		bool useFastForIndexer = useTypedRecords && IsTypedRecordingEligibleIndexer(indexer);
-		string indexerGetMemberId = useFastForIndexer
+		bool useTypedRecordsForIndexer = useTypedRecords && IsTypedRecordingEligibleIndexer(indexer);
+		string indexerGetMemberId = useTypedRecordsForIndexer
 			? memberIdPrefix + memberIds.GetIndexerGetIdentifier(indexer)
 			: "-1";
-		string indexerSetMemberId = useFastForIndexer
+		string indexerSetMemberId = useTypedRecordsForIndexer
 			? memberIdPrefix + memberIds.GetIndexerSetIdentifier(indexer)
 			: "-1";
 		PropertyAccessors interceptedAccessors = GetInterceptedAccessors(indexer);

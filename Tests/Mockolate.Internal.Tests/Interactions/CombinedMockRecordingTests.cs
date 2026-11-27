@@ -15,7 +15,7 @@ public sealed class CombinedMockRecordingTests
 		((ICombinedAdditional)sut).Run(2);
 		_ = ((ICombinedAdditional)sut).Level;
 
-		FastMockInteractions interactions = (FastMockInteractions)((IMock)sut).MockRegistry.Interactions;
+		MockInteractions interactions = (MockInteractions)((IMock)sut).MockRegistry.Interactions;
 		int boxedRecords = 0;
 		for (RecordNode? node = interactions.First; node is not null; node = node.Next)
 		{
