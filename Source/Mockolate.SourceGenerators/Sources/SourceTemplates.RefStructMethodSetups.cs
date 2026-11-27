@@ -191,7 +191,7 @@ internal static partial class SourceTemplates
 		// IOutRefStructParameter<T>/IRefRefStructParameter<T> payloads on out/ref slots.
 		for (int i = 1; i <= numberOfParameters; i++)
 		{
-			sb.AppendXmlSummary($"Returns the matcher for the parameter slot {i}.");
+			sb.AppendXmlSummary(FormattableString.Invariant($"Returns the matcher for the parameter slot {i}."));
 			sb.Append(
 					"\t\t[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]")
 				.AppendLine();
@@ -425,7 +425,7 @@ internal static partial class SourceTemplates
 		// IOutRefStructParameter<T>/IRefRefStructParameter<T> payloads on out/ref slots.
 		for (int i = 1; i <= numberOfParameters; i++)
 		{
-			sb.AppendXmlSummary($"Returns the matcher for the parameter slot {i}.");
+			sb.AppendXmlSummary(FormattableString.Invariant($"Returns the matcher for the parameter slot {i}."));
 			sb.Append(
 					"\t\t[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]")
 				.AppendLine();
@@ -705,15 +705,15 @@ internal static partial class SourceTemplates
 
 		// Helpers used by Invoke + StoreValue to build the ref-struct indexer parameter lists.
 		string invokeValueParams = string.Concat(
-			Enumerable.Range(1, numberOfParameters).Select(i => $"T{i} value{i}, "));
+			Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"T{i} value{i}, ")));
 		string invokeValueArgs = string.Join(", ",
-			Enumerable.Range(1, numberOfParameters).Select(i => $"value{i}"));
+			Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"value{i}")));
 		string rawKeyOptionalParams = string.Concat(
-			Enumerable.Range(1, numberOfParameters).Select(i => $"object? rawKey{i} = null, "));
+			Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"object? rawKey{i} = null, ")));
 		string rawKeyParams = string.Concat(
-			Enumerable.Range(1, numberOfParameters).Select(i => $"object? rawKey{i}, "));
+			Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"object? rawKey{i}, ")));
 		string rawKeyArgs = string.Join(", ",
-			Enumerable.Range(1, numberOfParameters).Select(i => $"rawKey{i}"));
+			Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"rawKey{i}")));
 
 		// TryGetStoredValue — traverses the tree using per-slot resolved keys and returns the
 		// leaf value when present.
@@ -1016,13 +1016,13 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		string keyParams = string.Concat(
-			Enumerable.Range(1, numberOfParameters).Select(i => $"T{i} k{i}, "));
+			Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"T{i} k{i}, ")));
 		string keyArgs = string.Join(", ",
-			Enumerable.Range(1, numberOfParameters).Select(i => $"k{i}"));
+			Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"k{i}")));
 		string rawKeyOptionalParams = string.Concat(
-			Enumerable.Range(1, numberOfParameters).Select(i => $"object? rawKey{i} = null, "));
+			Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"object? rawKey{i} = null, ")));
 		string rawKeyArgs = string.Join(", ",
-			Enumerable.Range(1, numberOfParameters).Select(i => $"rawKey{i}"));
+			Enumerable.Range(1, numberOfParameters).Select(i => FormattableString.Invariant($"rawKey{i}")));
 
 		// Invoke.
 		AppendRefStructInheritdoc(sb, "global::Mockolate.Setup.RefStructIndexerSetterSetup{TValue, T}.Invoke(T, TValue)");

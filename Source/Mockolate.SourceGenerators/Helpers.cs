@@ -221,7 +221,7 @@ internal static class Helpers
 		while (parameters.Any(p => string.Equals(p.Name, candidateName, StringComparison.Ordinal)))
 		{
 			suffix++;
-			candidateName = $"{baseName}{suffix}";
+			candidateName = FormattableString.Invariant($"{baseName}{suffix}");
 		}
 
 		return candidateName;
@@ -239,7 +239,7 @@ internal static class Helpers
 		while (parameters.Any(p => HasIndexedConflict(candidateName, p.Name, parameters.Count)))
 		{
 			suffix++;
-			candidateName = $"{baseName}_{suffix}";
+			candidateName = FormattableString.Invariant($"{baseName}_{suffix}");
 		}
 
 		return candidateName;
@@ -518,12 +518,12 @@ internal static class Helpers
 			}
 
 			int index = 1;
-			while (@class.HasReservedName($"{name}_{index}"))
+			while (@class.HasReservedName(FormattableString.Invariant($"{name}_{index}")))
 			{
 				index++;
 			}
 
-			return $"{name}_{index}";
+			return FormattableString.Invariant($"{name}_{index}");
 		}
 
 		public bool HasReservedName(string candidate)

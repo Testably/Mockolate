@@ -66,7 +66,7 @@ internal static partial class SourceTemplates
 			{
 				if (!overload.UsesTypeParameter(parameter.Type))
 				{
-					checks.Add($"{invocation}.GetParameterTypeAt({index}) == typeof({parameter.Type.IdentityName})");
+					checks.Add(FormattableString.Invariant($"{invocation}.GetParameterTypeAt({index}) == typeof({parameter.Type.IdentityName})"));
 				}
 				else if (Array.FindIndex(genericParameters, genericParameter
 					         => string.Equals(parameter.Type.Fullname, genericParameter.Name, StringComparison.Ordinal) ||
@@ -75,7 +75,7 @@ internal static partial class SourceTemplates
 				{
 					bool isNullable = parameter.Type.Fullname.EndsWith("?", StringComparison.Ordinal) && genericParameters[typeArgumentIndex].IsValueType;
 					checks.Add(
-						$"global::Mockolate.Internals.GenericMethodInvocations.IsTypeArgument({invocation}, {setupName}, {index}, {typeArgumentIndex}{(isNullable ? ", true" : "")})");
+						FormattableString.Invariant($"global::Mockolate.Internals.GenericMethodInvocations.IsTypeArgument({invocation}, {setupName}, {index}, {typeArgumentIndex}{(isNullable ? ", true" : "")})"));
 				}
 
 				index++;
@@ -574,7 +574,7 @@ internal static partial class SourceTemplates
 				int index = 0;
 				foreach (MethodParameter parameter in method.Parameters)
 				{
-					string match = Helpers.GetUniqueLocalVariableName($"match{index + 1}", method.Parameters);
+					string match = Helpers.GetUniqueLocalVariableName(FormattableString.Invariant($"match{index + 1}"), method.Parameters);
 					sb.Append("\t\t\tglobal::Mockolate.Parameters.IParameterMatch<").Append(parameterTypes[index])
 						.Append("> ").Append(match).Append(" = ")
 						.Append(GetGenericParameterMatch(method, parameter, parameterTypes[index],

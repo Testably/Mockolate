@@ -183,7 +183,7 @@ internal static partial class SourceTemplates
 
 				sb.Append("\t\t\treturn ").Append(dataSourceClass.ClassFullName)
 					.Append(".CreateMock(").Append(ForwardingBehavior).Append(", new object?[] { ")
-					.Append(string.Join(", ", parameters.Select((_, index) => $"a{index}"))).Append(", });").AppendLine();
+					.Append(string.Join(", ", parameters.Select((_, index) => FormattableString.Invariant($"a{index}")))).Append(", });").AppendLine();
 			}
 
 			sb.Append("\t\t}").AppendLine();
@@ -243,11 +243,11 @@ internal static partial class SourceTemplates
 				// Only a dependency that can lead back to this class passes the path on: below any other one, no class
 				// of the path can be created again.
 				fallback = cyclicDependencies.Contains((classIndex, dependency))
-					? $"self.Contains({dependency}) ? {NotCreated(parameter, index, className)} : Create{dependency}(behavior, resolve, self)"
-					: $"Create{dependency}(behavior, resolve, null)";
+					? FormattableString.Invariant($"self.Contains({dependency}) ? {NotCreated(parameter, index, className)} : Create{dependency}(behavior, resolve, self)")
+					: FormattableString.Invariant($"Create{dependency}(behavior, resolve, null)");
 			}
 
-			return $"resolve(typeof({parameter.TypeFullName}), \"{parameter.Name}\", out object? v{index}) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<{parameter.TypeFullName}>(v{index}, \"{parameter.Name}\", \"{className}\") : {fallback}";
+			return FormattableString.Invariant($"resolve(typeof({parameter.TypeFullName}), \"{parameter.Name}\", out object? v{index}) ? global::Mockolate.Internals.MockDataSourceRegistry.Cast<{parameter.TypeFullName}>(v{index}, \"{parameter.Name}\", \"{className}\") : {fallback}");
 		}
 
 		// A value from the default values of the behavior is the last resort before a mock of a framework interface or
@@ -262,7 +262,7 @@ internal static partial class SourceTemplates
 			string lastResort = parameter.IsMockedLast
 				? $"{parameter.TypeFullName}.CreateMock(behavior ?? global::Mockolate.MockBehavior.Default)"
 				: $"throw new global::Mockolate.Exceptions.MockException(\"There is no argument for the constructor parameter '{parameter.Name}' of {className}.\")";
-			return $"{TryCreateValue(parameter.TypeFullName, $"d{index}")} ? d{index} : {lastResort}";
+			return FormattableString.Invariant($"{TryCreateValue(parameter.TypeFullName, FormattableString.Invariant($"d{index}"))} ? d{index} : {lastResort}");
 		}
 
 		static string TryCreateValue(string type, string variable)

@@ -32,13 +32,13 @@ internal static partial class SourceTemplates
 	///     Generates a comma-separated list of generic type parameters (e.g., "T1, T2, T3").
 	/// </summary>
 	private static string GetGenericTypeParameters(int count, int startIndex = 1)
-		=> string.Join(", ", Enumerable.Range(startIndex, count).Select(i => $"T{i}"));
+		=> string.Join(", ", Enumerable.Range(startIndex, count).Select(i => FormattableString.Invariant($"T{i}")));
 
 	/// <summary>
 	///     Generates a comma-separated list of generic type parameters with 'out' variance (e.g., "out T1, out T2").
 	/// </summary>
 	private static string GetOutGenericTypeParameters(int count, int startIndex = 1)
-		=> string.Join(", ", Enumerable.Range(startIndex, count).Select(i => $"out T{i}"));
+		=> string.Join(", ", Enumerable.Range(startIndex, count).Select(i => FormattableString.Invariant($"out T{i}")));
 
 	/// <summary>
 	///     Generates a descriptive text listing type parameters (e.g., "T1, T2 and T3" or just "T1").
@@ -510,7 +510,7 @@ internal static partial class SourceTemplates
 #pragma warning disable S1994
 		for (int index = 1; parameters.Any(x => string.Equals(x.Name, usedName, StringComparison.Ordinal)); index++)
 		{
-			usedName = $"{name}_{index}";
+			usedName = FormattableString.Invariant($"{name}_{index}");
 		}
 #pragma warning restore S1994
 

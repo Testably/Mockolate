@@ -529,7 +529,7 @@ internal static partial class SourceTemplates
 			return (types[0], values[0], $"static state => $\"{method.Name}({{state}})\"");
 		}
 
-		string placeholders = string.Join(", ", parameters.Select((_, i) => $"{{state.Item{i + 1}}}"));
+		string placeholders = string.Join(", ", parameters.Select((_, i) => FormattableString.Invariant($"{{state.Item{i + 1}}}")));
 		return ($"({string.Join(", ", types)})", $"({string.Join(", ", values)})",
 			$"static state => $\"{method.Name}({placeholders})\"");
 	}
@@ -765,7 +765,7 @@ internal static partial class SourceTemplates
 				sb.AppendLine().Append("\t\t\t\t");
 				MethodParameter parameter = parameters[i];
 				string type = parameter.ToTypeOrWrapper();
-				string invocationValue = $"{invocation}.Parameter{i + 1}";
+				string invocationValue = FormattableString.Invariant($"{invocation}.Parameter{i + 1}");
 				switch (slots[i])
 				{
 					case UnionSlot.Union:
@@ -859,7 +859,7 @@ internal static partial class SourceTemplates
 	}
 
 	private static string[] UnionIndexerSetupNames(Property indexer)
-		=> Enumerable.Range(1, indexer.IndexerParameters!.Value.Count).Select(i => $"parameter{i}").ToArray();
+		=> Enumerable.Range(1, indexer.IndexerParameters!.Value.Count).Select(i => FormattableString.Invariant($"parameter{i}")).ToArray();
 
 	private static string[] UnionIndexerVerifyNames(Property indexer)
 		=> indexer.IndexerParameters!.Value.AsArray().Select(p => p.Name).ToArray();
@@ -1149,7 +1149,7 @@ internal static partial class SourceTemplates
 		}
 
 		sb.Append("\t\t\t\t\t() => global::System.String.Format(\"[")
-			.Append(string.Join(", ", Enumerable.Range(0, parameters.Length).Select(k => $"{{{k}}}")))
+			.Append(string.Join(", ", Enumerable.Range(0, parameters.Length).Select(k => FormattableString.Invariant($"{{{k}}}"))))
 			.Append("]\"");
 		for (int i = 0; i < parameters.Length; i++)
 		{

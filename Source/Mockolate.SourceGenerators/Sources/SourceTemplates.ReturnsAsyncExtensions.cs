@@ -32,8 +32,8 @@ internal static partial class SourceTemplates
 		sb.Append("{").AppendLine();
 		foreach (int number in numberOfParameters)
 		{
-			string types = string.Join(", ", Enumerable.Range(1, number).Select(i => $"T{i}"));
-			string variables = string.Join(", ", Enumerable.Range(1, number).Select(i => $"v{i}"));
+			string types = string.Join(", ", Enumerable.Range(1, number).Select(i => FormattableString.Invariant($"T{i}")));
+			string variables = string.Join(", ", Enumerable.Range(1, number).Select(i => FormattableString.Invariant($"v{i}")));
 			sb.Append("\t/// <summary>").AppendLine();
 			sb.Append(
 					"\t///     Appends <paramref name=\"returnValue\" /> to the sequence - the next matching invocation returns a completed")
@@ -143,8 +143,8 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 		foreach (int number in numberOfParameters)
 		{
-			string types = string.Join(", ", Enumerable.Range(1, number).Select(i => $"T{i}"));
-			string variables = string.Join(", ", Enumerable.Range(1, number).Select(i => $"v{i}"));
+			string types = string.Join(", ", Enumerable.Range(1, number).Select(i => FormattableString.Invariant($"T{i}")));
+			string variables = string.Join(", ", Enumerable.Range(1, number).Select(i => FormattableString.Invariant($"v{i}")));
 			sb.Append("\t/// <summary>").AppendLine();
 			sb.Append(
 					"\t///     Appends <paramref name=\"returnValue\" /> to the sequence - the next matching invocation returns a completed")

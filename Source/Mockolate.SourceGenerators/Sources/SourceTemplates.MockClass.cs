@@ -1666,12 +1666,12 @@ internal static partial class SourceTemplates
 			return null;
 		}
 
-		string signature = $"MockolateConstructorSignature{index}";
+		string signature = FormattableString.Invariant($"MockolateConstructorSignature{index}");
 		int suffix = 0;
 		while (@class.HasReservedName(signature) ||
 		       constructor.Parameters.Any(parameter => string.Equals(parameter.Name.TrimStart('@'), signature, StringComparison.Ordinal)))
 		{
-			signature = $"MockolateConstructorSignature{index}_{++suffix}";
+			signature = FormattableString.Invariant($"MockolateConstructorSignature{index}_{++suffix}");
 		}
 
 		return (constructorArgumentsName, signature);
@@ -3419,7 +3419,7 @@ internal static partial class SourceTemplates
 			refStructSlotIndex++;
 			if (parameter.RefKind == RefKind.Out)
 			{
-				string outVar = Helpers.GetUniqueLocalVariableName($"outParam{refStructSlotIndex}", method.Parameters);
+				string outVar = Helpers.GetUniqueLocalVariableName(FormattableString.Invariant($"outParam{refStructSlotIndex}"), method.Parameters);
 				sb.Append("\t\t\t\tif (").Append(setupVar).Append(".GetMatcher").Append(refStructSlotIndex)
 					.Append("() is global::Mockolate.Parameters.IOutRefStructParameter<")
 					.Append(parameter.Type.Fullname).Append("> ").Append(outVar).Append(" && ").Append(outVar)
@@ -3431,7 +3431,7 @@ internal static partial class SourceTemplates
 			}
 			else if (parameter.RefKind == RefKind.Ref)
 			{
-				string refVar = Helpers.GetUniqueLocalVariableName($"refParam{refStructSlotIndex}", method.Parameters);
+				string refVar = Helpers.GetUniqueLocalVariableName(FormattableString.Invariant($"refParam{refStructSlotIndex}"), method.Parameters);
 				sb.Append("\t\t\t\tif (").Append(setupVar).Append(".GetMatcher").Append(refStructSlotIndex)
 					.Append("() is global::Mockolate.Parameters.IRefRefStructParameter<")
 					.Append(parameter.Type.Fullname).Append("> ").Append(refVar).Append(")").AppendLine();
@@ -4733,7 +4733,7 @@ internal static partial class SourceTemplates
 	private static string GetParametersOverloadKey(Method method)
 	{
 		int index = method.Name.IndexOf('<');
-		return index < 0 ? method.Name : $"{method.Name.Substring(0, index)}`{method.GenericParameters?.Count}";
+		return index < 0 ? method.Name : FormattableString.Invariant($"{method.Name.Substring(0, index)}`{method.GenericParameters?.Count}");
 	}
 
 	private static void AppendMethodSetupDefinition(StringBuilder sb, Class @class, Method method,
@@ -5659,7 +5659,7 @@ internal static partial class SourceTemplates
 		sb.AppendXmlSummary(
 			$"Setup for the {indexer.Type.Fullname.EscapeForXmlDoc()} indexer {indexer.XmlDocReference}");
 		string[] indexerNames = Enumerable.Range(1, indexer.IndexerParameters!.Value.Count)
-			.Select(i => $"parameter{i}").ToArray();
+			.Select(i => FormattableString.Invariant($"parameter{i}")).ToArray();
 		AppendIndexerOverloadRemark(sb, indexerNames, keptCount, valueFlags, false);
 		if (hasOverloadResolutionPriority)
 		{
@@ -5779,7 +5779,7 @@ internal static partial class SourceTemplates
 
 		sb.Append("> global::Mockolate.Mock.").Append(setupName).Append(".this[");
 		string[] indexerNames = Enumerable.Range(1, indexer.IndexerParameters!.Value.Count)
-			.Select(i => $"parameter{i}").ToArray();
+			.Select(i => FormattableString.Invariant($"parameter{i}")).ToArray();
 		AppendIndexerKeyParameters(sb, indexer, indexerNames, keptCount, valueFlags);
 		sb.Append("]").AppendLine();
 		sb.Append("\t\t{").AppendLine();
@@ -5862,7 +5862,7 @@ internal static partial class SourceTemplates
 			}
 
 			sb.Append("global::Mockolate.Parameters.IParameter<").Append(parameter.Type.Fullname)
-				.Append(">? ").Append($"parameter{i}");
+				.Append(">? ").Append(FormattableString.Invariant($"parameter{i}"));
 		}
 
 		sb.Append("] { get; }").AppendLine();
@@ -6489,7 +6489,7 @@ internal static partial class SourceTemplates
 				string defaultExpr = $"mockBehavior.DefaultValue.Generate(default({p.Type.Fullname.TrimEnd('?')}))";
 				if (hasByRef)
 				{
-					string local = $"__arg{idx}";
+					string local = FormattableString.Invariant($"__arg{idx}");
 					sb.Append("\t\t\t").Append(p.Type.Fullname).Append(' ').Append(local).Append(" = ")
 						.Append(defaultExpr).Append(";").AppendLine();
 					argNames.Add($"{p.RefKind.GetString()}{local}");
@@ -7166,7 +7166,7 @@ internal static partial class SourceTemplates
 			MethodParameter[] parameters = method.Parameters.AsArray();
 			string literalBase = Helpers.GetUniqueIndexedLocalVariableBase("__literal", method.Parameters);
 			string?[] literalNames = parameters
-				.Select((_, i) => valueFlags?[i] == true ? $"{literalBase}{i + 1}" : null)
+				.Select((_, i) => valueFlags?[i] == true ? FormattableString.Invariant($"{literalBase}{i + 1}") : null)
 				.ToArray();
 			bool hasBlockBody = hasDeclaredDefaults || literalNames.Any(x => x is not null);
 			if (hasBlockBody)
@@ -7241,7 +7241,7 @@ internal static partial class SourceTemplates
 		string?[] matchNames = slowParameters
 			.Select((p, i) => !useParameters && valueFlags?[i] == true &&
 			                  (MayHoldMatcher(p) || (!emptyParams && MayHoldParamsMatchers(p)))
-				? $"{matchBase}{i + 1}"
+				? FormattableString.Invariant($"{matchBase}{i + 1}")
 				: null)
 			.ToArray();
 		bool usesBlockBody = hasDeclaredDefaults || emptyParams || perElementParams || matchNames.Any(x => x is not null);
@@ -7350,8 +7350,8 @@ internal static partial class SourceTemplates
 				{
 					sb.Append(
 						parameter.IsParams && parameter.Type.ElementType is not null
-							? $"(global::Mockolate.CovariantParameterAdapter<{parameter.Type.Fullname}>.Wrap(global::Mockolate.It.SequenceEquals<{parameter.Type.ElementType.Fullname}>({parameter.Name})).Matches({invocation}.Parameter{i + 1}))"
-							: $"(global::System.Collections.Generic.EqualityComparer<{parameter.ToTypeOrWrapper()}>.Default.Equals({parameter.Name}, {invocation}.Parameter{i + 1}))");
+							? FormattableString.Invariant($"(global::Mockolate.CovariantParameterAdapter<{parameter.Type.Fullname}>.Wrap(global::Mockolate.It.SequenceEquals<{parameter.Type.ElementType.Fullname}>({parameter.Name})).Matches({invocation}.Parameter{i + 1}))")
+							: FormattableString.Invariant($"(global::System.Collections.Generic.EqualityComparer<{parameter.ToTypeOrWrapper()}>.Default.Equals({parameter.Name}, {invocation}.Parameter{i + 1}))"));
 				}
 				else if (usesDeclaredDefault[i])
 				{
@@ -7361,7 +7361,7 @@ internal static partial class SourceTemplates
 				}
 				else
 				{
-					AppendSlowVerifyMatcherCondition(sb, parameter, $"{invocation}.Parameter{i + 1}");
+					AppendSlowVerifyMatcherCondition(sb, parameter, FormattableString.Invariant($"{invocation}.Parameter{i + 1}"));
 				}
 
 				i++;
@@ -7405,10 +7405,10 @@ internal static partial class SourceTemplates
 		sb.Append(parametersName).Append(" switch").AppendLine();
 		sb.Append("\t\t\t\t{").AppendLine();
 		sb.Append("\t\t\t\t\tglobal::Mockolate.Parameters.IParametersMatch m => m.Matches([")
-			.Append(string.Join(", ", Enumerable.Range(1, method.Parameters.Count).Select(i => $"{invocation}.Parameter{i}")))
+			.Append(string.Join(", ", Enumerable.Range(1, method.Parameters.Count).Select(i => FormattableString.Invariant($"{invocation}.Parameter{i}"))))
 			.Append("]),").AppendLine();
 		sb.Append("\t\t\t\t\tglobal::Mockolate.Parameters.INamedParametersMatch m => m.Matches([")
-			.Append(string.Join(", ", method.Parameters.Select((p, i) => $"(\"{p.Name}\", {invocation}.Parameter{i + 1})")))
+			.Append(string.Join(", ", method.Parameters.Select((p, i) => FormattableString.Invariant($"(\"{p.Name}\", {invocation}.Parameter{i + 1})"))))
 			.Append("]),").AppendLine();
 		sb.Append("\t\t\t\t\t_ => true").AppendLine();
 		sb.Append("\t\t\t\t}");
@@ -7543,7 +7543,7 @@ internal static partial class SourceTemplates
 				return null;
 			}
 
-			string elementArgument = element == 0 ? "" : $"{element}, ";
+			string elementArgument = element == 0 ? "" : FormattableString.Invariant($"{element}, ");
 			element++;
 			return ($"{mockRegistry}.AutoMockOr<{type.Fullname}>({memberIdRef}, {elementArgument}", ")");
 		};
@@ -7661,7 +7661,7 @@ internal static partial class SourceTemplates
 		foreach (MethodParameter parameter in constructor.Parameters)
 		{
 			ConstructorDependency dependency = dependencyArray[index++];
-			string name = $"d{index}";
+			string name = FormattableString.Invariant($"d{index}");
 			names.Add(name);
 			sb.Append(indent).Append(parameter.Type.Fullname).Append(' ').Append(name).Append(" = ");
 			if (dependency.MockTypeFullName is { } mockType)
@@ -7705,7 +7705,7 @@ internal static partial class SourceTemplates
 		int parameterIndex = 0;
 		foreach (MethodParameter parameter in constructors.AsArray()[constructorIndex].Parameters)
 		{
-			string name = $"c{constructorIndex + 1}p{++parameterIndex}";
+			string name = FormattableString.Invariant($"c{constructorIndex + 1}p{++parameterIndex}");
 			sb.Append(indent).Append(parameter.Type.Fullname).Append(' ').Append(name).Append(" = ")
 				.Append(parameter.IsParams ? "[]" : parameter.ExplicitDefaultValue).Append(';').AppendLine();
 			arguments.Append(", ").Append(name);
