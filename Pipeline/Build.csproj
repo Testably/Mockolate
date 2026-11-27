@@ -19,7 +19,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="LibGit2Sharp"/>
 		<PackageReference Include="Fallout.Common"/>
 		<PackageReference Include="Fallout.Components"/>
 		<PackageReference Include="NuGet.Frameworks"/>
