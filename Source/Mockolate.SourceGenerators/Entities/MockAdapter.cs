@@ -49,12 +49,12 @@ ClearHook: null, new EquatableArray<string>([]),
 	internal static MockAdapter MemoryCache { get; } = new(
 		"Microsoft.Extensions.Caching.Memory", "IMemoryCache", MockAdapterClasses.WithAbstractMembers, "global::Mockolate.MockolateCaching",
 		new EquatableArray<MockAdapterMember>([
-			new MockAdapterMember("TryGetValue", MockAdapterMemberKind.AnsweredWithoutSetup, "TryGetValue", false,
+			new MockAdapterMember("TryGetValue", MockAdapterMemberKind.AnsweredWithoutSetup, "TryGetValue", IsIgnoredByVerifyAll: false,
 				HookReceivesWhetherSetupMatched: true),
-			new MockAdapterMember("CreateEntry", MockAdapterMemberKind.AnsweredWithoutSetup, "CreateEntry", true, "RecordEntry"),
-			new MockAdapterMember("Remove", MockAdapterMemberKind.AnsweredWithoutSetup, "Remove", false),
+			new MockAdapterMember("CreateEntry", MockAdapterMemberKind.AnsweredWithoutSetup, "CreateEntry", IsIgnoredByVerifyAll: true, "RecordEntry"),
+			new MockAdapterMember("Remove", MockAdapterMemberKind.AnsweredWithoutSetup, "Remove", IsIgnoredByVerifyAll: false),
 		]),
-		null, new EquatableArray<string>([]));
+		ClearHook: null, new EquatableArray<string>([]));
 
 	internal static MockAdapter[] All { get; } = [Logger, LoggerFactory, MemoryCache,];
 

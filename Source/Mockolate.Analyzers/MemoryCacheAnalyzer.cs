@@ -30,7 +30,7 @@ public class MemoryCacheAnalyzer : DiagnosticAnalyzer
 			Resources.ResourceManager, typeof(Resources)),
 		"Usage",
 		DiagnosticSeverity.Error,
-		true,
+		isEnabledByDefault: true,
 		new LocalizableResourceString(nameof(Resources.Mockolate0015Description),
 			Resources.ResourceManager, typeof(Resources)));
 
