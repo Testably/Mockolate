@@ -23,7 +23,7 @@ internal static partial class Sources
 			                                                          			yield return () => new global::Mockolate.Integrations.AutoMockRow(assembly, types, names,
 			                                                          				index => parameters[index].ReflectionInfo is { } reflectionInfo &&
 			                                                          				         global::System.Reflection.CustomAttributeExtensions.IsDefined(reflectionInfo,
-			                                                          					         typeof(global::Mockolate.Integrations.TransientParameterAttribute), false),
+			                                                          					         typeof(global::Mockolate.Integrations.NotSharedParameterAttribute), false),
 			                                                          				index => parameters[index].ReflectionInfo is { } reflectionInfo &&
 			                                                          				         global::System.Reflection.CustomAttributeExtensions.IsDefined(reflectionInfo,
 			                                                          					         typeof(global::Mockolate.Integrations.DeferredParameterAttribute), false),

@@ -90,7 +90,7 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments("name")]
-	public async Task AutoMockArguments_WithTransientArgument_ShouldPassIt([Transient] string name)
+	public async Task AutoMockArguments_WithNotSharedArgument_ShouldPassIt([NotShared] string name)
 		=> await That(name).IsEqualTo("name");
 
 	[Test]
@@ -137,8 +137,8 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments]
-	public async Task AutoMockArguments_WithTransientParameter_ShouldNotShareItWithTheClassUnderTest(
-		OrderService sut, IOrderRepository repository, [Transient] IShippingClient shippingClient)
+	public async Task AutoMockArguments_WithNotSharedParameter_ShouldNotShareItWithTheClassUnderTest(
+		OrderService sut, IOrderRepository repository, [NotShared] IShippingClient shippingClient)
 	{
 		Order order = new(42, 10m);
 		repository.Mock.Setup.Find(42).Returns(order);
@@ -184,7 +184,7 @@ public sealed class AutoMockArgumentsTests
 	[Test]
 	[AutoMockArguments]
 	public async Task AsDefault_WithSetupOrWrittenValue_ShouldNotBeReturned(IWarehouse warehouse,
-		[AsDefault] IOrderRepository repository, [Transient] IOrderRepository other)
+		[AsDefault] IOrderRepository repository, [NotShared] IOrderRepository other)
 	{
 		warehouse.Mock.Setup.GetRepository().Returns(other);
 		warehouse["Dark"] = other;
@@ -366,8 +366,8 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments]
-	public async Task ValueFrom_WithTransient_ShouldNotPassItToTheClassUnderTest(PriceCalculator sut,
-		[Transient] [ValueFrom(nameof(TenPercentOff))] DiscountRule rule)
+	public async Task ValueFrom_WithNotShared_ShouldNotPassItToTheClassUnderTest(PriceCalculator sut,
+		[NotShared] [ValueFrom(nameof(TenPercentOff))] DiscountRule rule)
 	{
 		await That(sut.Rule).IsNotSameAs(rule);
 		await That(sut.Rule.Percentage).IsEqualTo(0m).Because("the class under test gets a created rule");
@@ -415,8 +415,8 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments]
-	public async Task AutoMockArguments_WithTransientParameterOfTheType_ShouldIgnoreItWhenMatching(
-		TransferService sut, IAccount source, IAccount target, [Transient] IAccount other)
+	public async Task AutoMockArguments_WithNotSharedParameterOfTheType_ShouldIgnoreItWhenMatching(
+		TransferService sut, IAccount source, IAccount target, [NotShared] IAccount other)
 	{
 		sut.Transfer(10m);
 

@@ -55,7 +55,7 @@ public sealed class XunitRunnerTests
 			"Mockolate.Xunit2.Tests.XunitTheories.SeveralAttributes",
 			"Mockolate.Xunit2.Tests.XunitTheories.SeveralAttributes",
 			"Mockolate.Xunit2.Tests.XunitTheories.SingleNullArgument",
-			"Mockolate.Xunit2.Tests.XunitTheories.TransientParameter",
+			"Mockolate.Xunit2.Tests.XunitTheories.NotSharedParameter",
 			"Mockolate.Xunit2.Tests.XunitTheories.DisplayName_ShouldNotReadTheProperties",
 		]).InAnyOrder();
 	}

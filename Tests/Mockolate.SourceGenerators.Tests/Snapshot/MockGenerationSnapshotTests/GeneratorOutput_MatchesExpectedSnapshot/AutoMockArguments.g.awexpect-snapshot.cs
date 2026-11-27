@@ -25,7 +25,7 @@ namespace Mockolate.Integrations
 	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
 	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 	[global::Microsoft.CodeAnalysis.Embedded]
-	internal abstract class TransientParameterAttribute : global::System.Attribute
+	internal abstract class NotSharedParameterAttribute : global::System.Attribute
 	{
 	}
 
@@ -97,7 +97,7 @@ namespace Mockolate.Integrations
 		private readonly global::System.Reflection.Assembly _assembly;
 		private readonly global::System.Type[] _types;
 		private readonly string[] _names;
-		private readonly global::System.Func<int, bool> _isTransientParameter;
+		private readonly global::System.Func<int, bool> _isNotSharedParameter;
 		private readonly global::System.Func<int, bool> _isDeferredParameter;
 		private readonly global::System.Func<int, global::System.Type[]?> _getAsDefaultTypes;
 		private readonly global::System.Func<int, global::System.Func<object?>?> _getValueFrom;
@@ -105,13 +105,13 @@ namespace Mockolate.Integrations
 		private global::Mockolate.MockBehavior? _behavior;
 		private readonly int[] _states;
 		private readonly object?[] _values;
-		private readonly bool?[] _isTransient;
+		private readonly bool?[] _isNotShared;
 		private readonly global::System.Type[]?[] _asDefaultTypes;
 
 		/// <param name="assembly">The test assembly, whose generated code creates the parameters.</param>
 		/// <param name="types">The types of the parameters of the test method.</param>
 		/// <param name="names">The names of the parameters of the test method.</param>
-		/// <param name="isTransientParameter">Whether the parameter at an index is marked as transient.</param>
+		/// <param name="isNotSharedParameter">Whether the parameter at an index is marked as not shared.</param>
 		/// <param name="isDeferredParameter">Whether the parameter at an index is marked as deferred.</param>
 		/// <param name="getAsDefaultTypes">
 		///     The other types of which the parameter at an index is the default value, or <see langword="null" /> when it
@@ -124,7 +124,7 @@ namespace Mockolate.Integrations
 		/// <param name="arguments">The given arguments of the first parameters, which are not shared.</param>
 		/// <param name="behavior">The behavior of the created mocks and values.</param>
 		public AutoMockRow(global::System.Reflection.Assembly assembly, global::System.Type[] types, string[] names,
-			global::System.Func<int, bool> isTransientParameter,
+			global::System.Func<int, bool> isNotSharedParameter,
 			global::System.Func<int, bool> isDeferredParameter,
 			global::System.Func<int, global::System.Type[]?> getAsDefaultTypes,
 			global::System.Func<int, global::System.Func<object?>?> getValueFrom,
@@ -139,7 +139,7 @@ namespace Mockolate.Integrations
 			_assembly = assembly;
 			_types = types;
 			_names = names;
-			_isTransientParameter = isTransientParameter;
+			_isNotSharedParameter = isNotSharedParameter;
 			_isDeferredParameter = isDeferredParameter;
 			_getAsDefaultTypes = getAsDefaultTypes;
 			_getValueFrom = getValueFrom;
@@ -147,7 +147,7 @@ namespace Mockolate.Integrations
 			_behavior = behavior;
 			_states = new int[types.Length];
 			_values = new object?[types.Length];
-			_isTransient = new bool?[types.Length];
+			_isNotShared = new bool?[types.Length];
 			_asDefaultTypes = new global::System.Type[]?[types.Length];
 		}
 
@@ -447,9 +447,9 @@ namespace Mockolate.Integrations
 
 		// Given arguments are not shared: a value like 4 would otherwise reach every int of every class under test.
 		// Neither is a deferred factory, which is not a mock that the test can set up.
-		private bool IsTransient(int index)
+		private bool IsNotShared(int index)
 			=> index < _arguments.Length ||
-			   (_isTransient[index] ??= _isTransientParameter(index) || _isDeferredParameter(index));
+			   (_isNotShared[index] ??= _isNotSharedParameter(index) || _isDeferredParameter(index));
 
 		/// <summary>
 		///     The shared test parameter of the <paramref name="type" />, or the [AsDefault] parameter for it; the
@@ -465,7 +465,7 @@ namespace Mockolate.Integrations
 				if (index != requester && _states[index] != 1 &&
 				    (_types[index] == type || (_asDefaultTypes[index] is { } otherTypes &&
 				                               global::System.Array.IndexOf(otherTypes, type) >= 0)) &&
-				    !IsTransient(index))
+				    !IsNotShared(index))
 				{
 					candidates.Add(index);
 				}
@@ -486,7 +486,7 @@ namespace Mockolate.Integrations
 				{
 					string names = string.Join(", ", candidates.ConvertAll(index => $"'{_names[index]}'"));
 					throw new global::Mockolate.Exceptions.MockException(
-						$"The constructor parameter '{parameterName}' of type '{type}' matches the test parameters {names}; name one of them '{parameterName}' or mark the others [Transient].");
+						$"The constructor parameter '{parameterName}' of type '{type}' matches the test parameters {names}; name one of them '{parameterName}' or mark the others [NotShared].");
 				}
 
 				candidates = named;

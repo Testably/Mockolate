@@ -30,9 +30,9 @@ public sealed class AutoMockArgumentsTests
 	}
 
 	[Test]
-	public async Task GetData_WithTransientParameter_ShouldNotShareIt()
+	public async Task GetData_WithNotSharedParameter_ShouldNotShareIt()
 	{
-		object[] row = GetSingleRow(nameof(Transient));
+		object[] row = GetSingleRow(nameof(NotShared));
 		OrderService sut = (OrderService)row[0];
 		IOrderRepository repository = (IOrderRepository)row[1];
 		IShippingClient shippingClient = (IShippingClient)row[2];
@@ -94,8 +94,8 @@ public sealed class AutoMockArgumentsTests
 	}
 
 	[AutoMockArguments]
-	private static void Transient(OrderService sut, IOrderRepository repository,
-		[Transient] IShippingClient shippingClient)
+	private static void NotShared(OrderService sut, IOrderRepository repository,
+		[NotShared] IShippingClient shippingClient)
 	{
 	}
 

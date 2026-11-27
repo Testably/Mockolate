@@ -23,11 +23,11 @@ public class MockDataSourceAnalyzerTests
 	                               namespace Mockolate.Integrations
 	                               {
 	                                   public abstract class AsDefaultParameterAttribute : System.Attribute;
-	                                   public abstract class TransientParameterAttribute : System.Attribute;
+	                                   public abstract class NotSharedParameterAttribute : System.Attribute;
 	                                   public sealed class AsDefaultAttribute(params System.Type[] types) : AsDefaultParameterAttribute;
 	                                   public sealed class AsDefaultAttribute<T1> : AsDefaultParameterAttribute;
 	                                   public sealed class AsDefaultAttribute<T1, T2> : AsDefaultParameterAttribute;
-	                                   public sealed class TransientAttribute : TransientParameterAttribute;
+	                                   public sealed class NotSharedAttribute : NotSharedParameterAttribute;
 	                                   public abstract class DeferredParameterAttribute : System.Attribute;
 	                                   public sealed class DeferredAttribute : DeferredParameterAttribute;
 	                                   public abstract class ValueFromParameterAttribute(string memberName) : System.Attribute;
@@ -519,7 +519,7 @@ public class MockDataSourceAnalyzerTests
 		);
 
 	[Test]
-	public async Task WhenDeferredParameterIsNoFuncOrAlsoAsDefaultOrTransient_ShouldBeFlagged() => await Verifier
+	public async Task WhenDeferredParameterIsNoFuncOrAlsoAsDefaultOrNotShared_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
 			  #nullable enable
@@ -534,7 +534,7 @@ public class MockDataSourceAnalyzerTests
 			      {
 			          [Data]
 			          public void Test([Deferred] IDep {|#0:a|}, [Deferred] Func<int, IDep> {|#1:b|},
-			              [Deferred, AsDefault] Func<IDep> {|#2:c|}, [Deferred, Transient] Func<IDep> {|#3:d|}) { }
+			              [Deferred, AsDefault] Func<IDep> {|#2:c|}, [Deferred, NotShared] Func<IDep> {|#3:d|}) { }
 
 			          [Other]
 			          public void NoDataSource([Deferred] IDep a) { }
@@ -552,7 +552,7 @@ public class MockDataSourceAnalyzerTests
 			Verifier.Diagnostic(MockDataSourceAnalyzer.DeferredParameterRule).WithLocation(2)
 				.WithArguments("c", "is also marked [AsDefault]"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.DeferredParameterRule).WithLocation(3)
-				.WithArguments("d", "is also marked [Transient], which has no effect")
+				.WithArguments("d", "is also marked [NotShared], which has no effect")
 		);
 
 	[Test]
@@ -580,7 +580,7 @@ public class MockDataSourceAnalyzerTests
 			              [ValueFrom(nameof(InheritedDep))] IDep c, [ValueFrom(nameof(Number))] int? d,
 			              [ValueFrom(nameof(Boxed))] object e, [ValueFrom(nameof(CreateRule))] Rule? f,
 			              [AsDefault, ValueFrom(nameof(InheritedDep))] IDep g,
-			              [Transient, ValueFrom(nameof(GenericValue))] Generic<int> h) { }
+			              [NotShared, ValueFrom(nameof(GenericValue))] Generic<int> h) { }
 
 			          private static Rule CreateRule() => new() { Code = "a", };
 			          private static Rule CreateRule(int value) => new() { Code = "b", };
@@ -706,7 +706,7 @@ public class MockDataSourceAnalyzerTests
 		);
 
 	[Test]
-	public async Task WhenAsDefaultParametersHaveTheSameTypeOrAreTransient_ShouldBeFlagged() => await Verifier
+	public async Task WhenAsDefaultParametersHaveTheSameTypeOrAreNotShared_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
 			  #nullable enable
@@ -719,10 +719,10 @@ public class MockDataSourceAnalyzerTests
 			      public class Tests
 			      {
 			          [Data]
-			          public void Test([AsDefault] IDep a, [AsDefault] IDep? {|#0:b|}, [AsDefault, Transient] int {|#1:c|}) { }
+			          public void Test([AsDefault] IDep a, [AsDefault] IDep? {|#0:b|}, [AsDefault, NotShared] int {|#1:c|}) { }
 
 			          [Data]
-			          public void Valid([AsDefault] IDep a, [AsDefault] int b, [AsDefault] int? c, [Transient] IDep d) { }
+			          public void Valid([AsDefault] IDep a, [AsDefault] int b, [AsDefault] int? c, [NotShared] IDep d) { }
 
 			          [Other]
 			          public void NoDataSource([AsDefault] IDep a, [AsDefault] IDep b) { }
@@ -736,7 +736,7 @@ public class MockDataSourceAnalyzerTests
 			Verifier.Diagnostic(MockDataSourceAnalyzer.AsDefaultParameterRule).WithLocation(0)
 				.WithArguments("b", "is used for 'MyCode.IDep' like the [AsDefault] parameter 'a'"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.AsDefaultParameterRule).WithLocation(1)
-				.WithArguments("c", "is also marked [Transient]")
+				.WithArguments("c", "is also marked [NotShared]")
 		);
 
 	[Test]

@@ -501,7 +501,7 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to An [AsDefault] parameter marks the default value of its type and of the types of the attribute for all mocks of the test case, so it is ambiguous when another [AsDefault] parameter is used for one of these types, must be assignable to each of them, and contradicts a [Transient] marker, which keeps the parameter from the other arguments..
+        ///   Looks up a localized string similar to An [AsDefault] parameter marks the default value of its type and of the types of the attribute for all mocks of the test case, so it is ambiguous when another [AsDefault] parameter is used for one of these types, must be assignable to each of them, and contradicts a [NotShared] marker, which keeps the parameter from the other arguments..
         /// </summary>
         internal static string Mockolate0011Description {
             get {
@@ -546,11 +546,11 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to is also marked [Transient].
+        ///   Looks up a localized string similar to is also marked [NotShared].
         /// </summary>
-        internal static string Mockolate0011TransientReason {
+        internal static string Mockolate0011NotSharedReason {
             get {
-                return ResourceManager.GetString("Mockolate0011TransientReason", resourceCulture);
+                return ResourceManager.GetString("Mockolate0011NotSharedReason", resourceCulture);
             }
         }
 
@@ -564,7 +564,7 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to A [Deferred] parameter must be a Func&lt;T&gt;, whose calls each create a new T. It is never shared with the classes under test, so [Transient] has no effect, and the mocks cannot return it as the default value of a type, so it cannot be [AsDefault]..
+        ///   Looks up a localized string similar to A [Deferred] parameter must be a Func&lt;T&gt;, whose calls each create a new T. It is never shared with the classes under test, so [NotShared] has no effect, and the mocks cannot return it as the default value of a type, so it cannot be [AsDefault]..
         /// </summary>
         internal static string Mockolate0012Description {
             get {
@@ -600,11 +600,11 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to is also marked [Transient], which has no effect.
+        ///   Looks up a localized string similar to is also marked [NotShared], which has no effect.
         /// </summary>
-        internal static string Mockolate0012TransientReason {
+        internal static string Mockolate0012NotSharedReason {
             get {
-                return ResourceManager.GetString("Mockolate0012TransientReason", resourceCulture);
+                return ResourceManager.GetString("Mockolate0012NotSharedReason", resourceCulture);
             }
         }
 

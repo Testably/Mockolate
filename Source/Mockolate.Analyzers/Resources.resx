@@ -292,7 +292,7 @@
 		<comment>Completes Mockolate0010MessageFormat. {0} is the member.</comment>
 	</data>
 	<data name="Mockolate0011Description" xml:space="preserve">
-		<value>An [AsDefault] parameter marks the default value of its type and of the types of the attribute for all mocks of the test case, so it is ambiguous when another [AsDefault] parameter is used for one of these types, must be assignable to each of them, and contradicts a [Transient] marker, which keeps the parameter from the other arguments.</value>
+		<value>An [AsDefault] parameter marks the default value of its type and of the types of the attribute for all mocks of the test case, so it is ambiguous when another [AsDefault] parameter is used for one of these types, must be assignable to each of them, and contradicts a [NotShared] marker, which keeps the parameter from the other arguments.</value>
 	</data>
 	<data name="Mockolate0011MessageFormat" xml:space="preserve">
 		<value>The [AsDefault] parameter '{0}' {1}</value>
@@ -308,12 +308,12 @@
 		<value>is not assignable to '{0}'</value>
 		<comment>Completes Mockolate0011MessageFormat. {0} is a type of the attribute.</comment>
 	</data>
-	<data name="Mockolate0011TransientReason" xml:space="preserve">
-		<value>is also marked [Transient]</value>
+	<data name="Mockolate0011NotSharedReason" xml:space="preserve">
+		<value>is also marked [NotShared]</value>
 		<comment>Completes Mockolate0011MessageFormat.</comment>
 	</data>
 	<data name="Mockolate0012Description" xml:space="preserve">
-		<value>A [Deferred] parameter must be a Func&lt;T&gt;, whose calls each create a new T. It is never shared with the classes under test, so [Transient] has no effect, and the mocks cannot return it as the default value of a type, so it cannot be [AsDefault].</value>
+		<value>A [Deferred] parameter must be a Func&lt;T&gt;, whose calls each create a new T. It is never shared with the classes under test, so [NotShared] has no effect, and the mocks cannot return it as the default value of a type, so it cannot be [AsDefault].</value>
 	</data>
 	<data name="Mockolate0012MessageFormat" xml:space="preserve">
 		<value>The [Deferred] parameter '{0}' {1}</value>
@@ -329,8 +329,8 @@
 		<value>is also marked [AsDefault]</value>
 		<comment>Completes Mockolate0012MessageFormat.</comment>
 	</data>
-	<data name="Mockolate0012TransientReason" xml:space="preserve">
-		<value>is also marked [Transient], which has no effect</value>
+	<data name="Mockolate0012NotSharedReason" xml:space="preserve">
+		<value>is also marked [NotShared], which has no effect</value>
 		<comment>Completes Mockolate0012MessageFormat.</comment>
 	</data>
 	<data name="Mockolate0013Description" xml:space="preserve">

@@ -17,10 +17,10 @@ public class AsDefaultSuppressorTests
 	                               namespace Mockolate.Integrations
 	                               {
 	                                   public abstract class AsDefaultParameterAttribute : System.Attribute;
-	                                   public abstract class TransientParameterAttribute : System.Attribute;
+	                                   public abstract class NotSharedParameterAttribute : System.Attribute;
 	                                   public sealed class AsDefaultAttribute(params System.Type[] types) : AsDefaultParameterAttribute;
 	                                   public sealed class AsDefaultAttribute<T1> : AsDefaultParameterAttribute;
-	                                   public sealed class TransientAttribute : TransientParameterAttribute;
+	                                   public sealed class NotSharedAttribute : NotSharedParameterAttribute;
 	                               }
 	                               """;
 
@@ -69,7 +69,7 @@ public class AsDefaultSuppressorTests
 			      public class Tests
 			      {
 			          [Data]
-			          public void Test(int {|#0:given|}, IDep {|#1:dep|}, [Transient] IDep {|#2:transient|}) { }
+			          public void Test(int {|#0:given|}, IDep {|#1:dep|}, [NotShared] IDep {|#2:notShared|}) { }
 			      }
 
 			      {{Attributes}}
