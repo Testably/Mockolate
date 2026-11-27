@@ -34,9 +34,7 @@ internal static partial class SourceTemplates
 			sb.Append("\t///     The <c>CreateMock(out ...)</c> overload of <see cref=\"").Append(sealedClass.ClassFullName)
 				.Append("\" />.").AppendLine();
 			sb.Append("\t/// </summary>").AppendLine();
-#if !DEBUG
-			sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+			AppendDebuggerNonUserCode(sb, "\t");
 			sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 			sb.Append("\t[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]").AppendLine();
 			sb.Append("\tinternal static class ").Append(container).AppendLine();

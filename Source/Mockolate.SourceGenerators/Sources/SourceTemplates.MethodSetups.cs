@@ -33,9 +33,7 @@ internal static partial class SourceTemplates
 		          namespace Mockolate
 		          {
 		          """);
-#if !DEBUG
-		sb.Append("[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+		AppendDebuggerNonUserCode(sb, "");
 		sb.AppendLine("""
 		              	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 		              	internal static class MethodSetupExtensions
@@ -104,9 +102,7 @@ internal static partial class SourceTemplates
 		{
 			sb.AppendXmlSummary(FormattableString.Invariant($"An invocation of a method with {count} parameters {string.Join(", ", Enumerable.Range(1, count - 1).Select(x => FormattableString.Invariant($"<paramref name=\"parameter{x}\"/>")))} and <paramref name=\"parameter{count}\"/>."), "\t");
 			sb.Append("\t[global::System.Diagnostics.DebuggerDisplay(\"{ToString()}\")]").AppendLine();
-#if !DEBUG
-			sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+			AppendDebuggerNonUserCode(sb, "\t");
 			sb.Append("\tinternal class MethodInvocation<")
 				.Append(string.Join(", ", Enumerable.Range(1, count).Select(x => FormattableString.Invariant($"T{x}")))).Append(">(string name, ")
 				.Append(string.Join(", ", Enumerable.Range(1, count).Select(x => FormattableString.Invariant($"T{x} parameter{x}"))))
@@ -188,9 +184,7 @@ internal static partial class SourceTemplates
 		sb.AppendXmlSummary(
 			FormattableString.Invariant($"Records the calls of {count}-parameter methods, synthesized for arity {count} use sites."),
 			"\t");
-#if !DEBUG
-		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+		AppendDebuggerNonUserCode(sb, "\t");
 		sb.Append("\tinternal static class MethodRecords<").Append(typeArgs).Append('>')
 			.AppendLine();
 		sb.Append("\t{").AppendLine();
@@ -395,9 +389,7 @@ internal static partial class SourceTemplates
 		sb.AppendXmlSummary(
 			FormattableString.Invariant($"Sets up a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <see langword=\"void\" />."),
 			"\t");
-#if !DEBUG
-		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+		AppendDebuggerNonUserCode(sb, "\t");
 		sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 		sb.Append("\tinternal abstract class VoidMethodSetup<").Append(typeParams)
 			.Append("> : global::Mockolate.Setup.MethodSetup,").AppendLine();
@@ -1090,9 +1082,7 @@ internal static partial class SourceTemplates
 		sb.AppendXmlSummary(
 			FormattableString.Invariant($"Sets up a method with {numberOfParameters} parameters {GetTypeParametersDescription(numberOfParameters)} returning <typeparamref name=\"TReturn\" />."),
 			"\t");
-#if !DEBUG
-		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+		AppendDebuggerNonUserCode(sb, "\t");
 		sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 		sb.Append("\tinternal abstract class ReturnMethodSetup<TReturn, ").Append(typeParams)
 			.Append("> : global::Mockolate.Setup.MethodSetup,").AppendLine();

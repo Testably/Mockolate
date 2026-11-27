@@ -33,9 +33,7 @@ internal static partial class SourceTemplates
 		sb.Append("\t///     A mock implementation for ").Append(classReference).Append('.').AppendLine();
 		sb.Append("\t/// </summary>").AppendLine();
 		sb.Append("\t[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]").AppendLine();
-#if !DEBUG
-		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+		AppendDebuggerNonUserCode(sb, "\t");
 		sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 		sb.Append("\tinternal class ").Append(name).Append(" :").AppendLine();
 		sb.Append("\t\tIMockFor").Append(name).Append(',').AppendLine();
@@ -205,9 +203,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine("\t}");
 		sb.AppendLine();
 		
-#if !DEBUG
-		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+		AppendDebuggerNonUserCode(sb, "\t");
 		sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 		sb.Append("\tprivate sealed class VerifyMonitor").Append(name).Append("(global::Mockolate.Internals.MockRegistry mockRegistry) : global::Mockolate.Mock.IMockVerifyFor").Append(name).AppendLine();
 		sb.Append("\t{").AppendLine();
@@ -450,9 +446,7 @@ internal static partial class SourceTemplates
 		#region MockForXXXExtensions
 
 		sb.AppendXmlSummary($"Mock extensions for {classReference}.", "");
-#if !DEBUG
-		sb.Append("[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+		AppendDebuggerNonUserCode(sb, "");
 		sb.Append("[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 		sb.Append("internal static partial class MockExtensionsFor").Append(name).AppendLine();
 		sb.Append('{').AppendLine();

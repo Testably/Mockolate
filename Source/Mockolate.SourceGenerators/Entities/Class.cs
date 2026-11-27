@@ -772,7 +772,7 @@ internal class Class : IEquatable<Class>
 		return false;
 	}
 
-	private static bool SignatureMatches(ISymbol a, ISymbol b)
+	private protected static bool SignatureMatches(ISymbol a, ISymbol b)
 		=> (a, b) switch
 		{
 			(IMethodSymbol ma, IMethodSymbol mb) => ma.TypeParameters.Length == mb.TypeParameters.Length &&

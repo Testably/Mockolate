@@ -39,9 +39,7 @@ internal static partial class SourceTemplates
 		          namespace Mockolate
 		          {
 		          """);
-#if !DEBUG
-		sb.Append("[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+		AppendDebuggerNonUserCode(sb, "");
 		sb.AppendLine("""
 		              	[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 		              	internal static class IndexerSetupExtensions
@@ -200,9 +198,7 @@ internal static partial class SourceTemplates
 		sb.AppendXmlSummary(
 			FormattableString.Invariant($"An access of an indexer getter with {numberOfParameters} typed parameters."), "\t");
 		sb.Append("\t[global::System.Diagnostics.DebuggerDisplay(\"{ToString()}\")]").AppendLine();
-#if !DEBUG
-		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+		AppendDebuggerNonUserCode(sb, "\t");
 		sb.Append("\tinternal class IndexerGetterAccess<").Append(typeParams).Append(">(")
 			.Append(string.Join(", ",
 				Enumerable.Range(1, numberOfParameters).Select(x => FormattableString.Invariant($"T{x} parameter{x}"))))
@@ -231,9 +227,7 @@ internal static partial class SourceTemplates
 		sb.AppendXmlSummary(
 			FormattableString.Invariant($"An access of an indexer setter with {numberOfParameters} typed parameters."), "\t");
 		sb.Append("\t[global::System.Diagnostics.DebuggerDisplay(\"{ToString()}\")]").AppendLine();
-#if !DEBUG
-		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+		AppendDebuggerNonUserCode(sb, "\t");
 		sb.Append("\tinternal class IndexerSetterAccess<").Append(typeParams).Append(", TValue>(")
 			.Append(string.Join(", ",
 				Enumerable.Range(1, numberOfParameters).Select(x => FormattableString.Invariant($"T{x} parameter{x}"))))
@@ -547,9 +541,7 @@ internal static partial class SourceTemplates
 		sb.AppendLine();
 
 		sb.AppendXmlSummary($"Sets up a <typeparamref name=\"TValue\"/> indexer for {GetTypeParametersDescription(numberOfParameters)}.", "\t");
-#if !DEBUG
-		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+		AppendDebuggerNonUserCode(sb, "\t");
 		sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 		sb.Append("\tinternal class IndexerSetup<TValue, ").Append(typeParams).Append(">(")
 			.Append("global::Mockolate.Internals.MockRegistry mockRegistry")
@@ -1826,9 +1818,7 @@ internal static partial class SourceTemplates
 		            	///     always report zero interactions.
 		            	/// </remarks>
 		            """)).AppendLine();
-#if !DEBUG
-		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+		AppendDebuggerNonUserCode(sb, "\t");
 		sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 #pragma warning disable MA0028 // Replace string interpolation with multiple Append calls or use an interpolated string
 		sb.Append($$"""
@@ -1862,9 +1852,7 @@ internal static partial class SourceTemplates
 		            	///     mock has no getter to intercept, so <c>Got()</c> is not offered.
 		            	/// </remarks>
 		            """)).AppendLine();
-#if !DEBUG
-		sb.Append("\t[global::System.Diagnostics.DebuggerNonUserCode]").AppendLine();
-#endif
+		AppendDebuggerNonUserCode(sb, "\t");
 		sb.Append("\t[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]").AppendLine();
 #pragma warning disable MA0028 // Replace string interpolation with multiple Append calls or use an interpolated string
 		sb.Append($$"""

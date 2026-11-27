@@ -403,33 +403,4 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 			IEventSymbol => true,
 			_ => false,
 		};
-
-	private static bool SignatureMatches(ISymbol a, ISymbol b)
-		=> a.Kind == b.Kind && (a, b) switch
-		{
-			(IMethodSymbol ma, IMethodSymbol mb) => ma.TypeParameters.Length == mb.TypeParameters.Length &&
-			                                        ParametersMatch(ma.Parameters, Helpers.GetParametersInTermsOf(mb, ma)),
-			(IPropertySymbol pa, IPropertySymbol pb) => ParametersMatch(pa.Parameters, pb.Parameters),
-			(IEventSymbol, IEventSymbol) => true,
-			_ => false,
-		};
-
-	private static bool ParametersMatch(ImmutableArray<IParameterSymbol> a, ImmutableArray<IParameterSymbol> b)
-	{
-		if (a.Length != b.Length)
-		{
-			return false;
-		}
-
-		for (int i = 0; i < a.Length; i++)
-		{
-			if (a[i].RefKind != b[i].RefKind ||
-			    !Helpers.IsSameEmittedType(a[i].Type, b[i].Type))
-			{
-				return false;
-			}
-		}
-
-		return true;
-	}
 }
