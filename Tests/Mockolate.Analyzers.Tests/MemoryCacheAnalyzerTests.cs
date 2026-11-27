@@ -156,6 +156,33 @@ public class MemoryCacheAnalyzerTests
 			         """);
 
 	[Test]
+	public async Task WhenFacadeAlsoCoversClassWithoutCache_ShouldNotBeFlagged() => await Verifier
+		.VerifyAnalyzerAsync(
+			Prefix + """
+			         namespace MyCode
+			         {
+			         	public class Other { }
+
+			         	public abstract class MyCache : IMemoryCache
+			         	{
+			         		public abstract bool TryGetValue(object key, out object? value);
+			         		public abstract object CreateEntry(object key);
+			         		public abstract void Remove(object key);
+			         	}
+
+			         	public interface IBoth : ISetup<Other>, ISetup<MyCache> { }
+
+			         	public class MyClass
+			         	{
+			         		public void MyTest(IBoth setup)
+			         		{
+			         			_ = setup.Get("key");
+			         		}
+			         	}
+			         }
+			         """);
+
+	[Test]
 	public async Task WhenMockIsAnInterface_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			Prefix + """
