@@ -2,7 +2,7 @@ using System.Text;
 
 namespace Mockolate.SourceGenerators.Sources;
 
-internal static partial class Sources
+internal static partial class SourceTemplates
 {
 	/// <summary>
 	///     Creates the static <c>Mock</c> class with the <c>CreateMock</c> extension methods to create new mocks.

@@ -50,7 +50,7 @@ A newer language feature can compile for `net10.0` and fail for `net48`; build o
 | `Source/Mockolate.SourceGenerators` | `Mockolate.SourceGenerators.Tests`, `Mockolate.Tests` (it compiles the generated mocks; `net11.0` for union mode and `net10.0` for classic mode) |
 | `Source/Mockolate.Analyzers*` | `Mockolate.Analyzers.Tests` |
 | Usage examples | `Mockolate.ExampleTests` |
-| `AutoMockArguments` attributes (`Sources.TestFrameworks*.cs`, `Mockolate.targets`) | the projects in `Tests/Frameworks`, `Mockolate.SourceGenerators.Tests` |
+| `AutoMockArguments` attributes (`SourceTemplates.TestFrameworks*.cs`, `Mockolate.targets`) | the projects in `Tests/Frameworks`, `Mockolate.SourceGenerators.Tests` |
 | `Pipeline/BenchmarkReport.cs` | `Build.Tests` |
 | Generated code or reflection-sensitive library code | also the `AotSmokeTests` target |
 

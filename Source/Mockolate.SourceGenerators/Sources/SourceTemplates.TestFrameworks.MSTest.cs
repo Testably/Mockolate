@@ -1,6 +1,6 @@
 namespace Mockolate.SourceGenerators.Sources;
 
-internal static partial class Sources
+internal static partial class SourceTemplates
 {
 	/// <summary>
 	///     The <c>AutoMockArguments</c> attribute for MSTest, which is used on a <c>[TestMethod]</c> like <c>[DataRow]</c>.

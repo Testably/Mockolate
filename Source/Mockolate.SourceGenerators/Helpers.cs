@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Globalization;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -88,12 +89,12 @@ internal static class Helpers
 	///     shows the <paramref name="closedCref" /> of the mocked closed generic type as its text.
 	/// </summary>
 	/// <remarks>
-	///     When both are equal, the element is self-closing so that <c>Sources.ExpandCrefs</c> derives the text as usual.
+	///     When both are equal, the element is self-closing so that <c>SourceTemplates.ExpandCrefs</c> derives the text as usual.
 	/// </remarks>
 	public static string ToXmlDocReference(string cref, string closedCref)
-		=> cref == closedCref
+		=> string.Equals(cref, closedCref, StringComparison.Ordinal)
 			? $"<see cref=\"{cref}\" />"
-			: $"<see cref=\"{cref}\">{Sources.Sources.SimplifyCrefForDisplay(closedCref)}</see>";
+			: $"<see cref=\"{cref}\">{SourceTemplates.SimplifyCrefForDisplay(closedCref)}</see>";
 
 	/// <summary>
 	///     Formats <paramref name="symbol" /> like <see cref="ISymbol.ToDisplayString" />, but qualifies types from a
@@ -217,7 +218,7 @@ internal static class Helpers
 		string candidateName = baseName;
 		int suffix = 0;
 
-		while (parameters.Any(p => p.Name == candidateName))
+		while (parameters.Any(p => string.Equals(p.Name, candidateName, StringComparison.Ordinal)))
 		{
 			suffix++;
 			candidateName = $"{baseName}{suffix}";
@@ -251,7 +252,7 @@ internal static class Helpers
 			}
 
 			string tail = parameterName.Substring(@base.Length);
-			return tail.Length > 0 && int.TryParse(tail, out int index) && index >= 1 && index <= count;
+			return tail.Length > 0 && int.TryParse(tail, NumberStyles.Integer, CultureInfo.InvariantCulture, out int index) && index >= 1 && index <= count;
 		}
 	}
 
@@ -466,12 +467,12 @@ internal static class Helpers
 		{
 			if (typeSymbol.ContainingNamespace is { Name: "System", ContainingNamespace.IsGlobalNamespace: true, })
 			{
-				if (typeSymbol.Name == "Span")
+				if (string.Equals(typeSymbol.Name, "Span", StringComparison.Ordinal))
 				{
 					return SpecialGenericType.Span;
 				}
 
-				if (typeSymbol.Name == "ReadOnlySpan")
+				if (string.Equals(typeSymbol.Name, "ReadOnlySpan", StringComparison.Ordinal))
 				{
 					return SpecialGenericType.ReadOnlySpan;
 				}
@@ -482,16 +483,16 @@ internal static class Helpers
 				}
 			}
 			else if (typeSymbol.ContainingNamespace is { Name: "Tasks", ContainingNamespace.Name: "Threading", } &&
-			         typeSymbol.ContainingNamespace.ContainingNamespace?.ContainingNamespace.Name == "System" &&
+			         string.Equals(typeSymbol.ContainingNamespace.ContainingNamespace?.ContainingNamespace.Name, "System", StringComparison.Ordinal) &&
 			         typeSymbol.ContainingNamespace.ContainingNamespace?.ContainingNamespace?.ContainingNamespace
 				         ?.IsGlobalNamespace == true)
 			{
-				if (typeSymbol.Name == "Task")
+				if (string.Equals(typeSymbol.Name, "Task", StringComparison.Ordinal))
 				{
 					return SpecialGenericType.Task;
 				}
 
-				if (typeSymbol.Name == "ValueTask")
+				if (string.Equals(typeSymbol.Name, "ValueTask", StringComparison.Ordinal))
 				{
 					return SpecialGenericType.ValueTask;
 				}
@@ -526,10 +527,10 @@ internal static class Helpers
 		}
 
 		public bool HasReservedName(string candidate)
-			=> @class.AllProperties().Any(p => p.Name == candidate) ||
-			   @class.AllMethods().Any(m => m.Name == candidate) ||
-			   @class.AllEvents().Any(e => e.Name == candidate) ||
-			   @class.ReservedNames.Any(r => r == candidate);
+			=> @class.AllProperties().Any(p => string.Equals(p.Name, candidate, StringComparison.Ordinal)) ||
+			   @class.AllMethods().Any(m => string.Equals(m.Name, candidate, StringComparison.Ordinal)) ||
+			   @class.AllEvents().Any(e => string.Equals(e.Name, candidate, StringComparison.Ordinal)) ||
+			   @class.ReservedNames.Any(r => string.Equals(r, candidate, StringComparison.Ordinal));
 	}
 
 	extension(ImmutableArray<AttributeData> attributes)
@@ -852,7 +853,7 @@ internal static class Helpers
 				(_, _) => "global::Mockolate.Parameters.IParameter<",
 			});
 			sb.Append((parameter.Type.SpecialGenericType,
-					parameter.IsNullableAnnotated && !parameter.Type.Fullname.EndsWith("?")) switch
+					parameter.IsNullableAnnotated && !parameter.Type.Fullname.EndsWith("?", StringComparison.Ordinal)) switch
 				{
 					(SpecialGenericType.Span, _) => parameter.Type.GenericTypeParameters!.Value.First().Fullname,
 					(SpecialGenericType.ReadOnlySpan, _) => parameter.Type.GenericTypeParameters!.Value.First().Fullname,
@@ -936,7 +937,7 @@ internal static class Helpers
 				// must preserve the full type there.
 				bool stripSpanToElement = !parameter.NeedsRefStructPipeline();
 				return (parameter.Type.SpecialGenericType,
-						parameter.IsNullableAnnotated && !parameter.Type.Fullname.EndsWith("?")) switch
+						parameter.IsNullableAnnotated && !parameter.Type.Fullname.EndsWith("?", StringComparison.Ordinal)) switch
 					{
 						(SpecialGenericType.Span, _) when stripSpanToElement =>
 							parameter.Type.GenericTypeParameters!.Value.First().Fullname,
@@ -950,7 +951,7 @@ internal static class Helpers
 
 		public string ToNullableType()
 		{
-			if (parameter.IsNullableAnnotated && !parameter.Type.Fullname.EndsWith("?"))
+			if (parameter.IsNullableAnnotated && !parameter.Type.Fullname.EndsWith("?", StringComparison.Ordinal))
 			{
 				return $"{parameter.Type.Fullname}?";
 			}

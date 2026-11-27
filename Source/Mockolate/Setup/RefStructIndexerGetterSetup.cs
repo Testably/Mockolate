@@ -193,7 +193,7 @@ public sealed class RefStructIndexerGetterSetup<TValue, T> : MethodSetup, IRefSt
 
 	/// <inheritdoc cref="MethodSetup.MatchesInteraction(IMethodInteraction)" />
 	protected override bool MatchesInteraction(IMethodInteraction interaction)
-		=> interaction is RefStructMethodInvocation invocation && invocation.Name == Name;
+		=> interaction is RefStructMethodInvocation invocation && string.Equals(invocation.Name, Name, StringComparison.Ordinal);
 
 	/// <inheritdoc cref="object.ToString()" />
 	public override string ToString()
@@ -375,7 +375,7 @@ public sealed class RefStructIndexerGetterSetup<TValue, T1, T2> : MethodSetup, I
 
 	/// <inheritdoc cref="MethodSetup.MatchesInteraction(IMethodInteraction)" />
 	protected override bool MatchesInteraction(IMethodInteraction interaction)
-		=> interaction is RefStructMethodInvocation invocation && invocation.Name == Name;
+		=> interaction is RefStructMethodInvocation invocation && string.Equals(invocation.Name, Name, StringComparison.Ordinal);
 
 	/// <inheritdoc cref="object.ToString()" />
 	public override string ToString()
@@ -550,7 +550,7 @@ public sealed class RefStructIndexerGetterSetup<TValue, T1, T2, T3> : MethodSetu
 
 	/// <inheritdoc cref="MethodSetup.MatchesInteraction(IMethodInteraction)" />
 	protected override bool MatchesInteraction(IMethodInteraction interaction)
-		=> interaction is RefStructMethodInvocation invocation && invocation.Name == Name;
+		=> interaction is RefStructMethodInvocation invocation && string.Equals(invocation.Name, Name, StringComparison.Ordinal);
 
 	/// <inheritdoc cref="object.ToString()" />
 	public override string ToString()
@@ -736,7 +736,7 @@ public sealed class RefStructIndexerGetterSetup<TValue, T1, T2, T3, T4> : Method
 
 	/// <inheritdoc cref="MethodSetup.MatchesInteraction(IMethodInteraction)" />
 	protected override bool MatchesInteraction(IMethodInteraction interaction)
-		=> interaction is RefStructMethodInvocation invocation && invocation.Name == Name;
+		=> interaction is RefStructMethodInvocation invocation && string.Equals(invocation.Name, Name, StringComparison.Ordinal);
 
 	/// <inheritdoc cref="object.ToString()" />
 	public override string ToString()

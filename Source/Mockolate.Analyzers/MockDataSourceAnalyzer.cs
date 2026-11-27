@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Globalization;
@@ -239,7 +240,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 			.Select(attribute => attribute.AttributeClass)
 			.OfType<INamedTypeSymbol>()
 			.Where(attributeClass => attributeClass.AllInterfaces.Any(@interface =>
-				@interface.Name == "IParameterValueProvider" &&
+				string.Equals(@interface.Name, "IParameterValueProvider", StringComparison.Ordinal) &&
 				AnalyzerHelpers.IsMockolateNamespace(@interface.ContainingNamespace)))
 			.ToArray();
 
@@ -504,7 +505,7 @@ public sealed class MockDataSourceAnalyzer : DiagnosticAnalyzer
 
 	private static bool IsMarker(AttributeData attribute, string markerName)
 		=> attribute.AttributeClass?.BaseType is { ContainingNamespace: { Name: "Integrations", } ns, } marker &&
-		   AnalyzerHelpers.IsMockolateNamespace(ns.ContainingNamespace) && marker.Name == markerName;
+		   AnalyzerHelpers.IsMockolateNamespace(ns.ContainingNamespace) && string.Equals(marker.Name, markerName, StringComparison.Ordinal);
 
 	/// <summary>
 	///     Why Mockolate cannot create a value of the <paramref name="type" />, or <see langword="null" /> when it can or

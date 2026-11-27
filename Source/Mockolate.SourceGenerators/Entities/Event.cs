@@ -26,7 +26,7 @@ internal record Event
 
 		if (alreadyDefinedEvents is not null)
 		{
-			if (alreadyDefinedEvents.Any(p => p.Name == Name))
+			if (alreadyDefinedEvents.Any(p => string.Equals(p.Name, Name, StringComparison.Ordinal)))
 			{
 				ExplicitImplementation = ContainingType;
 			}
@@ -78,7 +78,7 @@ internal record Event
 	internal string GetBackingFieldName()
 	{
 		char[] sanitized = ContainingType.Select(c => char.IsLetterOrDigit(c) ? c : '_').ToArray();
-		string nameForField = Name.StartsWith("@") ? Name.Substring(1) : Name;
+		string nameForField = Name.StartsWith("@", StringComparison.Ordinal) ? Name.Substring(1) : Name;
 		return $"_mockolateEvent_{new string(sanitized)}_{nameForField}";
 	}
 
@@ -90,7 +90,7 @@ internal record Event
 			    x.Name.Equals(y.Name) &&
 			    x.ContainingType.Equals(y.ContainingType));
 
-		public int GetHashCode(Event obj) => obj.Name.GetHashCode();
+		public int GetHashCode(Event obj) => StringComparer.Ordinal.GetHashCode(obj.Name);
 	}
 
 	private sealed class ContainingTypeIndependentEventEqualityComparer : IEqualityComparer<Event>
@@ -100,6 +100,6 @@ internal record Event
 			   (x is not null && y is not null &&
 			    x.Name.Equals(y.Name));
 
-		public int GetHashCode(Event obj) => obj.Name.GetHashCode();
+		public int GetHashCode(Event obj) => StringComparer.Ordinal.GetHashCode(obj.Name);
 	}
 }

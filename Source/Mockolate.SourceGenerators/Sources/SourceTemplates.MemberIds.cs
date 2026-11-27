@@ -4,7 +4,7 @@ using Event = Mockolate.SourceGenerators.Entities.Event;
 
 namespace Mockolate.SourceGenerators.Sources;
 
-internal static partial class Sources
+internal static partial class SourceTemplates
 {
 	/// <summary>
 	///     Emits a member-id-keyed lookup of the latest matching <paramref name="methodSetupType" /> setup,
@@ -347,10 +347,6 @@ internal static partial class Sources
 				if (char.IsLetterOrDigit(c))
 				{
 					sb.Append(c);
-				}
-				else if (c == '_')
-				{
-					sb.Append('_');
 				}
 				else
 				{

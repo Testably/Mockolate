@@ -3,7 +3,7 @@ using Mockolate.SourceGenerators.Entities;
 
 namespace Mockolate.SourceGenerators.Sources;
 
-internal static partial class Sources
+internal static partial class SourceTemplates
 {
 	internal static bool HasAdapter(Class @class, MockAdapter adapter)
 		=> @class.Adapters.Any(binding => binding.Adapter == adapter);
@@ -89,7 +89,7 @@ internal static partial class Sources
 			foreach (Method method in @class.AllMethods())
 			{
 				if (FindAdapterMember(@class, method) is { Member: { } member, } &&
-				    members.All(existing => existing.Name != member.Name))
+				    members.All(existing => !string.Equals(existing.Name, member.Name, StringComparison.Ordinal)))
 				{
 					members.Add((member.Name, memberIdPrefix + memberIds.GetMethodIdentifier(method),
 						method.ContainingType + "." + member.Name + (method.GenericParameters?.Count > 0 ? "<" : "")));

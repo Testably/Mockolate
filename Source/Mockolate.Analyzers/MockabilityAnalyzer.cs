@@ -57,7 +57,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 		}
 
 		string methodName = memberAccess.Name.Identifier.ValueText;
-		if (methodName != "CreateMock" && methodName != "Implementing")
+		if (!string.Equals(methodName, "CreateMock", StringComparison.Ordinal) && !string.Equals(methodName, "Implementing", StringComparison.Ordinal))
 		{
 			return;
 		}
@@ -69,7 +69,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 		                        ?? invocationInfo.CandidateSymbols.OfType<IMethodSymbol>().FirstOrDefault();
 
 		// Only the overload for sealed classes has an out parameter, which a named argument can pass at any position.
-		ArgumentSyntax? outArgument = methodName == "CreateMock"
+		ArgumentSyntax? outArgument = string.Equals(methodName, "CreateMock", StringComparison.Ordinal)
 			? invocation.ArgumentList.Arguments.FirstOrDefault(argument =>
 				argument.RefKindKeyword.IsKind(SyntaxKind.OutKeyword))
 			: null;
@@ -97,7 +97,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 		{
 			AnalyzeSealedCreateMock(context, memberAccess, method);
 		}
-		else if (methodName == "CreateMock")
+		else if (string.Equals(methodName, "CreateMock", StringComparison.Ordinal))
 		{
 			AnalyzeCreateMock(context, memberAccess, method, spellings);
 		}
@@ -384,7 +384,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 	///     Whether the generator degrades <paramref name="member" /> to a passthrough rather than a
 	///     <c>NotSupportedException</c> stub, in which case the mock keeps behaving like the real member
 	///     and there is nothing for the user to act on. Mirrors <c>forwardsUnsupportedRefStructValue</c>
-	///     and <c>AppendUnsupportedRefStructReturnBody</c> in <c>Sources.MockClass</c>: only a member
+	///     and <c>AppendUnsupportedRefStructReturnBody</c> in <c>SourceTemplates.MockClass</c>: only a member
 	///     with a real implementation behind it - a non-abstract member declared on a class - can
 	///     forward to the wrapped instance or to <c>base</c>. Static members need no handling here:
 	///     <see cref="IsOverriddenByGenerator" /> already drops them, since a class member the
@@ -585,7 +585,7 @@ public sealed class MockabilityAnalyzer : DiagnosticAnalyzer
 			foreach (MockedSpelling spelling in type)
 			{
 				string otherSpellings = string.Join(", ", type
-					.Where(other => other.Spelling != spelling.Spelling)
+					.Where(other => !string.Equals(other.Spelling, spelling.Spelling, StringComparison.Ordinal))
 					.Select(other => $"'{other.Display}'")
 					.Distinct()
 					.OrderBy(display => display, StringComparer.Ordinal));

@@ -43,7 +43,7 @@ public static class GenericMethodInvocations
 
 	private static bool IsCallOf(string name, string genericMethodName)
 	{
-		int prefixLength = genericMethodName.LastIndexOf('<') + 1;
+		int prefixLength = genericMethodName.AsSpan().LastIndexOf('<') + 1;
 		if (name.Length <= prefixLength ||
 		    string.CompareOrdinal(name, 0, genericMethodName, 0, prefixLength) != 0)
 		{
@@ -90,7 +90,7 @@ public static class GenericMethodInvocations
 
 		string name = method.Name;
 		// The name of a type argument can itself contain a '<', e.g. for an anonymous type.
-		int start = genericMethodName.LastIndexOf('<') + 1;
+		int start = genericMethodName.AsSpan().LastIndexOf('<') + 1;
 		for (int i = 0; i < typeArgumentIndex; i++)
 		{
 			start = name.IndexOf(", ", start, StringComparison.Ordinal) + 2;

@@ -297,7 +297,7 @@ public static partial class ItExtensions
 			}
 
 			string result = sb.ToString();
-			return result == "Uri" ? "any Uri" : result;
+			return string.Equals(result, "Uri", StringComparison.Ordinal) ? "any Uri" : result;
 		}
 	}
 }

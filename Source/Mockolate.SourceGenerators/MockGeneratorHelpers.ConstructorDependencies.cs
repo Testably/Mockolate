@@ -178,7 +178,7 @@ internal static partial class MockGeneratorHelpers
 
 	private static bool IsDedicatedLoggingType(INamedTypeSymbol type)
 		=> type.Name is "ILogger" or "ILoggerFactory" &&
-		   type.ContainingNamespace.ToDisplayString() == "Microsoft.Extensions.Logging";
+		   string.Equals(type.ContainingNamespace.ToDisplayString(), "Microsoft.Extensions.Logging", StringComparison.Ordinal);
 
 	/// <summary>
 	///     The accessible constructor with the most parameters that the generated code can call without warnings, or

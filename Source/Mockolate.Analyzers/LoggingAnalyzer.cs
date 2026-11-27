@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.CodeAnalysis;
@@ -50,7 +51,7 @@ public class LoggingAnalyzer : DiagnosticAnalyzer
 		    context.SemanticModel.GetSymbolInfo(invocation, context.CancellationToken).Symbol is not IMethodSymbol method ||
 		    GetLoggingClass(method) is not { } loggingClass ||
 		    context.SemanticModel.GetTypeInfo(memberAccess.Expression, context.CancellationToken).Type is not { } receiverType ||
-		    GetUnsupportedClass(receiverType, loggingClass == "MockolateLoggerFactoryLogging") is not { } unsupportedClass)
+		    GetUnsupportedClass(receiverType, string.Equals(loggingClass, "MockolateLoggerFactoryLogging", StringComparison.Ordinal)) is not { } unsupportedClass)
 		{
 			return;
 		}
@@ -154,7 +155,7 @@ public class LoggingAnalyzer : DiagnosticAnalyzer
 	}
 
 	private static bool IsLoggingInterface(INamedTypeSymbol type, string name)
-		=> type.Name == name &&
+		=> string.Equals(type.Name, name, StringComparison.Ordinal) &&
 		   type is
 		   {
 			   TypeArguments.Length: 0,

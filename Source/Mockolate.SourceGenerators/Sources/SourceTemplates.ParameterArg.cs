@@ -2,7 +2,7 @@ using System.Text;
 
 namespace Mockolate.SourceGenerators.Sources;
 
-internal static partial class Sources
+internal static partial class SourceTemplates
 {
 	/// <summary>
 	///     The union-typed setup/verify argument: a hand-written <c>[Union]</c> struct with the case types

@@ -65,7 +65,7 @@ public static partial class ItExtensions
 		{
 			foreach ((string Key, string Value) parameter in queryParameters)
 			{
-				if (parameter.Key == name && value.Matches(parameter.Value))
+				if (string.Equals(parameter.Key, name, StringComparison.Ordinal) && value.Matches(parameter.Value))
 				{
 					return true;
 				}

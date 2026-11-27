@@ -3,7 +3,7 @@ using Mockolate.SourceGenerators.Entities;
 
 namespace Mockolate.SourceGenerators.Sources;
 
-internal static partial class Sources
+internal static partial class SourceTemplates
 {
 	/// <remarks>
 	///     The <paramref name="autoMockableTypes" /> are <see langword="null" /> unless the compilation sets the

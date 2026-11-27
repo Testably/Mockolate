@@ -3,7 +3,7 @@ using Mockolate.SourceGenerators.Entities;
 
 namespace Mockolate.SourceGenerators.Sources;
 
-internal static partial class Sources
+internal static partial class SourceTemplates
 {
 	/// <summary>
 	///     Creates the <c>CreateMock(out ConstructorArguments ...)</c> overload of every sealed class or record, which
@@ -87,7 +87,7 @@ internal static partial class Sources
 		foreach (DataSourceParameter parameter in parameters)
 		{
 			sb.Append(", ");
-			if (parameter is { IsMockable: false, IsParams: false, DefaultValue: { } defaultValue, } && defaultValue != "null")
+			if (parameter is { IsMockable: false, IsParams: false, DefaultValue: { } defaultValue, } && !string.Equals(defaultValue, "null", StringComparison.Ordinal))
 			{
 				sb.Append(parameter.IsNullable ? NullableName(parameter.TypeFullName) : parameter.TypeFullName).Append(' ')
 					.Append(Helpers.EscapeIfKeyword(parameter.Name)).Append(" = ").Append(defaultValue);
@@ -135,7 +135,7 @@ internal static partial class Sources
 			return $"{name} is {{ }} {value}{index} ? {value}{index} : []";
 		}
 
-		if (parameter.DefaultValue == "null")
+		if (string.Equals(parameter.DefaultValue, "null", StringComparison.Ordinal))
 		{
 			return parameter.IsNullable ? name : $"{name}!";
 		}

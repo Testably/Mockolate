@@ -2,7 +2,7 @@ using System.Text;
 
 namespace Mockolate.SourceGenerators.Sources;
 
-internal static partial class Sources
+internal static partial class SourceTemplates
 {
 	/// <summary>
 	///     Emits the cross-interface <c>As&lt;T&gt;</c> bridge methods for every distinct unordered

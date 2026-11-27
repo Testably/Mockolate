@@ -21,7 +21,7 @@ internal partial class MockSetups
 		private IndexerSetup[]? _storage;
 		private readonly MockolateLock _storageLock = new();
 		private IndexerValueStorage?[]? _valueStorages;
-		private readonly object _valueStoragesLock = new();
+		private readonly MockolateLock _valueStoragesLock = new();
 
 		public int Count => Volatile.Read(ref _storage)?.Length ?? 0;
 

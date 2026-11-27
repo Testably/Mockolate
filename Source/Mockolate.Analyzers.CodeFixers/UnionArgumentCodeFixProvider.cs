@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Composition;
@@ -104,7 +105,7 @@ public class UnionArgumentCodeFixProvider : CodeFixProvider
 		};
 		if (argument.NameColon is { } nameColon)
 		{
-			return parameters.FirstOrDefault(p => p.Name == nameColon.Name.Identifier.ValueText);
+			return parameters.FirstOrDefault(p => string.Equals(p.Name, nameColon.Name.Identifier.ValueText, StringComparison.Ordinal));
 		}
 
 		return position < parameters.Length ? parameters[position] : null;

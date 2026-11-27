@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Mockolate.SourceGenerators.Sources;
 
 namespace Mockolate.SourceGenerators.Tests;
 
@@ -315,7 +316,7 @@ public sealed class UnionParameterArgTests
 	[Arguments(false)]
 	public async Task ParameterArgSource_ShouldContainThePolyfillOnlyWhenRequested(bool emitPolyfill)
 	{
-		string source = Sources.Sources.ParameterArg(emitPolyfill, false, false);
+		string source = SourceTemplates.ParameterArg(emitPolyfill, false, false);
 
 		await That(source.Contains(PolyfillDeclaration)).IsEqualTo(emitPolyfill);
 		await That(source).Contains("internal readonly struct ParameterArg<T>");

@@ -31,7 +31,7 @@ internal record Property
 
 		if (alreadyDefinedProperties is not null)
 		{
-			if (alreadyDefinedProperties.Any(p => p.Name == Name))
+			if (alreadyDefinedProperties.Any(p => string.Equals(p.Name, Name, StringComparison.Ordinal)))
 			{
 				ExplicitImplementation = ContainingType;
 			}
@@ -122,7 +122,7 @@ internal record Property
 			return x.Name.Equals(y.Name);
 		}
 
-		public int GetHashCode(Property obj) => obj.Name.GetHashCode();
+		public int GetHashCode(Property obj) => StringComparer.Ordinal.GetHashCode(obj.Name);
 	}
 
 	private sealed class ContainingTypeIndependentPropertyEqualityComparer : IEqualityComparer<Property>
@@ -147,6 +147,6 @@ internal record Property
 			return x.Name.Equals(y.Name);
 		}
 
-		public int GetHashCode(Property obj) => obj.Name.GetHashCode();
+		public int GetHashCode(Property obj) => StringComparer.Ordinal.GetHashCode(obj.Name);
 	}
 }

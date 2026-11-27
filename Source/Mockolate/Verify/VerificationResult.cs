@@ -610,6 +610,6 @@ public class VerificationResult<TVerify> : IVerificationResult<TVerify>, IVerifi
 		}
 
 		private static bool MatchesMethodName(IInteraction interaction, string methodName)
-			=> interaction is IMethodInteraction method && method.Name == methodName;
+			=> interaction is IMethodInteraction method && string.Equals(method.Name, methodName, StringComparison.Ordinal);
 	}
 }

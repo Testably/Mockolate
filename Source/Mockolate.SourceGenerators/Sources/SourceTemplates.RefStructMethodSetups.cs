@@ -2,7 +2,7 @@ using System.Text;
 
 namespace Mockolate.SourceGenerators.Sources;
 
-internal static partial class Sources
+internal static partial class SourceTemplates
 {
 	/// <summary>
 	///     Emits the <c>IRefStructVoidMethodSetup&lt;T1..Tn&gt;</c> /

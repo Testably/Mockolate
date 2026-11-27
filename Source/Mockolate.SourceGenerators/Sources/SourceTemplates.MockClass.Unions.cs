@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -14,7 +15,7 @@ namespace Mockolate.SourceGenerators.Sources;
 ///     <c>It</c> matcher or a literal value, a <c>Func&lt;T, bool&gt;</c> slot accepts a predicate. The overload count
 ///     stays at 2^n for n eligible parameters, but predicates become available at every call site.
 /// </summary>
-internal static partial class Sources
+internal static partial class SourceTemplates
 {
 	/// <summary>
 	///     How one parameter slot is rendered in a union-mode overload.
@@ -94,7 +95,7 @@ internal static partial class Sources
 		string bareName = BareMethodName(method);
 		return @class.AllMethods().Count(m => m.ExplicitImplementation is null &&
 		                                      m.MemberType == method.MemberType &&
-		                                      BareMethodName(m) == bareName &&
+		                                      string.Equals(BareMethodName(m), bareName, StringComparison.Ordinal) &&
 		                                      (!sameTypeParameterCount ||
 		                                       TypeParameterCount(m) == TypeParameterCount(method))) == 1;
 
@@ -208,16 +209,16 @@ internal static partial class Sources
 		int omittedCount = slots.Count(s => s == UnionSlot.Omitted);
 		if (omittedCount > 0)
 		{
-			return (unionCount - (slots.Length + 1) * omittedCount).ToString();
+			return (unionCount - (slots.Length + 1) * omittedCount).ToString(CultureInfo.InvariantCulture);
 		}
 
 		if (unionCount < slots.Length)
 		{
-			return unionCount.ToString();
+			return unionCount.ToString(CultureInfo.InvariantCulture);
 		}
 
 		bool[] unionFlags = slots.Select(s => s == UnionSlot.Union).ToArray();
-		return ParametersBlockAllValuesPromotion(parameters, unionFlags) ? unionCount.ToString() : "int.MaxValue";
+		return ParametersBlockAllValuesPromotion(parameters, unionFlags) ? unionCount.ToString(CultureInfo.InvariantCulture) : "int.MaxValue";
 	}
 
 	private static string UnionArgumentLocalName(Method method, MethodParameter parameter)
@@ -287,7 +288,7 @@ internal static partial class Sources
 				.ToArray();
 			if (names.Length > 0)
 			{
-				target.Add(string.Format(format, string.Join(", ", names)));
+				target.Add(string.Format(CultureInfo.InvariantCulture, format, string.Join(", ", names)));
 			}
 		}
 	}
@@ -851,10 +852,10 @@ internal static partial class Sources
 		int omittedCount = slots.Count(s => s == UnionSlot.Omitted);
 		if (omittedCount > 0)
 		{
-			return (unionCount - (slots.Length + 1) * omittedCount).ToString();
+			return (unionCount - (slots.Length + 1) * omittedCount).ToString(CultureInfo.InvariantCulture);
 		}
 
-		return unionCount == slots.Length ? "int.MaxValue" : unionCount.ToString();
+		return unionCount == slots.Length ? "int.MaxValue" : unionCount.ToString(CultureInfo.InvariantCulture);
 	}
 
 	private static string[] UnionIndexerSetupNames(Property indexer)
