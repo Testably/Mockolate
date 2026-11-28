@@ -18,7 +18,7 @@ public sealed partial class MockBehaviorTests
 	}
 
 	[Test]
-	public async Task AutoMockFactoryOfAnotherAssembly_ShouldNotCreateAutoMocksWithoutTheBuildProperty()
+	public async Task AutoMockFactoryOfAnotherAssembly_WhenSkippingAutoMocking_ShouldNotCreateAutoMocks()
 	{
 		IAutoMockChild child = IAutoMockChild.CreateMock();
 		MockBehavior behavior = AutoMocks.UseFactory(MockBehavior.Default, (_, _) => child);

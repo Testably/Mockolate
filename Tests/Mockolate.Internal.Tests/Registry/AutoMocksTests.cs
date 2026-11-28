@@ -44,7 +44,7 @@ public sealed class AutoMocksTests
 		IServiceWithoutMock? result = registry.AutoMockOr<IServiceWithoutMock?>(0, null);
 
 		await That(result).IsNull()
-			.Because("with the MockolateSkipAutoMocking build property no CreateMock sets a factory");
+			.Because("with the MockolateSkipAutoMocking build property the generated MockBehavior.Default carries no factory");
 	}
 
 	[Test]

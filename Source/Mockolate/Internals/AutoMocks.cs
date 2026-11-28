@@ -34,8 +34,8 @@ public static class AutoMocks
 	/// </summary>
 	/// <remarks>
 	///     The generated <c>CreateMock</c> calls this, so that a mock creates the auto-mocks of its own assembly. An
-	///     assembly without the build property passes <see langword="null" />, so that a behavior that carries the
-	///     factory of another assembly returns no auto-mocks there. The <paramref name="behavior" /> is returned
+	///     assembly that sets the <c>MockolateSkipAutoMocking</c> build property passes <see langword="null" />, so
+	///     that a behavior that carries the factory of another assembly returns no auto-mocks there. The <paramref name="behavior" /> is returned
 	///     unchanged when it already has the <paramref name="factory" /> or skips auto-mocking.
 	/// </remarks>
 	/// <param name="behavior">The behavior of the mock that is created.</param>

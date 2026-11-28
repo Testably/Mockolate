@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<!-- Only Mockolate.AutoMocking.Tests runs against the generated auto-mocks. -->
+	<!-- The tests through generated auto-mocks belong in Mockolate.AutoMocking.Tests. -->
 	<PropertyGroup>
 		<MockolateSkipAutoMocking>true</MockolateSkipAutoMocking>
 	</PropertyGroup>

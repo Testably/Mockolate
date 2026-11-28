@@ -210,7 +210,7 @@ public async Task Buy_ShouldNotUseAnotherDispenser(VendingMachine sut, [NotShare
 
 ## Return the same instance from every mock
 
-Without a setup, a member of a mock that returns an interface returns `null`, and a member like `Task<IChocolateDispenser> GetDispenserAsync()` returns a task with a `null` result. A class under test that uses the result fails with a `NullReferenceException`.
+Without a setup, a member of a mock that returns an interface returns its own [auto-mock](03-create-mocks.md#auto-mocking), and a member like `Task<IChocolateDispenser> GetDispenserAsync()` returns a task with one. This is not the mock that your test sets up and verifies, and with [skipped auto-mocking](03-create-mocks.md#auto-mocking) the member returns `null` instead.
 
 Mark a parameter with `[AsDefault]` to make it the [default value](03-create-mocks.md#default-values) of its type for all mocks of the test case. Their properties, methods and indexers without a setup return it, also wrapped in a `Task<T>` or `ValueTask<T>`, and so do their `out` parameters:
 
@@ -233,8 +233,6 @@ public async Task Dispenser_ShouldBeTheMockOfTheTest(IVendingMachine machine, [A
 - It only replaces the default value of its exact type, e.g. not of an interface that `IChocolateDispenser` implements, unless you [name the interface](#use-a-fake-for-an-interface).
 - Every member of the type returns the same instance, also a method that creates a new one in the real implementation or an indexer for every key. Set up such a member when it needs other instances.
 - The parameter is still passed to the constructor of a class under test.
-
-Members that return another interface return an [auto-mock](03-create-mocks.md#auto-mocking) instead of `null`, so keep `[AsDefault]` for the instances that the test needs.
 
 ## Use a fake for an interface
 

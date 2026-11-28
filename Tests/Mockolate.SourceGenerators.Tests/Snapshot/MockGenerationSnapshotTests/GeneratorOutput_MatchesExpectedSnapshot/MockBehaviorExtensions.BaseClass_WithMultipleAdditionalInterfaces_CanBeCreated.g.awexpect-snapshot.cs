@@ -31,11 +31,12 @@ internal static partial class Mock
 		/// <remarks>
 		///     Un-configured members return the generator-provided default value (empty strings/collections, completed
 		///     <see cref="global::System.Threading.Tasks.Task">Task</see>s, an identity <see cref="global::System.Func{T, TResult}">Func&lt;T, TResult&gt;</see>
-		///     for <c>Func&lt;T, T&gt;</c>, a no-op <see cref="global::System.Action{T}">Action&lt;T&gt;</see>, <see langword="null" /> otherwise), base-class
+		///     for <c>Func&lt;T, T&gt;</c>, a no-op <see cref="global::System.Action{T}">Action&lt;T&gt;</see>, an auto-mock for an interface
+		///     unless auto-mocking is skipped, <see langword="null" /> otherwise), base-class
 		///     implementations run for class mocks, and every invocation is recorded for later verification.
 		///     <para />
 		///     Chain <c>SkippingBaseClass()</c>, <c>ThrowingWhenNotSetup()</c>, <c>SkippingInteractionRecording()</c>,
-		///     <c>WithDefaultValueFor&lt;T&gt;(...)</c> or <c>UseConstructorParametersFor&lt;T&gt;(...)</c> to derive
+		///     <c>SkippingAutoMocking()</c>, <c>WithDefaultValueFor&lt;T&gt;(...)</c> or <c>UseConstructorParametersFor&lt;T&gt;(...)</c> to derive
 		///     a customized <see cref="global::Mockolate.MockBehavior">MockBehavior</see>; because it is a <see langword="record" />,
 		///     each call returns a new instance and this shared default stays unchanged.
 		/// </remarks>

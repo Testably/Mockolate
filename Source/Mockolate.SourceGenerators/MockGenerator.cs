@@ -119,7 +119,7 @@ public class MockGenerator : IIncrementalGenerator
 
 		// Mocks for auto-mocking are only discovered without the MockolateSkipAutoMocking build property, from the
 		// CreateMock calls bound again in the current compilation, so that a compilation that skips auto-mocking
-		// does no work for them and its output stays unchanged.
+		// does no work for them and emits the same code as a generator without auto-mocking.
 		IncrementalValueProvider<EquatableArray<MockClass>> discoveredMocks = creations
 			.Collect()
 			.Combine(dataSourceCreations
