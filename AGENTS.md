@@ -23,7 +23,7 @@ Correctness is a must. The other goals are strong defaults and win in this order
 - **Performance**: recording, setup matching and verification are hot paths with allocation-free fast paths (`MockInteractions`, the `*Records` types). Measure hot-path changes with the benchmarks before and after.
 - **Public API**: every change to the public surface of `Mockolate` shows up in the API snapshots. Document new public members with XML comments. Mark breaking changes with `!` in the PR title (`feat!:`, `refactor!:`).
 - **Strong naming**: all assemblies are signed with `strongname.snk`; an `InternalsVisibleTo` needs `PublicKey="$(PublicKey)"`.
-- **Style**: follow `.editorconfig`: tabs, explicit types instead of `var`, no `this.`, `System` usings first; private fields are `_camelCase`. New extension members use C# 14 `extension` blocks. Tests use TUnit with aweXpect (`await That(...)`) and are preferably named `<Subject>_Should<Outcome>`.
+- **Style**: follow `.editorconfig`: tabs, explicit types instead of `var`, no `this.`, `System` usings first; private fields are `_camelCase`. New extension members use C# 14 `extension` blocks. Tests use TUnit with aweXpect (`await That(...)`) and are named `[<Member>_][With<Arrangement>_][When<Condition>_]Should<Outcome>`; where a test belongs and how classes are nested is in [Conventions](Docs/agents/conventions.md#tests).
 
 ## Validation
 
