@@ -2034,6 +2034,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -2375,7 +2381,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -2720,7 +2727,8 @@ window.BENCHMARK_DATA = {
           222.17409485181173,
           123.8336809362684,
           160.08838616098677,
-          166.61648043564387
+          166.61648043564387,
+          220.69238376617432
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -3049,6 +3057,7 @@ window.BENCHMARK_DATA = {
           800,
           800,
           800,
+          808,
           808,
           808,
           808,
@@ -3423,7 +3432,8 @@ window.BENCHMARK_DATA = {
           44612.6109781901,
           30882.731901041665,
           35965.22330322266,
-          36289.208548990886
+          36289.208548990886,
+          75714.08414713542
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3773,7 +3783,8 @@ window.BENCHMARK_DATA = {
           9033,
           9055,
           9046,
-          9126
+          9126,
+          9050
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -4126,7 +4137,8 @@ window.BENCHMARK_DATA = {
           3967.9336874825613,
           2387.5814280192058,
           3038.629847462972,
-          3160.8268664042157
+          3160.8268664042157,
+          4511.180874633789
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -4287,6 +4299,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -4829,7 +4842,8 @@ window.BENCHMARK_DATA = {
           3442.5428415934243,
           2426.6028127034506,
           2806.7601821899416,
-          2718.4322756449383
+          2718.4322756449383,
+          4270.632194519043
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -5179,7 +5193,8 @@ window.BENCHMARK_DATA = {
           6924,
           7010,
           6924,
-          6924
+          6924,
+          6919
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -5532,7 +5547,8 @@ window.BENCHMARK_DATA = {
           256.9711990992228,
           129.2826750108174,
           176.2077911240714,
-          170.52605040868124
+          170.52605040868124,
+          217.57059349332536
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -5698,6 +5714,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -6235,7 +6252,8 @@ window.BENCHMARK_DATA = {
           401.31454439163207,
           237.66468801498414,
           291.5112714400658,
-          302.5641571044922
+          302.5641571044922,
+          394.66820589701337
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -6546,6 +6564,7 @@ window.BENCHMARK_DATA = {
           2056,
           2056,
           2056,
+          1352,
           1352,
           1352,
           1352,
@@ -8633,6 +8652,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -8974,7 +8999,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -9319,7 +9345,8 @@ window.BENCHMARK_DATA = {
           94.41544889552253,
           115.6424094071755,
           188.96591629300798,
-          122.35678628285726
+          122.35678628285726,
+          144.46575282414753
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -9648,6 +9675,7 @@ window.BENCHMARK_DATA = {
           712,
           712,
           712,
+          720,
           720,
           720,
           720,
@@ -10022,7 +10050,8 @@ window.BENCHMARK_DATA = {
           7748.152341570173,
           11068.326835123698,
           12654.25518329327,
-          10867.993390764508
+          10867.993390764508,
+          14608.734322684151
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10370,6 +10399,7 @@ window.BENCHMARK_DATA = {
           12761,
           12760,
           12760,
+          12761,
           12761,
           12761,
           12761
@@ -10725,7 +10755,8 @@ window.BENCHMARK_DATA = {
           2991.9158721923827,
           3987.511533610026,
           5092.944267781576,
-          4479.970564270019
+          4479.970564270019,
+          5224.908658981323
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10886,6 +10917,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -11428,7 +11460,8 @@ window.BENCHMARK_DATA = {
           121141.16453334263,
           196456.5414550781,
           149134.67429896764,
-          194020.6808268229
+          194020.6808268229,
+          224517.20586286273
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11778,7 +11811,8 @@ window.BENCHMARK_DATA = {
           15619,
           15619,
           15579,
-          15619
+          15619,
+          15618
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -12131,7 +12165,8 @@ window.BENCHMARK_DATA = {
           114.139230966568,
           142.34455270426614,
           211.03972165925163,
-          151.67750552984384
+          151.67750552984384,
+          170.14610767364502
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -12272,6 +12307,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -12834,7 +12870,8 @@ window.BENCHMARK_DATA = {
           100.98645865917206,
           124.08638152709374,
           235.69838530222574,
-          136.83325386047363
+          136.83325386047363,
+          156.0662207921346
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -12968,6 +13005,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -15232,6 +15270,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -15573,7 +15617,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -15918,7 +15963,8 @@ window.BENCHMARK_DATA = {
           582.6267019271851,
           395.73905922571817,
           568.9525784764971,
-          485.28898893992107
+          485.28898893992107,
+          335.17027018620416
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -16247,6 +16293,7 @@ window.BENCHMARK_DATA = {
           1824,
           1824,
           1840,
+          1848,
           1848,
           1848,
           1848,
@@ -16621,7 +16668,8 @@ window.BENCHMARK_DATA = {
           407665.59108072915,
           471515.27005208336,
           398739.879296875,
-          530102.2044921875
+          530102.2044921875,
+          405093.4324079241
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16971,6 +17019,7 @@ window.BENCHMARK_DATA = {
           38350,
           38523,
           38542,
+          38491,
           38491
         ],
         "borderColor": "#A052B0",
@@ -17324,7 +17373,8 @@ window.BENCHMARK_DATA = {
           143611.7478515625,
           130322.41625976562,
           143950.8258626302,
-          210877.82001953124
+          210877.82001953124,
+          114193.38124186198
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17674,7 +17724,8 @@ window.BENCHMARK_DATA = {
           28099,
           28100,
           28155,
-          28100
+          28100,
+          28160
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -18027,7 +18078,8 @@ window.BENCHMARK_DATA = {
           169004.73250325522,
           167269.22779947918,
           167887.46307842547,
-          248150.03191266741
+          248150.03191266741,
+          144723.66845703125
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -18377,6 +18429,7 @@ window.BENCHMARK_DATA = {
           30253,
           30273,
           30253,
+          30273,
           30273
         ],
         "borderColor": "#4A6FA5",
@@ -18730,7 +18783,8 @@ window.BENCHMARK_DATA = {
           401.5980161939348,
           309.5896368980408,
           384.02895978518893,
-          322.7861023743947
+          322.7861023743947,
+          268.87212661334445
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -19080,6 +19134,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1216,
           1216
         ],
         "borderColor": "#E84393",
@@ -19229,7 +19284,8 @@ window.BENCHMARK_DATA = {
           797.5708800043378,
           558.7417763196505,
           767.2563330332438,
-          660.4195539610727
+          660.4195539610727,
+          491.2730208805629
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -19336,6 +19392,7 @@ window.BENCHMARK_DATA = {
           2856,
           2856,
           2856,
+          2208,
           2208,
           2208,
           2208,
@@ -21423,6 +21480,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -21764,7 +21827,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -22109,7 +22173,8 @@ window.BENCHMARK_DATA = {
           1565.3595111846923,
           1102.591598002116,
           1567.4310599009195,
-          1246.7275310516357
+          1246.7275310516357,
+          955.6160865511213
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -22438,6 +22503,7 @@ window.BENCHMARK_DATA = {
           2760,
           2760,
           2776,
+          2784,
           2784,
           2784,
           2784,
@@ -22812,7 +22878,8 @@ window.BENCHMARK_DATA = {
           414110.2718098958,
           484230.066015625,
           415055.0586914063,
-          536023.9745396206
+          536023.9745396206,
+          418749.65869140625
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -23162,7 +23229,8 @@ window.BENCHMARK_DATA = {
           46949,
           47105,
           48147,
-          48063
+          48063,
+          48079
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -23515,7 +23583,8 @@ window.BENCHMARK_DATA = {
           162620.0868966239,
           150892.20087541852,
           161295.57348632812,
-          232479.48807198662
+          232479.48807198662,
+          126991.69549153646
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -23865,7 +23934,8 @@ window.BENCHMARK_DATA = {
           41205,
           41215,
           41765,
-          41215
+          41215,
+          41271
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -24218,7 +24288,8 @@ window.BENCHMARK_DATA = {
           188705.6368233817,
           191082.6020320012,
           188501.99740835337,
-          270809.96536458336
+          270809.96536458336,
+          163503.72526041666
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -24568,7 +24639,8 @@ window.BENCHMARK_DATA = {
           49925,
           49930,
           49925,
-          49926
+          49926,
+          49930
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -24921,7 +24993,8 @@ window.BENCHMARK_DATA = {
           905.3224887166705,
           743.5822032292684,
           884.0952330316816,
-          766.9235751969474
+          766.9235751969474,
+          647.7835299628122
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -25271,6 +25344,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2296,
           2296
         ],
         "borderColor": "#E84393",
@@ -25420,7 +25494,8 @@ window.BENCHMARK_DATA = {
           2604.856991631644,
           2227.711037562444,
           2783.061744396503,
-          2360.2018896249624
+          2360.2018896249624,
+          1769.270107269287
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -25527,6 +25602,7 @@ window.BENCHMARK_DATA = {
           5568,
           5568,
           5568,
+          5248,
           5248,
           5248,
           5248,
@@ -27614,6 +27690,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -27955,7 +28037,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -28300,7 +28383,8 @@ window.BENCHMARK_DATA = {
           140.6960107644399,
           107.78013815198626,
           128.39051258563995,
-          107.15619398752848
+          107.15619398752848,
+          111.58185801506042
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -28629,6 +28713,7 @@ window.BENCHMARK_DATA = {
           592,
           592,
           592,
+          600,
           600,
           600,
           600,
@@ -29003,7 +29088,8 @@ window.BENCHMARK_DATA = {
           4786.968939644949,
           3457.7873125712076,
           4630.35131632487,
-          3468.231568745204
+          3468.231568745204,
+          3592.816965738932
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -29293,6 +29379,7 @@ window.BENCHMARK_DATA = {
           14902,
           14914,
           14906,
+          6552,
           6552,
           6552,
           6552,
@@ -29706,7 +29793,8 @@ window.BENCHMARK_DATA = {
           6187.6728194100515,
           4472.856345040457,
           5965.573323059082,
-          4434.320969136556
+          4434.320969136556,
+          4175.043894254244
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -29996,6 +30084,7 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9320,
+          9816,
           9816,
           9816,
           9816,
@@ -30409,7 +30498,8 @@ window.BENCHMARK_DATA = {
           4791.145398457845,
           3512.475371042887,
           4703.057462964739,
-          3511.6971237182615
+          3511.6971237182615,
+          3214.869118754069
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -30756,6 +30846,7 @@ window.BENCHMARK_DATA = {
           7517,
           7509,
           7509,
+          7517,
           7517,
           7517,
           7517,
@@ -31112,7 +31203,8 @@ window.BENCHMARK_DATA = {
           183.23354694048564,
           155.89073414461953,
           177.25976530143194,
-          151.68898078600566
+          151.68898078600566,
+          168.06197914710413
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -31402,6 +31494,7 @@ window.BENCHMARK_DATA = {
           728,
           728,
           728,
+          808,
           808,
           808,
           808,
@@ -31815,7 +31908,8 @@ window.BENCHMARK_DATA = {
           356.99942207336426,
           289.50961117744447,
           345.9005630493164,
-          281.3124764442444
+          281.3124764442444,
+          292.7177617708842
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -32126,6 +32220,7 @@ window.BENCHMARK_DATA = {
           2136,
           2136,
           2136,
+          1424,
           1424,
           1424,
           1424,
@@ -34213,6 +34308,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -34554,7 +34655,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -34899,7 +35001,8 @@ window.BENCHMARK_DATA = {
           376.3234697341919,
           282.36114069393705,
           362.3267352397625,
-          278.2674216588338
+          278.2674216588338,
+          277.55128930165216
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -35228,6 +35331,7 @@ window.BENCHMARK_DATA = {
           1096,
           1096,
           1096,
+          1104,
           1104,
           1104,
           1104,
@@ -35602,7 +35706,8 @@ window.BENCHMARK_DATA = {
           6772.071073804583,
           5081.1837812151225,
           6506.1299149649485,
-          5090.900174458821
+          5090.900174458821,
+          4720.47824042184
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -35892,6 +35997,7 @@ window.BENCHMARK_DATA = {
           18901,
           18906,
           18883,
+          10536,
           10536,
           10536,
           10536,
@@ -36305,7 +36411,8 @@ window.BENCHMARK_DATA = {
           9139.066672770183,
           6617.685050419399,
           8939.467927115304,
-          6230.006865910122
+          6230.006865910122,
+          6224.358988189697
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -36655,6 +36762,7 @@ window.BENCHMARK_DATA = {
           12841,
           12840,
           12841,
+          12840,
           12840
         ],
         "borderColor": "#5E2750",
@@ -37008,7 +37116,8 @@ window.BENCHMARK_DATA = {
           8574.977384440104,
           6390.981716410319,
           8384.705674235027,
-          5768.317787679037
+          5768.317787679037,
+          5842.697754414877
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -37355,6 +37464,7 @@ window.BENCHMARK_DATA = {
           15754,
           15748,
           15748,
+          15754,
           15754,
           15754,
           15754,
@@ -37711,7 +37821,8 @@ window.BENCHMARK_DATA = {
           386.1937605857849,
           322.0818369229635,
           373.9958378791809,
-          312.2422841389974
+          312.2422841389974,
+          302.1820156097412
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -38001,6 +38112,7 @@ window.BENCHMARK_DATA = {
           1088,
           1088,
           1088,
+          1168,
           1168,
           1168,
           1168,
@@ -38414,7 +38526,8 @@ window.BENCHMARK_DATA = {
           1213.3482354482014,
           960.4882425944011,
           1139.1641253062658,
-          973.5370005198887
+          973.5370005198887,
+          885.9636154856
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -38725,6 +38838,7 @@ window.BENCHMARK_DATA = {
           3888,
           3888,
           3888,
+          3288,
           3288,
           3288,
           3288,
@@ -40812,6 +40926,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -41153,7 +41273,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -41498,7 +41619,8 @@ window.BENCHMARK_DATA = {
           331.83599618503024,
           184.00670976638793,
           323.5445539792379,
-          254.23198534647625
+          254.23198534647625,
+          198.2899206638336
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -41827,6 +41949,7 @@ window.BENCHMARK_DATA = {
           920,
           920,
           920,
+          928,
           928,
           928,
           928,
@@ -42201,7 +42324,8 @@ window.BENCHMARK_DATA = {
           8822.796264648438,
           5748.170517985026,
           11484.27085658482,
-          6950.474336896624
+          6950.474336896624,
+          7812.0037677471455
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -42551,7 +42675,8 @@ window.BENCHMARK_DATA = {
           10569,
           10568,
           10681,
-          10568
+          10568,
+          10456
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -42904,7 +43029,8 @@ window.BENCHMARK_DATA = {
           6582.235204060872,
           4286.704435475667,
           7981.411450195313,
-          5197.443603006998
+          5197.443603006998,
+          5571.149459293911
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -43250,6 +43376,7 @@ window.BENCHMARK_DATA = {
           11688,
           11664,
           11688,
+          11664,
           11664,
           11664,
           11664,
@@ -43607,7 +43734,8 @@ window.BENCHMARK_DATA = {
           6216.937080383301,
           4007.520157877604,
           7921.243847438267,
-          4869.862783813476
+          4869.862783813476,
+          5587.422952505259
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -43957,7 +44085,8 @@ window.BENCHMARK_DATA = {
           11191,
           11196,
           11196,
-          11191
+          11191,
+          11196
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -44310,7 +44439,8 @@ window.BENCHMARK_DATA = {
           216.30694792820856,
           118.26426866849263,
           185.75569065411887,
-          166.67359343596868
+          166.67359343596868,
+          134.93769164085387
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -44476,6 +44606,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -45013,7 +45144,8 @@ window.BENCHMARK_DATA = {
           450.3056672981807,
           251.91801042556762,
           402.8151313463847,
-          353.1812252998352
+          353.1812252998352,
+          299.5780892690023
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -45324,6 +45456,7 @@ window.BENCHMARK_DATA = {
           1672,
           1672,
           1672,
+          1464,
           1464,
           1464,
           1464,
@@ -47411,6 +47544,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -47752,7 +47891,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -48097,7 +48237,8 @@ window.BENCHMARK_DATA = {
           766.7275428038377,
           482.02262455622355,
           635.759751701355,
-          584.7558280944825
+          584.7558280944825,
+          506.1754942621504
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -48426,6 +48567,7 @@ window.BENCHMARK_DATA = {
           1784,
           1784,
           1784,
+          1792,
           1792,
           1792,
           1792,
@@ -48800,7 +48942,8 @@ window.BENCHMARK_DATA = {
           14763.00876726423,
           9593.788368733723,
           18518.771100557766,
-          11720.942439778646
+          11720.942439778646,
+          12553.444090706962
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -49150,7 +49293,8 @@ window.BENCHMARK_DATA = {
           18504,
           18505,
           18617,
-          18504
+          18504,
+          17385
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -49503,7 +49647,8 @@ window.BENCHMARK_DATA = {
           15347.08341862605,
           9343.465547688802,
           18150.502831092246,
-          11796.61766357422
+          11796.61766357422,
+          12981.56933266776
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -49853,7 +49998,8 @@ window.BENCHMARK_DATA = {
           21528,
           21529,
           21529,
-          21528
+          21528,
+          21529
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -50206,7 +50352,8 @@ window.BENCHMARK_DATA = {
           16182.157453264508,
           9850.82468922933,
           20389.28825683594,
-          12825.858947753906
+          12825.858947753906,
+          13615.03476969401
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -50556,7 +50703,8 @@ window.BENCHMARK_DATA = {
           30785,
           30785,
           30785,
-          30780
+          30780,
+          30785
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -50909,7 +51057,8 @@ window.BENCHMARK_DATA = {
           453.8782524381365,
           282.8996290206909,
           329.97416356404625,
-          331.91280968983966
+          331.91280968983966,
+          255.39363792964392
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -51075,6 +51224,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -51612,7 +51762,8 @@ window.BENCHMARK_DATA = {
           1621.6191441672188,
           1005.562082699367,
           1444.5087412516275,
-          1254.0860204060873
+          1254.0860204060873,
+          1043.256666946411
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -51923,6 +52074,7 @@ window.BENCHMARK_DATA = {
           4024,
           4024,
           4024,
+          3600,
           3600,
           3600,
           3600,
@@ -54010,6 +54162,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -54351,7 +54509,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -54696,7 +54855,8 @@ window.BENCHMARK_DATA = {
           15.244588754574458,
           16.307360271612804,
           16.014492696523668,
-          16.97465068789629
+          16.97465068789629,
+          12.82872092298099
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -54926,6 +55086,7 @@ window.BENCHMARK_DATA = {
           160,
           160,
           160,
+          136,
           136,
           136,
           136,
@@ -55399,7 +55560,8 @@ window.BENCHMARK_DATA = {
           88.66675125635587,
           90.71547797093025,
           89.25889783700308,
-          85.5967360496521
+          85.5967360496521,
+          75.79106874649341
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -55565,6 +55727,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -56102,7 +56265,8 @@ window.BENCHMARK_DATA = {
           26.071893909802803,
           28.129616383711497,
           27.81234678030014,
-          31.038887480894726
+          31.038887480894726,
+          22.264426201581955
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -56236,6 +56400,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -56805,7 +56970,8 @@ window.BENCHMARK_DATA = {
           1270.9239422480266,
           1332.971263885498,
           1281.233686174665,
-          860.6004859288533
+          860.6004859288533,
+          950.3862474305289
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -56966,6 +57132,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -57508,7 +57675,8 @@ window.BENCHMARK_DATA = {
           1825.3172103881836,
           2108.6399602254232,
           1830.182265826634,
-          1212.8030378977458
+          1212.8030378977458,
+          1384.0988314492363
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -57669,6 +57837,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -58211,7 +58380,8 @@ window.BENCHMARK_DATA = {
           1479.1043014526367,
           1718.4477880918062,
           1594.386801447187,
-          1039.9059769948324
+          1039.9059769948324,
+          1202.794215774536
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -58561,7 +58731,8 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2755,
-          2751
+          2751,
+          2755
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -59511,6 +59682,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -59669,7 +59846,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -59831,7 +60009,8 @@ window.BENCHMARK_DATA = {
           1709.4810643877302,
           1158.3194972551787,
           2347.2115816752116,
-          2498.969782511393
+          2498.969782511393,
+          2558.2819094340007
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -59977,6 +60156,7 @@ window.BENCHMARK_DATA = {
           5264,
           5264,
           5264,
+          5296,
           5296,
           5296,
           5296,
@@ -60168,7 +60348,8 @@ window.BENCHMARK_DATA = {
           2061.121983846029,
           1328.8774302164713,
           2565.3961441040037,
-          2658.7769200461253
+          2658.7769200461253,
+          2798.166628265381
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -60335,6 +60516,7 @@ window.BENCHMARK_DATA = {
           7385,
           7385,
           7384,
+          7385,
           7385
         ],
         "borderColor": "#E84393",
@@ -60505,7 +60687,8 @@ window.BENCHMARK_DATA = {
           3580.9297602726865,
           2386.0115370432536,
           4851.652558390299,
-          5009.234679412842
+          5009.234679412842,
+          5324.719690322876
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -60633,6 +60816,7 @@ window.BENCHMARK_DATA = {
           17360,
           17360,
           17360,
+          10920,
           10920,
           10920,
           10920,
@@ -60842,7 +61026,8 @@ window.BENCHMARK_DATA = {
           1033688.9226888021,
           662404.8628255208,
           1261752.2352864584,
-          1462924.5678013393
+          1462924.5678013393,
+          1486545.773158482
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -61009,7 +61194,8 @@ window.BENCHMARK_DATA = {
           92650,
           92512,
           92355,
-          92313
+          92313,
+          92233
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -61179,7 +61365,8 @@ window.BENCHMARK_DATA = {
           271850.9981515067,
           211063.3181966146,
           311199.35592447914,
-          319412.634765625
+          319412.634765625,
+          328154.9913085938
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -61346,6 +61533,7 @@ window.BENCHMARK_DATA = {
           54382,
           54379,
           54373,
+          54382,
           54382
         ],
         "borderColor": "#5E2750",
@@ -61516,7 +61704,8 @@ window.BENCHMARK_DATA = {
           307561.48128255206,
           252583.8154296875,
           359347.4146158854,
-          367129.31953125
+          367129.31953125,
+          380484.16193498886
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -61683,7 +61872,8 @@ window.BENCHMARK_DATA = {
           65519,
           65719,
           65362,
-          65399
+          65399,
+          65479
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -62519,6 +62709,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -62658,7 +62854,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -62801,7 +62998,8 @@ window.BENCHMARK_DATA = {
           26658.41997273763,
           20796.111391339982,
           25314.08899797712,
-          20049.038649495444
+          20049.038649495444,
+          19963.34118041992
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -62928,6 +63126,7 @@ window.BENCHMARK_DATA = {
           56536,
           56536,
           56536,
+          56544,
           56544,
           56544,
           56544,
@@ -63100,7 +63299,8 @@ window.BENCHMARK_DATA = {
           22915.793438251203,
           18512.149001057944,
           21671.0778116862,
-          17709.09053693499
+          17709.09053693499,
+          17946.3573819674
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -63188,6 +63388,7 @@ window.BENCHMARK_DATA = {
           40688,
           40688,
           40688,
+          40768,
           40768,
           40768,
           40768,
@@ -63399,7 +63600,8 @@ window.BENCHMARK_DATA = {
           82453.93505045572,
           68053.03220214843,
           77845.55759840745,
-          63161.587674654445
+          63161.587674654445,
+          64066.78379720052
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -63533,6 +63735,7 @@ window.BENCHMARK_DATA = {
           178353,
           178353,
           178352,
+          178353,
           178353,
           178353,
           178353,
@@ -63698,7 +63901,8 @@ window.BENCHMARK_DATA = {
           202355.8836751302,
           159964.34314903847,
           184621.28561197917,
-          151843.5859200614
+          151843.5859200614,
+          148148.20083383413
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -63845,6 +64049,7 @@ window.BENCHMARK_DATA = {
           423539,
           423564,
           423563,
+          423564,
           423564,
           423564
         ],
@@ -63997,7 +64202,8 @@ window.BENCHMARK_DATA = {
           309898.485546875,
           217682.21449497767,
           262365.64665876114,
-          216192.87603352865
+          216192.87603352865,
+          213480.56547851564
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -64145,6 +64351,7 @@ window.BENCHMARK_DATA = {
           378539,
           378535,
           378539,
+          378535,
           378535
         ],
         "borderColor": "#5E2750",
@@ -64296,7 +64503,8 @@ window.BENCHMARK_DATA = {
           405634.5759626116,
           321069.6062950721,
           379440.9630998884,
-          297223.49943033856
+          297223.49943033856,
+          291921.64568219864
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -64444,6 +64652,7 @@ window.BENCHMARK_DATA = {
           943763,
           943722,
           943763,
+          943722,
           943722
         ],
         "borderColor": "#4A6FA5",
@@ -65280,6 +65489,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -65419,7 +65634,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -65562,7 +65778,8 @@ window.BENCHMARK_DATA = {
           49977.2215183803,
           30488.567872111,
           42584.57388916016,
-          39293.71736497145
+          39293.71736497145,
+          33678.66143798828
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -65689,6 +65906,7 @@ window.BENCHMARK_DATA = {
           96824,
           96824,
           96824,
+          96832,
           96832,
           96832,
           96832,
@@ -65861,7 +66079,8 @@ window.BENCHMARK_DATA = {
           26818.492776053292,
           16213.913753255209,
           17476.190521240234,
-          19249.42783610026
+          19249.42783610026,
+          13294.577491251628
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -66009,7 +66228,8 @@ window.BENCHMARK_DATA = {
           32640,
           32641,
           32641,
-          32640
+          32640,
+          32641
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -66160,7 +66380,8 @@ window.BENCHMARK_DATA = {
           124535.62462439903,
           74274.69064941406,
           101968.00101725261,
-          97783.49112141927
+          97783.49112141927,
+          77013.9130045573
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -66294,6 +66515,7 @@ window.BENCHMARK_DATA = {
           218305,
           218305,
           218304,
+          218305,
           218305,
           218305,
           218305,
@@ -66459,7 +66681,8 @@ window.BENCHMARK_DATA = {
           579834.1764090402,
           386295.7885366586,
           751621.5862304687,
-          439850.12135416665
+          439850.12135416665,
+          497063.7490234375
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -66607,7 +66830,8 @@ window.BENCHMARK_DATA = {
           836452,
           836538,
           836653,
-          836449
+          836449,
+          724509
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -66758,7 +66982,8 @@ window.BENCHMARK_DATA = {
           928692.7698102678,
           613244.897265625,
           1172731.258203125,
-          696000.7041666667
+          696000.7041666667,
+          793445.6549944197
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -66906,7 +67131,8 @@ window.BENCHMARK_DATA = {
           1139621,
           1139697,
           1139704,
-          1139621
+          1139621,
+          1139701
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -67057,7 +67283,8 @@ window.BENCHMARK_DATA = {
           1092787.426171875,
           712414.0897460937,
           1410712.9720052083,
-          851165.766015625
+          851165.766015625,
+          1014692.91796875
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -67205,7 +67432,8 @@ window.BENCHMARK_DATA = {
           2194291,
           2194322,
           2194291,
-          2194285
+          2194285,
+          2194290
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -68041,6 +68269,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -68180,7 +68414,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -68323,7 +68558,8 @@ window.BENCHMARK_DATA = {
           111558.86087740384,
           77654.06319173177,
           111832.64215959821,
-          82840.36812046597
+          82840.36812046597,
+          66333.6412916917
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -68470,6 +68706,7 @@ window.BENCHMARK_DATA = {
           105745,
           105745,
           105744,
+          105745,
           105745,
           105745
         ],
@@ -68622,7 +68859,8 @@ window.BENCHMARK_DATA = {
           57044.73565673828,
           47432.5882039388,
           56377.93807279147,
-          50331.65936279297
+          50331.65936279297,
+          41323.680436197916
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -68770,6 +69008,7 @@ window.BENCHMARK_DATA = {
           121100,
           121101,
           121100,
+          121101,
           121101
         ],
         "borderColor": "#E84393",
@@ -68921,7 +69160,8 @@ window.BENCHMARK_DATA = {
           1324786.4171316964,
           1196908.7505580357,
           1329146.295768229,
-          1363065.7915736607
+          1363065.7915736607,
+          1077784.1609375
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -69069,7 +69309,8 @@ window.BENCHMARK_DATA = {
           936267,
           936449,
           1048360,
-          1048326
+          1048326,
+          1048320
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -69220,7 +69461,8 @@ window.BENCHMARK_DATA = {
           1954800.3954427084,
           1656075.4493489584,
           1967261.2561598558,
-          1981974.9935825893
+          1981974.9935825893,
+          1403466.0880301339
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -69368,7 +69610,8 @@ window.BENCHMARK_DATA = {
           1515825,
           1515860,
           1571828,
-          1515871
+          1515871,
+          1515916
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -69519,7 +69762,8 @@ window.BENCHMARK_DATA = {
           1792264.8432942708,
           1430268.5733816964,
           1848886.446875,
-          1804019.280078125
+          1804019.280078125,
+          1229571.8871372768
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -69667,7 +69911,8 @@ window.BENCHMARK_DATA = {
           2221373,
           2221424,
           2221373,
-          2221384
+          2221384,
+          2221424
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -69816,7 +70061,8 @@ window.BENCHMARK_DATA = {
           194165.24586588543,
           171269.07592773438,
           203069.65229492186,
-          170981.38117327009
+          170981.38117327009,
+          134131.46596679688
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -69923,6 +70169,7 @@ window.BENCHMARK_DATA = {
           300785,
           300785,
           300785,
+          299545,
           299545,
           299545,
           299545,
@@ -70750,6 +70997,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -70881,7 +71134,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -71016,7 +71270,8 @@ window.BENCHMARK_DATA = {
           327.36608463923136,
           325.46861310799915,
           710.8428109975962,
-          548.8346173422677
+          548.8346173422677,
+          375.9349351247152
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -71135,6 +71390,7 @@ window.BENCHMARK_DATA = {
           1544,
           1544,
           1560,
+          1568,
           1568,
           1568,
           1568,
@@ -71299,7 +71555,8 @@ window.BENCHMARK_DATA = {
           219.26397422949472,
           223.49243443806967,
           245.1111842564174,
-          324.3038662842342
+          324.3038662842342,
+          226.44995821317036
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -71311,6 +71568,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1088,
           1088,
           1088,
           1088,
@@ -71582,7 +71840,8 @@ window.BENCHMARK_DATA = {
           363.20097929636637,
           383.9180195808411,
           424.7139148712158,
-          608.1457993189493
+          608.1457993189493,
+          415.89625314076744
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -71683,6 +71942,7 @@ window.BENCHMARK_DATA = {
           1856,
           1856,
           1856,
+          1784,
           1784,
           1784,
           1784,
@@ -71865,7 +72125,8 @@ window.BENCHMARK_DATA = {
           34377.72200833834,
           69944.02033342634,
           73117.26768275669,
-          49617.434765625
+          49617.434765625,
+          36661.15936686198
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -72005,6 +72266,7 @@ window.BENCHMARK_DATA = {
           10031,
           10030,
           10173,
+          10009,
           10009
         ],
         "borderColor": "#A052B0",
@@ -72148,7 +72410,8 @@ window.BENCHMARK_DATA = {
           4289.437242889404,
           5236.5123781476705,
           5737.103308614095,
-          7268.276684897287
+          7268.276684897287,
+          5443.656460101788
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -72278,6 +72541,7 @@ window.BENCHMARK_DATA = {
           10248,
           10248,
           10416,
+          10248,
           10248,
           10248,
           10248,
@@ -72431,7 +72695,8 @@ window.BENCHMARK_DATA = {
           4220.421203068325,
           4938.494122641428,
           5714.247745220478,
-          6355.97634379069
+          6355.97634379069,
+          4834.54914855957
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -72571,6 +72836,7 @@ window.BENCHMARK_DATA = {
           11854,
           11854,
           11854,
+          11848,
           11848
         ],
         "borderColor": "#4A6FA5",
@@ -73359,6 +73625,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -73490,7 +73762,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -73625,7 +73898,8 @@ window.BENCHMARK_DATA = {
           1156.4049746649605,
           1219.9396489007133,
           1334.8900196892876,
-          1905.3413125446864
+          1905.3413125446864,
+          1390.973593711853
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -73744,6 +74018,7 @@ window.BENCHMARK_DATA = {
           4016,
           4016,
           4032,
+          4040,
           4040,
           4040,
           4040,
@@ -73908,7 +74183,8 @@ window.BENCHMARK_DATA = {
           713.775928624471,
           802.8811876296998,
           867.5741317612784,
-          1159.9939132690429
+          1159.9939132690429,
+          878.691889890035
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -73920,6 +74196,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2960,
           2960,
           2960,
           2960,
@@ -74191,7 +74468,8 @@ window.BENCHMARK_DATA = {
           2236.289404942439,
           2391.628672191075,
           2809.3776606241863,
-          3642.0242432185582
+          3642.0242432185582,
+          2724.8674865722655
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -74292,6 +74570,7 @@ window.BENCHMARK_DATA = {
           8672,
           8672,
           8672,
+          8600,
           8600,
           8600,
           8600,
@@ -74474,7 +74753,8 @@ window.BENCHMARK_DATA = {
           43042.846154785155,
           81581.02819824219,
           84603.24401855469,
-          67531.11310686384
+          67531.11310686384,
+          52007.06884765625
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -74614,7 +74894,8 @@ window.BENCHMARK_DATA = {
           25114,
           25114,
           25258,
-          25109
+          25109,
+          25108
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -74757,7 +75038,8 @@ window.BENCHMARK_DATA = {
           13407.788920593262,
           15745.209165445964,
           16994.03891645159,
-          20480.782604980468
+          20480.782604980468,
+          16545.259822591146
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -74897,7 +75179,8 @@ window.BENCHMARK_DATA = {
           23481,
           23481,
           23481,
-          23480
+          23480,
+          25496
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -75040,7 +75323,8 @@ window.BENCHMARK_DATA = {
           17187.684311930338,
           19734.310126671426,
           22297.92855834961,
-          26600.22685546875
+          26600.22685546875,
+          20021.802463785807
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -75180,6 +75464,7 @@ window.BENCHMARK_DATA = {
           55216,
           55216,
           55216,
+          55213,
           55213
         ],
         "borderColor": "#4A6FA5",
@@ -75968,6 +76253,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -76099,7 +76390,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -76234,7 +76526,8 @@ window.BENCHMARK_DATA = {
           93810.14238630023,
           95510.68931361607,
           99552.86630045573,
-          158914.33269391741
+          158914.33269391741,
+          115822.99462076822
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -76374,6 +76667,7 @@ window.BENCHMARK_DATA = {
           273321,
           273321,
           273320,
+          273321,
           273321
         ],
         "borderColor": "#63A2AC",
@@ -76517,7 +76811,8 @@ window.BENCHMARK_DATA = {
           59055.10490315755,
           66678.59015299479,
           70209.09721491887,
-          98591.19147949219
+          98591.19147949219,
+          70011.06067708334
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -76657,6 +76952,7 @@ window.BENCHMARK_DATA = {
           208883,
           208883,
           208883,
+          208881,
           208881
         ],
         "borderColor": "#E84393",
@@ -76800,7 +77096,8 @@ window.BENCHMARK_DATA = {
           217657.83656529017,
           227853.90542367788,
           266991.5011067708,
-          335873.03131510416
+          335873.03131510416,
+          245365.82408854167
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -76939,6 +77236,7 @@ window.BENCHMARK_DATA = {
           707722,
           707721,
           707721,
+          707722,
           707722,
           707722
         ],
@@ -77083,7 +77381,8 @@ window.BENCHMARK_DATA = {
           895738.4339518229,
           1160940.9055338542,
           1268772.8609095982,
-          1328285.5328125
+          1328285.5328125,
+          982717.872265625
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -77223,6 +77522,7 @@ window.BENCHMARK_DATA = {
           1692670,
           1692680,
           1692823,
+          1692567,
           1692567
         ],
         "borderColor": "#A052B0",
@@ -77366,7 +77666,8 @@ window.BENCHMARK_DATA = {
           1030205.3908854167,
           1184361.0121372768,
           1262940.0537860577,
-          1384721.0841145834
+          1384721.0841145834,
+          1164598.4011067708
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -77506,7 +77807,8 @@ window.BENCHMARK_DATA = {
           1468913,
           1468916,
           1468915,
-          1468807
+          1468807,
+          1692585
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -77649,7 +77951,8 @@ window.BENCHMARK_DATA = {
           2006096.2967354911,
           2106860.1028645835,
           2505082.647042411,
-          2646014.4869791665
+          2646014.4869791665,
+          1979840.0922475962
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -77789,6 +78092,7 @@ window.BENCHMARK_DATA = {
           4803376,
           4803384,
           4803379,
+          4803191,
           4803191
         ],
         "borderColor": "#4A6FA5",
@@ -78373,6 +78677,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -78470,7 +78780,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -78571,7 +78882,8 @@ window.BENCHMARK_DATA = {
           172.32465380888718,
           361.71318899790447,
           193.44636348088582,
-          363.0854703903198
+          363.0854703903198,
+          257.0943543116252
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -78656,6 +78968,7 @@ window.BENCHMARK_DATA = {
           1024,
           1024,
           1024,
+          1032,
           1032,
           1032,
           1032,
@@ -78786,7 +79099,8 @@ window.BENCHMARK_DATA = {
           241.21138773645674,
           427.03079264504566,
           273.0883120128087,
-          426.65179787363326
+          426.65179787363326,
+          346.59645579655967
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -78798,6 +79112,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1616,
           1616,
           1616,
           1616,
@@ -79001,7 +79316,8 @@ window.BENCHMARK_DATA = {
           446.34318432441125,
           861.3024941126506,
           493.56875835146224,
-          835.0185023716518
+          835.0185023716518,
+          656.0838738123576
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -79068,6 +79384,7 @@ window.BENCHMARK_DATA = {
           4464,
           4464,
           4464,
+          2632,
           2632,
           2632,
           2632,
@@ -79216,7 +79533,8 @@ window.BENCHMARK_DATA = {
           89092.88802664621,
           331818.4112723214,
           95580.51979282925,
-          337556.3826822917
+          337556.3826822917,
+          205015.86432756696
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -79322,7 +79640,8 @@ window.BENCHMARK_DATA = {
           23313,
           23282,
           23313,
-          23282
+          23282,
+          23302
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -79431,7 +79750,8 @@ window.BENCHMARK_DATA = {
           6863.990221296038,
           16275.492771402995,
           7952.413021632603,
-          16473.58832804362
+          16473.58832804362,
+          11279.608505249023
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -79537,7 +79857,8 @@ window.BENCHMARK_DATA = {
           19539,
           19554,
           19553,
-          19554
+          19554,
+          19553
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -79646,7 +79967,8 @@ window.BENCHMARK_DATA = {
           5214.588744027274,
           11765.993966674805,
           5985.614286295573,
-          11621.416764395577
+          11621.416764395577,
+          7822.4117146809895
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -79747,6 +80069,7 @@ window.BENCHMARK_DATA = {
           14332,
           14332,
           14324,
+          14332,
           14332,
           14332,
           14332,
@@ -80336,6 +80659,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -80433,7 +80762,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -80534,7 +80864,8 @@ window.BENCHMARK_DATA = {
           866.3753532262949,
           1648.1174350466047,
           952.0218943913777,
-          1786.7199065344673
+          1786.7199065344673,
+          1215.2742731911796
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -80619,6 +80950,7 @@ window.BENCHMARK_DATA = {
           3040,
           3040,
           3040,
+          3048,
           3048,
           3048,
           3048,
@@ -80749,7 +81081,8 @@ window.BENCHMARK_DATA = {
           823.651291402181,
           1368.2326689402262,
           900.2650708471026,
-          1502.001383972168
+          1502.001383972168,
+          1152.375289662679
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -80761,6 +81094,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          3488,
           3488,
           3488,
           3488,
@@ -80964,7 +81298,8 @@ window.BENCHMARK_DATA = {
           2423.184146294227,
           4257.87747446696,
           2582.0237437656947,
-          4233.749560546875
+          4233.749560546875,
+          3731.9318939208983
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -81031,6 +81366,7 @@ window.BENCHMARK_DATA = {
           10536,
           10536,
           10536,
+          9440,
           9440,
           9440,
           9440,
@@ -81179,7 +81515,8 @@ window.BENCHMARK_DATA = {
           107704.44190392128,
           371818.88936673675,
           112560.60561899039,
-          383219.792061942
+          383219.792061942,
+          236745.56005859375
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -81285,7 +81622,8 @@ window.BENCHMARK_DATA = {
           41152,
           41155,
           41152,
-          41155
+          41155,
+          41153
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -81394,7 +81732,8 @@ window.BENCHMARK_DATA = {
           12275.222752888998,
           28754.95999552409,
           14560.579895019531,
-          28553.225287804238
+          28553.225287804238,
+          19413.129692586263
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -81500,6 +81839,7 @@ window.BENCHMARK_DATA = {
           30095,
           30101,
           30095,
+          30101,
           30101
         ],
         "borderColor": "#5E2750",
@@ -81609,7 +81949,8 @@ window.BENCHMARK_DATA = {
           20787.674691336495,
           44344.941969651445,
           23934.596034458704,
-          44980.72411905925
+          44980.72411905925,
+          31087.783052571616
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -81710,6 +82051,7 @@ window.BENCHMARK_DATA = {
           60496,
           60496,
           60493,
+          60496,
           60496,
           60496,
           60496,
@@ -82299,6 +82641,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -82396,7 +82744,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -82497,7 +82846,8 @@ window.BENCHMARK_DATA = {
           77626.72841971261,
           148079.7622233073,
           83861.77675083706,
-          156701.30338541666
+          156701.30338541666,
+          105623.01651436942
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -82585,6 +82935,7 @@ window.BENCHMARK_DATA = {
           224809,
           224809,
           224808,
+          224809,
           224809,
           224809,
           224809,
@@ -82712,7 +83063,8 @@ window.BENCHMARK_DATA = {
           65743.61051432292,
           111072.69812825522,
           70247.51826695034,
-          113820.34373372396
+          113820.34373372396,
+          87139.98252766927
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -82818,6 +83170,7 @@ window.BENCHMARK_DATA = {
           209408,
           209409,
           209408,
+          209409,
           209409
         ],
         "borderColor": "#E84393",
@@ -82927,7 +83280,8 @@ window.BENCHMARK_DATA = {
           210558.0034830729,
           365882.1186899039,
           221623.27643229166,
-          379377.4859700521
+          379377.4859700521,
+          313018.91354166664
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -83033,6 +83387,7 @@ window.BENCHMARK_DATA = {
           653536,
           653538,
           653537,
+          653538,
           653538
         ],
         "borderColor": "#FF8C00",
@@ -83142,7 +83497,8 @@ window.BENCHMARK_DATA = {
           2117445.3359375,
           4309059.260602678,
           2106424.9765625,
-          4423839.727864583
+          4423839.727864583,
+          3103332.6990685095
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -83248,7 +83604,8 @@ window.BENCHMARK_DATA = {
           1936392,
           1936429,
           1936410,
-          1936429
+          1936429,
+          1936410
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -83357,7 +83714,8 @@ window.BENCHMARK_DATA = {
           592515.4708333333,
           1277553.7404947917,
           659890.5200195312,
-          1226900.142578125
+          1226900.142578125,
+          899931.0440848215
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -83463,7 +83821,8 @@ window.BENCHMARK_DATA = {
           1119115,
           1119169,
           1119115,
-          1119153
+          1119153,
+          1119115
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -83572,7 +83931,8 @@ window.BENCHMARK_DATA = {
           2052481.29140625,
           4170070.5636160714,
           2292835.2135416665,
-          4039199.8291666666
+          4039199.8291666666,
+          2986242.1409040177
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -83678,7 +84038,8 @@ window.BENCHMARK_DATA = {
           5051802,
           5051944,
           5051809,
-          5051944
+          5051944,
+          5051810
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -84262,6 +84623,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:43:57 2026 \u002B0100",
         "message": "docs: define test conventions and remove duplicate test classes (#1178)"
+      },
+      {
+        "sha": "f8b0da07d0a8fa3073778efb0e7e7b250293bd9d",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:44:32 2026 \u002B0100",
+        "message": "fix: implement an inherited member explicitly when a member of another kind has its name (#1173)"
       }
     ],
     "labels": [
@@ -84359,7 +84726,8 @@ window.BENCHMARK_DATA = {
       "36c2b427",
       "d1895996",
       "9f2893d5",
-      "33c45deb"
+      "33c45deb",
+      "f8b0da07"
     ],
     "datasets": [
       {
@@ -84460,7 +84828,8 @@ window.BENCHMARK_DATA = {
           2844.561973063151,
           3395.665672302246,
           2046.1714401245117,
-          3367.3681564331055
+          3367.3681564331055,
+          2762.046930948893
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -84545,6 +84914,7 @@ window.BENCHMARK_DATA = {
           2288,
           2288,
           2288,
+          2296,
           2296,
           2296,
           2296,
@@ -84675,7 +85045,8 @@ window.BENCHMARK_DATA = {
           2330.9098858466514,
           3069.787402598063,
           1872.7454167774745,
-          3063.817230097453
+          3063.817230097453,
+          2294.0083428700764
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -84687,6 +85058,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2288,
           2288,
           2288,
           2288,
@@ -84890,7 +85262,8 @@ window.BENCHMARK_DATA = {
           2937.837619527181,
           3633.300826753889,
           2181.2485986856314,
-          3569.149528503418
+          3569.149528503418,
+          2705.9010409037273
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -84957,6 +85330,7 @@ window.BENCHMARK_DATA = {
           3344,
           3344,
           3344,
+          2912,
           2912,
           2912,
           2912,
@@ -85105,7 +85479,8 @@ window.BENCHMARK_DATA = {
           10167.809558323452,
           15154.926959698018,
           7569.250177383423,
-          14338.617431640625
+          14338.617431640625,
+          9833.664733886719
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -85176,6 +85551,7 @@ window.BENCHMARK_DATA = {
           11048,
           11048,
           11049,
+          11048,
           11048,
           11048,
           11048,
@@ -85320,7 +85696,8 @@ window.BENCHMARK_DATA = {
           9418.3310546875,
           12917.095487467448,
           6684.580665043422,
-          12687.763067626953
+          12687.763067626953,
+          9017.89841402494
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -85426,7 +85803,8 @@ window.BENCHMARK_DATA = {
           14632,
           14633,
           14633,
-          15025
+          15025,
+          14632
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -85535,7 +85913,8 @@ window.BENCHMARK_DATA = {
           9650.627779134114,
           13051.035660879952,
           7279.923073401818,
-          13578.010387166341
+          13578.010387166341,
+          8866.589243570963
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -85641,7 +86020,8 @@ window.BENCHMARK_DATA = {
           14774,
           14620,
           14620,
-          14620
+          14620,
+          14614
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
