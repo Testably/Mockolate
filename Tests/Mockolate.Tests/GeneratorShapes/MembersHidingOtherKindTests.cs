@@ -7,7 +7,7 @@ namespace Mockolate.Tests.GeneratorShapes;
 public sealed class MembersHidingOtherKindTests
 {
 	[Test]
-	public async Task PropertyHidingObjectMethodName_ShouldConfigureAndVerifyBothMembers()
+	public async Task Property_WithHiddenToStringMethod_ShouldSetUpAndVerifyBothMembers()
 	{
 		IMembersHidingOtherKind sut = IMembersHidingOtherKind.CreateMock();
 		sut.Mock.Setup.ToString.InitializeWith(42);
@@ -23,7 +23,7 @@ public sealed class MembersHidingOtherKindTests
 	}
 
 	[Test]
-	public async Task EventHidingMethod_ShouldConfigureAndVerifyBothMembers()
+	public async Task Event_WithHiddenMethod_ShouldSetUpAndVerifyBothMembers()
 	{
 		IMembersHidingOtherKind sut = IMembersHidingOtherKind.CreateMock();
 		List<string> received = [];
@@ -39,7 +39,7 @@ public sealed class MembersHidingOtherKindTests
 	}
 
 	[Test]
-	public async Task MethodHidingProperty_ShouldConfigureAndVerifyBothMembers()
+	public async Task Method_WithHiddenProperty_ShouldSetUpAndVerifyBothMembers()
 	{
 		IMembersHidingOtherKind sut = IMembersHidingOtherKind.CreateMock();
 		sut.Mock.Setup.Size().Returns(3);
@@ -55,7 +55,7 @@ public sealed class MembersHidingOtherKindTests
 	}
 
 	[Test]
-	public async Task PropertyHidingEvent_ShouldConfigureAndVerifyBothMembers()
+	public async Task Property_WithHiddenEvent_ShouldSetUpAndVerifyBothMembers()
 	{
 		IMembersHidingOtherKind sut = IMembersHidingOtherKind.CreateMock();
 		List<string> received = [];
@@ -72,7 +72,7 @@ public sealed class MembersHidingOtherKindTests
 	}
 
 	[Test]
-	public async Task EventHidingProperty_ShouldConfigureAndVerifyBothMembers()
+	public async Task Event_WithHiddenProperty_ShouldSetUpAndVerifyBothMembers()
 	{
 		IMembersHidingOtherKind sut = IMembersHidingOtherKind.CreateMock();
 		List<string> received = [];
@@ -89,7 +89,7 @@ public sealed class MembersHidingOtherKindTests
 	}
 
 	[Test]
-	public async Task MethodHidingEvent_ShouldConfigureAndVerifyBothMembers()
+	public async Task Method_WithHiddenEvent_ShouldSetUpAndVerifyBothMembers()
 	{
 		IMembersHidingOtherKind sut = IMembersHidingOtherKind.CreateMock();
 		List<string> received = [];
@@ -105,7 +105,7 @@ public sealed class MembersHidingOtherKindTests
 	}
 
 	[Test]
-	public async Task SiblingMembersOfOtherKind_ShouldConfigureAndVerifyBothMembers()
+	public async Task WithSiblingMembers_ShouldSetUpAndVerifyBothMembers()
 	{
 		IMembersOfOtherKindSiblings sut = IMembersOfOtherKindSiblings.CreateMock();
 		List<int> received = [];
@@ -122,7 +122,7 @@ public sealed class MembersHidingOtherKindTests
 	}
 
 	[Test]
-	public async Task ClassPropertyHidingVirtualMethod_ShouldConfigureAndVerifyProperty()
+	public async Task Property_WithHiddenVirtualMethodOfBaseClass_ShouldOnlyMockTheProperty()
 	{
 		MembersHidingOtherKindBase sut = MembersHidingOtherKindBase.CreateMock();
 		sut.Mock.Setup.Run.InitializeWith(5);

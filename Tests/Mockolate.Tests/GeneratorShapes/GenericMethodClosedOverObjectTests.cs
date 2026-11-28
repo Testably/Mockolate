@@ -8,7 +8,7 @@ namespace Mockolate.Tests.GeneratorShapes;
 public sealed class GenericMethodClosedOverObjectTests
 {
 	[Test]
-	public async Task Matcher_ShouldSetUpTheMethod()
+	public async Task WithMatcher_ShouldSetUpTheMethod()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		List<object?> received = [];
@@ -27,7 +27,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task Matcher_ShouldVerifyTheMethod()
+	public async Task WithMatcher_ShouldVerifyTheMethod()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 
@@ -48,7 +48,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task Matcher_WhenVerificationFails_ShouldDescribeTheMatcher()
+	public async Task WithMatcher_WhenVerificationFails_ShouldDescribeTheMatcher()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Plain<object>(1);
@@ -61,7 +61,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task ParametersMatch_WhenVerificationFails_ShouldDescribeTheParametersMatch()
+	public async Task WithParametersMatch_WhenVerificationFails_ShouldDescribeTheParametersMatch()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 
@@ -73,7 +73,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task ParametersMatch_ShouldSetUpTheMethod()
+	public async Task WithParametersMatch_ShouldSetUpTheMethod()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		List<string> received = [];
@@ -94,7 +94,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task ParametersMatch_ShouldVerifyTheMethod()
+	public async Task WithParametersMatch_ShouldVerifyTheMethod()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 
@@ -113,7 +113,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task ParametersMatchWithParamsArray_WhenVerificationFails_ShouldDescribeTheParametersMatch()
+	public async Task WithParametersMatchForParamsArray_WhenVerificationFails_ShouldDescribeTheParametersMatch()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 
@@ -125,7 +125,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task ParamsMatchers_ShouldSetUpTheMethod()
+	public async Task WithParamsMatchers_ShouldSetUpTheMethod()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		List<object?> received = [];
@@ -151,7 +151,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task ParamsNullArray_ShouldMatchNullArray()
+	public async Task WithNullParamsArray_ShouldMatchANullArray()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.Sum<object>(1, null).Returns(1);
@@ -168,7 +168,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task ParamsLeadingDefault_ShouldStandForTheValue()
+	public async Task WithLoneDefault_ShouldStandForTheValue()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.Sum<object>(default).Returns(1);
@@ -183,7 +183,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task OverloadedParams_ShouldBindLikeTheCallOnTheMock()
+	public async Task WithOverloadedParamsMethod_ShouldBindLikeTheCallOnTheMock()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.Add(1, 2).Returns(1);
@@ -200,7 +200,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task ParamsNullElements_ShouldMatchNullElements()
+	public async Task WithNullParamsElements_ShouldMatchNullElements()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		int count = 0;
@@ -216,7 +216,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task ParamsMatchers_ShouldInferTheTypeArgument()
+	public async Task WithParamsMatchers_ShouldInferTheTypeArgument()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		List<string> received = [];
@@ -236,7 +236,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task ParamsParametersMatch_ShouldSetUpTheMethod()
+	public async Task WithParametersMatchForParamsArray_ShouldSetUpTheMethod()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		int count = 0;
@@ -254,7 +254,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task ParamsMatchers_ShouldVerifyTheMethod()
+	public async Task WithParamsMatchers_ShouldVerifyTheMethod()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 
@@ -280,7 +280,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task ParamsMatchers_WhenVerificationFails_ShouldDescribeTheMatchers()
+	public async Task WithParamsMatchers_WhenVerificationFails_ShouldDescribeTheMatchers()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 
@@ -292,7 +292,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task Value_ShouldStillMatchAsValue()
+	public async Task WithValue_ShouldStillMatchAsValue()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		object value = new List<int>();
@@ -314,7 +314,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task OtherTypeArguments_ShouldMatchAsBefore()
+	public async Task WithTypeArgumentOtherThanObject_ShouldMatchValuesAndMatchers()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.Two<string>(1, It.IsAny<string>()).Returns(1);
@@ -331,7 +331,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task ParamsValues_ShouldStillMatchAsValues()
+	public async Task WithParamsValues_ShouldStillMatchAsValues()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.Sum<object>(1, "a", 2).Returns(1);
@@ -349,7 +349,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task ParamsBesideAnOptionalParameter_ShouldTakeANullAsValue()
+	public async Task WithParamsBesideAnOptionalParameter_ShouldTakeANullAsValue()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.OptMid<object>(1, null).Returns(1);
@@ -366,7 +366,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task ParamsDefaultElements_ShouldMatchTheDefaultValueOfAValueType()
+	public async Task WithDefaultParamsElements_ShouldMatchTheDefaultValueOfAValueType()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.Sum<int>(default, default, default).Returns(1);
@@ -382,7 +382,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task ParamsLeadingNull_ShouldStandForTheDefaultValue()
+	public async Task WithLoneNull_ShouldStandForTheDefaultValue()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.Sum<object>(null).Returns(1);
@@ -394,7 +394,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task ParamsAboveFourParameters_ShouldMatchANullArrayAndAWholeArrayMatcher()
+	public async Task WithParamsAndMoreThanFourParameters_ShouldMatchANullArrayAndAWholeArrayMatcher()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.Six<object>(1, 2, 3, 4, null!).Returns(1);
@@ -411,7 +411,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task OverloadedParams_ShouldMatchANullArray()
+	public async Task WithOverloadedParamsMethod_ShouldMatchANullArray()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.Add<string>(null!).Returns(1);
@@ -423,7 +423,7 @@ public sealed class GenericMethodClosedOverObjectTests
 	}
 
 	[Test]
-	public async Task ParamsOnAClass_ShouldTakeMatchers()
+	public async Task WithParamsMethodOfAClass_ShouldTakeMatchers()
 	{
 		GenericParamsMethodBase sut = GenericParamsMethodBase.CreateMock();
 		sut.Mock.Setup.Only(It.IsAny<string>(), It.IsAny<string>()).Returns(1);

@@ -5,7 +5,7 @@ namespace Mockolate.Tests.GeneratorShapes;
 public sealed class GenericMethodOverrideTests
 {
 	[Test]
-	public async Task ConstrainedNullableTypeParameter_ShouldBeSetUpAndVerifiable()
+	public async Task Method_WithConstrainedNullableTypeParameter_ShouldBeSetUpAndVerifiable()
 	{
 		GenericMethodOverrideBase sut = GenericMethodOverrideBase.CreateMock();
 		int nullCount = 0;
@@ -33,7 +33,7 @@ public sealed class GenericMethodOverrideTests
 	}
 
 	[Test]
-	public async Task NullableTypeParameterParameter_ShouldBeSetUp()
+	public async Task Method_WithNullableTypeParameterAsParameterType_ShouldBeSetUp()
 	{
 		GenericMethodOverrideBase sut = GenericMethodOverrideBase.CreateMock();
 		int sum = 0;
@@ -52,7 +52,7 @@ public sealed class GenericMethodOverrideTests
 	}
 
 	[Test]
-	public async Task NullableTypeParameterParameter_ShouldBeVerifiable()
+	public async Task Method_WithNullableTypeParameterAsParameterType_ShouldBeVerifiable()
 	{
 		GenericMethodOverrideBase sut = GenericMethodOverrideBase.CreateMock();
 
@@ -69,7 +69,7 @@ public sealed class GenericMethodOverrideTests
 	}
 
 	[Test]
-	public async Task NullableTypeParameterReturn_ShouldBeSetUp()
+	public async Task Method_WithNullableTypeParameterAsReturnType_ShouldBeSetUp()
 	{
 		GenericMethodOverrideBase sut = GenericMethodOverrideBase.CreateMock();
 		sut.Mock.Setup.Get<int>().Returns(5);

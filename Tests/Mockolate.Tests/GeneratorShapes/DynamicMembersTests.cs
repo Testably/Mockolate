@@ -8,7 +8,7 @@ namespace Mockolate.Tests.GeneratorShapes;
 public sealed class DynamicMembersTests
 {
 	[Test]
-	public async Task DynamicParameters_ShouldMatchLiteralsAndMatchers()
+	public async Task Method_WithDynamicParameters_ShouldMatchValuesAndMatchers()
 	{
 		IDynamicMembers sut = IDynamicMembers.CreateMock();
 		List<object> received = [];
@@ -34,7 +34,7 @@ public sealed class DynamicMembersTests
 	}
 
 	[Test]
-	public async Task DynamicParameters_ShouldBeVerifiable()
+	public async Task Method_WithDynamicParameters_ShouldBeVerifiable()
 	{
 		IDynamicMembers sut = IDynamicMembers.CreateMock();
 
@@ -63,7 +63,7 @@ public sealed class DynamicMembersTests
 	}
 
 	[Test]
-	public async Task DynamicOutAndRefParameters_ShouldBeSetUp()
+	public async Task Method_WithDynamicOutAndRefParameters_ShouldSetThemFromTheSetup()
 	{
 		IDynamicMembers sut = IDynamicMembers.CreateMock();
 		sut.Mock.Setup.DynTuple(It.IsOut<object>(() => "out"), It.IsRef<object>(r => $"{r}!"))
@@ -79,7 +79,7 @@ public sealed class DynamicMembersTests
 	}
 
 	[Test]
-	public async Task DynamicReturnType_ShouldReturnSetupValue()
+	public async Task Method_WithDynamicReturnType_ShouldReturnTheSetupValue()
 	{
 		IDynamicMembers sut = IDynamicMembers.CreateMock();
 		sut.Mock.Setup.Get().Returns(3);
@@ -91,7 +91,7 @@ public sealed class DynamicMembersTests
 	}
 
 	[Test]
-	public async Task DynamicProperty_ShouldBeSetUpAndVerified()
+	public async Task Property_WithDynamicType_ShouldBeSetUpAndVerified()
 	{
 		IDynamicMembers sut = IDynamicMembers.CreateMock();
 		sut.Mock.Setup.Value.InitializeWith("initial");
@@ -107,7 +107,7 @@ public sealed class DynamicMembersTests
 	}
 
 	[Test]
-	public async Task DynamicIndexers_ShouldBeSetUpAndVerified()
+	public async Task Indexers_WithDynamicParameters_ShouldBeSetUpAndVerified()
 	{
 		IDynamicMembers sut = IDynamicMembers.CreateMock();
 		sut.Mock.Setup["a"].Returns(1);
@@ -131,7 +131,7 @@ public sealed class DynamicMembersTests
 	}
 
 	[Test]
-	public async Task DynamicMembersOfClass_ShouldForwardToBase()
+	public async Task WithClass_ShouldForwardToBase()
 	{
 		DynamicMembersBase sut = DynamicMembersBase.CreateMock();
 
@@ -148,7 +148,7 @@ public sealed class DynamicMembersTests
 	}
 
 	[Test]
-	public async Task InheritedDynamicAndObjectOverloads_ShouldBothBeImplemented()
+	public async Task Method_WithInheritedDynamicAndObjectOverloads_ShouldRecordTheCallsSeparately()
 	{
 		IDynamicOverloads sut = IDynamicOverloads.CreateMock();
 
@@ -160,7 +160,7 @@ public sealed class DynamicMembersTests
 	}
 
 	[Test]
-	public async Task ObjectMemberHidingDynamicMember_ShouldOverrideTheHidingMember()
+	public async Task Method_WhenAnObjectMethodHidesADynamicMethod_ShouldMockTheHidingMethod()
 	{
 		DynamicHidingDerived sut = DynamicHidingDerived.CreateMock();
 
@@ -171,7 +171,7 @@ public sealed class DynamicMembersTests
 	}
 
 	[Test]
-	public async Task FailedVerify_ShouldDescribeDynamicArguments()
+	public async Task Verify_WhenVerificationFails_ShouldDescribeTheDynamicArguments()
 	{
 		IDynamicMembers sut = IDynamicMembers.CreateMock();
 		sut.Dyn2("a", 1);
@@ -207,7 +207,7 @@ public sealed class DynamicMembersTests
 	}
 
 	[Test]
-	public async Task InterfaceClosedOverDynamic_ShouldBeSetUpInvokedAndVerified()
+	public async Task WithInterfaceClosedOverDynamic_ShouldBeSetUpInvokedAndVerified()
 	{
 		IDynamicRepository<dynamic> sut = IDynamicRepository<dynamic>.CreateMock();
 		List<dynamic> values = [1, "two",];
@@ -239,7 +239,7 @@ public sealed class DynamicMembersTests
 	}
 
 	[Test]
-	public async Task InterfaceClosedOverDynamic_ShouldShareTheMockOfTheInterfaceClosedOverObject()
+	public async Task WithInterfaceClosedOverDynamic_ShouldShareTheMockOfTheInterfaceClosedOverObject()
 	{
 		IDynamicRepository<object> objectMock = IDynamicRepository<object>.CreateMock();
 		IDynamicRepository<dynamic> dynamicMock = IDynamicRepository<dynamic>.CreateMock();
@@ -253,7 +253,7 @@ public sealed class DynamicMembersTests
 	}
 
 	[Test]
-	public async Task InterfaceClosedOverNestedDynamic_ShouldBeSetUpInvokedAndVerified()
+	public async Task WithInterfaceClosedOverNestedDynamic_ShouldBeSetUpInvokedAndVerified()
 	{
 		IDynamicRepository<List<dynamic>> listSut = IDynamicRepository<List<dynamic>>.CreateMock();
 		IDynamicRepository<(dynamic, int)[]> arraySut = IDynamicRepository<(dynamic, int)[]>.CreateMock();
@@ -274,7 +274,7 @@ public sealed class DynamicMembersTests
 	}
 
 	[Test]
-	public async Task ClassClosedOverDynamic_ShouldForwardToBaseAndBeVerified()
+	public async Task WithClassClosedOverDynamic_ShouldForwardToBaseAndBeVerified()
 	{
 		DynamicRepositoryBase<dynamic> sut = DynamicRepositoryBase<dynamic>.CreateMock("initial");
 
@@ -292,7 +292,7 @@ public sealed class DynamicMembersTests
 	}
 
 	[Test]
-	public async Task DelegateClosedOverDynamic_ShouldBeSetUpInvokedAndVerified()
+	public async Task WithDelegateClosedOverDynamic_ShouldBeSetUpInvokedAndVerified()
 	{
 		DynamicFactory<dynamic> sut = DynamicFactory<dynamic>.CreateMock();
 		sut.Mock.Setup("a", It.IsAny<List<dynamic>>()).Returns("created");
@@ -305,7 +305,7 @@ public sealed class DynamicMembersTests
 	}
 
 	[Test]
-	public async Task AdditionalInterfaceClosedOverDynamic_ShouldBeSetUpInvokedAndVerified()
+	public async Task WithAdditionalInterfaceClosedOverDynamic_ShouldBeSetUpInvokedAndVerified()
 	{
 		IDynamicMembers sut = IDynamicMembers.CreateMock().Implementing<IDynamicRepository<dynamic>>();
 		DynamicRepositoryBase<dynamic> classSut = DynamicRepositoryBase<dynamic>.CreateMock(1)
@@ -322,7 +322,7 @@ public sealed class DynamicMembersTests
 	}
 
 	[Test]
-	public async Task InterfaceClosedOverObject_ShouldShareTheAsExtensionsOfTheInterfaceClosedOverDynamic()
+	public async Task WithInterfaceClosedOverObject_ShouldShareTheAsExtensionsOfTheInterfaceClosedOverDynamic()
 	{
 		IDynamicMembers sut = IDynamicMembers.CreateMock().Implementing<IDynamicRepository<dynamic>>();
 		IDynamicRepository<object> reversedSut = IDynamicRepository<object>.CreateMock().Implementing<IDynamicMembers>();

@@ -6,7 +6,7 @@ namespace Mockolate.Tests.GeneratorShapes;
 public sealed class GenericMethodHidingTests
 {
 	[Test]
-	public async Task HidingInterfaceMethod_ShouldConfigureAndVerifyBaseSlotSeparately()
+	public async Task WithInterface_ShouldSetUpAndVerifyTheHiddenMethodSeparately()
 	{
 		IGenericMethodHidingDerived sut = IGenericMethodHidingDerived.CreateMock();
 		sut.Mock.Setup.Hidden<int>(It.IsAny<int>()).Returns("derived");
@@ -50,7 +50,7 @@ public sealed class GenericMethodHidingTests
 	}
 
 	[Test]
-	public async Task NewVirtualMethod_InGenericClass_ShouldMockHidingMethodOnly()
+	public async Task NewVirtualMethod_WithGenericClass_ShouldMockHidingMethodOnly()
 	{
 		GenericMethodHidingDerived<int> sut = GenericMethodHidingDerived<int>.CreateMock();
 		sut.Mock.Setup.Hidden<string>(It.IsAny<int>(), It.IsAny<string>()).Returns("mocked");
@@ -80,7 +80,7 @@ public sealed class GenericMethodHidingTests
 	}
 
 	[Test]
-	public async Task OverloadsThatDoNotHide_ShouldMockBothMethods()
+	public async Task WithOverloadsThatDoNotHide_ShouldMockBothMethods()
 	{
 		GenericMethodHidingDerived sut = GenericMethodHidingDerived.CreateMock();
 		sut.Mock.Setup.Arity<int>(It.IsAny<int>()).Returns("base arity");

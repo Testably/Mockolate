@@ -6,7 +6,7 @@ namespace Mockolate.Tests.GeneratorShapes;
 public sealed class ObjectLookAlikeTests
 {
 	[Test]
-	public async Task EqualsWithOtherReturnType_ShouldBeSetupAndVerifiable()
+	public async Task Equals_WithOtherReturnType_ShouldBeSetupAndVerifiable()
 	{
 		object other = new();
 		IObjectLookAlikes sut = IObjectLookAlikes.CreateMock();
@@ -19,7 +19,7 @@ public sealed class ObjectLookAlikeTests
 	}
 
 	[Test]
-	public async Task EqualsAndReferenceEqualsWithTwoParameters_ShouldBeSetupAndVerifiable()
+	public async Task EqualsAndReferenceEquals_WithTwoParameters_ShouldBeSetupAndVerifiable()
 	{
 		IObjectLookAlikes sut = IObjectLookAlikes.CreateMock();
 		sut.Mock.Setup.Equals(It.IsAny<object?>(), It.IsAny<object?>()).Returns(true);
@@ -35,7 +35,7 @@ public sealed class ObjectLookAlikeTests
 	}
 
 	[Test]
-	public async Task ParameterlessLookAlikes_ShouldBeSetupAndVerifiable()
+	public async Task ParameterlessMethods_ShouldBeSetupAndVerifiable()
 	{
 		object clone = new();
 		IObjectLookAlikes sut = IObjectLookAlikes.CreateMock();
@@ -87,7 +87,7 @@ public sealed class ObjectLookAlikeTests
 	}
 
 	[Test]
-	public async Task LookAlikes_WhenInherited_ShouldBeSetupAndVerifiable()
+	public async Task GetHashCode_WhenInherited_ShouldBeSetupAndVerifiable()
 	{
 		IObjectLookAlikesDerived sut = IObjectLookAlikesDerived.CreateMock();
 		sut.Mock.Setup.GetHashCode().Returns("hash");
@@ -99,7 +99,7 @@ public sealed class ObjectLookAlikeTests
 	}
 
 	[Test]
-	public async Task LookAlikes_OnAdditionalInterface_ShouldBeSetupAndVerifiable()
+	public async Task GetHashCode_WithAdditionalInterface_ShouldBeSetupAndVerifiable()
 	{
 		IVoidObjectLookAlikes sut = IVoidObjectLookAlikes.CreateMock()
 			.Implementing<IObjectLookAlikes>();
@@ -112,7 +112,7 @@ public sealed class ObjectLookAlikeTests
 	}
 
 	[Test]
-	public async Task VoidLookAlikes_ShouldBeSetupAndVerifiable()
+	public async Task VoidMethods_ShouldBeSetupAndVerifiable()
 	{
 		int equalsCalls = 0;
 		int getHashCodeCalls = 0;
@@ -135,7 +135,7 @@ public sealed class ObjectLookAlikeTests
 	}
 
 	[Test]
-	public async Task RefLookAlikes_ShouldBeSetupAndVerifiable()
+	public async Task EqualsAndGetHashCode_WithInParameterAndRefReturn_ShouldBeSetupAndVerifiable()
 	{
 		object? other = new();
 		IRefObjectLookAlikes sut = IRefObjectLookAlikes.CreateMock();
@@ -152,7 +152,7 @@ public sealed class ObjectLookAlikeTests
 	}
 
 	[Test]
-	public async Task RefLookAlikes_WithMatcherForDerivedType_ShouldBeSetupAndVerifiable()
+	public async Task Equals_WithInParameterAndMatcherForDerivedType_ShouldBeSetupAndVerifiable()
 	{
 		object? text = "a";
 		object? other = new();
@@ -185,7 +185,7 @@ public sealed class ObjectLookAlikeTests
 
 #if NET10_0_OR_GREATER
 	[Test]
-	public async Task StaticLookAlikes_ShouldBeSetupAndVerifiable()
+	public async Task StaticMethods_ShouldBeSetupAndVerifiable()
 	{
 		IStaticObjectLookAlikes sut = IStaticObjectLookAlikes.CreateMock();
 		sut.Mock.SetupStatic.Equals(It.IsAny<object?>()).Returns(true);
