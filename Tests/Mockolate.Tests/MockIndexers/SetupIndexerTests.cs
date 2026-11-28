@@ -279,7 +279,7 @@ public sealed partial class SetupIndexerTests
 		int this[ReadOnlySpan<int> values] { get; set; }
 	}
 
-	public class IndexerWith1Parameter
+	public class IndexerWith1ParameterTests
 	{
 		[Test]
 		public async Task ToString_ShouldIncludeParameterValue()
@@ -308,7 +308,7 @@ public sealed partial class SetupIndexerTests
 		}
 	}
 
-	public class IndexerWith2Parameters
+	public class IndexerWith2ParametersTests
 	{
 		[Test]
 		public async Task ToString_ShouldIncludeParameterValues()
@@ -365,7 +365,7 @@ public sealed partial class SetupIndexerTests
 		}
 	}
 
-	public class IndexerWith3Parameters
+	public class IndexerWith3ParametersTests
 	{
 		[Test]
 		public async Task ToString_ShouldIncludeParameterValues()
@@ -381,7 +381,7 @@ public sealed partial class SetupIndexerTests
 		}
 	}
 
-	public class IndexerWith4Parameters
+	public class IndexerWith4ParametersTests
 	{
 		[Test]
 		public async Task ToString_ShouldIncludeParameterValues()
@@ -397,7 +397,7 @@ public sealed partial class SetupIndexerTests
 		}
 	}
 
-	public class IndexerWith5Parameters
+	public class IndexerWith5ParametersTests
 	{
 		[Test]
 		public async Task ToString_ShouldIncludeParameterValues()
@@ -414,7 +414,7 @@ public sealed partial class SetupIndexerTests
 	}
 
 
-	public class NegativeArgumentValidation
+	public class NegativeArgumentValidationTests
 	{
 		[Test]
 		public async Task ApplyIndexerGetter_WithBaseValue_WithNegativeSignatureIndex_ShouldThrow()

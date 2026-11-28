@@ -616,7 +616,7 @@ public sealed partial class SetupMethodTests
 		await That(result).IsEqualTo(3);
 	}
 
-	public class ReturnMethodWith0Parameters
+	public class ReturnMethodWith0ParametersTests
 	{
 		[Test]
 		public async Task Setup_ShouldBeVerifiable()
@@ -656,7 +656,7 @@ public sealed partial class SetupMethodTests
 		}
 	}
 
-	public class ReturnMethodWith1Parameters
+	public class ReturnMethodWith1ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_OnUntypedDefaultArgument_ShouldBindToValuesOverload()
@@ -763,7 +763,7 @@ public sealed partial class SetupMethodTests
 		}
 	}
 
-	public class ReturnMethodWith2Parameters
+	public class ReturnMethodWith2ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_OnUntypedDefaultArguments_ShouldBindToValuesOverload()
@@ -905,7 +905,7 @@ public sealed partial class SetupMethodTests
 		}
 	}
 
-	public class ReturnMethodWith3Parameters
+	public class ReturnMethodWith3ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
@@ -1104,7 +1104,7 @@ public sealed partial class SetupMethodTests
 		}
 	}
 
-	public class ReturnMethodWith4Parameters
+	public class ReturnMethodWith4ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
@@ -1450,7 +1450,7 @@ public sealed partial class SetupMethodTests
 		}
 	}
 
-	public class ReturnMethodWith5Parameters
+	public class ReturnMethodWith5ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
@@ -1564,7 +1564,7 @@ public sealed partial class SetupMethodTests
 		}
 	}
 
-	public class VoidMethodWith0Parameters
+	public class VoidMethodWith0ParametersTests
 	{
 		[Test]
 		public async Task Setup_ShouldBeVerifiable()
@@ -1588,7 +1588,7 @@ public sealed partial class SetupMethodTests
 		}
 	}
 
-	public class VoidMethodWith1Parameters
+	public class VoidMethodWith1ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
@@ -1653,7 +1653,7 @@ public sealed partial class SetupMethodTests
 		}
 	}
 
-	public class VoidMethodWith2Parameters
+	public class VoidMethodWith2ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
@@ -1720,7 +1720,7 @@ public sealed partial class SetupMethodTests
 		}
 	}
 
-	public class VoidMethodWith3Parameters
+	public class VoidMethodWith3ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
@@ -1788,7 +1788,7 @@ public sealed partial class SetupMethodTests
 		}
 	}
 
-	public class VoidMethodWith4Parameters
+	public class VoidMethodWith4ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
@@ -1859,7 +1859,7 @@ public sealed partial class SetupMethodTests
 		}
 	}
 
-	public class VoidMethodWith5Parameters
+	public class VoidMethodWith5ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
@@ -1931,7 +1931,7 @@ public sealed partial class SetupMethodTests
 		}
 	}
 
-	public class MethodWithDefaultParameter
+	public class MethodWithDefaultParameterTests
 	{
 		[Test]
 		public async Task ParametersWithDefaultAsDefaultValue_ShouldNotHaveAnyErrors()

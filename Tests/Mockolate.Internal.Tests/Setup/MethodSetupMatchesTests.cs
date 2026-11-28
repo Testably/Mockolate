@@ -34,7 +34,7 @@ public sealed class MethodSetupMatchesTests
 
 	public sealed class ReturnMethodSetupTests
 	{
-		public sealed class OneParameter
+		public sealed class OneParameterTests
 		{
 			[Test]
 			public async Task Matches_WithINamedParametersMatch_ShouldForwardNamedParameterValue()
@@ -93,7 +93,7 @@ public sealed class MethodSetupMatchesTests
 			}
 		}
 
-		public sealed class TwoParameters
+		public sealed class TwoParametersTests
 		{
 			[Test]
 			public async Task Matches_WithINamedParametersMatch_ShouldForwardBothNamedParameterValues()
@@ -152,7 +152,7 @@ public sealed class MethodSetupMatchesTests
 			}
 		}
 
-		public sealed class ThreeParameters
+		public sealed class ThreeParametersTests
 		{
 			[Test]
 			public async Task Matches_WithINamedParametersMatch_ShouldForwardAllNamedParameterValues()
@@ -211,7 +211,7 @@ public sealed class MethodSetupMatchesTests
 			}
 		}
 
-		public sealed class FourParameters
+		public sealed class FourParametersTests
 		{
 			[Test]
 			public async Task Matches_WithINamedParametersMatch_ShouldForwardAllNamedParameterValues()
@@ -273,7 +273,7 @@ public sealed class MethodSetupMatchesTests
 
 	public sealed class VoidMethodSetupTests
 	{
-		public sealed class OneParameter
+		public sealed class OneParameterTests
 		{
 			[Test]
 			public async Task Matches_WithINamedParametersMatch_ShouldForwardNamedParameterValue()
@@ -332,7 +332,7 @@ public sealed class MethodSetupMatchesTests
 			}
 		}
 
-		public sealed class TwoParameters
+		public sealed class TwoParametersTests
 		{
 			[Test]
 			public async Task Matches_WithINamedParametersMatch_ShouldForwardBothNamedParameterValues()
@@ -391,7 +391,7 @@ public sealed class MethodSetupMatchesTests
 			}
 		}
 
-		public sealed class ThreeParameters
+		public sealed class ThreeParametersTests
 		{
 			[Test]
 			public async Task Matches_WithINamedParametersMatch_ShouldForwardAllNamedParameterValues()
@@ -450,7 +450,7 @@ public sealed class MethodSetupMatchesTests
 			}
 		}
 
-		public sealed class FourParameters
+		public sealed class FourParametersTests
 		{
 			[Test]
 			public async Task Matches_WithINamedParametersMatch_ShouldForwardAllNamedParameterValues()

@@ -8,7 +8,7 @@ public sealed partial class SetupIndexerTests
 {
 	public sealed class ReturnsThrowsTests
 	{
-		public sealed class With1Level
+		public sealed class With1LevelTests
 		{
 			[Test]
 			public async Task IndexerReturns_WithSpecificParameter_ShouldIterateThroughValues()
@@ -398,7 +398,7 @@ public sealed partial class SetupIndexerTests
 			}
 		}
 
-		public sealed class With2Levels
+		public sealed class With2LevelsTests
 		{
 			[Test]
 			public async Task IndexerReturns_WithSpecificParameter_ShouldIterateThroughValues()
@@ -767,7 +767,7 @@ public sealed partial class SetupIndexerTests
 			}
 		}
 
-		public sealed class With3Levels
+		public sealed class With3LevelsTests
 		{
 			[Test]
 			public async Task IndexerReturns_WithSpecificParameter_ShouldIterateThroughValues()
@@ -1158,7 +1158,7 @@ public sealed partial class SetupIndexerTests
 			}
 		}
 
-		public sealed class With4Levels
+		public sealed class With4LevelsTests
 		{
 			[Test]
 			public async Task IndexerReturns_WithSpecificParameter_ShouldIterateThroughValues()
@@ -1529,7 +1529,7 @@ public sealed partial class SetupIndexerTests
 			}
 		}
 
-		public sealed class With5Levels
+		public sealed class With5LevelsTests
 		{
 			[Test]
 			public async Task IndexerReturns_WithSpecificParameter_ShouldIterateThroughValues()

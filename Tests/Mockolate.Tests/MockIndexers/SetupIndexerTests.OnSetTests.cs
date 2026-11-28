@@ -194,7 +194,7 @@ public sealed partial class SetupIndexerTests
 			await That(invocations).IsEqualTo([4, 5, 6, 7, 8,]);
 		}
 
-		public sealed class With2Levels
+		public sealed class With2LevelsTests
 		{
 			[Test]
 			public async Task InParallel_ShouldInvokeCallbacksInSequence()
@@ -389,7 +389,7 @@ public sealed partial class SetupIndexerTests
 			}
 		}
 
-		public sealed class With3Levels
+		public sealed class With3LevelsTests
 		{
 			[Test]
 			public async Task InParallel_ShouldInvokeCallbacksInSequence()
@@ -587,7 +587,7 @@ public sealed partial class SetupIndexerTests
 			}
 		}
 
-		public sealed class With4Levels
+		public sealed class With4LevelsTests
 		{
 			[Test]
 			public async Task InParallel_ShouldInvokeCallbacksInSequence()
@@ -785,7 +785,7 @@ public sealed partial class SetupIndexerTests
 			}
 		}
 
-		public sealed class With5Levels
+		public sealed class With5LevelsTests
 		{
 			[Test]
 			public async Task InParallel_ShouldInvokeCallbacksInSequence()

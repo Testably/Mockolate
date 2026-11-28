@@ -35,7 +35,7 @@ public sealed partial class VerifyGotIndexerTests
 		await That(sut.Mock.Verify[It.Is(1), It.Satisfies<int>(i => i != 2)].Got()).Never();
 	}
 
-	public class IndexerWith1Parameter
+	public class IndexerWith1ParameterTests
 	{
 		[Test]
 		public async Task WithExplicitParameter_ShouldWork()
@@ -48,7 +48,7 @@ public sealed partial class VerifyGotIndexerTests
 		}
 	}
 
-	public class IndexerWith2Parameters
+	public class IndexerWith2ParametersTests
 	{
 		[Test]
 		public async Task WithExplicitParameter1_ShouldWork()

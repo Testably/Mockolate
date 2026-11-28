@@ -256,7 +256,7 @@ public sealed partial class SetupIndexerTests
 			await That(ActOnly).DoesNotThrow();
 		}
 
-		public sealed class With2Levels
+		public sealed class With2LevelsTests
 		{
 			[Test]
 			public async Task Callback_WhenLengthDoesNotMatch_ShouldIgnore()
@@ -510,7 +510,7 @@ public sealed partial class SetupIndexerTests
 			}
 		}
 
-		public sealed class With3Levels
+		public sealed class With3LevelsTests
 		{
 			[Test]
 			public async Task Callback_WhenLengthDoesNotMatch_ShouldIgnore()
@@ -768,7 +768,7 @@ public sealed partial class SetupIndexerTests
 			}
 		}
 
-		public sealed class With4Levels
+		public sealed class With4LevelsTests
 		{
 			[Test]
 			public async Task Callback_WhenLengthDoesNotMatch_ShouldIgnore()
@@ -1027,7 +1027,7 @@ public sealed partial class SetupIndexerTests
 			}
 		}
 
-		public sealed class With5Levels
+		public sealed class With5LevelsTests
 		{
 			[Test]
 			public async Task Callback_WhenLengthDoesNotMatch_ShouldIgnore()

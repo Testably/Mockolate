@@ -207,7 +207,7 @@ public sealed class IndexerSetupTests
 		await That(result).IsNull();
 	}
 
-	public sealed class With2Levels
+	public sealed class With2LevelsTests
 	{
 		[Test]
 		public async Task ExecuteGetterCallback_WhenGenericTypeDoesNotMatch_ShouldNotExecute()
@@ -420,7 +420,7 @@ public sealed class IndexerSetupTests
 		}
 	}
 
-	public sealed class With3Levels
+	public sealed class With3LevelsTests
 	{
 		[Test]
 		public async Task ExecuteGetterCallback_WhenGenericTypeDoesNotMatch_ShouldNotExecute()
@@ -639,7 +639,7 @@ public sealed class IndexerSetupTests
 		}
 	}
 
-	public sealed class With4Levels
+	public sealed class With4LevelsTests
 	{
 		[Test]
 		public async Task ExecuteGetterCallback_WhenGenericTypeDoesNotMatch_ShouldNotExecute()
@@ -870,7 +870,7 @@ public sealed class IndexerSetupTests
 		}
 	}
 
-	public sealed class With5Levels
+	public sealed class With5LevelsTests
 	{
 		[Test]
 		public async Task ExecuteGetterCallback_WhenGenericTypeDoesNotMatch_ShouldNotExecute()

@@ -218,7 +218,7 @@ public sealed partial class VerifyInvokedTests
 		await That(sut.Mock.Verify.MyMethodWithOptionalParameters(5)).Once();
 	}
 
-	public class ReturnMethodWith1Parameters
+	public class ReturnMethodWith1ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
@@ -255,7 +255,7 @@ public sealed partial class VerifyInvokedTests
 		}
 	}
 
-	public class ReturnMethodWith2Parameters
+	public class ReturnMethodWith2ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
@@ -303,7 +303,7 @@ public sealed partial class VerifyInvokedTests
 		}
 	}
 
-	public class ReturnMethodWith3Parameters
+	public class ReturnMethodWith3ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
@@ -363,7 +363,7 @@ public sealed partial class VerifyInvokedTests
 		}
 	}
 
-	public class ReturnMethodWith5Parameters
+	public class ReturnMethodWith5ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
@@ -392,7 +392,7 @@ public sealed partial class VerifyInvokedTests
 		}
 	}
 
-	public class ReturnMethodWith4Parameters
+	public class ReturnMethodWith4ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
@@ -464,7 +464,7 @@ public sealed partial class VerifyInvokedTests
 		}
 	}
 
-	public class VoidMethodWith1Parameters
+	public class VoidMethodWith1ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
@@ -478,7 +478,7 @@ public sealed partial class VerifyInvokedTests
 		}
 	}
 
-	public class VoidMethodWith2Parameters
+	public class VoidMethodWith2ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
@@ -492,7 +492,7 @@ public sealed partial class VerifyInvokedTests
 		}
 	}
 
-	public class VoidMethodWith3Parameters
+	public class VoidMethodWith3ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
@@ -506,7 +506,7 @@ public sealed partial class VerifyInvokedTests
 		}
 	}
 
-	public class VoidMethodWith4Parameters
+	public class VoidMethodWith4ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
@@ -520,7 +520,7 @@ public sealed partial class VerifyInvokedTests
 		}
 	}
 
-	public class VoidMethodWith5Parameters
+	public class VoidMethodWith5ParametersTests
 	{
 		[Test]
 		public async Task AnyParameters_ShouldIgnoreExplicitParameters()
