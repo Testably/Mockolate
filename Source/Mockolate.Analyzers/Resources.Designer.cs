@@ -60,15 +60,6 @@ namespace Mockolate.Analyzers {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The other mocks of the test case may return the [AsDefault] parameter..
-        /// </summary>
-        internal static string AsDefaultSuppressionJustification {
-            get {
-                return ResourceManager.GetString("AsDefaultSuppressionJustification", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Verify at least once..
         /// </summary>
         internal static string Mockolate0001CodeFixTitle {
@@ -785,6 +776,15 @@ namespace Mockolate.Analyzers {
         internal static string UnionArgumentCodeFixTitle {
             get {
                 return ResourceManager.GetString("UnionArgumentCodeFixTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The other mocks of the test case may return the [AsDefault] parameter, and a class under test may receive the value of a [ValueFrom] or value provider parameter..
+        /// </summary>
+        internal static string UnusedParameterSuppressionJustification {
+            get {
+                return ResourceManager.GetString("UnusedParameterSuppressionJustification", resourceCulture);
             }
         }
     }

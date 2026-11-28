@@ -235,7 +235,7 @@ isEnabledByDefault: true,
 		return true;
 	}
 
-	private static INamedTypeSymbol[] GetValueProviders(IParameterSymbol parameter)
+	internal static INamedTypeSymbol[] GetValueProviders(IParameterSymbol parameter)
 		=> parameter.GetAttributes()
 			.Select(attribute => attribute.AttributeClass)
 			.OfType<INamedTypeSymbol>()

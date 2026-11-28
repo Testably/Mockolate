@@ -362,9 +362,9 @@ Mock `IMemoryCache` instead, or wrap the class with `Wrapping(…)` on a mock of
 
 ## Mockolate1001
 
-**IDE0060 is suppressed for an `[AsDefault]` parameter.**
+**IDE0060 is suppressed for an `[AsDefault]`, `[ValueFrom]` or value provider parameter.**
 
-[IDE0060](https://learn.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/ide0060) reports a parameter that the method does not use. An [`[AsDefault]`](04-mocks-as-test-parameters.md#return-the-same-instance-from-every-mock) parameter of a test with `AutoMockArguments` may be used without the test method referencing it, because the other mocks can return it, here `machine.Dispenser`, so Mockolate suppresses IDE0060 for it:
+[IDE0060](https://learn.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/ide0060) reports a parameter that the method does not use. A test with `AutoMockArguments` may use a parameter without referencing it: the other mocks can return an [`[AsDefault]`](04-mocks-as-test-parameters.md#return-the-same-instance-from-every-mock) parameter, here `machine.Dispenser`, and the class under test receives the value of a [`[ValueFrom]`](04-mocks-as-test-parameters.md#take-a-value-from-a-member) parameter or a parameter with a [value provider](04-mocks-as-test-parameters.md#provide-a-value-with-an-attribute) unless it is [`[NotShared]`](04-mocks-as-test-parameters.md#keep-a-mock-out-of-the-class-under-test), here `sut`. Mockolate suppresses IDE0060 for these parameters:
 
 ```csharp
 [Test]
@@ -374,15 +374,25 @@ public async Task Dispense_WithoutSetup_ShouldFail(IVendingMachine machine,
 {
     await That(machine.Dispenser.Dispense("Dark", 4)).IsFalse();
 }
+
+[Test]
+[AutoMockArguments]
+public async Task GetPrice_ShouldApplyTheDiscount(ChocolateCashier sut, IChocolatePrices prices,
+    [ValueFrom(nameof(TenPercentOffDark))] Discount discount) // no IDE0060
+{
+    prices.Mock.Setup.GetPrice("Dark").Returns(20m);
+
+    await That(sut.GetPrice("Dark")).IsEqualTo(18m);
+}
 ```
 
-Other unused parameters still get the diagnostic, also one that is only passed to the constructor of a class under test.
+Other unused parameters still get the diagnostic, also a created mock that is only passed to the constructor of a class under test, which would get a new mock without it.
 
 ## Mockolate1002
 
-**xUnit1026 is suppressed for an `[AsDefault]` parameter.**
+**xUnit1026 is suppressed for an `[AsDefault]`, `[ValueFrom]` or value provider parameter.**
 
-The xUnit analyzers report [xUnit1026](https://xunit.net/xunit.analyzers/rules/xUnit1026) for a theory parameter that the test method does not use. For the same reason as with [Mockolate1001](#mockolate1001), Mockolate suppresses the warning for an `[AsDefault]` parameter, but not for other unused parameters:
+The xUnit analyzers report [xUnit1026](https://xunit.net/xunit.analyzers/rules/xUnit1026) for a theory parameter that the test method does not use. For the same reasons as with [Mockolate1001](#mockolate1001), Mockolate suppresses the warning for an `[AsDefault]` parameter and for a `[ValueFrom]` or value provider parameter without `[NotShared]`, but not for other unused parameters:
 
 ```csharp
 [Theory]

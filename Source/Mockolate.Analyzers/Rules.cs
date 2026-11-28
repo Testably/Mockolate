@@ -36,19 +36,20 @@ public static class Rules
 
 	/// <summary>
 	///     The unused parameter diagnostics (IDE0060 and xUnit1026) that are suppressed for an <c>[AsDefault]</c>
-	///     parameter, which the other mocks may return.
+	///     parameter, which the other mocks may return, and for a <c>[ValueFrom]</c> or value provider parameter, which a
+	///     class under test may receive.
 	/// </summary>
-	public static readonly ImmutableArray<SuppressionDescriptor> AsDefaultSuppressions =
+	public static readonly ImmutableArray<SuppressionDescriptor> UnusedParameterSuppressions =
 	[
-		CreateAsDefaultSuppression("Mockolate1001", "IDE0060"),
-		CreateAsDefaultSuppression("Mockolate1002", "xUnit1026"),
+		CreateUnusedParameterSuppression("Mockolate1001", "IDE0060"),
+		CreateUnusedParameterSuppression("Mockolate1002", "xUnit1026"),
 	];
 
-	private static SuppressionDescriptor CreateAsDefaultSuppression(string suppressionId,
+	private static SuppressionDescriptor CreateUnusedParameterSuppression(string suppressionId,
 		string suppressedDiagnosticId) => new(
 		suppressionId,
 		suppressedDiagnosticId,
-		new LocalizableResourceString("AsDefaultSuppressionJustification", Resources.ResourceManager,
+		new LocalizableResourceString("UnusedParameterSuppressionJustification", Resources.ResourceManager,
 			typeof(Resources)));
 
 	private static DiagnosticDescriptor CreateDescriptor(string diagnosticId, string category,
