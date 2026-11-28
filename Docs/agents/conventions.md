@@ -62,8 +62,50 @@ Async code is limited to waiting for verifications (`Within`, `WithCancellation`
 
 ## Tests
 
-- **Structure:** `public sealed partial class <Feature>Tests` per feature folder (`MockMethods`, `MockProperties`, `Verify`, `Web`, ...), with nested `public sealed class <Aspect>Tests` in `<Feature>Tests.<Aspect>Tests.cs`.
-- **Names:** prefer `<Subject>_Should<Outcome>` or `When<Condition>_Should<Outcome>`, the form of most tests; follow the neighbouring tests where a class uses another form.
+### Where a test belongs
+
+- **Project:** decided by how the test reaches the code under test.
+  - `Mockolate.Tests`: through a generated mock (`IChocolateDispenser.CreateMock()`, then setup, call and verify).
+  - `Mockolate.Internal.Tests`: by calling a library type directly, whether it is `public` or `internal` (`MockRegistry`, `Callbacks<T>`, the `*Records` types, `TypeFormatter`).
+  - `Mockolate.SourceGenerators.Tests`: by running the generator on source text and asserting on the emitted code or the pipeline models.
+  - `Mockolate.AutoMocking.Tests`: through a generated mock that needs `MockolateAutoMocking`; every other test with a generated mock goes into `Mockolate.Tests`.
+  - The other projects have one purpose each, see [Project Structure](project-structure.md#test-projects).
+- **Folders in `Mockolate.Tests`:** by the user-facing concept a reader looks for. Nothing lives at the project root except the usings.
+  - `MockMethods/`, `MockProperties/`, `MockIndexers/`, `MockEvents/`, `MockDelegates/`: setup, verification and interactions of one member kind.
+  - `Mocks/`: the `sut.Mock` surface that is not tied to a member kind (creation, `As<T>()`, wrapping, `ClearAllInteractions`, protected members).
+  - `Parameters/`: `It`, `Match` and `ParameterArg`.
+  - `Verify/`, `Behavior/`, `Scenarios/`, `Monitor/`, `DataSources/`, `Web/`, `Logging/`, `RefStruct/`: the feature of the same name.
+  - `GeneratorShapes/`: the runtime tests of the types in `GeneratorCoverage/`.
+- **Folders in `Mockolate.Internal.Tests`:** mirror `Source/Mockolate/` (`Interactions/`, `Internals/`, `Parameters/`, `Setup/`, `Verify/`, `Web/`, ...). A type with several test classes gets its own folder (`Registry/` for `MockRegistry`).
+- **Folders in `Mockolate.SourceGenerators.Tests`:** by what the test checks.
+  - `Emission/`: the code emitted for a member kind or mock shape (classes, interfaces, delegates, combinations, cross-assembly, ref structs).
+  - `SpecialCases/`: targeted tests of one generator special case.
+  - `Modes/`: classic and union output and the minimum Roslyn version.
+  - `AutoMocking/`: auto-mocking and mock data sources.
+  - `Incrementality/`: equality of the pipeline models, caching and aggregation.
+  - `Snapshot/`: the output snapshots.
+
+### Classes and files
+
+- **One class per subject:** the top-level class is `public sealed partial class <Subject>Tests`, named after the type or feature under test, and a subject has exactly one such class per project. The same class name in two projects is allowed only for the generator half and the runtime half of one special case (`SpecialCases/ObjectLookAlikeTests` and `GeneratorShapes/ObjectLookAlikeTests`).
+- **Unique within a project:** a class name appears in one folder only; include the member kind instead of repeating a name (`MethodInteractionsTests`, `PropertyInteractionsTests`).
+- **Nesting:** context that several tests share moves into nested `public sealed class`es, at most three levels deep: `<Subject>Tests`, then `<Member>Tests` for the API member under test, then `With<Arrangement>Tests`, `Without<Arrangement>Tests` or `When<Condition>Tests`. Add a nested class when it groups tests that belong together and the test explorer reads better for it, not merely because two tests share a segment; a segment of a single test stays in its method name.
+- **Every class ends in `Tests`:** a nested class named `Setup`, `Verify`, `It` or `Callback` would hide the namespace or type of the same name in the test bodies.
+- **Files:** the file name is the class path (`SetupMethodTests.ReturnsThrowsTests.cs`, `ItExtensionsTests.IsUriTests.WithHostTests.cs`); a class split across files is `partial`.
+
+### Test names
+
+- **Grammar:** `[<Member>_][With<Arrangement>_][When<Condition>_]Should<Outcome>`, each segment at most once.
+  - `<Member>`: the API member under test.
+  - `With<Arrangement>` or `Without<Arrangement>`: the setup or input variant.
+  - `When<Condition>`: the situation that triggers the behavior.
+  - `Should<Outcome>`: the observable behavior.
+- **Each segment in one place:** leave out a segment that a containing class already names. Inside `ClearAllInteractionsTests`, a test is `WhenMonitorIsStopped_ShouldIgnoreTheCall`.
+- **Reads as a sentence:** the class path and the method name, read top to bottom as in the test explorer, form one sentence with one subject: `MethodInteractionsTests` › `WhenBaseThrowsTests` › `ReturnMethod_With1Parameter_ShouldStillRecordTheInvocation`. Conditions are clauses (`WhenBaseThrows`, not `ThrowingBase`).
+- **Outcome:** the behavior in plain words, not the implementation or a coverage goal: `ShouldBeTrue` instead of `IsTrue`, `ShouldReturnTheStoredValue` instead of `ShouldReturnStoredValueViaPatternMatch`, `ShouldCountMatchingInteractions` instead of `AreExercised`.
+
+### Writing tests
+
 - **Body:** `public async Task` with arrange, act and assert separated by blank lines, `[Arguments(...)]` for data, and the chocolate-themed types in `TestHelpers` (`IChocolateDispenser`, ...) or a small interface next to the test. The mock is called `sut`.
 - **Assertions:** aweXpect: `await That(result).IsEqualTo(42);`, a `.Because(...)` reason instead of a comment, `.IgnoringNewlineStyle()` for multi-line strings. Assert verifications through aweXpect.Mockolate: `await That(sut.Mock.Verify.Dispense(...)).Once();`.
 - **Exceptions:** a local `void Act()`, then `await That(Act).Throws<MockVerificationException>().WithMessage("...")` with the complete message; `.AsWildcard()` only for parts that vary.

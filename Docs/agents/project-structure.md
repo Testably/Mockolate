@@ -76,9 +76,10 @@ Besides `Setup` and `Verify`, `sut.Mock` offers `Raise` (events), `As<T>()` (oth
 
 | Project | Purpose |
 |---|---|
-| `Tests/Mockolate.Tests` | Behavior tests against generated mocks (methods, properties, indexers, events, delegates, ref structs, `HttpClient`). `GeneratorCoverage/` holds the types that exercise generator special cases |
-| `Tests/Mockolate.Internal.Tests` | Tests of internal types (`InternalsVisibleTo`) |
-| `Tests/Mockolate.SourceGenerators.Tests` | Generator tests on in-memory compilations, equality tests of the pipeline models and the output snapshots in `Snapshot/` |
+| `Tests/Mockolate.Tests` | Tests through generated mocks, in folders by user-facing concept (see [Conventions](conventions.md#where-a-test-belongs)). `GeneratorCoverage/` holds the types that exercise generator special cases |
+| `Tests/Mockolate.Internal.Tests` | Tests that call library types directly, `public` or `internal` (`InternalsVisibleTo`), in folders that mirror `Source/Mockolate` |
+| `Tests/Mockolate.SourceGenerators.Tests` | Generator tests on in-memory compilations: emitted code, special cases, classic and union mode, auto-mocking, equality tests of the pipeline models and the output snapshots in `Snapshot/` |
+| `Tests/Mockolate.AutoMocking.Tests` | Tests through auto-mocked generated mocks; the only project built with `MockolateAutoMocking` enabled. It links its types from `Mockolate.Tests/GeneratorCoverage` |
 | `Tests/Mockolate.Analyzers.Tests` | Analyzer and code fix tests with `Microsoft.CodeAnalysis.Testing` verifiers in `Verifiers/` |
 | `Tests/Mockolate.Api.Tests` | Public API snapshots per target framework |
 | `Tests/Mockolate.ExampleTests` | Realistic usage examples (file system, Azure SDK clients) |
