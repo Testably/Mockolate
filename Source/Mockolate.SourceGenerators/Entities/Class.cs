@@ -123,7 +123,7 @@ internal class Class : IEquatable<Class>
 							{
 								IsAbstract = IsAbstractIn(methodSymbol, mockedType),
 							};
-							if (IsNameTakenByOtherKind(method.Name, null, alreadyDefinedProperties, alreadyDefinedEvents))
+							if (IsNameTakenByOtherKind(method.Name, methods: null, alreadyDefinedProperties, alreadyDefinedEvents))
 							{
 								method = method with { ExplicitImplementation = method.ContainingType, };
 							}
@@ -149,7 +149,7 @@ internal class Class : IEquatable<Class>
 								IsAbstract = IsAbstractIn(propertySymbol, mockedType),
 							};
 							if (!property.IsIndexer &&
-							    IsNameTakenByOtherKind(property.Name, alreadyDefinedMethods, null, alreadyDefinedEvents))
+							    IsNameTakenByOtherKind(property.Name, alreadyDefinedMethods, properties: null, alreadyDefinedEvents))
 							{
 								property = property with { ExplicitImplementation = property.ContainingType, };
 							}
@@ -180,7 +180,7 @@ internal class Class : IEquatable<Class>
 							{
 								IsAbstract = IsAbstractIn(eventSymbol, mockedType),
 							};
-							if (IsNameTakenByOtherKind(@event.Name, alreadyDefinedMethods, alreadyDefinedProperties, null))
+							if (IsNameTakenByOtherKind(@event.Name, alreadyDefinedMethods, alreadyDefinedProperties, events: null))
 							{
 								@event = @event with { ExplicitImplementation = @event.ContainingType, };
 							}
