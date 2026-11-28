@@ -8,14 +8,14 @@ namespace Mockolate.Internal.Tests.Verify;
 public class CountSourceTests
 {
 	[Test]
-	public async Task EventCountSource_Subscribe_Count_IsExercised()
+	public async Task Event_WithSubscriptions_ShouldCountMatchingInteractions()
 	{
 		MockInteractions store = new(1);
 		EventRecords buffer = new(store, 0);
 		MockRegistry registry = new(MockBehavior.Default, store);
 
 		MethodInfo m = typeof(CountSourceTests).GetMethod(
-			nameof(EventCountSource_Subscribe_Count_IsExercised))!;
+			nameof(Event_WithSubscriptions_ShouldCountMatchingInteractions))!;
 		buffer.AppendSubscription("OnFoo", null, m);
 		buffer.AppendSubscription("OnFoo", null, m);
 
@@ -25,14 +25,14 @@ public class CountSourceTests
 	}
 
 	[Test]
-	public async Task EventCountSource_Unsubscribe_Count_IsExercised()
+	public async Task Event_WithUnsubscriptions_ShouldCountMatchingInteractions()
 	{
 		MockInteractions store = new(1);
 		EventRecords buffer = new(store, 0);
 		MockRegistry registry = new(MockBehavior.Default, store);
 
 		MethodInfo m = typeof(CountSourceTests).GetMethod(
-			nameof(EventCountSource_Unsubscribe_Count_IsExercised))!;
+			nameof(Event_WithUnsubscriptions_ShouldCountMatchingInteractions))!;
 		buffer.AppendUnsubscription("OnFoo", null, m);
 		buffer.AppendUnsubscription("OnFoo", null, m);
 		buffer.AppendUnsubscription("OnFoo", null, m);
@@ -43,7 +43,7 @@ public class CountSourceTests
 	}
 
 	[Test]
-	public async Task IndexerGetter1_FastPath_Count_IsExercised()
+	public async Task IndexerGetter1_ShouldCountMatchingInteractions()
 	{
 		MockInteractions store = new(1);
 		IndexerGetterRecords<int> buffer = new(store, 0);
@@ -60,7 +60,7 @@ public class CountSourceTests
 	}
 
 	[Test]
-	public async Task IndexerGetter2_FastPath_Count_IsExercised()
+	public async Task IndexerGetter2_ShouldCountMatchingInteractions()
 	{
 		MockInteractions store = new(1);
 		IndexerGetterRecords<int, string> buffer = new(store, 0);
@@ -79,7 +79,7 @@ public class CountSourceTests
 	}
 
 	[Test]
-	public async Task IndexerGetter3_FastPath_Count_IsExercised()
+	public async Task IndexerGetter3_ShouldCountMatchingInteractions()
 	{
 		MockInteractions store = new(1);
 		IndexerGetterRecords<int, string, bool> buffer = new(store, 0);
@@ -99,7 +99,7 @@ public class CountSourceTests
 	}
 
 	[Test]
-	public async Task IndexerGetter4_FastPath_Count_IsExercised()
+	public async Task IndexerGetter4_ShouldCountMatchingInteractions()
 	{
 		MockInteractions store = new(1);
 		IndexerGetterRecords<int, string, bool, double> buffer = new(store, 0);
@@ -120,7 +120,7 @@ public class CountSourceTests
 	}
 
 	[Test]
-	public async Task IndexerSetter1_FastPath_Count_IsExercised()
+	public async Task IndexerSetter1_ShouldCountMatchingInteractions()
 	{
 		MockInteractions store = new(1);
 		IndexerSetterRecords<int, string> buffer = new(store, 0);
@@ -139,7 +139,7 @@ public class CountSourceTests
 	}
 
 	[Test]
-	public async Task IndexerSetter2_FastPath_Count_IsExercised()
+	public async Task IndexerSetter2_ShouldCountMatchingInteractions()
 	{
 		MockInteractions store = new(1);
 		IndexerSetterRecords<int, string, double> buffer = new(store, 0);
@@ -159,7 +159,7 @@ public class CountSourceTests
 	}
 
 	[Test]
-	public async Task IndexerSetter3_FastPath_Count_IsExercised()
+	public async Task IndexerSetter3_ShouldCountMatchingInteractions()
 	{
 		MockInteractions store = new(1);
 		IndexerSetterRecords<int, string, bool, double> buffer = new(store, 0);
@@ -180,7 +180,7 @@ public class CountSourceTests
 	}
 
 	[Test]
-	public async Task IndexerSetter4_FastPath_Count_IsExercised()
+	public async Task IndexerSetter4_ShouldCountMatchingInteractions()
 	{
 		MockInteractions store = new(1);
 		IndexerSetterRecords<int, string, bool, double, long> buffer = new(store, 0);
@@ -202,7 +202,7 @@ public class CountSourceTests
 	}
 
 	[Test]
-	public async Task Method0_FastPath_Count_AndCountAll_AreExercised()
+	public async Task Method0_ShouldCountMatchingAndAllInteractions()
 	{
 		MockInteractions store = new(1);
 		MethodRecords buffer = new(store, 0);
@@ -219,7 +219,7 @@ public class CountSourceTests
 	}
 
 	[Test]
-	public async Task Method1_FastPath_Count_AndCountAll_AreExercised()
+	public async Task Method1_ShouldCountMatchingAndAllInteractions()
 	{
 		MockInteractions store = new(1);
 		MethodRecords<int> buffer = new(store, 0);
@@ -237,7 +237,7 @@ public class CountSourceTests
 	}
 
 	[Test]
-	public async Task Method2_FastPath_Count_AndCountAll_AreExercised()
+	public async Task Method2_ShouldCountMatchingAndAllInteractions()
 	{
 		MockInteractions store = new(1);
 		MethodRecords<int, string> buffer = new(store, 0);
@@ -257,7 +257,7 @@ public class CountSourceTests
 	}
 
 	[Test]
-	public async Task Method3_FastPath_Count_AndCountAll_AreExercised()
+	public async Task Method3_ShouldCountMatchingAndAllInteractions()
 	{
 		MockInteractions store = new(1);
 		MethodRecords<int, string, bool> buffer = new(store, 0);
@@ -282,7 +282,7 @@ public class CountSourceTests
 	}
 
 	[Test]
-	public async Task Method4_FastPath_Count_AndCountAll_AreExercised()
+	public async Task Method4_ShouldCountMatchingAndAllInteractions()
 	{
 		MockInteractions store = new(1);
 		MethodRecords<int, string, bool, double> buffer = new(store, 0);
@@ -308,7 +308,7 @@ public class CountSourceTests
 	}
 
 	[Test]
-	public async Task PropertyGetter_FastPath_Count_IsExercised()
+	public async Task PropertyGetter_ShouldCountMatchingInteractions()
 	{
 		MockInteractions store = new(1);
 		PropertyGetterRecords buffer = new(store, 0);
@@ -323,7 +323,7 @@ public class CountSourceTests
 	}
 
 	[Test]
-	public async Task PropertySetter_FastPath_Count_IsExercised()
+	public async Task PropertySetter_ShouldCountMatchingInteractions()
 	{
 		MockInteractions store = new(1);
 		PropertySetterRecords<int> buffer = new(store, 0);

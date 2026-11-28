@@ -8,7 +8,7 @@ public partial class MockSetupsTests
 	public class PropertiesTests
 	{
 		[Test]
-		public async Task Add_DefaultPlaceholderAfterUserSetup_ShouldNotOverwriteUserSetup()
+		public async Task Add_WithDefaultAfterUserSetup_ShouldNotOverwriteUserSetup()
 		{
 			MockSetups.PropertySetups setups = new();
 			FakePropertySetup userSetup = new("p");
@@ -23,7 +23,7 @@ public partial class MockSetupsTests
 		}
 
 		[Test]
-		public async Task Add_DefaultPlaceholderOverDefault_ShouldKeepFirstDefaultEntry()
+		public async Task Add_WithDefaultAfterDefault_ShouldKeepFirstDefaultEntry()
 		{
 			MockSetups.PropertySetups setups = new();
 			PropertySetup firstDefault = new PropertySetup.Default<int>("p", 0);
@@ -40,7 +40,7 @@ public partial class MockSetupsTests
 		}
 
 		[Test]
-		public async Task Add_ReplacingDefaultWithUserSetup_ShouldIncrementCountByOne()
+		public async Task Add_WithUserSetupAfterDefault_ShouldIncrementCountByOne()
 		{
 			MockSetups.PropertySetups setups = new();
 			PropertySetup defaultSetup = new PropertySetup.Default<int>("p", 0);
@@ -57,7 +57,7 @@ public partial class MockSetupsTests
 		}
 
 		[Test]
-		public async Task AddDuplicate_ShouldReplaceAndAdjustCount()
+		public async Task Add_WithSameName_ShouldReplaceTheSetup()
 		{
 			MockSetups.PropertySetups setups = new();
 			FakePropertySetup setup1 = new("foo");
@@ -74,7 +74,7 @@ public partial class MockSetupsTests
 		}
 
 		[Test]
-		public async Task Stress_ShouldMaintainCountAfterManyAddsAndReplacements()
+		public async Task Add_WhenCalledInRepeatedParallelBatches_ShouldKeepOneSetupPerName()
 		{
 			MockSetups.PropertySetups setups = new();
 
@@ -87,7 +87,7 @@ public partial class MockSetupsTests
 		}
 
 		[Test]
-		public async Task ThreadSafety_DuplicateKeyReplacements_ShouldPreserveSingleEntry()
+		public async Task Add_WithSameName_WhenCalledInParallel_ShouldKeepASingleSetup()
 		{
 			MockSetups.PropertySetups setups = new();
 			Parallel.For(0, 200, _ => setups.Add(new FakePropertySetup("same")));
@@ -101,7 +101,7 @@ public partial class MockSetupsTests
 		}
 
 		[Test]
-		public async Task ThreadSafety_ShouldHandleParallelAdds()
+		public async Task Add_WhenCalledInParallel_ShouldCountEverySetup()
 		{
 			MockSetups.PropertySetups setups = new();
 
@@ -111,7 +111,7 @@ public partial class MockSetupsTests
 		}
 
 		[Test]
-		public async Task TryGetValue_Nonexistent_ShouldReturnFalse()
+		public async Task TryGetValue_WhenNameIsUnknown_ShouldReturnFalse()
 		{
 			MockSetups.PropertySetups setups = new();
 

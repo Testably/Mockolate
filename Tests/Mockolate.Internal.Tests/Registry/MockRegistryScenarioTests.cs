@@ -9,7 +9,7 @@ namespace Mockolate.Internal.Tests.Registry;
 public sealed class MockRegistryScenarioTests
 {
 	[Test]
-	public async Task ApplyIndexerGetter_WithLazyDefault_AndNonNullSetup_DispatchesToSetup()
+	public async Task ApplyIndexerGetter_WithLazyDefaultAndSetup_ShouldReturnTheResultOfTheSetup()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 		FakeIndexerSetup setup = new(true);
@@ -24,7 +24,7 @@ public sealed class MockRegistryScenarioTests
 	}
 
 	[Test]
-	public async Task GetIndexerSetup_ByAccess_WithActiveScenarioAndScopedMatching_ReturnsScoped()
+	public async Task GetIndexerSetup_ByAccess_WithActiveScenarioAndMatchingScopedSetup_ShouldReturnTheScopedSetup()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 		FakeIndexerSetup global = new(true);
@@ -40,7 +40,7 @@ public sealed class MockRegistryScenarioTests
 	}
 
 	[Test]
-	public async Task GetIndexerSetup_ByAccess_WithActiveScenarioButScopedDoesNotMatchAccess_FallsBackToGlobal()
+	public async Task GetIndexerSetup_ByAccess_WithActiveScenario_WhenTheScopedSetupDoesNotMatch_ShouldFallBackToTheGlobalSetup()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 		FakeIndexerSetup global = new(true);
@@ -56,7 +56,7 @@ public sealed class MockRegistryScenarioTests
 	}
 
 	[Test]
-	public async Task GetIndexerSetup_ByPredicate_WithActiveScenarioButPredicateRejectsScoped_FallsBackToGlobal()
+	public async Task GetIndexerSetup_ByPredicate_WithActiveScenario_WhenThePredicateRejectsTheScopedSetup_ShouldFallBackToTheGlobalSetup()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 		FakeIndexerSetup global = new(true);
@@ -72,7 +72,7 @@ public sealed class MockRegistryScenarioTests
 	}
 
 	[Test]
-	public async Task GetMethodSetups_WithActiveScenarioAndScopedSetup_YieldsScopedThenGlobal()
+	public async Task GetMethodSetups_WithActiveScenarioAndScopedSetup_ShouldYieldTheScopedSetupsBeforeTheGlobalSetups()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 		FakeMethodSetup global = new();
@@ -90,7 +90,7 @@ public sealed class MockRegistryScenarioTests
 	}
 
 	[Test]
-	public async Task GetMethodSetups_WithActiveScenarioButNoScopedBucket_FallsBackToGlobal()
+	public async Task GetMethodSetups_WithActiveScenarioWithoutScopedSetups_ShouldFallBackToTheGlobalSetups()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 		FakeMethodSetup global = new();

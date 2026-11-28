@@ -8,7 +8,7 @@ public partial class MockSetupsTests
 	public class MethodsTests
 	{
 		[Test]
-		public async Task AddAndRetrieve_ShouldReturnCorrectCount()
+		public async Task Add_ShouldCountEverySetup()
 		{
 			MockSetups.MethodSetups setups = new();
 			FakeMethodSetup setup1 = new();
@@ -21,7 +21,7 @@ public partial class MockSetupsTests
 		}
 
 		[Test]
-		public async Task Stress_ShouldMaintainCountAfterManyAdds()
+		public async Task Add_WhenCalledInRepeatedParallelBatches_ShouldCountEverySetup()
 		{
 			MockSetups.MethodSetups setups = new();
 
@@ -34,7 +34,7 @@ public partial class MockSetupsTests
 		}
 
 		[Test]
-		public async Task ThreadSafety_ShouldHandleParallelAdds()
+		public async Task Add_WhenCalledInParallel_ShouldCountEverySetup()
 		{
 			MockSetups.MethodSetups setups = new();
 

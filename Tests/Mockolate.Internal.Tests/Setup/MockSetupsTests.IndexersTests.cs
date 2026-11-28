@@ -26,7 +26,7 @@ public partial class MockSetupsTests
 		}
 
 		[Test]
-		public async Task GetMatching_OnEmptyStorage_ShouldReturnNullWithoutThrowing()
+		public async Task GetMatching_WhenEmpty_ShouldReturnNull()
 		{
 			MockSetups.IndexerSetups setups = new();
 
@@ -66,7 +66,7 @@ public partial class MockSetupsTests
 		}
 
 		[Test]
-		public async Task InitializeStorageCount_OnFreshInstance_ShouldAllocateValueStoragesArrayWithRequestedLength()
+		public async Task InitializeStorageCount_WhenNotYetAllocated_ShouldAllocateValueStoragesArrayWithRequestedLength()
 		{
 			MockSetups.IndexerSetups setups = new();
 
@@ -93,7 +93,7 @@ public partial class MockSetupsTests
 		}
 
 		[Test]
-		public async Task Stress_ShouldMaintainCountAfterManyAdds()
+		public async Task Add_WhenCalledInRepeatedParallelBatches_ShouldCountEverySetup()
 		{
 			MockSetups.IndexerSetups setups = new();
 
@@ -106,7 +106,7 @@ public partial class MockSetupsTests
 		}
 
 		[Test]
-		public async Task ThreadSafety_ConcurrentAddsAndQueries_ShouldReturnConsistentMatches()
+		public async Task GetMatching_WhenCalledAfterConcurrentAddsAndQueries_ShouldReturnTheLatestMatch()
 		{
 			MockSetups.IndexerSetups setups = new();
 			FakeIndexerSetup initialMatch = new(true);
@@ -130,7 +130,7 @@ public partial class MockSetupsTests
 		}
 
 		[Test]
-		public async Task ThreadSafety_ShouldHandleParallelAdds()
+		public async Task Add_WhenCalledInParallel_ShouldCountEverySetup()
 		{
 			MockSetups.IndexerSetups setups = new();
 

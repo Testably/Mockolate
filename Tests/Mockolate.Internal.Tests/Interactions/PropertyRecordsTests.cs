@@ -8,7 +8,7 @@ namespace Mockolate.Internal.Tests.Interactions;
 public class PropertyRecordsTests
 {
 	[Test]
-	public async Task PropertyGet_BufferRecordsArePreservedOnEnumeration()
+	public async Task Enumeration_ShouldReturnGetterAndSetterAccessesInCallOrder()
 	{
 		IPropertyService sut = IPropertyService.CreateMock();
 		sut.Mock.Setup.Counter.InitializeWith(42);
@@ -25,7 +25,7 @@ public class PropertyRecordsTests
 	}
 
 	[Test]
-	public async Task PropertyGet_RoutesThroughTypedBuffer()
+	public async Task PropertyGet_ShouldRecordInTheTypedBuffer()
 	{
 		IPropertyService sut = IPropertyService.CreateMock();
 		sut.Mock.Setup.Counter.InitializeWith(42);
@@ -41,7 +41,7 @@ public class PropertyRecordsTests
 	}
 
 	[Test]
-	public async Task PropertySet_RoutesThroughTypedBuffer()
+	public async Task PropertySet_ShouldRecordInTheTypedBuffer()
 	{
 		IPropertyService sut = IPropertyService.CreateMock();
 
@@ -56,7 +56,7 @@ public class PropertyRecordsTests
 	}
 
 	[Test]
-	public async Task SkipInteractionRecording_DoesNotAppendToBuffer()
+	public async Task PropertyGet_WithSkipInteractionRecording_ShouldNotRecord()
 	{
 		MockBehavior behavior = MockBehavior.Default with
 		{
@@ -81,7 +81,7 @@ public class PropertyRecordsTests
 		});
 
 	[Test]
-	public async Task PropertyGetterRecords_AppendBoxed_RepeatedCallsReturnSameSingleton()
+	public async Task PropertyGetterRecords_AppendBoxed_ShouldReuseTheBoxedRecord()
 	{
 		MockInteractions store = new(1);
 		PropertyGetterRecords buffer = InstallPropertyGetter(store, 0);
@@ -146,7 +146,7 @@ public class PropertyRecordsTests
 		});
 
 	[Test]
-	public async Task PropertySetterRecords_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
+	public async Task PropertySetterRecords_AppendBoxed_ShouldReuseTheBoxedRecord()
 	{
 		MockInteractions store = new(1);
 		PropertySetterRecords<int> buffer = InstallPropertySetter<int>(store, 0);
@@ -200,7 +200,7 @@ public class PropertyRecordsTests
 	}
 
 	[Test]
-	public async Task PropertyGetterRecords_ConsumeMatching_ShouldReturnCount()
+	public async Task PropertyGetterRecords_ConsumeAll_ShouldReturnTheNumberOfRecords()
 	{
 		MockInteractions store = new(1);
 		PropertyGetterRecords buffer = new(store, 0);
