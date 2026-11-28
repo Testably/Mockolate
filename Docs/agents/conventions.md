@@ -66,7 +66,7 @@ Async code is limited to waiting for verifications (`Within`, `WithCancellation`
 
 - **Project:** decided by the code under test and how the test reaches it.
   - `Mockolate.Tests`: through a generated mock (`IChocolateDispenser.CreateMock()`, then setup, call and verify).
-  - `Mockolate.Internal.Tests`: by testing `internal` types and members or the `Mockolate.Internals` namespace directly (`MockRegistry`, `Callbacks<T>`, the `*Records` types, `TypeFormatter`), unless the test belongs to a user-facing feature (`MockDataSource`, the runtime of `[AutoMockArguments]`, is tested in `Mockolate.Tests` against the mocks generated there).
+  - `Mockolate.Internal.Tests`: by testing `internal` types and members or the `Mockolate.Internals` namespace directly (`MockRegistry`, `Callbacks<T>`, the `*Records` types, `TypeFormatter`), unless the test belongs to a user-facing feature (`MockDataSource`, the runtime of `[AutoMockArguments]`, is tested in `Mockolate.Tests` against the mocks generated there). A public type that already has a test class here (`Callback<TDelegate>`) keeps all its tests that do not use a generated mock here.
   - `Mockolate.SourceGenerators.Tests`: by running the generator on source text and asserting on the emitted code or the pipeline models.
   - The other projects have one purpose each, see [Project Structure](project-structure.md#test-projects).
 - **Shared types:** common domain types that several test projects use live in `Tests/Mockolate.TestHelpers`; shapes for generator special cases stay in `Mockolate.Tests/GeneratorCoverage`.
