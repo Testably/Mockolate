@@ -159,6 +159,171 @@ public class MethodRecordsTests
 		await That(((MethodInvocation<int, string, bool, double>)dest[1]).Parameter1).IsEqualTo(2);
 	}
 
+	[Test]
+	public async Task MethodRecords0_ConsumeMatching_ShouldReturnCount()
+	{
+		MockInteractions store = new(1);
+		MethodRecords buffer = new(store, 0);
+
+		await That(buffer.ConsumeAll()).IsEqualTo(0);
+
+		buffer.Append("Foo");
+		buffer.Append("Foo");
+		buffer.Append("Foo");
+
+		await That(buffer.ConsumeAll()).IsEqualTo(3);
+	}
+
+	[Test]
+	public async Task MethodRecords1_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
+	{
+		MockInteractions store = new(1);
+		MethodRecords<int> buffer = new(store, 0);
+
+		int consumed = buffer.ConsumeAll();
+
+		await That(consumed).IsEqualTo(0)
+			.Because(
+				"the `slot < n` loop bound in Method1 ConsumeAll must keep an empty buffer out of the loop; entering it at slot 0 would index past the verified flags, which are sized to the published slots");
+	}
+
+	[Test]
+	public async Task MethodRecords1_ConsumeMatching_ShouldHonorMatcher()
+	{
+		MockInteractions store = new(1);
+		MethodRecords<int> buffer = new(store, 0);
+
+		buffer.Append("Foo", 1);
+		buffer.Append("Foo", 2);
+		buffer.Append("Foo", 3);
+
+		await That(buffer.ConsumeMatching((IParameterMatch<int>)It.IsAny<int>())).IsEqualTo(3);
+		await That(buffer.ConsumeMatching((IParameterMatch<int>)It.Is(2))).IsEqualTo(1);
+		await That(buffer.ConsumeMatching((IParameterMatch<int>)It.Is(99))).IsEqualTo(0);
+	}
+
+	[Test]
+	public async Task MethodRecords2_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
+	{
+		MockInteractions store = new(1);
+		MethodRecords<int, string> buffer = new(store, 0);
+
+		int consumed = buffer.ConsumeAll();
+
+		await That(consumed).IsEqualTo(0);
+	}
+
+	[Test]
+	public async Task MethodRecords2_ConsumeMatching_ShouldHonorAllMatchers()
+	{
+		MockInteractions store = new(1);
+		MethodRecords<int, string> buffer = new(store, 0);
+
+		buffer.Append("Foo", 1, "a");
+		buffer.Append("Foo", 1, "b");
+		buffer.Append("Foo", 2, "a");
+
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.IsAny<int>(),
+			(IParameterMatch<string>)It.IsAny<string>())).IsEqualTo(3);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(1),
+			(IParameterMatch<string>)It.IsAny<string>())).IsEqualTo(2);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(1),
+			(IParameterMatch<string>)It.Is<string>("a"))).IsEqualTo(1);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(99),
+			(IParameterMatch<string>)It.IsAny<string>())).IsEqualTo(0);
+	}
+
+	[Test]
+	public async Task MethodRecords3_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
+	{
+		MockInteractions store = new(1);
+		MethodRecords<int, string, bool> buffer = new(store, 0);
+
+		int consumed = buffer.ConsumeAll();
+
+		await That(consumed).IsEqualTo(0);
+	}
+
+	[Test]
+	public async Task MethodRecords3_ConsumeMatching_ShouldHonorAllMatchers()
+	{
+		MockInteractions store = new(1);
+		MethodRecords<int, string, bool> buffer = new(store, 0);
+
+		buffer.Append("Foo", 1, "a", true);
+		buffer.Append("Foo", 2, "a", false);
+		buffer.Append("Foo", 1, "b", true);
+
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.IsAny<int>(),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.IsAny<bool>())).IsEqualTo(3);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(1),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.Is(true))).IsEqualTo(2);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(1),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.Is(false))).IsEqualTo(0);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.IsAny<int>(),
+			(IParameterMatch<string>)It.Is<string>("b"),
+			(IParameterMatch<bool>)It.Is(false))).IsEqualTo(0);
+	}
+
+	[Test]
+	public async Task MethodRecords4_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
+	{
+		MockInteractions store = new(1);
+		MethodRecords<int, string, bool, double> buffer = new(store, 0);
+
+		int consumed = buffer.ConsumeAll();
+
+		await That(consumed).IsEqualTo(0);
+	}
+
+	[Test]
+	public async Task MethodRecords4_ConsumeMatching_ShouldHonorAllMatchers()
+	{
+		MockInteractions store = new(1);
+		MethodRecords<int, string, bool, double> buffer = new(store, 0);
+
+		buffer.Append("Foo", 1, "a", true, 1.0);
+		buffer.Append("Foo", 1, "b", true, 2.0);
+		buffer.Append("Foo", 2, "a", false, 3.0);
+
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.IsAny<int>(),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.IsAny<bool>(),
+			(IParameterMatch<double>)It.IsAny<double>())).IsEqualTo(3);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(1),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.IsAny<bool>(),
+			(IParameterMatch<double>)It.IsAny<double>())).IsEqualTo(2);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(99),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.IsAny<bool>(),
+			(IParameterMatch<double>)It.IsAny<double>())).IsEqualTo(0);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(1),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.Is(false),
+			(IParameterMatch<double>)It.IsAny<double>())).IsEqualTo(0);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.IsAny<int>(),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.IsAny<bool>(),
+			(IParameterMatch<double>)It.Is(99.0))).IsEqualTo(0);
+	}
+
 	private static MethodRecords<T1, T2, T3> InstallMethod<T1, T2, T3>(MockInteractions store, int memberId)
 		=> new MethodRecords<T1, T2, T3>(store, memberId);
 

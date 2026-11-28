@@ -6,7 +6,7 @@ using Mockolate.Web;
 
 namespace Mockolate.Internal.Tests.Web;
 
-public class HttpClientExtensionsTests
+public class HttpContentParameterTests
 {
 	[Test]
 	public async Task WhenParameterImplementsIHttpRequestMessagePropertyParameter_ShouldUseThisMatch()

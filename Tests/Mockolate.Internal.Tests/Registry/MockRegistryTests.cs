@@ -71,17 +71,6 @@ public sealed class MockRegistryTests
 		await That(setup.ToString()).IsEqualTo("void DoSomething(04/01/2026 12:00:00, 3.5)");
 	}
 
-	[Test]
-	public async Task SetProperty_WithoutMemberId_SkippingBaseClass_ShouldReturnTrue()
-	{
-		MockBehavior behavior = MockBehavior.Default.SkippingBaseClass();
-		MockRegistry registry = new(behavior, new MockInteractions(0, behavior.SkipInteractionRecording));
-
-		bool result = registry.SetProperty("Foo", 42);
-
-		await That(result).IsTrue();
-	}
-
 	public sealed class AreAllInteractionsVerifiedTests
 	{
 		[Test]

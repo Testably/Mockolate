@@ -571,6 +571,192 @@ public class IndexerRecordsTests
 		await That(((IndexerSetterAccess<int, string, bool, double, char>)dest[1]).Parameter1).IsEqualTo(2);
 	}
 
+	[Test]
+	public async Task IndexerGetterRecords1_ConsumeMatching_ShouldHonorMatcher()
+	{
+		MockInteractions store = new(1);
+		IndexerGetterRecords<int> buffer = new(store, 0);
+
+		buffer.Append(1);
+		buffer.Append(2);
+		buffer.Append(1);
+
+		await That(buffer.ConsumeMatching((IParameterMatch<int>)It.IsAny<int>())).IsEqualTo(3);
+		await That(buffer.ConsumeMatching((IParameterMatch<int>)It.Is(1))).IsEqualTo(2);
+		await That(buffer.ConsumeMatching((IParameterMatch<int>)It.Is(99))).IsEqualTo(0);
+	}
+
+	[Test]
+	public async Task IndexerGetterRecords2_ConsumeMatching_ShouldHonorAllMatchers()
+	{
+		MockInteractions store = new(1);
+		IndexerGetterRecords<int, string> buffer = new(store, 0);
+
+		buffer.Append(1, "a");
+		buffer.Append(1, "b");
+		buffer.Append(2, "a");
+
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.IsAny<int>(),
+			(IParameterMatch<string>)It.IsAny<string>())).IsEqualTo(3);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(1),
+			(IParameterMatch<string>)It.Is<string>("a"))).IsEqualTo(1);
+	}
+
+	[Test]
+	public async Task IndexerGetterRecords3_ConsumeMatching_ShouldHonorAllMatchers()
+	{
+		MockInteractions store = new(1);
+		IndexerGetterRecords<int, string, bool> buffer = new(store, 0);
+
+		buffer.Append(1, "a", true);
+		buffer.Append(2, "a", false);
+		buffer.Append(1, "b", true);
+
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.IsAny<int>(),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.IsAny<bool>())).IsEqualTo(3);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(1),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.Is(true))).IsEqualTo(2);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(1),
+			(IParameterMatch<string>)It.Is<string>("a"),
+			(IParameterMatch<bool>)It.Is(false))).IsEqualTo(0);
+	}
+
+	[Test]
+	public async Task IndexerGetterRecords4_ConsumeMatching_ShouldHonorAllMatchers()
+	{
+		MockInteractions store = new(1);
+		IndexerGetterRecords<int, string, bool, double> buffer = new(store, 0);
+
+		buffer.Append(1, "a", true, 1.0);
+		buffer.Append(1, "b", true, 2.0);
+		buffer.Append(2, "a", false, 3.0);
+
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.IsAny<int>(),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.IsAny<bool>(),
+			(IParameterMatch<double>)It.IsAny<double>())).IsEqualTo(3);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(1),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.IsAny<bool>(),
+			(IParameterMatch<double>)It.IsAny<double>())).IsEqualTo(2);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(99),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.IsAny<bool>(),
+			(IParameterMatch<double>)It.IsAny<double>())).IsEqualTo(0);
+	}
+
+	[Test]
+	public async Task IndexerSetterRecords1_ConsumeMatching_ShouldHonorMatchers()
+	{
+		MockInteractions store = new(1);
+		IndexerSetterRecords<int, string> buffer = new(store, 0);
+
+		buffer.Append(1, "a");
+		buffer.Append(1, "b");
+		buffer.Append(2, "a");
+
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.IsAny<int>(),
+			(IParameterMatch<string>)It.IsAny<string>())).IsEqualTo(3);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(1),
+			(IParameterMatch<string>)It.Is<string>("a"))).IsEqualTo(1);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(99),
+			(IParameterMatch<string>)It.IsAny<string>())).IsEqualTo(0);
+	}
+
+	[Test]
+	public async Task IndexerSetterRecords2_ConsumeMatching_ShouldHonorAllMatchers()
+	{
+		MockInteractions store = new(1);
+		IndexerSetterRecords<int, string, bool> buffer = new(store, 0);
+
+		buffer.Append(1, "a", true);
+		buffer.Append(1, "b", false);
+		buffer.Append(2, "a", true);
+
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.IsAny<int>(),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.IsAny<bool>())).IsEqualTo(3);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(1),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.Is(true))).IsEqualTo(1);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(99),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.IsAny<bool>())).IsEqualTo(0);
+	}
+
+	[Test]
+	public async Task IndexerSetterRecords3_ConsumeMatching_ShouldHonorAllMatchers()
+	{
+		MockInteractions store = new(1);
+		IndexerSetterRecords<int, string, bool, double> buffer = new(store, 0);
+
+		buffer.Append(1, "a", true, 1.0);
+		buffer.Append(1, "b", true, 2.0);
+		buffer.Append(2, "a", false, 1.0);
+
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.IsAny<int>(),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.IsAny<bool>(),
+			(IParameterMatch<double>)It.IsAny<double>())).IsEqualTo(3);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(1),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.Is(true),
+			(IParameterMatch<double>)It.Is(1.0))).IsEqualTo(1);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(99),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.IsAny<bool>(),
+			(IParameterMatch<double>)It.IsAny<double>())).IsEqualTo(0);
+	}
+
+	[Test]
+	public async Task IndexerSetterRecords4_ConsumeMatching_ShouldHonorAllMatchers()
+	{
+		MockInteractions store = new(1);
+		IndexerSetterRecords<int, string, bool, double, char> buffer = new(store, 0);
+
+		buffer.Append(1, "a", true, 1.0, 'x');
+		buffer.Append(1, "b", true, 2.0, 'x');
+		buffer.Append(2, "a", false, 3.0, 'y');
+
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.IsAny<int>(),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.IsAny<bool>(),
+			(IParameterMatch<double>)It.IsAny<double>(),
+			(IParameterMatch<char>)It.IsAny<char>())).IsEqualTo(3);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(1),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.IsAny<bool>(),
+			(IParameterMatch<double>)It.IsAny<double>(),
+			(IParameterMatch<char>)It.Is('x'))).IsEqualTo(2);
+		await That(buffer.ConsumeMatching(
+			(IParameterMatch<int>)It.Is(99),
+			(IParameterMatch<string>)It.IsAny<string>(),
+			(IParameterMatch<bool>)It.IsAny<bool>(),
+			(IParameterMatch<double>)It.IsAny<double>(),
+			(IParameterMatch<char>)It.IsAny<char>())).IsEqualTo(0);
+	}
+
 	private static IndexerGetterRecords<T1> InstallIndexerGetter<T1>(MockInteractions store, int memberId)
 		=> new IndexerGetterRecords<T1>(store, memberId);
 
