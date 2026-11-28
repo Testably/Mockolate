@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Linq;
 using Mockolate.Interactions;
+using Mockolate.Parameters;
 
 namespace Mockolate.Internal.Tests.Interactions;
 
@@ -68,6 +70,155 @@ public class PropertyRecordsTests
 
 		MockInteractions mockInteractions = (MockInteractions)((IMock)sut).MockRegistry.Interactions;
 		await That(mockInteractions.Count).IsEqualTo(0);
+	}
+
+	[Test]
+	public async Task PropertyGetterRecords_Append_ShouldRaiseInteractionAdded()
+		=> await VerifyRaisesInteractionAdded(store =>
+		{
+			PropertyGetterRecords buffer = InstallPropertyGetter(store, 0);
+			return () => buffer.Append();
+		});
+
+	[Test]
+	public async Task PropertyGetterRecords_AppendBoxed_RepeatedCallsReturnSameSingleton()
+	{
+		MockInteractions store = new(1);
+		PropertyGetterRecords buffer = InstallPropertyGetter(store, 0);
+
+		buffer.Append();
+
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
+
+		await That(first).HasCount(1);
+		await That(second).HasCount(1);
+		await That(second[0]).IsSameAs(first[0]);
+	}
+
+	[Test]
+	public async Task PropertyGetterRecords_AppendBoxed_ShouldReturnTheRecordedAccessForEachRecord()
+	{
+		MockInteractions store = new(1);
+		PropertyGetterRecords buffer = InstallPropertyGetter(store, 0);
+		PropertyGetterAccess access = new("P");
+
+		buffer.Append(access);
+		buffer.Append(access);
+
+		List<IInteraction> dest = [];
+		buffer.AppendBoxed(dest);
+		dest.Reverse();
+
+		await That(dest).HasCount(2);
+		await That(dest[0]).IsSameAs(dest[1]);
+	}
+
+	[Test]
+	public async Task PropertyGetterRecords_AppendBoxed_ShouldKeepTheRecordedAccessAcrossSnapshots()
+	{
+		MockInteractions store = new(1);
+		PropertyGetterRecords buffer = InstallPropertyGetter(store, 0);
+		PropertyGetterAccess access = new("P");
+
+		buffer.Append(access);
+		List<IInteraction> firstSnapshot = [];
+		buffer.AppendBoxed(firstSnapshot);
+
+		buffer.Append(access);
+		List<IInteraction> secondSnapshot = [];
+		buffer.AppendBoxed(secondSnapshot);
+
+		await That(firstSnapshot).HasCount(1);
+		await That(secondSnapshot).HasCount(2);
+		await That(secondSnapshot[0]).IsSameAs(firstSnapshot[0]);
+		await That(secondSnapshot[1]).IsSameAs(firstSnapshot[0]);
+	}
+
+	[Test]
+	public async Task PropertySetterRecords_Append_ShouldRaiseInteractionAdded()
+		=> await VerifyRaisesInteractionAdded(store =>
+		{
+			PropertySetterRecords<int> buffer = InstallPropertySetter<int>(store, 0);
+			return () => buffer.Append("P", 1);
+		});
+
+	[Test]
+	public async Task PropertySetterRecords_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
+	{
+		MockInteractions store = new(1);
+		PropertySetterRecords<int> buffer = InstallPropertySetter<int>(store, 0);
+
+		buffer.Append("P", 5);
+
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
+
+		await That(first).HasCount(1);
+		await That(second).HasCount(1);
+		await That(second[0]).IsSameAs(first[0]);
+	}
+
+	[Test]
+	public async Task PropertySetterRecords_GetUnverifiedInteractions_ShouldSkipMatchedSlots()
+	{
+		MockInteractions store = new(1);
+		PropertySetterRecords<int> buffer = InstallPropertySetter<int>(store, 0);
+		buffer.Append("P", 1);
+		buffer.Append("P", 2);
+		buffer.Append("P", 3);
+
+		_ = buffer.ConsumeMatching((IParameterMatch<int>)It.Is(2));
+
+		List<IInteraction> dest = [..store.GetUnverifiedInteractions(),];
+
+		await That(dest).HasCount(2);
+		await That(((PropertySetterAccess<int>)dest[0]).Value).IsEqualTo(1);
+		await That(((PropertySetterAccess<int>)dest[1]).Value).IsEqualTo(3);
+	}
+
+	[Test]
+	public async Task PropertySetterRecords_ConsumeMatching_ShouldMarkSlotsVerified()
+	{
+		MockInteractions store = new(1);
+		PropertySetterRecords<int> buffer = InstallPropertySetter<int>(store, 0);
+		buffer.Append("P", 1);
+		buffer.Append("P", 1);
+
+		int firstPass = buffer.ConsumeMatching((IParameterMatch<int>)It.Is(1));
+		await That(firstPass).IsEqualTo(2);
+
+		List<IInteraction> dest = [..store.GetUnverifiedInteractions(),];
+
+		await That(dest).IsEmpty()
+			.Because(
+				"ConsumeMatching must write `_storage.VerifiedUnderLock(slot) = true`, otherwise the matched slots stay unverified and a second call would re-count the same records");
+	}
+
+	private static PropertyGetterRecords InstallPropertyGetter(MockInteractions store, int memberId)
+		=> new PropertyGetterRecords(store, memberId);
+
+	private static PropertySetterRecords<T> InstallPropertySetter<T>(MockInteractions store, int memberId)
+		=> new PropertySetterRecords<T>(store, memberId);
+
+	private static async Task VerifyRaisesInteractionAdded(Func<MockInteractions, Action> appendFactory)
+	{
+		MockInteractions store = new(1);
+		Action append = appendFactory(store);
+		int invocations = 0;
+		EventHandler handler = (_, _) => invocations++;
+		store.InteractionAdded += handler;
+
+		append();
+		append();
+
+		store.InteractionAdded -= handler;
+
+		await That(invocations).IsEqualTo(2);
 	}
 
 	public interface IPropertyService
