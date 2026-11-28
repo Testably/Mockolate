@@ -14,7 +14,7 @@ public sealed partial class MockBehaviorTests
 		[Test]
 		public async Task Recursive_ShouldReturnNull()
 		{
-			IDefaultValueGeneratorProperties sut = IDefaultValueGeneratorProperties.CreateMock();
+			IDefaultValueGeneratorProperties sut = IDefaultValueGeneratorProperties.CreateMock(MockBehavior.Default.SkippingAutoMocking());
 
 			IMyRecursiveService result = sut.RecursiveService;
 

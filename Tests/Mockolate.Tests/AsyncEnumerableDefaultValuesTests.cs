@@ -59,7 +59,7 @@ public sealed class AsyncEnumerableDefaultValuesTests
 	[Test]
 	public async Task DerivedInterface_ShouldReturnNull()
 	{
-		IAsyncEnumerableDefaultValues sut = IAsyncEnumerableDefaultValues.CreateMock();
+		IAsyncEnumerableDefaultValues sut = IAsyncEnumerableDefaultValues.CreateMock(MockBehavior.Default.SkippingAutoMocking());
 
 		IDerivedAsyncEnumerable<int> result = sut.Derived;
 
