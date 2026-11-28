@@ -1,6 +1,6 @@
 using Mockolate.Exceptions;
+using Mockolate.TestHelpers;
 using Mockolate.Tests.GeneratorCoverage;
-using Mockolate.Tests.TestHelpers;
 
 namespace Mockolate.Tests;
 
@@ -427,7 +427,7 @@ public sealed partial class MockTests
 
 		string result = ((IMock)sut).ToString();
 
-		await That(result).IsEqualTo("Mockolate.Tests.TestHelpers.IChocolateDispenser mock");
+		await That(result).IsEqualTo("Mockolate.TestHelpers.IChocolateDispenser mock");
 	}
 
 	[Test]
@@ -437,7 +437,7 @@ public sealed partial class MockTests
 
 		string result = ((IMock)sut).ToString();
 
-		await That(result).IsEqualTo("Mockolate.Tests.TestHelpers.IChocolateDispenser mock that also implements Mockolate.Tests.MockTests.IMyService");
+		await That(result).IsEqualTo("Mockolate.TestHelpers.IChocolateDispenser mock that also implements Mockolate.Tests.MockTests.IMyService");
 	}
 
 	[Test]

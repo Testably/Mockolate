@@ -1,6 +1,6 @@
 using System;
 
-namespace Mockolate.Tests.TestHelpers;
+namespace Mockolate.TestHelpers;
 
 public interface IChocolateTray
 {

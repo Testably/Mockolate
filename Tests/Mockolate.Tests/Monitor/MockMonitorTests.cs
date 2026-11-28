@@ -1,6 +1,6 @@
 using Mockolate.Exceptions;
 using Mockolate.Monitor;
-using Mockolate.Tests.TestHelpers;
+using Mockolate.TestHelpers;
 
 namespace Mockolate.Tests.Monitor;
 

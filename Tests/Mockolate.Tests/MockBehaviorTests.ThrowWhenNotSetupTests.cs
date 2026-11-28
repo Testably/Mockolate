@@ -1,5 +1,5 @@
 using Mockolate.Exceptions;
-using Mockolate.Tests.TestHelpers;
+using Mockolate.TestHelpers;
 
 namespace Mockolate.Tests;
 
@@ -35,7 +35,7 @@ public sealed partial class MockBehaviorTests
 
 			await That(Act).Throws<MockNotSetupException>()
 				.WithMessage(
-					"The method 'global::Mockolate.Tests.TestHelpers.IMyService.DoSomethingAndReturn(int)' was invoked without prior setup.");
+					"The method 'global::Mockolate.TestHelpers.IMyService.DoSomethingAndReturn(int)' was invoked without prior setup.");
 		}
 	}
 }

@@ -1,6 +1,8 @@
-namespace Mockolate.Tests.TestHelpers;
+using System;
 
-internal interface IScenarioService
+namespace Mockolate.TestHelpers;
+
+public interface IScenarioService
 {
 	int Property { get; set; }
 

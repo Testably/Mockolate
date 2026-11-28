@@ -1,5 +1,5 @@
 using Mockolate.Exceptions;
-using Mockolate.Tests.TestHelpers;
+using Mockolate.TestHelpers;
 #if NET10_0_OR_GREATER
 using System.Net.Http;
 using Mockolate.Tests.GeneratorCoverage;
@@ -148,31 +148,31 @@ public sealed partial class MockTests
 		{
 			int invocationCount1 = 0;
 			int invocationCount2 = 0;
-			IChocolateDispenser sut1 = IChocolateDispenser.CreateMock().Implementing<TestHelpers.IMyService>();
-			IChocolateDispenser sut2 = IChocolateDispenser.CreateMock().Implementing<TestHelpers.Other.IMyService>();
+			IChocolateDispenser sut1 = IChocolateDispenser.CreateMock().Implementing<Mockolate.TestHelpers.IMyService>();
+			IChocolateDispenser sut2 = IChocolateDispenser.CreateMock().Implementing<Mockolate.TestHelpers.Other.IMyService>();
 
-			sut1.Mock.As<TestHelpers.IMyService>().Setup
+			sut1.Mock.As<Mockolate.TestHelpers.IMyService>().Setup
 				.DoSomething(It.IsAny<int>())
 				.Do(() => invocationCount1++);
-			sut2.Mock.As<TestHelpers.Other.IMyService>().Setup
+			sut2.Mock.As<Mockolate.TestHelpers.Other.IMyService>().Setup
 				.DoSomething(It.IsAny<int>())
 				.Do(() => invocationCount2++);
 
-			((TestHelpers.IMyService)sut1).DoSomething(1);
-			((TestHelpers.IMyService)sut1).DoSomething(2);
-			((TestHelpers.Other.IMyService)sut2).DoSomething(1);
-			((TestHelpers.Other.IMyService)sut2).DoSomething(2);
-			((TestHelpers.Other.IMyService)sut2).DoSomething(3);
+			((Mockolate.TestHelpers.IMyService)sut1).DoSomething(1);
+			((Mockolate.TestHelpers.IMyService)sut1).DoSomething(2);
+			((Mockolate.TestHelpers.Other.IMyService)sut2).DoSomething(1);
+			((Mockolate.TestHelpers.Other.IMyService)sut2).DoSomething(2);
+			((Mockolate.TestHelpers.Other.IMyService)sut2).DoSomething(3);
 
 			await That(invocationCount1).IsEqualTo(2);
 			await That(invocationCount2).IsEqualTo(3);
-			await That(sut1.Mock.As<TestHelpers.IMyService>().Verify
+			await That(sut1.Mock.As<Mockolate.TestHelpers.IMyService>().Verify
 				.DoSomething(It.IsAny<int>())).Exactly(2);
-			await That(() => sut1.Mock.As<TestHelpers.Other.IMyService>())
-				.Throws<MockException>().WithMessage("The subject does not support type Mockolate.Tests.TestHelpers.Other.IMyService.");
-			await That(() => sut2.Mock.As<TestHelpers.IMyService>())
-				.Throws<MockException>().WithMessage("The subject does not support type Mockolate.Tests.TestHelpers.IMyService.");
-			await That(sut2.Mock.As<TestHelpers.Other.IMyService>().Verify
+			await That(() => sut1.Mock.As<Mockolate.TestHelpers.Other.IMyService>())
+				.Throws<MockException>().WithMessage("The subject does not support type Mockolate.TestHelpers.Other.IMyService.");
+			await That(() => sut2.Mock.As<Mockolate.TestHelpers.IMyService>())
+				.Throws<MockException>().WithMessage("The subject does not support type Mockolate.TestHelpers.IMyService.");
+			await That(sut2.Mock.As<Mockolate.TestHelpers.Other.IMyService>().Verify
 				.DoSomething(It.IsAny<int>())).Exactly(3);
 		}
 	}

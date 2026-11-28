@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Mockolate.Tests.TestHelpers;
+namespace Mockolate.TestHelpers;
 
 public interface IChocolateSource
 {

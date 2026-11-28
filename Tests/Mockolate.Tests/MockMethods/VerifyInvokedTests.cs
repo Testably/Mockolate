@@ -206,7 +206,7 @@ public sealed partial class VerifyInvokedTests
 	[Test]
 	public async Task WithOptionalParameters_ShouldUseOptionalValueWhenNotSet()
 	{
-		TestHelpers.IMyService sut = TestHelpers.IMyService.CreateMock();
+		Mockolate.TestHelpers.IMyService sut = Mockolate.TestHelpers.IMyService.CreateMock();
 
 		sut.MyMethodWithOptionalParameters(5);
 		sut.MyMethodWithOptionalParameters(5, 1);

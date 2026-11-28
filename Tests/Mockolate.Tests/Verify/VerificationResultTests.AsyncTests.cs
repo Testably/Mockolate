@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Threading;
 using aweXpect.Chronology;
 using Mockolate.Exceptions;
-using Mockolate.Tests.TestHelpers;
+using Mockolate.TestHelpers;
 using Mockolate.Verify;
 
 namespace Mockolate.Tests.Verify;

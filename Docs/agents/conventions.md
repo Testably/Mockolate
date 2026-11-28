@@ -70,6 +70,7 @@ Async code is limited to waiting for verifications (`Within`, `WithCancellation`
   - `Mockolate.SourceGenerators.Tests`: by running the generator on source text and asserting on the emitted code or the pipeline models.
   - `Mockolate.AutoMocking.Tests`: through a generated mock that needs auto-mocking; every other test with a generated mock goes into `Mockolate.Tests`.
   - The other projects have one purpose each, see [Project Structure](project-structure.md#test-projects).
+- **Shared types:** common domain types that several test projects use live in `Tests/Mockolate.TestHelpers`; shapes for generator special cases stay in `Mockolate.Tests/GeneratorCoverage`.
 - **Folders in `Mockolate.Tests`:** by the user-facing concept a reader looks for. Nothing lives at the project root except the usings.
   - `MockMethods/`, `MockProperties/`, `MockIndexers/`, `MockEvents/`, `MockDelegates/`: setup, verification and interactions of one member kind.
   - `Mocks/`: the `sut.Mock` surface that is not tied to a member kind (creation, `As<T>()`, wrapping, `ClearAllInteractions`, protected members).
@@ -106,7 +107,7 @@ Async code is limited to waiting for verifications (`Within`, `WithCancellation`
 
 ### Writing tests
 
-- **Body:** `public async Task` with arrange, act and assert separated by blank lines, `[Arguments(...)]` for data, and the chocolate-themed types in `TestHelpers` (`IChocolateDispenser`, ...) or a small interface next to the test. The mock is called `sut`.
+- **Body:** `public async Task` with arrange, act and assert separated by blank lines, `[Arguments(...)]` for data, and the chocolate-themed types in `Tests/Mockolate.TestHelpers` (`IChocolateDispenser`, ...) or a small interface next to the test. The mock is called `sut`.
 - **Assertions:** aweXpect: `await That(result).IsEqualTo(42);`, a `.Because(...)` reason instead of a comment, `.IgnoringNewlineStyle()` for multi-line strings. Assert verifications through aweXpect.Mockolate: `await That(sut.Mock.Verify.Dispense(...)).Once();`.
 - **Exceptions:** a local `void Act()`, then `await That(Act).Throws<MockVerificationException>().WithMessage("...")` with the complete message; `.AsWildcard()` only for parts that vary.
 - **Frameworks:** guard tests of framework-specific features with the same `#if` symbols as the library; `Mockolate.Tests` has no `IsExternalInit` polyfill.
