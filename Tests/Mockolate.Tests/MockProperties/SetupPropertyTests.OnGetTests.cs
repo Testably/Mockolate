@@ -10,7 +10,7 @@ public sealed partial class SetupPropertyTests
 		[Test]
 		[Arguments(-2)]
 		[Arguments(0)]
-		public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+		public async Task For_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 
@@ -25,7 +25,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task MultipleOnGet_InParallel_ShouldInvokeParallelCallbacksAlways()
+		public async Task InParallel_ShouldInvokeParallelCallbacksAlways()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -55,7 +55,7 @@ public sealed partial class SetupPropertyTests
 		[Arguments(1, 1)]
 		[Arguments(2, 3)]
 		[Arguments(3, 6)]
-		public async Task MultipleOnGet_Only_ShouldInvokeCallbacksOnlyTheGivenNumberOfTimes(int times,
+		public async Task Only_ShouldInvokeCallbacksOnlyTheGivenNumberOfTimes(int times,
 			int expectedValue)
 		{
 			int sum = 0;
@@ -79,7 +79,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task MultipleOnGet_OnlyOnce_ShouldDeactivateCallbackAfterFirstExecution()
+		public async Task OnlyOnce_ShouldDeactivateCallbackAfterFirstExecution()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -103,7 +103,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task MultipleOnGet_ShouldInvokeCallbacksInSequence()
+		public async Task ShouldInvokeCallbacksInSequence()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -129,7 +129,7 @@ public sealed partial class SetupPropertyTests
 		[Test]
 		[Arguments(-2)]
 		[Arguments(0)]
-		public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+		public async Task Only_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 
@@ -241,7 +241,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task WithoutCallback_IPropertyGetterSetupCallbackBuilder_ShouldNotThrow()
+		public async Task WithoutCallback_WhenCallingWhenForOrInParallel_ShouldNotThrow()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 			IPropertyGetterSetupCallbackBuilder<int> setup =
@@ -268,7 +268,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task WithoutCallback_IPropertyGetterSetupCallbackWhenBuilder_ShouldNotThrow()
+		public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 			IPropertyGetterSetupCallbackWhenBuilder<int> setup =

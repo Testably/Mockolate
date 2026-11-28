@@ -11,7 +11,7 @@ public sealed partial class SetupIndexerTests
 		public sealed class With1LevelTests
 		{
 			[Test]
-			public async Task IndexerReturns_WithSpecificParameter_ShouldIterateThroughValues()
+			public async Task Returns_WithSpecificKey_ShouldOnlyIterateThroughValuesForThatKey()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				sut.Mock.Setup[It.Is(1)]
@@ -34,7 +34,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task MixReturnsAndThrows_ShouldIterateThroughBoth()
+			public async Task WithReturnsAndThrows_ShouldIterateThroughBoth()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -53,7 +53,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task MultipleReturns_ShouldIterateThroughAllRegisteredValues()
+			public async Task Returns_WithMultipleValues_ShouldIterateThroughAllRegisteredValues()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -72,7 +72,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_AddedAfterTheSetupWasUsed_ShouldContinueTheSequence()
+			public async Task Returns_WhenAddedAfterTheSetupWasUsed_ShouldContinueTheSequence()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerSetupReturnBuilder<string, int> setup = sut.Mock.Setup[It.IsAny<int>()].Returns("a");
@@ -93,7 +93,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_Callback_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldReturnTheCallbackResult()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -106,7 +106,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_CallbackWithParameters_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldPassTheKeyToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -120,7 +120,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_CallbackWithParametersAndValue_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldPassTheKeyAndTheCurrentValueToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -134,7 +134,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
+			public async Task For_ShouldRepeatEachValueTheSpecifiedNumberOfTimes()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -152,7 +152,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_Forever_ShouldUseTheLastValueForever()
+			public async Task Forever_ShouldUseTheLastValueForever()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -171,7 +171,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task Only_ShouldLimitEachValueToTheSpecifiedNumberOfUses()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -189,7 +189,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_ShouldReturnExpectedValue()
+			public async Task Returns_ShouldReturnTheConfiguredValue()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -202,7 +202,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
+			public async Task When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -219,7 +219,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task For_WithWhen_ShouldLimitUsageToTheSpecifiedNumber()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -240,7 +240,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_WithoutSetup_ShouldReturnDefault()
+			public async Task WithoutSetup_ShouldReturnDefault()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -250,7 +250,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task SetupWithoutReturn_ShouldUseBaseValue()
+			public async Task WithoutReturns_ShouldReturnTheBaseValue()
 			{
 				IndexerMethodSetupTest sut = IndexerMethodSetupTest.CreateMock();
 				sut.Mock.Setup[It.IsAny<int>()]
@@ -262,7 +262,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task SetupWithReturn_ShouldIgnoreBaseValue()
+			public async Task Returns_ShouldReturnTheSetupValueInsteadOfTheBaseValue()
 			{
 				IndexerMethodSetupTest sut = IndexerMethodSetupTest.CreateMock();
 				sut.Mock.Setup[It.IsAny<int>()]
@@ -274,7 +274,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_Callback_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldThrowTheCallbackException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -290,7 +290,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithParameters_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheKeyToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -307,7 +307,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithParametersAndValue_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheKeyAndTheCurrentValueToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -324,7 +324,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_Generic_ShouldThrowException()
+			public async Task Throws_WithTypeArgument_ShouldThrowException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -356,7 +356,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IIndexerSetupReturnBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenOrFor_ShouldNotThrow()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerSetupReturnBuilder<string, int> setup =
@@ -377,7 +377,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IIndexerSetupReturnWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerSetupReturnWhenBuilder<string, int> setup =
@@ -401,7 +401,7 @@ public sealed partial class SetupIndexerTests
 		public sealed class With2LevelsTests
 		{
 			[Test]
-			public async Task IndexerReturns_WithSpecificParameter_ShouldIterateThroughValues()
+			public async Task Returns_WithSpecificKey_ShouldOnlyIterateThroughValuesForThatKey()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				sut.Mock.Setup[It.Is(1), It.IsAny<int>()]
@@ -424,7 +424,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task MixReturnsAndThrows_ShouldIterateThroughBoth()
+			public async Task WithReturnsAndThrows_ShouldIterateThroughBoth()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -443,7 +443,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task MultipleReturns_ShouldIterateThroughAllRegisteredValues()
+			public async Task Returns_WithMultipleValues_ShouldIterateThroughAllRegisteredValues()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -462,7 +462,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_Callback_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldReturnTheCallbackResult()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -475,7 +475,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_CallbackWithParameters_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldPassTheKeysToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -489,7 +489,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_CallbackWithParametersAndValue_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldPassTheKeysAndTheCurrentValueToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -503,7 +503,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
+			public async Task For_ShouldRepeatEachValueTheSpecifiedNumberOfTimes()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -521,7 +521,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_Forever_ShouldUseTheLastValueForever()
+			public async Task Forever_ShouldUseTheLastValueForever()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -540,7 +540,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task Only_ShouldLimitEachValueToTheSpecifiedNumberOfUses()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -558,7 +558,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_ShouldReturnExpectedValue()
+			public async Task Returns_ShouldReturnTheConfiguredValue()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -571,7 +571,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
+			public async Task When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -588,7 +588,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task For_WithWhen_ShouldLimitUsageToTheSpecifiedNumber()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -609,7 +609,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_WithoutSetup_ShouldReturnDefault()
+			public async Task WithoutSetup_ShouldReturnDefault()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -619,7 +619,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task SetupWithoutReturn_ShouldUseBaseValue()
+			public async Task WithoutReturns_ShouldReturnTheBaseValue()
 			{
 				IndexerMethodSetupTest sut = IndexerMethodSetupTest.CreateMock();
 				sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>()]
@@ -631,7 +631,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task SetupWithReturn_ShouldIgnoreBaseValue()
+			public async Task Returns_ShouldReturnTheSetupValueInsteadOfTheBaseValue()
 			{
 				IndexerMethodSetupTest sut = IndexerMethodSetupTest.CreateMock();
 				sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>()]
@@ -643,7 +643,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_Callback_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldThrowTheCallbackException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -659,7 +659,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithParameters_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheKeysToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -676,7 +676,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithParametersAndValue_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheKeysAndTheCurrentValueToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -693,7 +693,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_Generic_ShouldThrowException()
+			public async Task Throws_WithTypeArgument_ShouldThrowException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -725,7 +725,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IIndexerSetupReturnBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenOrFor_ShouldNotThrow()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerSetupReturnBuilder<string, int, int> setup =
@@ -746,7 +746,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IIndexerSetupReturnWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerSetupReturnWhenBuilder<string, int, int> setup =
@@ -770,7 +770,7 @@ public sealed partial class SetupIndexerTests
 		public sealed class With3LevelsTests
 		{
 			[Test]
-			public async Task IndexerReturns_WithSpecificParameter_ShouldIterateThroughValues()
+			public async Task Returns_WithSpecificKey_ShouldOnlyIterateThroughValuesForThatKey()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				sut.Mock.Setup[It.Is(1), It.IsAny<int>(), It.IsAny<int>()]
@@ -793,7 +793,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task MixReturnsAndThrows_ShouldIterateThroughBoth()
+			public async Task WithReturnsAndThrows_ShouldIterateThroughBoth()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -812,7 +812,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task MultipleReturns_ShouldIterateThroughAllRegisteredValues()
+			public async Task Returns_WithMultipleValues_ShouldIterateThroughAllRegisteredValues()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -832,7 +832,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_Callback_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldReturnTheCallbackResult()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -845,7 +845,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_CallbackWithParameters_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldPassTheKeysToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -859,7 +859,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_CallbackWithParametersAndValue_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldPassTheKeysAndTheCurrentValueToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -873,7 +873,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
+			public async Task For_ShouldRepeatEachValueTheSpecifiedNumberOfTimes()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -891,7 +891,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_Forever_ShouldUseTheLastValueForever()
+			public async Task Forever_ShouldUseTheLastValueForever()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -910,7 +910,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task Only_ShouldLimitEachValueToTheSpecifiedNumberOfUses()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -928,7 +928,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_ShouldReturnExpectedValue()
+			public async Task Returns_ShouldReturnTheConfiguredValue()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -941,7 +941,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
+			public async Task When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -958,7 +958,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task For_WithWhen_ShouldLimitUsageToTheSpecifiedNumber()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -979,7 +979,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_WithoutSetup_ShouldReturnDefault()
+			public async Task WithoutSetup_ShouldReturnDefault()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -989,7 +989,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_WithPredicate_ShouldApplyReturnWhenPredicateMatches()
+			public async Task Returns_WhenPredicateIsFalse_ShouldReturnTheCurrentValue()
 			{
 				List<string> results = [];
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -1010,7 +1010,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task SetupWithoutReturn_ShouldUseBaseValue()
+			public async Task WithoutReturns_ShouldReturnTheBaseValue()
 			{
 				IndexerMethodSetupTest sut = IndexerMethodSetupTest.CreateMock();
 				sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -1022,7 +1022,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task SetupWithReturn_ShouldIgnoreBaseValue()
+			public async Task Returns_ShouldReturnTheSetupValueInsteadOfTheBaseValue()
 			{
 				IndexerMethodSetupTest sut = IndexerMethodSetupTest.CreateMock();
 				sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -1034,7 +1034,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_Callback_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldThrowTheCallbackException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1050,7 +1050,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithParameters_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheKeysToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1067,7 +1067,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithParametersAndValue_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheKeysAndTheCurrentValueToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1084,7 +1084,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_Generic_ShouldThrowException()
+			public async Task Throws_WithTypeArgument_ShouldThrowException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1116,7 +1116,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IIndexerSetupReturnBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenOrFor_ShouldNotThrow()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerSetupReturnBuilder<string, int, int, int> setup =
@@ -1137,7 +1137,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IIndexerSetupReturnWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerSetupReturnWhenBuilder<string, int, int, int> setup =
@@ -1161,7 +1161,7 @@ public sealed partial class SetupIndexerTests
 		public sealed class With4LevelsTests
 		{
 			[Test]
-			public async Task IndexerReturns_WithSpecificParameter_ShouldIterateThroughValues()
+			public async Task Returns_WithSpecificKey_ShouldOnlyIterateThroughValuesForThatKey()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				sut.Mock.Setup[It.Is(1), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -1184,7 +1184,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task MixReturnsAndThrows_ShouldIterateThroughBoth()
+			public async Task WithReturnsAndThrows_ShouldIterateThroughBoth()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1203,7 +1203,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task MultipleReturns_ShouldIterateThroughAllRegisteredValues()
+			public async Task Returns_WithMultipleValues_ShouldIterateThroughAllRegisteredValues()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1224,7 +1224,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_Callback_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldReturnTheCallbackResult()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1237,7 +1237,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_CallbackWithParameters_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldPassTheKeysToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1251,7 +1251,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_CallbackWithParametersAndValue_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldPassTheKeysAndTheCurrentValueToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1265,7 +1265,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
+			public async Task For_ShouldRepeatEachValueTheSpecifiedNumberOfTimes()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1283,7 +1283,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_Forever_ShouldUseTheLastValueForever()
+			public async Task Forever_ShouldUseTheLastValueForever()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1302,7 +1302,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task Only_ShouldLimitEachValueToTheSpecifiedNumberOfUses()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1320,7 +1320,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_ShouldReturnExpectedValue()
+			public async Task Returns_ShouldReturnTheConfiguredValue()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1333,7 +1333,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
+			public async Task When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1350,7 +1350,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task For_WithWhen_ShouldLimitUsageToTheSpecifiedNumber()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1371,7 +1371,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_WithoutSetup_ShouldReturnDefault()
+			public async Task WithoutSetup_ShouldReturnDefault()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1381,7 +1381,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task SetupWithoutReturn_ShouldUseBaseValue()
+			public async Task WithoutReturns_ShouldReturnTheBaseValue()
 			{
 				IndexerMethodSetupTest sut = IndexerMethodSetupTest.CreateMock();
 				sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -1393,7 +1393,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task SetupWithReturn_ShouldIgnoreBaseValue()
+			public async Task Returns_ShouldReturnTheSetupValueInsteadOfTheBaseValue()
 			{
 				IndexerMethodSetupTest sut = IndexerMethodSetupTest.CreateMock();
 				sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -1405,7 +1405,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_Callback_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldThrowTheCallbackException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1421,7 +1421,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithParameters_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheKeysToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1438,7 +1438,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithParametersAndValue_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheKeysAndTheCurrentValueToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1455,7 +1455,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_Generic_ShouldThrowException()
+			public async Task Throws_WithTypeArgument_ShouldThrowException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1487,7 +1487,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IIndexerSetupReturnBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenOrFor_ShouldNotThrow()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerSetupReturnBuilder<string, int, int, int, int> setup =
@@ -1508,7 +1508,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IIndexerSetupReturnWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerSetupReturnWhenBuilder<string, int, int, int, int> setup =
@@ -1532,7 +1532,7 @@ public sealed partial class SetupIndexerTests
 		public sealed class With5LevelsTests
 		{
 			[Test]
-			public async Task IndexerReturns_WithSpecificParameter_ShouldIterateThroughValues()
+			public async Task Returns_WithSpecificKey_ShouldOnlyIterateThroughValuesForThatKey()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				sut.Mock.Setup[It.Is(1), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -1555,7 +1555,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task MixReturnsAndThrows_ShouldIterateThroughBoth()
+			public async Task WithReturnsAndThrows_ShouldIterateThroughBoth()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1575,7 +1575,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task MultipleReturns_ShouldIterateThroughAllRegisteredValues()
+			public async Task Returns_WithMultipleValues_ShouldIterateThroughAllRegisteredValues()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1596,7 +1596,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_Callback_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldReturnTheCallbackResult()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1609,7 +1609,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_CallbackWithParameters_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldPassTheKeysToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1623,7 +1623,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_CallbackWithParametersAndValue_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldPassTheKeysAndTheCurrentValueToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1637,7 +1637,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
+			public async Task For_ShouldRepeatEachValueTheSpecifiedNumberOfTimes()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1655,7 +1655,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_Forever_ShouldUseTheLastValueForever()
+			public async Task Forever_ShouldUseTheLastValueForever()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1674,7 +1674,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task Only_ShouldLimitEachValueToTheSpecifiedNumberOfUses()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1692,7 +1692,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_ShouldReturnExpectedValue()
+			public async Task Returns_ShouldReturnTheConfiguredValue()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1705,7 +1705,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
+			public async Task When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1722,7 +1722,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task For_WithWhen_ShouldLimitUsageToTheSpecifiedNumber()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1743,7 +1743,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Returns_WithoutSetup_ShouldReturnDefault()
+			public async Task WithoutSetup_ShouldReturnDefault()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1753,7 +1753,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task SetupWithoutReturn_ShouldUseBaseValue()
+			public async Task WithoutReturns_ShouldReturnTheBaseValue()
 			{
 				IndexerMethodSetupTest sut = IndexerMethodSetupTest.CreateMock();
 				sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -1765,7 +1765,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task SetupWithReturn_ShouldIgnoreBaseValue()
+			public async Task Returns_ShouldReturnTheSetupValueInsteadOfTheBaseValue()
 			{
 				IndexerMethodSetupTest sut = IndexerMethodSetupTest.CreateMock();
 				sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -1777,7 +1777,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_Callback_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldThrowTheCallbackException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1793,7 +1793,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithParameters_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheKeysToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1810,7 +1810,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithParametersAndValue_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheKeysAndTheCurrentValueToTheCallback()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1827,7 +1827,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task Throws_Generic_ShouldThrowException()
+			public async Task Throws_WithTypeArgument_ShouldThrowException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 
@@ -1859,7 +1859,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IIndexerSetupReturnBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenOrFor_ShouldNotThrow()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerSetupReturnBuilder<string, int, int, int, int, int> setup =
@@ -1880,7 +1880,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IIndexerSetupReturnWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerSetupReturnWhenBuilder<string, int, int, int, int, int> setup =

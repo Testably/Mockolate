@@ -10,7 +10,7 @@ public sealed partial class SetupIndexerTests
 	public sealed class WithRestrictedAccessorsTests
 	{
 		[Test]
-		public async Task SetOnlyIndexer_OnSet_ShouldFireAndRecordTheWrite()
+		public async Task OnSet_WithSetOnlyIndexer_ShouldFireAndRecordTheWrite()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			List<string> written = new();
@@ -24,7 +24,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnlyIndexer_VerifyOtherValue_ShouldNotMatch()
+		public async Task Set_WithSetOnlyIndexer_WhenTheValueDiffers_ShouldNotMatch()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 
@@ -34,7 +34,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnlyIndexer_VerifyWithParameterMatcher_ShouldMatch()
+		public async Task Set_WithSetOnlyIndexerAndMatchers_ShouldMatch()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 
@@ -46,7 +46,7 @@ public sealed partial class SetupIndexerTests
 		[Test]
 		[Arguments(false, 1)]
 		[Arguments(true, 0)]
-		public async Task SetOnlyClassIndexer_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
+		public async Task SkippingBaseClass_WithSetOnlyClassIndexer_ShouldCallTheBaseClassUnlessSkipped(bool skipBaseClass,
 			int expectedCallCount)
 		{
 			AccessorService sut = AccessorService.CreateMock();
@@ -58,7 +58,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyIndexer_ChainedReturns_ShouldStayOnGetterOnlySurface()
+		public async Task Returns_WithGetOnlyIndexer_WhenChained_ShouldStayOnGetterOnlySurface()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			IIndexerGetterOnlySetup<int, int> chained = sut.Mock.Setup[It.IsAny<int>()]
@@ -70,7 +70,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyIndexer_ReturnsForever_ShouldUseTheLastValueForever()
+		public async Task Forever_WithGetOnlyIndexer_ShouldUseTheLastValueForever()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>()]
@@ -87,7 +87,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyIndexer_ReturnsWhen_ShouldOnlyUseValueWhenPredicateIsTrue()
+		public async Task When_WithGetOnlyIndexer_ShouldOnlyUseValueWhenPredicateIsTrue()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>()]
@@ -101,7 +101,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyIndexer_ReturnsCallbackWithValue_ShouldReturnExpectedValue()
+		public async Task Returns_WithGetOnlyIndexer_ShouldPassTheCurrentValueToTheCallback()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>()]
@@ -114,7 +114,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyIndexer_InitializeWithGenerator_ShouldSeedTheReadValue()
+		public async Task InitializeWith_WithGetOnlyIndexerAndCallback_ShouldSeedTheReadValue()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>()]
@@ -125,7 +125,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyIndexer_Throws_ShouldIterateThroughAllRegisteredExceptions()
+		public async Task Throws_WithGetOnlyIndexer_ShouldIterateThroughAllRegisteredExceptions()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>()]
@@ -149,7 +149,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyIndexer_OnGetChain_ShouldStayOnGetterOnlySurface()
+		public async Task OnGet_WithGetOnlyIndexer_WhenChained_ShouldStayOnGetterOnlySurface()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -170,7 +170,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyIndexer_OnGetWhen_ShouldOnlyInvokeCallbackWhenPredicateIsTrue()
+		public async Task When_WithGetOnlyIndexer_ShouldOnlyInvokeCallbackWhenPredicateIsTrue()
 		{
 			int callCount = 0;
 			IAccessorService sut = IAccessorService.CreateMock();
@@ -185,7 +185,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyIndexer_OnGetInParallel_ShouldInvokeParallelCallbacksAlways()
+		public async Task InParallel_WithGetOnlyIndexer_ShouldInvokeParallelCallbacksAlways()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -207,7 +207,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyIndexer_OnGetFor_ShouldRepeatCallbackTheGivenNumberOfTimes()
+		public async Task For_WithGetOnlyIndexer_ShouldRepeatCallbackTheGivenNumberOfTimes()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -226,7 +226,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyIndexer_OnGetTransitionTo_ShouldSwitchScenario()
+		public async Task TransitionTo_WithGetOnlyIndexer_ShouldSwitchScenario()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.InScenario("a").Setup[It.IsAny<int>()]
@@ -240,7 +240,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnlyIndexer_OnSetChain_ShouldStayOnSetterOnlySurface()
+		public async Task OnSet_WithSetOnlyIndexer_WhenChained_ShouldStayOnSetterOnlySurface()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -260,7 +260,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnlyIndexer_OnSetWhen_ShouldOnlyInvokeCallbackWhenPredicateIsTrue()
+		public async Task When_WithSetOnlyIndexer_ShouldOnlyInvokeCallbackWhenPredicateIsTrue()
 		{
 			int callCount = 0;
 			IAccessorService sut = IAccessorService.CreateMock();
@@ -275,7 +275,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnlyIndexer_OnSetInParallel_ShouldInvokeParallelCallbacksAlways()
+		public async Task InParallel_WithSetOnlyIndexer_ShouldInvokeParallelCallbacksAlways()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -297,7 +297,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnlyIndexer_OnSetFor_ShouldRepeatCallbackTheGivenNumberOfTimes()
+		public async Task For_WithSetOnlyIndexer_ShouldRepeatCallbackTheGivenNumberOfTimes()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -316,7 +316,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnlyIndexer_OnSetTransitionTo_ShouldSwitchScenario()
+		public async Task TransitionTo_WithSetOnlyIndexer_ShouldSwitchScenario()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.InScenario("a").Setup[It.IsAny<string>()]
@@ -330,7 +330,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyIndexer_Got_ShouldMatchOnlyMatchingKeys()
+		public async Task Got_WithGetOnlyIndexer_ShouldMatchOnlyMatchingKeys()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 
@@ -341,7 +341,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyTwoKeyIndexer_ReturnsAndGot_ShouldUseTheNarrowedSurface()
+		public async Task WithGetOnlyTwoKeyIndexer_ShouldSupportReturnsAndGot()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>()]
@@ -355,7 +355,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnlyTwoKeyIndexer_OnSetAndVerify_ShouldUseTheNarrowedSurface()
+		public async Task WithSetOnlyTwoKeyIndexer_ShouldSupportOnSetAndVerify()
 		{
 			List<string> written = new();
 			IAccessorService sut = IAccessorService.CreateMock();
@@ -370,7 +370,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnlyFourKeyIndexer_Set_ShouldVerifyTheWrite()
+		public async Task Set_WithSetOnlyFourKeyIndexer_ShouldVerifyTheWrite()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 
@@ -381,7 +381,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyFiveKeyIndexer_ChainedReturns_ShouldStayOnGetterOnlySurface()
+		public async Task Returns_WithGetOnlyFiveKeyIndexer_WhenChained_ShouldStayOnGetterOnlySurface()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			IIndexerGetterOnlySetup<int, int, int, int, int, int> chained = sut.Mock
@@ -397,7 +397,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyFiveKeyIndexer_ReturnsForever_ShouldUseTheLastValueForever()
+		public async Task Forever_WithGetOnlyFiveKeyIndexer_ShouldUseTheLastValueForever()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -414,7 +414,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnlyFiveKeyIndexer_OnSetAndVerify_ShouldUseTheNarrowedSurface()
+		public async Task WithSetOnlyFiveKeyIndexer_ShouldSupportOnSetAndVerify()
 		{
 			List<string> written = new();
 			IAccessorService sut = IAccessorService.CreateMock();
@@ -430,7 +430,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyFiveKeyIndexer_Throws_ShouldIterateThroughAllRegisteredExceptions()
+		public async Task Throws_WithGetOnlyFiveKeyIndexer_ShouldIterateThroughAllRegisteredExceptions()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -454,7 +454,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyFiveKeyIndexer_InitializeWith_ShouldSeedTheReadValue()
+		public async Task InitializeWith_WithGetOnlyFiveKeyIndexer_ShouldSeedTheReadValue()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -465,7 +465,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyFiveKeyIndexer_InitializeWithGenerator_ShouldSeedTheReadValue()
+		public async Task InitializeWith_WithGetOnlyFiveKeyIndexerAndCallback_ShouldSeedTheReadValue()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -475,7 +475,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyFiveKeyIndexer_ReturnsWhen_ShouldOnlyUseValueWhenPredicateIsTrue()
+		public async Task When_WithGetOnlyFiveKeyIndexer_ShouldOnlyUseValueWhenPredicateIsTrue()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -489,7 +489,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyFiveKeyIndexer_SkippingBaseClass_ShouldStayOnGetterOnlySurface()
+		public async Task SkippingBaseClass_WithGetOnlyFiveKeyIndexer_ShouldStayOnGetterOnlySurface()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			IIndexerGetterOnlySetup<int, int, int, int, int, int> chained = sut.Mock
@@ -501,7 +501,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyFiveKeyIndexer_OnGetChain_ShouldStayOnGetterOnlySurface()
+		public async Task OnGet_WithGetOnlyFiveKeyIndexer_WhenChained_ShouldStayOnGetterOnlySurface()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -523,7 +523,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyFiveKeyIndexer_OnGetWhen_ShouldOnlyInvokeCallbackWhenPredicateIsTrue()
+		public async Task When_WithGetOnlyFiveKeyIndexer_ShouldOnlyInvokeCallbackWhenPredicateIsTrue()
 		{
 			int callCount = 0;
 			IAccessorService sut = IAccessorService.CreateMock();
@@ -538,7 +538,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyFiveKeyIndexer_OnGetInParallel_ShouldInvokeParallelCallbacksAlways()
+		public async Task InParallel_WithGetOnlyFiveKeyIndexer_ShouldInvokeParallelCallbacksAlways()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -560,7 +560,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyFiveKeyIndexer_OnGetFor_ShouldRepeatCallbackTheGivenNumberOfTimes()
+		public async Task For_WithGetOnlyFiveKeyIndexer_ShouldRepeatCallbackTheGivenNumberOfTimes()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -579,7 +579,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyFiveKeyIndexer_OnGetDoWithCounter_ShouldReceiveTheAccessCounter()
+		public async Task Do_WithGetOnlyFiveKeyIndexer_ShouldReceiveTheAccessCounter()
 		{
 			List<int> invocations = [];
 			IAccessorService sut = IAccessorService.CreateMock();
@@ -595,7 +595,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task GetOnlyFiveKeyIndexer_OnGetTransitionTo_ShouldSwitchScenario()
+		public async Task TransitionTo_WithGetOnlyFiveKeyIndexer_ShouldSwitchScenario()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.InScenario("a")
@@ -610,7 +610,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnlyFiveKeyIndexer_OnSetChain_ShouldStayOnSetterOnlySurface()
+		public async Task OnSet_WithSetOnlyFiveKeyIndexer_WhenChained_ShouldStayOnSetterOnlySurface()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -632,7 +632,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnlyFiveKeyIndexer_OnSetWhen_ShouldOnlyInvokeCallbackWhenPredicateIsTrue()
+		public async Task When_WithSetOnlyFiveKeyIndexer_ShouldOnlyInvokeCallbackWhenPredicateIsTrue()
 		{
 			int callCount = 0;
 			IAccessorService sut = IAccessorService.CreateMock();
@@ -649,7 +649,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnlyFiveKeyIndexer_OnSetInParallel_ShouldInvokeParallelCallbacksAlways()
+		public async Task InParallel_WithSetOnlyFiveKeyIndexer_ShouldInvokeParallelCallbacksAlways()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -673,7 +673,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnlyFiveKeyIndexer_OnSetFor_ShouldRepeatCallbackTheGivenNumberOfTimes()
+		public async Task For_WithSetOnlyFiveKeyIndexer_ShouldRepeatCallbackTheGivenNumberOfTimes()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -694,7 +694,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnlyFiveKeyIndexer_OnSetDoWithCounter_ShouldReceiveTheAccessCounter()
+		public async Task Do_WithSetOnlyFiveKeyIndexer_ShouldReceiveTheAccessCounter()
 		{
 			List<int> invocations = [];
 			IAccessorService sut = IAccessorService.CreateMock();
@@ -712,7 +712,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnlyFiveKeyIndexer_OnSetTransitionTo_ShouldSwitchScenario()
+		public async Task TransitionTo_WithSetOnlyFiveKeyIndexer_ShouldSwitchScenario()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.InScenario("a")
@@ -728,7 +728,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnlyFiveKeyIndexer_SetExpectation_ShouldFormatTheValueLikeTheShippedSurface()
+		public async Task Set_WithSetOnlyFiveKeyIndexer_ShouldFormatTheValueInTheExpectation()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 

@@ -127,7 +127,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task WithSixKeys_WithOmittedKeys_ShouldOnlyMatchTheDeclaredDefaults()
+		public async Task WithSixKeysAndOmittedKeys_ShouldOnlyMatchTheDeclaredDefaults()
 		{
 			IOptionalIndexerKeysWithSixKeys sut = IOptionalIndexerKeysWithSixKeys.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()].Returns("a");
@@ -144,7 +144,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task WithSixKeys_WithOmittedKeyAfterMatchers_ShouldOnlyMatchTheDeclaredDefault()
+		public async Task WithSixKeysAndOmittedKeyAfterMatchers_ShouldOnlyMatchTheDeclaredDefault()
 		{
 			IOptionalIndexerKeysWithSixKeys sut = IOptionalIndexerKeysWithSixKeys.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.Is(6)].Returns("a");

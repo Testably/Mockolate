@@ -5,7 +5,7 @@ namespace Mockolate.Tests.MockIndexers;
 public sealed partial class IndexerInteractionsTests
 {
 	[Test]
-	public async Task IndexerGetterAccess1_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_WithGetterAnd1Key_ShouldDescribeTheAccess()
 	{
 		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string> interaction =
@@ -18,7 +18,7 @@ public sealed partial class IndexerInteractionsTests
 	}
 
 	[Test]
-	public async Task IndexerGetterAccess1_ToString_WithNull_ShouldReturnExpectedValue()
+	public async Task ToString_WithGetterAnd1Key_WhenTheKeyIsNull_ShouldShowNull()
 	{
 		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string?> interaction =
@@ -31,7 +31,7 @@ public sealed partial class IndexerInteractionsTests
 	}
 
 	[Test]
-	public async Task IndexerGetterAccess2_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_WithGetterAnd2Keys_ShouldDescribeTheAccess()
 	{
 		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string, int> interaction =
@@ -45,7 +45,7 @@ public sealed partial class IndexerInteractionsTests
 	}
 
 	[Test]
-	public async Task IndexerGetterAccess2_ToString_WithNull_ShouldReturnExpectedValue()
+	public async Task ToString_WithGetterAnd2Keys_WhenTheKeysAreNull_ShouldShowNull()
 	{
 		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string?, long?> interaction =
@@ -59,7 +59,7 @@ public sealed partial class IndexerInteractionsTests
 	}
 
 	[Test]
-	public async Task IndexerGetterAccess3_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_WithGetterAnd3Keys_ShouldDescribeTheAccess()
 	{
 		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string, int, long?> interaction =
@@ -74,7 +74,7 @@ public sealed partial class IndexerInteractionsTests
 	}
 
 	[Test]
-	public async Task IndexerGetterAccess3_ToString_WithNull_ShouldReturnExpectedValue()
+	public async Task ToString_WithGetterAnd3Keys_WhenSomeKeysAreNull_ShouldShowNull()
 	{
 		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string?, int, long?> interaction =
@@ -89,7 +89,7 @@ public sealed partial class IndexerInteractionsTests
 	}
 
 	[Test]
-	public async Task IndexerGetterAccess4_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_WithGetterAnd4Keys_ShouldDescribeTheAccess()
 	{
 		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string, int, long?, TimeSpan> interaction =
@@ -105,7 +105,7 @@ public sealed partial class IndexerInteractionsTests
 	}
 
 	[Test]
-	public async Task IndexerGetterAccess4_ToString_WithNull_ShouldReturnExpectedValue()
+	public async Task ToString_WithGetterAnd4Keys_WhenAKeyIsNull_ShouldShowNull()
 	{
 		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string, int, long?, TimeSpan> interaction =
@@ -121,7 +121,7 @@ public sealed partial class IndexerInteractionsTests
 	}
 
 	[Test]
-	public async Task IndexerGetterAccess5_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_WithGetterAnd5Keys_ShouldDescribeTheAccess()
 	{
 		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string, int, long?, TimeSpan, bool> interaction =
@@ -138,7 +138,7 @@ public sealed partial class IndexerInteractionsTests
 	}
 
 	[Test]
-	public async Task IndexerGetterAccess5_ToString_WithNull_ShouldReturnExpectedValue()
+	public async Task ToString_WithGetterAnd5Keys_WhenSomeKeysAreNull_ShouldShowNull()
 	{
 		MockInteractions interactions = new(0);
 		IndexerGetterAccess<string?, int, long?, TimeSpan, bool?> interaction =
@@ -155,7 +155,7 @@ public sealed partial class IndexerInteractionsTests
 	}
 
 	[Test]
-	public async Task IndexerSetterAccess1_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_WithSetterAnd1Key_ShouldDescribeTheAccess()
 	{
 		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string, int> interaction =
@@ -169,7 +169,7 @@ public sealed partial class IndexerInteractionsTests
 	}
 
 	[Test]
-	public async Task IndexerSetterAccess1_ToString_WithNull_ShouldReturnExpectedValue()
+	public async Task ToString_WithSetterAnd1Key_WhenTheKeyAndValueAreNull_ShouldShowNull()
 	{
 		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string?, string?> interaction =
@@ -183,7 +183,7 @@ public sealed partial class IndexerInteractionsTests
 	}
 
 	[Test]
-	public async Task IndexerSetterAccess2_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_WithSetterAnd2Keys_ShouldDescribeTheAccess()
 	{
 		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string, int, int> interaction =
@@ -198,7 +198,7 @@ public sealed partial class IndexerInteractionsTests
 	}
 
 	[Test]
-	public async Task IndexerSetterAccess2_ToString_WithNull_ShouldReturnExpectedValue()
+	public async Task ToString_WithSetterAnd2Keys_WhenTheKeysAndValueAreNull_ShouldShowNull()
 	{
 		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string?, long?, string?> interaction =
@@ -213,7 +213,7 @@ public sealed partial class IndexerInteractionsTests
 	}
 
 	[Test]
-	public async Task IndexerSetterAccess3_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_WithSetterAnd3Keys_ShouldDescribeTheAccess()
 	{
 		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string, int, long?, int> interaction =
@@ -229,7 +229,7 @@ public sealed partial class IndexerInteractionsTests
 	}
 
 	[Test]
-	public async Task IndexerSetterAccess3_ToString_WithNull_ShouldReturnExpectedValue()
+	public async Task ToString_WithSetterAnd3Keys_WhenSomeKeysAndTheValueAreNull_ShouldShowNull()
 	{
 		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string?, int, long?, string?> interaction =
@@ -245,7 +245,7 @@ public sealed partial class IndexerInteractionsTests
 	}
 
 	[Test]
-	public async Task IndexerSetterAccess4_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_WithSetterAnd4Keys_ShouldDescribeTheAccess()
 	{
 		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string, int, long?, TimeSpan, int> interaction =
@@ -262,7 +262,7 @@ public sealed partial class IndexerInteractionsTests
 	}
 
 	[Test]
-	public async Task IndexerSetterAccess4_ToString_WithNull_ShouldReturnExpectedValue()
+	public async Task ToString_WithSetterAnd4Keys_WhenAKeyAndTheValueAreNull_ShouldShowNull()
 	{
 		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string, int, long?, TimeSpan, string?> interaction =
@@ -279,7 +279,7 @@ public sealed partial class IndexerInteractionsTests
 	}
 
 	[Test]
-	public async Task IndexerSetterAccess5_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_WithSetterAnd5Keys_ShouldDescribeTheAccess()
 	{
 		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string, int, long?, TimeSpan, bool, int> interaction =
@@ -297,7 +297,7 @@ public sealed partial class IndexerInteractionsTests
 	}
 
 	[Test]
-	public async Task IndexerSetterAccess5_ToString_WithNull_ShouldReturnExpectedValue()
+	public async Task ToString_WithSetterAnd5Keys_WhenSomeKeysAndTheValueAreNull_ShouldShowNull()
 	{
 		MockInteractions interactions = new(0);
 		IndexerSetterAccess<string?, int, long?, TimeSpan, bool?, string?> interaction =

@@ -7,7 +7,7 @@ public sealed partial class SetupPropertyTests
 	public sealed class RegisterTests
 	{
 		[Test]
-		public async Task AccessWithoutSetup_ShouldThrowMockNotSetupException()
+		public async Task WithThrowWhenNotSetup_WhenNotRegistered_ShouldThrowMockNotSetupException()
 		{
 			IPropertyService mock = IPropertyService.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
 
@@ -22,7 +22,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task RegisterBeforeAccess_ShouldNotThrowAndReturnDefaultValue()
+		public async Task WithThrowWhenNotSetup_WhenRegistered_ShouldStoreValuesWithoutThrowing()
 		{
 			IPropertyService sut = IPropertyService.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
 

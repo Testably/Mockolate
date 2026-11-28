@@ -30,7 +30,7 @@ public sealed class VerifyGotTests
 	[Test]
 	[Arguments(true)]
 	[Arguments(false)]
-	public async Task ShouldThrowMockNotSetupExceptionWhenBehaviorIsSetToThrow(bool throwWhenNotSetup)
+	public async Task WhenNotSetup_ShouldThrowMockNotSetupExceptionOnlyIfConfigured(bool throwWhenNotSetup)
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock(MockBehavior.Default with
 		{

@@ -3,7 +3,7 @@ namespace Mockolate.Tests.MockProperties;
 public sealed partial class PropertyInteractionsTests
 {
 	[Test]
-	public async Task PropertyGetterAccess_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_WithGetter_ShouldDescribeTheAccess()
 	{
 		MockInteractions interactions = new(0);
 		PropertyGetterAccess interaction = ((IMockInteractions)interactions).RegisterInteraction(
@@ -14,7 +14,7 @@ public sealed partial class PropertyInteractionsTests
 	}
 
 	[Test]
-	public async Task PropertySetterAccess_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_WithSetter_ShouldDescribeTheAccess()
 	{
 		MockInteractions interactions = new(0);
 		PropertySetterAccess<int> interaction = ((IMockInteractions)interactions).RegisterInteraction(
@@ -25,7 +25,7 @@ public sealed partial class PropertyInteractionsTests
 	}
 
 	[Test]
-	public async Task PropertySetterAccess_ToString_WithNull_ShouldReturnExpectedValue()
+	public async Task ToString_WithSetter_WhenTheValueIsNull_ShouldShowNull()
 	{
 		MockInteractions interactions = new(0);
 		PropertySetterAccess<string?> interaction = ((IMockInteractions)interactions).RegisterInteraction(

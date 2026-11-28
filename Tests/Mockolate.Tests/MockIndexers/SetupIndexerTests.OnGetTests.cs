@@ -106,7 +106,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task ShouldExecuteGetterCallbacks()
+		public async Task WithParameterlessCallback_ShouldOnlyExecuteForMatchingKeys()
 		{
 			int callCount = 0;
 			IIndexerService sut = IIndexerService.CreateMock();
@@ -124,7 +124,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task ShouldExecuteGetterCallbacksWithValue()
+		public async Task ShouldPassTheKeyOfMatchingAccessesToTheCallback()
 		{
 			int callCount = 0;
 			IIndexerService sut = IIndexerService.CreateMock();
@@ -194,7 +194,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task WhenLengthDoesNotMatch_ShouldIgnore()
+		public async Task WhenKeyCountDoesNotMatch_ShouldNotExecuteTheCallback()
 		{
 			int callCount = 0;
 			IIndexerService sut = IIndexerService.CreateMock();
@@ -209,7 +209,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task WithoutCallback_IIndexerGetterSetupCallbackBuilder_ShouldNotThrow()
+		public async Task WithoutCallback_WhenCallingWhenForOrInParallel_ShouldNotThrow()
 		{
 			IIndexerService sut = IIndexerService.CreateMock();
 			IIndexerGetterSetupCallbackBuilder<string, int> setup =
@@ -236,7 +236,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task WithoutCallback_IIndexerGetterSetupCallbackWhenBuilder_ShouldNotThrow()
+		public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 		{
 			IIndexerService sut = IIndexerService.CreateMock();
 			IIndexerGetterSetupCallbackWhenBuilder<string, int> setup =
@@ -259,7 +259,7 @@ public sealed partial class SetupIndexerTests
 		public sealed class With2LevelsTests
 		{
 			[Test]
-			public async Task Callback_WhenLengthDoesNotMatch_ShouldIgnore()
+			public async Task WhenKeyCountDoesNotMatch_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -372,7 +372,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task ShouldExecuteGetterCallbacks()
+			public async Task WithParameterlessCallback_ShouldOnlyExecuteForMatchingKeys()
 			{
 				int callCount = 0;
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -390,7 +390,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task ShouldExecuteGetterCallbacksWithValue()
+			public async Task ShouldPassTheKeysOfMatchingAccessesToTheCallback()
 			{
 				int callCount = 0;
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -461,7 +461,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IIndexerGetterSetupCallbackBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenForOrInParallel_ShouldNotThrow()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerGetterSetupCallbackBuilder<string, int, int> setup =
@@ -489,7 +489,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IIndexerGetterSetupCallbackWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerGetterSetupCallbackWhenBuilder<string, int, int> setup =
@@ -513,7 +513,7 @@ public sealed partial class SetupIndexerTests
 		public sealed class With3LevelsTests
 		{
 			[Test]
-			public async Task Callback_WhenLengthDoesNotMatch_ShouldIgnore()
+			public async Task WhenKeyCountDoesNotMatch_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -627,7 +627,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task ShouldExecuteGetterCallbacks()
+			public async Task WithParameterlessCallback_ShouldOnlyExecuteForMatchingKeys()
 			{
 				int callCount = 0;
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -647,7 +647,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task ShouldExecuteGetterCallbacksWithValue()
+			public async Task ShouldPassTheKeysOfMatchingAccessesToTheCallback()
 			{
 				int callCount = 0;
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -720,7 +720,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IIndexerGetterSetupCallbackBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenForOrInParallel_ShouldNotThrow()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerGetterSetupCallbackBuilder<string, int, int, int> setup =
@@ -747,7 +747,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IIndexerGetterSetupCallbackWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerGetterSetupCallbackWhenBuilder<string, int, int, int> setup =
@@ -771,7 +771,7 @@ public sealed partial class SetupIndexerTests
 		public sealed class With4LevelsTests
 		{
 			[Test]
-			public async Task Callback_WhenLengthDoesNotMatch_ShouldIgnore()
+			public async Task WhenKeyCountDoesNotMatch_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -885,7 +885,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task ShouldExecuteGetterCallbacks()
+			public async Task WithParameterlessCallback_ShouldOnlyExecuteForMatchingKeys()
 			{
 				int callCount = 0;
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -906,7 +906,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task ShouldExecuteGetterCallbacksWithValue()
+			public async Task ShouldPassTheKeysOfMatchingAccessesToTheCallback()
 			{
 				int callCount = 0;
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -979,7 +979,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IIndexerGetterSetupCallbackBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenForOrInParallel_ShouldNotThrow()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerGetterSetupCallbackBuilder<string, int, int, int, int> setup =
@@ -1006,7 +1006,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IIndexerGetterSetupCallbackWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerGetterSetupCallbackWhenBuilder<string, int, int, int, int> setup =
@@ -1030,7 +1030,7 @@ public sealed partial class SetupIndexerTests
 		public sealed class With5LevelsTests
 		{
 			[Test]
-			public async Task Callback_WhenLengthDoesNotMatch_ShouldIgnore()
+			public async Task WhenKeyCountDoesNotMatch_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -1146,7 +1146,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task ShouldExecuteGetterCallbacks()
+			public async Task WithParameterlessCallback_ShouldOnlyExecuteForMatchingKeys()
 			{
 				int callCount = 0;
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -1167,7 +1167,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task ShouldExecuteGetterCallbacksWithValue()
+			public async Task ShouldPassTheKeysOfMatchingAccessesToTheCallback()
 			{
 				int callCount = 0;
 				IIndexerService sut = IIndexerService.CreateMock();
@@ -1241,7 +1241,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IIndexerGetterSetupCallbackBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenForOrInParallel_ShouldNotThrow()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerGetterSetupCallbackBuilder<string, int, int, int, int, int> setup =
@@ -1268,7 +1268,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IIndexerGetterSetupCallbackWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerGetterSetupCallbackWhenBuilder<string, int, int, int, int, int> setup =

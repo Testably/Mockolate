@@ -7,7 +7,7 @@ public sealed partial class SetupPropertyTests
 	public sealed class InitializeWithTests
 	{
 		[Test]
-		public async Task Returns_PredicateIsFalse_ShouldUseInitializedDefaultValue()
+		public async Task Returns_WhenPredicateIsFalse_ShouldReturnTheCurrentValue()
 		{
 			List<int> results = [];
 			IPropertyService sut = IPropertyService.CreateMock();
@@ -40,7 +40,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task WhenSet_ShouldUpdateValue_ShouldReturnInitializedValue()
+		public async Task WhenSet_ShouldReturnTheSetValueInsteadOfTheInitializedValue()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 			sut.Mock.Setup.MyProperty.InitializeWith(42);

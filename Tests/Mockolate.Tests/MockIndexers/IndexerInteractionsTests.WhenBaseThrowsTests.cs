@@ -7,7 +7,7 @@ public sealed partial class IndexerInteractionsTests
 	public sealed class WhenBaseThrowsTests
 	{
 		[Test]
-		public async Task IndexerGetter_WhenBaseThrows_AndSkipBaseClass_ShouldNotThrow_AndShouldRecordAccess()
+		public async Task Getter_WithSkippingBaseClass_ShouldRecordTheAccessWithoutThrowing()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock(MockBehavior.Default.SkippingBaseClass());
 
@@ -21,7 +21,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerGetterWith1Parameter_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task Getter_With1Key_ShouldRecordTheKeyPassedByTheCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>().Monitor(out IParameterMonitor<int> v1)].Returns("foo");
@@ -36,7 +36,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerGetterWith1Parameter_WhenBaseThrows_ShouldStillRecordAccess()
+		public async Task Getter_With1Key_ShouldStillRecordTheAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 
@@ -50,7 +50,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerGetterWith2Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task Getter_With2Keys_ShouldRecordTheKeysPassedByTheCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 			sut.Mock.Setup[
@@ -69,7 +69,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerGetterWith2Parameters_WhenBaseThrows_ShouldStillRecordAccess()
+		public async Task Getter_With2Keys_ShouldStillRecordTheAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 
@@ -83,7 +83,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerGetterWith3Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task Getter_With3Keys_ShouldRecordTheKeysPassedByTheCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 			sut.Mock.Setup[
@@ -104,7 +104,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerGetterWith3Parameters_WhenBaseThrows_ShouldStillRecordAccess()
+		public async Task Getter_With3Keys_ShouldStillRecordTheAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 
@@ -118,7 +118,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerGetterWith4Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task Getter_With4Keys_ShouldRecordTheKeysPassedByTheCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 			sut.Mock.Setup[
@@ -141,7 +141,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerGetterWith4Parameters_WhenBaseThrows_ShouldStillRecordAccess()
+		public async Task Getter_With4Keys_ShouldStillRecordTheAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 
@@ -155,7 +155,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerGetterWith5Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task Getter_With5Keys_ShouldRecordTheKeysPassedByTheCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 			sut.Mock.Setup[
@@ -180,7 +180,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerGetterWith5Parameters_WhenBaseThrows_ShouldStillRecordAccess()
+		public async Task Getter_With5Keys_ShouldStillRecordTheAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 
@@ -194,7 +194,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerSetter_WhenBaseThrows_AndSkipBaseClass_ShouldNotThrow_AndShouldRecordAccess()
+		public async Task Setter_WithSkippingBaseClass_ShouldRecordTheAccessWithoutThrowing()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock(MockBehavior.Default.SkippingBaseClass());
 
@@ -208,7 +208,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerSetterWith1Parameter_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task Setter_With1Key_ShouldRecordTheKeyPassedByTheCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>().Monitor(out IParameterMonitor<int> v1)].Returns("foo");
@@ -223,7 +223,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerSetterWith1Parameter_WhenBaseThrows_ShouldStillRecordAccess()
+		public async Task Setter_With1Key_ShouldStillRecordTheAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 
@@ -237,7 +237,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerSetterWith2Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task Setter_With2Keys_ShouldRecordTheKeysPassedByTheCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 			sut.Mock.Setup[
@@ -256,7 +256,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerSetterWith2Parameters_WhenBaseThrows_ShouldStillRecordAccess()
+		public async Task Setter_With2Keys_ShouldStillRecordTheAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 
@@ -270,7 +270,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerSetterWith3Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task Setter_With3Keys_ShouldRecordTheKeysPassedByTheCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 			sut.Mock.Setup[
@@ -291,7 +291,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerSetterWith3Parameters_WhenBaseThrows_ShouldStillRecordAccess()
+		public async Task Setter_With3Keys_ShouldStillRecordTheAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 
@@ -305,7 +305,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerSetterWith4Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task Setter_With4Keys_ShouldRecordTheKeysPassedByTheCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 			sut.Mock.Setup[
@@ -328,7 +328,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerSetterWith4Parameters_WhenBaseThrows_ShouldStillRecordAccess()
+		public async Task Setter_With4Keys_ShouldStillRecordTheAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 
@@ -342,7 +342,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerSetterWith5Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task Setter_With5Keys_ShouldRecordTheKeysPassedByTheCaller()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 			sut.Mock.Setup[
@@ -367,7 +367,7 @@ public sealed partial class IndexerInteractionsTests
 		}
 
 		[Test]
-		public async Task IndexerSetterWith5Parameters_WhenBaseThrows_ShouldStillRecordAccess()
+		public async Task Setter_With5Keys_ShouldStillRecordTheAccess()
 		{
 			ThrowingBaseIndexerService sut = ThrowingBaseIndexerService.CreateMock();
 

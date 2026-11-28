@@ -8,7 +8,7 @@ public partial class DelegateTests
 	public sealed class WithParamsTests
 	{
 		[Test]
-		public async Task ElementMatchers_OnParamsArray_ShouldMatchElementByElement()
+		public async Task WithElementMatchersOnParamsArray_ShouldMatchElementByElement()
 		{
 			FlagsDelegate sut = FlagsDelegate.CreateMock();
 			sut.Mock.Setup(It.IsAny<int>(), It.IsAny<bool>(), It.IsFalse()).Returns(true);
@@ -19,7 +19,7 @@ public partial class DelegateTests
 		}
 
 		[Test]
-		public async Task ElementMatchers_OnParamsArray_ShouldSupportVerify()
+		public async Task WithElementMatchersOnParamsArray_ShouldSupportVerify()
 		{
 			FlagsDelegate sut = FlagsDelegate.CreateMock();
 
@@ -36,7 +36,7 @@ public partial class DelegateTests
 		}
 
 		[Test]
-		public async Task ElementMatchers_OnParamsObjectArray_ShouldMatchElementByElement()
+		public async Task WithElementMatchersOnParamsObjectArray_ShouldMatchElementByElement()
 		{
 			LogDelegate sut = LogDelegate.CreateMock();
 			sut.Mock.Setup(It.Is(4), It.IsAny<object>(), It.Is<object>(2)).Returns(1);
@@ -48,7 +48,7 @@ public partial class DelegateTests
 		}
 
 		[Test]
-		public async Task ElementMatchers_OnParamsObjectArray_ShouldSupportVerify()
+		public async Task WithElementMatchersOnParamsObjectArray_ShouldSupportVerify()
 		{
 			LogDelegate sut = LogDelegate.CreateMock();
 
@@ -61,7 +61,7 @@ public partial class DelegateTests
 		}
 
 		[Test]
-		public async Task ElementMatchers_OnLoneParamsObjectArray_ShouldMatchElementByElement()
+		public async Task WithElementMatchersOnLoneParamsObjectArray_ShouldMatchElementByElement()
 		{
 			OnlyObjectsDelegate sut = OnlyObjectsDelegate.CreateMock();
 			sut.Mock.Setup(It.IsAny<object>()).Returns(1);
@@ -75,7 +75,7 @@ public partial class DelegateTests
 		}
 
 		[Test]
-		public async Task ArrayMatcher_OnParamsObjectArray_ShouldMatchTheWholeArray()
+		public async Task WithArrayMatcherOnParamsObjectArray_ShouldMatchTheWholeArray()
 		{
 			LogDelegate sut = LogDelegate.CreateMock();
 			OnlyObjectsDelegate only = OnlyObjectsDelegate.CreateMock();
@@ -91,7 +91,7 @@ public partial class DelegateTests
 		}
 
 		[Test]
-		public async Task LiteralElements_ShouldMatchByValue()
+		public async Task WithLiteralElements_ShouldMatchByValue()
 		{
 			FlagsDelegate flags = FlagsDelegate.CreateMock();
 			LogDelegate log = LogDelegate.CreateMock();
@@ -108,7 +108,7 @@ public partial class DelegateTests
 		}
 
 		[Test]
-		public async Task NoParamsArguments_ShouldMatchAnEmptyArray()
+		public async Task WithoutParamsArguments_ShouldMatchAnEmptyArray()
 		{
 			FlagsDelegate flags = FlagsDelegate.CreateMock();
 			OnlyObjectsDelegate only = OnlyObjectsDelegate.CreateMock();
@@ -127,7 +127,7 @@ public partial class DelegateTests
 		}
 
 		[Test]
-		public async Task NullLiterals_OnLoneParamsObjectArray_ShouldMeanANullArrayOrNullElements()
+		public async Task WithNullLiteralsOnLoneParamsObjectArray_ShouldMeanANullArrayOrNullElements()
 		{
 			OnlyObjectsDelegate sut = OnlyObjectsDelegate.CreateMock();
 			sut.Mock.Setup(null).Returns(1);
@@ -141,7 +141,7 @@ public partial class DelegateTests
 		}
 
 		[Test]
-		public async Task ElementMatchers_WithMoreThanFourParameters_ShouldMatchElementByElement()
+		public async Task WithElementMatchersAndMoreThanFourParameters_ShouldMatchElementByElement()
 		{
 			FiveDelegate sut = FiveDelegate.CreateMock();
 			sut.Mock.Setup(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.Is(5), It.IsAny<int>())
@@ -155,7 +155,7 @@ public partial class DelegateTests
 		}
 
 		[Test]
-		public async Task ElementMatchers_OnVoidDelegate_ShouldMatchElementByElement()
+		public async Task WithElementMatchersOnVoidDelegate_ShouldMatchElementByElement()
 		{
 			WriteDelegate sut = WriteDelegate.CreateMock();
 			int calls = 0;
@@ -170,7 +170,7 @@ public partial class DelegateTests
 		}
 
 		[Test]
-		public async Task FailedVerify_WithElementMatchers_ShouldListTheElementMatchers()
+		public async Task Verify_WithElementMatchers_WhenVerificationFails_ShouldListTheElementMatchers()
 		{
 			LogDelegate sut = LogDelegate.CreateMock();
 			_ = sut(4, "a", 3);
@@ -186,7 +186,7 @@ public partial class DelegateTests
 		}
 
 		[Test]
-		public async Task FailedVerify_WithoutParamsArguments_ShouldShowAnEmptyArray()
+		public async Task Verify_WithoutParamsArguments_WhenVerificationFails_ShouldShowAnEmptyArray()
 		{
 			OnlyObjectsDelegate sut = OnlyObjectsDelegate.CreateMock();
 			_ = sut("a");

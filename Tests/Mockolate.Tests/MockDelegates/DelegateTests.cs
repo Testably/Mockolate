@@ -20,7 +20,7 @@ public partial class DelegateTests
 	[Test]
 	[Arguments(true)]
 	[Arguments(false)]
-	public async Task CreateMockWithBehavior_ShouldApplyBehavior(bool throwWhenNotSetup)
+	public async Task CreateMock_WithBehavior_ShouldApplyTheBehavior(bool throwWhenNotSetup)
 	{
 		Func<int> sut = Func<int>.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup(throwWhenNotSetup));
 
@@ -34,7 +34,7 @@ public partial class DelegateTests
 	}
 
 	[Test]
-	public async Task CreateMockWithSetup_ShouldApplySetups()
+	public async Task CreateMock_WithSetup_ShouldApplyTheSetup()
 	{
 		Func<int> sut = Func<int>.CreateMock(mock => mock.Setup().Returns(3));
 
@@ -58,7 +58,7 @@ public partial class DelegateTests
 	}
 
 	[Test]
-	public async Task WithCustomDelegate_SetupShouldWork()
+	public async Task Setup_WithCustomDelegate_ShouldIterateThroughReturnsAndThrows()
 	{
 		DoSomething sut = DoSomething.CreateMock();
 		sut.Mock.Setup(It.IsAny<int>(), It.IsAny<string>(), It.IsTrue())
@@ -75,7 +75,7 @@ public partial class DelegateTests
 	}
 
 	[Test]
-	public async Task WithCustomDelegate_VerifyShouldWork()
+	public async Task Verify_WithCustomDelegate_ShouldCountMatchingInvocations()
 	{
 		DoSomething sut = DoSomething.CreateMock();
 
@@ -86,7 +86,7 @@ public partial class DelegateTests
 	}
 
 	[Test]
-	public async Task WithCustomDelegateWithInts_SetupWithExplicitParameter_ShouldWork()
+	public async Task Setup_WithCustomDelegateAndExplicitParameter_ShouldOnlyMatchTheExplicitValue()
 	{
 		DoSomethingWithInts sut = DoSomethingWithInts.CreateMock();
 		sut.Mock.Setup(1, It.IsAny<int>(), It.IsAny<int>()).Returns(42);
@@ -99,7 +99,7 @@ public partial class DelegateTests
 	}
 
 	[Test]
-	public async Task WithCustomDelegateWithInts_VerifyWithExplicitParameter_ShouldWork()
+	public async Task Verify_WithCustomDelegateAndExplicitParameter_ShouldOnlyCountTheExplicitValue()
 	{
 		DoSomethingWithInts sut = DoSomethingWithInts.CreateMock();
 
@@ -111,7 +111,7 @@ public partial class DelegateTests
 	}
 
 	[Test]
-	public async Task WithCustomDelegateWithMoreThanFourParameters_SetupAndVerifyShouldWork()
+	public async Task WithCustomDelegateWithMoreThanFourParameters_ShouldSupportSetupAndVerify()
 	{
 		DoSomethingWithSevenInts sut = DoSomethingWithSevenInts.CreateMock();
 		sut.Mock.Setup(It.Is(1), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
@@ -126,7 +126,7 @@ public partial class DelegateTests
 	}
 
 	[Test]
-	public async Task WithCustomDelegateWithMoreThanSixteenParameters_SetupAndVerifyShouldWork()
+	public async Task WithCustomDelegateWithMoreThanSixteenParameters_ShouldSupportSetupAndVerify()
 	{
 		int callbackCount = 0;
 		DoSomethingWithEighteenInts sut = DoSomethingWithEighteenInts.CreateMock();
@@ -142,7 +142,7 @@ public partial class DelegateTests
 	}
 
 	[Test]
-	public async Task WithCustomDelegateWithRefAndOut_SetupShouldWork()
+	public async Task Setup_WithCustomDelegateWithRefAndOutParameters_ShouldSetTheRefAndOutValues()
 	{
 		DoSomethingWithRefAndOut sut = DoSomethingWithRefAndOut.CreateMock();
 		int value = 5;
@@ -156,7 +156,7 @@ public partial class DelegateTests
 	}
 
 	[Test]
-	public async Task WithCustomDelegateWithRefAndOut_VerifyShouldWork()
+	public async Task Verify_WithCustomDelegateWithRefAndOutParameters_ShouldCountTheInvocation()
 	{
 		DoSomethingWithRefAndOut sut = DoSomethingWithRefAndOut.CreateMock();
 		int value = 5;
@@ -168,7 +168,7 @@ public partial class DelegateTests
 	}
 
 	[Test]
-	public async Task WithCustomGenericDelegate_SetupShouldWork()
+	public async Task Setup_WithCustomGenericDelegate_ShouldIterateThroughReturnsAndThrows()
 	{
 		DoGeneric<long, string> sut = DoGeneric<long, string>.CreateMock();
 		sut.Mock.Setup(It.IsAny<long>(), It.IsAny<string>())
@@ -185,7 +185,7 @@ public partial class DelegateTests
 	}
 
 	[Test]
-	public async Task WithCustomGenericDelegate_VerifyShouldWork()
+	public async Task Verify_WithCustomGenericDelegate_ShouldCountMatchingInvocations()
 	{
 		DoGeneric<short, string> sut = DoGeneric<short, string>.CreateMock();
 

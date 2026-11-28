@@ -9,7 +9,7 @@ public sealed partial class SetupPropertyTests
 	public sealed class WithRestrictedAccessorsTests
 	{
 		[Test]
-		public async Task SetOnlyProperty_OnSet_ShouldFireAndRecordTheWrite()
+		public async Task OnSet_WithSetOnlyProperty_ShouldFireAndRecordTheWrite()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			List<string> written = new();
@@ -23,7 +23,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task SetOnlyProperty_VerifyOtherValue_ShouldNotMatch()
+		public async Task Set_WithSetOnlyProperty_WhenTheValueDiffers_ShouldNotMatch()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 
@@ -33,7 +33,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task SetOnlyProperty_VerifyWithParameterMatcher_ShouldMatch()
+		public async Task Set_WithSetOnlyPropertyAndMatcher_ShouldMatch()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 
@@ -43,7 +43,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task SetOnlyProperty_Register_ShouldAllowWriteWithoutSetup()
+		public async Task Register_WithSetOnlyProperty_ShouldAllowWriteWithoutSetup()
 		{
 			IAccessorService sut = IAccessorService.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
 			sut.Mock.Setup.WriteOnly.Register();
@@ -54,7 +54,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task GetOnlyProperty_Register_ShouldAllowReadWithoutSetup()
+		public async Task Register_WithGetOnlyProperty_ShouldAllowReadWithoutSetup()
 		{
 			IAccessorService sut = IAccessorService.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
 			sut.Mock.Setup.ReadOnly.Register();
@@ -68,7 +68,7 @@ public sealed partial class SetupPropertyTests
 		[Test]
 		[Arguments(false, 1)]
 		[Arguments(true, 0)]
-		public async Task SetOnlyClassProperty_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
+		public async Task SkippingBaseClass_WithSetOnlyClassProperty_ShouldCallTheBaseClassUnlessSkipped(bool skipBaseClass,
 			int expectedCallCount)
 		{
 			AccessorService sut = AccessorService.CreateMock();
@@ -80,7 +80,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task GetOnlyProperty_ChainedReturns_ShouldStayOnGetterOnlySurface()
+		public async Task Returns_WithGetOnlyProperty_WhenChained_ShouldStayOnGetterOnlySurface()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			IPropertyGetterOnlySetup<int> chained = sut.Mock.Setup.ReadOnly
@@ -92,7 +92,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task GetOnlyProperty_ReturnsForever_ShouldUseTheLastValueForever()
+		public async Task Forever_WithGetOnlyProperty_ShouldUseTheLastValueForever()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.Setup.ReadOnly
@@ -109,7 +109,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task GetOnlyProperty_ReturnsWhen_ShouldOnlyUseValueWhenPredicateIsTrue()
+		public async Task When_WithGetOnlyProperty_ShouldOnlyUseValueWhenPredicateIsTrue()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.Setup.ReadOnly
@@ -123,7 +123,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task GetOnlyProperty_ReturnsCallbackWithValue_ShouldReturnExpectedValue()
+		public async Task Returns_WithGetOnlyProperty_ShouldPassTheCurrentValueToTheCallback()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.Setup.ReadOnly
@@ -136,7 +136,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task GetOnlyProperty_Throws_ShouldIterateThroughAllRegisteredExceptions()
+		public async Task Throws_WithGetOnlyProperty_ShouldIterateThroughAllRegisteredExceptions()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.Setup.ReadOnly
@@ -157,7 +157,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task GetOnlyProperty_OnGetChain_ShouldStayOnGetterOnlySurface()
+		public async Task OnGet_WithGetOnlyProperty_WhenChained_ShouldStayOnGetterOnlySurface()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -177,7 +177,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task GetOnlyProperty_OnGetWhen_ShouldOnlyInvokeCallbackWhenPredicateIsTrue()
+		public async Task When_WithGetOnlyProperty_ShouldOnlyInvokeCallbackWhenPredicateIsTrue()
 		{
 			int callCount = 0;
 			IAccessorService sut = IAccessorService.CreateMock();
@@ -192,7 +192,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task GetOnlyProperty_OnGetInParallel_ShouldInvokeParallelCallbacksAlways()
+		public async Task InParallel_WithGetOnlyProperty_ShouldInvokeParallelCallbacksAlways()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -214,7 +214,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task GetOnlyProperty_OnGetFor_ShouldRepeatCallbackTheGivenNumberOfTimes()
+		public async Task For_WithGetOnlyProperty_ShouldRepeatCallbackTheGivenNumberOfTimes()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -233,7 +233,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task GetOnlyProperty_OnGetTransitionTo_ShouldSwitchScenario()
+		public async Task TransitionTo_WithGetOnlyProperty_ShouldSwitchScenario()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.InScenario("a").Setup.ReadOnly
@@ -247,7 +247,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task SetOnlyProperty_OnSetChain_ShouldStayOnSetterOnlySurface()
+		public async Task OnSet_WithSetOnlyProperty_WhenChained_ShouldStayOnSetterOnlySurface()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -267,7 +267,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task SetOnlyProperty_OnSetWhen_ShouldOnlyInvokeCallbackWhenPredicateIsTrue()
+		public async Task When_WithSetOnlyProperty_ShouldOnlyInvokeCallbackWhenPredicateIsTrue()
 		{
 			int callCount = 0;
 			IAccessorService sut = IAccessorService.CreateMock();
@@ -282,7 +282,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task SetOnlyProperty_OnSetInParallel_ShouldInvokeParallelCallbacksAlways()
+		public async Task InParallel_WithSetOnlyProperty_ShouldInvokeParallelCallbacksAlways()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -304,7 +304,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task SetOnlyProperty_OnSetFor_ShouldRepeatCallbackTheGivenNumberOfTimes()
+		public async Task For_WithSetOnlyProperty_ShouldRepeatCallbackTheGivenNumberOfTimes()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -323,7 +323,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task SetOnlyProperty_OnSetTransitionTo_ShouldSwitchScenario()
+		public async Task TransitionTo_WithSetOnlyProperty_ShouldSwitchScenario()
 		{
 			IAccessorService sut = IAccessorService.CreateMock();
 			sut.Mock.InScenario("a").Setup.WriteOnly

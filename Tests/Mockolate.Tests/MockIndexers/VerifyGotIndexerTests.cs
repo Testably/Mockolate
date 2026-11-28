@@ -5,7 +5,7 @@ namespace Mockolate.Tests.MockIndexers;
 public sealed partial class VerifyGotIndexerTests
 {
 	[Test]
-	public async Task WhenNull_AndMatches_ShouldReturn()
+	public async Task WhenKeysAreNull_ShouldCountTheAccess()
 	{
 		IMyService sut = IMyService.CreateMock();
 		_ = sut[null, null, null, null];
@@ -14,7 +14,7 @@ public sealed partial class VerifyGotIndexerTests
 	}
 
 	[Test]
-	public async Task WhenParameterLengthDoesNotMatch_ShouldReturnNever()
+	public async Task WhenKeyCountDoesNotMatch_ShouldReturnNever()
 	{
 		IMyService sut = IMyService.CreateMock();
 		_ = sut[1, 2];
@@ -25,7 +25,7 @@ public sealed partial class VerifyGotIndexerTests
 	}
 
 	[Test]
-	public async Task WhenParametersDontMatch_ShouldReturnNever()
+	public async Task WhenKeysDoNotMatch_ShouldReturnNever()
 	{
 		IMyService sut = IMyService.CreateMock();
 		_ = sut[1, 2];
@@ -38,7 +38,7 @@ public sealed partial class VerifyGotIndexerTests
 	public class IndexerWith1ParameterTests
 	{
 		[Test]
-		public async Task WithExplicitParameter_ShouldWork()
+		public async Task WithExplicitParameter_ShouldOnlyCountTheExplicitValue()
 		{
 			IMyService sut = IMyService.CreateMock();
 			_ = sut[1];
@@ -51,7 +51,7 @@ public sealed partial class VerifyGotIndexerTests
 	public class IndexerWith2ParametersTests
 	{
 		[Test]
-		public async Task WithExplicitParameter1_ShouldWork()
+		public async Task WithExplicitParameter1_ShouldOnlyCountTheExplicitValue()
 		{
 			IMyService sut = IMyService.CreateMock();
 			_ = sut[1, 10];
@@ -61,7 +61,7 @@ public sealed partial class VerifyGotIndexerTests
 		}
 
 		[Test]
-		public async Task WithExplicitParameter2_ShouldWork()
+		public async Task WithExplicitParameter2_ShouldOnlyCountTheExplicitValue()
 		{
 			IMyService sut = IMyService.CreateMock();
 			_ = sut[10, 1];
@@ -71,7 +71,7 @@ public sealed partial class VerifyGotIndexerTests
 		}
 
 		[Test]
-		public async Task WithExplicitParameters_ShouldWork()
+		public async Task WithExplicitParameters_ShouldOnlyCountTheExplicitValues()
 		{
 			IMyService sut = IMyService.CreateMock();
 			_ = sut[1, 2];

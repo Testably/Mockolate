@@ -8,7 +8,7 @@ public sealed partial class SetupIndexerTests
 	public sealed class InitializeWithTests
 	{
 		[Test]
-		public async Task InitializeWith_Callback_ShouldInitializeMatchingIndexers()
+		public async Task WithCallback_ShouldInitializeOnlyMatchingKeys()
 		{
 			IIndexerService sut = IIndexerService.CreateMock();
 			sut.Mock.Setup[It.Satisfies<int>(i => i < 4)]
@@ -24,7 +24,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task InitializeWith_Callback_Twice_ShouldThrowMockException()
+		public async Task WithCallback_WhenAlreadyInitialized_ShouldThrowMockException()
 		{
 			IIndexerService sut = IIndexerService.CreateMock();
 			IIndexerSetupWithCallback<string, int> setup = sut.Mock.Setup[It.IsAny<int>()]
@@ -40,7 +40,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task InitializeWith_ShouldInitializeMatchingIndexers()
+		public async Task ShouldInitializeOnlyMatchingKeys()
 		{
 			IIndexerService sut = IIndexerService.CreateMock();
 			sut.Mock.Setup[It.Satisfies<int>(i => i < 4)]
@@ -56,7 +56,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task InitializeWith_ShouldSupportNull()
+		public async Task WithNull_ShouldReturnNullForMatchingKeys()
 		{
 			IIndexerService sut = IIndexerService.CreateMock();
 			sut.Mock.Setup[It.IsAny<string?>(), It.Is(1), It.Is(2)]
@@ -72,7 +72,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task InitializeWith_Twice_ShouldThrowMockException()
+		public async Task WhenAlreadyInitialized_ShouldThrowMockException()
 		{
 			IIndexerService sut = IIndexerService.CreateMock();
 			IIndexerSetupWithCallback<string, int> setup = sut.Mock.Setup[It.IsAny<int>()]
@@ -90,7 +90,7 @@ public sealed partial class SetupIndexerTests
 		public sealed class With2LevelsTests
 		{
 			[Test]
-			public async Task InitializeWith_Callback_ShouldInitializeMatchingIndexers()
+			public async Task WithCallback_ShouldInitializeOnlyMatchingKeys()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				sut.Mock.Setup[It.Satisfies<int>(i => i < 4), It.Satisfies<int>(i => i < 4)]
@@ -108,7 +108,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task InitializeWith_Callback_Twice_ShouldThrowMockException()
+			public async Task WithCallback_WhenAlreadyInitialized_ShouldThrowMockException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerSetupWithCallback<string, int, int> setup = sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>()]
@@ -124,7 +124,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task InitializeWith_ShouldInitializeMatchingIndexers()
+			public async Task ShouldInitializeOnlyMatchingKeys()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				sut.Mock.Setup[It.Satisfies<int>(i => i < 4), It.Satisfies<int>(i => i < 4)]
@@ -142,7 +142,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task InitializeWith_Twice_ShouldThrowMockException()
+			public async Task WhenAlreadyInitialized_ShouldThrowMockException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerSetupWithCallback<string, int, int> setup = sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>()]
@@ -161,7 +161,7 @@ public sealed partial class SetupIndexerTests
 		public sealed class With3LevelsTests
 		{
 			[Test]
-			public async Task InitializeWith_Callback_ShouldInitializeMatchingIndexers()
+			public async Task WithCallback_ShouldInitializeOnlyMatchingKeys()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				sut.Mock.Setup[It.Satisfies<int>(i => i < 4), It.Satisfies<int>(i => i < 4),
@@ -182,7 +182,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task InitializeWith_Callback_Twice_ShouldThrowMockException()
+			public async Task WithCallback_WhenAlreadyInitialized_ShouldThrowMockException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerSetupWithCallback<string, int, int, int> setup = sut
@@ -199,7 +199,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task InitializeWith_ShouldInitializeMatchingIndexers()
+			public async Task ShouldInitializeOnlyMatchingKeys()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				sut.Mock.Setup[It.Satisfies<int>(i => i < 4), It.Satisfies<int>(i => i < 4),
@@ -220,7 +220,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task InitializeWith_Twice_ShouldThrowMockException()
+			public async Task WhenAlreadyInitialized_ShouldThrowMockException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerSetupWithCallback<string, int, int, int> setup = sut
@@ -240,7 +240,7 @@ public sealed partial class SetupIndexerTests
 		public sealed class With4LevelsTests
 		{
 			[Test]
-			public async Task InitializeWith_Callback_ShouldInitializeMatchingIndexers()
+			public async Task WithCallback_ShouldInitializeOnlyMatchingKeys()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				sut.Mock.Setup[It.Satisfies<int>(i => i < 5), It.Satisfies<int>(i => i < 5),
@@ -263,7 +263,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task InitializeWith_Callback_Twice_ShouldThrowMockException()
+			public async Task WithCallback_WhenAlreadyInitialized_ShouldThrowMockException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerSetupWithCallback<string, int, int, int, int> setup = sut
@@ -280,7 +280,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task InitializeWith_ShouldInitializeMatchingIndexers()
+			public async Task ShouldInitializeOnlyMatchingKeys()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				sut.Mock.Setup[It.Satisfies<int>(i => i < 5), It.Satisfies<int>(i => i < 5),
@@ -303,7 +303,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task InitializeWith_Twice_ShouldThrowMockException()
+			public async Task WhenAlreadyInitialized_ShouldThrowMockException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerSetupWithCallback<string, int, int, int, int> setup = sut
@@ -323,7 +323,7 @@ public sealed partial class SetupIndexerTests
 		public sealed class With5LevelsTests
 		{
 			[Test]
-			public async Task InitializeWith_Callback_ShouldInitializeMatchingIndexers()
+			public async Task WithCallback_ShouldInitializeOnlyMatchingKeys()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				sut.Mock.Setup[It.Satisfies<int>(i => i < 6), It.Satisfies<int>(i => i < 6),
@@ -348,7 +348,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task InitializeWith_Callback_Twice_ShouldThrowMockException()
+			public async Task WithCallback_WhenAlreadyInitialized_ShouldThrowMockException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerSetupWithCallback<string, int, int, int, int, int> setup = sut.Mock.Setup[It.IsAny<int>(),
@@ -366,7 +366,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task InitializeWith_ShouldInitializeMatchingIndexers()
+			public async Task ShouldInitializeOnlyMatchingKeys()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				sut.Mock.Setup[It.Satisfies<int>(i => i < 6), It.Satisfies<int>(i => i < 6),
@@ -391,7 +391,7 @@ public sealed partial class SetupIndexerTests
 			}
 
 			[Test]
-			public async Task InitializeWith_Twice_ShouldThrowMockException()
+			public async Task WhenAlreadyInitialized_ShouldThrowMockException()
 			{
 				IIndexerService sut = IIndexerService.CreateMock();
 				IIndexerSetupWithCallback<string, int, int, int, int, int> setup = sut.Mock.Setup[It.IsAny<int>(),

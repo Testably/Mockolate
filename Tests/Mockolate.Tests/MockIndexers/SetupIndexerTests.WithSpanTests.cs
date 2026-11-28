@@ -7,7 +7,7 @@ public sealed partial class SetupIndexerTests
 	public sealed class WithSpanTests
 	{
 		[Test]
-		public async Task Memory_WhenPredicateDoesNotMatch_ShouldUseDefaultValue()
+		public async Task Memory_WhenPredicateDoesNotMatch_ShouldReturnTheBaseValue()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 			sut.Mock.Setup[It.Satisfies<Memory<int>>(v => v.Length == 2)].Returns(4);
@@ -29,7 +29,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task Memory_WithoutPredicate_ShouldMatchAnySpan()
+		public async Task Memory_WithoutPredicate_ShouldMatchAnyMemory()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 			sut.Mock.Setup[It.IsAny<Memory<int>>()].Returns(42);
@@ -40,7 +40,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task ReadOnlySpan_IndexerReturnValueSetup_ShouldReturnExpectedSpan()
+		public async Task ReadOnlySpan_WithReturnValue_ShouldReturnExpectedSpan()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 			char[] expectedData =
@@ -55,7 +55,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task ReadOnlySpan_WhenPredicateDoesNotMatch_ShouldUseDefaultValue()
+		public async Task ReadOnlySpan_WhenPredicateDoesNotMatch_ShouldReturnTheBaseValue()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 			sut.Mock.Setup[It.IsReadOnlySpan<int>(v => v.Length == 2)].Returns(4);
@@ -88,7 +88,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task Span_IndexerReturnValueSetup_ShouldReturnExpectedSpan()
+		public async Task Span_WithReturnValue_ShouldReturnExpectedSpan()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 			int[] expectedData =
@@ -103,7 +103,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task Span_IndexerWithSpecificKey_ShouldMatchAndReturn()
+		public async Task Span_WithSpecificKeys_ShouldReturnTheValueOfTheMatchingSetup()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 			int[] key1Data =
@@ -126,7 +126,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task Span_WhenPredicateDoesNotMatch_ShouldUseDefaultValue()
+		public async Task Span_WhenPredicateDoesNotMatch_ShouldReturnTheBaseValue()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 			sut.Mock.Setup[It.IsSpan<int>(v => v.Length == 2)].Returns(4);

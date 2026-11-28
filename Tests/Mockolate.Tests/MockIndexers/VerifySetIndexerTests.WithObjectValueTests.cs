@@ -96,7 +96,7 @@ public sealed partial class VerifySetIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnWriteOnlyIndexer_WithMatcherForDerivedType_ShouldUseTheMatcher()
+		public async Task Set_WithMatcherForDerivedTypeOnWriteOnlyIndexer_ShouldUseTheMatcher()
 		{
 			IObjectValueWriteOnlyIndexers sut = IObjectValueWriteOnlyIndexers.CreateMock();
 
@@ -146,7 +146,7 @@ public sealed partial class VerifySetIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnWriteOnlyIndexer_WithAnyMatcher_ShouldUseTheMatcher()
+		public async Task Set_WithAnyMatcherOnWriteOnlyIndexer_ShouldUseTheMatcher()
 		{
 			IObjectValueWriteOnlyIndexers sut = IObjectValueWriteOnlyIndexers.CreateMock();
 
@@ -164,7 +164,7 @@ public sealed partial class VerifySetIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnWriteOnlyIndexer_WithValueMatcher_ShouldUseTheMatcher()
+		public async Task Set_WithValueMatcherOnWriteOnlyIndexer_ShouldUseTheMatcher()
 		{
 			IObjectValueWriteOnlyIndexers sut = IObjectValueWriteOnlyIndexers.CreateMock();
 
@@ -187,7 +187,7 @@ public sealed partial class VerifySetIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnWriteOnlyIndexer_WithValue_ShouldCheckForEquality()
+		public async Task Set_WithValueOnWriteOnlyIndexer_ShouldCheckForEquality()
 		{
 			IObjectValueWriteOnlyIndexers sut = IObjectValueWriteOnlyIndexers.CreateMock();
 

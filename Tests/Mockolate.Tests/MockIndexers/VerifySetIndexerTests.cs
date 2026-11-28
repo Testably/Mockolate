@@ -17,7 +17,7 @@ public sealed partial class VerifySetIndexerTests
 	}
 
 	[Test]
-	public async Task WhenNullParametersAndValue_AndMatches_ShouldReturn()
+	public async Task WhenKeysAndValueAreNull_ShouldCountTheAccess()
 	{
 		IMyService sut = IMyService.CreateMock();
 		sut[null, null, null, null] = null;
@@ -26,7 +26,7 @@ public sealed partial class VerifySetIndexerTests
 	}
 
 	[Test]
-	public async Task WhenParameterLengthDoesNotMatch_ShouldReturnNever()
+	public async Task WhenKeyCountDoesNotMatch_ShouldReturnNever()
 	{
 		IMyService sut = IMyService.CreateMock();
 		sut[1, 2] = "foo";
@@ -37,7 +37,7 @@ public sealed partial class VerifySetIndexerTests
 	}
 
 	[Test]
-	public async Task WhenParametersDoNotMatch_ShouldReturnNever()
+	public async Task WhenKeysDoNotMatch_ShouldReturnNever()
 	{
 		IMyService sut = IMyService.CreateMock();
 		sut[1, 2] = "foo";
@@ -50,7 +50,7 @@ public sealed partial class VerifySetIndexerTests
 	public class IndexerWith1ParameterTests
 	{
 		[Test]
-		public async Task WithExplicitParameter_ShouldWork()
+		public async Task WithExplicitParameter_ShouldOnlyCountTheExplicitValue()
 		{
 			IMyService sut = IMyService.CreateMock();
 			sut[1] = "foo";
@@ -64,7 +64,7 @@ public sealed partial class VerifySetIndexerTests
 	public class IndexerWith2ParametersTests
 	{
 		[Test]
-		public async Task WithExplicitParameter1_ShouldWork()
+		public async Task WithExplicitParameter1_ShouldOnlyCountTheExplicitValue()
 		{
 			IMyService sut = IMyService.CreateMock();
 			sut[1, 10] = "foo";
@@ -74,7 +74,7 @@ public sealed partial class VerifySetIndexerTests
 		}
 
 		[Test]
-		public async Task WithExplicitParameter2_ShouldWork()
+		public async Task WithExplicitParameter2_ShouldOnlyCountTheExplicitValue()
 		{
 			IMyService sut = IMyService.CreateMock();
 			sut[10, 1] = "foo";
@@ -84,7 +84,7 @@ public sealed partial class VerifySetIndexerTests
 		}
 
 		[Test]
-		public async Task WithExplicitParameters_ShouldWork()
+		public async Task WithExplicitParameters_ShouldOnlyCountTheExplicitValues()
 		{
 			IMyService sut = IMyService.CreateMock();
 			sut[1, 2] = "foo";

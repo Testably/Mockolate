@@ -7,7 +7,7 @@ public sealed partial class SetupIndexerTests
 	public sealed class WhenInScenarioTests
 	{
 		[Test]
-		public async Task OnGet_Arity1_ShouldTransitionEvenAfterPrecedingCallbackRan()
+		public async Task OnGet_With1Key_ShouldTransitionEvenAfterPrecedingCallbackRan()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -22,7 +22,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task OnGet_Arity2_ShouldTransitionEvenAfterPrecedingCallbackRan()
+		public async Task OnGet_With2Keys_ShouldTransitionEvenAfterPrecedingCallbackRan()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -37,7 +37,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task OnGet_Arity3_ShouldTransitionEvenAfterPrecedingCallbackRan()
+		public async Task OnGet_With3Keys_ShouldTransitionEvenAfterPrecedingCallbackRan()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -52,7 +52,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task OnGet_Arity4_ShouldTransitionEvenAfterPrecedingCallbackRan()
+		public async Task OnGet_With4Keys_ShouldTransitionEvenAfterPrecedingCallbackRan()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -67,7 +67,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task OnSet_Arity1_ShouldTransitionEvenAfterPrecedingCallbackRan()
+		public async Task OnSet_With1Key_ShouldTransitionEvenAfterPrecedingCallbackRan()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -82,7 +82,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task OnSet_Arity2_ShouldTransitionEvenAfterPrecedingCallbackRan()
+		public async Task OnSet_With2Keys_ShouldTransitionEvenAfterPrecedingCallbackRan()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -97,7 +97,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task OnSet_Arity3_ShouldTransitionEvenAfterPrecedingCallbackRan()
+		public async Task OnSet_With3Keys_ShouldTransitionEvenAfterPrecedingCallbackRan()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -112,7 +112,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task OnSet_Arity4_ShouldTransitionEvenAfterPrecedingCallbackRan()
+		public async Task OnSet_With4Keys_ShouldTransitionEvenAfterPrecedingCallbackRan()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
