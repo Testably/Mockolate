@@ -43,7 +43,7 @@ public sealed partial class IndexerEmissionTests
 		"Verify.VerificationIndexerResult<IMockVerifyForIMyService, string>",
 		"Setup.IIndexerGetterOnlySetup<string, int, int, int, int, int>",
 		"Verify.VerificationIndexerGetterResult<IMockVerifyForIMyService, int, int, int, int, int>")]
-	public async Task IndexerSurface_ShouldOnlyExposeTheAccessorsTheMockIntercepts(
+	public async Task ShouldOnlyExposeTheAccessorsTheMockIntercepts(
 		string indexer, string expectedSetupType, string expectedVerifyType,
 		string unexpectedSetupType, string unexpectedVerifyType)
 	{
@@ -76,7 +76,7 @@ public sealed partial class IndexerEmissionTests
 	}
 
 	[Test]
-	public async Task InterfaceIndexerWithParameterNamedLikeLocal_ShouldGenerateUniqueLocalVariableName()
+	public async Task WithParametersNamedLikeLocals_ShouldGenerateUniqueLocalVariableName()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -105,7 +105,7 @@ public sealed partial class IndexerEmissionTests
 	}
 
 	[Test]
-	public async Task InterfaceIndexerWithParameterNamedWraps_ShouldRenameWrapsCastVariable()
+	public async Task WithParameterNamedWraps_ShouldRenameWrapsCastVariable()
 	{
 		GeneratorResult result = Generator
 			.Run("""

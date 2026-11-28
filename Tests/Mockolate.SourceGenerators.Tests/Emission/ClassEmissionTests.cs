@@ -8,7 +8,7 @@ namespace Mockolate.SourceGenerators.Tests.Emission;
 public sealed partial class ClassEmissionTests
 {
 	[Test]
-	public async Task DeeplyNestedClass_ShouldSetupAndVerifyForAllInheritedTypesExceptExplicitInterfaceMembers()
+	public async Task WithDeepInheritance_ShouldSetUpAndVerifyAllInheritedMembersExceptExplicitInterfaceImplementations()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -141,7 +141,7 @@ public sealed partial class ClassEmissionTests
 	}
 
 	[Test]
-	public async Task ForTypesWithSealedOverrideEvent_ShouldNotOverrideEvent()
+	public async Task WithSealedOverrideEvent_ShouldNotOverrideEvent()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -175,7 +175,7 @@ public sealed partial class ClassEmissionTests
 	}
 
 	[Test]
-	public async Task ForTypesWithSealedOverrideIndexer_ShouldNotOverrideIndexer()
+	public async Task WithSealedOverrideIndexer_ShouldNotOverrideIndexer()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -209,7 +209,7 @@ public sealed partial class ClassEmissionTests
 	}
 
 	[Test]
-	public async Task ForTypesWithSealedOverrideMethod_ShouldNotOverrideMethod()
+	public async Task WithSealedOverrideMethod_ShouldNotOverrideMethod()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -244,7 +244,7 @@ public sealed partial class ClassEmissionTests
 	}
 
 	[Test]
-	public async Task ForTypesWithSealedOverrideProperty_ShouldNotOverrideProperty()
+	public async Task WithSealedOverrideProperty_ShouldNotOverrideProperty()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -278,7 +278,7 @@ public sealed partial class ClassEmissionTests
 	}
 
 	[Test]
-	public async Task InitOnlyProperty_InClass_ShouldNotDelegateSetterToWrappedInstance()
+	public async Task InitOnlyProperty_ShouldNotDelegateSetterToWrappedInstance()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -308,7 +308,7 @@ public sealed partial class ClassEmissionTests
 	}
 
 	[Test]
-	public async Task ShouldHandleComplexInheritanceWithSealedAndInternalMembers()
+	public async Task WithSealedAndInternalMembersInTheHierarchy_ShouldOverrideAllButTheSealedMembers()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -470,7 +470,7 @@ public sealed partial class ClassEmissionTests
 	}
 
 	[Test]
-	public async Task MockOfHttpMessageHandler_ShouldContainGetEnumeratorFromIEnumerableAndIEnumerableOfT()
+	public async Task HttpMessageHandler_ShouldOverrideOnlyTheProtectedDispose()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -578,7 +578,7 @@ public sealed partial class ClassEmissionTests
 	}
 
 	[Test]
-	public async Task WhenClassHasFieldNamedMockRegistry_ShouldFallBackToAlternative()
+	public async Task WithFieldNamedMockRegistry_ShouldFallBackToAlternative()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -612,7 +612,7 @@ public sealed partial class ClassEmissionTests
 	}
 
 	[Test]
-	public async Task WhenClassHasNestedTypeNamedMockRegistry_ShouldFallBackToAlternative()
+	public async Task WithNestedTypeNamedMockRegistry_ShouldFallBackToAlternative()
 	{
 		GeneratorResult result = Generator
 			.Run("""

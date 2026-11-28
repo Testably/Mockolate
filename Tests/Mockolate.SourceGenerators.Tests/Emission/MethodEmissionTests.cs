@@ -3,7 +3,7 @@ namespace Mockolate.SourceGenerators.Tests.Emission;
 public sealed partial class MethodEmissionTests
 {
 	[Test]
-	public async Task BaseClassMethodWithParameterNamedBaseResult_ShouldGenerateUniqueLocalVariableName()
+	public async Task WithParameterNamedBaseResultInAClass_ShouldGenerateUniqueLocalVariableName()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -40,7 +40,7 @@ public sealed partial class MethodEmissionTests
 	}
 
 	[Test]
-	public async Task ClassMethodWithParameterNamedWraps_ShouldRenameWrapsCastVariable()
+	public async Task WithParameterNamedWrapsInAClass_ShouldRenameWrapsCastVariable()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -323,7 +323,7 @@ public sealed partial class MethodEmissionTests
 	}
 
 	[Test]
-	public async Task GenericMethodWithAllowsRefStruct_ShouldCompile()
+	public async Task Generic_WithAllowsRefStruct_ShouldEmitANotSupportedExceptionAndCompile()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -353,7 +353,7 @@ public sealed partial class MethodEmissionTests
 	}
 
 	[Test]
-	public async Task InterfaceMethodWithParameterNamedMethodExecution_ShouldGenerateUniqueLocalVariableName()
+	public async Task WithParameterNamedMethodExecution_ShouldGenerateUniqueLocalVariableName()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -389,7 +389,7 @@ public sealed partial class MethodEmissionTests
 	}
 
 	[Test]
-	public async Task InterfaceMethodWithParameterNamedOutParam1_ShouldRenameNumberedCastVariable()
+	public async Task WithParameterNamedOutParam1_ShouldRenameNumberedCastVariable()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -423,7 +423,7 @@ public sealed partial class MethodEmissionTests
 	}
 
 	[Test]
-	public async Task InterfaceMethodWithParameterNamedResult_ShouldGenerateUniqueLocalVariableName()
+	public async Task WithParameterNamedResult_ShouldGenerateUniqueLocalVariableName()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -458,7 +458,7 @@ public sealed partial class MethodEmissionTests
 	}
 
 	[Test]
-	public async Task InterfaceMethodWithParameterNamedReturnValue_ShouldRenameReturnValueOutVar()
+	public async Task WithParameterNamedReturnValue_ShouldRenameReturnValueOutVar()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -489,7 +489,7 @@ public sealed partial class MethodEmissionTests
 	}
 
 	[Test]
-	public async Task MethodWithEnumDefaultValue_ShouldGenerateCastExpression()
+	public async Task WithEnumDefaultValue_ShouldGenerateCastExpression()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -520,7 +520,7 @@ public sealed partial class MethodEmissionTests
 	}
 
 	[Test]
-	public async Task MethodWithStructDefaultValue_ShouldGenerateDefaultKeyword()
+	public async Task WithStructDefaultValue_ShouldGenerateDefaultKeyword()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -550,7 +550,7 @@ public sealed partial class MethodEmissionTests
 	}
 
 	[Test]
-	public async Task MultipleImplementations_ShouldOnlyHaveOneExplicitImplementation()
+	public async Task WithMultipleImplementations_ShouldOnlyHaveOneExplicitImplementation()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -595,7 +595,7 @@ public sealed partial class MethodEmissionTests
 
 	[Test]
 	public async Task
-		MultipleStaticAbstractMethods_WithCollidingSignature_ShouldEmitStaticKeywordOnExplicitImplementation()
+		StaticAbstract_WithCollidingSignature_ShouldEmitStaticKeywordOnExplicitImplementation()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -629,7 +629,7 @@ public sealed partial class MethodEmissionTests
 	}
 
 	[Test]
-	public async Task ParameterNamedI_ShouldNotCollideWithVerifyLambdaVariable()
+	public async Task WithParameterNamedI_ShouldNotCollideWithVerifyLambdaVariable()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -655,7 +655,7 @@ public sealed partial class MethodEmissionTests
 	}
 
 	[Test]
-	public async Task ParameterNamedSetup_ShouldCompile()
+	public async Task WithParametersNamedLikeSetupVariables_ShouldCompile()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -1584,7 +1584,7 @@ public sealed partial class MethodEmissionTests
 	}
 
 	[Test]
-	public async Task StaticAbstractMethodWithParameter_ShouldAppendArgumentToRecords()
+	public async Task StaticAbstract_WithParameter_ShouldRecordTheArgument()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -1618,7 +1618,7 @@ public sealed partial class MethodEmissionTests
 	}
 
 	[Test]
-	public async Task VirtualMethodOverride_WithConstrainedGeneric_ShouldNotRepeatConstraints()
+	public async Task Override_WithConstrainedGeneric_ShouldNotRepeatConstraints()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -1660,7 +1660,7 @@ public sealed partial class MethodEmissionTests
 	}
 
 	[Test]
-	public async Task VirtualMethodOverride_WithUnconstrainedGeneric_ShouldHaveDefaultConstraint()
+	public async Task Override_WithUnconstrainedGeneric_ShouldHaveDefaultConstraint()
 	{
 		GeneratorResult result = Generator
 			.Run("""

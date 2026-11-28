@@ -24,7 +24,7 @@ public sealed class MembersHidingOtherKindTests
 	[Arguments("string ToString();", "new int ToString { get; }", "int ToString", "string global::MyCode.IFoo.ToString()")]
 	[Arguments("int GetHashCode();", "new event Action GetHashCode;", "event global::System.Action GetHashCode", "int global::MyCode.IFoo.GetHashCode()")]
 	[Arguments("int ToString { get; }", "new string ToString();", "public override string ToString()", "int global::MyCode.IFoo.ToString")]
-	public async Task MemberHidingInheritedMemberOfOtherKind_ShouldImplementHiddenMemberExplicitly(
+	public async Task WithInterface_ShouldImplementTheHiddenMemberExplicitly(
 		string hiddenMember, string hidingMember, string expectedHiding, string expectedHidden)
 	{
 		foreach (LanguageVersion languageVersion in LanguageVersions)
@@ -70,7 +70,7 @@ public sealed class MembersHidingOtherKindTests
 	[Arguments("public virtual event Action? Run { add { } remove { } }", "public new virtual int Run => 0;", "public override int Run", "event global::System.Action? Run")]
 	[Arguments("public virtual void Run(int value) { }", "public new virtual event Action? Run { add { } remove { } }", "public override event global::System.Action? Run", "void Run(int value)")]
 	[Arguments("public override string ToString() => string.Empty;", "public new virtual int ToString => 0;", "public override int ToString", "string ToString()")]
-	public async Task ClassMemberHidingInheritedMemberOfOtherKind_ShouldNotOverrideHiddenMember(
+	public async Task WithClass_ShouldNotOverrideTheHiddenMember(
 		string hiddenMember, string hidingMember, string expectedHiding, string unexpectedHidden)
 	{
 		foreach (LanguageVersion languageVersion in LanguageVersions)
@@ -113,7 +113,7 @@ public sealed class MembersHidingOtherKindTests
 	[Arguments("public new int Run => 0;", false)]
 	[Arguments("public void Run(int value) { }", true)]
 	[Arguments("private new int Run => 0;", true)]
-	public async Task ClassMemberOfOtherKind_ShouldOnlyPreventOverrideWhenItHidesTheMemberFromTheMock(
+	public async Task WithClass_ShouldOnlySkipTheOverrideWhenTheMockSeesTheHidingMember(
 		string hidingMember, bool expectOverride)
 	{
 		foreach (LanguageVersion languageVersion in LanguageVersions)
@@ -151,7 +151,7 @@ public sealed class MembersHidingOtherKindTests
 	}
 
 	[Test]
-	public async Task SiblingMembersOfOtherKind_ShouldImplementSecondMemberExplicitly()
+	public async Task WithSiblingMembers_ShouldImplementTheSecondMemberExplicitly()
 	{
 		foreach (LanguageVersion languageVersion in LanguageVersions)
 		{

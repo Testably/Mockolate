@@ -6,7 +6,7 @@ namespace Mockolate.SourceGenerators.Tests.Modes;
 public sealed class ClassicGenericMethodOverrideTests
 {
 	[Test]
-	public async Task NullableMethodTypeParameter_InClassicMode_OnOverriddenMethods_ShouldSetupAndVerify()
+	public async Task Method_WithNullableTypeParameter_ShouldSetUpAndVerify()
 	{
 		Assembly assembly = Generator.CompileAndLoad("""
 		                                             using System;

@@ -3,7 +3,7 @@ namespace Mockolate.SourceGenerators.Tests.Emission;
 public sealed partial class RefStructEmissionTests
 {
 	[Test]
-	public async Task Arity16VoidMethod_EmitsGeneratedRefStructSetupAtArity16()
+	public async Task VoidMethod_With16Parameters_ShouldEmitTheRefStructVoidMethodSetup()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -37,7 +37,7 @@ public sealed partial class RefStructEmissionTests
 	}
 
 	[Test]
-	public async Task Arity5IndexerGetAndSet_WithRefStructKey_EmitsCombinedSetup()
+	public async Task Indexer_With5KeysAndBothAccessors_ShouldEmitTheCombinedSetup()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -77,7 +77,7 @@ public sealed partial class RefStructEmissionTests
 	}
 
 	[Test]
-	public async Task Arity5IndexerGetterOnly_WithRefStructKey_EmitsGetterSetupOnly()
+	public async Task Indexer_With5KeysAndGetterOnly_ShouldOnlyEmitTheGetterSetup()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -115,7 +115,7 @@ public sealed partial class RefStructEmissionTests
 	}
 
 	[Test]
-	public async Task Arity5IndexerSetterOnly_WithRefStructKey_EmitsSetterSetupOnly()
+	public async Task Indexer_With5KeysAndSetterOnly_ShouldOnlyEmitTheSetterSetup()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -152,7 +152,7 @@ public sealed partial class RefStructEmissionTests
 	}
 
 	[Test]
-	public async Task Arity5ReturnMethod_EmitsGeneratedRefStructReturnSetup()
+	public async Task ReturnMethod_With5Parameters_ShouldEmitTheRefStructReturnMethodSetup()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -189,7 +189,7 @@ public sealed partial class RefStructEmissionTests
 	}
 
 	[Test]
-	public async Task Arity5VoidMethod_EmitsGeneratedRefStructSetup()
+	public async Task VoidMethod_With5Parameters_ShouldEmitTheRefStructVoidMethodSetup()
 	{
 		// Arity 5 exceeds the hand-written ceiling (1-4); the generator must emit
 		// RefStructVoidMethodSetup<T1,...,T5> into RefStructMethodSetups.g.cs.
@@ -232,7 +232,7 @@ public sealed partial class RefStructEmissionTests
 	}
 
 	[Test]
-	public async Task Arity6ReturnMethod_EmitsGeneratedRefStructReturnSetup()
+	public async Task ReturnMethod_With6Parameters_ShouldEmitTheRefStructReturnMethodSetup()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -265,7 +265,7 @@ public sealed partial class RefStructEmissionTests
 	}
 
 	[Test]
-	public async Task Arity6VoidMethod_EmitsGeneratedRefStructSetupAtArity6()
+	public async Task VoidMethod_With6Parameters_ShouldEmitTheRefStructVoidMethodSetup()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -302,7 +302,7 @@ public sealed partial class RefStructEmissionTests
 	}
 
 	[Test]
-	public async Task Arity7ReturnMethod_MixedRefStructAndValueTypes_EmitsRefStructReturnSetup()
+	public async Task ReturnMethod_With7RefStructAndValueTypeParameters_ShouldEmitTheRefStructReturnMethodSetup()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -337,7 +337,7 @@ public sealed partial class RefStructEmissionTests
 	}
 
 	[Test]
-	public async Task Arity8VoidMethod_EmitsGeneratedRefStructSetupAtArity8()
+	public async Task VoidMethod_With8Parameters_ShouldEmitTheRefStructVoidMethodSetup()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -371,7 +371,7 @@ public sealed partial class RefStructEmissionTests
 	}
 
 	[Test]
-	public async Task IndexerGetterWithRefStructKey_EmitsRefStructDispatch()
+	public async Task Indexer_WithGetterOnly_ShouldUseTheRefStructGetterSetup()
 	{
 		// Getter-only ref-struct-keyed indexers route through RefStructIndexerGetterSetup.
 		GeneratorResult result = Generator
@@ -407,7 +407,7 @@ public sealed partial class RefStructEmissionTests
 	}
 
 	[Test]
-	public async Task IndexerWithRefStructKey_AndSetter_EmitsCombinedSetup()
+	public async Task Indexer_WithBothAccessors_ShouldUseTheRefStructCombinedSetup()
 	{
 		// Get+set ref-struct-keyed indexer: expose IRefStructIndexerSetup<TValue, T> on the
 		// setup facade and dispatch both accessors through the ref-struct pipeline.
@@ -445,7 +445,7 @@ public sealed partial class RefStructEmissionTests
 	}
 
 	[Test]
-	public async Task IndexerWithRefStructKey_SetterOnly_EmitsSetterSetup()
+	public async Task Indexer_WithSetterOnly_ShouldUseTheRefStructSetterSetup()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -513,7 +513,7 @@ public sealed partial class RefStructEmissionTests
 	}
 
 	[Test]
-	public async Task MethodWithOutRefStructParameter_ShouldEmitRefStructOutParameterPipeline()
+	public async Task Method_WithOutParameter_ShouldUseTheRefStructSetupAndOutParameter()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -549,7 +549,7 @@ public sealed partial class RefStructEmissionTests
 	}
 
 	[Test]
-	public async Task MixedParameters_RefStructPlusValueType_ShouldRouteThroughRefStructPipeline()
+	public async Task Method_WithRefStructAndValueTypeParameters_ShouldUseTheRefStructSetup()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -582,7 +582,7 @@ public sealed partial class RefStructEmissionTests
 	}
 
 	[Test]
-	public async Task NonRefStructMethod_ShouldContinueToUseRegularPipeline()
+	public async Task Method_WithoutRefStructParameters_ShouldUseTheRegularSetup()
 	{
 		// Regression guard: our ref-struct switch must not intercept methods that have no
 		// ref-struct parameter. The existing VoidMethodSetup / MethodInvocation<T> code path
@@ -618,7 +618,7 @@ public sealed partial class RefStructEmissionTests
 	}
 
 	[Test]
-	public async Task NoRefStructSurface_ShouldNotEmitRefStructMethodSetupsFile()
+	public async Task WithoutRefStructMembers_ShouldNotEmitTheRefStructMethodSetupsFile()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -646,7 +646,7 @@ public sealed partial class RefStructEmissionTests
 	}
 
 	[Test]
-	public async Task ReturnMethodWithRefStructParameter_ShouldEmitRefStructReturnSetup()
+	public async Task ReturnMethod_WithRefStructParameter_ShouldUseTheRefStructReturnMethodSetup()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -680,7 +680,7 @@ public sealed partial class RefStructEmissionTests
 	}
 
 	[Test]
-	public async Task VoidMethodWithRefStructParameter_ShouldEmitRefStructPipeline()
+	public async Task VoidMethod_WithRefStructParameter_ShouldUseTheRefStructVoidMethodSetup()
 	{
 		GeneratorResult result = Generator
 			.Run("""

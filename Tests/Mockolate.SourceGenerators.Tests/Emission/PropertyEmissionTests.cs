@@ -12,7 +12,7 @@ public sealed partial class PropertyEmissionTests
 	[Arguments("string Name { get; set; }", "Setup.PropertySetup<string>",
 		"Verify.VerificationPropertyResult<IMockVerifyForIMyService, string>",
 		"Setup.IPropertyGetterOnlySetup<string>", "Verify.VerificationPropertyGetterResult<IMockVerifyForIMyService>")]
-	public async Task PropertySurface_ShouldOnlyExposeTheAccessorsTheMockIntercepts(
+	public async Task ShouldOnlyExposeTheAccessorsTheMockIntercepts(
 		string property, string expectedSetupType, string expectedVerifyType,
 		string unexpectedSetupType, string unexpectedVerifyType)
 	{
@@ -45,7 +45,7 @@ public sealed partial class PropertyEmissionTests
 	}
 
 	[Test]
-	public async Task InitOnlyProperty_ShouldEmitInitAccessorAndCompile()
+	public async Task InitOnly_ShouldEmitTheInitAccessorAndCompile()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -90,7 +90,7 @@ public sealed partial class PropertyEmissionTests
 	}
 
 	[Test]
-	public async Task MultipleImplementations_ShouldOnlyHaveOneExplicitImplementation()
+	public async Task WithMultipleImplementations_ShouldOnlyHaveOneExplicitImplementation()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -131,7 +131,7 @@ public sealed partial class PropertyEmissionTests
 
 	[Test]
 	public async Task
-		MultipleStaticAbstractProperties_WithCollidingName_ShouldEmitStaticKeywordOnExplicitImplementation()
+		StaticAbstract_WithCollidingName_ShouldEmitStaticKeywordOnExplicitImplementation()
 	{
 		GeneratorResult result = Generator
 			.Run("""

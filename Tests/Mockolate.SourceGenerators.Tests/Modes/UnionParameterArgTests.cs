@@ -43,7 +43,7 @@ public sealed class UnionParameterArgTests
 	}
 
 	[Test]
-	public async Task WithDisablePropertyFalse_BelowCSharp15_ShouldNotEmitParameterArg()
+	public async Task WithDisablePropertyFalse_WhenBelowCSharp15_ShouldNotEmitParameterArg()
 	{
 		GeneratorResult result = Generator.Run(Source, LanguageVersion.CSharp14,
 			new Dictionary<string, string> { [DisableUnionParametersProperty] = "false", });
@@ -102,7 +102,7 @@ public sealed class UnionParameterArgTests
 	[Arguments("public", false, true)]
 	[Arguments("internal", true, true)]
 	[Arguments("internal", false, false)]
-	public async Task HasAttribute_DeclaredInAReference_ShouldDependOnAccessibility(string accessibility,
+	public async Task HasAttribute_WhenDeclaredInAReference_ShouldDependOnAccessibility(string accessibility,
 		bool grantsInternalsVisibleTo, bool expected)
 	{
 		MetadataReference reference = CompileAttributeAssembly("First", accessibility, grantsInternalsVisibleTo);
@@ -114,7 +114,7 @@ public sealed class UnionParameterArgTests
 	}
 
 	[Test]
-	public async Task HasAttribute_PublicInTwoReferences_ShouldBeMissing()
+	public async Task HasAttribute_WhenPublicInTwoReferences_ShouldBeMissing()
 	{
 		Compilation compilation = CreateCompilation("",
 			CompileAttributeAssembly("First", "public", false),
@@ -127,7 +127,7 @@ public sealed class UnionParameterArgTests
 	}
 
 	[Test]
-	public async Task HasAttribute_DeclaredInSourceAndInAReference_ShouldBeAvailable()
+	public async Task HasAttribute_WhenDeclaredInSourceAndInAReference_ShouldBeAvailable()
 	{
 		Compilation compilation = CreateCompilation(AttributeSource("internal"),
 			CompileAttributeAssembly("First", "public", false));
@@ -138,7 +138,7 @@ public sealed class UnionParameterArgTests
 	}
 
 	[Test]
-	public async Task HasAttribute_EmbeddedInAReference_ShouldBeMissing()
+	public async Task HasAttribute_WhenEmbeddedInAReference_ShouldBeMissing()
 	{
 		Compilation compilation = CreateCompilation("", CompileEmbeddedAttributeAssembly("Ext", "MyAttribute"));
 
@@ -148,7 +148,7 @@ public sealed class UnionParameterArgTests
 	}
 
 	[Test]
-	public async Task HasAttribute_EmbeddedInOneReferenceAndPublicInAnother_ShouldBeAvailable()
+	public async Task HasAttribute_WhenEmbeddedInOneReferenceAndPublicInAnother_ShouldBeAvailable()
 	{
 		Compilation compilation = CreateCompilation("",
 			CompileEmbeddedAttributeAssembly("Ext", "MyAttribute"),
@@ -261,7 +261,7 @@ public sealed class UnionParameterArgTests
 	}
 
 	[Test]
-	public async Task HasAttribute_EmbeddedInTheCompilation_ShouldBeAvailable()
+	public async Task HasAttribute_WhenEmbeddedInTheCompilation_ShouldBeAvailable()
 	{
 		Compilation compilation = CreateCompilation(
 			"""
@@ -302,7 +302,7 @@ public sealed class UnionParameterArgTests
 	}
 
 	[Test]
-	public async Task HasAttribute_NotDeclared_ShouldBeMissing()
+	public async Task HasAttribute_WhenNotDeclared_ShouldBeMissing()
 	{
 		Compilation compilation = CreateCompilation("");
 
@@ -314,7 +314,7 @@ public sealed class UnionParameterArgTests
 	[Test]
 	[Arguments(true)]
 	[Arguments(false)]
-	public async Task ParameterArgSource_ShouldContainThePolyfillOnlyWhenRequested(bool emitPolyfill)
+	public async Task SourceTemplate_ShouldContainThePolyfillOnlyWhenRequested(bool emitPolyfill)
 	{
 		string source = SourceTemplates.ParameterArg(emitPolyfill, false, false);
 

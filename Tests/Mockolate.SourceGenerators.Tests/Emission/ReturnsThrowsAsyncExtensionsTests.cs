@@ -5,7 +5,7 @@ namespace Mockolate.SourceGenerators.Tests.Emission;
 public sealed class ReturnsThrowsAsyncExtensionsTests
 {
 	[Test]
-	public async Task ForVoidMethods_ShouldNotGenerateReturnsAsyncExtensions()
+	public async Task WithVoidMethod_ShouldNotGenerateReturnsAsyncExtensions()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -35,7 +35,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 	}
 
 	[Test]
-	public async Task GenerateAsyncExtensionsForMethodsWithMoreParameters()
+	public async Task WhenAMethodHasMoreThan4Parameters_ShouldGenerateReturnsAsyncExtensions()
 	{
 		GeneratorResult result = Generator
 			.Run("""

@@ -372,7 +372,7 @@ public sealed partial class CrossAssemblyEmissionTests
 		"public override string Mixed { get => null!; internal set { } }", "internal set")]
 	[Arguments("public abstract string Mixed { get; private protected set; }",
 		"public override string Mixed { get => null!; private protected set { } }", "private protected set")]
-	public async Task MixedAccessorSlotAlreadyOverridden_ShouldBeMockedWithTheAccessibleAccessorOnly(
+	public async Task MixedAccessorPropertyAlreadyOverridden_ShouldBeMockedWithTheAccessibleAccessorOnly(
 		string baseMember, string derivedOverride, string inaccessibleAccessor)
 	{
 		MetadataReference external = ExternalAssembly.Compile($$"""
@@ -405,7 +405,7 @@ public sealed partial class CrossAssemblyEmissionTests
 	[Test]
 	[Arguments("public abstract string Mixed { internal get; set; }",
 		"public override string Mixed { internal get => null!; set { } }", "internal get")]
-	public async Task MixedAccessorSlotAlreadyOverridden_WithOnlyTheSetterReachable_ShouldBeMockedWithTheSetter(
+	public async Task MixedAccessorPropertyAlreadyOverridden_WithOnlyTheSetterReachable_ShouldBeMockedWithTheSetter(
 		string baseMember, string derivedOverride, string inaccessibleAccessor)
 	{
 		MetadataReference external = ExternalAssembly.Compile($$"""
@@ -437,7 +437,7 @@ public sealed partial class CrossAssemblyEmissionTests
 	}
 
 	[Test]
-	public async Task MixedAccessorIndexerSlotAlreadyOverridden_ShouldBeMockedWithTheAccessibleAccessorOnly()
+	public async Task MixedAccessorIndexerAlreadyOverridden_ShouldBeMockedWithTheAccessibleAccessorOnly()
 	{
 		MetadataReference external = ExternalAssembly.Compile("""
 		                                                      namespace Ext;
@@ -466,7 +466,7 @@ public sealed partial class CrossAssemblyEmissionTests
 	}
 
 	[Test]
-	public async Task MixedAccessorIndexerSlotAlreadyOverridden_WithOnlyTheSetterReachable_ShouldBeMockedWithTheSetter()
+	public async Task MixedAccessorIndexerAlreadyOverridden_WithOnlyTheSetterReachable_ShouldBeMockedWithTheSetter()
 	{
 		MetadataReference external = ExternalAssembly.Compile("""
 		                                                      namespace Ext;
@@ -495,7 +495,7 @@ public sealed partial class CrossAssemblyEmissionTests
 	}
 
 	[Test]
-	public async Task MixedAccessorSlotFilledByAnIntermediateType_ShouldBeMockedWithTheAccessibleAccessorOnly()
+	public async Task MixedAccessorPropertyOverriddenByAnIntermediateType_ShouldBeMockedWithTheAccessibleAccessorOnly()
 	{
 		MetadataReference external = ExternalAssembly.Compile("""
 		                                                      namespace Ext;
@@ -526,7 +526,7 @@ public sealed partial class CrossAssemblyEmissionTests
 	}
 
 	[Test]
-	public async Task MixedAccessorSlot_WithInternalsVisibleTo_ShouldBeMockedWithBothAccessors()
+	public async Task MixedAccessorProperty_WithInternalsVisibleTo_ShouldBeMockedWithBothAccessors()
 	{
 		MetadataReference external = ExternalAssembly.Compile("""
 		                                                      [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("TestAssembly")]
@@ -550,7 +550,7 @@ public sealed partial class CrossAssemblyEmissionTests
 	}
 
 	[Test]
-	public async Task MixedAccessorInterfaceSlotWithDefaultImplementation_ShouldNotBeRestated()
+	public async Task MixedAccessorInterfacePropertyWithDefaultImplementation_ShouldNotBeRestated()
 	{
 		MetadataReference external = ExternalAssembly.Compile("""
 		                                                      namespace Ext;
@@ -603,7 +603,7 @@ public sealed partial class CrossAssemblyEmissionTests
 	}
 
 	[Test]
-	public async Task PartlyReachableSlot_WithInaccessibleSignatureType_ShouldSkipMember()
+	public async Task PartlyReachableProperty_WithInaccessibleSignatureType_ShouldSkipMember()
 	{
 		MetadataReference external = ExternalAssembly.Compile("""
 		                                                      namespace Ext;
@@ -701,7 +701,7 @@ public sealed partial class CrossAssemblyEmissionTests
 	[Test]
 	[Arguments(true)]
 	[Arguments(false)]
-	public async Task ExternAliasedReference_AlsoReachableThroughGlobal_ShouldKeepGlobalQualification(
+	public async Task ExternAliasedReference_WhenAlsoReachableThroughGlobal_ShouldKeepGlobalQualification(
 		bool asSeparateReference)
 	{
 		MetadataReference external = CompileExternAliasAssembly();

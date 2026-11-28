@@ -10,14 +10,14 @@ namespace Mockolate.SourceGenerators.Tests.Incrementality;
 public class PropertyEqualityComparerTests
 {
 	[Test]
-	public async Task BothNull_ShouldReturnTrue()
+	public async Task WhenBothPropertiesAreNull_ShouldReturnTrue()
 	{
 		await That(Property.EqualityComparer.Equals(null, null)).IsTrue();
 		await That(Property.ContainingTypeIndependentEqualityComparer.Equals(null, null)).IsTrue();
 	}
 
 	[Test]
-	public async Task ContainingTypeIndependent_IndexersWithDifferentArity_ShouldReturnFalse()
+	public async Task WithContainingTypeIndependentComparer_WhenIndexersHaveDifferentParameterCount_ShouldReturnFalse()
 	{
 		IEqualityComparer<Property> comparer = Property.ContainingTypeIndependentEqualityComparer;
 		Property arity1 = CreateIndexer("public class C { public int this[int i] => 0; }");
@@ -27,7 +27,7 @@ public class PropertyEqualityComparerTests
 	}
 
 	[Test]
-	public async Task ContainingTypeIndependent_IndexerVsNonIndexer_ShouldReturnFalse()
+	public async Task WithContainingTypeIndependentComparer_WhenComparingAnIndexerWithAProperty_ShouldReturnFalse()
 	{
 		IEqualityComparer<Property> comparer = Property.ContainingTypeIndependentEqualityComparer;
 		Property indexer = CreateIndexer("public class C { public int this[int i] => 0; }");
@@ -38,7 +38,7 @@ public class PropertyEqualityComparerTests
 	}
 
 	[Test]
-	public async Task IndexersWithDifferentArity_ShouldReturnFalse()
+	public async Task WhenIndexersHaveDifferentParameterCount_ShouldReturnFalse()
 	{
 		IEqualityComparer<Property> comparer = Property.EqualityComparer;
 		Property arity1 = CreateIndexer("public class C { public int this[int i] => 0; }");
@@ -48,7 +48,7 @@ public class PropertyEqualityComparerTests
 	}
 
 	[Test]
-	public async Task IndexersWithDifferentContainingType_ShouldReturnFalse()
+	public async Task WhenIndexersHaveDifferentContainingTypes_ShouldReturnFalse()
 	{
 		IEqualityComparer<Property> comparer = Property.EqualityComparer;
 		Property fromC = CreateIndexer("public class C { public int this[int i] => 0; }");
@@ -58,7 +58,7 @@ public class PropertyEqualityComparerTests
 	}
 
 	[Test]
-	public async Task IndexerVsNonIndexer_ShouldReturnFalse()
+	public async Task WhenComparingAnIndexerWithAProperty_ShouldReturnFalse()
 	{
 		IEqualityComparer<Property> comparer = Property.EqualityComparer;
 		Property indexer = CreateIndexer("public class C { public int this[int i] => 0; }");
@@ -69,7 +69,7 @@ public class PropertyEqualityComparerTests
 	}
 
 	[Test]
-	public async Task NonIndexersWithDifferentContainingType_ShouldReturnFalse()
+	public async Task WhenPropertiesHaveDifferentContainingTypes_ShouldReturnFalse()
 	{
 		IEqualityComparer<Property> comparer = Property.EqualityComparer;
 		Property fromC = CreateProperty("public class C { public int Foo => 0; }", "Foo");

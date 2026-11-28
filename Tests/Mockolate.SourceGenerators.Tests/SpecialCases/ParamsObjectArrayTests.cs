@@ -566,20 +566,20 @@ public sealed class ParamsObjectArrayTests
 	];
 
 	[Test]
-	public async Task ParamsObjectArray_InClassicMode_ShouldBindAndMatchAsExpected()
+	public async Task WithClassicOverloads_ShouldBindAndMatchAsExpected()
 		=> await VerifyGroups(Groups, LanguageVersion.CSharp14);
 
 	[Test]
-	public async Task ParamsObjectArray_InClassicMode_OnDelegates_ShouldBindLikeMethods()
+	public async Task Delegate_WithClassicOverloads_ShouldBindLikeMethods()
 		=> await VerifyDelegates(LanguageVersion.CSharp14);
 
 #if NET11_0_OR_GREATER
 	[Test]
-	public async Task ParamsObjectArray_InUnionMode_ShouldBindAndMatchAsExpected()
+	public async Task WithUnionOverloads_ShouldBindAndMatchAsExpected()
 		=> await VerifyGroups(Groups, LanguageVersion.CSharp15);
 
 	[Test]
-	public async Task ParamsObjectArray_InUnionMode_OnDelegates_ShouldBindLikeMethods()
+	public async Task Delegate_WithUnionOverloads_ShouldBindLikeMethods()
 		=> await VerifyDelegates(LanguageVersion.CSharp15);
 #endif
 

@@ -366,12 +366,12 @@ public sealed class GenericMethodClosedOverObjectTests
 	];
 
 	[Test]
-	public async Task GenericMethodClosedOverObject_InClassicMode_ShouldBindAndMatchAsExpected()
+	public async Task WithClassicOverloads_ShouldBindAndMatchAsExpected()
 		=> await VerifyGroups([..Groups, ..ClassicObjectGroups,], LanguageVersion.CSharp14);
 
 #if NET11_0_OR_GREATER
 	[Test]
-	public async Task GenericMethodClosedOverObject_InUnionMode_ShouldBindAndMatchAsExpected()
+	public async Task WithUnionOverloads_ShouldBindAndMatchAsExpected()
 		=> await VerifyGroups([..Groups, ..UnionObjectGroups,], LanguageVersion.CSharp15);
 #endif
 

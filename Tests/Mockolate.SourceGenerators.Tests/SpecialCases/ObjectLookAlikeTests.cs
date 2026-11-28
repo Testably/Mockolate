@@ -89,7 +89,7 @@ public sealed class ObjectLookAlikeTests
 	}
 
 	[Test]
-	public async Task LookAlikeOfTypeParameterType_ShouldOnlyOverrideWhenClosedOverTheObjectMemberType()
+	public async Task MemberOfTypeParameterType_ShouldOnlyBeOverriddenWhenClosedOverTheObjectMemberType()
 	{
 		foreach (LanguageVersion languageVersion in LanguageVersions)
 		{
@@ -128,7 +128,7 @@ public sealed class ObjectLookAlikeTests
 	}
 
 	[Test]
-	public async Task LookAlikes_InCombinationAndInheritedMocks_ShouldCompileWithoutDiagnostics()
+	public async Task WithCombinationAndInheritedMocks_ShouldCompileWithoutDiagnostics()
 	{
 		foreach (LanguageVersion languageVersion in LanguageVersions)
 		{
@@ -178,7 +178,7 @@ public sealed class ObjectLookAlikeTests
 	}
 
 	[Test]
-	public async Task ToStringOverride_WhenTypeIsNamedToStringOrDeclaresIt_ShouldCompile()
+	public async Task ToStringOverride_WhenTheTypeIsNamedToStringOrDeclaresIt_ShouldBeEmittedAtMostOnce()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -280,7 +280,7 @@ public sealed class ObjectLookAlikeTests
 	[Arguments("void Finalize(int value);")]
 	[Arguments("void Finalize<T>();")]
 	[Arguments("int Finalize { get; set; }")]
-	public async Task FinalizeLookAlike_ShouldNotSuppressCS0465(string member)
+	public async Task FinalizeMemberWithOtherSignature_ShouldNotSuppressCS0465(string member)
 	{
 		foreach (LanguageVersion languageVersion in LanguageVersions)
 		{
@@ -293,7 +293,7 @@ public sealed class ObjectLookAlikeTests
 	}
 
 	[Test]
-	public async Task FinalizeMethodOfClass_ShouldNotReportCS0465()
+	public async Task FinalizeMethod_WithClass_ShouldNotReportCS0465()
 	{
 		foreach (LanguageVersion languageVersion in LanguageVersions)
 		{

@@ -86,7 +86,7 @@ public sealed class MethodConstrainedToTypeArgumentTests
 #if NET11_0_OR_GREATER
 	[Arguments(LanguageVersion.CSharp15)]
 #endif
-	public async Task ClosedOverOpenClassOrInterface_ShouldEmitConstraintsInDeclarableOrder(
+	public async Task WhenClosedOverAnOpenClassOrInterface_ShouldEmitConstraintsInDeclarableOrder(
 		LanguageVersion languageVersion)
 	{
 		GeneratorResult result = Generator.Run("""
@@ -167,7 +167,7 @@ public sealed class MethodConstrainedToTypeArgumentTests
 #if NET11_0_OR_GREATER
 	[Arguments(LanguageVersion.CSharp15)]
 #endif
-	public async Task ClosedOverTypesThatCanOnlyBeInheritedAsConstraint_ShouldCompile(
+	public async Task WhenClosedOverTypesThatCanOnlyBeInheritedAsConstraint_ShouldCompile(
 		LanguageVersion languageVersion)
 	{
 		Assembly assembly = Generator.CompileAndLoad(Types, languageVersion);
@@ -183,7 +183,7 @@ public sealed class MethodConstrainedToTypeArgumentTests
 #if NET11_0_OR_GREATER
 	[Arguments(LanguageVersion.CSharp15)]
 #endif
-	public async Task ClosedOverValueTypeAndSealedClass_ShouldSetupAndVerify(LanguageVersion languageVersion)
+	public async Task WhenClosedOverAValueTypeOrSealedClass_ShouldSetUpAndVerify(LanguageVersion languageVersion)
 	{
 		Assembly assembly = Generator.CompileAndLoad(Types + """
 

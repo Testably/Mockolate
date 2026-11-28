@@ -139,7 +139,7 @@ public sealed class TestFrameworkCompatibilityTests
 	}
 
 	[Test]
-	public async Task MSTest_BeforeTheOldestSupportedVersion_ShouldLackTheApi()
+	public async Task MSTest_WithVersionBeforeTheOldestSupported_ShouldLackTheApi()
 	{
 		string[] diagnostics = Compile(["MOCKOLATE_TEST_FRAMEWORK", "MOCKOLATE_MSTEST", "MOCKOLATE_MSTEST3",],
 			[

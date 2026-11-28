@@ -6,7 +6,7 @@ namespace Mockolate.SourceGenerators.Tests.Emission;
 public sealed partial class CombinationEmissionTests
 {
 	[Test]
-	public async Task AbstractBaseWithParameterlessAndMixedConstructor_ShouldEmitBothTryCastHelpers()
+	public async Task AbstractBaseWithParameterlessAndMixedConstructor_ShouldCastRequiredAndDefaultedConstructorParameters()
 	{
 		// A constructor with a required parameter sets useTryCast; a defaulted parameter sets
 		// useTryCastWithDefaultValue. Mixing both flips both flags so the extension method ends
@@ -181,7 +181,7 @@ public sealed partial class CombinationEmissionTests
 
 	[Test]
 	public async Task
-		CombinationOnConcreteClassWithStaticAbstractInterface_ShouldPrimeMockRegistryProviderInBaseClassConstructor()
+		WithConcreteClassAndStaticAbstractInterface_ShouldPrimeMockRegistryProviderInBaseClassConstructor()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -216,7 +216,7 @@ public sealed partial class CombinationEmissionTests
 	}
 
 	[Test]
-	public async Task CombinationWithProtectedEventOnBaseClass_ShouldEmitProtectedRaiseRegion()
+	public async Task WithProtectedEventOnBaseClass_ShouldEmitProtectedRaiseRegion()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -251,7 +251,7 @@ public sealed partial class CombinationEmissionTests
 	}
 
 	[Test]
-	public async Task CombinationWithRequiredMemberOnBase_ShouldEmitSetsRequiredMembersAttribute()
+	public async Task WithRequiredMemberOnBaseClass_ShouldEmitSetsRequiredMembersAttribute()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -287,7 +287,7 @@ public sealed partial class CombinationEmissionTests
 	}
 
 	[Test]
-	public async Task CombinationWithStaticInterfaceEvents_ShouldEmitStaticRaiseRegion()
+	public async Task WithStaticInterfaceEvents_ShouldEmitStaticRaiseRegion()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -324,7 +324,7 @@ public sealed partial class CombinationEmissionTests
 	}
 
 	[Test]
-	public async Task CombinationWithStaticInterfaceMembers_ShouldEmitStaticSetupAndVerifyRegions()
+	public async Task WithStaticInterfaceMembers_ShouldEmitStaticSetupAndVerifyRegions()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -572,7 +572,7 @@ public sealed partial class CombinationEmissionTests
 	}
 
 	[Test]
-	public async Task MultipleInterfacesWithSameName_ShouldAddSuffixToSetupAndVerifyMethods()
+	public async Task MultipleInterfacesWithSameName_ShouldSuffixTheirMockSetupAndVerifyInterfaces()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -702,7 +702,7 @@ public sealed partial class CombinationEmissionTests
 	}
 
 	[Test]
-	public async Task WhenImplementingAdditionalClass_ShouldCreateCombinationMock()
+	public async Task WithClassAndTwoAdditionalInterfaces_ShouldGenerateEachIntermediateMock()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -748,7 +748,7 @@ public sealed partial class CombinationEmissionTests
 	}
 
 	[Test]
-	public async Task WhenImplementingAdditionalInterface_WithBaseClassHavingOptionalConstructorParameter_ShouldGenerateTryCastWithDefaultValue()
+	public async Task WithOptionalBaseClassConstructorParameter_ShouldAcceptTheArgumentOrUseTheDefault()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -786,7 +786,7 @@ public sealed partial class CombinationEmissionTests
 	}
 
 	[Test]
-	public async Task WhenImplementingAdditionalInterface_WithBaseClassHavingRequiredConstructorParameter_ShouldGenerateTryCast()
+	public async Task WithRequiredBaseClassConstructorParameter_ShouldRequireTheArgument()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -907,7 +907,7 @@ public sealed partial class CombinationEmissionTests
 	}
 
 	[Test]
-	public async Task WithClassAsAdditionalImplementation_ShouldNotThrow()
+	public async Task WithClassAsAdditionalImplementation_ShouldSkipTheCombination()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -950,7 +950,7 @@ public sealed partial class CombinationEmissionTests
 	}
 
 	[Test]
-	public async Task Combination_WithInterfaceInheritingMembers_ShouldCompileWithoutDiagnostics()
+	public async Task WithInterfaceInheritingMembers_ShouldCompileWithoutDiagnostics()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -982,7 +982,7 @@ public sealed partial class CombinationEmissionTests
 	}
 
 	[Test]
-	public async Task Combination_WithInterfacesSharingInheritedMembers_ShouldCompileWithoutDiagnostics()
+	public async Task WithInterfacesSharingInheritedMembers_ShouldCompileWithoutDiagnostics()
 	{
 		GeneratorResult result = Generator
 			.Run("""

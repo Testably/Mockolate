@@ -57,7 +57,7 @@ public sealed class UnionOverloadTests
 	}
 
 	[Test]
-	public async Task TwoParameters_ShouldEmitOneOverloadPerUnionOrPredicateAssignment()
+	public async Task Method_WithTwoParameters_ShouldEmitOneOverloadPerUnionOrPredicateAssignment()
 	{
 		string mock = GenerateMockInUnionMode();
 
@@ -80,7 +80,7 @@ public sealed class UnionOverloadTests
 	}
 
 	[Test]
-	public async Task SetupImplementation_ShouldUseLiteralFastPathWhenAllArgumentsAreLiterals()
+	public async Task Setup_WhenAllArgumentsAreLiterals_ShouldMatchTheLiteralValues()
 	{
 		string mock = GenerateMockInUnionMode();
 
@@ -104,7 +104,7 @@ public sealed class UnionOverloadTests
 	}
 
 	[Test]
-	public async Task DelegateTypedParameter_ShouldOfferTheRawDelegateInsteadOfAPredicate()
+	public async Task Method_WithDelegateTypedParameter_ShouldOfferTheRawDelegateInsteadOfAPredicate()
 	{
 		string mock = GenerateMockInUnionMode();
 
@@ -115,7 +115,7 @@ public sealed class UnionOverloadTests
 	}
 
 	[Test]
-	public async Task AboveFourParameters_ShouldEmitOnlyTheAllUnionOverload()
+	public async Task Method_WithMoreThanFourParameters_ShouldEmitOnlyTheAllUnionOverload()
 	{
 		string mock = GenerateMockInUnionMode();
 
@@ -278,7 +278,7 @@ public sealed class UnionOverloadTests
 	}
 
 	[Test]
-	public async Task RefParameter_ShouldStayAMatcherSlot()
+	public async Task RefParameter_ShouldStillTakeARefParameterMatcher()
 	{
 		string mock = GenerateMockInUnionMode();
 

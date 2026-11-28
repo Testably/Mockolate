@@ -15,7 +15,7 @@ public sealed class MockGeneratorEqualityTests
 	public sealed class LoggerMockNamesTests
 	{
 		[Test]
-		public async Task Equals_WithEqualContent_IsTrue()
+		public async Task Equals_WithEqualContent_ShouldBeTrue()
 		{
 			LoggerMockNames a = new("ILogger",
 				new EquatableArray<(string CategoryType, string Name)>([("global::MyCode.A", "ILogger_A"),]));
@@ -27,7 +27,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingLoggerName_IsFalse()
+		public async Task Equals_WithDifferingLoggerName_ShouldBeFalse()
 		{
 			LoggerMockNames a = new("ILogger", new EquatableArray<(string CategoryType, string Name)>([]));
 			LoggerMockNames b = new("ILogger_1", new EquatableArray<(string CategoryType, string Name)>([]));
@@ -36,7 +36,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingCategoryLoggers_IsFalse()
+		public async Task Equals_WithDifferingCategoryLoggers_ShouldBeFalse()
 		{
 			LoggerMockNames a = new("ILogger",
 				new EquatableArray<(string CategoryType, string Name)>([("global::MyCode.A", "ILogger_A"),]));
@@ -50,7 +50,7 @@ public sealed class MockGeneratorEqualityTests
 	public sealed class MockClassConstructorDependenciesTests
 	{
 		[Test]
-		public async Task Equals_WithEqualDependencies_IsTrue()
+		public async Task Equals_WithEqualDependencies_ShouldBeTrue()
 		{
 			MockClass a = CreateMockClass("public interface IFoo { void M(); }");
 			MockClass b = CreateMockClass("public interface IFoo { void M(); }");
@@ -60,7 +60,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingMockability_IsFalse()
+		public async Task Equals_WithDifferingMockability_ShouldBeFalse()
 		{
 			MockClass a = CreateMockClass("public interface IFoo { void M(); }");
 			MockClass b = CreateMockClass("public interface IFoo { [System.Obsolete] void M(); }");
@@ -88,7 +88,7 @@ public sealed class MockGeneratorEqualityTests
 	public sealed class DataSourceCreationTests
 	{
 		[Test]
-		public async Task Equals_WithEqualContent_IsTrue()
+		public async Task Equals_WithEqualContent_ShouldBeTrue()
 		{
 			DataSourceCreation a = Create("global::A.Sut", "string");
 			DataSourceCreation b = Create("global::A.Sut", "string");
@@ -98,7 +98,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingClass_IsFalse()
+		public async Task Equals_WithDifferingClass_ShouldBeFalse()
 		{
 			DataSourceCreation a = Create("global::A.Sut", "string");
 			DataSourceCreation b = Create("global::B.Sut", "string");
@@ -107,7 +107,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingParameter_IsFalse()
+		public async Task Equals_WithDifferingParameter_ShouldBeFalse()
 		{
 			DataSourceCreation a = Create("global::A.Sut", "string");
 			DataSourceCreation b = Create("global::A.Sut", "int");
@@ -116,7 +116,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingIsCreatable_IsFalse()
+		public async Task Equals_WithDifferingIsCreatable_ShouldBeFalse()
 		{
 			DataSourceCreation a = Create("global::A.Sut", "string");
 			DataSourceCreation b = Create("global::A.Sut", "string", isCreatable: true);
@@ -125,7 +125,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingMockedType_IsFalse()
+		public async Task Equals_WithDifferingMockedType_ShouldBeFalse()
 		{
 			DataSourceCreation a = Create("global::A.Sut", "string");
 			DataSourceCreation b = Create("global::A.Sut", "string", mockedType: "global::A.IOther");
@@ -134,7 +134,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingValueType_IsFalse()
+		public async Task Equals_WithDifferingValueType_ShouldBeFalse()
 		{
 			DataSourceCreation a = Create("global::A.Sut", "string");
 			DataSourceCreation b = Create("global::A.Sut", "string", valueType: "long");
@@ -143,7 +143,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingDeferredType_IsFalse()
+		public async Task Equals_WithDifferingDeferredType_ShouldBeFalse()
 		{
 			DataSourceCreation a = Create("global::A.Sut", "string");
 			DataSourceCreation b = Create("global::A.Sut", "string", deferredType: "global::A.Other");
@@ -152,7 +152,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingValueFromClass_IsFalse()
+		public async Task Equals_WithDifferingValueFromClass_ShouldBeFalse()
 		{
 			DataSourceCreation a = Create("global::A.Sut", "string");
 			DataSourceCreation b = Create("global::A.Sut", "string", valueFromClass: "\"A.OtherTests\", \"A\"");
@@ -161,7 +161,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingIsMockedLast_IsFalse()
+		public async Task Equals_WithDifferingIsMockedLast_ShouldBeFalse()
 		{
 			DataSourceCreation a = Create("global::A.Sut", "string");
 			DataSourceCreation b = Create("global::A.Sut", "string", isMockedLast: true);
@@ -170,7 +170,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingLocation_IsFalse()
+		public async Task Equals_WithDifferingLocation_ShouldBeFalse()
 		{
 			DataSourceCreation a = Create("global::A.Sut", "string");
 			DataSourceCreation b = Create("global::A.Sut", "string", start: 5);
@@ -179,7 +179,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingIsMock_IsFalse()
+		public async Task Equals_WithDifferingIsMock_ShouldBeFalse()
 		{
 			DataSourceCreation a = Create("global::A.Sut", "string");
 			DataSourceCreation b = Create("global::A.Sut", "string", isMock: true);
@@ -209,7 +209,7 @@ public sealed class MockGeneratorEqualityTests
 	public sealed class DataSourceMemberCandidateTests
 	{
 		[Test]
-		public async Task Equals_WithEqualContent_IsTrue()
+		public async Task Equals_WithEqualContent_ShouldBeTrue()
 		{
 			DataSourceMemberCandidate a = new(new EquatableArray<string>(["Test", "Data",]), new CreateMockLocation("File.cs", 1, 2));
 			DataSourceMemberCandidate b = new(new EquatableArray<string>(["Test", "Data",]), new CreateMockLocation("File.cs", 1, 2));
@@ -219,7 +219,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingAttributeNames_IsFalse()
+		public async Task Equals_WithDifferingAttributeNames_ShouldBeFalse()
 		{
 			DataSourceMemberCandidate a = new(new EquatableArray<string>(["Test",]), new CreateMockLocation("File.cs", 1, 2));
 			DataSourceMemberCandidate b = new(new EquatableArray<string>(["Data",]), new CreateMockLocation("File.cs", 1, 2));
@@ -228,7 +228,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingLocation_IsFalse()
+		public async Task Equals_WithDifferingLocation_ShouldBeFalse()
 		{
 			DataSourceMemberCandidate a = new(new EquatableArray<string>(["Test",]), new CreateMockLocation("File.cs", 1, 2));
 			DataSourceMemberCandidate b = new(new EquatableArray<string>(["Test",]), new CreateMockLocation("File.cs", 5, 2));
@@ -240,7 +240,7 @@ public sealed class MockGeneratorEqualityTests
 	public sealed class RefStructAggregateTests
 	{
 		[Test]
-		public async Task Equals_WithDifferentType_IsFalse()
+		public async Task Equals_WithObjectOfAnotherType_ShouldBeFalse()
 		{
 			RefStructAggregate a = new(
 				new EquatableArray<MethodSetupKey>([]),
@@ -251,7 +251,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingIndexerSetups_IsFalse()
+		public async Task Equals_WithDifferingIndexerSetups_ShouldBeFalse()
 		{
 			RefStructAggregate a = new(
 				new EquatableArray<MethodSetupKey>([]),
@@ -264,7 +264,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferingMethodSetups_IsFalse()
+		public async Task Equals_WithDifferingMethodSetups_ShouldBeFalse()
 		{
 			RefStructAggregate a = new(
 				new EquatableArray<MethodSetupKey>([new MethodSetupKey(5, false),]),
@@ -278,7 +278,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithEqualMethodAndIndexerSetups_IsTrue()
+		public async Task Equals_WithEqualMethodAndIndexerSetups_ShouldBeTrue()
 		{
 			RefStructAggregate a = new(
 				new EquatableArray<MethodSetupKey>([new MethodSetupKey(5, false), new MethodSetupKey(6, true),]),
@@ -293,7 +293,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithNull_IsFalse()
+		public async Task Equals_WithNull_ShouldBeFalse()
 		{
 			RefStructAggregate a = new(
 				new EquatableArray<MethodSetupKey>([]),
@@ -307,7 +307,7 @@ public sealed class MockGeneratorEqualityTests
 	public sealed class NamedMockTests
 	{
 		[Test]
-		public async Task Equals_WhenAdditionalClassesDiffer_IsFalse()
+		public async Task Equals_WithDifferingAdditionalClasses_ShouldBeFalse()
 		{
 			MockClass mc = CreateMockClass();
 			NamedMock a = new("F", "P", mc,
@@ -319,7 +319,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WhenAdditionalClassesPresentOnOneAndNullOnOther_IsFalse()
+		public async Task Equals_WithAdditionalClassesNullOnOnlyOneSide_ShouldBeFalse()
 		{
 			MockClass mc = CreateMockClass();
 			NamedMock withAdditional = new("F", "P", mc,
@@ -331,7 +331,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WhenBothAdditionalClassesNull_IsTrue()
+		public async Task Equals_WithAdditionalClassesNullOnBothSides_ShouldBeTrue()
 		{
 			MockClass mc = CreateMockClass();
 			NamedMock a = new("F", "P", mc, null);
@@ -341,7 +341,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferentFileName_IsFalse()
+		public async Task Equals_WithDifferingFileName_ShouldBeFalse()
 		{
 			MockClass mc = CreateMockClass();
 			NamedMock a = new("File1", "Parent", mc, null);
@@ -351,7 +351,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferentMockClass_IsFalse()
+		public async Task Equals_WithDifferingMockClass_ShouldBeFalse()
 		{
 			MockClass mcA = CreateMockClass();
 			MockClass mcB = CreateMockClass(
@@ -364,7 +364,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithDifferentParentName_IsFalse()
+		public async Task Equals_WithDifferingParentName_ShouldBeFalse()
 		{
 			MockClass mc = CreateMockClass();
 			NamedMock a = new("File", "Parent1", mc, null);
@@ -374,7 +374,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithIdenticalNamedMock_IsTrue()
+		public async Task Equals_WithEqualContent_ShouldBeTrue()
 		{
 			MockClass mc = CreateMockClass();
 			NamedMock a = new("File1", "Parent1", mc, null);
@@ -386,7 +386,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task Equals_WithNullOther_IsFalse()
+		public async Task Equals_WithNull_ShouldBeFalse()
 		{
 			MockClass mc = CreateMockClass();
 			NamedMock a = new("F", "P", mc, null);
@@ -396,7 +396,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 
 		[Test]
-		public async Task GetHashCode_IncludesAdditionalClasses()
+		public async Task GetHashCode_WithOrWithoutAdditionalClasses_ShouldNotThrow()
 		{
 			MockClass mc = CreateMockClass();
 			NamedMock withAdditional = new("F", "P", mc,

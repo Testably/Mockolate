@@ -126,7 +126,7 @@ public sealed partial class InterfaceEmissionTests
 	}
 
 	[Test]
-	public async Task HiddenGenericMethod_InDeepHierarchy_ShouldNotDelegateToHidingMember()
+	public async Task HiddenGenericMethod_WithDeepHierarchy_ShouldNotDelegateToHidingMember()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -425,7 +425,7 @@ public sealed partial class InterfaceEmissionTests
 	}
 
 	[Test]
-	public async Task HiddenProperty_InDeepHierarchy_ShouldNotDelegateToHidingMember()
+	public async Task HiddenProperty_WithDeepHierarchy_ShouldNotDelegateToHidingMember()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -833,7 +833,7 @@ public sealed partial class InterfaceEmissionTests
 	}
 
 	[Test]
-	public async Task InterfaceWithEvents_ShouldIncludeRaiseRemarkBullet()
+	public async Task WithEvents_ShouldIncludeRaiseRemarkBullet()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -1144,7 +1144,7 @@ public sealed partial class InterfaceEmissionTests
 	}
 
 	[Test]
-	public async Task WhenInterfaceHasMethodNamedMock_ExtensionMockPropertyShouldBeRenamed()
+	public async Task WithMethodNamedMock_ShouldRenameTheMockExtensionProperty()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -1175,7 +1175,7 @@ public sealed partial class InterfaceEmissionTests
 	}
 
 	[Test]
-	public async Task WhenInterfaceHasMockAndMockolate_MockProperties_ShouldUseMockolate_Mock__1ForMockAccessProperty()
+	public async Task WithPropertiesNamedMockAndMockolateMock_ShouldNumberTheMockExtensionProperty()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -1205,7 +1205,7 @@ public sealed partial class InterfaceEmissionTests
 	}
 
 	[Test]
-	public async Task WhenInterfaceHasMockMockolate_MockAndMockolate_Mock__1Properties_ShouldUseMockolate_Mock__2()
+	public async Task WhenTheFirstNumberedNameIsAlsoTaken_ShouldUseTheNextNumberForTheMockExtensionProperty()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -1236,7 +1236,7 @@ public sealed partial class InterfaceEmissionTests
 	}
 
 	[Test]
-	public async Task WhenInterfaceMembersOccupyAllMockRegistryNameCandidates_ShouldUseMockRegistry_2()
+	public async Task WhenMembersOccupyAllMockRegistryNameCandidates_ShouldUseTheNextNumberedMockRegistryName()
 	{
 		GeneratorResult result = Generator
 			.Run("""

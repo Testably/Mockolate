@@ -5,7 +5,7 @@ namespace Mockolate.SourceGenerators.Tests.Emission;
 public sealed class IndexerSetupsTests
 {
 	[Test]
-	public async Task GenerateIndexerSetupsForIndexersWithMoreParameters()
+	public async Task WhenAnIndexerHasMoreThan4Parameters_ShouldGenerateIndexerSetups()
 	{
 		GeneratorResult result = Generator
 			.Run("""

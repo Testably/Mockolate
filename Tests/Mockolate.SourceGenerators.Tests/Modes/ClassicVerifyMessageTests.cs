@@ -7,7 +7,7 @@ namespace Mockolate.SourceGenerators.Tests.Modes;
 public sealed class ClassicVerifyMessageTests
 {
 	[Test]
-	public async Task FailedVerify_InClassicMode_ShouldDescribeArgumentsAsBefore()
+	public async Task Verify_WithNullLiteralOrNullMatcher_WhenVerificationFails_ShouldDescribeItAsNull()
 	{
 		Assembly assembly = Generator.CompileAndLoad("""
 		                                             using System;
@@ -73,7 +73,7 @@ public sealed class ClassicVerifyMessageTests
 	}
 
 	[Test]
-	public async Task NullLiteral_InClassicMode_ShouldMatchOnlyNullArguments()
+	public async Task Method_WithNullLiteral_ShouldMatchOnlyNullArguments()
 	{
 		Assembly assembly = Generator.CompileAndLoad("""
 		                                             using System;
@@ -161,7 +161,7 @@ public sealed class ClassicVerifyMessageTests
 	}
 
 	[Test]
-	public async Task OptionalParameter_InClassicMode_WhenOmittedOrNullMatcher_ShouldVerifyLikeSetup()
+	public async Task WithOptionalParameter_WhenOmittedOrMatchedWithNull_ShouldVerifyLikeTheSetup()
 	{
 		Assembly assembly = Generator.CompileAndLoad("""
 		                                             using System;
@@ -311,7 +311,7 @@ public sealed class ClassicVerifyMessageTests
 	}
 
 	[Test]
-	public async Task SeveralOptionalParameters_InClassicMode_WhenSkippedByName_ShouldUseTheDeclaredDefault()
+	public async Task WithSeveralOptionalParameters_WhenSkippedByName_ShouldUseTheDeclaredDefault()
 	{
 		Assembly assembly = Generator.CompileAndLoad("""
 		                                             using System;
@@ -369,7 +369,7 @@ public sealed class ClassicVerifyMessageTests
 	}
 
 	[Test]
-	public async Task NullLiteral_InClassicMode_OnDelegates_ShouldMatchOnlyNullArguments()
+	public async Task Delegate_WithNullLiteral_ShouldMatchOnlyNullArguments()
 	{
 		Assembly assembly = Generator.CompileAndLoad("""
 		                                             using System;
@@ -474,7 +474,7 @@ public sealed class ClassicVerifyMessageTests
 	}
 
 	[Test]
-	public async Task Verify_InClassicMode_WithMixedLiteralsAndMatchers_ShouldMatchAndDescribeArgumentsAsBefore()
+	public async Task Verify_WithMixedLiteralsAndMatchers_ShouldMatchAndDescribeTheArguments()
 	{
 		Assembly assembly = Generator.CompileAndLoad("""
 		                                             using System;
@@ -557,7 +557,7 @@ public sealed class ClassicVerifyMessageTests
 	}
 
 	[Test]
-	public async Task Verify_InClassicMode_WithMixedLiteralsAndMatchers_ShouldSupportNullCultureCancellationAndUnverifiedTracking()
+	public async Task Verify_WithMixedLiteralsAndMatchers_ShouldSupportNullCultureCancellationAndUnverifiedTracking()
 	{
 		Assembly assembly = Generator.CompileAndLoad("""
 		                                             using System;
@@ -665,7 +665,7 @@ public sealed class ClassicVerifyMessageTests
 	}
 
 	[Test]
-	public async Task Verify_InClassicMode_WithDynamicMembers_ShouldCompileMatchAndDescribeArguments()
+	public async Task Verify_WithDynamicMembers_ShouldCompileMatchAndDescribeArguments()
 	{
 		Assembly assembly = Generator.CompileAndLoad("""
 		                                             using System;
@@ -757,7 +757,7 @@ public sealed class ClassicVerifyMessageTests
 	}
 
 	[Test]
-	public async Task Verify_InClassicMode_WithAnyParameters_ShouldDescribeAnyParameters()
+	public async Task Verify_WithAnyParameters_ShouldDescribeAnyParameters()
 	{
 		Assembly assembly = Generator.CompileAndLoad("""
 		                                             using System;
@@ -844,7 +844,7 @@ public sealed class ClassicVerifyMessageTests
 	}
 
 	[Test]
-	public async Task VerifySet_InClassicMode_WithMatcherForObjectValue_ShouldUseTheMatcher()
+	public async Task VerifySet_WithMatcherForObjectValue_ShouldUseTheMatcher()
 	{
 		Assembly assembly = Generator.CompileAndLoad("""
 		                                             using System;
@@ -938,7 +938,7 @@ public sealed class ClassicVerifyMessageTests
 	}
 
 	[Test]
-	public async Task VerifySet_InClassicMode_WithMatcherForDerivedType_ShouldUseTheMatcher()
+	public async Task VerifySet_WithMatcherForDerivedType_ShouldUseTheMatcher()
 	{
 		Assembly assembly = Generator.CompileAndLoad("""
 		                                             using System;
@@ -1012,7 +1012,7 @@ public sealed class ClassicVerifyMessageTests
 	}
 
 	[Test]
-	public async Task Verify_InClassicMode_WithTypesClosedOverDynamic_ShouldCompileMatchAndDescribeArguments()
+	public async Task Verify_WithTypesClosedOverDynamic_ShouldCompileMatchAndDescribeArguments()
 	{
 		Assembly assembly = Generator.CompileAndLoad("""
 		                                             using System;
