@@ -5,7 +5,7 @@ public sealed partial class MockTests
 	public sealed class WithHiddenInterfaceMembersTests
 	{
 		[Test]
-		public async Task HiddenEvent_AsBase_ShouldVerifyBaseSlotSeparately()
+		public async Task Event_WhenSubscribedThroughTheBaseInterface_ShouldOnlyRecordItForTheBaseInterface()
 		{
 			IDerivedEvents mock = IDerivedEvents.CreateMock();
 			EventHandler handler = (_, _) => { };
@@ -16,7 +16,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task HiddenIndexer_AsBase_ShouldVerifyBaseAccess()
+		public async Task Indexer_WhenReadThroughTheBaseInterface_ShouldBeVerifiableThroughTheBaseInterface()
 		{
 			IDerivedIndexer mock = IDerivedIndexer.CreateMock();
 
@@ -28,7 +28,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task HiddenMethod_AsBase_ShouldConfigureAndVerifyBaseSlotSeparately()
+		public async Task Method_ShouldSetUpAndVerifyTheBaseInterfaceSeparately()
 		{
 			IDerivedService mock = IDerivedService.CreateMock();
 			mock.Mock.Setup.GetValue().Returns(42);
@@ -41,7 +41,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task HiddenProperty_AsBase_ShouldReadBaseSlot()
+		public async Task Property_WhenReadThroughTheBaseInterface_ShouldUseTheSetupOfTheBaseInterface()
 		{
 			IDerivedProperty mock = IDerivedProperty.CreateMock();
 			mock.Mock.Setup.SomeProperty.InitializeWith("derived");

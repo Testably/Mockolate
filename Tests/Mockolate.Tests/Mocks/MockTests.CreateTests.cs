@@ -12,7 +12,7 @@ public sealed partial class MockTests
 	public sealed class CreateTests
 	{
 		[Test]
-		public async Task TypedOverload_ConstructorWithDecimalDefault_ShouldForwardExplicitValue()
+		public async Task WithDecimalDefaultParameter_WhenPassingTypedArguments_ShouldForwardTheGivenValue()
 		{
 			// This test exercises the generator's default-value emission end-to-end: if the
 			// generator dropped the 'm' suffix ("decimal price = 19.95"), the generated source
@@ -23,7 +23,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task TypedOverload_ConstructorWithDefaultValue_ShouldApplyDefault()
+		public async Task WithDefaultValueParameter_WhenPassingTypedArguments_ShouldApplyTheDefault()
 		{
 			MyBaseClassWithMultipleConstructors sut = MyBaseClassWithMultipleConstructors.CreateMock(42);
 
@@ -32,7 +32,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task TypedOverload_MultipleConstructors_ShouldDispatchToMatchingConstructor()
+		public async Task WithSeveralConstructors_WhenPassingTypedArguments_ShouldCallTheMatchingConstructor()
 		{
 			MyBaseClassWithMultipleConstructors sutFromString =
 				MyBaseClassWithMultipleConstructors.CreateMock("foo");
@@ -46,7 +46,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task TypedOverload_SingleConstructor_ShouldForwardToBaseClass()
+		public async Task WithTypedArguments_ShouldForwardThemToTheBaseClass()
 		{
 			MyBaseClassWithConstructor sut = MyBaseClassWithConstructor.CreateMock("foo");
 
@@ -54,7 +54,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task TypedOverload_WithMockBehavior_ShouldUseBehavior()
+		public async Task WithTypedArgumentsAndMockBehavior_ShouldUseTheBehavior()
 		{
 			MockBehavior behavior = MockBehavior.Default.ThrowingWhenNotSetup();
 
@@ -65,7 +65,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task TypedOverload_WithMockBehaviorAndSetup_ShouldApplyBoth()
+		public async Task WithTypedArgumentsMockBehaviorAndSetup_ShouldApplyBoth()
 		{
 			MockBehavior behavior = MockBehavior.Default;
 
@@ -79,7 +79,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task TypedOverload_WithSetup_ShouldApplySetup()
+		public async Task WithTypedArgumentsAndSetup_ShouldApplyTheSetup()
 		{
 			MyBaseClassWithConstructor sut = MyBaseClassWithConstructor.CreateMock(
 				setup => setup.VirtualMethod().Returns("bar"),
@@ -89,7 +89,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task With2Arguments_OnlyFirstArgumentIsClass_ShouldForwardBehaviorToBaseClass()
+		public async Task WithMockBehavior_WhenImplementingAdditionalInterface_ShouldUseTheBehavior()
 		{
 			MockBehavior behavior = MockBehavior.Default.ThrowingWhenNotSetup();
 
@@ -99,7 +99,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task With2Arguments_WithConstructorParametersAndSetups_ShouldApplySetups()
+		public async Task WithConstructorParametersAndSetups_WhenImplementingAdditionalInterface_ShouldApplySetups()
 		{
 			MyBaseClassWithConstructor mock = MyBaseClassWithConstructor.CreateMock(
 				setup => setup.VirtualMethod().Returns("bar"),
@@ -111,7 +111,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task With2Arguments_WithConstructorParametersMockBehaviorAndSetups_ShouldApplySetups()
+		public async Task WithConstructorParametersMockBehaviorAndSetups_WhenImplementingAdditionalInterface_ShouldApplySetups()
 		{
 			MyBaseClassWithConstructor sut = MyBaseClassWithConstructor.CreateMock(
 					MockBehavior.Default,
@@ -125,7 +125,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task With2Arguments_WithSetups_ShouldApplySetups()
+		public async Task WithSetups_ShouldApplySetups()
 		{
 			IMyService sut = IMyService.CreateMock(setup =>
 			{
@@ -144,7 +144,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task WithAdditionalInterfacesFromDifferentNamespaces_ShouldHaveUniqueName()
+		public async Task WithSameNamedAdditionalInterfacesFromDifferentNamespaces_ShouldKeepThemApart()
 		{
 			int invocationCount1 = 0;
 			int invocationCount2 = 0;

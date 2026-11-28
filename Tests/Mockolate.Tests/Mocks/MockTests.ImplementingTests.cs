@@ -29,7 +29,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task VirtualMethod_SetupThroughInterface_ShouldApplyToClassCall()
+		public async Task VirtualMethod_WithSetupThroughTheInterface_ShouldApplyToTheClassCall()
 		{
 			Calculator mock = Calculator.CreateMock().Implementing<ICalculator>();
 			mock.Mock.As<ICalculator>().Setup.Multiply(It.IsAny<int>(), It.IsAny<int>()).Returns(7);
@@ -99,7 +99,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task RenamedGenericTypeParameter_ShouldShareSetupBetweenClassAndInterface()
+		public async Task GenericMethodWithRenamedTypeParameter_ShouldShareSetupBetweenClassAndInterface()
 		{
 			Calculator mock = Calculator.CreateMock().Implementing<ICalculator>();
 			mock.Mock.Setup.Convert<int>(It.IsAny<int>()).Returns(13);
@@ -110,7 +110,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task ObliviousNullabilityOnTheReturnType_ShouldShareSetupBetweenClassAndInterface()
+		public async Task MethodWithNullableObliviousReturnType_ShouldShareSetupBetweenClassAndInterface()
 		{
 			LegacyCalculator mock = LegacyCalculator.CreateMock().Implementing<ILegacyCalculator>();
 			mock.Mock.Setup.Describe().Returns("chocolate");
@@ -143,7 +143,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task VirtualEvent_RaisedThroughEitherSurface_ShouldInvokeHandlersFromBothSurfaces()
+		public async Task VirtualEvent_WhenRaisedThroughEitherSurface_ShouldInvokeHandlersFromBothSurfaces()
 		{
 			Calculator mock = Calculator.CreateMock().Implementing<ICalculator>();
 			int classHandlerCalls = 0;
@@ -164,7 +164,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task GetOnlyInterfaceProperty_ImplementedWithGetterAndSetter_ShouldShareTheValue()
+		public async Task GetOnlyInterfaceProperty_WhenImplementedWithGetterAndSetter_ShouldShareTheValue()
 		{
 			Thermometer mock = Thermometer.CreateMock().Implementing<IReadOnlyThermometer>();
 
@@ -176,7 +176,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task TwoAdditionalInterfaces_ImplementedByTheSameClassMember_ShouldShareOneMember()
+		public async Task WithTwoInterfacesImplementedByTheSameClassMember_ShouldShareOneMember()
 		{
 			Sensor mock = Sensor.CreateMock().Implementing<IPressureSensor>().Implementing<ITemperatureSensor>();
 			mock.Mock.Setup.Read().Returns(8);

@@ -3,7 +3,7 @@
 public sealed class ProtectedMockTests
 {
 	[Test]
-	public async Task CanAccessProtectedEvents()
+	public async Task Event_ShouldSupportRaisingAndVerification()
 	{
 		int callCount = 0;
 		MyProtectedClass sut = MyProtectedClass.CreateMock();
@@ -20,7 +20,7 @@ public sealed class ProtectedMockTests
 	}
 
 	[Test]
-	public async Task CanAccessProtectedMethods()
+	public async Task Method_ShouldSupportSetupAndVerification()
 	{
 		MyProtectedClass sut = MyProtectedClass.CreateMock();
 
@@ -34,7 +34,7 @@ public sealed class ProtectedMockTests
 	}
 
 	[Test]
-	public async Task CanAccessProtectedProperties()
+	public async Task Property_ShouldSupportSetupAndVerification()
 	{
 		MyProtectedClass sut = MyProtectedClass.CreateMock();
 
@@ -47,7 +47,7 @@ public sealed class ProtectedMockTests
 	}
 
 	[Test]
-	public async Task CanReadProtectedIndexers()
+	public async Task IndexerGetter_ShouldSupportSetupAndVerification()
 	{
 		int callCount = 0;
 		MyProtectedClass sut = MyProtectedClass.CreateMock();
@@ -62,7 +62,7 @@ public sealed class ProtectedMockTests
 	}
 
 	[Test]
-	public async Task CanWriteProtectedIndexers()
+	public async Task IndexerSetter_ShouldSupportSetupAndVerification()
 	{
 		int callCount = 0;
 		MyProtectedClass sut = MyProtectedClass.CreateMock();
@@ -77,7 +77,7 @@ public sealed class ProtectedMockTests
 	}
 
 	[Test]
-	public async Task OnlyProtectedVirtualMembers()
+	public async Task WithOnlyProtectedVirtualMembers_ShouldUseTheBaseImplementationUntilSetUp()
 	{
 		OnlyProtectedVirtualMembersService sut = OnlyProtectedVirtualMembersService.CreateMock();
 
@@ -92,7 +92,7 @@ public sealed class ProtectedMockTests
 	}
 
 	[Test]
-	public async Task SupportProtectedAccessInConstructorSetups()
+	public async Task Create_WithSetups_ShouldSupportProtectedMembers()
 	{
 		MyProtectedClass sut = MyProtectedClass.CreateMock(setup => setup.Protected.MyProtectedProperty.InitializeWith(42));
 

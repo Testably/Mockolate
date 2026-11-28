@@ -9,7 +9,7 @@ public sealed partial class MockTests
 	public sealed class WithStaticInterfaceMembersTests
 	{
 		[Test]
-		public async Task WithAbstractStaticEvent()
+		public async Task AbstractStaticEvent_ShouldSupportRaisingAndVerification()
 		{
 			List<int> receivedCalls = [];
 			IMyServiceWithAbstractStaticMembers sut = IMyServiceWithAbstractStaticMembers.CreateMock();
@@ -46,7 +46,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task WithAbstractStaticEvent_ShouldWorkInParallel()
+		public async Task AbstractStaticEvent_WhenUsedInParallel_ShouldKeepEachMockSeparate()
 		{
 			ConcurrentDictionary<int, List<int>> receivedCalls = [];
 			Task[] tasks = new Task[20];
@@ -93,7 +93,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task WithOnlyAbstractStaticEvent()
+		public async Task AbstractStaticEvent_WhenItIsTheOnlyMember_ShouldSupportRaisingAndVerification()
 		{
 			List<int> receivedCalls = [];
 			IMyServiceWithOnlyAbstractStaticEvent sut = IMyServiceWithOnlyAbstractStaticEvent.CreateMock();
@@ -120,7 +120,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task WithAbstractStaticMethod()
+		public async Task AbstractStaticMethod_ShouldSupportSetupAndVerification()
 		{
 			IMyServiceWithAbstractStaticMembers sut = IMyServiceWithAbstractStaticMembers.CreateMock();
 
@@ -141,7 +141,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task WithAbstractStaticMethod_ShouldWorkInParallel()
+		public async Task AbstractStaticMethod_WhenUsedInParallel_ShouldKeepEachMockSeparate()
 		{
 			Task[] tasks = new Task[20];
 			for (int i = 0; i < 20; i++)
@@ -172,7 +172,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task WithAbstractStaticProperty()
+		public async Task AbstractStaticProperty_ShouldSupportSetupAndVerification()
 		{
 			IMyServiceWithAbstractStaticMembers sut = IMyServiceWithAbstractStaticMembers.CreateMock();
 
@@ -193,7 +193,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task WithAbstractStaticProperty_ShouldWorkInParallel()
+		public async Task AbstractStaticProperty_WhenUsedInParallel_ShouldKeepEachMockSeparate()
 		{
 			Task[] tasks = new Task[20];
 			for (int i = 0; i < 20; i++)
@@ -224,7 +224,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task WithVirtualStaticMethod()
+		public async Task VirtualStaticMethod_ShouldSupportSetupAndVerification()
 		{
 			IMyServiceWithAbstractStaticMembers sut = IMyServiceWithAbstractStaticMembers.CreateMock();
 
@@ -245,7 +245,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task WithVirtualStaticMethod_ShouldWorkInParallel()
+		public async Task VirtualStaticMethod_WhenUsedInParallel_ShouldKeepEachMockSeparate()
 		{
 			Task[] tasks = new Task[20];
 			for (int i = 0; i < 20; i++)
@@ -276,7 +276,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task WithVirtualStaticProperty()
+		public async Task VirtualStaticProperty_ShouldSupportSetupAndVerification()
 		{
 			IMyServiceWithAbstractStaticMembers sut = IMyServiceWithAbstractStaticMembers.CreateMock();
 
@@ -297,7 +297,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task WithVirtualStaticProperty_ShouldWorkInParallel()
+		public async Task VirtualStaticProperty_WhenUsedInParallel_ShouldKeepEachMockSeparate()
 		{
 			Task[] tasks = new Task[20];
 			for (int i = 0; i < 20; i++)
@@ -330,7 +330,7 @@ public sealed partial class MockTests
 		public sealed class CombinationTests
 		{
 			[Test]
-			public async Task StaticBase_WithExtraInterface_ShouldDispatchStaticEvent()
+			public async Task StaticEvent_WithAdditionalInterface_ShouldSupportRaisingAndVerification()
 			{
 				List<int> receivedCalls = [];
 				IServiceWithAllStaticAbstracts sut = IServiceWithAllStaticAbstracts.CreateMock()
@@ -365,7 +365,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task StaticBase_WithExtraInterface_ShouldDispatchStaticMethod()
+			public async Task StaticMethod_WithAdditionalInterface_ShouldSupportSetupAndVerification()
 			{
 				IServiceWithAllStaticAbstracts sut = IServiceWithAllStaticAbstracts.CreateMock()
 					.Implementing<IExtraServiceForStaticCombination>();
@@ -385,7 +385,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task StaticBase_WithExtraInterface_ShouldDispatchStaticProperty()
+			public async Task StaticProperty_WithAdditionalInterface_ShouldSupportSetupAndVerification()
 			{
 				IServiceWithAllStaticAbstracts sut = IServiceWithAllStaticAbstracts.CreateMock()
 					.Implementing<IExtraServiceForStaticCombination>();

@@ -24,7 +24,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task Behavior_DerivedFromTheDefault_ShouldBeTheSameInstance()
+	public async Task Behavior_WhenDerivedFromTheDefault_ShouldBeTheSameInstance()
 	{
 		MockBehavior expected = MockBehavior.Default.ThrowingWhenNotSetup(false);
 		IAutoMockRoot defaultMock = IAutoMockRoot.CreateMock();
@@ -58,7 +58,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task ConcurrentFirstAccess_ShouldReturnTheSameMock()
+	public async Task WhenFirstAccessedConcurrently_ShouldReturnTheSameMock()
 	{
 		const int threads = 8;
 		for (int iteration = 0; iteration < 50; iteration++)
@@ -75,7 +75,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task ConcurrentFirstAccess_WithUninitializedPropertySetup_ShouldReturnTheSameMock()
+	public async Task WithUninitializedPropertySetup_WhenFirstAccessedConcurrently_ShouldReturnTheSameMock()
 	{
 		const int threads = 8;
 		for (int iteration = 0; iteration < 50; iteration++)
@@ -90,7 +90,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task ConcurrentFirstAccess_WithIndexerSetup_ShouldReturnTheSameMock()
+	public async Task WithIndexerSetup_WhenFirstAccessedConcurrently_ShouldReturnTheSameMock()
 	{
 		const int threads = 8;
 		for (int iteration = 0; iteration < 50; iteration++)
@@ -105,7 +105,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task CustomBehaviorWithoutDefault_ShouldReturnMock()
+	public async Task WithBehaviorNotDerivedFromTheDefault_ShouldReturnMock()
 	{
 		MockBehavior behavior = new MockBehavior(new NullDefaultValueGenerator());
 		IAutoMockRoot sut = IAutoMockRoot.CreateMock(behavior);
@@ -129,7 +129,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task ExplicitSetupReturningNull_ShouldReturnNull()
+	public async Task WithSetupReturningNull_ShouldReturnNull()
 	{
 		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 		sut.Mock.Setup.GetChild(It.IsAny<int>()).Returns((IAutoMockChild)null!);
@@ -232,7 +232,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task IndexerWithFiveKeys_ShouldReturnSameMockPerKey()
+	public async Task IndexerWith5Keys_ShouldReturnSameMockPerKey()
 	{
 		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 
@@ -266,7 +266,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task Method_ShouldBeCachedPerMemberAndNotPerArgument()
+	public async Task Method_ShouldReturnTheSameMockForEveryArgumentButNotForOtherMembers()
 	{
 		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 
@@ -299,7 +299,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task Monitor_ShouldReturnTheSameMock()
+	public async Task WhenMonitorIsRunning_ShouldReturnTheSameMock()
 	{
 		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 		IAutoMockChild outside = sut.GetChild(1);
@@ -338,7 +338,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task Scenario_ShouldReturnTheSameMock()
+	public async Task WhenTheScenarioChanges_ShouldReturnTheSameMock()
 	{
 		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 		IAutoMockChild before = sut.GetChild(1);
@@ -374,7 +374,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task Tuple_ConcurrentFirstAccess_ShouldReturnTheSameMocks()
+	public async Task Tuple_WhenFirstAccessedConcurrently_ShouldReturnTheSameMocks()
 	{
 		const int threads = 8;
 		for (int iteration = 0; iteration < 50; iteration++)
@@ -393,7 +393,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task Tuple_Indexer_ShouldReturnSameMockPerKey()
+	public async Task Tuple_WhenReturnedByAnIndexer_ShouldReturnSameMockPerKey()
 	{
 		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
 
@@ -407,7 +407,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task Tuple_IndexerWithTaskElement_ShouldReturnSameMockPerKey()
+	public async Task Tuple_WithTaskElement_WhenReturnedByAnIndexer_ShouldReturnSameMockPerKey()
 	{
 		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
 
@@ -421,7 +421,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task Tuple_MethodWithParameters_ShouldReturnSameMock()
+	public async Task Tuple_WhenReturnedByAMethodWithParameters_ShouldReturnSameMock()
 	{
 		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
 
@@ -436,7 +436,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task Tuple_LongTuples_ShouldReturnMockForTheEighthElement()
+	public async Task Tuple_WithMoreThanSevenElements_ShouldReturnMockForTheEighthElement()
 	{
 		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
 
@@ -448,7 +448,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task Tuple_Method_ShouldReturnSameConfigurableMock()
+	public async Task Tuple_WhenReturnedByAMethod_ShouldReturnSameConfigurableMock()
 	{
 		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
 
@@ -460,7 +460,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task Tuple_Nested_ShouldReturnDifferentMocks()
+	public async Task Tuple_WithNestedTuple_ShouldReturnDifferentMocks()
 	{
 		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
 
@@ -474,7 +474,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task Tuple_Property_ShouldReturnSameMock()
+	public async Task Tuple_WhenReturnedByAProperty_ShouldReturnSameMock()
 	{
 		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
 
@@ -486,7 +486,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task Tuple_ReferenceTuple_ShouldReturnSameMock()
+	public async Task ReferenceTuple_ShouldReturnSameMock()
 	{
 		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
 
@@ -501,7 +501,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task Tuple_TwoElementsOfTheSameType_ShouldReturnDifferentMocks()
+	public async Task Tuple_WithTwoElementsOfTheSameType_ShouldReturnDifferentMocks()
 	{
 		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
 
@@ -525,7 +525,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task Tuple_WhenSetup_ShouldReturnTheSetupValue()
+	public async Task Tuple_WithSetup_ShouldReturnTheSetupValue()
 	{
 		IAutoMockTuples sut = IAutoMockTuples.CreateMock();
 		sut.Mock.Setup.GetReferenceTuple().Returns(Tuple.Create(1, (IAutoMockTupleElement)null!));
@@ -577,7 +577,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task ThrowingWhenNotSetup_ShouldStillThrow()
+	public async Task WithThrowingWhenNotSetup_ShouldStillThrow()
 	{
 		IAutoMockRoot sut = IAutoMockRoot.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
 
@@ -599,7 +599,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task SkippingAutoMocking_ShouldReturnNull()
+	public async Task WhenSkippingAutoMocking_ShouldReturnNull()
 	{
 		IAutoMockRoot sut = IAutoMockRoot.CreateMock(MockBehavior.Default.SkippingAutoMocking());
 
@@ -652,7 +652,7 @@ public sealed class AutoMockingTests
 
 #if NET10_0_OR_GREATER
 	[Test]
-	public async Task RefStructParameter_ShouldReturnSameMock()
+	public async Task MethodWithRefStructParameter_ShouldReturnSameMock()
 	{
 		IAutoMockRoot sut = IAutoMockRoot.CreateMock();
 

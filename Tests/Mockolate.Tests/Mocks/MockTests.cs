@@ -7,7 +7,7 @@ namespace Mockolate.Tests.Mocks;
 public sealed partial class MockTests
 {
 	[Test]
-	public async Task Create_BaseClassWithMultipleConstructors()
+	public async Task Create_WithSeveralConstructors_WhenPassingConstructorParameters_ShouldNotThrow()
 	{
 		void Act()
 		{
@@ -18,7 +18,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task Create_BaseClassWithoutConstructor_ShouldThrowMockException()
+	public async Task Create_WithoutAccessibleConstructor_ShouldThrowMockException()
 	{
 		void Act()
 		{
@@ -30,7 +30,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task Create_BaseClassWithVirtualCallsInConstructor_AllowExplicitSetup()
+	public async Task Create_WithVirtualCallsInConstructor_WhenPassingSetups_ShouldApplyThemInTheConstructor()
 	{
 		MyServiceBaseWithVirtualCallsInConstructor sut =
 			MyServiceBaseWithVirtualCallsInConstructor.CreateMock(setup => setup.VirtualMethod().Returns([5, 6,]));
@@ -43,7 +43,7 @@ public sealed partial class MockTests
 
 	[Test]
 	public async Task
-		Create_BaseClassWithVirtualCallsInConstructor_WithUseBaseClassAsDefaultValue_ShouldUseBaseClassValuesInConstructor()
+		Create_WithVirtualCallsInConstructor_ShouldUseBaseClassValuesInConstructor()
 	{
 		MyServiceBaseWithVirtualCallsInConstructor sut = MyServiceBaseWithVirtualCallsInConstructor.CreateMock();
 
@@ -54,7 +54,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task Create_SealedClass_ImplementingAdditionalInterface_ShouldThrowMockException()
+	public async Task Create_WithSealedClass_WhenImplementingAdditionalInterface_ShouldThrowMockException()
 	{
 		void Act()
 		{
@@ -69,7 +69,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task Create_SealedClass_ShouldThrowMockException()
+	public async Task Create_WithSealedClass_ShouldThrowMockException()
 	{
 		void Act()
 		{
@@ -84,7 +84,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task Create_WithConstructorParameters_SealedClass_ShouldThrowMockException()
+	public async Task Create_WithSealedClass_WhenPassingConstructorParameters_ShouldThrowMockException()
 	{
 		void Act()
 		{
@@ -135,7 +135,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task Create_WithMockBehavior_SealedClass_ShouldThrowMockException()
+	public async Task Create_WithSealedClass_WhenPassingMockBehavior_ShouldThrowMockException()
 	{
 		void Act()
 		{
@@ -159,7 +159,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task Create_WithOnlyOptionalConstructorParameters_WithEmptyParameters_ShouldUseDeclaredDefaults()
+	public async Task Create_WithOnlyOptionalConstructorParameters_WhenPassingEmptyParameters_ShouldUseDeclaredDefaults()
 	{
 		OptionalConstructorBase sut = OptionalConstructorBase.CreateMock([]);
 
@@ -168,7 +168,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task Create_WithOnlyOptionalConstructorParameters_WithMockBehavior_ShouldUseDeclaredDefaults()
+	public async Task Create_WithOnlyOptionalConstructorParameters_WhenPassingMockBehavior_ShouldUseDeclaredDefaults()
 	{
 		MockBehavior behavior = MockBehavior.Default.ThrowingWhenNotSetup();
 
@@ -179,7 +179,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task Create_WithOnlyOptionalConstructorParameters_WithConstructorParametersFromMockBehavior_ShouldUseThem()
+	public async Task Create_WithOnlyOptionalConstructorParameters_WhenTheBehaviorProvidesConstructorParameters_ShouldUseThem()
 	{
 		MockBehavior behavior = MockBehavior.Default.UseConstructorParametersFor<OptionalConstructorBase>("foo", 2);
 
@@ -190,7 +190,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task Create_WithOnlyOptionalConstructorParameters_ImplementingAdditionalInterface_ShouldUseDeclaredDefaults()
+	public async Task Create_WithOnlyOptionalConstructorParameters_WhenImplementingAdditionalInterface_ShouldUseDeclaredDefaults()
 	{
 		OptionalConstructorBase sut = OptionalConstructorBase.CreateMock().Implementing<IMyService>();
 
@@ -232,7 +232,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task Create_WithParamsConstructor_WithConstructorParameters_ShouldForwardTheArray()
+	public async Task Create_WithParamsConstructor_WhenPassingConstructorParameters_ShouldForwardTheArray()
 	{
 		ParamsConstructorBase sut = ParamsConstructorBase.CreateMock([new[] { 1, 2, },]);
 		ParamsConstructorBase combined = ParamsConstructorBase.CreateMock([new[] { 1, 2, },]).Implementing<IMyService>();
@@ -254,7 +254,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task Create_WithOptionalAndParamsConstructor_WithConstructorParameters_ShouldForwardThem()
+	public async Task Create_WithOptionalAndParamsConstructor_WhenPassingConstructorParameters_ShouldForwardThem()
 	{
 		OptionalAndParamsConstructorBase sut = OptionalAndParamsConstructorBase.CreateMock([2, new[] { "a", },]);
 
@@ -321,7 +321,7 @@ public sealed partial class MockTests
 #endif
 
 	[Test]
-	public async Task Create_WithRequiredParameters_WithEmptyParameters_ShouldUseTheDefaultValues()
+	public async Task Create_WithRequiredParameters_WhenPassingEmptyParameters_ShouldUseTheDefaultValues()
 	{
 		MyBaseClassWithConstructor sut = MyBaseClassWithConstructor.CreateMock([]);
 
@@ -329,7 +329,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task Create_WithRequiredParameters_WithoutParameters_ShouldUseTheDefaultValues()
+	public async Task Create_WithRequiredParameters_WhenPassingNoParameters_ShouldUseTheDefaultValues()
 	{
 		MyBaseClassWithConstructor sut = MyBaseClassWithConstructor.CreateMock();
 
@@ -382,7 +382,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task DoubleNestedInterfaces_ShouldStillWork()
+	public async Task WithDoubleNestedInterface_ShouldApplySetups()
 	{
 		Nested.Nested2.IMyDoubleNestedService sut = Nested.Nested2.IMyDoubleNestedService.CreateMock();
 		sut.Mock.Setup.IsValid.InitializeWith(true);
@@ -393,7 +393,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task GenericMethodWithWhereClause_ShouldWork()
+	public async Task GenericMethodWithWhereClause_ShouldSupportSetupAndVerification()
 	{
 		IMyServiceWithGenericMethodsWithWhereClause sut = IMyServiceWithGenericMethodsWithWhereClause.CreateMock();
 
@@ -406,7 +406,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task GenericMethodWithWhereClause_WhenImplementingAdditionalInterface_ShouldWork()
+	public async Task GenericMethodWithWhereClause_WhenImplementingAdditionalInterface_ShouldSupportSetupAndVerification()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock()
 			.Implementing<IMyServiceWithGenericMethodsWithWhereClause>();
@@ -431,7 +431,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task ToString_WithAdditionalImplementations_ShouldReturnImplementedType()
+	public async Task ToString_WithAdditionalInterface_ShouldAlsoNameTheAdditionalInterface()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock().Implementing<IMyService>();
 
@@ -441,7 +441,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task TypeWithMockRegistryMembers_ShouldUseUniqueName()
+	public async Task WithMembersNamedLikeTheMockRegistry_ShouldStillApplySetups()
 	{
 		IServiceWithMockRegistryMembers sut = IServiceWithMockRegistryMembers.CreateMock();
 		sut.Mock.Setup.MockRegistry_1.Returns("foo");
@@ -452,7 +452,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task WhenTypeHasMockAndMockolate_MockProperty_ShouldAppendNumbers()
+	public async Task WithPropertiesNamedMockAndMockolate_Mock_ShouldAppendNumbers()
 	{
 		MyInterfaceWithMockAndMockolate_MockProperty sut = MyInterfaceWithMockAndMockolate_MockProperty.CreateMock();
 
@@ -466,7 +466,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task WhenTypeHasMockProperty_ShouldUseMockolate_MockInstead()
+	public async Task WithPropertyNamedMock_ShouldUseMockolate_MockInstead()
 	{
 		MyInterfaceWithMockProperty sut = MyInterfaceWithMockProperty.CreateMock();
 
@@ -488,7 +488,7 @@ public sealed partial class MockTests
 	}
 
 	[Test]
-	public async Task WithoutConstructorParameters_MockConstructorParametersShouldBeNull()
+	public async Task WithoutConstructorParameters_ShouldHaveNoConstructorParameters()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 

@@ -100,7 +100,7 @@ Async code is limited to waiting for verifications (`Within`, `WithCancellation`
   - `With<Arrangement>` or `Without<Arrangement>`: the setup or input variant.
   - `When<Condition>`: the situation that triggers the behavior.
   - `Should<Outcome>`: the observable behavior.
-- **Each segment in one place:** leave out a segment that a containing class already names. Inside `ClearAllInteractionsTests`, a test is `WhenMonitorIsStopped_ShouldIgnoreTheCall`.
+- **Each segment in one place:** leave out a segment that a containing class already names. Inside `ClearAllInteractionsTests`, a test is `WhenMonitorIsStopped_ShouldKeepTheMonitorInteractions`.
 - **Reads as a sentence:** the class path and the method name, read top to bottom as in the test explorer, form one sentence with one subject: `MethodInteractionsTests` › `WhenBaseThrowsTests` › `ReturnMethod_With1Parameter_ShouldStillRecordTheInvocation`. Conditions are clauses (`WhenBaseThrows`, not `ThrowingBase`).
 - **Outcome:** the behavior in plain words, not the implementation or a coverage goal: `ShouldBeTrue` instead of `IsTrue`, `ShouldReturnTheStoredValue` instead of `ShouldReturnStoredValueViaPatternMatch`, `ShouldCountMatchingInteractions` instead of `AreExercised`.
 

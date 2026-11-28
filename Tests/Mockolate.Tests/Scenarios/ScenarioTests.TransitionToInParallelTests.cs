@@ -7,7 +7,7 @@ public sealed partial class ScenarioTests
 	public sealed class TransitionToInParallelTests
 	{
 		[Test]
-		public async Task EventSubscription_TransitionsEvenAfterPrecedingCallbackRan()
+		public async Task EventSubscription_WithPrecedingCallback_ShouldStillTransition()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -22,7 +22,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task EventUnsubscription_TransitionsEvenAfterPrecedingCallbackRan()
+		public async Task EventUnsubscription_WithPrecedingCallback_ShouldStillTransition()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -37,7 +37,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task PropertyGetter_TransitionsEvenAfterPrecedingCallbackRan()
+		public async Task PropertyGetter_WithPrecedingCallback_ShouldStillTransition()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -52,7 +52,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task PropertySetter_TransitionsEvenAfterPrecedingCallbackRan()
+		public async Task PropertySetter_WithPrecedingCallback_ShouldStillTransition()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -67,7 +67,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task ReturnMethod_Arity1_TransitionsEvenAfterPrecedingCallbackRan()
+		public async Task ReturnMethod_With1ParameterAndPrecedingCallback_ShouldStillTransition()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -82,7 +82,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task ReturnMethod_Arity2_TransitionsEvenAfterPrecedingCallbackRan()
+		public async Task ReturnMethod_With2ParametersAndPrecedingCallback_ShouldStillTransition()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -97,7 +97,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task ReturnMethod_Arity3_TransitionsEvenAfterPrecedingCallbackRan()
+		public async Task ReturnMethod_With3ParametersAndPrecedingCallback_ShouldStillTransition()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -113,7 +113,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task ReturnMethod_Arity4_TransitionsEvenAfterPrecedingCallbackRan()
+		public async Task ReturnMethod_With4ParametersAndPrecedingCallback_ShouldStillTransition()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -129,7 +129,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task VoidMethod_Arity0_TransitionsEvenAfterPrecedingCallbackRan()
+		public async Task VoidMethod_With0ParametersAndPrecedingCallback_ShouldStillTransition()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -144,7 +144,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task VoidMethod_Arity1_TransitionsEvenAfterPrecedingCallbackRan()
+		public async Task VoidMethod_With1ParameterAndPrecedingCallback_ShouldStillTransition()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -159,7 +159,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task VoidMethod_Arity2_TransitionsEvenAfterPrecedingCallbackRan()
+		public async Task VoidMethod_With2ParametersAndPrecedingCallback_ShouldStillTransition()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -174,7 +174,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task VoidMethod_Arity3_TransitionsEvenAfterPrecedingCallbackRan()
+		public async Task VoidMethod_With3ParametersAndPrecedingCallback_ShouldStillTransition()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -189,7 +189,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task VoidMethod_Arity4_TransitionsEvenAfterPrecedingCallbackRan()
+		public async Task VoidMethod_With4ParametersAndPrecedingCallback_ShouldStillTransition()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 

@@ -22,7 +22,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_When_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
+		public async Task Forever_WithWhen_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyProperty.Returns(1).Returns(2).Returns(3).When(i => i >= 2).Forever();
@@ -53,7 +53,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_WithFor_ShouldApplySetupOnlyForTimes()
+		public async Task OnlyOnce_WithFor_ShouldApplySetupOnlyTheGivenNumberOfTimes()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyProperty.Returns(1).For(3).OnlyOnce();
@@ -87,7 +87,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_WithFor_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -102,7 +102,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnSet_OnlyOnce_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_WithFor_WhenSetting_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -120,7 +120,7 @@ public sealed class SetupExtensionsTests
 	public sealed class IndexerSetupReturnWhenBuilderTests
 	{
 		[Test]
-		public async Task Forever_With1Parameter_ShouldKeepApplyingTheSetup()
+		public async Task Forever_With1Key_ShouldKeepApplyingTheSetup()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>()].Returns(1).Returns(2).Returns(3).Forever();
@@ -135,7 +135,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With1Parameter_When_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
+		public async Task Forever_With1KeyAndWhen_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>()].Returns(1).Returns(2).Returns(3).When(i => i >= 2).Forever();
@@ -150,7 +150,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With2Parameters_ShouldKeepApplyingTheSetup()
+		public async Task Forever_With2Keys_ShouldKeepApplyingTheSetup()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>()].Returns(1).Returns(2).Returns(3).Forever();
@@ -165,7 +165,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With2Parameters_When_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
+		public async Task Forever_With2KeysAndWhen_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>()].Returns(1).Returns(2).Returns(3).When(i => i >= 2)
@@ -181,7 +181,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With3Parameters_ShouldKeepApplyingTheSetup()
+		public async Task Forever_With3Keys_ShouldKeepApplyingTheSetup()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()].Returns(1).Returns(2).Returns(3)
@@ -197,7 +197,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With3Parameters_When_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
+		public async Task Forever_With3KeysAndWhen_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()].Returns(1).Returns(2).Returns(3)
@@ -213,7 +213,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With4Parameters_ShouldKeepApplyingTheSetup()
+		public async Task Forever_With4Keys_ShouldKeepApplyingTheSetup()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()].Returns(1)
@@ -229,7 +229,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With4Parameters_When_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
+		public async Task Forever_With4KeysAndWhen_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()].Returns(1)
@@ -245,7 +245,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With5Parameters_ShouldKeepApplyingTheSetup()
+		public async Task Forever_With5Keys_ShouldKeepApplyingTheSetup()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -261,7 +261,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With5Parameters_When_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
+		public async Task Forever_With5KeysAndWhen_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -277,7 +277,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With1Parameter_ShouldKeepLastUsedValue()
+		public async Task OnlyOnce_With1Key_ShouldKeepLastUsedValue()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>()].Returns(1).OnlyOnce();
@@ -296,7 +296,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With1Parameter_ShouldUseReturnValueOnlyOnce()
+		public async Task OnlyOnce_With1Key_ShouldUseReturnValueOnlyOnce()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>()].Returns(1).OnlyOnce();
@@ -312,7 +312,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With1Parameter_WithFor_ShouldApplySetupOnlyForTimes()
+		public async Task OnlyOnce_With1KeyAndFor_ShouldApplySetupOnlyTheGivenNumberOfTimes()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>()].Returns(1).For(3).OnlyOnce();
@@ -328,7 +328,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With2Parameters_ShouldKeepLastUsedValue()
+		public async Task OnlyOnce_With2Keys_ShouldKeepLastUsedValue()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>()].Returns(1).OnlyOnce();
@@ -347,7 +347,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With2Parameters_ShouldUseReturnValueOnlyOnce()
+		public async Task OnlyOnce_With2Keys_ShouldUseReturnValueOnlyOnce()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>()].Returns(1).OnlyOnce();
@@ -363,7 +363,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With2Parameters_WithFor_ShouldApplySetupOnlyForTimes()
+		public async Task OnlyOnce_With2KeysAndFor_ShouldApplySetupOnlyTheGivenNumberOfTimes()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>()].Returns(1).For(3).OnlyOnce();
@@ -379,7 +379,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With3Parameters_ShouldKeepLastUsedValue()
+		public async Task OnlyOnce_With3Keys_ShouldKeepLastUsedValue()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()].Returns(1).OnlyOnce();
@@ -398,7 +398,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With3Parameters_ShouldUseReturnValueOnlyOnce()
+		public async Task OnlyOnce_With3Keys_ShouldUseReturnValueOnlyOnce()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()].Returns(1).OnlyOnce();
@@ -414,7 +414,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With3Parameters_WithFor_ShouldApplySetupOnlyForTimes()
+		public async Task OnlyOnce_With3KeysAndFor_ShouldApplySetupOnlyTheGivenNumberOfTimes()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()].Returns(1).For(3).OnlyOnce();
@@ -430,7 +430,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With4Parameters_ShouldKeepLastUsedValue()
+		public async Task OnlyOnce_With4Keys_ShouldKeepLastUsedValue()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -450,7 +450,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With4Parameters_ShouldUseReturnValueOnlyOnce()
+		public async Task OnlyOnce_With4Keys_ShouldUseReturnValueOnlyOnce()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -467,7 +467,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With4Parameters_WithFor_ShouldApplySetupOnlyForTimes()
+		public async Task OnlyOnce_With4KeysAndFor_ShouldApplySetupOnlyTheGivenNumberOfTimes()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()].Returns(1).For(3)
@@ -484,7 +484,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With5Parameters_ShouldKeepLastUsedValue()
+		public async Task OnlyOnce_With5Keys_ShouldKeepLastUsedValue()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -504,7 +504,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With5Parameters_ShouldUseReturnValueOnlyOnce()
+		public async Task OnlyOnce_With5Keys_ShouldUseReturnValueOnlyOnce()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -521,7 +521,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With5Parameters_WithFor_ShouldApplySetupOnlyForTimes()
+		public async Task OnlyOnce_With5KeysAndFor_ShouldApplySetupOnlyTheGivenNumberOfTimes()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()]
@@ -541,7 +541,7 @@ public sealed class SetupExtensionsTests
 	public sealed class IndexerSetupWhenBuilderTests
 	{
 		[Test]
-		public async Task OnlyOnce_With1Parameter_ShouldInvokeTheCallbackOnlyOnce()
+		public async Task OnlyOnce_With1Key_ShouldInvokeTheCallbackOnlyOnce()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -556,7 +556,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With1Parameter_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With1KeyAndFor_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -571,7 +571,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With2Parameters_ShouldInvokeTheCallbackOnlyOnce()
+		public async Task OnlyOnce_With2Keys_ShouldInvokeTheCallbackOnlyOnce()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -586,7 +586,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With2Parameters_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With2KeysAndFor_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -601,7 +601,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With3Parameters_ShouldInvokeTheCallbackOnlyOnce()
+		public async Task OnlyOnce_With3Keys_ShouldInvokeTheCallbackOnlyOnce()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -617,7 +617,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With3Parameters_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With3KeysAndFor_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -633,7 +633,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With4Parameters_ShouldInvokeTheCallbackOnlyOnce()
+		public async Task OnlyOnce_With4Keys_ShouldInvokeTheCallbackOnlyOnce()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -649,7 +649,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With4Parameters_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With4KeysAndFor_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -665,7 +665,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With5Parameters_ShouldInvokeTheCallbackOnlyOnce()
+		public async Task OnlyOnce_With5Keys_ShouldInvokeTheCallbackOnlyOnce()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -681,7 +681,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With5Parameters_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With5KeysAndFor_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -697,7 +697,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnSet_OnlyOnce_With1Parameter_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With1KeyAndFor_WhenSetting_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -712,7 +712,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnSet_OnlyOnce_With2Parameters_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With2KeysAndFor_WhenSetting_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -727,7 +727,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnSet_OnlyOnce_With3Parameters_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With3KeysAndFor_WhenSetting_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -743,7 +743,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnSet_OnlyOnce_With4Parameters_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With4KeysAndFor_WhenSetting_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -759,7 +759,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnSet_OnlyOnce_With5Parameters_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With5KeysAndFor_WhenSetting_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -793,7 +793,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With0Parameters_When_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
+		public async Task Forever_With0ParametersAndWhen_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyIntMethod().Returns(1).Returns(2).Returns(3).When(i => i >= 2).Forever();
@@ -823,7 +823,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With1Parameter_When_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
+		public async Task Forever_With1ParameterAndWhen_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyIntMethod(It.IsAny<int>()).Returns(1).Returns(2).Returns(3).When(i => i >= 2)
@@ -855,7 +855,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With2Parameters_When_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
+		public async Task Forever_With2ParametersAndWhen_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyIntMethod(It.IsAny<int>(), It.IsAny<int>()).Returns(1).Returns(2).Returns(3)
@@ -887,7 +887,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With3Parameters_When_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
+		public async Task Forever_With3ParametersAndWhen_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyIntMethod(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()).Returns(1).Returns(2)
@@ -919,7 +919,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With4Parameters_When_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
+		public async Task Forever_With4ParametersAndWhen_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyIntMethod(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -951,7 +951,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With5Parameters_When_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
+		public async Task Forever_With5ParametersAndWhen_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyIntMethod(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -982,7 +982,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With0Parameters_WithFor_ShouldApplySetupOnlyForTimes()
+		public async Task OnlyOnce_With0ParametersAndFor_ShouldApplySetupOnlyTheGivenNumberOfTimes()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyIntMethod().Returns(1).For(3).OnlyOnce();
@@ -1012,7 +1012,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With1Parameter_WithFor_ShouldApplySetupOnlyForTimes()
+		public async Task OnlyOnce_With1ParameterAndFor_ShouldApplySetupOnlyTheGivenNumberOfTimes()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyIntMethod(It.IsAny<int>()).Returns(1).For(3).OnlyOnce();
@@ -1042,7 +1042,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With2Parameters_WithFor_ShouldApplySetupOnlyForTimes()
+		public async Task OnlyOnce_With2ParametersAndFor_ShouldApplySetupOnlyTheGivenNumberOfTimes()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyIntMethod(It.IsAny<int>(), It.IsAny<int>()).Returns(1).For(3).OnlyOnce();
@@ -1072,7 +1072,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With3Parameters_WithFor_ShouldApplySetupOnlyForTimes()
+		public async Task OnlyOnce_With3ParametersAndFor_ShouldApplySetupOnlyTheGivenNumberOfTimes()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyIntMethod(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()).Returns(1).For(3)
@@ -1104,7 +1104,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With4Parameters_WithFor_ShouldApplySetupOnlyForTimes()
+		public async Task OnlyOnce_With4ParametersAndFor_ShouldApplySetupOnlyTheGivenNumberOfTimes()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyIntMethod(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -1136,7 +1136,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With5Parameters_WithFor_ShouldApplySetupOnlyForTimes()
+		public async Task OnlyOnce_With5ParametersAndFor_ShouldApplySetupOnlyTheGivenNumberOfTimes()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyIntMethod(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -1170,7 +1170,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With0Parameters_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With0ParametersAndFor_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -1200,7 +1200,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With1Parameter_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With1ParameterAndFor_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -1230,7 +1230,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With2Parameters_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With2ParametersAndFor_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -1262,7 +1262,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With3Parameters_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With3ParametersAndFor_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -1294,7 +1294,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With4Parameters_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With4ParametersAndFor_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -1326,7 +1326,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With5Parameters_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With5ParametersAndFor_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -1368,7 +1368,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With0Parameters_When_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
+		public async Task Forever_With0ParametersAndWhen_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyVoidMethod().Throws(new Exception("1")).Throws(new Exception("2"))
@@ -1414,7 +1414,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With1Parameter_When_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
+		public async Task Forever_With1ParameterAndWhen_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyVoidMethod(It.IsAny<int>()).Throws(new Exception("1")).Throws(new Exception("2"))
@@ -1462,7 +1462,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With2Parameters_When_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
+		public async Task Forever_With2ParametersAndWhen_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyVoidMethod(It.IsAny<int>(), It.IsAny<int>()).Throws(new Exception("1"))
@@ -1510,7 +1510,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With3Parameters_When_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
+		public async Task Forever_With3ParametersAndWhen_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyVoidMethod(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -1557,7 +1557,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With4Parameters_When_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
+		public async Task Forever_With4ParametersAndWhen_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyVoidMethod(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -1604,7 +1604,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task Forever_With5Parameters_When_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
+		public async Task Forever_With5ParametersAndWhen_ShouldKeepApplyingTheSetupWhenThePredicateMatches()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyVoidMethod(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -1650,7 +1650,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With0Parameters_WithFor_ShouldApplySetupOnlyForTimes()
+		public async Task OnlyOnce_With0ParametersAndFor_ShouldApplySetupOnlyTheGivenNumberOfTimes()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyVoidMethod().Throws(new Exception("1")).For(3).OnlyOnce();
@@ -1694,7 +1694,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With1Parameter_WithFor_ShouldApplySetupOnlyForTimes()
+		public async Task OnlyOnce_With1ParameterAndFor_ShouldApplySetupOnlyTheGivenNumberOfTimes()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyVoidMethod(It.IsAny<int>()).Throws(new Exception("1")).For(3).OnlyOnce();
@@ -1738,7 +1738,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With2Parameters_WithFor_ShouldApplySetupOnlyForTimes()
+		public async Task OnlyOnce_With2ParametersAndFor_ShouldApplySetupOnlyTheGivenNumberOfTimes()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyVoidMethod(It.IsAny<int>(), It.IsAny<int>()).Throws(new Exception("1")).For(3)
@@ -1784,7 +1784,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With3Parameters_WithFor_ShouldApplySetupOnlyForTimes()
+		public async Task OnlyOnce_With3ParametersAndFor_ShouldApplySetupOnlyTheGivenNumberOfTimes()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyVoidMethod(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -1831,7 +1831,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With4Parameters_WithFor_ShouldApplySetupOnlyForTimes()
+		public async Task OnlyOnce_With4ParametersAndFor_ShouldApplySetupOnlyTheGivenNumberOfTimes()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyVoidMethod(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -1877,7 +1877,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With5Parameters_WithFor_ShouldApplySetupOnlyForTimes()
+		public async Task OnlyOnce_With5ParametersAndFor_ShouldApplySetupOnlyTheGivenNumberOfTimes()
 		{
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
 			sut.Mock.Setup.MyVoidMethod(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -1918,7 +1918,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With0Parameters_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With0ParametersAndFor_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -1948,7 +1948,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With1Parameter_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With1ParameterAndFor_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -1978,7 +1978,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With2Parameters_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With2ParametersAndFor_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -2010,7 +2010,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With3Parameters_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With3ParametersAndFor_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -2042,7 +2042,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With4Parameters_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With4ParametersAndFor_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();
@@ -2074,7 +2074,7 @@ public sealed class SetupExtensionsTests
 		}
 
 		[Test]
-		public async Task OnlyOnce_With5Parameters_WithFor_ShouldInvokeTheCallbackOnlyForTimes()
+		public async Task OnlyOnce_With5ParametersAndFor_ShouldInvokeTheCallbackOnlyTheGivenNumberOfTimes()
 		{
 			List<int> values = [];
 			ISetupExtensionsTestService sut = ISetupExtensionsTestService.CreateMock();

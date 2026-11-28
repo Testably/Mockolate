@@ -9,7 +9,7 @@ public sealed partial class MockExtensionsTests
 	public sealed class ClearAllInteractionsTests
 	{
 		[Test]
-		public async Task ClearAllInteractions_ShouldRemovePreviousInteractions()
+		public async Task ShouldOnlyKeepInteractionsRecordedAfterwards()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 			IMockInteractions interactions = ((IMock)sut).MockRegistry.Interactions;
@@ -26,7 +26,7 @@ public sealed partial class MockExtensionsTests
 		}
 
 		[Test]
-		public async Task Monitor_WhenRunning_ShouldClearAllInteractions()
+		public async Task WhenMonitorIsRunning_ShouldAlsoClearTheMonitorInteractions()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 
@@ -53,7 +53,7 @@ public sealed partial class MockExtensionsTests
 		}
 
 		[Test]
-		public async Task Monitor_WhenRunning_ShouldContinueAfterClearAllInteractions()
+		public async Task WhenMonitorIsRunning_ShouldKeepMonitoringAfterwards()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 
@@ -80,7 +80,7 @@ public sealed partial class MockExtensionsTests
 		}
 
 		[Test]
-		public async Task Monitor_WhenStopped_ShouldIgnoreClearAllInteractions()
+		public async Task WhenMonitorIsStopped_ShouldKeepTheMonitorInteractions()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 

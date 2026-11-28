@@ -10,7 +10,7 @@ public sealed partial class MockTests
 		public sealed class WithClassTests
 		{
 			[Test]
-			public async Task Wrap_ClassWithoutParameterlessConstructor_ShouldDelegateToWrappedInstance()
+			public async Task WithoutParameterlessConstructor_ShouldDelegateToWrappedInstance()
 			{
 				ServiceWithConstructor myService = new("real");
 				ServiceWithConstructor wrappedService = ServiceWithConstructor.CreateMock("mock").Wrapping(myService);
@@ -22,7 +22,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_Events_ForwardEventsFromWrappedInstance()
+			public async Task Event_ShouldForwardEventsFromTheWrappedInstance()
 			{
 				MyChocolateDispenser myDispenser = new();
 				MyChocolateDispenser wrappedDispenser = MyChocolateDispenser.CreateMock().Wrapping(myDispenser);
@@ -43,7 +43,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_Events_ForwardsFromWrapper()
+			public async Task Event_WhenTriggeredThroughTheWrapper_ShouldNotifyTheSubscribersOfTheWrappedInstance()
 			{
 				MyChocolateDispenser myDispenser = new();
 				MyChocolateDispenser wrappedDispenser = MyChocolateDispenser.CreateMock().Wrapping(myDispenser);
@@ -64,7 +64,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_Events_Unsubscribe_ShouldRemoveSubscription()
+			public async Task Event_WhenUnsubscribed_ShouldRemoveTheSubscription()
 			{
 				MyChocolateDispenser myDispenser = new();
 				MyChocolateDispenser wrappedDispenser = MyChocolateDispenser.CreateMock().Wrapping(myDispenser);
@@ -94,7 +94,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_Indexer_ShouldDelegateToWrappedInstance()
+			public async Task Indexer_ShouldDelegateToWrappedInstance()
 			{
 				MyChocolateDispenser myDispenser = new();
 				MyChocolateDispenser wrappedDispenser = MyChocolateDispenser.CreateMock().Wrapping(myDispenser);
@@ -108,7 +108,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_Method_ShouldDelegateToWrappedInstance()
+			public async Task Method_ShouldDelegateToWrappedInstance()
 			{
 				MyChocolateDispenser myDispenser = new();
 				MyChocolateDispenser wrappedDispenser = MyChocolateDispenser.CreateMock().Wrapping(myDispenser);
@@ -121,7 +121,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_Property_ShouldDelegateToWrappedInstance()
+			public async Task Property_ShouldDelegateToWrappedInstance()
 			{
 				MyChocolateDispenser myDispenser = new();
 				MyChocolateDispenser wrappedDispenser = MyChocolateDispenser.CreateMock().Wrapping(myDispenser);
@@ -133,7 +133,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_WithSetup_ShouldOverrideMethod()
+			public async Task Method_WithSetup_ShouldOverrideTheReturnValue()
 			{
 				MyChocolateDispenser myDispenser = new();
 				MyChocolateDispenser wrappedDispenser = MyChocolateDispenser.CreateMock().Wrapping(myDispenser);
@@ -147,7 +147,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrapping_ShouldIgnoreProtectedMembers()
+			public async Task WithProtectedMembers_ShouldStillSetUpAndVerifyPublicMembers()
 			{
 				ServiceWithProtectedMembers myClass = new();
 				ServiceWithProtectedMembers myMock = ServiceWithProtectedMembers.CreateMock().Wrapping(myClass);
