@@ -1429,6 +1429,49 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
+	public async Task InterfaceProperty_WhenSkippingAutoMocking_ShouldNotRecursivelyCreateMocks()
+	{
+		GeneratorResult result = Generator
+			.Run("""
+			     using System.Collections.Generic;
+			     using Mockolate;
+
+			     namespace MyCode
+			     {
+			         public class Program
+			         {
+			             public static void Main(string[] args)
+			             {
+			     			_ = IMyInterface1.CreateMock();
+			             }
+			         }
+
+			         public interface IMyInterface1
+			         {
+			             IMyInterface2 MyProperty { get; }
+			         }
+
+			         public interface IMyInterface2
+			         {
+			             IMyInterface3 MyMethod(int v1);
+			         }
+
+			         public interface IMyInterface3
+			         {
+			             IMyInterface1 MyInnerMethod(int v1);
+			         }
+			     }
+
+			     """, LanguageVersion.CSharp14,
+				new Dictionary<string, string> { ["build_property.MockolateSkipAutoMocking"] = "true", });
+
+		await That(result.Sources)
+			.ContainsKey("Mock.IMyInterface1.g.cs").And
+			.DoesNotContainKey("Mock.IMyInterface2.g.cs").And
+			.DoesNotContainKey("Mock.IMyInterface3.g.cs");
+	}
+
+	[Test]
 	[Arguments("", true)]
 	[Arguments("false", true)]
 	[Arguments(" True ", false)]
