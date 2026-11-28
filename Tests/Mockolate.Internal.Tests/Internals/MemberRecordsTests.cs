@@ -10,7 +10,7 @@ namespace Mockolate.Internal.Tests.Internals;
 public class MemberRecordsTests
 {
 	[Test]
-	public async Task Clear_AfterManyRecords_ResetsCountAndAllowsRefill()
+	public async Task Clear_WithManyRecords_ShouldResetTheCountAndAllowRefill()
 	{
 		MockInteractions store = new(1);
 		MethodRecords<int> buffer = CreateBuffer(store);
@@ -80,7 +80,7 @@ public class MemberRecordsTests
 	[Test]
 	[Arguments(0)]
 	[Arguments(3)]
-	public async Task Push_AfterClear_ShouldStartANewSequence(int recordsBeforeClear)
+	public async Task Push_WhenCalledAfterClear_ShouldStartANewSequence(int recordsBeforeClear)
 	{
 		IntList list = CreateList(recordsBeforeClear);
 

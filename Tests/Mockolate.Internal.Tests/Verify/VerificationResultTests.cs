@@ -18,7 +18,7 @@ public class VerificationResultTests
 		=> new MethodRecords<T>(store, memberId);
 
 	[Test]
-	public async Task SyncVerifyCount_NoRecordCountSource_AfterSuccess_MarksMatchingInteractionsAsVerified()
+	public async Task VerifyCount_WithoutCountSource_WhenSuccessful_ShouldMarkMatchingInteractionsAsVerified()
 	{
 		// Pins the `_interactions.Verified(matchingInteractions);` call inside the non-Awaitable
 		// ICountVerifiable.VerifyCount second branch (when `_recordCountSource is null`).
@@ -83,7 +83,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task Verify_WithFastPathAnyParameters_ShouldCollectAllInteractions()
+		public async Task Verify_WithAnyParameters_ShouldCollectAllInteractions()
 		{
 			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
@@ -110,7 +110,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task Verify_WithFastPathLiteralSource_ShouldCollectOnlyMatchingInteractions()
+		public async Task Verify_WithLiteralValue_ShouldCollectOnlyMatchingInteractions()
 		{
 			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
@@ -136,7 +136,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task Verify_WithFastPathLiteralSource_WhenNeverSatisfied_ShouldTimeOut()
+		public async Task Verify_WithLiteralValue_WhenNeverSatisfied_ShouldTimeOut()
 		{
 			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
@@ -158,7 +158,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task VerifyAsync_WithFastPathLiteralSource_ShouldCollectOnlyMatchingInteractions()
+		public async Task VerifyAsync_WithLiteralValue_ShouldCollectOnlyMatchingInteractions()
 		{
 			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
@@ -201,7 +201,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task VerifyCount_WithUseCountAll_ShouldPickCountAllNotFilteredCount()
+		public async Task VerifyCount_WithAnyParameters_ShouldCountAllInteractions()
 		{
 			// Pins the `_useCountAll ? CountAll() : Count()` conditional in Awaitable.VerifyCount.
 			// Buffer holds 3 records, the matcher accepts only 1 of them, AnyParameters() flips
@@ -233,7 +233,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task WithCancellation_PreservesUseCountAllFlag()
+		public async Task WithCancellation_WhenCalledAfterAnyParameters_ShouldCountAllInteractions()
 		{
 			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
@@ -259,7 +259,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task Within_PreservesUseCountAllFlag()
+		public async Task Within_WhenCalledAfterAnyParameters_ShouldCountAllInteractions()
 		{
 			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
@@ -285,7 +285,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task AwaitableVerifyCount_NoRecordCountSource_AfterSuccess_MarksMatchingInteractionsAsVerified()
+		public async Task VerifyCount_WithoutCountSource_WhenSuccessful_ShouldMarkMatchingInteractionsAsVerified()
 		{
 			// Pins the `_interactions.Verified(matchingInteractions);` call inside Awaitable's
 			// ICountVerifiable.VerifyCount second branch (when `_recordCountSource is null`).
@@ -307,7 +307,7 @@ public class VerificationResultTests
 	public sealed class MapTests
 	{
 		[Test]
-		public async Task Map_WhenRecordsAndCountSourceBothNull_ShouldKeepBothNull()
+		public async Task WithoutRecordsOrCountSource_ShouldKeepBothNull()
 		{
 			MockInteractions store = new(0);
 			VerificationResult<object> source = new(
@@ -326,7 +326,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task Map_WhenBufferOnlyAndCountSourceNull_PreservesBuffer()
+		public async Task WithRecordsWithoutCountSource_ShouldKeepTheRecords()
 		{
 			// The buffer-only IgnoreParameters constructor is wired with no fast source. Map must
 			// take the buffer-preserving branch — if it slips into the simple constructor, the next
@@ -359,7 +359,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task Map_WithBuffer_PreservesFastPathSource()
+		public async Task WithRecords_ShouldReplaceTheSubjectAndKeepCounting()
 		{
 			MockInteractions store = new(1);
 			MethodRecords buffer = InstallMethod(store, 0);
@@ -386,7 +386,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task Map_AfterAnyParameters_ShouldCountAllInteractions()
+		public async Task WhenCalledAfterAnyParameters_ShouldCountAllInteractions()
 		{
 			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
@@ -411,7 +411,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task Map_AfterAnyParameters_ThenWithin_ShouldCountAllInteractions()
+		public async Task WhenCalledBetweenAnyParametersAndWithin_ShouldCountAllInteractions()
 		{
 			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
@@ -434,7 +434,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task Map_AfterWithin_ShouldWaitForLateInteraction()
+		public async Task WhenCalledAfterWithin_ShouldWaitForLateInteraction()
 		{
 			MockInteractions store = new(1);
 			MethodRecords buffer = InstallMethod(store, 0);
@@ -462,7 +462,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task Map_AfterWithCancellation_ShouldWaitForLateInteraction()
+		public async Task WhenCalledAfterWithCancellation_ShouldWaitForLateInteraction()
 		{
 			MockInteractions store = new(1);
 			MethodRecords buffer = InstallMethod(store, 0);
@@ -491,7 +491,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task Map_WithFastPathSource_ShouldCollectOnlyInteractionsMatchingTheSource()
+		public async Task WithMatcher_ShouldCollectOnlyMatchingInteractions()
 		{
 			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
@@ -518,7 +518,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task Map_WithoutBuffer_StillCarriesPredicate()
+		public async Task WithoutRecords_ShouldReplaceTheSubjectAndKeepTheExpectation()
 		{
 			MockInteractions store = new(0);
 			VerificationResult<object> source = new(
@@ -537,7 +537,7 @@ public class VerificationResultTests
 	public sealed class CollectMatchingTests
 	{
 		[Test]
-		public async Task WithBufferAndExactlyTwoRecords_PreservesSequenceOrder()
+		public async Task WithBufferAndExactlyTwoRecords_ShouldPreserveTheCallOrder()
 		{
 			// Crosses the `records.Count > 1` boundary in CollectMatching at exactly N=2. Combined
 			// with the existing N=1 / N=3 / N=0 cases, this pins the boundary so flipping `> 1` to
@@ -569,7 +569,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task WithBufferAndMultipleRecords_PreservesSequenceOrder()
+		public async Task WithBufferAndMultipleRecords_ShouldPreserveTheCallOrder()
 		{
 			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
@@ -598,7 +598,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task WithBufferAndNoMatchingRecord_ReturnsEmpty()
+		public async Task WithBufferAndNoMatchingRecord_ShouldReturnEmpty()
 		{
 			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
@@ -621,7 +621,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task WithBufferAndSingleRecord_ReturnsRecord()
+		public async Task WithBufferAndSingleRecord_ShouldReturnTheRecord()
 		{
 			MockInteractions store = new(1);
 			MethodRecords buffer = InstallMethod(store, 0);
@@ -644,7 +644,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task WithEmptyBuffer_ReturnsEmpty()
+		public async Task WithEmptyBuffer_ShouldReturnEmpty()
 		{
 			MockInteractions store = new(1);
 			InstallMethod(store, 0);
@@ -665,7 +665,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task WithFastPathSource_ShouldCollectOnlyInteractionsMatchingTheSource()
+		public async Task WithLiteralValue_ShouldCollectOnlyMatchingInteractions()
 		{
 			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
@@ -697,7 +697,7 @@ public class VerificationResultTests
 	public sealed class SkipInteractionRecordingTests
 	{
 		[Test]
-		public async Task Verify_WhenRecordingDisabled_AndAwaitableViaWithin_ShouldThrowMockException()
+		public async Task Verify_WithWithin_ShouldThrowMockException()
 		{
 			// Same guard, Awaitable Verify (records-array) path. Constructed with a predicate-based
 			// VR (not a typed CountSource) so we exercise the slow CollectMatching branch.
@@ -718,7 +718,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task VerifyCount_WhenRecordingDisabled_AndAwaitableViaWithin_ShouldThrowMockException()
+		public async Task VerifyCount_WithWithin_ShouldThrowMockException()
 		{
 			// Same guard, Awaitable path (via Within). Distinct mutation site.
 			MockInteractions store = new(1, true);
@@ -739,7 +739,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task VerifyCount_WhenRecordingDisabled_ShouldThrowMockException()
+		public async Task VerifyCount_ShouldThrowMockException()
 		{
 			// Kills the ThrowIfRecordingDisabled statement-removal mutation on the non-Awaitable
 			// ICountVerifiable.VerifyCount path. Without the guard, Once() would silently
@@ -764,7 +764,7 @@ public class VerificationResultTests
 	public sealed class IgnoreParametersAnyParametersTests
 	{
 		[Test]
-		public async Task AnyParameters_WhenExpectationHasNoArgumentList_ShouldAppendAnyParameters()
+		public async Task WhenExpectationHasNoArgumentList_ShouldAppendAnyParameters()
 		{
 			IMockInteractions store = new MockInteractions(0);
 			MockRegistry registry = new(MockBehavior.Default, store);
@@ -782,7 +782,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task AnyParameters_WithoutBuffer_AndNoOverloadFilter_MatchesAllOfMethodName()
+		public async Task WithoutBufferOrOverloadFilter_ShouldMatchAllInvocationsOfTheMethod()
 		{
 			IMockInteractions store = new MockInteractions(0);
 
@@ -807,7 +807,7 @@ public class VerificationResultTests
 		}
 
 		[Test]
-		public async Task AnyParameters_WithoutBuffer_KeepsOverloadFilter()
+		public async Task WithoutBuffer_ShouldKeepTheOverloadFilter()
 		{
 			IMockInteractions store = new MockInteractions(0);
 			MockRegistry registry = new(MockBehavior.Default, store);

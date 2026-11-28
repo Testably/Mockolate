@@ -7,7 +7,7 @@ namespace Mockolate.Internal.Tests.Internals;
 public class MethodRecordsTests
 {
 	[Test]
-	public async Task MethodRecords0_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
+	public async Task AppendBoxed_WithoutParameters_ShouldReuseTheBoxedRecord()
 	{
 		// Pins the `r.Boxed ??= new MethodInvocation(r.Name)` cache in Method0 AppendBoxed.
 		MockInteractions store = new(1);
@@ -26,7 +26,7 @@ public class MethodRecordsTests
 	}
 
 	[Test]
-	public async Task MethodRecords1_Append_ShouldRaiseInteractionAdded()
+	public async Task Append_With1Parameter_ShouldRaiseInteractionAdded()
 		=> await VerifyRaisesInteractionAdded(store =>
 		{
 			MethodRecords<int> buffer = new(store, 0);
@@ -34,7 +34,7 @@ public class MethodRecordsTests
 		});
 
 	[Test]
-	public async Task MethodRecords1_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
+	public async Task AppendBoxed_With1Parameter_ShouldReuseTheBoxedRecord()
 	{
 		MockInteractions store = new(1);
 		MethodRecords<int> buffer = new(store, 0);
@@ -52,7 +52,7 @@ public class MethodRecordsTests
 	}
 
 	[Test]
-	public async Task MethodRecords2_Append_ShouldRaiseInteractionAdded()
+	public async Task Append_With2Parameters_ShouldRaiseInteractionAdded()
 		=> await VerifyRaisesInteractionAdded(store =>
 		{
 			MethodRecords<int, string> buffer = new(store, 0);
@@ -60,7 +60,7 @@ public class MethodRecordsTests
 		});
 
 	[Test]
-	public async Task MethodRecords3_Append_ShouldRaiseInteractionAdded()
+	public async Task Append_With3Parameters_ShouldRaiseInteractionAdded()
 		=> await VerifyRaisesInteractionAdded(store =>
 		{
 			MethodRecords<int, string, bool> buffer = InstallMethod<int, string, bool>(store, 0);
@@ -68,7 +68,7 @@ public class MethodRecordsTests
 		});
 
 	[Test]
-	public async Task MethodRecords3_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
+	public async Task AppendBoxed_With3Parameters_ShouldReuseTheBoxedRecord()
 	{
 		// Pins the `r.Boxed ??= new MethodInvocation<T1,T2,T3>(...)` cache in Method3 AppendBoxed.
 		MockInteractions store = new(1);
@@ -87,7 +87,7 @@ public class MethodRecordsTests
 	}
 
 	[Test]
-	public async Task MethodRecords3_GetUnverifiedInteractions_ShouldSkipMatchedSlots()
+	public async Task GetUnverifiedInteractions_With3Parameters_ShouldSkipMatchedSlots()
 	{
 		MockInteractions store = new(1);
 		MethodRecords<int, string, bool> buffer = InstallMethod<int, string, bool>(store, 0);
@@ -108,7 +108,7 @@ public class MethodRecordsTests
 	}
 
 	[Test]
-	public async Task MethodRecords4_Append_ShouldRaiseInteractionAdded()
+	public async Task Append_With4Parameters_ShouldRaiseInteractionAdded()
 		=> await VerifyRaisesInteractionAdded(store =>
 		{
 			MethodRecords<int, string, bool, double> buffer =
@@ -117,7 +117,7 @@ public class MethodRecordsTests
 		});
 
 	[Test]
-	public async Task MethodRecords4_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
+	public async Task AppendBoxed_With4Parameters_ShouldReuseTheBoxedRecord()
 	{
 		// Pins the `r.Boxed ??= new MethodInvocation<T1,T2,T3,T4>(...)` cache in Method4 AppendBoxed.
 		MockInteractions store = new(1);
@@ -137,7 +137,7 @@ public class MethodRecordsTests
 	}
 
 	[Test]
-	public async Task MethodRecords4_GetUnverifiedInteractions_ShouldSkipMatchedSlots()
+	public async Task GetUnverifiedInteractions_With4Parameters_ShouldSkipMatchedSlots()
 	{
 		MockInteractions store = new(1);
 		MethodRecords<int, string, bool, double> buffer =
@@ -160,7 +160,7 @@ public class MethodRecordsTests
 	}
 
 	[Test]
-	public async Task MethodRecords0_ConsumeMatching_ShouldReturnCount()
+	public async Task ConsumeAll_WithoutParameters_ShouldReturnTheNumberOfRecords()
 	{
 		MockInteractions store = new(1);
 		MethodRecords buffer = new(store, 0);
@@ -175,7 +175,7 @@ public class MethodRecordsTests
 	}
 
 	[Test]
-	public async Task MethodRecords1_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
+	public async Task ConsumeAll_With1Parameter_WhenEmpty_ShouldReturnZero()
 	{
 		MockInteractions store = new(1);
 		MethodRecords<int> buffer = new(store, 0);
@@ -188,7 +188,7 @@ public class MethodRecordsTests
 	}
 
 	[Test]
-	public async Task MethodRecords1_ConsumeMatching_ShouldHonorMatcher()
+	public async Task ConsumeMatching_With1Parameter_ShouldHonorMatcher()
 	{
 		MockInteractions store = new(1);
 		MethodRecords<int> buffer = new(store, 0);
@@ -203,7 +203,7 @@ public class MethodRecordsTests
 	}
 
 	[Test]
-	public async Task MethodRecords2_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
+	public async Task ConsumeAll_With2Parameters_WhenEmpty_ShouldReturnZero()
 	{
 		MockInteractions store = new(1);
 		MethodRecords<int, string> buffer = new(store, 0);
@@ -214,7 +214,7 @@ public class MethodRecordsTests
 	}
 
 	[Test]
-	public async Task MethodRecords2_ConsumeMatching_ShouldHonorAllMatchers()
+	public async Task ConsumeMatching_With2Parameters_ShouldHonorAllMatchers()
 	{
 		MockInteractions store = new(1);
 		MethodRecords<int, string> buffer = new(store, 0);
@@ -238,7 +238,7 @@ public class MethodRecordsTests
 	}
 
 	[Test]
-	public async Task MethodRecords3_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
+	public async Task ConsumeAll_With3Parameters_WhenEmpty_ShouldReturnZero()
 	{
 		MockInteractions store = new(1);
 		MethodRecords<int, string, bool> buffer = new(store, 0);
@@ -249,7 +249,7 @@ public class MethodRecordsTests
 	}
 
 	[Test]
-	public async Task MethodRecords3_ConsumeMatching_ShouldHonorAllMatchers()
+	public async Task ConsumeMatching_With3Parameters_ShouldHonorAllMatchers()
 	{
 		MockInteractions store = new(1);
 		MethodRecords<int, string, bool> buffer = new(store, 0);
@@ -277,7 +277,7 @@ public class MethodRecordsTests
 	}
 
 	[Test]
-	public async Task MethodRecords4_ConsumeAll_OnEmptyBuffer_ShouldReturnZeroWithoutThrowing()
+	public async Task ConsumeAll_With4Parameters_WhenEmpty_ShouldReturnZero()
 	{
 		MockInteractions store = new(1);
 		MethodRecords<int, string, bool, double> buffer = new(store, 0);
@@ -288,7 +288,7 @@ public class MethodRecordsTests
 	}
 
 	[Test]
-	public async Task MethodRecords4_ConsumeMatching_ShouldHonorAllMatchers()
+	public async Task ConsumeMatching_With4Parameters_ShouldHonorAllMatchers()
 	{
 		MockInteractions store = new(1);
 		MethodRecords<int, string, bool, double> buffer = new(store, 0);

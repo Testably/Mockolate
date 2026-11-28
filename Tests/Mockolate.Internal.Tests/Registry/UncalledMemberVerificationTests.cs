@@ -7,7 +7,7 @@ namespace Mockolate.Internal.Tests.Registry;
 public sealed class UncalledMemberVerificationTests
 {
 	[Test]
-	public async Task Verify_AfterClear_ShouldNotCreateInteractionsAgain()
+	public async Task Verify_WhenCalledAfterClear_ShouldNotCreateInteractionsAgain()
 	{
 		IUncalledService sut = IUncalledService.CreateMock();
 		sut.Generic("boxed");
@@ -21,7 +21,7 @@ public sealed class UncalledMemberVerificationTests
 	}
 
 	[Test]
-	public async Task Verify_OfAnUncalledMember_ShouldFailWithTheUsualMessage()
+	public async Task Verify_ShouldFailWithTheUsualMessage()
 	{
 		IUncalledService sut = IUncalledService.CreateMock();
 		sut.Do(1);
@@ -36,7 +36,7 @@ public sealed class UncalledMemberVerificationTests
 	}
 
 	[Test]
-	public async Task Verify_OfAnUncalledMember_ShouldNotCreateInteractionsForTheOtherCalls()
+	public async Task Verify_ShouldNotCreateInteractionsForTheOtherCalls()
 	{
 		IUncalledService sut = IUncalledService.CreateMock();
 		sut.Do(1);
@@ -51,7 +51,7 @@ public sealed class UncalledMemberVerificationTests
 	}
 
 	[Test]
-	public async Task Verify_OnAMonitor_ShouldOnlyCountTheCallsOfItsSession()
+	public async Task Verify_WithMonitor_ShouldOnlyCountTheCallsOfItsSession()
 	{
 		IUncalledService sut = IUncalledService.CreateMock();
 		MockMonitor<Mock.IMockVerifyForUncalledMemberVerificationTests_IUncalledService> monitor = sut.Mock.Monitor();

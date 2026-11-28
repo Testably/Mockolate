@@ -357,7 +357,7 @@ public class MethodCountSourcesTests
 	}
 
 	[Test]
-	public async Task Method0CountSource_ShouldRouteCountAndCountAllThroughBuffer()
+	public async Task Method0CountSource_ShouldCountTheRecordsInTheBuffer()
 	{
 		MockInteractions store = new(1);
 		MethodRecords buffer = new(store, 0);

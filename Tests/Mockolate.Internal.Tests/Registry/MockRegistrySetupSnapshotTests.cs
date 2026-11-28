@@ -17,7 +17,7 @@ public sealed class MockRegistrySetupSnapshotTests
 	public sealed class MethodTests
 	{
 		[Test]
-		public async Task SetupMethod_WithIncreasingMemberIds_GrowsTableLazily()
+		public async Task SetupMethod_WithMemberIdsOutOfOrder_ShouldPublishEverySetup()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup setup0 = new();
@@ -40,7 +40,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupMethod_WithMemberId_PublishesToSnapshot()
+		public async Task SetupMethod_WithMemberId_ShouldPublishToTheSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup setup = new();
@@ -54,7 +54,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupMethod_WithMemberIdAndDefaultScenario_PublishesToSnapshot()
+		public async Task SetupMethod_WithMemberIdAndDefaultScenario_ShouldPublishToTheSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup setup = new();
@@ -68,7 +68,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupMethod_WithMemberIdAndNamedScenario_DoesNotPublishToSnapshot()
+		public async Task SetupMethod_WithMemberIdAndNamedScenario_ShouldNotPublishToTheSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup setup = new();
@@ -79,7 +79,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupMethod_WithMemberIdAndNamedScenario_PreservesScenarioBucket()
+		public async Task SetupMethod_WithMemberIdAndNamedScenario_ShouldAddTheSetupToTheScenario()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup setup = new();
@@ -92,7 +92,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupMethod_WithSameMemberIdTwice_AppendsToBucket()
+		public async Task SetupMethod_WithSameMemberIdTwice_ShouldAppendToTheSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeMethodSetup setupA = new();
@@ -112,7 +112,7 @@ public sealed class MockRegistrySetupSnapshotTests
 	public sealed class PropertyTests
 	{
 		[Test]
-		public async Task PublishPropertyToMemberIdBucket_WhenResized_PreservesEarlierEntries()
+		public async Task SetupProperty_WithGrowingMemberIds_ShouldKeepEarlierSetupsInTheSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setupLow = new(registry, "P5");
@@ -128,7 +128,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task PublishPropertyToMemberIdBucket_WithDefaultThenDefault_OverwritesInSnapshotTable()
+		public async Task SetupProperty_WithDefaultThenDefault_ShouldPublishTheLatestDefault()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup.Default<int> defaultA = new("P1", 0);
@@ -142,7 +142,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task PublishPropertyToMemberIdBucket_WithDefaultThenUserSetup_RetainsUserSetup()
+		public async Task SetupProperty_WithDefaultThenUserSetup_ShouldUseTheUserSetup()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> defaultSetup = new(registry, "P1");
@@ -158,7 +158,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task PublishPropertyToMemberIdBucket_WithUserThenDefault_RetainsUserSetupInSnapshotTable()
+		public async Task SetupProperty_WithUserSetupThenDefault_ShouldKeepTheUserSetupInTheSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> userSetup = new(registry, "P1");
@@ -172,7 +172,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task PublishPropertyToMemberIdBucket_WithUserThenDefaultSetup_RetainsUserSetup()
+		public async Task SetupProperty_WithUserSetupThenDefault_ShouldUseTheUserSetup()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> userSetup = new(registry, "P1");
@@ -186,7 +186,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupProperty_DefaultDoesNotOverwriteUserSetupAtSameMemberIdInSnapshot()
+		public async Task SetupProperty_WithUserSetupThenDefault_ShouldKeepTheUserSetupInTheTable()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> userSetup = new(registry, "Pg");
@@ -201,7 +201,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupProperty_UserSetupDoesOverwriteDefaultAtSameMemberIdInSnapshot()
+		public async Task SetupProperty_WithDefaultThenUserSetup_ShouldPublishTheUserSetupToTheTable()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> userSetup = new(registry, "Pg");
@@ -217,7 +217,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupProperty_WithGrowingMemberIds_PreservesEarlierEntriesViaArrayCopy()
+		public async Task SetupProperty_WithGrowingMemberIds_ShouldKeepEarlierEntriesInTheTable()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setupA = new(registry, "Pa");
@@ -236,7 +236,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupProperty_WithIncreasingMemberIds_GrowsTableLazily()
+		public async Task SetupProperty_WithMemberIdsOutOfOrder_ShouldUseEverySetup()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setup0 = new(registry, "P0");
@@ -256,7 +256,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupProperty_WithMemberId_PopulatesSnapshotSlot()
+		public async Task SetupProperty_WithMemberId_ShouldPublishToTheTable()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setup = new(registry, "P3");
@@ -271,7 +271,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupProperty_WithMemberId_PublishesToSnapshot()
+		public async Task SetupProperty_WithMemberId_ShouldUseTheSetup()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setup = new(registry, "P5");
@@ -284,7 +284,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupProperty_WithMemberId_PublishesUserSetupToSnapshotTable()
+		public async Task SetupProperty_WithMemberId_ShouldPublishToTheSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setup = new(registry, "P5");
@@ -297,7 +297,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupProperty_WithMemberIdAndDefaultScenario_PopulatesSnapshotSlot()
+		public async Task SetupProperty_WithMemberIdAndDefaultScenario_ShouldPublishToTheTable()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setup = new(registry, "P3");
@@ -311,7 +311,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupProperty_WithMemberIdAndDefaultScenario_PublishesToSnapshot()
+		public async Task SetupProperty_WithMemberIdAndDefaultScenario_ShouldUseTheSetup()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setup = new(registry, "P5");
@@ -324,7 +324,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupProperty_WithMemberIdAndDefaultScenario_PublishesUserSetupToSnapshotTable()
+		public async Task SetupProperty_WithMemberIdAndDefaultScenario_ShouldPublishToTheSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setup = new(registry, "P5");
@@ -337,7 +337,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupProperty_WithMemberIdAndNamedScenario_DoesNotPublishToSnapshot()
+		public async Task SetupProperty_WithMemberIdAndNamedScenario_ShouldNotUseTheSetup()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setup = new(registry, "P5");
@@ -350,7 +350,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupProperty_WithMemberIdAndNamedScenario_LeavesSnapshotUnpublished()
+		public async Task SetupProperty_WithMemberIdAndNamedScenario_ShouldNotPublishToTheTable()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setup = new(registry, "P3");
@@ -363,7 +363,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupProperty_WithMemberIdAndNamedScenario_PreservesScenarioBucket()
+		public async Task SetupProperty_WithMemberIdAndNamedScenario_ShouldAddTheSetupToTheScenario()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakePropertySetup setup = new("P4");
@@ -376,7 +376,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupProperty_WithSameMemberIdTwice_RetainsLatestUserSetup()
+		public async Task SetupProperty_WithSameMemberIdTwice_ShouldUseTheLatestSetup()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			PropertySetup<int> setupA = new(registry, "P2");
@@ -395,7 +395,7 @@ public sealed class MockRegistrySetupSnapshotTests
 	public sealed class IndexerTests
 	{
 		[Test]
-		public async Task SetupIndexer_WithIncreasingMemberIds_GrowsTableLazily()
+		public async Task SetupIndexer_WithMemberIdsOutOfOrder_ShouldPublishEverySetup()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeIndexerSetup setup0 = new(true);
@@ -418,7 +418,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupIndexer_WithMemberId_PublishesToSnapshot()
+		public async Task SetupIndexer_WithMemberId_ShouldPublishToTheSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeIndexerSetup setup = new(true);
@@ -432,7 +432,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupIndexer_WithMemberIdAndDefaultScenario_PublishesToSnapshot()
+		public async Task SetupIndexer_WithMemberIdAndDefaultScenario_ShouldPublishToTheSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeIndexerSetup setup = new(true);
@@ -446,7 +446,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupIndexer_WithMemberIdAndNamedScenario_DoesNotPublishToSnapshot()
+		public async Task SetupIndexer_WithMemberIdAndNamedScenario_ShouldNotPublishToTheSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeIndexerSetup setup = new(true);
@@ -457,7 +457,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupIndexer_WithMemberIdAndNamedScenario_PreservesScenarioBucket()
+		public async Task SetupIndexer_WithMemberIdAndNamedScenario_ShouldAddTheSetupToTheScenario()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeIndexerSetup setup = new(true);
@@ -470,7 +470,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupIndexer_WithSameMemberIdTwice_AppendsToBucket()
+		public async Task SetupIndexer_WithSameMemberIdTwice_ShouldAppendToTheSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			FakeIndexerSetup setupA = new(true);
@@ -490,7 +490,7 @@ public sealed class MockRegistrySetupSnapshotTests
 	public sealed class EventTests
 	{
 		[Test]
-		public async Task SetupEvent_WithIncreasingMemberIds_GrowsTableLazily()
+		public async Task SetupEvent_WithMemberIdsOutOfOrder_ShouldPublishEverySetup()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			EventSetup setup0 = new(registry, "E0");
@@ -513,7 +513,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupEvent_WithMemberId_PublishesToSnapshot()
+		public async Task SetupEvent_WithMemberId_ShouldPublishToTheSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			EventSetup setup = new(registry, "Evt");
@@ -527,7 +527,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupEvent_WithMemberIdAndDefaultScenario_PublishesToSnapshot()
+		public async Task SetupEvent_WithMemberIdAndDefaultScenario_ShouldPublishToTheSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			EventSetup setup = new(registry, "Evt");
@@ -541,7 +541,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupEvent_WithMemberIdAndNamedScenario_DoesNotPublishToSnapshot()
+		public async Task SetupEvent_WithMemberIdAndNamedScenario_ShouldNotPublishToTheSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			EventSetup setup = new(registry, "Evt");
@@ -552,7 +552,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupEvent_WithMemberIdAndNamedScenario_PreservesScenarioBucket()
+		public async Task SetupEvent_WithMemberIdAndNamedScenario_ShouldAddTheSetupToTheScenario()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			EventSetup setup = new(registry, "Evt");
@@ -565,7 +565,7 @@ public sealed class MockRegistrySetupSnapshotTests
 		}
 
 		[Test]
-		public async Task SetupEvent_WithSameMemberIdTwice_AppendsToBucket()
+		public async Task SetupEvent_WithSameMemberIdTwice_ShouldAppendToTheSnapshot()
 		{
 			MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 			EventSetup setupA = new(registry, "Evt");

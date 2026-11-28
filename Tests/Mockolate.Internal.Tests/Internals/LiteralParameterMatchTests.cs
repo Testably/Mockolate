@@ -35,7 +35,7 @@ public class LiteralParameterMatchTests
 	[Arguments("a", null, false)]
 	[Arguments("a", "a", true)]
 	[Arguments("a", "b", false)]
-	public async Task Matches_Object_ShouldCompareWithExpectedValue(string? expected, string? value,
+	public async Task Matches_WithObject_ShouldCompareWithExpectedValue(string? expected, string? value,
 		bool expectedResult)
 	{
 		IParameter sut = new LiteralParameterMatch<string?>(expected);
@@ -46,7 +46,7 @@ public class LiteralParameterMatchTests
 	}
 
 	[Test]
-	public async Task Matches_Object_WithOtherType_ShouldReturnFalse()
+	public async Task Matches_WithObjectOfOtherType_ShouldReturnFalse()
 	{
 		IParameter sut = new LiteralParameterMatch<int>(1);
 

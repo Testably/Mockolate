@@ -115,7 +115,7 @@ public sealed class IndexerSetupTests
 	}
 
 	[Test]
-	public async Task GetResult_WithBaseValue_StoresComputedValueForLaterLookup()
+	public async Task GetResult_WithBaseValue_ShouldStoreTheComputedValueForLaterLookup()
 	{
 		IndexerSetup<string, int> setup = new(
 			new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
@@ -140,7 +140,7 @@ public sealed class IndexerSetupTests
 	}
 
 	[Test]
-	public async Task GetResult_WithDefaultValueGenerator_StoresComputedValueForLaterLookup()
+	public async Task GetResult_WithDefaultValueGenerator_ShouldStoreTheComputedValueForLaterLookup()
 	{
 		IndexerSetup<string, int> setup = new(
 			new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
@@ -330,7 +330,7 @@ public sealed class IndexerSetupTests
 		}
 
 		[Test]
-		public async Task GetResult_WithBaseValue_StoresComputedValueForLaterLookup()
+		public async Task GetResult_WithBaseValue_ShouldStoreTheComputedValueForLaterLookup()
 		{
 			IndexerSetup<string, int, int> setup = new(
 				new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
@@ -356,7 +356,7 @@ public sealed class IndexerSetupTests
 		}
 
 		[Test]
-		public async Task GetResult_WithFuncGenerator_AndInitialization_ShouldUseInitializationValue()
+		public async Task GetResult_WithFuncGeneratorAndInitialization_ShouldUseInitializationValue()
 		{
 			IndexerSetup<string, int, int> setup = new(
 				new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
@@ -543,7 +543,7 @@ public sealed class IndexerSetupTests
 		}
 
 		[Test]
-		public async Task GetResult_WithBaseValue_StoresComputedValueForLaterLookup()
+		public async Task GetResult_WithBaseValue_ShouldStoreTheComputedValueForLaterLookup()
 		{
 			IndexerSetup<string, int, int, int> setup = new(
 				new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
@@ -572,7 +572,7 @@ public sealed class IndexerSetupTests
 		}
 
 		[Test]
-		public async Task GetResult_WithFuncGenerator_AndInitialization_ShouldUseInitializationValue()
+		public async Task GetResult_WithFuncGeneratorAndInitialization_ShouldUseInitializationValue()
 		{
 			IndexerSetup<string, int, int, int> setup = new(
 				new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
@@ -770,7 +770,7 @@ public sealed class IndexerSetupTests
 		}
 
 		[Test]
-		public async Task GetResult_WithBaseValue_StoresComputedValueForLaterLookup()
+		public async Task GetResult_WithBaseValue_ShouldStoreTheComputedValueForLaterLookup()
 		{
 			IndexerSetup<string, int, int, int, int> setup = new(
 				new MockRegistry(MockBehavior.Default, new MockInteractions(0)),
@@ -800,7 +800,7 @@ public sealed class IndexerSetupTests
 		}
 
 		[Test]
-		public async Task GetResult_WithFuncGenerator_AndInitialization_ShouldUseInitializationValue()
+		public async Task GetResult_WithFuncGeneratorAndInitialization_ShouldUseInitializationValue()
 		{
 			IndexerSetup<string, int, int, int, int> setup = new(
 				new MockRegistry(MockBehavior.Default, new MockInteractions(0)),

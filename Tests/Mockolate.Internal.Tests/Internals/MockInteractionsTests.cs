@@ -32,7 +32,7 @@ public class MockInteractionsTests
 	}
 
 	[Test]
-	public async Task Clear_FallbackPath_ShouldNotResurfaceOldRecordsAfterRefill()
+	public async Task Clear_WithoutBuffers_ShouldNotResurfaceOldRecordsAfterRefill()
 	{
 		IMockInteractions sut = new MockInteractions(0);
 		MethodInvocation first = new("first");
@@ -197,7 +197,7 @@ public class MockInteractionsTests
 	}
 
 	[Test]
-	public async Task GetOrCreateFallbackBuffer_ConcurrentRace_RecordsAllInteractions()
+	public async Task RegisterInteraction_WhenCalledConcurrently_ShouldRecordAllInteractions()
 	{
 		const int threads = 8;
 		const int callsPerThread = 25;
@@ -228,7 +228,7 @@ public class MockInteractionsTests
 	}
 
 	[Test]
-	public async Task GetUnverifiedInteractions_AcrossBuffersWithInterleavedAppends_ReturnsInSequenceOrder()
+	public async Task GetUnverifiedInteractions_WithInterleavedAppendsAcrossBuffers_ShouldReturnThemInCallOrder()
 	{
 		// Pins the `unverified.Count > 1` boundary that gates the defensive Sort by Seq inside
 		// GetUnverifiedInteractions. With multiple buffers contributing in non-Seq order (each
@@ -254,7 +254,7 @@ public class MockInteractionsTests
 	}
 
 	[Test]
-	public async Task GetUnverifiedInteractions_AcrossMultipleBuffers_ShouldUnionFastAndSlowVerifications()
+	public async Task GetUnverifiedInteractions_WithMultipleBuffers_ShouldExcludeTheConsumedRecordsOfEveryBuffer()
 	{
 		MockInteractions sut = new(2);
 		MethodRecords<int> methodBuffer = InstallMethod<int>(sut, 0);
@@ -270,7 +270,7 @@ public class MockInteractionsTests
 	}
 
 	[Test]
-	public async Task GetUnverifiedInteractions_AfterMatcherLessConsumeMatching_ShouldDropMarkedSlots()
+	public async Task GetUnverifiedInteractions_WhenConsumedWithConsumeAll_ShouldExcludeThem()
 	{
 		MockInteractions sut = new(1);
 		MethodRecords methodBuffer = InstallMethod(sut, 0);
@@ -289,7 +289,7 @@ public class MockInteractionsTests
 	}
 
 	[Test]
-	public async Task GetUnverifiedInteractions_AfterTypedConsumeMatching_ShouldDropOnlyMatchedSlots()
+	public async Task GetUnverifiedInteractions_WhenConsumedWithConsumeMatching_ShouldExcludeOnlyTheMatchedRecords()
 	{
 		MockInteractions sut = new(1);
 		MethodRecords<int> methodBuffer = InstallMethod<int>(sut, 0);
@@ -308,7 +308,7 @@ public class MockInteractionsTests
 	}
 
 	[Test]
-	public async Task GetUnverifiedInteractions_FastPathPlusSlowPath_ShouldFilterByBoth()
+	public async Task GetUnverifiedInteractions_WithConsumedAndVerifiedRecords_ShouldExcludeBoth()
 	{
 		MockInteractions sut = new(1);
 		MethodRecords<int> methodBuffer = InstallMethod<int>(sut, 0);
@@ -345,7 +345,7 @@ public class MockInteractionsTests
 	}
 
 	[Test]
-	public async Task GetUnverifiedInteractions_WhenNothingRecorded_ShouldReturnArrayEmptySingleton()
+	public async Task GetUnverifiedInteractions_WhenNothingRecorded_ShouldReturnTheSharedEmptyArray()
 	{
 		MockInteractions sut = new(1);
 		InstallMethod(sut, 0);
@@ -387,7 +387,7 @@ public class MockInteractionsTests
 	}
 
 	[Test]
-	public async Task RegisterInteraction_FallbackPath_GetUnverifiedInteractions_ShouldRespectVerifiedSet()
+	public async Task GetUnverifiedInteractions_WithoutBuffers_ShouldRespectVerifiedSet()
 	{
 		IMockInteractions sut = new MockInteractions(0);
 		MethodInvocation first = new("first");
@@ -405,7 +405,7 @@ public class MockInteractionsTests
 	}
 
 	[Test]
-	public async Task RegisterInteraction_FallbackPath_OnClearing_ShouldFireWhenClearIsInvoked()
+	public async Task Clear_WithoutBuffers_ShouldFireOnClearing()
 	{
 		int invocations = 0;
 		IMockInteractions sut = new MockInteractions(0);
@@ -426,7 +426,7 @@ public class MockInteractionsTests
 	}
 
 	[Test]
-	public async Task RegisterInteraction_FallbackPath_ShouldEnumerateMultipleInRegistrationOrder()
+	public async Task RegisterInteraction_WithoutBuffers_ShouldEnumerateInRegistrationOrder()
 	{
 		IMockInteractions sut = new MockInteractions(0);
 		MethodInvocation first = new("first");
@@ -444,7 +444,7 @@ public class MockInteractionsTests
 	}
 
 	[Test]
-	public async Task RegisterInteraction_FallbackPath_ShouldFireInteractionAddedPerCall()
+	public async Task RegisterInteraction_WithoutBuffers_ShouldFireInteractionAddedPerCall()
 	{
 		int invocations = 0;
 		IMockInteractions sut = new MockInteractions(0);
@@ -464,7 +464,7 @@ public class MockInteractionsTests
 	}
 
 	[Test]
-	public async Task RegisterInteraction_FallbackPath_ShouldRecordAndEnumerate()
+	public async Task RegisterInteraction_WithoutBuffers_ShouldRecordAndEnumerate()
 	{
 		IMockInteractions sut = new MockInteractions(0);
 		MethodInvocation interaction = new("foo");
@@ -497,7 +497,7 @@ public class MockInteractionsTests
 	}
 
 	[Test]
-	public async Task Verified_BeforeAnyAppend_OnSecondCallAddsToExistingSet()
+	public async Task Verified_WhenCalledAfterAnEmptyCall_ShouldMarkItsInteractionsAsVerified()
 	{
 		MockInteractions sut = new(1);
 		MethodRecords buffer = InstallMethod(sut, 0);
@@ -512,7 +512,7 @@ public class MockInteractionsTests
 	}
 
 	[Test]
-	public async Task Verified_OnSecondCallWithDifferentItems_PreservesPreviouslyVerifiedItems()
+	public async Task Verified_WhenCalledTwice_ShouldKeepThePreviouslyVerifiedInteractions()
 	{
 		// Pins the `_verified ??= []` lazy-init in Verified(). With the assignment turned into a
 		// plain `_verified = []`, the second call would reset the verified set, so the first
@@ -530,7 +530,7 @@ public class MockInteractionsTests
 	}
 
 	[Test]
-	public async Task Verified_WithMultipleInteractions_AddsAllToInternalSet()
+	public async Task Verified_WithMultipleInteractions_ShouldMarkAllAsVerified()
 	{
 		MockInteractions sut = new(1);
 		MethodRecords buffer = InstallMethod(sut, 0);
@@ -555,7 +555,7 @@ public class MockInteractionsTests
 	public sealed class MethodBufferTests
 	{
 		[Test]
-		public async Task Method0_BoxesAsMethodInvocation()
+		public async Task WithoutParameters_ShouldBoxAsMethodInvocation()
 		{
 			MockInteractions store = new(1);
 			MethodRecords buffer = InstallMethod(store, 0);
@@ -567,7 +567,7 @@ public class MockInteractionsTests
 		}
 
 		[Test]
-		public async Task Method1_BoxesAsMethodInvocationT1()
+		public async Task With1Parameter_ShouldBoxAsMethodInvocationOfT1()
 		{
 			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
@@ -580,7 +580,7 @@ public class MockInteractionsTests
 		}
 
 		[Test]
-		public async Task Method2_BoxesAsMethodInvocationT1T2()
+		public async Task With2Parameters_ShouldBoxAsMethodInvocationOfT1T2()
 		{
 			MockInteractions store = new(1);
 			MethodRecords<int, string> buffer = new(store, 0);
@@ -593,7 +593,7 @@ public class MockInteractionsTests
 		}
 
 		[Test]
-		public async Task Method3_BoxesAsMethodInvocationT1T2T3()
+		public async Task With3Parameters_ShouldBoxAsMethodInvocationOfT1T2T3()
 		{
 			MockInteractions store = new(1);
 			MethodRecords<int, string, bool> buffer = new(store, 0);
@@ -607,7 +607,7 @@ public class MockInteractionsTests
 		}
 
 		[Test]
-		public async Task Method4_BoxesAsMethodInvocationT1T2T3T4()
+		public async Task With4Parameters_ShouldBoxAsMethodInvocationOfT1T2T3T4()
 		{
 			MockInteractions store = new(1);
 			MethodRecords<int, string, bool, double> buffer = new(store, 0);
@@ -620,7 +620,7 @@ public class MockInteractionsTests
 		}
 
 		[Test]
-		public async Task ResizesAndPreservesOrder()
+		public async Task WithManyRecords_ShouldPreserveTheOrder()
 		{
 			MockInteractions store = new(1);
 			MethodRecords<int> buffer = InstallMethod<int>(store, 0);
@@ -642,7 +642,7 @@ public class MockInteractionsTests
 	public sealed class PropertyBufferTests
 	{
 		[Test]
-		public async Task Getter_BoxesAsPropertyGetterAccess()
+		public async Task WithGetter_ShouldBoxAsPropertyGetterAccess()
 		{
 			MockInteractions store = new(1);
 			PropertyGetterRecords buffer = new(store, 0);
@@ -654,7 +654,7 @@ public class MockInteractionsTests
 		}
 
 		[Test]
-		public async Task Setter_BoxesAsPropertySetterAccessT()
+		public async Task WithSetter_ShouldBoxAsPropertySetterAccessOfT()
 		{
 			MockInteractions store = new(1);
 			PropertySetterRecords<string> buffer = new(store, 0);
@@ -670,7 +670,7 @@ public class MockInteractionsTests
 	public sealed class IndexerBufferTests
 	{
 		[Test]
-		public async Task Getter1_BoxesAsIndexerGetterAccess()
+		public async Task WithGetterOf1Key_ShouldBoxAsIndexerGetterAccess()
 		{
 			MockInteractions store = new(1);
 			IndexerGetterRecords<string> buffer = new(store, 0);
@@ -682,7 +682,7 @@ public class MockInteractionsTests
 		}
 
 		[Test]
-		public async Task Getter2_BoxesAsIndexerGetterAccess()
+		public async Task WithGetterOf2Keys_ShouldBoxAsIndexerGetterAccess()
 		{
 			MockInteractions store = new(1);
 			IndexerGetterRecords<string, int> buffer = new(store, 0);
@@ -695,7 +695,7 @@ public class MockInteractionsTests
 		}
 
 		[Test]
-		public async Task Setter1_BoxesAsIndexerSetterAccess()
+		public async Task WithSetterOf1Key_ShouldBoxAsIndexerSetterAccess()
 		{
 			MockInteractions store = new(1);
 			IndexerSetterRecords<string, bool> buffer = new(store, 0);
@@ -708,7 +708,7 @@ public class MockInteractionsTests
 		}
 
 		[Test]
-		public async Task Setter2_BoxesAsIndexerSetterAccess()
+		public async Task WithSetterOf2Keys_ShouldBoxAsIndexerSetterAccess()
 		{
 			MockInteractions store = new(1);
 			IndexerSetterRecords<string, int, bool> buffer = new(store, 0);
@@ -723,11 +723,11 @@ public class MockInteractionsTests
 	public sealed class EventBufferTests
 	{
 		[Test]
-		public async Task Subscribe_BoxesAsEventSubscription()
+		public async Task Subscribe_ShouldBoxAsEventSubscription()
 		{
 			MockInteractions store = new(1);
 			EventRecords buffer = new(store, 0);
-			MethodInfo method = typeof(EventBufferTests).GetMethod(nameof(Subscribe_BoxesAsEventSubscription))!;
+			MethodInfo method = typeof(EventBufferTests).GetMethod(nameof(Subscribe_ShouldBoxAsEventSubscription))!;
 
 			buffer.AppendSubscription("E", this, method);
 
@@ -738,11 +738,11 @@ public class MockInteractionsTests
 		}
 
 		[Test]
-		public async Task Unsubscribe_BoxesAsEventUnsubscription()
+		public async Task Unsubscribe_ShouldBoxAsEventUnsubscription()
 		{
 			MockInteractions store = new(1);
 			EventRecords buffer = new(store, 0);
-			MethodInfo method = typeof(EventBufferTests).GetMethod(nameof(Unsubscribe_BoxesAsEventUnsubscription))!;
+			MethodInfo method = typeof(EventBufferTests).GetMethod(nameof(Unsubscribe_ShouldBoxAsEventUnsubscription))!;
 
 			buffer.AppendUnsubscription("E", null, method);
 
@@ -754,7 +754,7 @@ public class MockInteractionsTests
 	public sealed class ConcurrencyTests
 	{
 		[Test]
-		public async Task ConcurrentAppendsAcrossMembers_ShouldPreserveTotalCount()
+		public async Task Append_WithSeveralMembers_ShouldPreserveTheTotalCount()
 		{
 			const int threads = 8;
 			const int callsPerThread = 200;

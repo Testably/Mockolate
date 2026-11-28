@@ -34,7 +34,7 @@ public sealed class PropertySetupTests
 	}
 
 	[Test]
-	public async Task DefaultInvokeGetter_WhenRequestedTypeIsBoxedSuperType_ShouldReturnStoredValueViaPatternMatch()
+	public async Task DefaultInvokeGetter_WhenRequestedTypeIsBoxedSuperType_ShouldReturnTheStoredValue()
 	{
 		PropertySetup.Default<int> setup = new("p", 42);
 		IInteractivePropertySetup interactive = setup;
@@ -45,7 +45,7 @@ public sealed class PropertySetupTests
 	}
 
 	[Test]
-	public async Task DefaultInvokeGetter_WithBehaviorBasedGenerator_WhenRequestedTypeIsBoxedSuperType_ShouldReturnStoredValueViaPatternMatch()
+	public async Task DefaultInvokeGetter_WithBehaviorBasedGenerator_WhenRequestedTypeIsBoxedSuperType_ShouldReturnTheStoredValue()
 	{
 		PropertySetup.Default<int> setup = new("p", 42);
 
@@ -55,7 +55,7 @@ public sealed class PropertySetupTests
 	}
 
 	[Test]
-	public async Task DefaultInvokeGetter_WithBehaviorBasedGenerator_WhenStoredValueIsNullReference_ShouldReturnNullViaTypeofFastPath()
+	public async Task DefaultInvokeGetter_WithBehaviorBasedGenerator_WhenStoredValueIsNullReference_ShouldReturnNull()
 	{
 		PropertySetup.Default<string> setup = new("p", null!);
 
@@ -107,7 +107,7 @@ public sealed class PropertySetupTests
 	}
 
 	[Test]
-	public async Task PropertySetupInvokeGetter_WhenRequestedTypeIsBoxedSuperType_ShouldReturnStoredValueViaPatternMatch()
+	public async Task PropertySetupInvokeGetter_WhenRequestedTypeIsBoxedSuperType_ShouldReturnTheStoredValue()
 	{
 		PropertySetup<int> setup = new(
 			new MockRegistry(MockBehavior.Default, new MockInteractions(0)), "p");
@@ -120,7 +120,7 @@ public sealed class PropertySetupTests
 	}
 
 	[Test]
-	public async Task PropertySetupInvokeGetter_WhenStoredValueIsNullReference_ShouldReturnNullViaTypeofFastPath()
+	public async Task PropertySetupInvokeGetter_WhenStoredValueIsNullReference_ShouldReturnNull()
 	{
 		PropertySetup<string> setup = new(
 			new MockRegistry(MockBehavior.Default, new MockInteractions(0)), "p");
@@ -132,7 +132,7 @@ public sealed class PropertySetupTests
 	}
 
 	[Test]
-	public async Task PropertySetupInvokeGetter_WithBehaviorBasedGenerator_WhenRequestedTypeIsBoxedSuperType_ShouldReturnStoredValueViaPatternMatch()
+	public async Task PropertySetupInvokeGetter_WithBehaviorBasedGenerator_WhenRequestedTypeIsBoxedSuperType_ShouldReturnTheStoredValue()
 	{
 		PropertySetup<int> setup = new(
 			new MockRegistry(MockBehavior.Default, new MockInteractions(0)), "p");
@@ -144,7 +144,7 @@ public sealed class PropertySetupTests
 	}
 
 	[Test]
-	public async Task UserInitializeWith_SecondCall_ShouldNotOverwriteValue()
+	public async Task UserInitializeWith_WhenCalledTwice_ShouldNotOverwriteValue()
 	{
 		FakePropertySetup setup = new("p");
 		IPropertySetup<int> userFacing = setup;

@@ -8,7 +8,7 @@ namespace Mockolate.Internal.Tests.Interactions;
 public class EventRecordsTests
 {
 	[Test]
-	public async Task EventSubscribe_RoutesThroughTypedBuffer()
+	public async Task Subscribe_ShouldRecordInTheTypedBuffer()
 	{
 		IEventService sut = IEventService.CreateMock();
 
@@ -22,7 +22,7 @@ public class EventRecordsTests
 	}
 
 	[Test]
-	public async Task EventUnsubscribe_RoutesThroughTypedBuffer()
+	public async Task Unsubscribe_ShouldRecordInTheTypedBuffer()
 	{
 		IEventService sut = IEventService.CreateMock();
 
@@ -39,7 +39,7 @@ public class EventRecordsTests
 	}
 
 	[Test]
-	public async Task EventRecords_AppendBoxed_KindMatters()
+	public async Task AppendBoxed_ShouldBoxAccordingToTheKind()
 	{
 		MockInteractions subscribeStore = new(1);
 		MockInteractions unsubscribeStore = new(1);
@@ -54,7 +54,7 @@ public class EventRecordsTests
 	}
 
 	[Test]
-	public async Task EventRecords_GetUnverifiedInteractions_ShouldSkipMatchedSlots()
+	public async Task GetUnverifiedInteractions_ShouldSkipMatchedSlots()
 	{
 		MockInteractions store = new(1);
 		EventRecords buffer = InstallEventSubscribe(store, 0);
@@ -76,7 +76,7 @@ public class EventRecordsTests
 	}
 
 	[Test]
-	public async Task EventRecords_Subscribe_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
+	public async Task AppendBoxed_WithSubscription_ShouldReuseTheBoxedRecord()
 	{
 		// Pins the `r.Boxed ??= new EventSubscription(...)` cache in AppendBoxed. With the
 		// `??=` mutated to `=`, every AppendBoxed call would allocate a fresh record.
@@ -95,7 +95,7 @@ public class EventRecordsTests
 	}
 
 	[Test]
-	public async Task EventRecords_SubscribeAppend_ShouldRaiseInteractionAdded()
+	public async Task AppendSubscription_ShouldRaiseInteractionAdded()
 		=> await VerifyRaisesInteractionAdded(store =>
 		{
 			EventRecords buffer = InstallEventSubscribe(store, 0);
@@ -103,7 +103,7 @@ public class EventRecordsTests
 		});
 
 	[Test]
-	public async Task EventRecords_Unsubscribe_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
+	public async Task AppendBoxed_WithUnsubscription_ShouldReuseTheBoxedRecord()
 	{
 		MockInteractions store = new(1);
 		EventRecords buffer = InstallEventUnsubscribe(store, 0);
@@ -120,7 +120,7 @@ public class EventRecordsTests
 	}
 
 	[Test]
-	public async Task EventRecords_Unsubscribe_GetUnverifiedInteractions_ShouldBoxAsEventUnsubscription()
+	public async Task GetUnverifiedInteractions_WithUnsubscription_ShouldReturnAnEventUnsubscription()
 	{
 		MockInteractions store = new(1);
 		EventRecords buffer = InstallEventUnsubscribe(store, 0);
@@ -135,7 +135,7 @@ public class EventRecordsTests
 	}
 
 	[Test]
-	public async Task EventRecords_UnsubscribeAppend_ShouldRaiseInteractionAdded()
+	public async Task AppendUnsubscription_ShouldRaiseInteractionAdded()
 		=> await VerifyRaisesInteractionAdded(store =>
 		{
 			EventRecords buffer = InstallEventUnsubscribe(store, 0);
@@ -143,7 +143,7 @@ public class EventRecordsTests
 		});
 
 	[Test]
-	public async Task EventRecords_ConsumeMatching_ShouldReturnCount()
+	public async Task ConsumeAll_ShouldReturnTheNumberOfRecords()
 	{
 		MockInteractions store = new(1);
 		EventRecords buffer = new(store, 0);
@@ -151,7 +151,7 @@ public class EventRecordsTests
 		await That(buffer.ConsumeAll()).IsEqualTo(0);
 
 		MethodInfo method = typeof(EventRecordsTests).GetMethod(
-			nameof(EventRecords_ConsumeMatching_ShouldReturnCount))!;
+			nameof(ConsumeAll_ShouldReturnTheNumberOfRecords))!;
 		buffer.AppendSubscription("OnFoo", null, method);
 		buffer.AppendSubscription("OnFoo", null, method);
 

@@ -79,7 +79,7 @@ public sealed class MockRegistryIndexerTests
 	}
 
 	[Test]
-	public async Task GetIndexer_WithBaseValue_WithoutSetup_ShouldStoreBaseValue()
+	public async Task GetIndexer_WithBaseValueWithoutSetup_ShouldStoreBaseValue()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 
@@ -127,7 +127,7 @@ public sealed class MockRegistryIndexerTests
 	}
 
 	[Test]
-	public async Task GetIndexer_WithBaseValue_WithDerivedSetupWith1Parameters_ShouldUseOverriddenGetResult()
+	public async Task GetIndexer_WithBaseValueAndDerivedSetupWith1Parameters_ShouldUseOverriddenGetResult()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 		DerivedSetup1 setup = new(registry);
@@ -160,7 +160,7 @@ public sealed class MockRegistryIndexerTests
 	}
 
 	[Test]
-	public async Task GetIndexer_WithBaseValue_WithDerivedSetupWith2Parameters_ShouldUseOverriddenGetResult()
+	public async Task GetIndexer_WithBaseValueAndDerivedSetupWith2Parameters_ShouldUseOverriddenGetResult()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 		DerivedSetup2 setup = new(registry);
@@ -193,7 +193,7 @@ public sealed class MockRegistryIndexerTests
 	}
 
 	[Test]
-	public async Task GetIndexer_WithBaseValue_WithDerivedSetupWith3Parameters_ShouldUseOverriddenGetResult()
+	public async Task GetIndexer_WithBaseValueAndDerivedSetupWith3Parameters_ShouldUseOverriddenGetResult()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 		DerivedSetup3 setup = new(registry);
@@ -226,7 +226,7 @@ public sealed class MockRegistryIndexerTests
 	}
 
 	[Test]
-	public async Task GetIndexer_WithBaseValue_WithDerivedSetupWith4Parameters_ShouldUseOverriddenGetResult()
+	public async Task GetIndexer_WithBaseValueAndDerivedSetupWith4Parameters_ShouldUseOverriddenGetResult()
 	{
 		MockRegistry registry = new(MockBehavior.Default, new MockInteractions(0));
 		DerivedSetup4 setup = new(registry);
