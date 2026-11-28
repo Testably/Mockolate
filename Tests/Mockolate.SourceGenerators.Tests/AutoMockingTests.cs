@@ -8,9 +8,11 @@ namespace Mockolate.SourceGenerators.Tests;
 
 public sealed class AutoMockingTests
 {
-	private static readonly Dictionary<string, string> AutoMockingEnabled = new()
+	private static readonly Dictionary<string, string> AutoMockingEnabled = new();
+
+	private static readonly Dictionary<string, string> AutoMockingSkipped = new()
 	{
-		["build_property.MockolateAutoMocking"] = "true",
+		["build_property.MockolateSkipAutoMocking"] = "true",
 	};
 
 	[Test]
@@ -218,7 +220,6 @@ public sealed class AutoMockingTests
 			""",
 		], [], LanguageVersion.CSharp14, new Dictionary<string, string>
 		{
-			["build_property.MockolateAutoMocking"] = "true",
 			["build_property.MockolateAutoMockingExcludedNamespaces"] = " Other ; Sdk",
 		});
 
@@ -272,7 +273,6 @@ public sealed class AutoMockingTests
 			""",
 		], [], LanguageVersion.CSharp14, new Dictionary<string, string>
 		{
-			["build_property.MockolateAutoMocking"] = "true",
 			["build_property.MockolateAutoMockingExcludedNamespaces"] = "Sdk",
 			["build_property.MockolateAutoMockingIncludedNamespaces"] = " Other ; Sdk.Storage. ; Sdk.Storage",
 		});
@@ -320,7 +320,6 @@ public sealed class AutoMockingTests
 		                                                     }
 		                                                     """, [external,], new Dictionary<string, string>
 		{
-			["build_property.MockolateAutoMocking"] = "true",
 			["build_property.MockolateAutoMockingExcludedNamespaces"] = "System.IO.Abstractions",
 			["build_property.MockolateAutoMockingIncludedNamespaces"] = "System.IO.Abstractions",
 		});
@@ -371,7 +370,6 @@ public sealed class AutoMockingTests
 			""",
 		], [], LanguageVersion.CSharp14, new Dictionary<string, string>
 		{
-			["build_property.MockolateAutoMocking"] = "true",
 			["build_property.MockolateAutoMockingIncludedNamespaces"] = "Microsoft",
 		});
 
@@ -1245,7 +1243,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task TogglingTheBuildProperty_ShouldUpdateTheOutput()
+	public async Task TogglingSkipAutoMocking_ShouldUpdateTheOutput()
 	{
 		CSharpParseOptions parseOptions = new(LanguageVersion.CSharp14);
 		CSharpCompilation compilation = CSharpCompilation.Create("TestAssembly",
@@ -1272,21 +1270,20 @@ public sealed class AutoMockingTests
 			Generator.GetReferences([]),
 			new CSharpCompilationOptions(OutputKind.ConsoleApplication));
 		GeneratorDriver driver = CSharpGeneratorDriver.Create([new MockGenerator().AsSourceGenerator(),], [],
-			parseOptions, new TestAnalyzerConfigOptionsProvider(new Dictionary<string, string>()));
+			parseOptions, new TestAnalyzerConfigOptionsProvider(AutoMockingSkipped));
 
 		driver = driver.RunGenerators(compilation);
-		string[] withoutProperty = GetHintNames(driver);
+		string[] skipped = GetHintNames(driver);
 		driver = driver.WithUpdatedAnalyzerConfigOptions(new TestAnalyzerConfigOptionsProvider(AutoMockingEnabled))
 			.RunGenerators(compilation);
-		string[] withProperty = GetHintNames(driver);
-		driver = driver.WithUpdatedAnalyzerConfigOptions(
-				new TestAnalyzerConfigOptionsProvider(new Dictionary<string, string>()))
+		string[] enabled = GetHintNames(driver);
+		driver = driver.WithUpdatedAnalyzerConfigOptions(new TestAnalyzerConfigOptionsProvider(AutoMockingSkipped))
 			.RunGenerators(compilation);
-		string[] withoutPropertyAgain = GetHintNames(driver);
+		string[] skippedAgain = GetHintNames(driver);
 
-		await That(withoutProperty).DoesNotContain("Mock.IChild.g.cs");
-		await That(withProperty).Contains("Mock.IChild.g.cs");
-		await That(withoutPropertyAgain).IsEqualTo(withoutProperty).InAnyOrder();
+		await That(skipped).DoesNotContain("Mock.IChild.g.cs");
+		await That(enabled).Contains("Mock.IChild.g.cs");
+		await That(skippedAgain).IsEqualTo(skipped).InAnyOrder();
 
 		static string[] GetHintNames(GeneratorDriver driver)
 			=> driver.GetRunResult().Results.SelectMany(result => result.GeneratedSources)
@@ -1306,7 +1303,6 @@ public sealed class AutoMockingTests
 		driver = driver.WithUpdatedAnalyzerConfigOptions(new TestAnalyzerConfigOptionsProvider(
 				new Dictionary<string, string>
 				{
-					["build_property.MockolateAutoMocking"] = "true",
 					["build_property.MockolateAutoMockingIncludedNamespaces"] = "Microsoft.Sdk",
 				}))
 			.RunGenerators(compilation);
@@ -1337,7 +1333,6 @@ public sealed class AutoMockingTests
 		driver = driver.WithUpdatedAnalyzerConfigOptions(new TestAnalyzerConfigOptionsProvider(
 				new Dictionary<string, string>
 				{
-					["build_property.MockolateAutoMocking"] = "true",
 					["build_property.MockolateAutoMockingExcludedNamespaces"] = "Other",
 				}))
 			.RunGenerators(compilation);
@@ -1381,7 +1376,7 @@ public sealed class AutoMockingTests
 			new CSharpCompilationOptions(OutputKind.ConsoleApplication));
 
 	[Test]
-	public async Task WithoutBuildProperty_ShouldNotReserveTheNameOfTheAutoMockFactory()
+	public async Task WhenSkippingAutoMocking_ShouldNotReserveTheNameOfTheAutoMockFactory()
 	{
 		GeneratorResult result = Generator.Run("""
 		                                       using Mockolate;
@@ -1395,15 +1390,15 @@ public sealed class AutoMockingTests
 
 		                                           public interface CreateAutoMock { }
 		                                       }
-		                                       """);
+		                                       """, LanguageVersion.CSharp14, AutoMockingSkipped);
 
 		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources).ContainsKey("Mock.CreateAutoMock.g.cs")
-			.Because("the generated output without the build property must not change");
+			.Because("the generated output when skipping auto-mocking must not change");
 	}
 
 	[Test]
-	public async Task WithoutBuildProperty_ShouldGenerateNoAutoMockingCode()
+	public async Task WhenSkippingAutoMocking_ShouldGenerateNoAutoMockingCode()
 	{
 		GeneratorResult result = Generator.Run("""
 		                                       using Mockolate;
@@ -1422,7 +1417,7 @@ public sealed class AutoMockingTests
 
 		                                           public interface IMyInterface2 { }
 		                                       }
-		                                       """);
+		                                       """, LanguageVersion.CSharp14, AutoMockingSkipped);
 
 		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources).DoesNotContainKey("Mock.IMyInterface2.g.cs");

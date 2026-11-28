@@ -10,9 +10,9 @@
 		     (UnionAttribute, OverloadResolutionPriorityAttribute, CallerArgumentExpressionAttribute,
 		     ModuleInitializerAttribute). -->
 		<CompilerVisibleProperty Include="MockolateUnionAttributePolyfills"/>
-		<!-- Set it to true to generate mocks for the interfaces that mocked members return, so that
-		     mocks return them instead of null, unless their MockBehavior skips auto-mocking. -->
-		<CompilerVisibleProperty Include="MockolateAutoMocking"/>
+		<!-- Set it to true to generate no mocks for the interfaces that mocked members return, so that
+		     mocks return null for them instead of an auto-mock. -->
+		<CompilerVisibleProperty Include="MockolateSkipAutoMocking"/>
 		<!-- A ';'-separated list of namespaces whose interfaces (also in nested namespaces) get no mock for
 		     auto-mocking unless the project creates one with CreateMock. -->
 		<CompilerVisibleProperty Include="MockolateAutoMockingExcludedNamespaces"/>

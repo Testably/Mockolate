@@ -1,5 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+	<!-- Only Mockolate.AutoMocking.Tests runs against the generated auto-mocks. -->
+	<PropertyGroup>
+		<MockolateSkipAutoMocking>true</MockolateSkipAutoMocking>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<ProjectReference Include="..\..\Source\Mockolate\Mockolate.csproj"/>
 		<ProjectReference Include="..\..\Source\Mockolate.SourceGenerators\Mockolate.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>

@@ -96,8 +96,8 @@ public record MockBehavior : IMockBehaviorAccess
 	///     return <see langword="null" /> instead of a mock.
 	/// </summary>
 	/// <remarks>
-	///     Auto-mocking is enabled in projects that set the <c>MockolateAutoMocking</c> build property, which makes the
-	///     source generator create mocks for the interfaces that mocked members return. If set to
+	///     Auto-mocking is enabled in projects that do not set the <c>MockolateSkipAutoMocking</c> build property, in
+	///     which the source generator creates mocks for the interfaces that mocked members return. If set to
 	///     <see langword="false" /> (default value), a method, property, indexer or delegate whose return type is such an
 	///     interface (for methods and properties also wrapped in a <see cref="System.Threading.Tasks.Task{TResult}" /> or
 	///     <c>ValueTask&lt;TResult&gt;</c>) returns a mock of that interface with the same <see cref="MockBehavior" />

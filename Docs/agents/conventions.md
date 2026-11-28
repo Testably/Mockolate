@@ -68,7 +68,7 @@ Async code is limited to waiting for verifications (`Within`, `WithCancellation`
   - `Mockolate.Tests`: through a generated mock (`IChocolateDispenser.CreateMock()`, then setup, call and verify).
   - `Mockolate.Internal.Tests`: by calling a library type directly, whether it is `public` or `internal` (`MockRegistry`, `Callbacks<T>`, the `*Records` types, `TypeFormatter`).
   - `Mockolate.SourceGenerators.Tests`: by running the generator on source text and asserting on the emitted code or the pipeline models.
-  - `Mockolate.AutoMocking.Tests`: through a generated mock that needs `MockolateAutoMocking`; every other test with a generated mock goes into `Mockolate.Tests`.
+  - `Mockolate.AutoMocking.Tests`: through a generated mock that needs auto-mocking; every other test with a generated mock goes into `Mockolate.Tests`.
   - The other projects have one purpose each, see [Project Structure](project-structure.md#test-projects).
 - **Folders in `Mockolate.Tests`:** by the user-facing concept a reader looks for. Nothing lives at the project root except the usings.
   - `MockMethods/`, `MockProperties/`, `MockIndexers/`, `MockEvents/`, `MockDelegates/`: setup, verification and interactions of one member kind.

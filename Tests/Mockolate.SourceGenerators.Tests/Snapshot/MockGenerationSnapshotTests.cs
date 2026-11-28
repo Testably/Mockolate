@@ -730,8 +730,8 @@ public sealed partial class MockGenerationSnapshotTests
         // Classic scenarios are pinned to C# 14 so that they keep describing the classic overload set.
         // Documentation comments are diagnosed so that an invalid cref in the generated code fails the scenario.
         Dictionary<string, string>? globalOptions = scenario.AutoMocking
-            ? new Dictionary<string, string> { ["build_property.MockolateAutoMocking"] = "true", }
-            : null;
+            ? null
+            : new Dictionary<string, string> { ["build_property.MockolateSkipAutoMocking"] = "true", };
         if (scenario.UnionMode)
         {
             return Generator.Run(

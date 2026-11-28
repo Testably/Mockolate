@@ -4,6 +4,7 @@ using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Threading;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace Mockolate.SourceGenerators.Tests;
 
@@ -225,7 +226,7 @@ public class GeneralTests
 	}
 
 	[Test]
-	public async Task InterfaceProperty_ShouldNotRecursivelyCreateMocks()
+	public async Task InterfaceProperty_WhenSkippingAutoMocking_ShouldNotRecursivelyCreateMocks()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -258,7 +259,8 @@ public class GeneralTests
 			         }
 			     }
 
-			     """);
+			     """, LanguageVersion.CSharp14,
+				new Dictionary<string, string> { ["build_property.MockolateSkipAutoMocking"] = "true", });
 
 		await That(result.Sources)
 			.ContainsKey("Mock.IMyInterface1.g.cs").And

@@ -413,11 +413,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	private static CSharpGeneratorDriver CreateDriver()
-		=> CSharpGeneratorDriver.Create([new MockGenerator().AsSourceGenerator(),], [], ParseOptions,
-			new TestAnalyzerConfigOptionsProvider(new Dictionary<string, string>
-			{
-				["build_property.MockolateAutoMocking"] = "true",
-			}));
+		=> CSharpGeneratorDriver.Create([new MockGenerator().AsSourceGenerator(),], [], ParseOptions);
 
 	private static string[] GetSources(GeneratorDriver driver)
 		=> driver.GetRunResult().Results

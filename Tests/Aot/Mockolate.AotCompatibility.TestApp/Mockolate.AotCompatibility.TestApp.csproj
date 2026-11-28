@@ -9,8 +9,8 @@
 		<InvariantGlobalization>true</InvariantGlobalization>
 	</PropertyGroup>
 
-	<!-- The smoke tests run once with the default generated code and once with -p:MockolateAutoMocking=true. -->
-	<PropertyGroup Condition="'$(MockolateAutoMocking)' == 'true'">
+	<!-- The smoke tests run once with the default generated code and once with -p:MockolateSkipAutoMocking=true. -->
+	<PropertyGroup Condition="'$(MockolateSkipAutoMocking)' != 'true'">
 		<DefineConstants>$(DefineConstants);MOCKOLATE_AUTOMOCKING</DefineConstants>
 	</PropertyGroup>
 
@@ -32,13 +32,13 @@
 		<DefineConstants>$(DefineConstants);MOCKOLATE_TEST_FRAMEWORK</DefineConstants>
 	</PropertyGroup>
 
-	<!-- Project references do not import the package props, so make the generator see MockolateAutoMocking here too. -->
+	<!-- Project references do not import the package props, so make the generator see MockolateSkipAutoMocking here too. -->
 	<Import Project="..\..\..\Source\Mockolate\build\Mockolate.props"/>
 
-	<!-- The referenced projects do not depend on MockolateAutoMocking, so the second variant does not build them again. -->
+	<!-- The referenced projects do not depend on MockolateSkipAutoMocking, so the second variant does not build them again. -->
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\Source\Mockolate.SourceGenerators\Mockolate.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" GlobalPropertiesToRemove="MockolateAutoMocking"/>
-		<ProjectReference Include="..\..\..\Source\Mockolate\Mockolate.csproj" GlobalPropertiesToRemove="MockolateAutoMocking"/>
+		<ProjectReference Include="..\..\..\Source\Mockolate.SourceGenerators\Mockolate.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" GlobalPropertiesToRemove="MockolateSkipAutoMocking"/>
+		<ProjectReference Include="..\..\..\Source\Mockolate\Mockolate.csproj" GlobalPropertiesToRemove="MockolateSkipAutoMocking"/>
 		<PackageReference Include="Microsoft.Extensions.Caching.Abstractions"/>
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions"/>
 	</ItemGroup>

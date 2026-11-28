@@ -44,7 +44,7 @@ public sealed class AutoMocksTests
 		IServiceWithoutMock? result = registry.AutoMockOr<IServiceWithoutMock?>(0, null);
 
 		await That(result).IsNull()
-			.Because("without the MockolateAutoMocking build property no CreateMock sets a factory");
+			.Because("with the MockolateSkipAutoMocking build property no CreateMock sets a factory");
 	}
 
 	[Test]
@@ -75,7 +75,7 @@ public sealed class AutoMocksTests
 		MockBehavior result = AutoMocks.UseFactory(behavior, null);
 
 		await That(AutoMocks.Or<IServiceWithoutMock?>(result, null)).IsNull()
-			.Because("a project without the MockolateAutoMocking build property creates no auto-mocks");
+			.Because("a project with the MockolateSkipAutoMocking build property creates no auto-mocks");
 	}
 
 	[Test]
