@@ -58,7 +58,7 @@ Expected that mock invoked method Dispense("Dark", It.IsAny<int>()) exactly once
 | Setup API      | `Expression<Func<…>>` trees                  | regular method calls       |
 | Hot path       | dynamic-proxy dispatch                       | direct dispatch            |
 
-See the [side-by-side comparison](/Mockolate/migration/#side-by-side) with Moq, NSubstitute and FakeItEasy, and the [benchmarks](./12-benchmarks.mdx) for performance numbers.
+See the [side-by-side comparison](/Mockolate/migration/#side-by-side) with Moq, NSubstitute and FakeItEasy, and the [benchmarks](./98-benchmarks.mdx) for performance numbers.
 
 ## Where to go next
 

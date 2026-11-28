@@ -65,7 +65,7 @@
 		<File Path="Docs/pages/06-parameter-matching.md" />
 		<File Path="Docs/pages/07-verify-interactions.md" />
 		<File Path="Docs/pages/10-analyzers.md" />
-		<File Path="Docs/pages/12-benchmarks.mdx" />
+		<File Path="Docs/pages/98-benchmarks.mdx" />
 	</Folder>
 	<Folder Name="/_/Docs/core-concepts/">
 		<File Path="Docs/pages/02-core-concepts/00-index.md" />
