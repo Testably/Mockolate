@@ -13,7 +13,7 @@ public sealed class XunitTheories
 {
 	[Theory]
 	[AutoMockArguments]
-	public void SharedMocks(OrderService sut, IOrderRepository repository)
+	public void AutoMockArguments_ShouldPassTheParameterMocksToTheClassUnderTest(OrderService sut, IOrderRepository repository)
 	{
 		repository.Mock.Setup.Find(42).Returns(new Order(42, 10m));
 
@@ -23,7 +23,7 @@ public sealed class XunitTheories
 	[Theory]
 	[AutoMockArguments(1)]
 	[AutoMockArguments(2)]
-	public void SeveralAttributes(int id, OrderService sut, IOrderRepository repository)
+	public void AutoMockArguments_WithSeveralAttributes_ShouldRunOneTestCaseForEach(int id, OrderService sut, IOrderRepository repository)
 	{
 		sut.Ship(id);
 
@@ -32,12 +32,12 @@ public sealed class XunitTheories
 
 	[Theory]
 	[AutoMockArguments(null)]
-	public void SingleNullArgument(string? name, OptionalArgumentsService sut)
+	public void AutoMockArguments_WithSingleNullArgument_ShouldPassNull(string? name, OptionalArgumentsService sut)
 		=> Check(name is null && sut.Name is null, "The single null argument was not passed.");
 
 	[Theory]
 	[AutoMockArguments]
-	public void NotSharedParameter(OrderService sut, IOrderRepository repository,
+	public void AutoMockArguments_WithNotSharedParameter_ShouldNotShareItWithTheClassUnderTest(OrderService sut, IOrderRepository repository,
 		[NotShared] IShippingClient shippingClient)
 	{
 		Order order = new(42, 10m);

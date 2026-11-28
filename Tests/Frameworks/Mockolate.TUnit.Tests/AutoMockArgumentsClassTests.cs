@@ -7,7 +7,7 @@ public sealed class AutoMockArgumentsClassTests
 {
 	[Test]
 	[AutoMockArguments]
-	public async Task ClassParameter_ShouldForwardToTheRealImplementationUntilItIsSetUp(DiscountService sut,
+	public async Task WithClassParameter_ShouldForwardToTheRealImplementationUntilItIsSetUp(DiscountService sut,
 		ITaxCalculator taxCalculator)
 	{
 		taxCalculator.Mock.Setup.GetTax(100m).Returns(20m);
@@ -21,7 +21,7 @@ public sealed class AutoMockArgumentsClassTests
 
 	[Test]
 	[AutoMockArguments]
-	public async Task SealedClassParameter_ShouldBeARealInstanceWithTheParameterMocks(SealedOrderService sut,
+	public async Task WithSealedClassParameter_ShouldPassARealInstanceWithTheParameterMocks(SealedOrderService sut,
 		IOrderRepository repository)
 	{
 		await That(sut.GetType()).IsEqualTo(typeof(SealedOrderService));
@@ -30,7 +30,7 @@ public sealed class AutoMockArgumentsClassTests
 
 	[Test]
 	[AutoMockArguments]
-	public async Task RecordParameter_ShouldBeARealInstanceWithAValueFromTheBehavior(OrderRecord sut,
+	public async Task WithRecordParameter_ShouldPassARealInstanceWithAValueFromTheBehavior(OrderRecord sut,
 		IOrderRepository repository)
 	{
 		await That(sut.GetType()).IsEqualTo(typeof(OrderRecord));
@@ -40,7 +40,7 @@ public sealed class AutoMockArgumentsClassTests
 
 	[Test]
 	[AutoMockArguments]
-	public async Task ConstructorDependency_WithoutTestParameter_ShouldBeReachableThroughTheMock(DiscountService sut)
+	public async Task WhenAConstructorDependencyIsNotATestParameter_ShouldMakeItReachableThroughTheMock(DiscountService sut)
 	{
 		ITaxCalculator taxCalculator = sut.Mock.ConstructorArgument<ITaxCalculator>();
 		taxCalculator.Mock.Setup.GetTax(10m).Returns(1m);
@@ -50,7 +50,7 @@ public sealed class AutoMockArgumentsClassTests
 
 	[Test]
 	[AutoMockArguments]
-	public async Task ValueParameters_ShouldComeFromTheDefaultValues(string text, int number, int[] values)
+	public async Task WithValueParameters_ShouldPassTheDefaultValues(string text, int number, int[] values)
 	{
 		await That(text).IsEqualTo("");
 		await That(number).IsEqualTo(0);
@@ -60,7 +60,7 @@ public sealed class AutoMockArgumentsClassTests
 	[Test]
 	[AutoMockArguments]
 	[Repeat(2)]
-	public async Task EveryInvocation_ShouldGetNewMocks(IOrderRepository repository)
+	public async Task WithRepeat_ShouldGetNewMocksForEveryRun(IOrderRepository repository)
 	{
 		repository.Find(1);
 

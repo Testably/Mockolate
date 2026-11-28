@@ -145,7 +145,7 @@ public class MockabilityAnalyzerAccessibilityTests
 			ExternalType("class", member));
 
 	[Test]
-	public async Task WhenProtectedInternalAbstractMember_ShouldNotBeFlagged() => await Verifier
+	public async Task WhenAbstractMemberIsProtectedInternal_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerWithReferencedProjectAsync(
 			MockCreation,
 			ExternalType("abstract class", "protected internal abstract void MyMember();"));

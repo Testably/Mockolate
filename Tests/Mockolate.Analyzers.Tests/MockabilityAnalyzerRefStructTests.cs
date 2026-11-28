@@ -21,7 +21,7 @@ namespace Mockolate.Analyzers.Tests;
 public class MockabilityAnalyzerRefStructTests
 {
 	[Test]
-	public async Task WhenLanguageVersionBelowCSharp13_RefReadonlySpanParameterMethod_ShouldBeFlagged() => await Verifier
+	public async Task WithRefReadonlySpanParameter_WhenLanguageVersionIsBelowCSharp13_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
 			  {{GeneratedPrefix("MyNamespace.ISpanInspector")}}
@@ -53,7 +53,7 @@ public class MockabilityAnalyzerRefStructTests
 		);
 
 	[Test]
-	public async Task WhenLanguageVersionBelowCSharp13_RefStructKeyedIndexer_ShouldBeFlagged() => await Verifier
+	public async Task WithRefStructKeyedIndexer_WhenLanguageVersionIsBelowCSharp13_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
 			  {{GeneratedPrefix("MyNamespace.IRefStructLookup")}}
@@ -84,7 +84,7 @@ public class MockabilityAnalyzerRefStructTests
 		);
 
 	[Test]
-	public async Task WhenLanguageVersionBelowCSharp13_RefStructParameterMethod_ShouldBeFlagged() => await Verifier
+	public async Task WithRefStructParameter_WhenLanguageVersionIsBelowCSharp13_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
 			  {{GeneratedPrefix("MyNamespace.IPacketSink")}}
@@ -610,7 +610,7 @@ public class MockabilityAnalyzerRefStructTests
 		);
 
 	[Test]
-	public async Task WhenMockingInterfaceWithPlainRefStructParameter_ShouldNotFlag() => await Verifier
+	public async Task WhenMockingInterfaceWithPlainRefStructParameter_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
 			  {{GeneratedPrefix("MyNamespace.IPacketSink")}}
@@ -714,7 +714,7 @@ public class MockabilityAnalyzerRefStructTests
 		);
 
 	[Test]
-	public async Task WhenMockingInterfaceWithRefStructIndexerKey_GetterOnly_ShouldNotBeFlagged() => await Verifier
+	public async Task WhenMockingInterfaceWithRefStructIndexerKeyAndOnlyAGetter_ShouldNotBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			$$"""
 			  {{GeneratedPrefix("MyNamespace.IRefStructLookup")}}

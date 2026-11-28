@@ -9,7 +9,7 @@ public sealed class AutoMockArgumentsTests
 {
 	[Test]
 	[AutoMockArguments]
-	public async Task AutoMockArguments_ShouldPassTheParameterMocksToTheClassUnderTest(OrderService sut,
+	public async Task ShouldPassTheParameterMocksToTheClassUnderTest(OrderService sut,
 		IOrderRepository repository, IShippingClient shippingClient)
 	{
 		Order order = new(42, 10m);
@@ -23,7 +23,7 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments]
-	public async Task AutoMockArguments_WhenTheClassUnderTestComesLast_ShouldPassTheParameterMocks(
+	public async Task WhenTheClassUnderTestComesLast_ShouldPassTheParameterMocks(
 		IOrderRepository repository, OrderService sut)
 	{
 		bool result = sut.Ship(7);
@@ -34,7 +34,7 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments]
-	public async Task AutoMockArguments_WithMockedTypeOnly_ShouldCreateAMock(ITaxCalculator taxCalculator)
+	public async Task WithMockedTypeOnly_ShouldCreateAMock(ITaxCalculator taxCalculator)
 	{
 		taxCalculator.Mock.Setup.GetTax(100m).Returns(20m);
 
@@ -45,7 +45,7 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments]
-	public async Task AutoMockArguments_WithOptionalAndNullableParameters_ShouldUseTheirDefaults(
+	public async Task WithOptionalAndNullableParameters_ShouldUseTheirDefaults(
 		OptionalArgumentsService sut, IOrderRepository repository)
 	{
 		await That(sut.Repository).IsSameAs(repository);
@@ -56,7 +56,7 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments("EUR")]
-	public async Task AutoMockArguments_WithArgument_ShouldPassItOnlyToTheFirstParameter(
+	public async Task WithArgument_ShouldPassItOnlyToTheFirstParameter(
 		string currency, PricingService sut, ITaxCalculator taxCalculator)
 	{
 		taxCalculator.Mock.Setup.GetTax(100m).Returns(20m);
@@ -70,7 +70,7 @@ public sealed class AutoMockArgumentsTests
 	[Test]
 	[AutoMockArguments(1)]
 	[AutoMockArguments(2)]
-	public async Task AutoMockArguments_WithSeveralAttributes_ShouldRunOneTestCaseForEach(int id, OrderService sut,
+	public async Task WithSeveralAttributes_ShouldRunOneTestCaseForEach(int id, OrderService sut,
 		IOrderRepository repository)
 	{
 		sut.Ship(id);
@@ -80,7 +80,7 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments("name", 5)]
-	public async Task AutoMockArguments_WithSeveralArguments_ShouldNotPassThemToTheClassUnderTest(string name,
+	public async Task WithSeveralArguments_ShouldNotPassThemToTheClassUnderTest(string name,
 		int retries, OptionalArgumentsService sut)
 	{
 		await That(name).IsEqualTo("name");
@@ -91,12 +91,12 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments("name")]
-	public async Task AutoMockArguments_WithNotSharedArgument_ShouldPassIt([NotShared] string name)
+	public async Task WithNotSharedArgument_ShouldPassIt([NotShared] string name)
 		=> await That(name).IsEqualTo("name");
 
 	[Test]
 	[AutoMockArguments]
-	public async Task ValueParameter_WithOtherName_ShouldNotReachTheClassUnderTest(int count, string text,
+	public async Task WithValueParameterOfAnotherName_ShouldNotPassItToTheClassUnderTest(int count, string text,
 		OptionalArgumentsService sut)
 	{
 		await That(count).IsEqualTo(0);
@@ -106,13 +106,13 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments]
-	public async Task ValueParameter_WithTheNameOfTheConstructorParameter_ShouldReachTheClassUnderTest(int retries,
+	public async Task WithValueParameterNamedLikeTheConstructorParameter_ShouldPassItToTheClassUnderTest(int retries,
 		OptionalArgumentsService sut)
 		=> await That(sut.Retries).IsEqualTo(retries);
 
 	[Test]
 	[AutoMockArguments]
-	public async Task CancellationToken_ShouldComeFromTUnit(IOrderRepository repository, CancellationToken token)
+	public async Task WithCancellationTokenParameter_ShouldPassTheTokenOfTUnit(IOrderRepository repository, CancellationToken token)
 	{
 		await That(repository).IsNotNull();
 		await That(token.CanBeCanceled).IsTrue();
@@ -120,7 +120,7 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments]
-	public async Task AutoMockArguments_WithClassesOfTheSameSelfReferencingType_ShouldPassOneToTheOther(
+	public async Task WithClassesOfTheSameSelfReferencingType_ShouldPassOneToTheOther(
 		ChocolateNode first, ChocolateNode second)
 	{
 		await That(first.Parent).IsSameAs(second);
@@ -129,7 +129,7 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments(null)]
-	public async Task AutoMockArguments_WithSingleNullArgument_ShouldPassNull(string? name,
+	public async Task WithSingleNullArgument_ShouldPassNull(string? name,
 		OptionalArgumentsService sut)
 	{
 		await That(name).IsNull();
@@ -138,7 +138,7 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments]
-	public async Task AutoMockArguments_WithNotSharedParameter_ShouldNotShareItWithTheClassUnderTest(
+	public async Task WithNotSharedParameter_ShouldNotShareItWithTheClassUnderTest(
 		OrderService sut, IOrderRepository repository, [NotShared] IShippingClient shippingClient)
 	{
 		Order order = new(42, 10m);
@@ -152,12 +152,12 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments]
-	public async Task AutoMockArguments_WithOptionsDelegates_ShouldUseTheDefaultOptions(ChocolateFactory sut)
+	public async Task WithOptionsDelegates_ShouldUseTheDefaultOptions(ChocolateFactory sut)
 		=> await That(sut.Options.Flavor).IsEqualTo("Dark");
 
 	[Test]
 	[AutoMockArguments]
-	public async Task AutoMockArguments_WithSeveralParametersOfTheType_ShouldMatchThemByName(TransferService sut,
+	public async Task WithSeveralParametersOfTheType_ShouldMatchThemByName(TransferService sut,
 		IAccount target, IAccount source)
 	{
 		sut.Transfer(10m);
@@ -465,7 +465,7 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments]
-	public async Task AutoMockArguments_WithNotSharedParameterOfTheType_ShouldIgnoreItWhenMatching(
+	public async Task WithNotSharedParameterOfTheType_ShouldIgnoreItWhenMatching(
 		TransferService sut, IAccount source, IAccount target, [NotShared] IAccount other)
 	{
 		sut.Transfer(10m);
