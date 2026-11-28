@@ -324,6 +324,15 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             []),
         new(
+            "MethodConstrainedToClassTypeArgument_CanBeCreated",
+            ["IMethodConstrainedToClassTypeArgument.cs", "MethodConstrainedToClassTypeArgumentBase.cs",],
+            """
+            IMethodConstrainedToClassTypeArgument<System.Exception> sut1 = IMethodConstrainedToClassTypeArgument<System.Exception>.CreateMock();
+            IMethodConstrainedToClassTypeArgument<System.IComparable> sut2 = IMethodConstrainedToClassTypeArgument<System.IComparable>.CreateMock();
+            MethodConstrainedToClassTypeArgumentBase<System.Exception> sut3 = MethodConstrainedToClassTypeArgumentBase<System.Exception>.CreateMock();
+            """,
+            []),
+        new(
             "MembersDifferingInNullability_CanBeCreated",
             ["IMembersDifferingInNullability.cs",],
             """

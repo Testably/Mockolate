@@ -18,8 +18,20 @@ internal readonly record struct GenericParameter
 		IsReferenceType = typeSymbol.IsReferenceType;
 		IsValueType = typeSymbol.IsValueType;
 
-		ConstraintTypes = new EquatableArray<Type>(typeSymbol.ConstraintTypes
-			.Where(IsDeclarableConstraint).Select(Type.From).ToArray());
+		ITypeSymbol[] declarableConstraintTypes = typeSymbol.ConstraintTypes.Where(IsDeclarableConstraint).ToArray();
+		ITypeSymbol[] constraintTypes = declarableConstraintTypes
+			.GroupBy<ITypeSymbol, ITypeSymbol>(constraintType => constraintType, SymbolEqualityComparer.Default)
+			.Select(copies => copies.FirstOrDefault(copy => copy.NullableAnnotation != NullableAnnotation.Annotated) ??
+			                  copies.First())
+			.Where(constraintType => !declarableConstraintTypes.Any(other => DerivesFrom(other, constraintType)))
+			.OrderBy(constraintType => constraintType.TypeKind != TypeKind.Class)
+			.ToArray();
+		ConstraintTypes = new EquatableArray<Type>(constraintTypes.Select(Type.From).ToArray());
+		OmitsClassConstraint = IsClass && constraintTypes.Any(constraintType =>
+			constraintType.TypeKind == TypeKind.Class && constraintType.SpecialType is not
+				(SpecialType.System_Enum or SpecialType.System_Delegate or SpecialType.System_MulticastDelegate));
+		OmitsConstraint = OmitsClassConstraint || OmitsAllowsRefStruct ||
+		                  constraintTypes.Length < declarableConstraintTypes.Length;
 		HasInheritedOnlyConstraint = DependsOnInheritedOnlyConstraint(typeSymbol);
 		DeclaresClassForInheritedOnlyConstraint = HasInheritedOnlyConstraint && IsReferenceType &&
 		                                          !IsClass && !IsStruct && !IsUnmanaged &&
@@ -29,8 +41,29 @@ internal readonly record struct GenericParameter
 	}
 
 	/// <summary>
+	///     Whether the <c>where</c> clause omits the <see langword="class" /> constraint, because one of the
+	///     <see cref="ConstraintTypes" /> is a class type that C# does not accept together with it (CS0450) and that
+	///     already implies it. A <c>where U : class, T</c> gets such a class type when the mocked type closes <c>T</c>
+	///     over a class.
+	/// </summary>
+	public bool OmitsClassConstraint { get; }
+
+	/// <summary>
+	///     Whether the <c>where</c> clause omits a constraint of the type parameter that C# does not accept once the mocked
+	///     type closes a type parameter it depends on: the <see langword="class" /> constraint
+	///     (see <see cref="OmitsClassConstraint" />), <c>allows ref struct</c> for a reference type (CS9243), or a
+	///     constraint type that repeats another one, possibly with another nullable annotation (CS0405), or a class type
+	///     that is a base class of another one (CS0406). An implicit implementation that omits it does not match the
+	///     implemented member (CS0425, CS8633).
+	/// </summary>
+	public bool OmitsConstraint { get; }
+
+	private bool OmitsAllowsRefStruct => AllowsRefStruct && IsReferenceType && !IsClass;
+
+	/// <summary>
 	///     The constraint types that can be written in a <c>where</c> clause, i.e. without those that C# accepts only
-	///     when inherited (see <see cref="HasInheritedOnlyConstraint" />).
+	///     when inherited (see <see cref="HasInheritedOnlyConstraint" />) and those that <see cref="OmitsConstraint" />
+	///     leaves out, with the class type first.
 	/// </summary>
 	public EquatableArray<Type> ConstraintTypes { get; }
 
@@ -106,7 +139,7 @@ internal readonly record struct GenericParameter
 			count++;
 			sb.Append("struct");
 		}
-		else if (IsClass)
+		else if (IsClass && !OmitsClassConstraint)
 		{
 			count++;
 			sb.Append("class");
@@ -131,16 +164,6 @@ internal readonly record struct GenericParameter
 			sb.Append("notnull");
 		}
 
-		if (AllowsRefStruct && !DeclaresClassForInheritedOnlyConstraint)
-		{
-			if (count++ > 0)
-			{
-				sb.Append(", ");
-			}
-
-			sb.Append("allows ref struct");
-		}
-
 		foreach (Type? constraintType in ConstraintTypes)
 		{
 			if (count++ > 0)
@@ -153,14 +176,28 @@ internal readonly record struct GenericParameter
 
 		if (HasConstructor)
 		{
-			if (count > 0)
+			if (count++ > 0)
 			{
 				sb.Append(", ");
 			}
 
 			sb.Append("new()");
 		}
+
+		if (AllowsRefStruct && !OmitsAllowsRefStruct)
+		{
+			if (count > 0)
+			{
+				sb.Append(", ");
+			}
+
+			sb.Append("allows ref struct");
+		}
 	}
+
+	private static bool DerivesFrom(ITypeSymbol type, ITypeSymbol baseType)
+		=> type.BaseType is { } directBaseType &&
+		   (SymbolEqualityComparer.Default.Equals(directBaseType, baseType) || DerivesFrom(directBaseType, baseType));
 
 	private static bool DependsOnInheritedOnlyConstraint(ITypeParameterSymbol typeParameter)
 		=> typeParameter.ConstraintTypes.Any(constraintType => constraintType is ITypeParameterSymbol other
