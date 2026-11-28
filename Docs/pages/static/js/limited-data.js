@@ -2,12 +2,6 @@ window.BENCHMARK_DATA = {
   "Callback": {
     "commits": [
       {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
-      {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 24 19:57:40 2026 \u002B0100",
@@ -300,10 +294,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -352,14 +351,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          185.68500147547041,
           239.05158372720084,
           144.56021085807257,
           160.76034377415974,
@@ -408,7 +407,8 @@ window.BENCHMARK_DATA = {
           166.61648043564387,
           220.69238376617432,
           226.0713072458903,
-          178.1662383556366
+          178.1662383556366,
+          225.81949014663695
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -444,7 +444,7 @@ window.BENCHMARK_DATA = {
           800,
           800,
           800,
-          800,
+          808,
           808,
           808,
           808,
@@ -484,7 +484,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          35008.885080973305,
           46090.40801595052,
           30772.888582669773,
           60575.69243164062,
@@ -533,7 +532,8 @@ window.BENCHMARK_DATA = {
           36289.208548990886,
           75714.08414713542,
           105698.89299665179,
-          36472.8564860026
+          36472.8564860026,
+          106502.76759440104
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -545,7 +545,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
-          9046,
           9033,
           9055,
           9056,
@@ -594,7 +593,8 @@ window.BENCHMARK_DATA = {
           9126,
           9050,
           9056,
-          9046
+          9046,
+          9056
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -609,7 +609,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          3299.6394874027797,
           4023.3935618082683,
           2548.5408435821532,
           3417.30343409947,
@@ -658,7 +657,8 @@ window.BENCHMARK_DATA = {
           3160.8268664042157,
           4511.180874633789,
           5002.780563863119,
-          3252.712336730957
+          3252.712336730957,
+          4902.057484944661
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -734,7 +734,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          2957.990987924429,
           3639.1311798095703,
           2513.8649159944976,
           3359.548617299398,
@@ -783,7 +782,8 @@ window.BENCHMARK_DATA = {
           2718.4322756449383,
           4270.632194519043,
           4888.3221435546875,
-          2996.3309092203776
+          2996.3309092203776,
+          5145.36749619704
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -795,7 +795,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy memory",
         "unit": "b",
         "data": [
-          6924,
           6924,
           6930,
           6930,
@@ -844,7 +843,8 @@ window.BENCHMARK_DATA = {
           6924,
           6919,
           6930,
-          6924
+          6924,
+          6930
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -859,7 +859,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          186.62702894210815,
           237.9323496500651,
           146.0587245317606,
           156.62171429854172,
@@ -908,7 +907,8 @@ window.BENCHMARK_DATA = {
           170.52605040868124,
           217.57059349332536,
           223.81009905678886,
-          182.9660208861033
+          182.9660208861033,
+          212.5280583222707
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -984,7 +984,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          460.1918624639511,
           596.7347925049918,
           351.3724412918091,
           390.8132746560233,
@@ -1033,7 +1032,8 @@ window.BENCHMARK_DATA = {
           302.5641571044922,
           394.66820589701337,
           373.1913542429606,
-          329.90440467425753
+          329.90440467425753,
+          364.1736344337463
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -1051,7 +1051,7 @@ window.BENCHMARK_DATA = {
           2056,
           2056,
           2056,
-          2056,
+          1352,
           1352,
           1352,
           1352,
@@ -1109,12 +1109,6 @@ window.BENCHMARK_DATA = {
   },
   "Event": {
     "commits": [
-      {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
       {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
@@ -1408,10 +1402,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -1460,14 +1459,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          195.5313863436381,
           117.15654381116231,
           161.5625788529714,
           182.55477266311647,
@@ -1516,7 +1515,8 @@ window.BENCHMARK_DATA = {
           122.35678628285726,
           144.46575282414753,
           95.3780403818403,
-          193.10656307293817
+          193.10656307293817,
+          150.91154650052388
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -1552,7 +1552,7 @@ window.BENCHMARK_DATA = {
           712,
           712,
           712,
-          712,
+          720,
           720,
           720,
           720,
@@ -1592,7 +1592,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          14219.907694498697,
           10248.266639122596,
           14854.125535231371,
           12424.780212402344,
@@ -1641,7 +1640,8 @@ window.BENCHMARK_DATA = {
           10867.993390764508,
           14608.734322684151,
           7901.584995814732,
-          13036.242994035993
+          13036.242994035993,
+          15007.17542375837
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -1653,7 +1653,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
-          12761,
           12761,
           12761,
           12761,
@@ -1702,6 +1701,7 @@ window.BENCHMARK_DATA = {
           12761,
           12761,
           12760,
+          12761,
           12761
         ],
         "borderColor": "#A052B0",
@@ -1717,7 +1717,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          5941.360123697917,
           3969.1964372907364,
           5423.804236820766,
           5027.070487976074,
@@ -1766,7 +1765,8 @@ window.BENCHMARK_DATA = {
           4479.970564270019,
           5224.908658981323,
           3053.4417198181154,
-          5220.129792433519
+          5220.129792433519,
+          5516.221857706706
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -1842,7 +1842,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          190613.70244140626,
           195240.1090983073,
           224957.28333333333,
           148197.51932198662,
@@ -1891,7 +1890,8 @@ window.BENCHMARK_DATA = {
           194020.6808268229,
           224517.20586286273,
           109784.7467936198,
-          155420.10717773438
+          155420.10717773438,
+          224617.8094075521
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -1903,7 +1903,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy memory",
         "unit": "b",
         "data": [
-          15732,
           15619,
           15618,
           15574,
@@ -1952,7 +1951,8 @@ window.BENCHMARK_DATA = {
           15619,
           15618,
           15619,
-          15579
+          15579,
+          15618
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -1967,7 +1967,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          219.29590352943964,
           145.21099761327108,
           171.3581074078878,
           211.2099939244134,
@@ -2016,7 +2015,8 @@ window.BENCHMARK_DATA = {
           151.67750552984384,
           170.14610767364502,
           112.21766599587032,
-          215.3840527534485
+          215.3840527534485,
+          167.01834801265173
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -2092,7 +2092,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          254.48013051350912,
           119.27018451690674,
           158.26707332474845,
           223.11864943504332,
@@ -2141,7 +2140,8 @@ window.BENCHMARK_DATA = {
           136.83325386047363,
           156.0662207921346,
           103.53589485372815,
-          245.21536441949698
+          245.21536441949698,
+          159.05035780157363
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -2218,12 +2218,6 @@ window.BENCHMARK_DATA = {
   "Indexer (N=1)": {
     "commits": [
       {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
-      {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 24 19:57:40 2026 \u002B0100",
@@ -2516,10 +2510,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -2568,14 +2567,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          566.3688950538635,
           477.1145346505301,
           449.56024541854856,
           445.8463611602783,
@@ -2624,7 +2623,8 @@ window.BENCHMARK_DATA = {
           485.28898893992107,
           335.17027018620416,
           445.1624709129334,
-          477.77283414204913
+          477.77283414204913,
+          377.57938718795776
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -2636,7 +2636,6 @@ window.BENCHMARK_DATA = {
         "label": "Mockolate memory",
         "unit": "b",
         "data": [
-          1824,
           1824,
           1824,
           1824,
@@ -2685,6 +2684,7 @@ window.BENCHMARK_DATA = {
           1848,
           1848,
           1848,
+          1848,
           1848
         ],
         "borderColor": "#63A2AC",
@@ -2700,7 +2700,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          230685.09967447916,
           527598.8162560096,
           523167.298046875,
           520060.7140174279,
@@ -2749,7 +2748,8 @@ window.BENCHMARK_DATA = {
           530102.2044921875,
           405093.4324079241,
           175866.22779947918,
-          535042.0934244791
+          535042.0934244791,
+          411944.666922433
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2761,7 +2761,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
-          38272,
           38491,
           38651,
           38491,
@@ -2810,7 +2809,8 @@ window.BENCHMARK_DATA = {
           38491,
           38491,
           38460,
-          38523
+          38523,
+          38650
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -2825,7 +2825,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          77628.72017415364,
           210296.3631673177,
           205553.80403645834,
           145710.93355887276,
@@ -2874,7 +2873,8 @@ window.BENCHMARK_DATA = {
           210877.82001953124,
           114193.38124186198,
           61753.480146135604,
-          209923.19501604352
+          209923.19501604352,
+          112376.80622558594
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -2886,7 +2886,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
-          28086,
           28156,
           28100,
           28156,
@@ -2935,7 +2934,8 @@ window.BENCHMARK_DATA = {
           28100,
           28160,
           28142,
-          28100
+          28100,
+          28104
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -2950,7 +2950,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          89591.98818734977,
           246588.78273228236,
           239092.4729755108,
           184897.0933105469,
@@ -2999,7 +2998,8 @@ window.BENCHMARK_DATA = {
           248150.03191266741,
           144723.66845703125,
           67005.99265950521,
-          247252.0123639788
+          247252.0123639788,
+          142127.89155273436
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -3011,7 +3011,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy memory",
         "unit": "b",
         "data": [
-          30247,
           30273,
           30273,
           30273,
@@ -3060,6 +3059,7 @@ window.BENCHMARK_DATA = {
           30273,
           30273,
           30247,
+          30273,
           30273
         ],
         "borderColor": "#4A6FA5",
@@ -3075,7 +3075,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          390.8056779588972,
           301.59383630752563,
           312.7661834716797,
           336.93773310525074,
@@ -3124,7 +3123,8 @@ window.BENCHMARK_DATA = {
           322.7861023743947,
           268.87212661334445,
           318.5163553237915,
-          329.38097190856934
+          329.38097190856934,
+          282.4842408384596
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -3200,7 +3200,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          877.4128023147583,
           793.1663036346436,
           744.5498997370402,
           761.1744356155396,
@@ -3249,7 +3248,8 @@ window.BENCHMARK_DATA = {
           660.4195539610727,
           491.2730208805629,
           580.2287307103475,
-          675.317295891898
+          675.317295891898,
+          551.4999819535476
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -3267,7 +3267,7 @@ window.BENCHMARK_DATA = {
           2856,
           2856,
           2856,
-          2856,
+          2208,
           2208,
           2208,
           2208,
@@ -3325,12 +3325,6 @@ window.BENCHMARK_DATA = {
   },
   "Indexer (N=10)": {
     "commits": [
-      {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
       {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
@@ -3624,10 +3618,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -3676,14 +3675,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          1599.1226783165564,
           1409.927291615804,
           1307.0646634419759,
           1316.4490664345878,
@@ -3732,7 +3731,8 @@ window.BENCHMARK_DATA = {
           1246.7275310516357,
           955.6160865511213,
           1258.5582665761312,
-          1184.9217483813945
+          1184.9217483813945,
+          1004.2339237758091
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -3744,7 +3744,6 @@ window.BENCHMARK_DATA = {
         "label": "Mockolate memory",
         "unit": "b",
         "data": [
-          2760,
           2760,
           2760,
           2760,
@@ -3793,6 +3792,7 @@ window.BENCHMARK_DATA = {
           2784,
           2784,
           2784,
+          2784,
           2784
         ],
         "borderColor": "#63A2AC",
@@ -3808,7 +3808,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          265217.23309795675,
           538177.9133463542,
           530307.7948521206,
           529719.541015625,
@@ -3857,7 +3856,8 @@ window.BENCHMARK_DATA = {
           536023.9745396206,
           418749.65869140625,
           207520.90927734374,
-          531793.53671875
+          531793.53671875,
+          423151.83869280136
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3869,7 +3869,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
-          46957,
           48063,
           48222,
           48063,
@@ -3918,7 +3917,8 @@ window.BENCHMARK_DATA = {
           48063,
           48079,
           48153,
-          47088
+          47088,
+          48239
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3933,7 +3933,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          101155.35667317708,
           228528.52923177084,
           221877.98940429688,
           169482.63657226562,
@@ -3982,7 +3981,8 @@ window.BENCHMARK_DATA = {
           232479.48807198662,
           126991.69549153646,
           80603.25973946707,
-          226180.3264811198
+          226180.3264811198,
+          127710.59967912946
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -3994,7 +3994,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
-          41209,
           41271,
           41215,
           41271,
@@ -4043,6 +4042,7 @@ window.BENCHMARK_DATA = {
           41215,
           41271,
           41265,
+          41215,
           41215
         ],
         "borderColor": "#5E2750",
@@ -4058,7 +4058,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          109749.29197474888,
           265205.59036458336,
           265987.1521158854,
           208221.45860072545,
@@ -4107,7 +4106,8 @@ window.BENCHMARK_DATA = {
           270809.96536458336,
           163503.72526041666,
           84869.8837890625,
-          262493.9197184245
+          262493.9197184245,
+          160486.18675013952
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4119,7 +4119,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy memory",
         "unit": "b",
         "data": [
-          49922,
           49926,
           49926,
           49930,
@@ -4168,7 +4167,8 @@ window.BENCHMARK_DATA = {
           49926,
           49930,
           49922,
-          49926
+          49926,
+          49930
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -4183,7 +4183,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          859.2524763987615,
           781.3547527313233,
           783.562936592102,
           897.2039557139079,
@@ -4232,7 +4231,8 @@ window.BENCHMARK_DATA = {
           766.9235751969474,
           647.7835299628122,
           674.7943599700927,
-          756.3017109553019
+          756.3017109553019,
+          675.8600261551993
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -4308,7 +4308,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          2828.456893666585,
           2502.64473261152,
           2437.07972946167,
           2627.999897257487,
@@ -4357,7 +4356,8 @@ window.BENCHMARK_DATA = {
           2360.2018896249624,
           1769.270107269287,
           2085.233511704665,
-          2406.7639107337363
+          2406.7639107337363,
+          1883.9733506611415
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -4375,7 +4375,7 @@ window.BENCHMARK_DATA = {
           5568,
           5568,
           5568,
-          5568,
+          5248,
           5248,
           5248,
           5248,
@@ -4433,12 +4433,6 @@ window.BENCHMARK_DATA = {
   },
   "Method (N=1)": {
     "commits": [
-      {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
       {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
@@ -4732,10 +4726,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -4784,14 +4783,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          145.24976674715677,
           123.58626469544002,
           99.74940283298493,
           107.6232321580251,
@@ -4840,7 +4839,8 @@ window.BENCHMARK_DATA = {
           107.15619398752848,
           111.58185801506042,
           77.3396723429362,
-          137.0447153409322
+          137.0447153409322,
+          124.14116472464342
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -4876,7 +4876,7 @@ window.BENCHMARK_DATA = {
           592,
           592,
           592,
-          592,
+          600,
           600,
           600,
           600,
@@ -4916,7 +4916,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          4817.922871180943,
           4627.5782306377705,
           3174.9317251841226,
           3506.096248081752,
@@ -4965,7 +4964,8 @@ window.BENCHMARK_DATA = {
           3468.231568745204,
           3592.816965738932,
           2635.8705830891927,
-          4562.892254169171
+          4562.892254169171,
+          3861.862272135417
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -5041,7 +5041,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          6296.514305114746,
           5739.387814113072,
           4059.178107670375,
           4572.1595715114045,
@@ -5090,7 +5089,8 @@ window.BENCHMARK_DATA = {
           4434.320969136556,
           4175.043894254244,
           3087.9786631266275,
-          6074.352148946126
+          6074.352148946126,
+          5055.313628641764
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -5166,7 +5166,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          4684.942296709333,
           4746.006685697115,
           3155.4553326924643,
           3586.566138634315,
@@ -5215,7 +5214,8 @@ window.BENCHMARK_DATA = {
           3511.6971237182615,
           3214.869118754069,
           2562.3014098576136,
-          4657.487271118164
+          4657.487271118164,
+          3453.6165994008384
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -5227,7 +5227,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy memory",
         "unit": "b",
         "data": [
-          7517,
           7517,
           7517,
           7517,
@@ -5276,6 +5275,7 @@ window.BENCHMARK_DATA = {
           7517,
           7517,
           7517,
+          7517,
           7517
         ],
         "borderColor": "#4A6FA5",
@@ -5291,7 +5291,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          192.60458079406195,
           171.39137930529458,
           145.2150024175644,
           155.84682020119257,
@@ -5340,7 +5339,8 @@ window.BENCHMARK_DATA = {
           151.68898078600566,
           168.06197914710413,
           111.82296660116741,
-          187.06210136413574
+          187.06210136413574,
+          169.18906361262003
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -5416,7 +5416,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          497.12228094736736,
           434.16400231633867,
           356.32720017433167,
           401.893221505483,
@@ -5465,7 +5464,8 @@ window.BENCHMARK_DATA = {
           281.3124764442444,
           292.7177617708842,
           220.3473327636719,
-          354.58616508756364
+          354.58616508756364,
+          279.6205040216446
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -5483,7 +5483,7 @@ window.BENCHMARK_DATA = {
           2136,
           2136,
           2136,
-          2136,
+          1424,
           1424,
           1424,
           1424,
@@ -5541,12 +5541,6 @@ window.BENCHMARK_DATA = {
   },
   "Method (N=10)": {
     "commits": [
-      {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
       {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
@@ -5840,10 +5834,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -5892,14 +5891,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          389.211967086792,
           345.1558969497681,
           269.80461241404214,
           293.2404265085856,
@@ -5948,7 +5947,8 @@ window.BENCHMARK_DATA = {
           278.2674216588338,
           277.55128930165216,
           232.86334115664164,
-          372.1959457397461
+          372.1959457397461,
+          289.90776678232044
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -5984,7 +5984,7 @@ window.BENCHMARK_DATA = {
           1096,
           1096,
           1096,
-          1096,
+          1104,
           1104,
           1104,
           1104,
@@ -6024,7 +6024,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          6797.766507466634,
           6634.857455444336,
           4640.128928120931,
           5099.2962482997345,
@@ -6073,7 +6072,8 @@ window.BENCHMARK_DATA = {
           5090.900174458821,
           4720.47824042184,
           3566.6451449076335,
-          6564.503002166748
+          6564.503002166748,
+          5288.115701402937
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -6149,7 +6149,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          9044.002866304838,
           8593.139562753531,
           5947.215912955148,
           6716.561376444499,
@@ -6198,7 +6197,8 @@ window.BENCHMARK_DATA = {
           6230.006865910122,
           6224.358988189697,
           4732.755280558268,
-          8992.081424419697
+          8992.081424419697,
+          7155.565630086263
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -6211,7 +6211,6 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           12841,
-          12841,
           12840,
           12840,
           12840,
@@ -6259,6 +6258,7 @@ window.BENCHMARK_DATA = {
           12840,
           12840,
           12840,
+          12841,
           12841
         ],
         "borderColor": "#5E2750",
@@ -6274,7 +6274,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          8780.189248657227,
           8472.578303410457,
           5619.027066157414,
           6549.138488769531,
@@ -6323,7 +6322,8 @@ window.BENCHMARK_DATA = {
           5768.317787679037,
           5842.697754414877,
           4692.360972595215,
-          8456.334618123372
+          8456.334618123372,
+          6746.460541280111
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -6335,7 +6335,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy memory",
         "unit": "b",
         "data": [
-          15754,
           15754,
           15754,
           15754,
@@ -6384,6 +6383,7 @@ window.BENCHMARK_DATA = {
           15754,
           15754,
           15754,
+          15754,
           15754
         ],
         "borderColor": "#4A6FA5",
@@ -6399,7 +6399,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          394.94614674250283,
           358.68864042418346,
           295.4339725787823,
           316.7548396428426,
@@ -6448,7 +6447,8 @@ window.BENCHMARK_DATA = {
           312.2422841389974,
           302.1820156097412,
           256.73942991892494,
-          383.70865491231285
+          383.70865491231285,
+          330.45340693791707
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -6524,7 +6524,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          1423.307153193156,
           1276.3064193725586,
           1045.571583884103,
           1133.7337874094644,
@@ -6573,7 +6572,8 @@ window.BENCHMARK_DATA = {
           973.5370005198887,
           885.9636154856,
           724.0431662287031,
-          1162.0909023284912
+          1162.0909023284912,
+          1003.0434430440267
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -6591,7 +6591,7 @@ window.BENCHMARK_DATA = {
           3888,
           3888,
           3888,
-          3888,
+          3288,
           3288,
           3288,
           3288,
@@ -6649,12 +6649,6 @@ window.BENCHMARK_DATA = {
   },
   "Property (N=1)": {
     "commits": [
-      {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
       {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
@@ -6948,10 +6942,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -7000,14 +6999,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          275.71638011932373,
           227.69880566230188,
           252.36091950734456,
           322.43937595073993,
@@ -7056,7 +7055,8 @@ window.BENCHMARK_DATA = {
           254.23198534647625,
           198.2899206638336,
           258.631103293101,
-          171.6566355228424
+          171.6566355228424,
+          214.3048418521881
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -7092,7 +7092,7 @@ window.BENCHMARK_DATA = {
           920,
           920,
           920,
-          920,
+          928,
           928,
           928,
           928,
@@ -7132,7 +7132,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          11309.890606219951,
           6577.377071126302,
           6992.260883876255,
           8984.408851036658,
@@ -7181,7 +7180,8 @@ window.BENCHMARK_DATA = {
           6950.474336896624,
           7812.0037677471455,
           7089.31430707659,
-          5534.019883219401
+          5534.019883219401,
+          6145.7380610874725
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -7193,7 +7193,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
-          10569,
           10568,
           10568,
           10569,
@@ -7242,6 +7241,7 @@ window.BENCHMARK_DATA = {
           10568,
           10456,
           10680,
+          10568,
           10568
         ],
         "borderColor": "#A052B0",
@@ -7257,7 +7257,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          7846.057232448033,
           4776.679770406087,
           5301.131055391752,
           6643.574996948242,
@@ -7306,7 +7305,8 @@ window.BENCHMARK_DATA = {
           5197.443603006998,
           5571.149459293911,
           5263.114477539062,
-          3997.224012647356
+          3997.224012647356,
+          4536.072131347656
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -7334,7 +7334,6 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11664,
-          11664,
           11688,
           11664,
           11664,
@@ -7360,6 +7359,7 @@ window.BENCHMARK_DATA = {
           11688,
           11664,
           11688,
+          11664,
           11664,
           11664,
           11664,
@@ -7382,7 +7382,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          8402.220751444498,
           4226.245277404785,
           4987.659232584635,
           6084.80632019043,
@@ -7431,7 +7430,8 @@ window.BENCHMARK_DATA = {
           4869.862783813476,
           5587.422952505259,
           4884.624774387905,
-          4168.63468006679
+          4168.63468006679,
+          3938.6225708007814
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -7443,7 +7443,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy memory",
         "unit": "b",
         "data": [
-          11196,
           11271,
           11191,
           11191,
@@ -7492,7 +7491,8 @@ window.BENCHMARK_DATA = {
           11191,
           11196,
           11191,
-          11276
+          11276,
+          11191
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -7507,7 +7507,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          183.1204554716746,
           148.24694968972886,
           174.12633757931846,
           213.03755243619284,
@@ -7556,7 +7555,8 @@ window.BENCHMARK_DATA = {
           166.67359343596868,
           134.93769164085387,
           174.44775938987732,
-          114.83537484804789
+          114.83537484804789,
+          135.31836241942185
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -7632,7 +7632,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          473.77855555216473,
           368.621194252601,
           430.79035554613387,
           539.249236869812,
@@ -7681,7 +7680,8 @@ window.BENCHMARK_DATA = {
           353.1812252998352,
           299.5780892690023,
           358.6045250211443,
-          233.12486520180335
+          233.12486520180335,
+          279.7395710547765
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -7699,7 +7699,7 @@ window.BENCHMARK_DATA = {
           1672,
           1672,
           1672,
-          1672,
+          1464,
           1464,
           1464,
           1464,
@@ -7757,12 +7757,6 @@ window.BENCHMARK_DATA = {
   },
   "Property (N=10)": {
     "commits": [
-      {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
       {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
@@ -8056,10 +8050,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -8108,14 +8107,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          647.4904993693034,
           529.9575480052403,
           595.445629119873,
           765.396029325632,
@@ -8164,7 +8163,8 @@ window.BENCHMARK_DATA = {
           584.7558280944825,
           506.1754942621504,
           590.6010979970296,
-          450.74004459381104
+          450.74004459381104,
+          499.8962738672892
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -8200,7 +8200,7 @@ window.BENCHMARK_DATA = {
           1784,
           1784,
           1784,
-          1784,
+          1792,
           1792,
           1792,
           1792,
@@ -8240,7 +8240,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          18919.27276611328,
           10869.359212239584,
           11316.371459960938,
           15018.163177490234,
@@ -8289,7 +8288,8 @@ window.BENCHMARK_DATA = {
           11720.942439778646,
           12553.444090706962,
           11868.226341756184,
-          9037.024132792156
+          9037.024132792156,
+          10986.277711995443
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8301,7 +8301,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
-          18505,
           18504,
           18504,
           18504,
@@ -8350,7 +8349,8 @@ window.BENCHMARK_DATA = {
           18504,
           17385,
           18616,
-          18505
+          18505,
+          18504
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -8365,7 +8365,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          18271.459293910437,
           10769.115758623395,
           11578.463010660807,
           15224.058569101187,
@@ -8414,7 +8413,8 @@ window.BENCHMARK_DATA = {
           11796.61766357422,
           12981.56933266776,
           12021.490000043597,
-          9046.411626543317
+          9046.411626543317,
+          10855.647264920748
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -8426,7 +8426,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
-          21529,
           21528,
           21528,
           21528,
@@ -8475,7 +8474,8 @@ window.BENCHMARK_DATA = {
           21528,
           21529,
           21528,
-          21529
+          21529,
+          21528
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -8490,7 +8490,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          20093.842185465495,
           11320.080792236327,
           12680.47837524414,
           16017.738640921456,
@@ -8539,7 +8538,8 @@ window.BENCHMARK_DATA = {
           12825.858947753906,
           13615.03476969401,
           13051.016368611654,
-          9453.379381452289
+          9453.379381452289,
+          10756.889130728585
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -8551,7 +8551,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy memory",
         "unit": "b",
         "data": [
-          30785,
           30860,
           30780,
           30785,
@@ -8600,7 +8599,8 @@ window.BENCHMARK_DATA = {
           30780,
           30785,
           30780,
-          30866
+          30866,
+          30780
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -8615,7 +8615,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          354.91556005477906,
           305.7509274800619,
           341.706835269928,
           455.2852988560995,
@@ -8664,7 +8663,8 @@ window.BENCHMARK_DATA = {
           331.91280968983966,
           255.39363792964392,
           342.0958089828491,
-          272.26126851354326
+          272.26126851354326,
+          299.05764554341636
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -8740,7 +8740,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          1661.9995197296143,
           1387.131208556039,
           1439.974182673863,
           2027.2564155578614,
@@ -8789,7 +8788,8 @@ window.BENCHMARK_DATA = {
           1254.0860204060873,
           1043.256666946411,
           1277.0614857991536,
-          887.267290183476
+          887.267290183476,
+          1043.4511354886567
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -8807,7 +8807,7 @@ window.BENCHMARK_DATA = {
           4024,
           4024,
           4024,
-          4024,
+          3600,
           3600,
           3600,
           3600,
@@ -8865,12 +8865,6 @@ window.BENCHMARK_DATA = {
   },
   "CreateMock": {
     "commits": [
-      {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
       {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
@@ -9164,10 +9158,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -9216,14 +9215,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          9.234289278586706,
           18.78230363726616,
           16.043261536955832,
           15.954136010011037,
@@ -9272,7 +9271,8 @@ window.BENCHMARK_DATA = {
           16.97465068789629,
           12.82872092298099,
           12.709132420165199,
-          17.174026278654733
+          17.174026278654733,
+          17.962436866760253
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -9348,7 +9348,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          57.84466273585955,
           96.49312841892242,
           90.79797766889844,
           97.39117668356214,
@@ -9397,7 +9396,8 @@ window.BENCHMARK_DATA = {
           85.5967360496521,
           75.79106874649341,
           73.08302061898368,
-          87.9492661635081
+          87.9492661635081,
+          87.4814442594846
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -9473,7 +9473,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          16.921973975499473,
           27.399346633752188,
           27.143709743022917,
           29.02845767736435,
@@ -9522,7 +9521,8 @@ window.BENCHMARK_DATA = {
           31.038887480894726,
           22.264426201581955,
           23.129453299301012,
-          27.154342150688173
+          27.154342150688173,
+          28.485548575719196
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -9598,7 +9598,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          787.73790918986,
           887.9628263473511,
           1306.31472752889,
           1257.1345043182373,
@@ -9647,7 +9646,8 @@ window.BENCHMARK_DATA = {
           860.6004859288533,
           950.3862474305289,
           788.024524529775,
-          1293.2852667295015
+          1293.2852667295015,
+          1233.1858780200664
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -9723,7 +9723,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          1078.926839955648,
           1290.576733271281,
           1940.9738901774087,
           1684.473880290985,
@@ -9772,7 +9771,8 @@ window.BENCHMARK_DATA = {
           1212.8030378977458,
           1384.0988314492363,
           1078.585059483846,
-          1940.9178282419841
+          1940.9178282419841,
+          1942.9719721476238
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -9848,7 +9848,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          986.5435969670614,
           1031.582654953003,
           1690.0438130696614,
           1502.6733327593122,
@@ -9897,7 +9896,8 @@ window.BENCHMARK_DATA = {
           1039.9059769948324,
           1202.794215774536,
           940.2829697291056,
-          1647.9643131256103
+          1647.9643131256103,
+          1604.229714457194
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -9909,7 +9909,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy memory",
         "unit": "b",
         "data": [
-          2755,
           2751,
           2755,
           2755,
@@ -9958,6 +9957,7 @@ window.BENCHMARK_DATA = {
           2751,
           2755,
           2750,
+          2755,
           2755
         ],
         "borderColor": "#4A6FA5",
@@ -9973,12 +9973,6 @@ window.BENCHMARK_DATA = {
   },
   "Complete": {
     "commits": [
-      {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
       {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
@@ -10272,10 +10266,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -10324,14 +10323,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          1250.541702417227,
           2544.9639352651743,
           2345.5934341430666,
           2143.350351333618,
@@ -10380,7 +10379,8 @@ window.BENCHMARK_DATA = {
           2498.969782511393,
           2558.2819094340007,
           1245.7588817051478,
-          2369.2511825561523
+          2369.2511825561523,
+          1822.3645894186836
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -10416,7 +10416,7 @@ window.BENCHMARK_DATA = {
           5264,
           5264,
           5264,
-          5264,
+          5296,
           5296,
           5296,
           5296,
@@ -10456,7 +10456,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          1451.0852537790934,
           2655.310539832482,
           2435.1193951198034,
           2452.261299405779,
@@ -10505,7 +10504,8 @@ window.BENCHMARK_DATA = {
           2658.7769200461253,
           2798.166628265381,
           1324.817667080806,
-          2377.887937927246
+          2377.887937927246,
+          1883.5035921732585
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -10519,7 +10519,6 @@ window.BENCHMARK_DATA = {
         "data": [
           7385,
           7385,
-          7385,
           7384,
           7385,
           7384,
@@ -10566,7 +10565,8 @@ window.BENCHMARK_DATA = {
           7385,
           7385,
           7385,
-          7385
+          7385,
+          7384
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -10581,7 +10581,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          3153.5817582266673,
           6368.176112620035,
           5773.887195332845,
           5732.314748128255,
@@ -10630,7 +10629,8 @@ window.BENCHMARK_DATA = {
           5009.234679412842,
           5324.719690322876,
           2538.5477226257326,
-          4530.806747690836
+          4530.806747690836,
+          3378.0788378397624
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -10648,7 +10648,7 @@ window.BENCHMARK_DATA = {
           17360,
           17360,
           17360,
-          17360,
+          10920,
           10920,
           10920,
           10920,
@@ -10706,7 +10706,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          649676.2490234375,
           1458865.501674107,
           1413773.5164620536,
           1047190.2850260417,
@@ -10755,7 +10754,8 @@ window.BENCHMARK_DATA = {
           1462924.5678013393,
           1486545.773158482,
           696998.9118489583,
-          1455149.0747395833
+          1455149.0747395833,
+          922780.8110677083
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10767,7 +10767,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
-          92384,
           92073,
           92345,
           92139,
@@ -10816,7 +10815,8 @@ window.BENCHMARK_DATA = {
           92313,
           92233,
           92351,
-          91929
+          91929,
+          92291
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10831,7 +10831,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          214154.43603515625,
           313829.6495535714,
           314415.25661057694,
           333808.7910505022,
@@ -10880,7 +10879,8 @@ window.BENCHMARK_DATA = {
           319412.634765625,
           328154.9913085938,
           218257.35454450335,
-          318175.0070452009
+          318175.0070452009,
+          292519.8965169271
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10892,7 +10892,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
-          54379,
           54382,
           54382,
           54356,
@@ -10941,7 +10940,8 @@ window.BENCHMARK_DATA = {
           54382,
           54382,
           54379,
-          54382
+          54382,
+          54355
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10956,7 +10956,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          249297.3193359375,
           357476.5230143229,
           355077.36366489955,
           373418.8398088728,
@@ -11005,7 +11004,8 @@ window.BENCHMARK_DATA = {
           367129.31953125,
           380484.16193498886,
           265367.6072126116,
-          372414.8493815104
+          372414.8493815104,
+          330945.61575520836
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11017,7 +11017,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy memory",
         "unit": "b",
         "data": [
-          65679,
           65479,
           65519,
           65389,
@@ -11066,7 +11065,8 @@ window.BENCHMARK_DATA = {
           65399,
           65479,
           65509,
-          65399
+          65399,
+          65389
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11081,12 +11081,6 @@ window.BENCHMARK_DATA = {
   },
   "Method (N=1000)": {
     "commits": [
-      {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
       {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
@@ -11380,10 +11374,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -11432,14 +11431,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          26256.854808262415,
           24698.07789175851,
           19729.948684692383,
           20927.56570652553,
@@ -11488,7 +11487,8 @@ window.BENCHMARK_DATA = {
           20049.038649495444,
           19963.34118041992,
           15852.504222324917,
-          26255.978897094727
+          26255.978897094727,
+          21003.176639811198
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -11524,7 +11524,7 @@ window.BENCHMARK_DATA = {
           56536,
           56536,
           56536,
-          56536,
+          56544,
           56544,
           56544,
           56544,
@@ -11564,7 +11564,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          23038.88540649414,
           21475.89881025042,
           17660.370867919923,
           18445.526000976562,
@@ -11613,7 +11612,8 @@ window.BENCHMARK_DATA = {
           17709.09053693499,
           17946.3573819674,
           13344.397452218192,
-          22353.11651611328
+          22353.11651611328,
+          19125.352787272135
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -11689,7 +11689,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          102617.17019217355,
           93465.35509381976,
           75369.54408482143,
           81774.51272348258,
@@ -11738,7 +11737,8 @@ window.BENCHMARK_DATA = {
           63161.587674654445,
           64066.78379720052,
           60159.72091878255,
-          80023.86983235677
+          80023.86983235677,
+          69209.61330566407
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -11756,7 +11756,6 @@ window.BENCHMARK_DATA = {
           203633,
           203633,
           203633,
-          203633,
           178353,
           178353,
           178353,
@@ -11799,6 +11798,7 @@ window.BENCHMARK_DATA = {
           178353,
           178353,
           178352,
+          178353,
           178353
         ],
         "borderColor": "#FF8C00",
@@ -11814,7 +11814,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          200143.40799153646,
           187387.03533528646,
           149035.8701171875,
           155490.02312360491,
@@ -11863,7 +11862,8 @@ window.BENCHMARK_DATA = {
           151843.5859200614,
           148148.20083383413,
           110754.32548828125,
-          194438.59598214287
+          194438.59598214287,
+          168420.13191731772
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -11877,7 +11877,6 @@ window.BENCHMARK_DATA = {
         "data": [
           423564,
           423564,
-          423564,
           423563,
           423563,
           423564,
@@ -11924,6 +11923,7 @@ window.BENCHMARK_DATA = {
           423564,
           423564,
           423562,
+          423564,
           423564
         ],
         "borderColor": "#A052B0",
@@ -11939,7 +11939,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          281048.8860677083,
           275319.5807166466,
           197867.22547325722,
           235748.31256510416,
@@ -11988,7 +11987,8 @@ window.BENCHMARK_DATA = {
           216192.87603352865,
           213480.56547851564,
           155930.86826171874,
-          275176.56614583335
+          275176.56614583335,
+          239678.74558803014
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -12000,7 +12000,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
-          378537,
           378537,
           378535,
           378537,
@@ -12049,6 +12048,7 @@ window.BENCHMARK_DATA = {
           378535,
           378535,
           378535,
+          378537,
           378537
         ],
         "borderColor": "#5E2750",
@@ -12064,7 +12064,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          439333.5732421875,
           410959.73844401044,
           281144.4626953125,
           316633.62458683894,
@@ -12113,7 +12112,8 @@ window.BENCHMARK_DATA = {
           297223.49943033856,
           291921.64568219864,
           219873.05823567708,
-          394464.7662876674
+          394464.7662876674,
+          307217.98798076925
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -12125,7 +12125,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy memory",
         "unit": "b",
         "data": [
-          943763,
           943763,
           943722,
           943722,
@@ -12174,7 +12173,8 @@ window.BENCHMARK_DATA = {
           943722,
           943722,
           943741,
-          943763
+          943763,
+          943722
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -12189,12 +12189,6 @@ window.BENCHMARK_DATA = {
   },
   "Property (N=1000)": {
     "commits": [
-      {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
       {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
@@ -12488,10 +12482,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -12540,14 +12539,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          42650.7822265625,
           35607.900227864586,
           38830.91839192708,
           51101.102111816406,
@@ -12596,7 +12595,8 @@ window.BENCHMARK_DATA = {
           39293.71736497145,
           33678.66143798828,
           39795.92961425781,
-          29784.78575337728
+          29784.78575337728,
+          34935.756150309244
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -12632,7 +12632,7 @@ window.BENCHMARK_DATA = {
           96824,
           96824,
           96824,
-          96824,
+          96832,
           96832,
           96832,
           96832,
@@ -12672,7 +12672,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          18082.485776628768,
           17841.54607747396,
           19006.966042073567,
           26934.250109863282,
@@ -12721,7 +12720,8 @@ window.BENCHMARK_DATA = {
           19249.42783610026,
           13294.577491251628,
           19456.898858642577,
-          16218.915677751813
+          16218.915677751813,
+          17089.288647460937
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -12733,7 +12733,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
-          32641,
           32640,
           32640,
           32640,
@@ -12782,7 +12781,8 @@ window.BENCHMARK_DATA = {
           32640,
           32641,
           32640,
-          32641
+          32641,
+          32640
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -12797,7 +12797,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          120509.75285121372,
           112620.94886125837,
           122097.14771379743,
           162209.4340297154,
@@ -12846,7 +12845,8 @@ window.BENCHMARK_DATA = {
           97783.49112141927,
           77013.9130045573,
           98740.18383789062,
-          75639.12698567708
+          75639.12698567708,
+          86622.14016927083
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -12864,7 +12864,6 @@ window.BENCHMARK_DATA = {
           242489,
           242489,
           242489,
-          242489,
           218304,
           218305,
           218305,
@@ -12890,6 +12889,7 @@ window.BENCHMARK_DATA = {
           218305,
           218305,
           218304,
+          218305,
           218305,
           218305,
           218305,
@@ -12922,7 +12922,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          807639.0658203125,
           403445.43617466517,
           455784.1025716146,
           580365.5171223958,
@@ -12971,7 +12970,8 @@ window.BENCHMARK_DATA = {
           439850.12135416665,
           497063.7490234375,
           457873.1736979167,
-          405275.9579752604
+          405275.9579752604,
+          392443.2664888822
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -12983,7 +12983,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
-          836541,
           836449,
           836447,
           836452,
@@ -13032,7 +13031,8 @@ window.BENCHMARK_DATA = {
           836449,
           724509,
           836561,
-          836536
+          836536,
+          836449
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13047,7 +13047,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          1127314.429966518,
           626703.2644981971,
           715482.81796875,
           893263.8604213169,
@@ -13096,7 +13095,8 @@ window.BENCHMARK_DATA = {
           696000.7041666667,
           793445.6549944197,
           726053.3727213541,
-          628125.2927433894
+          628125.2927433894,
+          619487.6341145834
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -13108,7 +13108,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
-          1139704,
           1139621,
           1139621,
           1139621,
@@ -13157,7 +13156,8 @@ window.BENCHMARK_DATA = {
           1139621,
           1139701,
           1139618,
-          1139698
+          1139698,
+          1139621
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -13172,7 +13172,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          1305705.3752604167,
           760848.1705078125,
           893565.9366536458,
           1068358.5637555805,
@@ -13221,7 +13220,8 @@ window.BENCHMARK_DATA = {
           851165.766015625,
           1014692.91796875,
           914939.6846354167,
-          685150.5620442708
+          685150.5620442708,
+          721244.850016276
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -13233,7 +13233,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy memory",
         "unit": "b",
         "data": [
-          2194291,
           2194365,
           2194285,
           2194291,
@@ -13282,7 +13281,8 @@ window.BENCHMARK_DATA = {
           2194285,
           2194290,
           2194285,
-          2194403
+          2194403,
+          2194285
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -13297,12 +13297,6 @@ window.BENCHMARK_DATA = {
   },
   "Indexer (N=1000)": {
     "commits": [
-      {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
       {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
@@ -13596,10 +13590,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -13648,14 +13647,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          117128.46474609376,
           95663.0378112793,
           95201.52123209635,
           89075.92566731772,
@@ -13704,7 +13703,8 @@ window.BENCHMARK_DATA = {
           82840.36812046597,
           66333.6412916917,
           84984.56359863281,
-          80451.81107875278
+          80451.81107875278,
+          66283.955078125
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -13716,7 +13716,6 @@ window.BENCHMARK_DATA = {
         "label": "Mockolate memory",
         "unit": "b",
         "data": [
-          105721,
           105721,
           105721,
           105720,
@@ -13765,6 +13764,7 @@ window.BENCHMARK_DATA = {
           105745,
           105745,
           105745,
+          105745,
           105745
         ],
         "borderColor": "#63A2AC",
@@ -13780,7 +13780,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          53072.36401803153,
           49818.32001953125,
           52004.245609537764,
           57526.61026509603,
@@ -13829,7 +13828,8 @@ window.BENCHMARK_DATA = {
           50331.65936279297,
           41323.680436197916,
           41357.007341657365,
-          48894.648603166854
+          48894.648603166854,
+          41362.643201555526
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -13841,7 +13841,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
-          121097,
           121101,
           121101,
           121101,
@@ -13890,6 +13889,7 @@ window.BENCHMARK_DATA = {
           121101,
           121101,
           121097,
+          121101,
           121101
         ],
         "borderColor": "#E84393",
@@ -13905,7 +13905,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          1003791.0053013393,
           1358369.7645733173,
           1356272.6704427083,
           1356223.869140625,
@@ -13954,7 +13953,8 @@ window.BENCHMARK_DATA = {
           1363065.7915736607,
           1077784.1609375,
           838668.7538311298,
-          1303288.3960336538
+          1303288.3960336538,
+          1040800.6883370535
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -13966,7 +13966,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
-          936191,
           1048326,
           1048486,
           1048326,
@@ -14015,7 +14014,8 @@ window.BENCHMARK_DATA = {
           1048326,
           1048320,
           1048277,
-          936449
+          936449,
+          1048486
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -14030,7 +14030,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          1618767.600360577,
           1763938.3879743305,
           1761073.8426339286,
           1918969.5968191964,
@@ -14079,7 +14078,8 @@ window.BENCHMARK_DATA = {
           1981974.9935825893,
           1403466.0880301339,
           1290404.0631510417,
-          1842492.8239583333
+          1842492.8239583333,
+          1330809.494986979
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -14091,7 +14091,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
-          1515722,
           1515916,
           1515860,
           1515916,
@@ -14140,6 +14139,7 @@ window.BENCHMARK_DATA = {
           1515871,
           1515916,
           1515778,
+          1515860,
           1515860
         ],
         "borderColor": "#5E2750",
@@ -14155,7 +14155,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          1429753.6647600445,
           1641484.5030691964,
           1707331.6502604166,
           1639755.9884207589,
@@ -14204,7 +14203,8 @@ window.BENCHMARK_DATA = {
           1804019.280078125,
           1229571.8871372768,
           1180657.9302133413,
-          1628960.2042410714
+          1628960.2042410714,
+          1203511.88046875
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -14216,7 +14216,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy memory",
         "unit": "b",
         "data": [
-          2221357,
           2221384,
           2221384,
           2221424,
@@ -14265,7 +14264,8 @@ window.BENCHMARK_DATA = {
           2221384,
           2221424,
           2221357,
-          2221384
+          2221384,
+          2221423
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -14280,7 +14280,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          212956.68717447916,
           206261.78237680288,
           173081.40047200522,
           188330.52753557477,
@@ -14329,7 +14328,8 @@ window.BENCHMARK_DATA = {
           170981.38117327009,
           134131.46596679688,
           145807.4266438802,
-          175102.82890973773
+          175102.82890973773,
+          133371.02998046874
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -14347,7 +14347,7 @@ window.BENCHMARK_DATA = {
           300785,
           300785,
           300785,
-          300785,
+          299545,
           299545,
           299545,
           299545,
@@ -14406,12 +14406,6 @@ window.BENCHMARK_DATA = {
   "Unconfigured (N=1)": {
     "commits": [
       {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
-      {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
         "date": "Tue Nov 24 19:57:40 2026 \u002B0100",
@@ -14704,10 +14698,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -14756,14 +14755,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          509.764111995697,
           423.7962652206421,
           331.7568073590597,
           431.2712860107422,
@@ -14812,7 +14811,8 @@ window.BENCHMARK_DATA = {
           548.8346173422677,
           375.9349351247152,
           406.76508213678994,
-          432.4709904534476
+          432.4709904534476,
+          400.6005885442098
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -14824,7 +14824,6 @@ window.BENCHMARK_DATA = {
         "label": "Mockolate memory",
         "unit": "b",
         "data": [
-          1544,
           1544,
           1544,
           1544,
@@ -14873,6 +14872,7 @@ window.BENCHMARK_DATA = {
           1568,
           1568,
           1568,
+          1568,
           1568
         ],
         "borderColor": "#63A2AC",
@@ -14888,7 +14888,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          268.57417689836944,
           287.1442567961557,
           223.37435373238154,
           253.5485076537499,
@@ -14937,7 +14936,8 @@ window.BENCHMARK_DATA = {
           324.3038662842342,
           226.44995821317036,
           244.86669782002767,
-          251.95477011998494
+          251.95477011998494,
+          239.6887253352574
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -15013,7 +15013,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          528.3300807659442,
           575.8949367083036,
           413.2085015296936,
           500.50003554026284,
@@ -15062,7 +15061,8 @@ window.BENCHMARK_DATA = {
           608.1457993189493,
           415.89625314076744,
           454.8215678215027,
-          479.0873411382948
+          479.0873411382948,
+          437.3525138268104
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -15080,7 +15080,7 @@ window.BENCHMARK_DATA = {
           1856,
           1856,
           1856,
-          1856,
+          1784,
           1784,
           1784,
           1784,
@@ -15138,7 +15138,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          117325.59513346355,
           91581.0222342355,
           70210.38001302084,
           112148.27507672991,
@@ -15187,7 +15186,8 @@ window.BENCHMARK_DATA = {
           49617.434765625,
           36661.15936686198,
           37062.12545776367,
-          113817.58824869791
+          113817.58824869791,
+          36845.56299767127
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -15199,7 +15199,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
-          10030,
           10141,
           10030,
           10030,
@@ -15248,7 +15247,8 @@ window.BENCHMARK_DATA = {
           10009,
           10009,
           10009,
-          10030
+          10030,
+          10009
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -15263,7 +15263,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          7898.29194132487,
           7130.838946024577,
           5781.82081451416,
           7299.360922677176,
@@ -15312,7 +15311,8 @@ window.BENCHMARK_DATA = {
           7268.276684897287,
           5443.656460101788,
           5567.165791829427,
-          7532.352806091309
+          7532.352806091309,
+          5270.332358296712
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -15325,7 +15325,6 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           10248,
-          10248,
           10416,
           10248,
           10416,
@@ -15360,6 +15359,7 @@ window.BENCHMARK_DATA = {
           10248,
           10248,
           10416,
+          10248,
           10248,
           10248,
           10248,
@@ -15388,7 +15388,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          7782.490237426758,
           6957.965524400984,
           5346.763770548502,
           7512.327378954206,
@@ -15437,7 +15436,8 @@ window.BENCHMARK_DATA = {
           6355.97634379069,
           4834.54914855957,
           4969.100538526262,
-          7312.5826075236
+          7312.5826075236,
+          4786.295641581218
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -15453,7 +15453,6 @@ window.BENCHMARK_DATA = {
           11854,
           11854,
           11854,
-          11854,
           11853,
           11848,
           11854,
@@ -15498,7 +15497,8 @@ window.BENCHMARK_DATA = {
           11848,
           11848,
           11848,
-          11854
+          11854,
+          11848
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -15513,12 +15513,6 @@ window.BENCHMARK_DATA = {
   },
   "Unconfigured (N=10)": {
     "commits": [
-      {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
       {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
@@ -15812,10 +15806,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -15864,14 +15863,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          1672.4929792086284,
           1633.4486626216344,
           1210.6640524546306,
           1492.8253254209246,
@@ -15920,7 +15919,8 @@ window.BENCHMARK_DATA = {
           1905.3413125446864,
           1390.973593711853,
           1486.4522398630777,
-          1531.0293430600848
+          1531.0293430600848,
+          1421.6831957499187
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -15932,7 +15932,6 @@ window.BENCHMARK_DATA = {
         "label": "Mockolate memory",
         "unit": "b",
         "data": [
-          4016,
           4016,
           4016,
           4016,
@@ -15981,6 +15980,7 @@ window.BENCHMARK_DATA = {
           4040,
           4040,
           4040,
+          4040,
           4040
         ],
         "borderColor": "#63A2AC",
@@ -15996,7 +15996,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          1009.7683686476487,
           1067.4180909670317,
           807.392457485199,
           931.1812039057414,
@@ -16045,7 +16044,8 @@ window.BENCHMARK_DATA = {
           1159.9939132690429,
           878.691889890035,
           934.9898541132609,
-          939.7881310780843
+          939.7881310780843,
+          877.4999104817708
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -16121,7 +16121,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          3379.963520322527,
           3543.175686899821,
           2661.8366836547852,
           3282.3089226314,
@@ -16170,7 +16169,8 @@ window.BENCHMARK_DATA = {
           3642.0242432185582,
           2724.8674865722655,
           2969.8571067810058,
-          3016.510075632731
+          3016.510075632731,
+          2852.0077763875324
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -16188,7 +16188,7 @@ window.BENCHMARK_DATA = {
           8672,
           8672,
           8672,
-          8672,
+          8600,
           8600,
           8600,
           8600,
@@ -16246,7 +16246,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          132457.3627766927,
           106707.61715262277,
           82009.3635160006,
           127149.77067683294,
@@ -16295,7 +16294,8 @@ window.BENCHMARK_DATA = {
           67531.11310686384,
           52007.06884765625,
           52699.635650634766,
-          128583.28011067708
+          128583.28011067708,
+          52169.30924886068
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16307,7 +16307,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
-          25115,
           25226,
           25114,
           25115,
@@ -16356,7 +16355,8 @@ window.BENCHMARK_DATA = {
           25109,
           25108,
           25108,
-          25115
+          25115,
+          25108
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16371,7 +16371,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          23717.595517839705,
           22014.011525472004,
           18661.278353009904,
           22908.48627726237,
@@ -16420,7 +16419,8 @@ window.BENCHMARK_DATA = {
           20480.782604980468,
           16545.259822591146,
           15857.339654541016,
-          23356.99835611979
+          23356.99835611979,
+          15068.798927815755
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16432,7 +16432,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
-          23481,
           23481,
           25665,
           23481,
@@ -16481,7 +16480,8 @@ window.BENCHMARK_DATA = {
           23480,
           25496,
           23480,
-          23481
+          23481,
+          23480
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -16496,7 +16496,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          30018.17091878255,
           27169.415580240886,
           21054.242730276925,
           27604.615370530348,
@@ -16545,7 +16544,8 @@ window.BENCHMARK_DATA = {
           26600.22685546875,
           20021.802463785807,
           19647.974184308732,
-          27137.279796055383
+          27137.279796055383,
+          18592.033767700195
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -16562,7 +16562,6 @@ window.BENCHMARK_DATA = {
           55216,
           55216,
           55216,
-          55216,
           55213,
           55216,
           55213,
@@ -16606,7 +16605,8 @@ window.BENCHMARK_DATA = {
           55213,
           55213,
           55213,
-          55216
+          55216,
+          55213
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -16621,12 +16621,6 @@ window.BENCHMARK_DATA = {
   },
   "Unconfigured (N=1000)": {
     "commits": [
-      {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
       {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
@@ -16920,10 +16914,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -16972,14 +16971,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          131345.93690708705,
           123093.48791503906,
           98230.36100886419,
           120747.96292317708,
@@ -17028,7 +17027,8 @@ window.BENCHMARK_DATA = {
           158914.33269391741,
           115822.99462076822,
           115335.4278157552,
-          121667.74758676383
+          121667.74758676383,
+          113176.34285191128
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -17040,7 +17040,6 @@ window.BENCHMARK_DATA = {
         "label": "Mockolate memory",
         "unit": "b",
         "data": [
-          273297,
           273297,
           273297,
           273297,
@@ -17089,6 +17088,7 @@ window.BENCHMARK_DATA = {
           273321,
           273321,
           273321,
+          273321,
           273321
         ],
         "borderColor": "#63A2AC",
@@ -17104,7 +17104,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          82825.92267252604,
           84177.26419270833,
           68111.13579101562,
           77192.30568284255,
@@ -17153,7 +17152,8 @@ window.BENCHMARK_DATA = {
           98591.19147949219,
           70011.06067708334,
           70597.41217447916,
-          78601.93987630209
+          78601.93987630209,
+          68992.35771484375
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -17170,7 +17170,6 @@ window.BENCHMARK_DATA = {
           208883,
           208883,
           208883,
-          208883,
           208881,
           208883,
           208881,
@@ -17214,7 +17213,8 @@ window.BENCHMARK_DATA = {
           208881,
           208881,
           208881,
-          208883
+          208883,
+          208881
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -17229,7 +17229,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          331738.88753255206,
           316072.7650065104,
           254008.97834123884,
           312861.52164713544,
@@ -17278,7 +17277,8 @@ window.BENCHMARK_DATA = {
           335873.03131510416,
           245365.82408854167,
           243821.41923828126,
-          570063.6490885416
+          570063.6490885416,
+          243545.71303710938
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -17296,7 +17296,6 @@ window.BENCHMARK_DATA = {
           707794,
           707794,
           707794,
-          707794,
           707722,
           707722,
           707722,
@@ -17339,7 +17338,8 @@ window.BENCHMARK_DATA = {
           707722,
           707722,
           707722,
-          707725
+          707725,
+          707721
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -17354,7 +17354,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          1608853.7940104166,
           1482988.7729867788,
           1218945.2776041667,
           1641950.2514322917,
@@ -17403,7 +17402,8 @@ window.BENCHMARK_DATA = {
           1328285.5328125,
           982717.872265625,
           1008388.33984375,
-          1514214.7961774555
+          1514214.7961774555,
+          970414.0102864583
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -17415,7 +17415,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
-          1692680,
           1692792,
           1692680,
           1692680,
@@ -17464,7 +17463,8 @@ window.BENCHMARK_DATA = {
           1692567,
           1692567,
           1692567,
-          1692678
+          1692678,
+          1692560
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -17479,7 +17479,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          1805917.237890625,
           1584192.9860276442,
           1452469.0276041667,
           1808472.897265625,
@@ -17528,7 +17527,8 @@ window.BENCHMARK_DATA = {
           1384721.0841145834,
           1164598.4011067708,
           1058948.5842447917,
-          1703187.5724051339
+          1703187.5724051339,
+          983792.4572916667
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17540,7 +17540,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
-          1468916,
           1468916,
           1692895,
           1468916,
@@ -17589,7 +17588,8 @@ window.BENCHMARK_DATA = {
           1468807,
           1692585,
           1468806,
-          1468916
+          1468916,
+          1468807
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17604,7 +17604,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          2950055.4205729165,
           2800971.849479167,
           2278603.4500558036,
           3211539.360770089,
@@ -17653,7 +17652,8 @@ window.BENCHMARK_DATA = {
           2646014.4869791665,
           1979840.0922475962,
           1940428.2859375,
-          2734631.4424479166
+          2734631.4424479166,
+          1851129.2313802084
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17665,7 +17665,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy memory",
         "unit": "b",
         "data": [
-          4803387,
           4803387,
           4803387,
           4803387,
@@ -17714,7 +17713,8 @@ window.BENCHMARK_DATA = {
           4803191,
           4803191,
           4803191,
-          4803387
+          4803387,
+          4803180
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -17729,12 +17729,6 @@ window.BENCHMARK_DATA = {
   },
   "Async (N=1)": {
     "commits": [
-      {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
       {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
@@ -18028,10 +18022,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -18080,14 +18079,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          317.9964716617878,
           319.6414096514384,
           178.9359442270719,
           341.01813738686695,
@@ -18136,7 +18135,8 @@ window.BENCHMARK_DATA = {
           363.0854703903198,
           257.0943543116252,
           354.79428180058795,
-          266.5744208017985
+          266.5744208017985,
+          280.5313134988149
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -18172,7 +18172,7 @@ window.BENCHMARK_DATA = {
           1024,
           1024,
           1024,
-          1024,
+          1032,
           1032,
           1032,
           1032,
@@ -18212,7 +18212,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          415.7906062444051,
           439.94619737352645,
           268.3690896828969,
           417.5771956841151,
@@ -18261,7 +18260,8 @@ window.BENCHMARK_DATA = {
           426.65179787363326,
           346.59645579655967,
           459.1104698816935,
-          338.0708923706642
+          338.0708923706642,
+          405.5304377760206
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -18337,7 +18337,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          1088.018466435946,
           1134.6936452048164,
           681.2415955250079,
           1078.8326960245768,
@@ -18386,7 +18385,8 @@ window.BENCHMARK_DATA = {
           835.0185023716518,
           656.0838738123576,
           914.7167217890421,
-          642.1213952473232
+          642.1213952473232,
+          734.2058249155681
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -18404,7 +18404,7 @@ window.BENCHMARK_DATA = {
           4464,
           4464,
           4464,
-          4464,
+          2632,
           2632,
           2632,
           2632,
@@ -18462,7 +18462,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          330659.4165414664,
           261650.59508463542,
           116492.56482747397,
           328037.858468192,
@@ -18511,7 +18510,8 @@ window.BENCHMARK_DATA = {
           337556.3826822917,
           205015.86432756696,
           333279.33816964284,
-          205381.94712611608
+          205381.94712611608,
+          204424.1109049479
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -18523,7 +18523,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
-          23282,
           23302,
           23313,
           23282,
@@ -18572,6 +18571,7 @@ window.BENCHMARK_DATA = {
           23282,
           23302,
           23282,
+          23302,
           23302
         ],
         "borderColor": "#A052B0",
@@ -18587,7 +18587,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          16190.224894205729,
           15156.284456380208,
           7597.29597269694,
           16266.252591959636,
@@ -18636,7 +18635,8 @@ window.BENCHMARK_DATA = {
           16473.58832804362,
           11279.608505249023,
           16125.570878092449,
-          11247.45825398763
+          11247.45825398763,
+          11529.139251708984
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -18648,7 +18648,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
-          19554,
           19553,
           19553,
           19554,
@@ -18697,6 +18696,7 @@ window.BENCHMARK_DATA = {
           19554,
           19553,
           19554,
+          19553,
           19553
         ],
         "borderColor": "#5E2750",
@@ -18712,7 +18712,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          12277.528618367513,
           10670.98096110026,
           5874.212386067708,
           12034.835115559896,
@@ -18761,7 +18760,8 @@ window.BENCHMARK_DATA = {
           11621.416764395577,
           7822.4117146809895,
           12124.595806415264,
-          7870.523303440639
+          7870.523303440639,
+          8070.902549235026
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -18773,7 +18773,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy memory",
         "unit": "b",
         "data": [
-          14332,
           14332,
           14332,
           14332,
@@ -18822,6 +18821,7 @@ window.BENCHMARK_DATA = {
           14332,
           14332,
           14444,
+          14332,
           14332
         ],
         "borderColor": "#4A6FA5",
@@ -18837,12 +18837,6 @@ window.BENCHMARK_DATA = {
   },
   "Async (N=10)": {
     "commits": [
-      {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
       {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
@@ -19136,10 +19130,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -19188,14 +19187,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          1621.5499357859294,
           1590.5360365549723,
           859.7833417483738,
           1654.0663450786046,
@@ -19244,7 +19243,8 @@ window.BENCHMARK_DATA = {
           1786.7199065344673,
           1215.2742731911796,
           1641.7799130953276,
-          1240.0800476074219
+          1240.0800476074219,
+          1273.918275197347
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -19280,7 +19280,7 @@ window.BENCHMARK_DATA = {
           3040,
           3040,
           3040,
-          3040,
+          3048,
           3048,
           3048,
           3048,
@@ -19320,7 +19320,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          1492.8722607930501,
           1486.3661422729492,
           861.1725280284882,
           1435.4777614886943,
@@ -19369,7 +19368,8 @@ window.BENCHMARK_DATA = {
           1502.001383972168,
           1152.375289662679,
           1440.9504899342855,
-          1157.38456930433
+          1157.38456930433,
+          1234.6268269675118
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -19445,7 +19445,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          4898.2261525472,
           5467.1477040608725,
           3185.298494211833,
           5008.571878286509,
@@ -19494,7 +19493,8 @@ window.BENCHMARK_DATA = {
           4233.749560546875,
           3731.9318939208983,
           4701.094359842936,
-          3412.760576793126
+          3412.760576793126,
+          3730.313722229004
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -19512,7 +19512,7 @@ window.BENCHMARK_DATA = {
           10536,
           10536,
           10536,
-          10536,
+          9440,
           9440,
           9440,
           9440,
@@ -19570,7 +19570,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          376745.45002092636,
           304144.66920572915,
           127393.09459635416,
           367305.84765625,
@@ -19619,7 +19618,8 @@ window.BENCHMARK_DATA = {
           383219.792061942,
           236745.56005859375,
           375601.21044921875,
-          240569.0895345052
+          240569.0895345052,
+          241692.81920572917
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -19631,7 +19631,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
-          41155,
           41155,
           41152,
           41155,
@@ -19680,6 +19679,7 @@ window.BENCHMARK_DATA = {
           41155,
           41153,
           41155,
+          41153,
           41153
         ],
         "borderColor": "#A052B0",
@@ -19695,7 +19695,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          29226.314931233723,
           25333.186017717635,
           14617.666427612305,
           29175.74790242513,
@@ -19744,7 +19743,8 @@ window.BENCHMARK_DATA = {
           28553.225287804238,
           19413.129692586263,
           28460.74541015625,
-          20808.343178885323
+          20808.343178885323,
+          19645.606565348306
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -19756,7 +19756,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
-          30101,
           30101,
           30095,
           30101,
@@ -19805,6 +19804,7 @@ window.BENCHMARK_DATA = {
           30101,
           30101,
           30101,
+          30101,
           30101
         ],
         "borderColor": "#5E2750",
@@ -19820,7 +19820,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          44285.52614339193,
           40241.11221110026,
           24338.918863932293,
           44064.440763346356,
@@ -19869,7 +19868,8 @@ window.BENCHMARK_DATA = {
           44980.72411905925,
           31087.783052571616,
           45068.635192871094,
-          32314.387625558036
+          32314.387625558036,
+          32452.20506998698
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -19881,7 +19881,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy memory",
         "unit": "b",
         "data": [
-          60496,
           60496,
           60496,
           60496,
@@ -19930,6 +19929,7 @@ window.BENCHMARK_DATA = {
           60496,
           60496,
           60607,
+          60496,
           60496
         ],
         "borderColor": "#4A6FA5",
@@ -19945,12 +19945,6 @@ window.BENCHMARK_DATA = {
   },
   "Async (N=1000)": {
     "commits": [
-      {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
       {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
@@ -20244,10 +20238,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -20296,14 +20295,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          145409.54809570312,
           133486.88050130208,
           79708.60969238282,
           143389.96902901787,
@@ -20352,7 +20351,8 @@ window.BENCHMARK_DATA = {
           156701.30338541666,
           105623.01651436942,
           143866.00491536458,
-          128801.03676757813
+          128801.03676757813,
+          110101.3972249349
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -20364,7 +20364,6 @@ window.BENCHMARK_DATA = {
         "label": "Mockolate memory",
         "unit": "b",
         "data": [
-          224801,
           224801,
           224801,
           224801,
@@ -20413,7 +20412,8 @@ window.BENCHMARK_DATA = {
           224809,
           224809,
           224809,
-          224809
+          224809,
+          224808
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -20428,7 +20428,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          123966.84851888022,
           110271.85925292969,
           70518.6721473107,
           114616.23103027344,
@@ -20477,7 +20476,8 @@ window.BENCHMARK_DATA = {
           113820.34373372396,
           87139.98252766927,
           113816.14916992188,
-          107926.3125813802
+          107926.3125813802,
+          95442.20406087239
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -20501,7 +20501,6 @@ window.BENCHMARK_DATA = {
           209409,
           209409,
           209409,
-          209409,
           209408,
           209408,
           209409,
@@ -20538,7 +20537,8 @@ window.BENCHMARK_DATA = {
           209409,
           209409,
           209409,
-          209409
+          209409,
+          209408
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -20553,7 +20553,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          429551.8179361979,
           456809.68245442706,
           303753.1021158854,
           442757.6173270089,
@@ -20602,7 +20601,8 @@ window.BENCHMARK_DATA = {
           379377.4859700521,
           313018.91354166664,
           428108.2828776042,
-          291984.912109375
+          291984.912109375,
+          313961.61139322916
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -20614,7 +20614,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks memory",
         "unit": "b",
         "data": [
-          703994,
           703994,
           703994,
           703994,
@@ -20663,6 +20662,7 @@ window.BENCHMARK_DATA = {
           653538,
           653538,
           653538,
+          653538,
           653538
         ],
         "borderColor": "#FF8C00",
@@ -20678,7 +20678,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          4362184.396875,
           3930974.3504464286,
           2163207.3311941964,
           4257951.3609375,
@@ -20727,7 +20726,8 @@ window.BENCHMARK_DATA = {
           4423839.727864583,
           3103332.6990685095,
           4323042.419791667,
-          3198452.0987723214
+          3198452.0987723214,
+          3163946.3953683036
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -20739,7 +20739,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq memory",
         "unit": "b",
         "data": [
-          1936429,
           1936429,
           1936410,
           1936429,
@@ -20788,7 +20787,8 @@ window.BENCHMARK_DATA = {
           1936429,
           1936410,
           1936429,
-          1936403
+          1936403,
+          1936410
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -20803,7 +20803,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          1187437.9385416666,
           1126765.5294363839,
           627088.6860351562,
           1222009.6059895833,
@@ -20852,7 +20851,8 @@ window.BENCHMARK_DATA = {
           1226900.142578125,
           899931.0440848215,
           1273702.6762319712,
-          960766.5395833333
+          960766.5395833333,
+          894718.0883463542
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -20864,7 +20864,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
-          1119044,
           1119152,
           1119115,
           1119153,
@@ -20913,7 +20912,8 @@ window.BENCHMARK_DATA = {
           1119153,
           1119115,
           1119169,
-          1119052
+          1119052,
+          1119114
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -20928,7 +20928,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          4027975.347956731,
           3813656.925,
           2205698.1927083335,
           4068299.763541667,
@@ -20977,7 +20976,8 @@ window.BENCHMARK_DATA = {
           4039199.8291666666,
           2986242.1409040177,
           4099282.6567708333,
-          3101200.9891183036
+          3101200.9891183036,
+          3032233.1984375
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -20989,7 +20989,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy memory",
         "unit": "b",
         "data": [
-          5051944,
           5051810,
           5051810,
           5052257,
@@ -21038,7 +21037,8 @@ window.BENCHMARK_DATA = {
           5051944,
           5051810,
           5052141,
-          5051806
+          5051806,
+          5051810
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -21053,12 +21053,6 @@ window.BENCHMARK_DATA = {
   },
   "Sequence": {
     "commits": [
-      {
-        "sha": "a19f30e11472de1d69c3a90888798ece6f887aa7",
-        "author": "Valentin Breu\u00DF",
-        "date": "Tue Nov 24 16:22:06 2026 \u002B0100",
-        "message": "feat: generate the AutoMockArguments attribute for TUnit (#1120)"
-      },
       {
         "sha": "61e75244702a68f46ae8946e17a752c1ba5b5adb",
         "author": "Valentin Breu\u00DF",
@@ -21352,10 +21346,15 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 10:26:29 2026 \u002B0100",
         "message": "feat: enable auto-mocking by default (#1181)"
+      },
+      {
+        "sha": "74861298c15bb8ed7403f215702f7aa6305935bf",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 10:48:44 2026 \u002B0100",
+        "message": "feat: support constants in [ValueFrom] (#1179)"
       }
     ],
     "labels": [
-      "a19f30e1",
       "61e75244",
       "7ac61d6a",
       "5170b8f4",
@@ -21404,14 +21403,14 @@ window.BENCHMARK_DATA = {
       "33c45deb",
       "f8b0da07",
       "2ed0d4f0",
-      "9f3969eb"
+      "9f3969eb",
+      "74861298"
     ],
     "datasets": [
       {
         "label": "Mockolate time",
         "unit": "ns",
         "data": [
-          3670.9471349080404,
           2843.425722885132,
           3406.4181399027507,
           2828.033689371745,
@@ -21460,7 +21459,8 @@ window.BENCHMARK_DATA = {
           3367.3681564331055,
           2762.046930948893,
           2682.9088068644205,
-          2739.3354031699046
+          2739.3354031699046,
+          2775.4213368552073
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -21496,7 +21496,7 @@ window.BENCHMARK_DATA = {
           2288,
           2288,
           2288,
-          2288,
+          2296,
           2296,
           2296,
           2296,
@@ -21536,7 +21536,6 @@ window.BENCHMARK_DATA = {
         "label": "Imposter time",
         "unit": "ns",
         "data": [
-          3112.039297648839,
           2255.8863013131277,
           3112.816737174988,
           2287.4933923574595,
@@ -21585,7 +21584,8 @@ window.BENCHMARK_DATA = {
           3063.817230097453,
           2294.0083428700764,
           2427.567290966327,
-          2201.4083788735525
+          2201.4083788735525,
+          2345.31245803833
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -21661,7 +21661,6 @@ window.BENCHMARK_DATA = {
         "label": "TUnitMocks time",
         "unit": "ns",
         "data": [
-          4045.2296186174667,
           3065.116581217448,
           3859.4668337504067,
           3002.798732503255,
@@ -21710,7 +21709,8 @@ window.BENCHMARK_DATA = {
           3569.149528503418,
           2705.9010409037273,
           2862.05564549764,
-          2690.8053972880048
+          2690.8053972880048,
+          2757.0661308288572
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -21728,7 +21728,7 @@ window.BENCHMARK_DATA = {
           3344,
           3344,
           3344,
-          3344,
+          2912,
           2912,
           2912,
           2912,
@@ -21786,7 +21786,6 @@ window.BENCHMARK_DATA = {
         "label": "Moq time",
         "unit": "ns",
         "data": [
-          12679.943803053637,
           9633.298543294271,
           15064.308044433594,
           9977.205783550557,
@@ -21835,7 +21834,8 @@ window.BENCHMARK_DATA = {
           14338.617431640625,
           9833.664733886719,
           10201.713152204242,
-          9583.760178629558
+          9583.760178629558,
+          10083.61986694336
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -21848,7 +21848,6 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           11048,
-          11048,
           11049,
           11048,
           11048,
@@ -21858,6 +21857,7 @@ window.BENCHMARK_DATA = {
           11048,
           11048,
           11049,
+          11048,
           11048,
           11048,
           11048,
@@ -21911,7 +21911,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute time",
         "unit": "ns",
         "data": [
-          11317.506330217633,
           8652.06646830241,
           12690.652994009164,
           8949.407869611468,
@@ -21960,7 +21959,8 @@ window.BENCHMARK_DATA = {
           12687.763067626953,
           9017.89841402494,
           9154.847415161134,
-          8724.479136657716
+          8724.479136657716,
+          9025.305594811072
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -21972,7 +21972,6 @@ window.BENCHMARK_DATA = {
         "label": "NSubstitute memory",
         "unit": "b",
         "data": [
-          15024,
           14632,
           14633,
           14632,
@@ -22021,6 +22020,7 @@ window.BENCHMARK_DATA = {
           15025,
           14632,
           15025,
+          14632,
           14632
         ],
         "borderColor": "#5E2750",
@@ -22036,7 +22036,6 @@ window.BENCHMARK_DATA = {
         "label": "FakeItEasy time",
         "unit": "ns",
         "data": [
-          11819.025165264424,
           8904.437030029298,
           13636.907007489886,
           9331.703290666852,
@@ -22085,7 +22084,8 @@ window.BENCHMARK_DATA = {
           13578.010387166341,
           8866.589243570963,
           9280.710460408529,
-          8992.822021484375
+          8992.822021484375,
+          9327.104123942057
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -22098,7 +22098,6 @@ window.BENCHMARK_DATA = {
         "unit": "b",
         "data": [
           14614,
-          14614,
           14620,
           14614,
           14620,
@@ -22146,6 +22145,7 @@ window.BENCHMARK_DATA = {
           14620,
           14614,
           14620,
+          14614,
           14614
         ],
         "borderColor": "#4A6FA5",
