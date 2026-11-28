@@ -1,4 +1,5 @@
 using Mockolate.Exceptions;
+using Mockolate.Tests.Mocks;
 
 namespace Mockolate.Tests.MockProperties;
 
@@ -43,7 +44,7 @@ public sealed class VerifyGotTests
 
 		await That(Act).Throws<MockNotSetupException>().OnlyIf(throwWhenNotSetup)
 			.WithMessage("""
-			             The property 'global::Mockolate.Tests.MockTests.IMyService.IsValid' was accessed without prior setup.
+			             The property 'global::Mockolate.Tests.Mocks.MockTests.IMyService.IsValid' was accessed without prior setup.
 			             """);
 	}
 }
