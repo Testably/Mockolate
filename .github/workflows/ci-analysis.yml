@@ -10,6 +10,7 @@ on:
 jobs:
     mutation-tests:
         name: "Mutation tests"
+        if: ${{ github.event.workflow_run.conclusion != 'cancelled' }}
         runs-on: ubuntu-latest
         permissions:
             actions: read
@@ -40,6 +41,7 @@ jobs:
 
     benchmarks:
         name: "Benchmarks"
+        if: ${{ github.event.workflow_run.conclusion != 'cancelled' }}
         runs-on: ubuntu-latest
         permissions:
             actions: read
