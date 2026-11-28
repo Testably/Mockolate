@@ -352,6 +352,31 @@ public sealed partial class MockGenerationSnapshotTests
             [],
             UnionMode: true),
         new(
+            "MembersHidingOtherKind_CanBeCreated",
+            [
+                "IMembersHidingOtherKind.cs", "IMembersHiddenByOtherKind.cs", "IMembersOfOtherKindSibling.cs",
+                "IMembersOfOtherKindSiblings.cs", "MembersHidingOtherKindBase.cs", "MembersHiddenByOtherKindBase.cs",
+            ],
+            """
+            IMembersHidingOtherKind sut1 = IMembersHidingOtherKind.CreateMock();
+            MembersHidingOtherKindBase sut2 = MembersHidingOtherKindBase.CreateMock();
+            IMembersOfOtherKindSiblings sut3 = IMembersOfOtherKindSiblings.CreateMock();
+            """,
+            []),
+        new(
+            "MembersHidingOtherKind_CanBeCreated_Unions",
+            [
+                "IMembersHidingOtherKind.cs", "IMembersHiddenByOtherKind.cs", "IMembersOfOtherKindSibling.cs",
+                "IMembersOfOtherKindSiblings.cs", "MembersHidingOtherKindBase.cs", "MembersHiddenByOtherKindBase.cs",
+            ],
+            """
+            IMembersHidingOtherKind sut1 = IMembersHidingOtherKind.CreateMock();
+            MembersHidingOtherKindBase sut2 = MembersHidingOtherKindBase.CreateMock();
+            IMembersOfOtherKindSiblings sut3 = IMembersOfOtherKindSiblings.CreateMock();
+            """,
+            [],
+            UnionMode: true),
+        new(
             "NullableMethodTypeParameter_CanBeCreated",
             ["INullableMethodTypeParameter.cs",],
             """

@@ -315,6 +315,17 @@ public sealed partial class MockTests
 		}
 
 		[Test]
+		public async Task MembersHidingOtherKind_CanBeCreated()
+		{
+			IMembersHidingOtherKind sut1 = IMembersHidingOtherKind.CreateMock();
+			MembersHidingOtherKindBase sut2 = MembersHidingOtherKindBase.CreateMock();
+			IMembersOfOtherKindSiblings sut3 = IMembersOfOtherKindSiblings.CreateMock();
+			await That(sut1).IsNotNull();
+			await That(sut2).IsNotNull();
+			await That(sut3).IsNotNull();
+		}
+
+		[Test]
 		public async Task MethodConstrainedToTypeArgument_CanBeCreated()
 		{
 			IMethodConstrainedToTypeArgument<int> sut1 = IMethodConstrainedToTypeArgument<int>.CreateMock();

@@ -349,10 +349,11 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 
 	/// <summary>
 	///     Base interfaces of <paramref name="type" /> that declare a member which a more-derived
-	///     interface in the hierarchy hides (a <see langword="new" /> member with a matching signature),
-	///     or which a sibling interface declares with the same signature (also when they differ only in
-	///     nullable annotations). Such a member is a separate interface slot, so its setup/verify surface
-	///     must be generated explicitly. Ordinary inheritance without a collision returns nothing.
+	///     interface in the hierarchy hides (a <see langword="new" /> member with a matching signature or of
+	///     another kind with the same name), or which a sibling interface declares with the same signature
+	///     or name (also when they differ only in nullable annotations). Such a member is a separate
+	///     interface slot, so its setup/verify surface must be generated explicitly. Ordinary inheritance
+	///     without a collision returns nothing.
 	/// </summary>
 	private static IEnumerable<INamedTypeSymbol> GetHiddenBaseInterfaces(ITypeSymbol type)
 	{
@@ -393,7 +394,8 @@ internal sealed class MockClass : Class, IEquatable<MockClass>
 	private static bool HidesMember(ITypeSymbol hidingType, ISymbol baseMember)
 		=> hidingType.GetMembers(baseMember.Name)
 			.Any(candidate => !SymbolEqualityComparer.Default.Equals(candidate.ContainingType, baseMember.ContainingType) &&
-			                  SignatureMatches(candidate, baseMember));
+			                  (SignatureMatches(candidate, baseMember) ||
+			                   (candidate.Kind != baseMember.Kind && IsHidableMember(candidate))));
 
 	private static bool IsHidableMember(ISymbol member)
 		=> member switch

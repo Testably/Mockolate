@@ -96,6 +96,22 @@ internal class Class : IEquatable<Class>
 
 		foreach (ISymbol member in members)
 		{
+			foreach (ISymbol hidden in FindHiddenBaseOverridablesOfOtherKind(member, type, sourceAssembly))
+			{
+				switch (hidden)
+				{
+					case IMethodSymbol hiddenMethod:
+						methodExceptCandidates.Add(new Method(hiddenMethod, alreadyDefinedMethods: null, sourceAssembly));
+						break;
+					case IPropertySymbol hiddenProperty:
+						propertyExceptCandidates.Add(new Property(hiddenProperty, alreadyDefinedProperties: null, sourceAssembly));
+						break;
+					case IEventSymbol { Type: INamedTypeSymbol { DelegateInvokeMethod: { } hiddenInvoke, }, } hiddenEvent:
+						eventExceptCandidates.Add(new Event(hiddenEvent, hiddenInvoke, alreadyDefinedEvents: null, sourceAssembly));
+						break;
+				}
+			}
+
 			switch (member)
 			{
 				case IMethodSymbol methodSymbol when methodSymbol.MethodKind is MethodKind.Ordinary:
@@ -103,10 +119,16 @@ internal class Class : IEquatable<Class>
 						if (!methodSymbol.IsSealed && (IsInterface || methodSymbol.IsVirtual || methodSymbol.IsAbstract) &&
 						    ShouldIncludeMember(methodSymbol))
 						{
-							methodIncludes.Add(new Method(methodSymbol, alreadyDefinedMethods, sourceAssembly)
+							Method method = new(methodSymbol, alreadyDefinedMethods, sourceAssembly)
 							{
 								IsAbstract = IsAbstractIn(methodSymbol, mockedType),
-							});
+							};
+							if (IsNameTakenByOtherKind(method.Name, methods: null, alreadyDefinedProperties, alreadyDefinedEvents))
+							{
+								method = method with { ExplicitImplementation = method.ContainingType, };
+							}
+
+							methodIncludes.Add(method);
 						}
 
 						if (methodSymbol.IsSealed || HidesBaseOverridable(methodSymbol, type))
@@ -122,10 +144,17 @@ internal class Class : IEquatable<Class>
 						if (!propertySymbol.IsSealed && (IsInterface || propertySymbol.IsVirtual || propertySymbol.IsAbstract) &&
 						    ShouldIncludeMember(propertySymbol))
 						{
-							propertyIncludes.Add(new Property(propertySymbol, alreadyDefinedProperties, sourceAssembly)
+							Property property = new(propertySymbol, alreadyDefinedProperties, sourceAssembly)
 							{
 								IsAbstract = IsAbstractIn(propertySymbol, mockedType),
-							});
+							};
+							if (!property.IsIndexer &&
+							    IsNameTakenByOtherKind(property.Name, alreadyDefinedMethods, properties: null, alreadyDefinedEvents))
+							{
+								property = property with { ExplicitImplementation = property.ContainingType, };
+							}
+
+							propertyIncludes.Add(property);
 						}
 
 						if (propertySymbol.IsSealed || HidesBaseOverridable(propertySymbol, type))
@@ -147,10 +176,16 @@ internal class Class : IEquatable<Class>
 						if (!eventSymbol.IsSealed && (IsInterface || eventSymbol.IsVirtual || eventSymbol.IsAbstract) &&
 						    ShouldIncludeMember(eventSymbol))
 						{
-							eventIncludes.Add(new Event(eventSymbol, invoke, alreadyDefinedEvents, sourceAssembly)
+							Event @event = new(eventSymbol, invoke, alreadyDefinedEvents, sourceAssembly)
 							{
 								IsAbstract = IsAbstractIn(eventSymbol, mockedType),
-							});
+							};
+							if (IsNameTakenByOtherKind(@event.Name, alreadyDefinedMethods, alreadyDefinedProperties, events: null))
+							{
+								@event = @event with { ExplicitImplementation = @event.ContainingType, };
+							}
+
+							eventIncludes.Add(@event);
 						}
 
 						if (eventSymbol.IsSealed || HidesBaseOverridable(eventSymbol, type))
@@ -776,6 +811,42 @@ internal class Class : IEquatable<Class>
 		}
 
 		return false;
+	}
+
+	private static IEnumerable<ISymbol> FindHiddenBaseOverridablesOfOtherKind(ISymbol member, ITypeSymbol thisType,
+		IAssemblySymbol sourceAssembly)
+	{
+		if (member.DeclaredAccessibility == Accessibility.Private || !Helpers.IsOverridableFrom(member, sourceAssembly))
+		{
+			yield break;
+		}
+
+		for (INamedTypeSymbol? b = thisType.BaseType; b is not null; b = b.BaseType)
+		{
+			foreach (ISymbol candidate in b.GetMembers(member.Name))
+			{
+				if (candidate.Kind != member.Kind && !candidate.IsSealed &&
+				    (candidate.IsVirtual || candidate.IsAbstract || candidate.IsOverride))
+				{
+					yield return candidate;
+				}
+			}
+		}
+	}
+
+	private static bool IsNameTakenByOtherKind(string name, List<Method>? methods, List<Property>? properties,
+		List<Event>? events)
+	{
+		string plainName = WithoutTypeParameters(name);
+		return methods?.Exists(method => string.Equals(WithoutTypeParameters(method.Name), plainName, StringComparison.Ordinal)) == true ||
+		       properties?.Exists(property => string.Equals(property.Name, plainName, StringComparison.Ordinal)) == true ||
+		       events?.Exists(@event => string.Equals(@event.Name, plainName, StringComparison.Ordinal)) == true;
+
+		static string WithoutTypeParameters(string memberName)
+		{
+			int index = memberName.IndexOf('<');
+			return index < 0 ? memberName : memberName.Substring(0, index);
+		}
 	}
 
 	private protected static bool SignatureMatches(ISymbol a, ISymbol b)
