@@ -93,8 +93,8 @@ internal static partial class SourceTemplates
 		                              	}
 
 		                              	/// <summary>
-		                              	///     Takes the value of a test parameter from a static property or parameterless static method of the test
-		                              	///     class.
+		                              	///     Takes the value of a test parameter from a constant, static property or parameterless static method of the
+		                              	///     test class.
 		                              	/// </summary>
 		                              	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
 		                              	[global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
@@ -102,14 +102,14 @@ internal static partial class SourceTemplates
 		                              	[global::Microsoft.CodeAnalysis.Embedded]
 		                              	internal abstract class ValueFromParameterAttribute : global::System.Attribute
 		                              	{
-		                              		/// <param name="memberName">The name of the static property or parameterless static method.</param>
+		                              		/// <param name="memberName">The name of the constant, static property or parameterless static method.</param>
 		                              		protected ValueFromParameterAttribute(string memberName)
 		                              		{
 		                              			MemberName = memberName;
 		                              		}
 
 		                              		/// <summary>
-		                              		///     The name of the static property or parameterless static method of the test class.
+		                              		///     The name of the constant, static property or parameterless static method of the test class.
 		                              		/// </summary>
 		                              		public string MemberName { get; }
 		                              	}
@@ -203,7 +203,7 @@ internal static partial class SourceTemplates
 
 		                              		/// <summary>
 		                              		///     Calls the <see cref="global::Mockolate.IParameterValueProvider" /> attribute of the <paramref name="parameter" />,
-		                              		///     or reads the static property or calls the parameterless static method of the test class that its
+		                              		///     or reads the constant or static property or calls the parameterless static method of the test class that its
 		                              		///     <see cref="ValueFromParameterAttribute" /> names, or <see langword="null" /> when it has neither.
 		                              		/// </summary>
 		                              		public static global::System.Func<object?>? GetValueFrom(global::System.Reflection.ParameterInfo parameter)
@@ -261,7 +261,7 @@ internal static partial class SourceTemplates
 		                              			if (FindValueMember(testClass, memberName) is not { } member)
 		                              			{
 		                              				throw new global::Mockolate.Exceptions.MockException(
-		                              					$"The [ValueFrom] parameter '{parameter.Name}' needs a static property or parameterless static method '{memberName}' in '{testClass}'.");
+		                              					$"The [ValueFrom] parameter '{parameter.Name}' needs a constant, static property or parameterless static method '{memberName}' in '{testClass}'.");
 		                              			}
 
 		                              			return () =>
@@ -269,7 +269,9 @@ internal static partial class SourceTemplates
 		                              				object? value;
 		                              				try
 		                              				{
-		                              					value = member.Invoke(null, null);
+		                              					value = member is global::System.Reflection.FieldInfo field
+		                              						? field.GetValue(null)
+		                              						: ((global::System.Reflection.MethodInfo)member).Invoke(null, null);
 		                              				}
 		                              				catch (global::System.Reflection.TargetInvocationException exception) when (exception.InnerException is not null)
 		                              				{
@@ -288,17 +290,18 @@ internal static partial class SourceTemplates
 		                              		}
 
 		                              		/// <summary>
-		                              		///     The getter of the property or the parameterless method named <paramref name="memberName" /> of the
-		                              		///     <paramref name="testClass" /> or the first of its base classes that declares a non-private one, like C#
-		                              		///     name lookup, or <see langword="null" /> when there is none or it is not static.
+		                              		///     The constant, the getter of the property or the parameterless method named <paramref name="memberName" />
+		                              		///     of the <paramref name="testClass" /> or the first of its base classes that declares a non-private one, like
+		                              		///     C# name lookup, or <see langword="null" /> when there is none, it is not static or it is a field that is
+		                              		///     not constant.
 		                              		/// </summary>
 		                              #if NET5_0_OR_GREATER
 		                              		[global::System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessage("Trimming", "IL2070",
-		                              			Justification = "The generated module initializer keeps the properties and methods of every test class with a [ValueFrom] parameter.")]
+		                              			Justification = "The generated module initializer keeps the fields, properties and methods of every test class with a [ValueFrom] parameter and of its base classes.")]
 		                              		[global::System.Diagnostics.CodeAnalysis.UnconditionalSuppressMessage("Trimming", "IL2075",
-		                              			Justification = "The generated module initializer keeps the properties and methods of every test class with a [ValueFrom] parameter.")]
+		                              			Justification = "The generated module initializer keeps the fields, properties and methods of every test class with a [ValueFrom] parameter and of its base classes.")]
 		                              #endif
-		                              		private static global::System.Reflection.MethodInfo? FindValueMember(global::System.Type? testClass, string memberName)
+		                              		private static global::System.Reflection.MemberInfo? FindValueMember(global::System.Type? testClass, string memberName)
 		                              		{
 		                              			const global::System.Reflection.BindingFlags flags = global::System.Reflection.BindingFlags.Static |
 		                              			                                                     global::System.Reflection.BindingFlags.Instance |
@@ -307,6 +310,17 @@ internal static partial class SourceTemplates
 		                              			                                                     global::System.Reflection.BindingFlags.DeclaredOnly;
 		                              			for (global::System.Type? type = testClass; type is not null; type = type.BaseType)
 		                              			{
+		                              				foreach (global::System.Reflection.FieldInfo field in type.GetFields(flags))
+		                              				{
+		                              					if (field.Name == memberName && (type == testClass || !field.IsPrivate) &&
+		                              					    !field.IsDefined(typeof(global::System.Runtime.CompilerServices.CompilerGeneratedAttribute), false))
+		                              					{
+		                              						return field.IsLiteral || field.IsDefined(typeof(global::System.Runtime.CompilerServices.DecimalConstantAttribute), false)
+		                              							? field
+		                              							: null;
+		                              					}
+		                              				}
+
 		                              				foreach (global::System.Reflection.PropertyInfo property in type.GetProperties(flags))
 		                              				{
 		                              					if (property.Name == memberName && property.GetMethod is { } getter &&
@@ -655,8 +669,8 @@ internal static partial class SourceTemplates
 		                                	}
 
 		                                	/// <summary>
-		                                	///     Takes the value of the test parameter from a static property or parameterless static method of the test
-		                                	///     class, once per test case, instead of letting <see cref="AutoMockArgumentsAttribute" /> create it. The
+		                                	///     Takes the value of the test parameter from a constant, static property or parameterless static method of
+		                                	///     the test class, once per test case, instead of letting <see cref="AutoMockArgumentsAttribute" /> create it. The
 		                                	///     value is shared with the classes under test like a created parameter.
 		                                	/// </summary>
 		                                	[global::System.AttributeUsage(global::System.AttributeTargets.Parameter)]
@@ -664,7 +678,7 @@ internal static partial class SourceTemplates
 		                                	[global::Microsoft.CodeAnalysis.Embedded]
 		                                	internal sealed class ValueFromAttribute : global::Mockolate.Integrations.ValueFromParameterAttribute
 		                                	{
-		                                		/// <param name="memberName">The name of the static property or parameterless static method, e.g. <c>nameof(Rule)</c>.</param>
+		                                		/// <param name="memberName">The name of the constant, static property or parameterless static method, e.g. <c>nameof(Rule)</c>.</param>
 		                                		public ValueFromAttribute(string memberName) : base(memberName)
 		                                		{
 		                                		}

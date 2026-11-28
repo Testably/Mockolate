@@ -69,7 +69,37 @@ public static class MockDataSourceTargets
 	[MockArguments]
 	internal static string FromMember([ValueFrom(nameof(Lobby))] string location) => location;
 
+	[MockArguments]
+	internal static int FromConstant([ValueFrom(nameof(Slots))] int slots) => slots;
+
+	[MockArguments]
+	internal static decimal FromDecimalConstant([ValueFrom(nameof(Price))] decimal price) => price;
+
+	[MockArguments]
+	internal static DayOfWeek FromEnumConstant([ValueFrom(nameof(RefillDay))] DayOfWeek day) => day;
+
 	private static string Lobby => "Lobby";
+
+	private const int Slots = 12;
+
+	private const decimal Price = 1.5m;
+
+	private const DayOfWeek RefillDay = DayOfWeek.Monday;
+
+	internal class ConstantBase
+	{
+		protected const int Shelves = 4;
+
+		protected ConstantBase()
+		{
+		}
+	}
+
+	internal sealed class ConstantDerived : ConstantBase
+	{
+		[MockArguments]
+		internal static int FromBaseConstant([ValueFrom(nameof(Shelves))] int shelves) => shelves;
+	}
 
 	internal static class Nested
 	{

@@ -16,8 +16,8 @@ internal static partial class SourceTemplates
 	///     Creates the <c>MockDataSourceFactory</c> for the <paramref name="classes" />, the
 	///     <paramref name="mockedTypes" />, the <paramref name="valueOrMockTypes" /> and the
 	///     <paramref name="valueTypes" />, and the one for the <c>Func&lt;T&gt;</c> of the <paramref name="deferredTypes" />,
-	///     which a module initializer registers. The module initializer also keeps the properties and methods of the
-	///     <paramref name="valueFromClasses" /> from being trimmed, because a <c>[ValueFrom]</c> parameter reads them through
+	///     which a module initializer registers. The module initializer also keeps the fields, properties and methods of the
+	///     <paramref name="valueFromClasses" /> (test classes and their base classes) from being trimmed, because a <c>[ValueFrom]</c> parameter reads them through
 	///     reflection.
 	/// </summary>
 	/// <remarks>
@@ -74,7 +74,7 @@ internal static partial class SourceTemplates
 			sb.Append("#if NET5_0_OR_GREATER").AppendLine();
 			foreach (string valueFromClass in valueFromClasses)
 			{
-				sb.Append("\t\t[global::System.Diagnostics.CodeAnalysis.DynamicDependency(global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicProperties | global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicProperties | global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicMethods | global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicMethods, ")
+				sb.Append("\t\t[global::System.Diagnostics.CodeAnalysis.DynamicDependency(global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicFields | global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicFields | global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicProperties | global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicProperties | global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicMethods | global::System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.NonPublicMethods, ")
 					.Append(valueFromClass).Append(")]").AppendLine();
 			}
 

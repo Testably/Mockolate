@@ -157,11 +157,11 @@ public async Task GetPrice_ShouldApplyTheDiscount(ChocolateCashier sut, IChocola
 private static Discount TenPercentOffDark => new() { Type = "Dark", Percentage = 10m };
 ```
 
-- The member is a static property or a static method without parameters of the test class or one of its base classes. Mockolate reads it once per test case, so a property or method that creates the value gives each test case its own instance. A field is not supported, because it would share one instance with all test cases.
+- The member is a constant, a static property or a static method without parameters of the test class or one of its base classes. Mockolate reads it once per test case, so a property or method that creates the value gives each test case its own instance. Any other field is not supported, because it would share one instance with all test cases.
 - The class under test receives the value like a parameter that Mockolate creates. Combine it with [`[NotShared]`](#keep-a-mock-out-of-the-class-under-test) to keep it from the class under test, or with [`[AsDefault]`](#return-the-same-instance-from-every-mock) to let the mocks return it.
 - The values of the attribute still fill the first parameters, so a `[ValueFrom]` parameter comes after them.
 
-The [Mockolate0013](10-analyzers.md#mockolate0013) analyzer reports a member that does not exist, is not static, is a field or has a type that is not assignable to the parameter.
+The [Mockolate0013](10-analyzers.md#mockolate0013) analyzer reports a member that does not exist, is not static, is a field that is not constant or has a type that is not assignable to the parameter.
 
 ## Provide a value with an attribute
 

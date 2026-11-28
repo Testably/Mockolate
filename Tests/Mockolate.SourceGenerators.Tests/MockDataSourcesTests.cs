@@ -415,6 +415,52 @@ public sealed class MockDataSourcesTests
 	}
 
 	[Test]
+	public async Task ValueFromParameter_ShouldKeepTheMembersOfTheBaseClasses()
+	{
+		GeneratorResult result = Generator.Run($$"""
+		                                         #nullable enable
+		                                         namespace MyCode
+		                                         {
+		                                             public class Base<T>
+		                                             {
+		                                                 protected const int Limit = 3;
+		                                             }
+
+		                                             public class Tests : Base<int>
+		                                             {
+		                                                 [MyCode.Data]
+		                                                 public void Test([Mockolate.Integrations.ValueFrom(nameof(Limit))] int limit) { }
+		                                             }
+
+		                                             public class Program
+		                                             {
+		                                                 public static void Main(string[] args)
+		                                                 {
+		                                                 }
+		                                             }
+		                                         }
+
+		                                         namespace Mockolate.Integrations
+		                                         {
+		                                             public abstract class ValueFromParameterAttribute(string memberName) : System.Attribute
+		                                             {
+		                                                 public string MemberName { get; } = memberName;
+		                                             }
+
+		                                             public sealed class ValueFromAttribute(string memberName) : ValueFromParameterAttribute(memberName);
+		                                         }
+
+		                                         {{DataAttribute}}
+		                                         """);
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources["MockDataSources.g.cs"]).Contains("NonPublicMethods, \"MyCode.Tests\", \"")
+			.And.Contains("NonPublicMethods, \"MyCode.Base`1\", \"")
+			.Because("the compiler inlines the constant of the base class, so only the dependency keeps it from being trimmed")
+			.And.DoesNotContain("System.Object");
+	}
+
+	[Test]
 	public async Task DependencyWithNullForgivingDefault_ShouldCompileWithoutWarnings()
 	{
 		GeneratorResult result = Generator.Run($$"""

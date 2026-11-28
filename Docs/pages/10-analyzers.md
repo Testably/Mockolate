@@ -295,7 +295,7 @@ Declare the parameter as a `Func<T>` of the type to create, and remove `[AsDefau
 
 **A `[ValueFrom]` parameter that is invalid.**
 
-A [`[ValueFrom]`](04-mocks-as-test-parameters.md#take-a-value-from-a-member) parameter takes its value from a static property or a static method without parameters of the test class or one of its base classes, whose type must be assignable to the parameter. Otherwise, the test fails at runtime:
+A [`[ValueFrom]`](04-mocks-as-test-parameters.md#take-a-value-from-a-member) parameter takes its value from a constant, a static property or a static method without parameters of the test class or one of its base classes, whose type must be assignable to the parameter. Otherwise, the test fails at runtime:
 
 ```csharp
 public class DiscountTests
@@ -305,7 +305,7 @@ public class DiscountTests
     public void GetPrice_ShouldApplyTheDiscount(
         // Mockolate0013: The [ValueFrom] parameter 'discount' names 'Text' of type 'string', which is not assignable to 'Discount'
         [ValueFrom(nameof(Text))] Discount discount,
-        // Mockolate0013: The [ValueFrom] parameter 'other' names the field 'Shared' of 'DiscountTests'; use a property or method, so that each test case gets a new value
+        // Mockolate0013: The [ValueFrom] parameter 'other' names the field 'Shared' of 'DiscountTests', which is not constant; use a property or method, so that each test case gets a new value
         [ValueFrom(nameof(Shared))] Discount other) { }
 
     private static string Text => "Dark";
@@ -313,7 +313,7 @@ public class DiscountTests
 }
 ```
 
-The rule also fires for a member that does not exist or is not static, for a parameter that is also `[Deferred]`, whose delegate Mockolate creates, and for a parameter that gets a value of the attribute, which replaces the value of the member. Name a static property or method that returns the type of the parameter, and turn a field into a property, e.g. `private static Discount Shared => new() { … };`.
+The rule also fires for a member that does not exist or is not static, for a parameter that is also `[Deferred]`, whose delegate Mockolate creates, and for a parameter that gets a value of the attribute, which replaces the value of the member. Name a constant, a static property or a static method without parameters whose type is assignable to the parameter, and turn any other field into a property, e.g. `private static Discount Shared => new() { … };`.
 
 ## Mockolate0014
 

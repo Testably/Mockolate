@@ -13,7 +13,7 @@ namespace Mockolate.SourceGenerators.Entities;
 /// <param name="DeferredTypes">The types that the <c>Func&lt;T&gt;</c> of a <c>[Deferred]</c> parameter creates.</param>
 /// <param name="ValueFromClasses">
 ///     The arguments of a <c>DynamicDependency</c> attribute that keeps the members of a test class with a
-///     <c>[ValueFrom]</c> parameter: its metadata name and its assembly, as string literals.
+///     <c>[ValueFrom]</c> parameter or of one of its base classes: its metadata name and its assembly, as string literals.
 /// </param>
 /// <param name="Mocks">The mocks to generate.</param>
 /// <param name="Location">

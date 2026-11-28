@@ -346,6 +346,22 @@ internal static class Checks
 				new Func<string, string>(MockDataSourceTargets.Nested.FromNestedMember).Method.GetParameters()[0];
 			return Equal(AutoMockRow.GetValueFrom(parameter)?.Invoke(), (object?)"Hall");
 		}),
+		new("a ValueFrom AutoMockArguments parameter reads private constants that the trimmer keeps", () =>
+		{
+			object? slots = AutoMockRow.GetValueFrom(
+				new Func<int, int>(MockDataSourceTargets.FromConstant).Method.GetParameters()[0])?.Invoke();
+			object? price = AutoMockRow.GetValueFrom(
+				new Func<decimal, decimal>(MockDataSourceTargets.FromDecimalConstant).Method.GetParameters()[0])?.Invoke();
+			object? day = AutoMockRow.GetValueFrom(
+				new Func<DayOfWeek, DayOfWeek>(MockDataSourceTargets.FromEnumConstant).Method.GetParameters()[0])?.Invoke();
+			return Equal((slots, price, day), ((object?)12, (object?)1.5m, (object?)DayOfWeek.Monday));
+		}),
+		new("a ValueFrom AutoMockArguments parameter reads a constant of the base class that the trimmer keeps", () =>
+		{
+			System.Reflection.ParameterInfo parameter =
+				new Func<int, int>(MockDataSourceTargets.ConstantDerived.FromBaseConstant).Method.GetParameters()[0];
+			return Equal(AutoMockRow.GetValueFrom(parameter)?.Invoke(), (object?)4);
+		}),
 		new("a value provider AutoMockArguments parameter gets the value of its attribute", () =>
 		{
 			System.Reflection.ParameterInfo parameter =

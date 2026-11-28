@@ -200,7 +200,7 @@ internal static partial class MockGeneratorHelpers
 			ToFullNames(targets.ValueTypes, compilation),
 			ToFullNames(targets.DeferredTypes, compilation),
 			new EquatableArray<string>(targets.ValueFromClasses
-				.Select(type => $"\"{ToMetadataName(type)}\", \"{compilation.AssemblyName}\"")
+				.Select(type => $"\"{ToMetadataName(type)}\", \"{type.ContainingAssembly.Name}\"")
 				.Distinct()
 				.ToArray()),
 			new EquatableArray<MockClass>(targets.TypesToMock
@@ -260,12 +260,15 @@ internal static partial class MockGeneratorHelpers
 		foreach (IParameterSymbol parameter in
 		         GetDataSourceParameters(semanticModel.GetDeclaredSymbol(node, cancellationToken)))
 		{
-			// The value comes from a member of the test class, which the trimmer must keep for the reflection that reads it.
+			// The value comes from a member of the test class or one of its base classes, which the trimmer must keep for the
+			// reflection that reads it; a constant has no other reference, because the compiler inlines it.
 			if (HasValueFrom(parameter))
 			{
-				if (parameter.ContainingSymbol.ContainingType is { } testClass)
+				for (INamedTypeSymbol? type = parameter.ContainingSymbol.ContainingType;
+				     type is not null && type.SpecialType != SpecialType.System_Object;
+				     type = type.BaseType)
 				{
-					targets.ValueFromClasses.Add(testClass);
+					targets.ValueFromClasses.Add(type);
 				}
 
 				continue;
