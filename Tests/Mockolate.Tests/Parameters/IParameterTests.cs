@@ -6,7 +6,7 @@ namespace Mockolate.Tests.Parameters;
 public sealed class IParameterTests
 {
 	[Test]
-	public async Task IParameterOfT_Accepts_RefStruct()
+	public async Task WithRefStructTypeArgument_ShouldMatchTheTypedValue()
 	{
 		IParameter<MyRefStruct> parameter = new AnyRefStructMatch();
 		IParameterMatch<MyRefStruct> match = (IParameterMatch<MyRefStruct>)parameter;

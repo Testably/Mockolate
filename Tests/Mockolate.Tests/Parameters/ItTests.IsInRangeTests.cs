@@ -14,7 +14,7 @@ public sealed partial class ItTests
 		[Arguments(5, 6, false)]
 		[Arguments(4, 6, true)]
 		[Arguments(6, 7, false)]
-		public async Task ExecuteWith5_Exclusive_ShouldMatchWhenRangeContains5(int minimum, int maximum,
+		public async Task Exclusive_ShouldMatchWhenTheValueIsStrictlyBetweenTheBounds(int minimum, int maximum,
 			bool expectFound)
 		{
 			IMyServiceWithNullable sut = IMyServiceWithNullable.CreateMock();
@@ -33,7 +33,7 @@ public sealed partial class ItTests
 		[Arguments(5, 6, true)]
 		[Arguments(4, 6, true)]
 		[Arguments(6, 7, false)]
-		public async Task ExecuteWith5_Inclusive_ShouldMatchWhenRangeContains5(int minimum, int maximum,
+		public async Task Inclusive_WhenCalledAfterExclusive_ShouldMatchWhenTheValueIsWithinTheBounds(int minimum, int maximum,
 			bool expectFound)
 		{
 			IMyServiceWithNullable sut = IMyServiceWithNullable.CreateMock();
@@ -54,7 +54,7 @@ public sealed partial class ItTests
 		[Arguments(5, 6, true)]
 		[Arguments(4, 6, true)]
 		[Arguments(6, 7, false)]
-		public async Task ExecuteWith5_ShouldMatchWhenRangeContains5(int minimum, int maximum, bool expectFound)
+		public async Task ShouldMatchWhenTheValueIsWithinTheBounds(int minimum, int maximum, bool expectFound)
 		{
 			IMyServiceWithNullable sut = IMyServiceWithNullable.CreateMock();
 
@@ -65,7 +65,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_Exclusive_ShouldReturnExpectedValue()
+		public async Task ToString_WithExclusive_ShouldDescribeTheMatcher()
 		{
 			IParameter<double> sut = It.IsInRange(1.1, 4.1).Exclusive();
 			string expectedValue = "It.IsInRange(1.1, 4.1).Exclusive()";
@@ -76,7 +76,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_Inclusive_ShouldReturnExpectedValue()
+		public async Task ToString_ShouldDescribeTheMatcher()
 		{
 			IParameter<int> sut = It.IsInRange(1, 4);
 			string expectedValue = "It.IsInRange(1, 4)";

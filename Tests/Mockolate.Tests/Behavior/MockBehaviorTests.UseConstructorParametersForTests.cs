@@ -5,7 +5,7 @@ public sealed partial class MockBehaviorTests
 	public sealed class UseConstructorParametersForTests
 	{
 		[Test]
-		public async Task TryGetConstructorParameters_Predicate_IsEvaluatedOnEachCall()
+		public async Task TryGetConstructorParameters_WithFactory_ShouldInvokeItOnEachCall()
 		{
 			int invocationCount = 0;
 			IMockBehaviorAccess sut = MockBehavior.Default
@@ -72,7 +72,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task TryGetConstructorParameters_WithMultipleRegistrationsForSameType_Predicate_ShouldReturnLatest()
+		public async Task TryGetConstructorParameters_WithMultipleFactoriesForSameType_ShouldReturnLatest()
 		{
 			IMockBehaviorAccess sut = MockBehavior.Default
 				.UseConstructorParametersFor<MyServiceWithMultipleConstructors>(() => [1,])
@@ -100,7 +100,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task TryGetConstructorParameters_WithMultipleRegistrationsForSameType_UsedByMock_ShouldUseLatest()
+		public async Task WithMultipleRegistrationsForSameType_ShouldUseTheLatestWhenCreatingAMock()
 		{
 			MockBehavior behavior = MockBehavior.Default
 				.UseConstructorParametersFor<MyServiceWithMultipleConstructors>(1)
@@ -112,7 +112,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task TryGetConstructorParameters_WithMultipleRegistrationsForSameTypeFollowedByOtherType_ShouldReturnLatest()
+		public async Task WithMultipleRegistrationsForSameTypeFollowedByOtherType_ShouldUseTheLatestWhenCreatingAMock()
 		{
 			MockBehavior behavior = MockBehavior.Default
 				.UseConstructorParametersFor<MyServiceWithMultipleConstructors>(1)
@@ -126,7 +126,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task TryGetConstructorParameters_WithRegistrationsForDifferentTypes_ShouldReturnEachCorrectly()
+		public async Task TryGetConstructorParameters_WithRegistrationsForDifferentTypes_ShouldReturnTheParametersOfEachType()
 		{
 			IMockBehaviorAccess sut = MockBehavior.Default
 				.UseConstructorParametersFor<MyServiceWithMultipleConstructors>(1)
@@ -158,7 +158,7 @@ public sealed partial class MockBehaviorTests
 
 		[Test]
 		public async Task
-			WithExplicitParameters_ShouldUseConstructorParametersFromBehavior()
+			WithParameterValues_ShouldUseConstructorParametersFromBehavior()
 		{
 			MockBehavior behavior = MockBehavior.Default
 				.UseConstructorParametersFor<MyServiceWithMultipleConstructors>(5);
@@ -176,7 +176,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task WithPredicate_ShouldUseConstructorParametersFromBehavior()
+		public async Task WithFactory_ShouldUseConstructorParametersFromBehavior()
 		{
 			MockBehavior behavior = MockBehavior.Default
 				.UseConstructorParametersFor<MyServiceWithMultipleConstructors>(() => [5,]);

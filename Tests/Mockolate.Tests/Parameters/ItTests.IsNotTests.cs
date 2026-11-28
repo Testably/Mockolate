@@ -7,7 +7,7 @@ public sealed partial class ItTests
 	public sealed class IsNotTests
 	{
 		[Test]
-		public async Task ShouldCorrectlyHandleNull()
+		public async Task WithNull_ShouldOnlyMatchNonNullValues()
 		{
 			IMyService sut = IMyService.CreateMock();
 			MyImplementation value1 = new();
@@ -22,7 +22,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ShouldCorrectlyHandleNullWithCovariance()
+		public async Task WithNullOfDerivedType_ShouldOnlyMatchNonNullValues()
 		{
 			IMyService sut = IMyService.CreateMock();
 			MyOtherImplementation value1 = new();
@@ -67,7 +67,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_ShouldReturnExpectedValue()
+		public async Task ToString_ShouldDescribeTheMatcher()
 		{
 			IParameter<string> sut = It.IsNot("foo");
 			string expectedValue = "It.IsNot(\"foo\")";
@@ -78,7 +78,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_WithComparer_ShouldReturnExpectedValue()
+		public async Task ToString_WithComparer_ShouldIncludeTheComparer()
 		{
 			IParameter<int> sut = It.IsNot(4).Using(new AllEqualComparer());
 			string expectedValue = "It.IsNot(4).Using(new AllEqualComparer())";

@@ -6,7 +6,7 @@ namespace Mockolate.Tests.Verify;
 public class MockVerifyTests
 {
 	[Test]
-	public async Task ThatAllInteractionsAreVerified_MultipleCalls_ShouldRepresentLatestValue()
+	public async Task ThatAllInteractionsAreVerified_WhenCalledRepeatedly_ShouldReflectTheLatestInteractions()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 
@@ -19,7 +19,7 @@ public class MockVerifyTests
 	}
 
 	[Test]
-	public async Task ThatAllInteractionsAreVerified_MultipleVerifications_ShouldBeCombined()
+	public async Task ThatAllInteractionsAreVerified_WithMultipleVerifications_ShouldCombineThem()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 
@@ -164,7 +164,7 @@ public class MockVerifyTests
 	}
 
 	[Test]
-	public async Task ThatAllSetupsAreUsed_WithoutSetupAfterClearAllInteractions_ShouldReturnTrue()
+	public async Task ThatAllSetupsAreUsed_WithoutSetup_WhenCalledAfterClearAllInteractions_ShouldReturnTrue()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 
@@ -176,7 +176,7 @@ public class MockVerifyTests
 	}
 
 	[Test]
-	public async Task ThatAllSetupsAreUsed_WithoutSetup_ShouldReturnTrue()
+	public async Task ThatAllSetupsAreUsed_WithoutSetup_WhenSettingAProperty_ShouldReturnTrue()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 
@@ -189,7 +189,7 @@ public class MockVerifyTests
 	[Arguments(0)]
 	[Arguments(1)]
 	[Arguments(5)]
-	public async Task ThatAllSetupsAreUsed_WithoutSetups_ShouldReturnTrue(int interactionCount)
+	public async Task ThatAllSetupsAreUsed_WithoutSetup_WhenInvokingAMethod_ShouldReturnTrue(int interactionCount)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		for (int i = 0; i < interactionCount; i++)

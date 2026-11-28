@@ -10,7 +10,7 @@ namespace Mockolate.Tests.Verify;
 public sealed class TrackCallOrderTests
 {
 	[Test]
-	public async Task Then_AcrossTrackedMocks_WhenInOrder_ShouldSucceed()
+	public async Task Then_WithTrackedMocks_WhenInOrder_ShouldSucceed()
 	{
 		IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -30,7 +30,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_AcrossTrackedMocks_WhenTooEarly_ShouldThrowWithRecordedOrder()
+	public async Task Then_WithTrackedMocks_WhenTooEarly_ShouldThrowWithRecordedOrder()
 	{
 		IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -55,7 +55,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_AcrossTrackedMocks_WhenNotCalled_ShouldThrowNotAtAll()
+	public async Task Then_WithTrackedMocks_WhenNotCalled_ShouldThrowNotAtAll()
 	{
 		IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -78,7 +78,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_AcrossTrackedMocks_WhenCalledOutsideOfTheScope_ShouldThrow()
+	public async Task Then_WithTrackedMocks_WhenAMockIsCalledOutsideOfTheScope_ShouldThrow()
 	{
 		IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -106,7 +106,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_AcrossTrackedMocks_WhenNoCallWasTracked_ShouldThrow()
+	public async Task Then_WithTrackedMocks_WhenNoCallWasTracked_ShouldThrow()
 	{
 		IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -127,7 +127,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_AcrossTrackedMocks_WhenInteractionsWereCleared_ShouldOnlyCompareTheNewCalls()
+	public async Task Then_WithTrackedMocks_WhenInteractionsWereCleared_ShouldOnlyCompareTheNewCalls()
 	{
 		IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -149,7 +149,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_AcrossTrackedMocks_ShouldSupportSeveralCallsOfOneMock()
+	public async Task Then_WithTrackedMocks_ShouldSupportSeveralCallsOfOneMock()
 	{
 		IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -170,7 +170,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_AcrossTrackedMocks_WithinTimeout_ShouldWaitForCallsOnBackgroundThreads()
+	public async Task Then_WithTrackedMocksAndTimeout_ShouldWaitForCallsOnBackgroundThreads()
 	{
 		IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -194,7 +194,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_AcrossTrackedMocks_ShouldSupportDelegateMocks()
+	public async Task Then_WithTrackedMocks_ShouldSupportDelegateMocks()
 	{
 		ChocolateDispensedDelegate onDispensed = ChocolateDispensedDelegate.CreateMock();
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -213,7 +213,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_AcrossUntrackedMocks_ShouldThrowMockException()
+	public async Task Then_WithUntrackedMocks_ShouldThrowMockException()
 	{
 		IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -232,7 +232,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_AcrossTrackedAndUntrackedMocks_ShouldNameTheUntrackedMock()
+	public async Task Then_WithTrackedAndUntrackedMocks_ShouldNameTheUntrackedMock()
 	{
 		IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -250,7 +250,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_OnMonitors_ShouldThrowMockException()
+	public async Task Then_WithMonitor_ShouldThrowMockException()
 	{
 		IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -273,7 +273,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_AcrossMocksTrackedSeparately_ShouldThrowMockException()
+	public async Task Then_WithMocksTrackedSeparately_ShouldThrowMockException()
 	{
 		IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -296,7 +296,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_AcrossTrackedMocks_WhenClearedAfterTheScope_ShouldNotCountTheRemovedCalls()
+	public async Task Then_WithTrackedMocks_WhenClearedAfterTheScope_ShouldNotCountTheRemovedCalls()
 	{
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
 		IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
@@ -324,7 +324,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_AcrossTrackedMocksOfTheSameType_ShouldNumberTheMocks()
+	public async Task Then_WithTrackedMocksOfTheSameType_ShouldNumberTheMocks()
 	{
 		IChocolateDispenser first = IChocolateDispenser.CreateMock();
 		IChocolateDispenser second = IChocolateDispenser.CreateMock();
@@ -348,7 +348,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_AcrossThreeTrackedMocks_ShouldVerifyTheOrder()
+	public async Task Then_WithThreeTrackedMocks_ShouldVerifyTheOrder()
 	{
 		IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -372,7 +372,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_AcrossTrackedMocks_ShouldDistinguishReadsOfAPropertyGetter()
+	public async Task Then_WithTrackedMocks_ShouldDistinguishReadsOfAPropertyGetter()
 	{
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
 		IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
@@ -395,7 +395,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_AcrossTrackedMocks_WhenWithinTimesOut_ShouldThrowWithTheExpectations()
+	public async Task Then_WithTrackedMocks_WhenWithinTimesOut_ShouldThrowWithTheExpectations()
 	{
 		IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -418,7 +418,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_AcrossMocksOfTheSameTypeTrackedSeparately_ShouldNameBothMocks()
+	public async Task Then_WithMocksOfTheSameTypeTrackedSeparately_ShouldNameBothMocks()
 	{
 		IChocolateDispenser first = IChocolateDispenser.CreateMock();
 		IChocolateDispenser second = IChocolateDispenser.CreateMock();
@@ -436,7 +436,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_AcrossTrackedMocks_ShouldSupportClassMocks()
+	public async Task Then_WithTrackedMocks_ShouldSupportClassMocks()
 	{
 		MyServiceBase service = MyServiceBase.CreateMock();
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -454,7 +454,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_AcrossTrackedMocks_WithinTimeoutOnAnEarlierStep_ShouldWaitForIt()
+	public async Task Then_WithTrackedMocksAndTimeoutOnAnEarlierStep_ShouldWaitForIt()
 	{
 		IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -478,7 +478,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Then_OnOneMock_ShouldNotRequireTracking()
+	public async Task Then_WithOneMock_ShouldNotRequireTracking()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		sut.Dispense("Dark", 1);
@@ -556,7 +556,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task TrackCallOrder_AfterDispose_ShouldOnlyCompareTheCallsOfTheNewScope()
+	public async Task TrackCallOrder_WhenCalledAfterDispose_ShouldOnlyCompareTheCallsOfTheNewScope()
 	{
 		IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();
@@ -596,7 +596,7 @@ public sealed class TrackCallOrderTests
 	}
 
 	[Test]
-	public async Task Dispose_Twice_ShouldNotThrow()
+	public async Task Dispose_WhenCalledTwice_ShouldNotThrow()
 	{
 		IChocolateWarehouse warehouse = IChocolateWarehouse.CreateMock();
 		IChocolateDispenser dispenser = IChocolateDispenser.CreateMock();

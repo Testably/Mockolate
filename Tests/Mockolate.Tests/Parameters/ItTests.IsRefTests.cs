@@ -7,7 +7,7 @@ public sealed partial class ItTests
 	public sealed class IsRefTests
 	{
 		[Test]
-		public async Task PredicateOnly_ShouldNotChangeValue()
+		public async Task WithPredicateOnly_ShouldNotChangeValue()
 		{
 			IRefParameter<string> sut = It.IsRef<string>(_ => true);
 
@@ -19,7 +19,7 @@ public sealed partial class ItTests
 		[Test]
 		[Arguments(true)]
 		[Arguments(false)]
-		public async Task ShouldMatchForExpectedResult(bool predicateValue)
+		public async Task ShouldMatchWhenThePredicateHolds(bool predicateValue)
 		{
 			IRefParameter<string> sut = It.IsRef<string>(_ => predicateValue, _ => "");
 
@@ -29,7 +29,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task Verify_ShouldAlwaysMatch()
+		public async Task WithoutPredicate_ShouldAlwaysMatch()
 		{
 			IVerifyRefParameter<int?> sut = It.IsRef<int?>();
 
@@ -41,7 +41,7 @@ public sealed partial class ItTests
 
 #if NET9_0_OR_GREATER
 		[Test]
-		public async Task ToString_WithRefStructTransform_ShouldReturnExpectedValue()
+		public async Task ToString_WithRefStructTransform_ShouldDescribeTheMatcher()
 		{
 			IRefRefStructParameter<Span<int>> sut = It.IsRef<Span<int>>(value => value);
 			string expectedValue = "It.IsRef<Span<int>>(value => value)";
@@ -52,7 +52,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_WithRefStructPredicateAndTransform_ShouldReturnExpectedValue()
+		public async Task ToString_WithRefStructPredicateAndTransform_ShouldDescribeTheMatcher()
 		{
 			IRefRefStructParameter<Span<int>> sut =
 				It.IsRef<Span<int>>(value => value.Length > 0, value => value);
@@ -64,7 +64,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_WithRefStructPredicateOnly_ShouldReturnExpectedValue()
+		public async Task ToString_WithRefStructPredicateOnly_ShouldDescribeTheMatcher()
 		{
 			IRefRefStructParameter<Span<int>> sut = It.IsRef<Span<int>>(value => value.Length > 0);
 			string expectedValue = "It.IsRef<Span<int>>(value => value.Length > 0)";

@@ -158,7 +158,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task TypedArrayMatch_WithNullValue_ShouldNotMatch()
+		public async Task WhenTheArrayIsNull_ShouldNotMatch()
 		{
 			IParameter<int[]> sut = It.Contains(5);
 
@@ -181,7 +181,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_ShouldReturnExpectedValue()
+		public async Task ToString_ShouldDescribeTheMatcher()
 		{
 			IParameter<int[]> sut = It.Contains(5);
 			string expectedValue = "It.Contains(5)";
@@ -192,7 +192,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_Using_ShouldReturnExpectedValue()
+		public async Task ToString_WithComparer_ShouldIncludeTheComparer()
 		{
 			IParameter<int[]> sut = It.Contains(5).Using(new AllEqualComparer());
 			string expectedValue = "It.Contains(5).Using(new AllEqualComparer())";
@@ -215,7 +215,7 @@ public sealed partial class ItTests
 		public sealed class DoTests
 		{
 			[Test]
-			public async Task Do_RegistersCallbackForArray()
+			public async Task WithArray_ShouldPassTheCollectionToTheCallback()
 			{
 				It.IContainsParameter<int> sut = It.Contains(1);
 				int[]? captured = null;
@@ -228,7 +228,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task Do_RegistersCallbackForHashSet()
+			public async Task WithHashSet_ShouldPassTheCollectionToTheCallback()
 			{
 				It.IContainsParameter<int> sut = It.Contains(1);
 				HashSet<int>? captured = null;
@@ -241,7 +241,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task Do_RegistersCallbackForICollection()
+			public async Task WithICollection_ShouldPassTheCollectionToTheCallback()
 			{
 				It.IContainsParameter<int> sut = It.Contains(1);
 				ICollection<int>? captured = null;
@@ -254,7 +254,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task Do_RegistersCallbackForIEnumerable()
+			public async Task WithIEnumerable_ShouldPassTheCollectionToTheCallback()
 			{
 				It.IContainsParameter<int> sut = It.Contains(1);
 				IEnumerable<int>? captured = null;
@@ -267,7 +267,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task Do_RegistersCallbackForIList()
+			public async Task WithIList_ShouldPassTheCollectionToTheCallback()
 			{
 				It.IContainsParameter<int> sut = It.Contains(1);
 				IList<int>? captured = null;
@@ -280,7 +280,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task Do_RegistersCallbackForIReadOnlyCollection()
+			public async Task WithIReadOnlyCollection_ShouldPassTheCollectionToTheCallback()
 			{
 				It.IContainsParameter<int> sut = It.Contains(1);
 				IReadOnlyCollection<int>? captured = null;
@@ -293,7 +293,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task Do_RegistersCallbackForIReadOnlyList()
+			public async Task WithIReadOnlyList_ShouldPassTheCollectionToTheCallback()
 			{
 				It.IContainsParameter<int> sut = It.Contains(1);
 				IReadOnlyList<int>? captured = null;
@@ -306,7 +306,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task Do_RegistersCallbackForISet()
+			public async Task WithISet_ShouldPassTheCollectionToTheCallback()
 			{
 				It.IContainsParameter<int> sut = It.Contains(1);
 				ISet<int>? captured = null;
@@ -319,7 +319,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task Do_RegistersCallbackForList()
+			public async Task WithList_ShouldPassTheCollectionToTheCallback()
 			{
 				It.IContainsParameter<int> sut = It.Contains(1);
 				List<int>? captured = null;
@@ -332,7 +332,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task Do_RegistersCallbackForQueue()
+			public async Task WithQueue_ShouldPassTheCollectionToTheCallback()
 			{
 				It.IContainsParameter<int> sut = It.Contains(1);
 				Queue<int>? captured = null;
@@ -346,7 +346,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task Do_RegistersCallbackForStack()
+			public async Task WithStack_ShouldPassTheCollectionToTheCallback()
 			{
 				It.IContainsParameter<int> sut = It.Contains(1);
 				Stack<int>? captured = null;
@@ -360,7 +360,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task InvokeCallbacks_OnNonEnumerableValue_ShortCircuits()
+			public async Task InvokeCallbacks_WithNonEnumerableValue_ShouldNotInvokeTheCallback()
 			{
 				It.IContainsParameter<int> sut = It.Contains(1);
 				int invocations = 0;
@@ -372,7 +372,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task InvokeCallbacks_WithoutAnyRegistration_DoesNotThrow()
+			public async Task InvokeCallbacks_WithoutCallback_ShouldNotThrow()
 			{
 				It.IContainsParameter<int> sut = It.Contains(1);
 

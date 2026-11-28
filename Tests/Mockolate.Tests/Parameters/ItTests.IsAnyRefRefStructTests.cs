@@ -8,7 +8,7 @@ public sealed partial class ItTests
 	public sealed class IsAnyRefRefStructTests
 	{
 		[Test]
-		public async Task ToString_ShouldReturnExpectedValue()
+		public async Task ToString_ShouldDescribeTheMatcher()
 		{
 			IRefRefStructParameter<Span<int>> sut = It.IsAnyRefRefStruct<Span<int>>();
 			string expectedValue = "It.IsAnyRefRefStruct<Span<int>>()";

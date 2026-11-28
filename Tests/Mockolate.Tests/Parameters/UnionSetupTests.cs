@@ -89,7 +89,7 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task Setup_AnyParameters_ShouldBeAvailableOnMatcherSetups()
+	public async Task Setup_WithAnyParameters_ShouldIgnoreTheArguments()
 	{
 		IUnionService sut = IUnionService.CreateMock();
 		sut.Mock.Setup.Compute(It.Is(1), "a").AnyParameters().Returns(7);
@@ -100,7 +100,7 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task Setup_OmittedOptionalParameter_ShouldUseTheDeclaredDefault()
+	public async Task Setup_WithOmittedOptionalParameter_ShouldUseTheDeclaredDefault()
 	{
 		IUnionService sut = IUnionService.CreateMock();
 		sut.Mock.Setup.WithDefault().Returns(3);
@@ -140,7 +140,7 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task Verify_OmittedOptionalParameter_ShouldUseTheDeclaredDefault()
+	public async Task Verify_WithOmittedOptionalParameter_ShouldUseTheDeclaredDefault()
 	{
 		IUnionService sut = IUnionService.CreateMock();
 		sut.WithDefault();
@@ -169,7 +169,7 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task Setup_ObjectParameter_ShouldTreatMatchersAsMatchers()
+	public async Task Setup_WithObjectParameter_ShouldTreatMatchersAsMatchers()
 	{
 		IUnionService sut = IUnionService.CreateMock();
 		sut.Mock.Setup.Take(It.IsAny<string>()).Returns(true);
@@ -195,7 +195,7 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task Verify_WithPredicate_FailureMessage_ShouldContainThePredicateText()
+	public async Task Verify_WithPredicate_WhenVerificationFails_ShouldShowThePredicateText()
 	{
 		IUnionService sut = IUnionService.CreateMock();
 		sut.Compute(5, "a");
@@ -208,7 +208,7 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task Setup_ObjectParameter_ShouldTreatADelegateVariableAsValueAndALambdaAsPredicate()
+	public async Task Setup_WithObjectParameter_ShouldTreatADelegateVariableAsValueAndALambdaAsPredicate()
 	{
 		IUnionService sut = IUnionService.CreateMock();
 		Func<object?, bool> predicate = o => o is int;
@@ -228,7 +228,7 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task Setup_ObjectParameter_ShouldTreatAnExplicitlyTypedLambdaAsPredicate()
+	public async Task Setup_WithObjectParameter_ShouldTreatAnExplicitlyTypedLambdaAsPredicate()
 	{
 		IUnionService sut = IUnionService.CreateMock();
 		sut.Mock.Setup.Take((object? o) => o is int).Returns(true);
@@ -297,7 +297,7 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task Setup_WithOutParameter_ShouldCombineAMatcherSlotWithAPredicate()
+	public async Task Setup_WithOutParameter_ShouldCombineTheOutMatcherWithAPredicate()
 	{
 		IUnionService sut = IUnionService.CreateMock();
 		sut.Mock.Setup.TryParse(s => s.Length > 0, It.IsOut(() => 42)).Returns(true);
@@ -313,7 +313,7 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task Verify_AnyParameters_ShouldIgnoreTheUnionArguments()
+	public async Task Verify_WithAnyParameters_ShouldIgnoreTheArguments()
 	{
 		IUnionService sut = IUnionService.CreateMock();
 		sut.Compute(1, "a");
@@ -323,7 +323,7 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task Setup_InScenario_ShouldOnlyApplyInThatScenario()
+	public async Task Setup_WithScenario_ShouldOnlyApplyInThatScenario()
 	{
 		IUnionService sut = IUnionService.CreateMock();
 		sut.Mock.InScenario("a").Setup.Compute(x => x > 0, "a").Returns(9);
@@ -337,7 +337,7 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task OverloadedMethods_ShouldKeepTheClassicBindings()
+	public async Task WithOverloadedMethods_ShouldKeepTheClassicBindings()
 	{
 		IOverloadedService sut = IOverloadedService.CreateMock();
 		sut.Mock.Setup.M(null).Returns(1);
@@ -352,7 +352,7 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task DelegateMock_ShouldOfferPredicates()
+	public async Task WithDelegateMock_ShouldOfferPredicates()
 	{
 		UnionDelegate sut = UnionDelegate.CreateMock();
 		sut.Mock.Setup(x => x > 0, "a").Returns(1);
@@ -367,7 +367,7 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task Indexer_Setup_WithPredicateLiteralAndMatcher_ShouldMatch()
+	public async Task IndexerSetup_WithPredicateLiteralAndMatcher_ShouldMatch()
 	{
 		IUnionService sut = IUnionService.CreateMock();
 		sut.Mock.Setup[x => x > 0, "a"].Returns("positive");
@@ -379,7 +379,7 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task Indexer_Verify_WithPredicateLiteralAndMatcher_ShouldCount()
+	public async Task IndexerVerify_WithPredicateLiteralAndMatcher_ShouldCount()
 	{
 		IUnionService sut = IUnionService.CreateMock();
 		_ = sut[5, "a"];
@@ -394,7 +394,7 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task Indexer_Verify_FailureMessage_ShouldContainThePredicateText()
+	public async Task IndexerVerify_WithPredicate_WhenVerificationFails_ShouldShowThePredicateText()
 	{
 		IUnionService sut = IUnionService.CreateMock();
 		_ = sut[5, "a"];
@@ -437,7 +437,7 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task Indexer_Setup_WithNullKey_ShouldMatchTheTypeDefault()
+	public async Task IndexerSetup_WithNullKey_ShouldMatchTheTypeDefault()
 	{
 		IDefaultKeyIndexer sut = IDefaultKeyIndexer.CreateMock();
 		sut.Mock.Setup[1, null].Returns("default");
@@ -452,7 +452,7 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task SameMethodNameInAnotherScope_ShouldStillOfferUnionOverloads()
+	public async Task WithSameMethodNameInAnotherScope_ShouldStillOfferUnionOverloads()
 	{
 		ScopedUnionService sut = ScopedUnionService.CreateMock();
 		sut.Mock.Setup.Go(x => x > 0).Returns(1);
@@ -465,7 +465,7 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task DelegateMock_WithObjectParameter_MatchAnyParameters_ShouldBindTheIParametersOverload()
+	public async Task WithDelegateMockAndObjectParameter_WhenUsingAnyParameters_ShouldBindTheIParametersOverload()
 	{
 		ObjectCallback sut = ObjectCallback.CreateMock();
 		sut.Mock.Setup(Match.AnyParameters());
@@ -476,7 +476,7 @@ public sealed class UnionSetupTests
 	}
 
 	[Test]
-	public async Task OverloadedIndexers_ShouldKeepTheClassicBindings()
+	public async Task WithOverloadedIndexers_ShouldKeepTheClassicBindings()
 	{
 		IOverloadedIndexerService sut = IOverloadedIndexerService.CreateMock();
 		sut.Mock.Setup[5].Returns("int");

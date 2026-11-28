@@ -7,7 +7,7 @@ public sealed partial class ItTests
 	public sealed class IsOutTests
 	{
 		[Test]
-		public async Task ToString_ShouldReturnExpectedValue()
+		public async Task ToString_ShouldDescribeTheMatcher()
 		{
 			IOutParameter<int> sut = It.IsOut(() => 3);
 			string expectedValue = "It.IsOut<int>(() => 3)";
@@ -18,7 +18,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_Verify_ShouldReturnExpectedValue()
+		public async Task ToString_WithoutValueFactory_ShouldDescribeTheMatcher()
 		{
 			IVerifyOutParameter<int> sut = It.IsOut<int>();
 			string expectedValue = "It.IsOut<int>()";
@@ -30,7 +30,7 @@ public sealed partial class ItTests
 
 #if NET9_0_OR_GREATER
 		[Test]
-		public async Task ToString_WithRefStructFactory_ShouldReturnExpectedValue()
+		public async Task ToString_WithRefStructFactory_ShouldDescribeTheMatcher()
 		{
 			IOutRefStructParameter<Span<int>> sut = It.IsOut<Span<int>>(() => default);
 			string expectedValue = "It.IsOut<Span<int>>(() => default)";
@@ -44,7 +44,7 @@ public sealed partial class ItTests
 		[Test]
 		[Arguments(42)]
 		[Arguments(-2)]
-		public async Task WithOut_ShouldReturnValue(int? value)
+		public async Task TryGetValue_ShouldReturnTheFactoryValue(int? value)
 		{
 			IOutParameter<int?> sut = It.IsOut(() => value);
 
@@ -55,7 +55,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task WithOut_Verify_ShouldAlwaysMatch()
+		public async Task WithoutValueFactory_ShouldAlwaysMatch()
 		{
 			IVerifyOutParameter<int?> sut = It.IsOut<int?>();
 

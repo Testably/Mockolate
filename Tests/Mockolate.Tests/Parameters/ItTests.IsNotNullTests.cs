@@ -8,7 +8,7 @@ public sealed partial class ItTests
 	public sealed class IsNotNullTests
 	{
 		[Test]
-		public async Task CachedMatcher_CallbackFromPriorDo_ShouldNotLeakIntoSubsequentUsage()
+		public async Task WhenCalledAgain_ShouldNotInvokeTheCallbackOfAPriorUsage()
 		{
 			_ = It.IsNotNull<string>().Do(_ => throw new InvalidOperationException("callback leaked from prior use"));
 
@@ -20,7 +20,7 @@ public sealed partial class ItTests
 		[Test]
 		[Arguments(null, 0)]
 		[Arguments(1, 1)]
-		public async Task NotNull_ShouldMatchWhenNotNull(int? value, int expectedCount)
+		public async Task ShouldMatchWhenNotNull(int? value, int expectedCount)
 		{
 			IMyServiceWithNullable sut = IMyServiceWithNullable.CreateMock();
 			sut.Mock.Setup.DoSomething(It.IsNotNull<int?>(), It.Is(true));
@@ -31,7 +31,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ShouldReturnSharedInstance_WhenToStringIsOmitted()
+		public async Task ShouldReturnTheSameInstanceOnEveryCall()
 		{
 			IParameter<string> first = It.IsNotNull<string>();
 			IParameter<string> second = It.IsNotNull<string>();
@@ -40,7 +40,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_ShouldReturnExpectedValue()
+		public async Task ToString_ShouldDescribeTheMatcher()
 		{
 			IParameter<string> sut = It.IsNotNull<string>();
 			string expectedValue = "It.IsNotNull<string>()";
@@ -65,7 +65,7 @@ public sealed partial class ItTests
 		[Arguments(null, false)]
 		[Arguments("", true)]
 		[Arguments("foo", true)]
-		public async Task WithValue_Nullable_ShouldMatchWhenNotNull(string? value, bool expectMatch)
+		public async Task WithNullableReferenceType_ShouldMatchWhenNotNull(string? value, bool expectMatch)
 		{
 			IParameter<string?> sut = It.IsNotNull<string?>();
 

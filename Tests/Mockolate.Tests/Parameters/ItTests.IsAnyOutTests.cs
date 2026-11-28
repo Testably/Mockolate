@@ -27,7 +27,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_ShouldReturnExpectedValue()
+		public async Task ToString_ShouldDescribeTheMatcher()
 		{
 			IOutParameter<int> sut = It.IsAnyOut<int>();
 			string expectedValue = "It.IsAnyOut<int>()";

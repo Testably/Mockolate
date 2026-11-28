@@ -9,7 +9,7 @@ public sealed partial class ItTests
 	public sealed class IsAnyOutReadOnlySpanTests
 	{
 		[Test]
-		public async Task ToString_ShouldReturnExpectedValue()
+		public async Task ToString_ShouldDescribeTheMatcher()
 		{
 			IOutParameter<ReadOnlySpanWrapper<int>> sut = It.IsAnyOutReadOnlySpan<int>();
 			string expectedValue = "It.IsAnyOut<ReadOnlySpanWrapper<int>>()";

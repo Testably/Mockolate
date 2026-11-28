@@ -10,7 +10,7 @@ public sealed partial class ItTests
 		[Test]
 		[Arguments(null, true)]
 		[Arguments(1, false)]
-		public async Task CheckForNull_ShouldMatchForExpectedResult(int? value, bool expectedResult)
+		public async Task WithNullCheck_ShouldOnlyMatchNull(int? value, bool expectedResult)
 		{
 			IParameter<int?> sut = It.Satisfies<int?>(v => v is null);
 
@@ -22,7 +22,7 @@ public sealed partial class ItTests
 		[Test]
 		[Arguments(true)]
 		[Arguments(false)]
-		public async Task ShouldMatchForExpectedResult(bool predicateValue)
+		public async Task ShouldMatchWhenThePredicateHolds(bool predicateValue)
 		{
 			IParameter<string> sut = It.Satisfies<string>(_ => predicateValue);
 
@@ -51,7 +51,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task WhenSetupDoesNotMatchAndOverloadHasSetup_ShouldEvaluatePredicateOnce()
+		public async Task WithSetupOnOverload_WhenSetupDoesNotMatch_ShouldEvaluatePredicateOnce()
 		{
 			int evaluations = 0;
 			IOverloadedByRef sut = IOverloadedByRef.CreateMock();
@@ -105,7 +105,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_ShouldReturnExpectedValue()
+		public async Task ToString_ShouldDescribeTheMatcher()
 		{
 			IParameter<string> sut = It.Satisfies<string>(x => x.Length == 3);
 			string expectedValue = "It.Satisfies<string>(x => x.Length == 3)";

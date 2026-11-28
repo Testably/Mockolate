@@ -23,7 +23,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_ShouldReturnExpectedValue()
+		public async Task ToString_ShouldDescribeTheMatcher()
 		{
 			IVerifyReadOnlySpanParameter<char> sut = It.IsAnyReadOnlySpan<char>();
 			string expectedValue = "It.IsAnyReadOnlySpan<char>()";

@@ -59,7 +59,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_Using_ShouldReturnExpectedValue()
+		public async Task ToString_WithComparer_ShouldIncludeTheComparer()
 		{
 			IParameter<int> sut = It.IsNotOneOf(3, 5).Using(new AllEqualComparer());
 			string expectedValue = "It.IsNotOneOf(3, 5).Using(new AllEqualComparer())";
@@ -70,7 +70,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_WithNullableIntValues_ShouldReturnExpectedValue()
+		public async Task ToString_WithNullableIntValues_ShouldDescribeTheMatcher()
 		{
 			IParameter<int?> sut = It.IsNotOneOf<int?>(3, null, 5);
 			string expectedValue = "It.IsNotOneOf(3, null, 5)";
@@ -81,7 +81,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_WithStringValues_ShouldReturnExpectedValue()
+		public async Task ToString_WithStringValues_ShouldQuoteTheValues()
 		{
 			IParameter<string> sut = It.IsNotOneOf("foo", "bar");
 			string expectedValue = "It.IsNotOneOf(\"foo\", \"bar\")";

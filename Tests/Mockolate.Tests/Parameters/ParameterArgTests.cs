@@ -7,7 +7,7 @@ namespace Mockolate.Tests.Parameters;
 public sealed class ParameterArgTests
 {
 	[Test]
-	public async Task LiteralValue_ShouldConvertImplicitly()
+	public async Task WithLiteralValue_ShouldConvertImplicitly()
 	{
 		ParameterArg<int> sut = 42;
 
@@ -21,7 +21,7 @@ public sealed class ParameterArgTests
 	}
 
 	[Test]
-	public async Task TypedNullLiteral_ShouldBeTheLiteralCase()
+	public async Task WithTypedNullLiteral_ShouldBeTheLiteralCase()
 	{
 		string? value = null;
 
@@ -36,7 +36,7 @@ public sealed class ParameterArgTests
 	}
 
 	[Test]
-	public async Task NullableValueTypeLiteral_ShouldBeTheLiteralCase()
+	public async Task WithNullableValueTypeLiteral_ShouldBeTheLiteralCase()
 	{
 		ParameterArg<int?> sut = (int?)null;
 
@@ -48,7 +48,7 @@ public sealed class ParameterArgTests
 	}
 
 	[Test]
-	public async Task Matcher_ShouldConvertImplicitly()
+	public async Task WithMatcher_ShouldConvertImplicitly()
 	{
 		IParameter<int> matcher = It.IsInRange(1, 3);
 
@@ -62,7 +62,7 @@ public sealed class ParameterArgTests
 	}
 
 	[Test]
-	public async Task CovariantMatcher_ShouldConvertToTheMatcherCase()
+	public async Task WithCovariantMatcher_ShouldConvertToTheMatcherCase()
 	{
 		ParameterArg<object> sut = It.IsAny<string>();
 
@@ -72,7 +72,7 @@ public sealed class ParameterArgTests
 	}
 
 	[Test]
-	public async Task Default_ForReferenceType_ShouldBeTheLiteralNull()
+	public async Task WithDefaultOfReferenceType_ShouldBeTheLiteralNull()
 	{
 		ParameterArg<string> sut = default;
 
@@ -87,7 +87,7 @@ public sealed class ParameterArgTests
 	}
 
 	[Test]
-	public async Task Default_ForValueType_ShouldBeTheLiteralDefaultValue()
+	public async Task WithDefaultOfValueType_ShouldBeTheLiteralDefaultValue()
 	{
 		ParameterArg<int> sut = default;
 
@@ -103,7 +103,7 @@ public sealed class ParameterArgTests
 	}
 
 	[Test]
-	public async Task NullableParameter_ShouldAcceptNullAndBothCases()
+	public async Task WithNullableType_ShouldAcceptNullAndBothCases()
 	{
 		static string Describe(ParameterArg<string>? arg)
 			=> arg is null ? "none" : arg.Value.IsLiteral ? $"literal:{arg.Value.Literal}" : "matcher";
@@ -114,7 +114,7 @@ public sealed class ParameterArgTests
 	}
 
 	[Test]
-	public async Task ToParameterMatch_ForLiteral_ShouldMatchOnEquality()
+	public async Task ToParameterMatch_WithLiteral_ShouldMatchOnEquality()
 	{
 		ParameterArg<int> sut = 5;
 
@@ -125,7 +125,7 @@ public sealed class ParameterArgTests
 	}
 
 	[Test]
-	public async Task ToParameterMatch_ForDirectMatcher_ShouldReturnTheSameInstance()
+	public async Task ToParameterMatch_WithMatcher_ShouldReturnTheSameInstance()
 	{
 		IParameter<int> matcher = It.IsAny<int>();
 		ParameterArg<int> sut = matcher;
@@ -136,7 +136,7 @@ public sealed class ParameterArgTests
 	}
 
 	[Test]
-	public async Task ToParameterMatch_ForNullMatcher_ShouldMatchNull()
+	public async Task ToParameterMatch_WithNullMatcher_ShouldMatchNull()
 	{
 		ParameterArg<string> sut = new((IParameter<string>)null!);
 

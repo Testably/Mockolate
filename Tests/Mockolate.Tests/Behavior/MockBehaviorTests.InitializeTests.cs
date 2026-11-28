@@ -7,7 +7,7 @@ public sealed partial class MockBehaviorTests
 	public sealed class InitializeTests
 	{
 		[Test]
-		public async Task Initialize_DirectSetupsTakePrecedence()
+		public async Task WithSetupOnCreateMock_ShouldTakePrecedence()
 		{
 			MockBehavior behavior = MockBehavior.Default.Initialize<IChocolateDispenser>(setup
 				=> setup[It.Satisfies((string s) => s.StartsWith("da"))].InitializeWith(5));
@@ -27,7 +27,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task Initialize_MultipleForSameTypeFollowedByOtherType_ShouldUseLatest()
+		public async Task WithMultipleInitializationsForSameTypeFollowedByOtherType_ShouldUseTheLatest()
 		{
 			MockBehavior behavior = MockBehavior.Default
 				.Initialize<IChocolateDispenser>((Mock.IMockSetupForIChocolateDispenser setup) => setup[It.Is("Dark")].InitializeWith(1))
@@ -41,7 +41,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task Initialize_OtherType_ShouldIgnoreInitializations()
+		public async Task WithOtherType_ShouldIgnoreInitializations()
 		{
 			MockBehavior behavior =
 				MockBehavior.Default.Initialize<IChocolateDispenser>(setup
@@ -56,7 +56,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task Initialize_ShouldApplySetupToCreatedMock()
+		public async Task ShouldApplySetupToCreatedMock()
 		{
 			MockBehavior behavior =
 				MockBehavior.Default.Initialize<IChocolateDispenser>(setup

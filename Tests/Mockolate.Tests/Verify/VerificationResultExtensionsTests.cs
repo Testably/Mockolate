@@ -12,7 +12,7 @@ public class VerificationResultExtensionsTests
 	[Arguments(2, 3, false)]
 	[Arguments(2, 2, true)]
 	[Arguments(2, 1, true)]
-	public async Task AtLeast_ShouldReturnExpectedResult(int count, int times, bool expectSuccess)
+	public async Task AtLeast_ShouldThrowWhenCalledLessOften(int count, int times, bool expectSuccess)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		ExecuteDoSomethingOn(sut, count);
@@ -48,7 +48,7 @@ public class VerificationResultExtensionsTests
 	[Arguments(1, true)]
 	[Arguments(2, true)]
 	[Arguments(3, true)]
-	public async Task AtLeastOnce_ShouldReturnExpectedResult(int count, bool expectSuccess)
+	public async Task AtLeastOnce_ShouldThrowWhenNeverCalled(int count, bool expectSuccess)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		ExecuteDoSomethingOn(sut, count);
@@ -84,7 +84,7 @@ public class VerificationResultExtensionsTests
 	[Arguments(1, false)]
 	[Arguments(2, true)]
 	[Arguments(3, true)]
-	public async Task AtLeastTwice_ShouldReturnExpectedResult(int count, bool expectSuccess)
+	public async Task AtLeastTwice_ShouldThrowWhenCalledLessThanTwice(int count, bool expectSuccess)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		ExecuteDoSomethingOn(sut, count);
@@ -120,7 +120,7 @@ public class VerificationResultExtensionsTests
 	[Arguments(2, 1, false)]
 	[Arguments(2, 2, true)]
 	[Arguments(2, 3, true)]
-	public async Task AtMost_ShouldReturnExpectedResult(int count, int times, bool expectSuccess)
+	public async Task AtMost_ShouldThrowWhenCalledMoreOften(int count, int times, bool expectSuccess)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		ExecuteDoSomethingOn(sut, count);
@@ -157,7 +157,7 @@ public class VerificationResultExtensionsTests
 	[Arguments(1, true)]
 	[Arguments(2, false)]
 	[Arguments(3, false)]
-	public async Task AtMostOnce_ShouldReturnExpectedResult(int count, bool expectSuccess)
+	public async Task AtMostOnce_ShouldThrowWhenCalledMoreThanOnce(int count, bool expectSuccess)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		ExecuteDoSomethingOn(sut, count);
@@ -194,7 +194,7 @@ public class VerificationResultExtensionsTests
 	[Arguments(1, true)]
 	[Arguments(2, true)]
 	[Arguments(3, false)]
-	public async Task AtMostTwice_ShouldReturnExpectedResult(int count, bool expectSuccess)
+	public async Task AtMostTwice_ShouldThrowWhenCalledMoreThanTwice(int count, bool expectSuccess)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		ExecuteDoSomethingOn(sut, count);
@@ -234,7 +234,7 @@ public class VerificationResultExtensionsTests
 	[Arguments(1, 2, 5, false)]
 	[Arguments(6, 2, 5, false)]
 	[Arguments(2, 2, 2, true)]
-	public async Task Between_ShouldReturnExpectedResult(int count, int minimum, int maximum, bool expectSuccess)
+	public async Task Between_ShouldThrowWhenTheCountIsOutsideTheRange(int count, int minimum, int maximum, bool expectSuccess)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		ExecuteDoSomethingOn(sut, count);
@@ -308,7 +308,7 @@ public class VerificationResultExtensionsTests
 	[Arguments(2, 3, false)]
 	[Arguments(2, 2, true)]
 	[Arguments(2, 1, false)]
-	public async Task Exactly_ShouldReturnExpectedResult(int count, int times, bool expectSuccess)
+	public async Task Exactly_ShouldThrowWhenTheCountDiffers(int count, int times, bool expectSuccess)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		ExecuteDoSomethingOn(sut, count);
@@ -344,7 +344,7 @@ public class VerificationResultExtensionsTests
 	[Arguments(1, false)]
 	[Arguments(2, false)]
 	[Arguments(3, false)]
-	public async Task Never_ShouldReturnExpectedResult(int count, bool expectSuccess)
+	public async Task Never_ShouldThrowWhenCalled(int count, bool expectSuccess)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		ExecuteDoSomethingOn(sut, count);
@@ -381,7 +381,7 @@ public class VerificationResultExtensionsTests
 	[Arguments(1, true)]
 	[Arguments(2, false)]
 	[Arguments(3, false)]
-	public async Task Once_ShouldReturnExpectedResult(int count, bool expectSuccess)
+	public async Task Once_ShouldThrowWhenNotCalledExactlyOnce(int count, bool expectSuccess)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		ExecuteDoSomethingOn(sut, count);
@@ -413,7 +413,7 @@ public class VerificationResultExtensionsTests
 	}
 
 	[Test]
-	public void Then_RepeatedPropertyGetter_ShouldNotCollapseIntoOnePosition()
+	public void Then_WithRepeatedPropertyReads_ShouldMatchEachReadSeparately()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		_ = sut.TotalDispensed;
@@ -453,7 +453,7 @@ public class VerificationResultExtensionsTests
 	[Arguments(false, 1, 2, 3, 4)]
 	[Arguments(true, 1, 2, 2, 4)]
 	[Arguments(true, 1, 2, 3, 2, 4)]
-	public async Task Then_TwiceSame_ShouldOnlyCountOnce(bool expectMatch, params int[] values)
+	public async Task Then_WithTheSameStepTwice_ShouldRequireTwoMatchingCalls(bool expectMatch, params int[] values)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		foreach (int value in values)
@@ -540,7 +540,7 @@ public class VerificationResultExtensionsTests
 	[Arguments(3, false)]
 	[Arguments(4, true)]
 	[Arguments(5, false)]
-	public async Task Times_WithEvenPredicate_ShouldReturnExpectedResult(int count, bool expectSuccess)
+	public async Task Times_WithEvenPredicate_ShouldThrowWhenThePredicateDoesNotHold(int count, bool expectSuccess)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		ExecuteDoSomethingOn(sut, count);
@@ -572,7 +572,7 @@ public class VerificationResultExtensionsTests
 	[Arguments(5, true)]
 	[Arguments(6, false)]
 	[Arguments(7, true)]
-	public async Task Times_WithPrimePredicate_ShouldReturnExpectedResult(int count, bool expectSuccess)
+	public async Task Times_WithPrimePredicate_ShouldThrowWhenThePredicateDoesNotHold(int count, bool expectSuccess)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		ExecuteDoSomethingOn(sut, count);
@@ -629,7 +629,7 @@ public class VerificationResultExtensionsTests
 	[Arguments(1, false)]
 	[Arguments(2, true)]
 	[Arguments(3, false)]
-	public async Task Twice_ShouldReturnExpectedResult(int count, bool expectSuccess)
+	public async Task Twice_ShouldThrowWhenNotCalledExactlyTwice(int count, bool expectSuccess)
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		ExecuteDoSomethingOn(sut, count);

@@ -5,7 +5,7 @@ namespace Mockolate.Tests.Parameters;
 public sealed class ParamsNullArrayTests
 {
 	[Test]
-	public async Task NullArray_OfReferenceTypeElements_ShouldMatchOnlyANullArray()
+	public async Task WithReferenceTypeElements_ShouldMatchOnlyANullArray()
 	{
 		IParamsMethods sut = IParamsMethods.CreateMock();
 		sut.Mock.Setup.Strings(null!).Returns(1);
@@ -18,7 +18,7 @@ public sealed class ParamsNullArrayTests
 	}
 
 	[Test]
-	public async Task NullArray_OfValueTypeElements_ShouldMatchOnlyANullArray()
+	public async Task WithValueTypeElements_ShouldMatchOnlyANullArray()
 	{
 		IParamsMethods sut = IParamsMethods.CreateMock();
 		sut.Mock.Setup.Integers(null!).Returns(1);
@@ -30,7 +30,7 @@ public sealed class ParamsNullArrayTests
 	}
 
 	[Test]
-	public async Task NullArray_AfterAnotherParameter_ShouldMatchOnlyANullArray()
+	public async Task WithLeadingParameter_ShouldMatchOnlyANullArray()
 	{
 		IParamsMethods sut = IParamsMethods.CreateMock();
 		sut.Mock.Setup.Leading(1, null!).Returns(1);
@@ -42,7 +42,7 @@ public sealed class ParamsNullArrayTests
 	}
 
 	[Test]
-	public async Task NullArray_AboveFourParameters_ShouldMatchOnlyANullArray()
+	public async Task WithMoreThanFourParameters_ShouldMatchOnlyANullArray()
 	{
 		IParamsMethods sut = IParamsMethods.CreateMock();
 		sut.Mock.Setup.Five(1, 2, 3, 4, null!).Returns(1);
@@ -54,7 +54,7 @@ public sealed class ParamsNullArrayTests
 	}
 
 	[Test]
-	public async Task NullArray_TypedAsObjectArray_ShouldMatchOnlyANullArray()
+	public async Task WithObjectArray_ShouldMatchOnlyANullArray()
 	{
 		IParamsMethods sut = IParamsMethods.CreateMock();
 		sut.Mock.Setup.Objects((object[])null!).Returns(1);
@@ -66,7 +66,7 @@ public sealed class ParamsNullArrayTests
 	}
 
 	[Test]
-	public async Task NullArray_ShouldSupportVerify()
+	public async Task ShouldSupportVerify()
 	{
 		IParamsMethods sut = IParamsMethods.CreateMock();
 		_ = sut.Strings(null!);
@@ -91,7 +91,7 @@ public sealed class ParamsNullArrayTests
 	}
 
 	[Test]
-	public async Task NullArray_OnDelegate_ShouldMatchOnlyANullArray()
+	public async Task WithDelegate_ShouldMatchOnlyANullArray()
 	{
 		StringsDelegate sut = StringsDelegate.CreateMock();
 		sut.Mock.Setup(null!).Returns(1);

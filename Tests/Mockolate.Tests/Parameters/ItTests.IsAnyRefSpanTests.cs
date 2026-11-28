@@ -23,7 +23,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_ShouldReturnExpectedValue()
+		public async Task ToString_ShouldDescribeTheMatcher()
 		{
 			IRefParameter<SpanWrapper<int>> sut = It.IsAnyRefSpan<int>();
 			string expectedValue = "It.IsAnyRef<SpanWrapper<int>>()";

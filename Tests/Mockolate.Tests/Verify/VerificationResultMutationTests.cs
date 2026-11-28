@@ -8,7 +8,7 @@ namespace Mockolate.Tests.Verify;
 public sealed class VerificationResultMutationTests
 {
 	[Test]
-	public async Task AwaitableVerify_AfterMatching_ShouldMarkMatchingInteractionsAsVerified()
+	public async Task WithTimeout_WhenMatching_ShouldMarkMatchingInteractionsAsVerified()
 	{
 		IMyService sut = IMyService.CreateMock();
 		sut.Mock.Setup.SomeFlag.InitializeWith(true);
@@ -21,7 +21,7 @@ public sealed class VerificationResultMutationTests
 	}
 
 	[Test]
-	public async Task AwaitableVerify_RecordsArrayPath_AfterSuccess_MarksMatchingInteractionsAsVerified()
+	public async Task WithTimeout_WhenVerifyingAPredicate_ShouldMarkMatchingInteractionsAsVerified()
 	{
 		// Pins the `_interactions.Verified(matchingInteractions);` call inside Awaitable's
 		// IVerificationResult.Verify (the records-array path). Statement-removal would skip the
@@ -41,7 +41,7 @@ public sealed class VerificationResultMutationTests
 	}
 
 	[Test]
-	public async Task AwaitableVerify_WithRecordingDisabled_ShouldThrowMockException()
+	public async Task WithTimeoutAndRecordingDisabled_ShouldThrowMockException()
 	{
 		IMyService sut = IMyService.CreateMock(MockBehavior.Default.SkippingInteractionRecording());
 		sut.Mock.Setup.SomeFlag.InitializeWith(true);
