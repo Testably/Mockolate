@@ -1,7 +1,7 @@
 #if NET9_0_OR_GREATER
 using Mockolate.Setup;
 
-namespace Mockolate.Tests.RefStruct;
+namespace Mockolate.Internal.Tests.Internals;
 
 public sealed class RefStructStorageHelperTests
 {

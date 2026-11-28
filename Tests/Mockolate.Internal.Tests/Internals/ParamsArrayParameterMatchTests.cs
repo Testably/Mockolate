@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Mockolate.Parameters;
 
-namespace Mockolate.Tests.Parameters;
+namespace Mockolate.Internal.Tests.Internals;
 
 public sealed class ParamsArrayParameterMatchTests
 {

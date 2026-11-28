@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Mockolate.Interactions;
 
-namespace Mockolate.Tests.Internals;
+namespace Mockolate.Internal.Tests.Internals;
 
 public sealed class MethodInvocationParametersTests
 {
