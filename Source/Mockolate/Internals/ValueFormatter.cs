@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 
 namespace Mockolate.Internals;
 
@@ -33,6 +34,16 @@ public static class ValueFormatter
 			IFormattable formattable => formattable.ToString(format: null, CultureInfo.InvariantCulture) ?? "null",
 			_ => value.ToString() ?? "null",
 		};
+
+	/// <summary>
+	///     Formats the <see langword="params" /> <paramref name="values" /> element by element in brackets, e.g.
+	///     <c>["a", 1]</c>, or a <see langword="null" /> array as <see langword="null" />.
+	/// </summary>
+	/// <typeparam name="T">The element type of the array.</typeparam>
+	/// <param name="values">The values to format.</param>
+	/// <returns>The text that represents <paramref name="values" />.</returns>
+	public static string FormatParams<T>(T[]? values)
+		=> values is null ? "null" : $"[{string.Join(", ", values.Select(v => Format(v)))}]";
 
 	/// <summary>
 	///     Formats the recorded <paramref name="name" /> of a method without its containing type. The type arguments of a

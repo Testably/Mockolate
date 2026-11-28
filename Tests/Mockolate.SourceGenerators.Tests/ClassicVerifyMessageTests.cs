@@ -150,7 +150,7 @@ public sealed class ClassicVerifyMessageTests
 			"Expected that mock invoked method One(null) at least once, but it never did.",
 			"Expected that mock invoked method Optional(null, 5) at least once, but it never did.",
 			"Expected that mock invoked method OptionalWithNonNullDefault(null, 5) at least once, but it never did.",
-			"Expected that mock invoked method WithParams(null, System.Int32[]) at least once, but it never did.",
+			"Expected that mock invoked method WithParams(null, []) at least once, but it never did.",
 			"no exception",
 			"no exception",
 			"no exception",

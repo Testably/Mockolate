@@ -7385,7 +7385,12 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 
 			if (parameter.IsParams && matchNames[matchNames.Length - 1] is { } paramsMatch)
 			{
-				return $"{{(global::Mockolate.Internals.ValueFormatter.Format((object?){paramsMatch} ?? {parameter.Name}))}}";
+				return $"{{({paramsMatch} is null ? global::Mockolate.Internals.ValueFormatter.FormatParams({parameter.Name}) : global::Mockolate.Internals.ValueFormatter.Format((object?){paramsMatch}))}}";
+			}
+
+			if (parameter.IsParams && HasParamsValueParameter(method, valueFlags))
+			{
+				return $"{{(global::Mockolate.Internals.ValueFormatter.FormatParams({parameter.Name}))}}";
 			}
 
 			return ExpectationPlaceholder(parameter);
