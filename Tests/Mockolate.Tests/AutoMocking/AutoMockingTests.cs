@@ -7,7 +7,7 @@ using Mockolate.Exceptions;
 using Mockolate.Monitor;
 using Mockolate.Tests.GeneratorCoverage;
 
-namespace Mockolate.AutoMocking.Tests;
+namespace Mockolate.Tests.AutoMocking;
 
 public sealed class AutoMockingTests
 {

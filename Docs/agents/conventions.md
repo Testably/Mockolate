@@ -68,14 +68,13 @@ Async code is limited to waiting for verifications (`Within`, `WithCancellation`
   - `Mockolate.Tests`: through a generated mock (`IChocolateDispenser.CreateMock()`, then setup, call and verify).
   - `Mockolate.Internal.Tests`: by calling a library type directly, whether it is `public` or `internal` (`MockRegistry`, `Callbacks<T>`, the `*Records` types, `TypeFormatter`).
   - `Mockolate.SourceGenerators.Tests`: by running the generator on source text and asserting on the emitted code or the pipeline models.
-  - `Mockolate.AutoMocking.Tests`: through a generated mock that needs auto-mocking; every other test with a generated mock goes into `Mockolate.Tests`.
   - The other projects have one purpose each, see [Project Structure](project-structure.md#test-projects).
 - **Shared types:** common domain types that several test projects use live in `Tests/Mockolate.TestHelpers`; shapes for generator special cases stay in `Mockolate.Tests/GeneratorCoverage`.
 - **Folders in `Mockolate.Tests`:** by the user-facing concept a reader looks for. Nothing lives at the project root except the usings.
   - `MockMethods/`, `MockProperties/`, `MockIndexers/`, `MockEvents/`, `MockDelegates/`: setup, verification and interactions of one member kind.
   - `Mocks/`: the `sut.Mock` surface that is not tied to a member kind (creation, `As<T>()`, wrapping, `ClearAllInteractions`, protected members).
   - `Parameters/`: `It`, `Match` and `ParameterArg`.
-  - `Verify/`, `Behavior/`, `Scenarios/`, `Monitor/`, `DataSources/`, `Web/`, `Logging/`, `RefStruct/`: the feature of the same name.
+  - `Verify/`, `Behavior/`, `AutoMocking/`, `Scenarios/`, `Monitor/`, `DataSources/`, `Web/`, `Logging/`, `RefStruct/`: the feature of the same name.
   - `GeneratorShapes/`: the runtime tests of the types in `GeneratorCoverage/`.
 - **Folders in `Mockolate.Internal.Tests`:** mirror `Source/Mockolate/` (`Interactions/`, `Internals/`, `Parameters/`, `Setup/`, `Verify/`, `Web/`, ...). A type with several test classes gets its own folder (`Registry/` for `MockRegistry`).
 - **Folders in `Mockolate.SourceGenerators.Tests`:** by what the test checks.
@@ -88,7 +87,7 @@ Async code is limited to waiting for verifications (`Within`, `WithCancellation`
 
 ### Classes and files
 
-- **One class per subject:** the top-level class is `public sealed partial class <Subject>Tests`, named after the type or feature under test, and a subject has exactly one such class per project. The same class name in two projects is allowed only for the generator half and the runtime half of one special case (`SpecialCases/ObjectLookAlikeTests` and `GeneratorShapes/ObjectLookAlikeTests`).
+- **One class per subject:** the top-level class is `public sealed partial class <Subject>Tests`, named after the type or feature under test, and a subject has exactly one such class per project. The same class name in two projects is allowed only for the generator half and the runtime half of one feature or special case (`AutoMocking/AutoMockingTests` in both, `SpecialCases/ObjectLookAlikeTests` and `GeneratorShapes/ObjectLookAlikeTests`).
 - **Unique within a project:** a class name appears in one folder only; include the member kind instead of repeating a name (`MethodInteractionsTests`, `PropertyInteractionsTests`).
 - **Nesting:** context that several tests share moves into nested `public sealed class`es, at most three levels deep: `<Subject>Tests`, then `<Member>Tests` for the API member under test, then `With<Arrangement>Tests`, `Without<Arrangement>Tests` or `When<Condition>Tests`. Add a nested class when it groups tests that belong together and the test explorer reads better for it, not merely because two tests share a segment; a segment of a single test stays in its method name.
 - **Every class ends in `Tests`:** a nested class named `Setup`, `Verify`, `It` or `Callback` would hide the namespace or type of the same name in the test bodies.

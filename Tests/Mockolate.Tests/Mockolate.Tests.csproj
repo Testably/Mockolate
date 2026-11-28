@@ -1,10 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<!-- The tests through generated auto-mocks belong in Mockolate.AutoMocking.Tests. -->
-	<PropertyGroup>
-		<MockolateSkipAutoMocking>true</MockolateSkipAutoMocking>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<ProjectReference Include="..\..\Source\Mockolate\Mockolate.csproj"/>
 		<ProjectReference Include="..\..\Source\Mockolate.SourceGenerators\Mockolate.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
@@ -16,6 +11,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Caching.Abstractions"/>
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions"/>
+		<PackageReference Include="Testably.Abstractions"/>
 		<PackageReference Include="Nullable">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
