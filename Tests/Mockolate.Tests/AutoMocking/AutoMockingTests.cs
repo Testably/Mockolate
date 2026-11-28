@@ -7,7 +7,7 @@ using Mockolate.Exceptions;
 using Mockolate.Monitor;
 using Mockolate.Tests.GeneratorCoverage;
 
-namespace Mockolate.AutoMocking.Tests;
+namespace Mockolate.Tests.AutoMocking;
 
 public sealed class AutoMockingTests
 {
@@ -257,7 +257,7 @@ public sealed class AutoMockingTests
 	[Test]
 	public async Task Initialize_ShouldApplyToAutoMocks()
 	{
-		MockBehavior behavior = MockBehavior.Default.Initialize<IAutoMockChild>(setup => setup.GetValue().Returns(5));
+		MockBehavior behavior = MockBehavior.Default.Initialize<IAutoMockChild>((Mock.IMockSetupForIAutoMockChild setup) => setup.GetValue().Returns(5));
 		IAutoMockRoot sut = IAutoMockRoot.CreateMock(behavior);
 
 		int result = sut.GetChild(1).GetValue();
@@ -613,7 +613,7 @@ public sealed class AutoMockingTests
 	{
 		int created = 0;
 		MockBehavior behavior = MockBehavior.Default.SkippingBaseClass()
-			.Initialize<IAutoMockChild>(_ => created++);
+			.Initialize<IAutoMockChild>((Mock.IMockSetupForIAutoMockChild _) => created++);
 		IAutoMockRoot sut = IAutoMockRoot.CreateMock(behavior).Wrapping(new RootWithoutChild());
 
 		IAutoMockChild first = sut.Child;

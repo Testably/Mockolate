@@ -1,6 +1,4 @@
-using Mockolate.Internals;
 using Mockolate.TestHelpers;
-using Mockolate.Tests.GeneratorCoverage;
 
 namespace Mockolate.Tests;
 
@@ -15,17 +13,6 @@ public sealed partial class MockBehaviorTests
 		await That(behavior.SkipBaseClass).IsFalse();
 		await That(behavior.ThrowWhenNotSetup).IsFalse();
 		await That(behavior.DefaultValue).IsNotNull();
-	}
-
-	[Test]
-	public async Task AutoMockFactoryOfAnotherAssembly_WhenSkippingAutoMocking_ShouldNotCreateAutoMocks()
-	{
-		IAutoMockChild child = IAutoMockChild.CreateMock();
-		MockBehavior behavior = AutoMocks.UseFactory(MockBehavior.Default, (_, _) => child);
-		IAutoMockRoot sut = IAutoMockRoot.CreateMock(behavior);
-
-		await That(sut[1]).IsNull()
-			.Because("this project sets the MockolateSkipAutoMocking build property");
 	}
 
 	[Test]

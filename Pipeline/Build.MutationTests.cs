@@ -36,7 +36,6 @@ partial class Build
 		{
 			Solution.Mockolate, [
 				Solution.Tests.Mockolate_Tests,
-				Solution.Tests.Mockolate_AutoMocking_Tests,
 				Solution.Tests.Mockolate_Internal_Tests,
 			]
 		},

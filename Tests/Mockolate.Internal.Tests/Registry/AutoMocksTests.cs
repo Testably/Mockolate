@@ -3,6 +3,16 @@ namespace Mockolate.Internal.Tests.Registry;
 public sealed class AutoMocksTests
 {
 	[Test]
+	public async Task AutoMockFactoryOfAnotherAssembly_WhenSkippingAutoMocking_ShouldNotCreateAutoMocks()
+	{
+		MockBehavior behavior = AutoMocks.UseFactory(MockBehavior.Default, (_, _) => new ServiceWithoutMock());
+		IServiceWithChild sut = IServiceWithChild.CreateMock(behavior);
+
+		await That(sut[1]).IsNull()
+			.Because("this project sets the MockolateSkipAutoMocking build property");
+	}
+
+	[Test]
 	public async Task AutoMockOr_WhenTheFactoryHasNoMock_ShouldReturnNullAndAskOnlyOnce()
 	{
 		int calls = 0;
@@ -102,6 +112,11 @@ public sealed class AutoMocksTests
 	public interface IServiceWithoutMock;
 
 	public interface IOtherService;
+
+	public interface IServiceWithChild
+	{
+		IServiceWithoutMock this[int key] { get; }
+	}
 
 	private sealed class ServiceWithoutMock : IServiceWithoutMock;
 
