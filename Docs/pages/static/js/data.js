@@ -2016,6 +2016,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -2354,7 +2360,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -2696,7 +2703,8 @@ window.BENCHMARK_DATA = {
           151.42237213452657,
           110.62323035399119,
           126.13568889300028,
-          222.17409485181173
+          222.17409485181173,
+          123.8336809362684
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -3025,6 +3033,7 @@ window.BENCHMARK_DATA = {
           800,
           800,
           800,
+          808,
           808,
           808,
           808,
@@ -3393,7 +3402,8 @@ window.BENCHMARK_DATA = {
           60560.0844538762,
           30139.013878455527,
           30752.673300606864,
-          44612.6109781901
+          44612.6109781901,
+          30882.731901041665
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3740,7 +3750,8 @@ window.BENCHMARK_DATA = {
           9056,
           9055,
           9055,
-          9033
+          9033,
+          9055
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -4090,7 +4101,8 @@ window.BENCHMARK_DATA = {
           3479.5114616394044,
           2406.398229980469,
           2344.357238515218,
-          3967.9336874825613
+          3967.9336874825613,
+          2387.5814280192058
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -4251,6 +4263,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -4787,7 +4800,8 @@ window.BENCHMARK_DATA = {
           3484.446696472168,
           2262.4206727345786,
           2259.3382369995115,
-          3442.5428415934243
+          3442.5428415934243,
+          2426.6028127034506
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -5134,7 +5148,8 @@ window.BENCHMARK_DATA = {
           6930,
           6930,
           6930,
-          6924
+          6924,
+          7010
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -5484,7 +5499,8 @@ window.BENCHMARK_DATA = {
           153.91780504158564,
           121.8554687329701,
           129.6409024340766,
-          256.9711990992228
+          256.9711990992228,
+          129.2826750108174
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -5650,6 +5666,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -6181,7 +6198,8 @@ window.BENCHMARK_DATA = {
           280.3291354497274,
           223.3762000242869,
           228.29488175710043,
-          401.31454439163207
+          401.31454439163207,
+          237.66468801498414
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -6492,6 +6510,7 @@ window.BENCHMARK_DATA = {
           2056,
           2056,
           2056,
+          1352,
           1352,
           1352,
           1352,
@@ -8558,6 +8577,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -8896,7 +8921,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -9238,7 +9264,8 @@ window.BENCHMARK_DATA = {
           145.1045389175415,
           156.9773772784642,
           87.20959643522899,
-          94.41544889552253
+          94.41544889552253,
+          115.6424094071755
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -9567,6 +9594,7 @@ window.BENCHMARK_DATA = {
           712,
           712,
           712,
+          720,
           720,
           720,
           720,
@@ -9935,7 +9963,8 @@ window.BENCHMARK_DATA = {
           15209.503731863839,
           15228.495830829326,
           7607.13353402274,
-          7748.152341570173
+          7748.152341570173,
+          11068.326835123698
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10282,7 +10311,8 @@ window.BENCHMARK_DATA = {
           12761,
           12761,
           12760,
-          12760
+          12760,
+          12761
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10632,7 +10662,8 @@ window.BENCHMARK_DATA = {
           5708.791141255697,
           5675.462874779334,
           2961.5765280042374,
-          2991.9158721923827
+          2991.9158721923827,
+          3987.511533610026
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10793,6 +10824,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -11329,7 +11361,8 @@ window.BENCHMARK_DATA = {
           223331.78867885045,
           225543.1184953962,
           111506.59877929688,
-          121141.16453334263
+          121141.16453334263,
+          196456.5414550781
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11675,6 +11708,7 @@ window.BENCHMARK_DATA = {
           15578,
           15618,
           15618,
+          15619,
           15619,
           15619
         ],
@@ -12026,7 +12060,8 @@ window.BENCHMARK_DATA = {
           166.47205059344952,
           173.18660009702046,
           112.36103741327922,
-          114.139230966568
+          114.139230966568,
+          142.34455270426614
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -12167,6 +12202,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -12723,7 +12759,8 @@ window.BENCHMARK_DATA = {
           167.50597418149312,
           167.53474604288738,
           112.30028620560964,
-          100.98645865917206
+          100.98645865917206,
+          124.08638152709374
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -12857,6 +12894,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -15100,6 +15138,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -15438,7 +15482,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -15780,7 +15825,8 @@ window.BENCHMARK_DATA = {
           351.36747522354125,
           503.854837008885,
           410.51881176630656,
-          582.6267019271851
+          582.6267019271851,
+          395.73905922571817
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -16109,6 +16155,7 @@ window.BENCHMARK_DATA = {
           1824,
           1824,
           1840,
+          1848,
           1848,
           1848,
           1848,
@@ -16477,7 +16524,8 @@ window.BENCHMARK_DATA = {
           407179.8182291667,
           532917.5694754465,
           176391.24931640626,
-          407665.59108072915
+          407665.59108072915,
+          471515.27005208336
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16824,7 +16872,8 @@ window.BENCHMARK_DATA = {
           38651,
           38379,
           38580,
-          38350
+          38350,
+          38523
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -17174,7 +17223,8 @@ window.BENCHMARK_DATA = {
           112204.08163248698,
           210605.8588663737,
           62022.90914713542,
-          143611.7478515625
+          143611.7478515625,
+          130322.41625976562
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17521,7 +17571,8 @@ window.BENCHMARK_DATA = {
           28104,
           28156,
           28086,
-          28099
+          28099,
+          28100
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17871,7 +17922,8 @@ window.BENCHMARK_DATA = {
           141984.4223795573,
           244148.71181640626,
           64420.426049804686,
-          169004.73250325522
+          169004.73250325522,
+          167269.22779947918
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -18218,7 +18270,8 @@ window.BENCHMARK_DATA = {
           30273,
           30259,
           30247,
-          30253
+          30253,
+          30273
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -18568,7 +18621,8 @@ window.BENCHMARK_DATA = {
           269.71009019442965,
           345.0815436045329,
           284.68646516799924,
-          401.5980161939348
+          401.5980161939348,
+          309.5896368980408
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -18915,6 +18969,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1216,
           1216
         ],
         "borderColor": "#E84393",
@@ -19061,7 +19116,8 @@ window.BENCHMARK_DATA = {
           491.05431709289553,
           687.5358908335368,
           519.33502146403,
-          797.5708800043378
+          797.5708800043378,
+          558.7417763196505
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -19168,6 +19224,7 @@ window.BENCHMARK_DATA = {
           2856,
           2856,
           2856,
+          2208,
           2208,
           2208,
           2208,
@@ -21234,6 +21291,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -21572,7 +21635,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -21914,7 +21978,8 @@ window.BENCHMARK_DATA = {
           951.2969497362773,
           1270.0328634807042,
           1105.5368099212646,
-          1565.3595111846923
+          1565.3595111846923,
+          1102.591598002116
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -22243,6 +22308,7 @@ window.BENCHMARK_DATA = {
           2760,
           2760,
           2776,
+          2784,
           2784,
           2784,
           2784,
@@ -22611,7 +22677,8 @@ window.BENCHMARK_DATA = {
           416115.5300292969,
           542915.376577524,
           203012.95358072917,
-          414110.2718098958
+          414110.2718098958,
+          484230.066015625
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -22958,7 +23025,8 @@ window.BENCHMARK_DATA = {
           48239,
           46945,
           47267,
-          46949
+          46949,
+          47105
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -23308,7 +23376,8 @@ window.BENCHMARK_DATA = {
           127581.56459263393,
           232664.12210286458,
           77796.06123860677,
-          162620.0868966239
+          162620.0868966239,
+          150892.20087541852
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -23655,7 +23724,8 @@ window.BENCHMARK_DATA = {
           41215,
           41271,
           41209,
-          41205
+          41205,
+          41215
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -24005,7 +24075,8 @@ window.BENCHMARK_DATA = {
           160710.89840494792,
           267317.9284830729,
           79356.3689046224,
-          188705.6368233817
+          188705.6368233817,
+          191082.6020320012
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -24352,7 +24423,8 @@ window.BENCHMARK_DATA = {
           49930,
           49926,
           49922,
-          49925
+          49925,
+          49930
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -24702,7 +24774,8 @@ window.BENCHMARK_DATA = {
           637.5011122385661,
           805.5357898984637,
           615.1874607721965,
-          905.3224887166705
+          905.3224887166705,
+          743.5822032292684
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -25049,6 +25122,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2296,
           2296
         ],
         "borderColor": "#E84393",
@@ -25195,7 +25269,8 @@ window.BENCHMARK_DATA = {
           1747.3696727752686,
           2301.4239428202313,
           1861.9402716318766,
-          2604.856991631644
+          2604.856991631644,
+          2227.711037562444
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -25302,6 +25377,7 @@ window.BENCHMARK_DATA = {
           5568,
           5568,
           5568,
+          5248,
           5248,
           5248,
           5248,
@@ -27368,6 +27444,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -27706,7 +27788,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -28048,7 +28131,8 @@ window.BENCHMARK_DATA = {
           132.62144155502318,
           135.83369487524033,
           139.20962840716044,
-          140.6960107644399
+          140.6960107644399,
+          107.78013815198626
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -28377,6 +28461,7 @@ window.BENCHMARK_DATA = {
           592,
           592,
           592,
+          600,
           600,
           600,
           600,
@@ -28745,7 +28830,8 @@ window.BENCHMARK_DATA = {
           4247.108238220215,
           3154.3059651056924,
           3247.017462158203,
-          4786.968939644949
+          4786.968939644949,
+          3457.7873125712076
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -29035,6 +29121,7 @@ window.BENCHMARK_DATA = {
           14902,
           14914,
           14906,
+          6552,
           6552,
           6552,
           6552,
@@ -29442,7 +29529,8 @@ window.BENCHMARK_DATA = {
           5481.083866373698,
           4432.601749165853,
           4396.061433519636,
-          6187.6728194100515
+          6187.6728194100515,
+          4472.856345040457
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -29732,6 +29820,7 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9320,
+          9816,
           9816,
           9816,
           9816,
@@ -30139,7 +30228,8 @@ window.BENCHMARK_DATA = {
           4259.9543116251625,
           2998.434042104085,
           3077.556214904785,
-          4791.145398457845
+          4791.145398457845,
+          3512.475371042887
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -30486,6 +30576,7 @@ window.BENCHMARK_DATA = {
           7517,
           7509,
           7509,
+          7517,
           7517
         ],
         "borderColor": "#4A6FA5",
@@ -30836,7 +30927,8 @@ window.BENCHMARK_DATA = {
           186.95250347944406,
           182.3187061207635,
           185.1957493509565,
-          183.23354694048564
+          183.23354694048564,
+          155.89073414461953
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -31126,6 +31218,7 @@ window.BENCHMARK_DATA = {
           728,
           728,
           728,
+          808,
           808,
           808,
           808,
@@ -31533,7 +31626,8 @@ window.BENCHMARK_DATA = {
           338.6630507877895,
           382.3325705846151,
           331.04384930928546,
-          356.99942207336426
+          356.99942207336426,
+          289.50961117744447
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -31844,6 +31938,7 @@ window.BENCHMARK_DATA = {
           2136,
           2136,
           2136,
+          1424,
           1424,
           1424,
           1424,
@@ -33910,6 +34005,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -34248,7 +34349,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -34590,7 +34692,8 @@ window.BENCHMARK_DATA = {
           347.77858700752256,
           307.01742458343506,
           316.6186624595097,
-          376.3234697341919
+          376.3234697341919,
+          282.36114069393705
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -34919,6 +35022,7 @@ window.BENCHMARK_DATA = {
           1096,
           1096,
           1096,
+          1104,
           1104,
           1104,
           1104,
@@ -35287,7 +35391,8 @@ window.BENCHMARK_DATA = {
           5582.222261047364,
           4759.559870910644,
           4952.201836722238,
-          6772.071073804583
+          6772.071073804583,
+          5081.1837812151225
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -35577,6 +35682,7 @@ window.BENCHMARK_DATA = {
           18901,
           18906,
           18883,
+          10536,
           10536,
           10536,
           10536,
@@ -35984,7 +36090,8 @@ window.BENCHMARK_DATA = {
           7125.159162248884,
           6199.341145324707,
           6201.598040262858,
-          9139.066672770183
+          9139.066672770183,
+          6617.685050419399
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -36331,7 +36438,8 @@ window.BENCHMARK_DATA = {
           12840,
           12840,
           12840,
-          12841
+          12841,
+          12840
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -36681,7 +36789,8 @@ window.BENCHMARK_DATA = {
           6825.599142347063,
           5635.513603210449,
           5991.321360451834,
-          8574.977384440104
+          8574.977384440104,
+          6390.981716410319
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -37028,6 +37137,7 @@ window.BENCHMARK_DATA = {
           15754,
           15748,
           15748,
+          15754,
           15754
         ],
         "borderColor": "#4A6FA5",
@@ -37378,7 +37488,8 @@ window.BENCHMARK_DATA = {
           358.39064791997276,
           335.0984706878662,
           341.31782083511354,
-          386.1937605857849
+          386.1937605857849,
+          322.0818369229635
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -37668,6 +37779,7 @@ window.BENCHMARK_DATA = {
           1088,
           1088,
           1088,
+          1168,
           1168,
           1168,
           1168,
@@ -38075,7 +38187,8 @@ window.BENCHMARK_DATA = {
           1042.1686948140461,
           1081.8208609263102,
           1083.082868031093,
-          1213.3482354482014
+          1213.3482354482014,
+          960.4882425944011
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -38386,6 +38499,7 @@ window.BENCHMARK_DATA = {
           3888,
           3888,
           3888,
+          3288,
           3288,
           3288,
           3288,
@@ -40452,6 +40566,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -40790,7 +40910,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -41132,7 +41253,8 @@ window.BENCHMARK_DATA = {
           203.0286577383677,
           275.0410391489665,
           172.34292492866516,
-          331.83599618503024
+          331.83599618503024,
+          184.00670976638793
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -41461,6 +41583,7 @@ window.BENCHMARK_DATA = {
           920,
           920,
           920,
+          928,
           928,
           928,
           928,
@@ -41829,7 +41952,8 @@ window.BENCHMARK_DATA = {
           7755.142386300223,
           11099.472766331264,
           5563.572491455078,
-          8822.796264648438
+          8822.796264648438,
+          5748.170517985026
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -42176,7 +42300,8 @@ window.BENCHMARK_DATA = {
           10569,
           10568,
           10568,
-          10569
+          10569,
+          10568
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -42526,7 +42651,8 @@ window.BENCHMARK_DATA = {
           5580.810071309407,
           7680.348434448242,
           4073.301806313651,
-          6582.235204060872
+          6582.235204060872,
+          4286.704435475667
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -42872,6 +42998,7 @@ window.BENCHMARK_DATA = {
           11688,
           11664,
           11688,
+          11664,
           11664,
           11664
         ],
@@ -43223,7 +43350,8 @@ window.BENCHMARK_DATA = {
           5311.461874389648,
           8290.468639119466,
           4333.570914132254,
-          6216.937080383301
+          6216.937080383301,
+          4007.520157877604
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -43570,7 +43698,8 @@ window.BENCHMARK_DATA = {
           11196,
           11196,
           11196,
-          11191
+          11191,
+          11196
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -43920,7 +44049,8 @@ window.BENCHMARK_DATA = {
           138.72113556861876,
           172.93397115071613,
           115.51345210075378,
-          216.30694792820856
+          216.30694792820856,
+          118.26426866849263
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -44086,6 +44216,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -44617,7 +44748,8 @@ window.BENCHMARK_DATA = {
           304.09847160748075,
           384.27190048354015,
           243.03020361264547,
-          450.3056672981807
+          450.3056672981807,
+          251.91801042556762
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -44928,6 +45060,7 @@ window.BENCHMARK_DATA = {
           1672,
           1672,
           1672,
+          1464,
           1464,
           1464,
           1464,
@@ -46994,6 +47127,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -47332,7 +47471,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -47674,7 +47814,8 @@ window.BENCHMARK_DATA = {
           529.4515869458517,
           652.8968524932861,
           428.9780555566152,
-          766.7275428038377
+          766.7275428038377,
+          482.02262455622355
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -48003,6 +48144,7 @@ window.BENCHMARK_DATA = {
           1784,
           1784,
           1784,
+          1792,
           1792,
           1792,
           1792,
@@ -48371,7 +48513,8 @@ window.BENCHMARK_DATA = {
           12703.631452433268,
           18030.160664149695,
           9449.064172363282,
-          14763.00876726423
+          14763.00876726423,
+          9593.788368733723
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -48718,7 +48861,8 @@ window.BENCHMARK_DATA = {
           18505,
           18505,
           18505,
-          18504
+          18504,
+          18505
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -49068,7 +49212,8 @@ window.BENCHMARK_DATA = {
           13611.989477539062,
           18542.742117745536,
           9109.532712809245,
-          15347.08341862605
+          15347.08341862605,
+          9343.465547688802
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -49415,7 +49560,8 @@ window.BENCHMARK_DATA = {
           21529,
           21553,
           21529,
-          21528
+          21528,
+          21529
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -49765,7 +49911,8 @@ window.BENCHMARK_DATA = {
           13869.285958862305,
           19883.17412109375,
           10133.513887532552,
-          16182.157453264508
+          16182.157453264508,
+          9850.82468922933
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -50095,6 +50242,7 @@ window.BENCHMARK_DATA = {
           30785,
           30785,
           30780,
+          30785,
           30785,
           30785,
           30785,
@@ -50462,7 +50610,8 @@ window.BENCHMARK_DATA = {
           262.06931053797405,
           355.3585629463196,
           263.2717750231425,
-          453.8782524381365
+          453.8782524381365,
+          282.8996290206909
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -50628,6 +50777,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -51159,7 +51309,8 @@ window.BENCHMARK_DATA = {
           1034.9625928243001,
           1374.931416829427,
           939.9292878468831,
-          1621.6191441672188
+          1621.6191441672188,
+          1005.562082699367
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -51470,6 +51621,7 @@ window.BENCHMARK_DATA = {
           4024,
           4024,
           4024,
+          3600,
           3600,
           3600,
           3600,
@@ -53536,6 +53688,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -53874,7 +54032,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -54216,7 +54375,8 @@ window.BENCHMARK_DATA = {
           13.517615826924642,
           16.615176204840342,
           12.961338764429092,
-          15.244588754574458
+          15.244588754574458,
+          16.307360271612804
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -54446,6 +54606,7 @@ window.BENCHMARK_DATA = {
           160,
           160,
           160,
+          136,
           136,
           136,
           136,
@@ -54913,7 +55074,8 @@ window.BENCHMARK_DATA = {
           77.28480950196584,
           95.57450013160705,
           76.06532151882465,
-          88.66675125635587
+          88.66675125635587,
+          90.71547797093025
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -55079,6 +55241,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -55610,7 +55773,8 @@ window.BENCHMARK_DATA = {
           26.90708283654281,
           29.720848913987478,
           22.784652125835418,
-          26.071893909802803
+          26.071893909802803,
+          28.129616383711497
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -55744,6 +55908,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -56307,7 +56472,8 @@ window.BENCHMARK_DATA = {
           871.4318387349447,
           884.1732002894083,
           1015.2329310099284,
-          1270.9239422480266
+          1270.9239422480266,
+          1332.971263885498
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -56468,6 +56634,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -57004,7 +57171,8 @@ window.BENCHMARK_DATA = {
           1233.8654749552409,
           1321.8568163553873,
           1469.8539030710856,
-          1825.3172103881836
+          1825.3172103881836,
+          2108.6399602254232
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -57165,6 +57333,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -57701,7 +57870,8 @@ window.BENCHMARK_DATA = {
           1025.6679772694906,
           1086.7198192596436,
           1333.6090616498675,
-          1479.1043014526367
+          1479.1043014526367,
+          1718.4477880918062
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -58047,6 +58217,7 @@ window.BENCHMARK_DATA = {
           2755,
           2751,
           2751,
+          2755,
           2755,
           2755
         ],
@@ -58980,6 +59151,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -59135,7 +59312,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -59294,7 +59472,8 @@ window.BENCHMARK_DATA = {
           2232.471851621355,
           2192.128498840332,
           2306.054635620117,
-          1709.4810643877302
+          1709.4810643877302,
+          1158.3194972551787
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -59440,6 +59619,7 @@ window.BENCHMARK_DATA = {
           5264,
           5264,
           5264,
+          5296,
           5296,
           5296,
           5296,
@@ -59625,7 +59805,8 @@ window.BENCHMARK_DATA = {
           2442.6841948372976,
           2518.1989564162036,
           2333.5304565429688,
-          2061.121983846029
+          2061.121983846029,
+          1328.8774302164713
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -59788,6 +59969,7 @@ window.BENCHMARK_DATA = {
           7385,
           7385,
           7384,
+          7385,
           7385,
           7385
         ],
@@ -59956,7 +60138,8 @@ window.BENCHMARK_DATA = {
           4653.912814839681,
           4482.855446406773,
           4656.669403076172,
-          3580.9297602726865
+          3580.9297602726865,
+          2386.0115370432536
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -60084,6 +60267,7 @@ window.BENCHMARK_DATA = {
           17360,
           17360,
           17360,
+          10920,
           10920,
           10920,
           10920,
@@ -60287,7 +60471,8 @@ window.BENCHMARK_DATA = {
           1467724.7890625,
           1065030.9421875,
           1451195.6693638393,
-          1033688.9226888021
+          1033688.9226888021,
+          662404.8628255208
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -60451,7 +60636,8 @@ window.BENCHMARK_DATA = {
           92009,
           92251,
           92592,
-          92650
+          92650,
+          92512
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -60618,7 +60804,8 @@ window.BENCHMARK_DATA = {
           317336.52666015626,
           342046.9872698103,
           314386.2092122396,
-          271850.9981515067
+          271850.9981515067,
+          211063.3181966146
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -60782,7 +60969,8 @@ window.BENCHMARK_DATA = {
           54382,
           54971,
           54382,
-          54382
+          54382,
+          54379
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -60949,7 +61137,8 @@ window.BENCHMARK_DATA = {
           362057.3394205729,
           378133.76927083335,
           357509.3670572917,
-          307561.48128255206
+          307561.48128255206,
+          252583.8154296875
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -61113,7 +61302,8 @@ window.BENCHMARK_DATA = {
           65560,
           65389,
           65639,
-          65519
+          65519,
+          65719
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -61931,6 +62121,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -62067,7 +62263,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -62207,7 +62404,8 @@ window.BENCHMARK_DATA = {
           23740.391855875652,
           22057.17095743815,
           22526.815079752603,
-          26658.41997273763
+          26658.41997273763,
+          20796.111391339982
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -62334,6 +62532,7 @@ window.BENCHMARK_DATA = {
           56536,
           56536,
           56536,
+          56544,
           56544,
           56544,
           56544,
@@ -62500,7 +62699,8 @@ window.BENCHMARK_DATA = {
           21285.393933105468,
           17687.947475179037,
           18485.135150146485,
-          22915.793438251203
+          22915.793438251203,
+          18512.149001057944
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -62588,6 +62788,7 @@ window.BENCHMARK_DATA = {
           40688,
           40688,
           40688,
+          40768,
           40768,
           40768,
           40768,
@@ -62793,7 +62994,8 @@ window.BENCHMARK_DATA = {
           76922.22351946149,
           76429.65955403647,
           77591.57559640067,
-          82453.93505045572
+          82453.93505045572,
+          68053.03220214843
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -62927,6 +63129,7 @@ window.BENCHMARK_DATA = {
           178353,
           178353,
           178352,
+          178353,
           178353,
           178353,
           178353,
@@ -63086,7 +63289,8 @@ window.BENCHMARK_DATA = {
           175503.26820882162,
           154317.4189860026,
           158039.9594238281,
-          202355.8836751302
+          202355.8836751302,
+          159964.34314903847
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -63231,7 +63435,8 @@ window.BENCHMARK_DATA = {
           423564,
           423539,
           423539,
-          423564
+          423564,
+          423563
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -63379,7 +63584,8 @@ window.BENCHMARK_DATA = {
           239965.8553466797,
           178180.24038085938,
           184053.46358816963,
-          309898.485546875
+          309898.485546875,
+          217682.21449497767
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -63524,7 +63730,8 @@ window.BENCHMARK_DATA = {
           378535,
           378514,
           378514,
-          378539
+          378539,
+          378535
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -63672,7 +63879,8 @@ window.BENCHMARK_DATA = {
           349786.0812049279,
           294460.45244140626,
           315320.2041992188,
-          405634.5759626116
+          405634.5759626116,
+          321069.6062950721
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -63817,7 +64025,8 @@ window.BENCHMARK_DATA = {
           943722,
           943883,
           943883,
-          943763
+          943763,
+          943722
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -64635,6 +64844,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -64771,7 +64986,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -64911,7 +65127,8 @@ window.BENCHMARK_DATA = {
           33106.23064371745,
           41678.969383826625,
           30441.004252115887,
-          49977.2215183803
+          49977.2215183803,
+          30488.567872111
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -65038,6 +65255,7 @@ window.BENCHMARK_DATA = {
           96824,
           96824,
           96824,
+          96832,
           96832,
           96832,
           96832,
@@ -65204,7 +65422,8 @@ window.BENCHMARK_DATA = {
           13694.81014811198,
           17346.389258248466,
           15905.331922258649,
-          26818.492776053292
+          26818.492776053292,
+          16213.913753255209
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -65349,7 +65568,8 @@ window.BENCHMARK_DATA = {
           32641,
           32641,
           32641,
-          32640
+          32640,
+          32641
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -65497,7 +65717,8 @@ window.BENCHMARK_DATA = {
           74985.29431152344,
           103506.00865071615,
           74206.78428548177,
-          124535.62462439903
+          124535.62462439903,
+          74274.69064941406
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -65631,6 +65852,7 @@ window.BENCHMARK_DATA = {
           218305,
           218305,
           218304,
+          218305,
           218305,
           218305,
           218305,
@@ -65790,7 +66012,8 @@ window.BENCHMARK_DATA = {
           533571.583203125,
           723993.4860491072,
           391770.2572591146,
-          579834.1764090402
+          579834.1764090402,
+          386295.7885366586
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -65935,7 +66158,8 @@ window.BENCHMARK_DATA = {
           836541,
           836541,
           836538,
-          836452
+          836452,
+          836538
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -66083,7 +66307,8 @@ window.BENCHMARK_DATA = {
           880476.857282366,
           1148552.6811197917,
           617896.6637369791,
-          928692.7698102678
+          928692.7698102678,
+          613244.897265625
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -66228,7 +66453,8 @@ window.BENCHMARK_DATA = {
           1139702,
           1139728,
           1139701,
-          1139621
+          1139621,
+          1139697
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -66376,7 +66602,8 @@ window.BENCHMARK_DATA = {
           1006145.255078125,
           1280815.6885416666,
           809303.0367838541,
-          1092787.426171875
+          1092787.426171875,
+          712414.0897460937
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -66521,7 +66748,8 @@ window.BENCHMARK_DATA = {
           2194290,
           2194291,
           2194321,
-          2194291
+          2194291,
+          2194322
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -67339,6 +67567,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -67475,7 +67709,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -67615,7 +67850,8 @@ window.BENCHMARK_DATA = {
           66829.52185058594,
           83037.04284667969,
           83553.43359375,
-          111558.86087740384
+          111558.86087740384,
+          77654.06319173177
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -67760,7 +67996,8 @@ window.BENCHMARK_DATA = {
           105745,
           105745,
           105745,
-          105745
+          105745,
+          105744
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -67908,7 +68145,8 @@ window.BENCHMARK_DATA = {
           42148.6279296875,
           50857.866727701825,
           37555.76572265625,
-          57044.73565673828
+          57044.73565673828,
+          47432.5882039388
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -68053,7 +68291,8 @@ window.BENCHMARK_DATA = {
           121101,
           121101,
           121097,
-          121100
+          121100,
+          121101
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -68201,7 +68440,8 @@ window.BENCHMARK_DATA = {
           1052664.2092447917,
           1370066.4118489583,
           781395.1836588542,
-          1324786.4171316964
+          1324786.4171316964,
+          1196908.7505580357
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -68346,7 +68586,8 @@ window.BENCHMARK_DATA = {
           1048482,
           936304,
           936509,
-          936267
+          936267,
+          936449
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -68494,7 +68735,8 @@ window.BENCHMARK_DATA = {
           1405565.6717354911,
           2090895.86328125,
           1281896.5165364584,
-          1954800.3954427084
+          1954800.3954427084,
+          1656075.4493489584
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -68639,7 +68881,8 @@ window.BENCHMARK_DATA = {
           1515860,
           1515927,
           1515722,
-          1515825
+          1515825,
+          1515860
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -68787,7 +69030,8 @@ window.BENCHMARK_DATA = {
           1243997.5269252232,
           1773905.54453125,
           1061434.0420572916,
-          1792264.8432942708
+          1792264.8432942708,
+          1430268.5733816964
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -68932,7 +69176,8 @@ window.BENCHMARK_DATA = {
           2221424,
           2221384,
           2221357,
-          2221373
+          2221373,
+          2221424
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -69078,7 +69323,8 @@ window.BENCHMARK_DATA = {
           130214.53553185097,
           165597.71676199776,
           145045.05748697917,
-          194165.24586588543
+          194165.24586588543,
+          171269.07592773438
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -69185,6 +69431,7 @@ window.BENCHMARK_DATA = {
           300785,
           300785,
           300785,
+          299545,
           299545,
           299545,
           299545,
@@ -69991,6 +70238,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -70119,7 +70372,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -70251,7 +70505,8 @@ window.BENCHMARK_DATA = {
           344.77261479695636,
           268.9007973988851,
           335.93195746739707,
-          327.36608463923136
+          327.36608463923136,
+          325.46861310799915
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -70370,6 +70625,7 @@ window.BENCHMARK_DATA = {
           1544,
           1544,
           1560,
+          1568,
           1568,
           1568,
           1568,
@@ -70528,7 +70784,8 @@ window.BENCHMARK_DATA = {
           223.9562734603882,
           182.64546574865068,
           222.94205163206374,
-          219.26397422949472
+          219.26397422949472,
+          223.49243443806967
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -70540,6 +70797,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1088,
           1088,
           1088,
           1088,
@@ -70805,7 +71063,8 @@ window.BENCHMARK_DATA = {
           390.53166319529214,
           337.58473106530994,
           397.982702032725,
-          363.20097929636637
+          363.20097929636637,
+          383.9180195808411
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -70906,6 +71165,7 @@ window.BENCHMARK_DATA = {
           1856,
           1856,
           1856,
+          1784,
           1784,
           1784,
           1784,
@@ -71082,7 +71342,8 @@ window.BENCHMARK_DATA = {
           71213.03608398438,
           37730.14138590495,
           71142.57373046875,
-          34377.72200833834
+          34377.72200833834,
+          69944.02033342634
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -71219,7 +71480,8 @@ window.BENCHMARK_DATA = {
           10030,
           10031,
           10030,
-          10031
+          10031,
+          10030
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -71359,7 +71621,8 @@ window.BENCHMARK_DATA = {
           5552.90128733317,
           4124.887622070312,
           5401.453372410366,
-          4289.437242889404
+          4289.437242889404,
+          5236.5123781476705
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -71489,6 +71752,7 @@ window.BENCHMARK_DATA = {
           10248,
           10248,
           10416,
+          10248,
           10248,
           10248,
           10248,
@@ -71636,7 +71900,8 @@ window.BENCHMARK_DATA = {
           5811.640858968099,
           4245.574384053548,
           5316.592035929362,
-          4220.421203068325
+          4220.421203068325,
+          4938.494122641428
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -71767,6 +72032,7 @@ window.BENCHMARK_DATA = {
           11854,
           11848,
           11853,
+          11854,
           11854,
           11854,
           11854,
@@ -72543,6 +72809,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -72671,7 +72943,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -72803,7 +73076,8 @@ window.BENCHMARK_DATA = {
           1240.3281926472982,
           1163.5914184570313,
           1318.4891371409099,
-          1156.4049746649605
+          1156.4049746649605,
+          1219.9396489007133
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -72922,6 +73196,7 @@ window.BENCHMARK_DATA = {
           4016,
           4016,
           4032,
+          4040,
           4040,
           4040,
           4040,
@@ -73080,7 +73355,8 @@ window.BENCHMARK_DATA = {
           797.8204742159162,
           701.8813325246175,
           818.6044448852539,
-          713.775928624471
+          713.775928624471,
+          802.8811876296998
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -73092,6 +73368,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2960,
           2960,
           2960,
           2960,
@@ -73357,7 +73634,8 @@ window.BENCHMARK_DATA = {
           2674.529957326253,
           2155.50121988569,
           2642.1189447130478,
-          2236.289404942439
+          2236.289404942439,
+          2391.628672191075
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -73458,6 +73736,7 @@ window.BENCHMARK_DATA = {
           8672,
           8672,
           8672,
+          8600,
           8600,
           8600,
           8600,
@@ -73634,7 +73913,8 @@ window.BENCHMARK_DATA = {
           83599.36896158854,
           45436.468876429964,
           84640.33339029948,
-          43042.846154785155
+          43042.846154785155,
+          81581.02819824219
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -73766,6 +74046,7 @@ window.BENCHMARK_DATA = {
           25109,
           25114,
           25115,
+          25114,
           25114,
           25114,
           25114,
@@ -73911,7 +74192,8 @@ window.BENCHMARK_DATA = {
           16985.197244262694,
           12651.697208658854,
           16947.3243560791,
-          13407.788920593262
+          13407.788920593262,
+          15745.209165445964
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -74041,6 +74323,7 @@ window.BENCHMARK_DATA = {
           23481,
           23481,
           25664,
+          23481,
           23481,
           23481,
           23481,
@@ -74188,7 +74471,8 @@ window.BENCHMARK_DATA = {
           21566.117256673177,
           16002.72803548177,
           22392.212668863933,
-          17187.684311930338
+          17187.684311930338,
+          19734.310126671426
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -74318,6 +74602,7 @@ window.BENCHMARK_DATA = {
           55216,
           55216,
           55213,
+          55216,
           55216,
           55216,
           55216,
@@ -75095,6 +75380,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -75223,7 +75514,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -75355,7 +75647,8 @@ window.BENCHMARK_DATA = {
           99751.12581380208,
           89968.44735514323,
           97764.33729654948,
-          93810.14238630023
+          93810.14238630023,
+          95510.68931361607
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -75488,6 +75781,7 @@ window.BENCHMARK_DATA = {
           273321,
           273321,
           273320,
+          273321,
           273321,
           273321,
           273321,
@@ -75632,7 +75926,8 @@ window.BENCHMARK_DATA = {
           68756.40914713542,
           57077.25353190104,
           68611.63658854166,
-          59055.10490315755
+          59055.10490315755,
+          66678.59015299479
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -75762,6 +76057,7 @@ window.BENCHMARK_DATA = {
           208883,
           208883,
           208881,
+          208883,
           208883,
           208883,
           208883,
@@ -75909,7 +76205,8 @@ window.BENCHMARK_DATA = {
           257981.3055889423,
           203109.54543457032,
           253974.2104980469,
-          217657.83656529017
+          217657.83656529017,
+          227853.90542367788
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -76046,6 +76343,7 @@ window.BENCHMARK_DATA = {
           707722,
           707721,
           707722,
+          707721,
           707721
         ],
         "borderColor": "#FF8C00",
@@ -76186,7 +76484,8 @@ window.BENCHMARK_DATA = {
           1269957.9895182292,
           917080.5321614583,
           1241672.462890625,
-          895738.4339518229
+          895738.4339518229,
+          1160940.9055338542
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -76323,7 +76622,8 @@ window.BENCHMARK_DATA = {
           1692680,
           1692670,
           1692675,
-          1692670
+          1692670,
+          1692680
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -76463,7 +76763,8 @@ window.BENCHMARK_DATA = {
           1277180.5180989583,
           971966.2375651042,
           1243456.8607700893,
-          1030205.3908854167
+          1030205.3908854167,
+          1184361.0121372768
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -76600,7 +76901,8 @@ window.BENCHMARK_DATA = {
           1468916,
           1468908,
           1468915,
-          1468913
+          1468913,
+          1468916
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -76740,7 +77042,8 @@ window.BENCHMARK_DATA = {
           2502941.071875,
           1779778.0540364583,
           2352472.848828125,
-          2006096.2967354911
+          2006096.2967354911,
+          2106860.1028645835
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -76877,7 +77180,8 @@ window.BENCHMARK_DATA = {
           4803387,
           4803376,
           4803385,
-          4803376
+          4803376,
+          4803384
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -77443,6 +77747,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -77537,7 +77847,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -77635,7 +77946,8 @@ window.BENCHMARK_DATA = {
           405.5464032173157,
           260.5124087333679,
           180.45581197738647,
-          172.32465380888718
+          172.32465380888718,
+          361.71318899790447
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -77720,6 +78032,7 @@ window.BENCHMARK_DATA = {
           1024,
           1024,
           1024,
+          1032,
           1032,
           1032,
           1032,
@@ -77844,7 +78157,8 @@ window.BENCHMARK_DATA = {
           514.6668319702148,
           357.9908053398132,
           244.90380356861994,
-          241.21138773645674
+          241.21138773645674,
+          427.03079264504566
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -77856,6 +78170,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1616,
           1616,
           1616,
           1616,
@@ -78053,7 +78368,8 @@ window.BENCHMARK_DATA = {
           920.0942531732412,
           652.2051075617472,
           473.9718636104039,
-          446.34318432441125
+          446.34318432441125,
+          861.3024941126506
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -78120,6 +78436,7 @@ window.BENCHMARK_DATA = {
           4464,
           4464,
           4464,
+          2632,
           2632,
           2632,
           2632,
@@ -78262,7 +78579,8 @@ window.BENCHMARK_DATA = {
           147982.607421875,
           200411.12853064903,
           93710.48083496094,
-          89092.88802664621
+          89092.88802664621,
+          331818.4112723214
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -78365,7 +78683,8 @@ window.BENCHMARK_DATA = {
           23246,
           23302,
           23312,
-          23313
+          23313,
+          23282
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -78471,7 +78790,8 @@ window.BENCHMARK_DATA = {
           13844.292793860803,
           11218.287749070387,
           7391.991409888635,
-          6863.990221296038
+          6863.990221296038,
+          16275.492771402995
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -78574,7 +78894,8 @@ window.BENCHMARK_DATA = {
           19745,
           19742,
           19539,
-          19539
+          19539,
+          19554
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -78680,7 +79001,8 @@ window.BENCHMARK_DATA = {
           8905.842561994281,
           7879.408272879465,
           5447.4558999197825,
-          5214.588744027274
+          5214.588744027274,
+          11765.993966674805
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -78781,6 +79103,7 @@ window.BENCHMARK_DATA = {
           14332,
           14332,
           14324,
+          14332,
           14332,
           14332,
           14332
@@ -79349,6 +79672,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -79443,7 +79772,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -79541,7 +79871,8 @@ window.BENCHMARK_DATA = {
           1627.9832387651716,
           1232.2048634120397,
           918.4733883993966,
-          866.3753532262949
+          866.3753532262949,
+          1648.1174350466047
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -79626,6 +79957,7 @@ window.BENCHMARK_DATA = {
           3040,
           3040,
           3040,
+          3048,
           3048,
           3048,
           3048,
@@ -79750,7 +80082,8 @@ window.BENCHMARK_DATA = {
           1586.400437927246,
           1146.0859479268393,
           836.4948130289714,
-          823.651291402181
+          823.651291402181,
+          1368.2326689402262
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -79762,6 +80095,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          3488,
           3488,
           3488,
           3488,
@@ -79959,7 +80293,8 @@ window.BENCHMARK_DATA = {
           4445.2325637817385,
           3827.083027903239,
           2495.2416937691823,
-          2423.184146294227
+          2423.184146294227,
+          4257.87747446696
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -80026,6 +80361,7 @@ window.BENCHMARK_DATA = {
           10536,
           10536,
           10536,
+          9440,
           9440,
           9440,
           9440,
@@ -80168,7 +80504,8 @@ window.BENCHMARK_DATA = {
           192849.7451171875,
           233874.91889648436,
           111595.98897298177,
-          107704.44190392128
+          107704.44190392128,
+          371818.88936673675
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -80271,7 +80608,8 @@ window.BENCHMARK_DATA = {
           41147,
           41153,
           41152,
-          41152
+          41152,
+          41155
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -80377,7 +80715,8 @@ window.BENCHMARK_DATA = {
           24201.208883666994,
           20173.02360534668,
           12842.03424508231,
-          12275.222752888998
+          12275.222752888998,
+          28754.95999552409
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -80480,7 +80819,8 @@ window.BENCHMARK_DATA = {
           31315,
           31330,
           30095,
-          30095
+          30095,
+          30101
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -80586,7 +80926,8 @@ window.BENCHMARK_DATA = {
           36629.92558186849,
           31140.6891398112,
           21018.27504679362,
-          20787.674691336495
+          20787.674691336495,
+          44344.941969651445
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -80687,6 +81028,7 @@ window.BENCHMARK_DATA = {
           60496,
           60496,
           60493,
+          60496,
           60496,
           60496,
           60496
@@ -81255,6 +81597,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -81349,7 +81697,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -81447,7 +81796,8 @@ window.BENCHMARK_DATA = {
           142306.702738444,
           106434.82394845145,
           80266.87692871093,
-          77626.72841971261
+          77626.72841971261,
+          148079.7622233073
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -81535,6 +81885,7 @@ window.BENCHMARK_DATA = {
           224809,
           224809,
           224808,
+          224809,
           224809,
           224809,
           224809,
@@ -81656,7 +82007,8 @@ window.BENCHMARK_DATA = {
           122918.54522235577,
           88487.22326660156,
           68012.68476213727,
-          65743.61051432292
+          65743.61051432292,
+          111072.69812825522
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -81759,7 +82111,8 @@ window.BENCHMARK_DATA = {
           209409,
           209409,
           209408,
-          209408
+          209408,
+          209409
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -81865,7 +82218,8 @@ window.BENCHMARK_DATA = {
           378068.1526576451,
           329029.58154296875,
           217317.65024414062,
-          210558.0034830729
+          210558.0034830729,
+          365882.1186899039
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -81968,7 +82322,8 @@ window.BENCHMARK_DATA = {
           653538,
           653538,
           653537,
-          653536
+          653536,
+          653538
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -82074,7 +82429,8 @@ window.BENCHMARK_DATA = {
           3296083.6540178573,
           3099501.9208333334,
           2079834.1791294643,
-          2117445.3359375
+          2117445.3359375,
+          4309059.260602678
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -82177,7 +82533,8 @@ window.BENCHMARK_DATA = {
           1936120,
           1936410,
           1936407,
-          1936392
+          1936392,
+          1936429
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -82283,7 +82640,8 @@ window.BENCHMARK_DATA = {
           1072558.9912109375,
           1015411.1807391827,
           633926.4077473958,
-          592515.4708333333
+          592515.4708333333,
+          1277553.7404947917
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -82386,7 +82744,8 @@ window.BENCHMARK_DATA = {
           1229256,
           1231501,
           1119112,
-          1119115
+          1119115,
+          1119169
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -82492,7 +82851,8 @@ window.BENCHMARK_DATA = {
           3573976.79296875,
           3052462.0678385417,
           2033168.6161358173,
-          2052481.29140625
+          2052481.29140625,
+          4170070.5636160714
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -82595,7 +82955,8 @@ window.BENCHMARK_DATA = {
           5051646,
           5051810,
           5051791,
-          5051802
+          5051802,
+          5051944
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -83161,6 +83522,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Sat Nov 28 07:13:31 2026 \u002B0100",
         "message": "fix: suppress CS0465 in mocks of a parameterless void Finalize method (#1174)"
+      },
+      {
+        "sha": "d1895996b46e4fd74fedcc7070f023eb2379ef14",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 07:36:56 2026 \u002B0100",
+        "message": "fix: report methods whose constraints conflict once the mocked type is closed (#1176)"
       }
     ],
     "labels": [
@@ -83255,7 +83622,8 @@ window.BENCHMARK_DATA = {
       "6069e31c",
       "7f8e5166",
       "644f5b7b",
-      "36c2b427"
+      "36c2b427",
+      "d1895996"
     ],
     "datasets": [
       {
@@ -83353,7 +83721,8 @@ window.BENCHMARK_DATA = {
           3421.689984639486,
           3288.340470827543,
           3339.899948120117,
-          2844.561973063151
+          2844.561973063151,
+          3395.665672302246
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -83438,6 +83807,7 @@ window.BENCHMARK_DATA = {
           2288,
           2288,
           2288,
+          2296,
           2296,
           2296,
           2296,
@@ -83562,7 +83932,8 @@ window.BENCHMARK_DATA = {
           3034.7557360331216,
           3023.499565378825,
           3058.3096848805744,
-          2330.9098858466514
+          2330.9098858466514,
+          3069.787402598063
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -83574,6 +83945,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2288,
           2288,
           2288,
           2288,
@@ -83771,7 +84143,8 @@ window.BENCHMARK_DATA = {
           3595.155322265625,
           3677.8876407329853,
           3569.8161239624023,
-          2937.837619527181
+          2937.837619527181,
+          3633.300826753889
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -83838,6 +84211,7 @@ window.BENCHMARK_DATA = {
           3344,
           3344,
           3344,
+          2912,
           2912,
           2912,
           2912,
@@ -83980,7 +84354,8 @@ window.BENCHMARK_DATA = {
           14139.819659641811,
           15138.364944458008,
           14740.51830819937,
-          10167.809558323452
+          10167.809558323452,
+          15154.926959698018
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -84051,6 +84426,7 @@ window.BENCHMARK_DATA = {
           11048,
           11048,
           11049,
+          11048,
           11048,
           11048,
           11048,
@@ -84189,7 +84565,8 @@ window.BENCHMARK_DATA = {
           12441.378062656948,
           12443.412794930595,
           12131.493281046549,
-          9418.3310546875
+          9418.3310546875,
+          12917.095487467448
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -84292,7 +84669,8 @@ window.BENCHMARK_DATA = {
           14633,
           14632,
           14633,
-          14632
+          14632,
+          14633
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -84398,7 +84776,8 @@ window.BENCHMARK_DATA = {
           13552.050604013297,
           13315.678915405273,
           13118.61504473005,
-          9650.627779134114
+          9650.627779134114,
+          13051.035660879952
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -84501,7 +84880,8 @@ window.BENCHMARK_DATA = {
           14620,
           14608,
           14620,
-          14774
+          14774,
+          14620
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
