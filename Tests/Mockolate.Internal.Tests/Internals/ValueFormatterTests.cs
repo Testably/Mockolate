@@ -69,6 +69,30 @@ public class ValueFormatterTests
 	}
 
 	[Test]
+	public async Task FormatParams_ShouldFormatEachValueInBrackets()
+	{
+		string result = ValueFormatter.FormatParams<object?>(["a", 4.5, null,]);
+
+		await That(result).IsEqualTo("[\"a\", 4.5, null]");
+	}
+
+	[Test]
+	public async Task FormatParams_WithEmptyArray_ShouldReturnEmptyBrackets()
+	{
+		string result = ValueFormatter.FormatParams<int>([]);
+
+		await That(result).IsEqualTo("[]");
+	}
+
+	[Test]
+	public async Task FormatParams_WithNullArray_ShouldReturnNull()
+	{
+		string result = ValueFormatter.FormatParams<string>(null);
+
+		await That(result).IsEqualTo("null");
+	}
+
+	[Test]
 	[Arguments("global::Foo.IBar.Baz", "Baz")]
 	[Arguments("Baz", "Baz")]
 	[Arguments("global::Foo.IBar.Baz<System.String>", "Baz<string>")]

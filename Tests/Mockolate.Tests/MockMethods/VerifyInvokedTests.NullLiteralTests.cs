@@ -57,7 +57,7 @@ public sealed partial class VerifyInvokedTests
 				"Expected that mock invoked method OptionalObject(null, 5) exactly once, but it never did.",
 				"Expected that mock invoked method OptionalString(null, 5) exactly once, but it never did.",
 				"Expected that mock invoked method OptionalWithNonNullDefault(null, 5) exactly once, but it never did.",
-				"Expected that mock invoked method WithParams(null, System.Int32[]) exactly once, but it never did.",
+				"Expected that mock invoked method WithParams(null, []) exactly once, but it never did.",
 			]).Because("a null literal means that the argument was null, not that any argument matches");
 		}
 
