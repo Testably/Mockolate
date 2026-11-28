@@ -16,6 +16,7 @@
 	<ItemGroup>
 		<PackageVersion Include="Fallout.Common" Version="10.5.0"/>
 		<PackageVersion Include="Fallout.Components" Version="10.5.0"/>
+		<!-- Transitive pins: raise the versions Fallout pulls in (SharpCompress 0.50.1, NuGet.Frameworks 7.9.0) -->
 		<PackageVersion Include="SharpCompress" Version="0.50.11"/>
 		<PackageVersion Include="NuGet.Frameworks" Version="8.0.0"/>
 	</ItemGroup>
@@ -29,7 +30,6 @@
 		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="5.12.0"/>
 		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Analyzer.Testing" Version="1.1.4"/>
 		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp.CodeFix.Testing" Version="1.1.4"/>
-		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp.CodeRefactoring.Testing" Version="1.1.4"/>
 	</ItemGroup>
 	<ItemGroup>
 		<PackageVersion Include="BenchmarkDotNet" Version="0.15.8"/>

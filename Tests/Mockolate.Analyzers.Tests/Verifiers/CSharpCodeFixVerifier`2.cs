@@ -15,41 +15,8 @@ public static partial class CSharpCodeFixVerifier<TAnalyzer, TCodeFix>
 	where TCodeFix : CodeFixProvider, new()
 {
 	/// <inheritdoc cref="Microsoft.CodeAnalysis.Diagnostic" />
-	public static DiagnosticResult Diagnostic()
-		=> CSharpCodeFixVerifier<TAnalyzer, TCodeFix, DefaultVerifier>.Diagnostic();
-
-	/// <inheritdoc cref="Microsoft.CodeAnalysis.Diagnostic" />
-	public static DiagnosticResult Diagnostic(string diagnosticId)
-		=> CSharpCodeFixVerifier<TAnalyzer, TCodeFix, DefaultVerifier>.Diagnostic(diagnosticId);
-
-	/// <inheritdoc cref="Microsoft.CodeAnalysis.Diagnostic" />
 	public static DiagnosticResult Diagnostic(DiagnosticDescriptor descriptor)
 		=> CSharpCodeFixVerifier<TAnalyzer, TCodeFix, DefaultVerifier>.Diagnostic(descriptor);
-
-	public static async Task VerifyAnalyzerAsync(
-		[StringSyntax("c#-test")] string source,
-		params DiagnosticResult[] expected
-	)
-	{
-		Test test = new()
-		{
-			TestCode = source,
-			CodeActionValidationMode = CodeActionValidationMode.SemanticStructure,
-			ReferenceAssemblies = ReferenceAssemblies.Net.Net90,
-			TestState =
-			{
-				AdditionalReferences =
-				{
-					typeof(MockBehavior).Assembly.Location,
-				},
-			},
-		};
-
-		// TODO: Remove once CS1705 no longer occurs
-		test.CompilerDiagnostics = CompilerDiagnostics.None;
-		test.ExpectedDiagnostics.AddRange(expected);
-		await test.RunAsync(CancellationToken.None);
-	}
 
 	/// <inheritdoc cref="CodeFixVerifier{TAnalyzer, TCodeFix, TTest, TVerifier}.VerifyCodeFixAsync(string, string)" />
 	public static async Task VerifyCodeFixAsync([StringSyntax("c#-test")] string source,

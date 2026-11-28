@@ -8,21 +8,10 @@
 		<FalloutScriptDirectory>..</FalloutScriptDirectory>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
-	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Windows'))">
-		<DefineConstants>OS_WINDOWS</DefineConstants>
-	</PropertyGroup>
-	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Linux'))">
-		<DefineConstants>OS_LINUX</DefineConstants>
-	</PropertyGroup>
-	<PropertyGroup Condition="$([MSBuild]::IsOSPlatform('OSX'))">
-		<DefineConstants>OS_MAC</DefineConstants>
-	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Fallout.Common"/>
 		<PackageReference Include="Fallout.Components"/>
-		<PackageReference Include="NuGet.Frameworks"/>
-		<PackageReference Include="SharpCompress"/>
 	</ItemGroup>
 
 	<ItemGroup>

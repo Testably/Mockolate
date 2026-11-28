@@ -21,7 +21,7 @@
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<IsPackable>false</IsPackable>
-		<NoWarn>701;1702;CA1845</NoWarn>
+		<NoWarn>1701;1702;CA1845</NoWarn>
 		<!--
 			The .NET 11 SDK writes a runtimeconfig.dev.json (hot reload options, no probing paths) for Debug builds.
 			VsTest 18.0.1 (bundled with Stryker) then fails on Linux with a NullReferenceException while looking for
