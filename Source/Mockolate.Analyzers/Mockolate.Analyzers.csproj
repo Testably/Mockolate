@@ -27,6 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Compile Include="..\Mockolate.SourceGenerators\Internals\ConstraintConflicts.cs" Link="ConstraintConflicts.cs"/>
 		<Compile Include="..\Mockolate.SourceGenerators\Internals\MockConstructorSelector.cs" Link="MockConstructorSelector.cs"/>
 	</ItemGroup>
 

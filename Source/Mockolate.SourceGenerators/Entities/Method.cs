@@ -13,7 +13,8 @@ internal record Method
 			Accessibility, methodSymbol.ContainingAssembly, sourceAssembly);
 		UseOverride = methodSymbol.IsVirtual || methodSymbol.IsAbstract;
 		IsOverridableFromMock = Helpers.IsOverridableFrom(methodSymbol, sourceAssembly) &&
-		                        Helpers.HasAccessibleSignature(methodSymbol, sourceAssembly);
+		                        Helpers.HasAccessibleSignature(methodSymbol, sourceAssembly) &&
+		                        Helpers.HasSatisfiableConstraints(methodSymbol);
 		IsAbstract = methodSymbol.IsAbstract;
 		IsStatic = methodSymbol.IsStatic;
 		IsInitOnly = methodSymbol.IsInitOnly;

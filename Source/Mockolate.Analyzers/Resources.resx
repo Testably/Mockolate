@@ -137,7 +137,7 @@
 		<comment>The title of the code fix.</comment>
   </data>
 	<data name="Mockolate0002Description" xml:space="preserve">
-		<value>Types that are sealed, structs, records, enums, or in the global namespace cannot be mocked. Neither can types with a member that must be implemented but is not accessible from the current assembly.</value>
+		<value>Types that are sealed, structs, records, enums, or in the global namespace cannot be mocked. Neither can types with a member that must be implemented but is not accessible from the current assembly, or whose type parameter has conflicting constraints.</value>
 	</data>
 	<data name="Mockolate0002MessageFormat" xml:space="preserve">
 		<value>Type '{0}' cannot be mocked: {1}</value>

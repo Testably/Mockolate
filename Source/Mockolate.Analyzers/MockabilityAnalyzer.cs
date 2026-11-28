@@ -9,6 +9,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
+using Mockolate.SourceGenerators.Internals;
 
 namespace Mockolate.Analyzers;
 
@@ -674,15 +675,45 @@ isEnabledByDefault: true,
 			return false;
 		}
 
+		if (FindUnsatisfiableRequiredMethod(typeSymbol) is { } unsatisfiable)
+		{
+			reason = $"the member '{unsatisfiable.Method.ToDisplayString()}' must be implemented, but its type parameter '{unsatisfiable.TypeParameter.Name}' has the conflicting constraints '{unsatisfiable.First}' and '{unsatisfiable.Second}'";
+			return false;
+		}
+
 		reason = null;
 		return true;
 	}
 
-	private static (ISymbol Member, ITypeSymbol? InaccessibleType)? FindInaccessibleRequiredMember(ITypeSymbol type,
-		IAssemblySymbol sourceAssembly)
+	private static (IMethodSymbol Method, ITypeParameterSymbol TypeParameter, string First, string Second)?
+		FindUnsatisfiableRequiredMethod(ITypeSymbol type)
+	{
+		HashSet<string> filledSlots = CollectFilledSlots(type);
+		foreach (ITypeSymbol implementedType in EnumerateImplementedTypes(type))
+		{
+			foreach (IMethodSymbol method in implementedType.GetMembers().OfType<IMethodSymbol>())
+			{
+				if (!method.IsAbstract || filledSlots.Contains(GetSignatureKey(method)))
+				{
+					continue;
+				}
+
+				foreach (ITypeParameterSymbol typeParameter in method.TypeParameters)
+				{
+					if (ConstraintConflicts.Find(typeParameter) is { } conflict)
+					{
+						return (method, typeParameter, conflict.First, conflict.Second);
+					}
+				}
+			}
+		}
+
+		return null;
+	}
+
+	private static HashSet<string> CollectFilledSlots(ITypeSymbol type)
 	{
 		HashSet<string> filledSlots = new(StringComparer.Ordinal);
-
 		foreach (ITypeSymbol implementedType in EnumerateImplementedTypes(type))
 		{
 			foreach (ISymbol member in implementedType.GetMembers())
@@ -693,6 +724,14 @@ isEnabledByDefault: true,
 				}
 			}
 		}
+
+		return filledSlots;
+	}
+
+	private static (ISymbol Member, ITypeSymbol? InaccessibleType)? FindInaccessibleRequiredMember(ITypeSymbol type,
+		IAssemblySymbol sourceAssembly)
+	{
+		HashSet<string> filledSlots = CollectFilledSlots(type);
 
 		foreach (ITypeSymbol implementedType in EnumerateImplementedTypes(type))
 		{

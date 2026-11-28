@@ -53,6 +53,25 @@ member without a default implementation), but that your assembly cannot access: 
 does not grant `InternalsVisibleTo`. There is no valid code a mock could emit for such a member, so the type cannot be
 mocked at all.
 
+The same holds for such a member with a type parameter whose constraints contradict each other once the generic type is
+closed, because every implementation inherits them and fails to compile (CS0455):
+
+```csharp
+public interface IDispenser<T>
+{
+    void Dispense<TChocolate>(TChocolate chocolate) where TChocolate : class, T;
+}
+
+// Mockolate0002: Type 'IDispenser<int>' cannot be mocked: the member 'IDispenser<int>.Dispense<TChocolate>(TChocolate)'
+// must be implemented, but its type parameter 'TChocolate' has the conflicting constraints 'class' and 'int'
+IDispenser<int> dispenser = IDispenser<int>.CreateMock();
+```
+
+`struct` or `unmanaged` together with a class other than `object`, `ValueType` or `Enum`, `class` or `struct` together
+with a nullable value type, or two unrelated classes or structs, conflict the same way. A
+virtual member or a default interface implementation with such constraints is not reported: the mock leaves it to the
+base implementation.
+
 <details>
 <summary>When a derived type already implements the inaccessible member</summary>
 
