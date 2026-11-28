@@ -47,7 +47,7 @@ public sealed class AsyncEnumerableDefaultValuesTests
 	}
 
 	[Test]
-	public async Task Task_ShouldReturnEmptySequence()
+	public async Task Method_WithTaskReturnType_ShouldReturnEmptySequence()
 	{
 		IAsyncEnumerableDefaultValues sut = IAsyncEnumerableDefaultValues.CreateMock();
 
@@ -57,7 +57,7 @@ public sealed class AsyncEnumerableDefaultValuesTests
 	}
 
 	[Test]
-	public async Task DerivedInterface_ShouldReturnNull()
+	public async Task Property_WithDerivedInterfaceType_WhenSkippingAutoMocking_ShouldReturnNull()
 	{
 		IAsyncEnumerableDefaultValues sut = IAsyncEnumerableDefaultValues.CreateMock(MockBehavior.Default.SkippingAutoMocking());
 

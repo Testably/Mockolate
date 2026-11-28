@@ -191,7 +191,7 @@ public sealed class ConstructorDependencyTests
 	}
 
 	[Test]
-	public async Task CreateMock_WithNullableGenericDependency_ShouldSetUpTheMock()
+	public async Task CreateMock_WithNullableGenericDependency_ShouldAllowSetupsOfTheDependency()
 	{
 		ConstructorDependencyNullableGeneric sut = ConstructorDependencyNullableGeneric.CreateMock();
 		sut.Mock.ConstructorArgument<IConstructorGenericDependency<string?>>().Mock.Setup.GetValue().Returns("value");

@@ -7,7 +7,7 @@ namespace Mockolate.Tests.GeneratorShapes;
 public sealed class GenericMethodInferredTypeArgumentTests
 {
 	[Test]
-	public async Task Matcher_ShouldSetUpTheMethodForTheTypeArgumentOfTheMatcher()
+	public async Task WithMatcher_ShouldSetUpTheMethodForTheTypeArgumentOfTheMatcher()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		IOptionalMethodParameters optional = IOptionalMethodParameters.CreateMock();
@@ -33,7 +33,7 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	}
 
 	[Test]
-	public async Task Matcher_ShouldVerifyTheMethodForTheTypeArgumentOfTheMatcher()
+	public async Task WithMatcher_ShouldVerifyTheMethodForTheTypeArgumentOfTheMatcher()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		IOptionalMethodParameters optional = IOptionalMethodParameters.CreateMock();
@@ -55,7 +55,7 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	}
 
 	[Test]
-	public async Task Matcher_WithLeftOutOptionalParameter_ShouldSetUpAndVerifyTheMethodForTheTypeArgumentOfTheMatcher()
+	public async Task WithMatcherAndLeftOutOptionalParameter_ShouldSetUpAndVerifyTheMethodForTheTypeArgumentOfTheMatcher()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.Trailing(It.IsAny<string>()).Returns(1);
@@ -73,7 +73,7 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	}
 
 	[Test]
-	public async Task Matcher_NextToValueForOtherTypeParameterAboveFourParameters_ShouldSetUpAndVerifyTheMethod()
+	public async Task WithMatcherNextToValueOfAnotherTypeParameterAndMoreThanFourParameters_ShouldSetUpAndVerifyTheMethod()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.TwoAboveFour(It.IsAny<int>(), "x", 1, 2, "y").Returns(1);
@@ -92,7 +92,7 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	}
 
 	[Test]
-	public async Task LeftOutTypeParameterArgumentAboveFourParameters_ShouldSetUpAndVerifyTheMethod()
+	public async Task WithLeftOutArgumentOfATypeParameterAndMoreThanFourParameters_ShouldSetUpAndVerifyTheMethod()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.LeftOutAboveFour(1, 2, 3, 4, It.IsAny<string>()).Returns(1);
@@ -111,7 +111,7 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	}
 
 	[Test]
-	public async Task FiveTypeParameterSlotsWithLeftOutArgument_ShouldSetUpAndVerifyTheMethod()
+	public async Task WithFiveParametersOfTheTypeParameterAndLeftOutArgument_ShouldSetUpAndVerifyTheMethod()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.FiveAboveFour(1, 2, 3, 4).Returns(1);
@@ -125,7 +125,7 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	}
 
 	[Test]
-	public async Task Matcher_NextToMatcherForParamsArray_ShouldSetUpAndVerifyTheMethod()
+	public async Task WithMatcherNextToMatcherForParamsArray_ShouldSetUpAndVerifyTheMethod()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.WithRest(It.IsAny<string>(), It.IsAny<object[]>()).Returns(1);
@@ -138,7 +138,7 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	}
 
 	[Test]
-	public async Task Value_NextToNonGenericSibling_ShouldSetUpAndVerifyTheMethodThatTheCallBinds()
+	public async Task WithValueAndNonGenericSibling_ShouldSetUpAndVerifyTheMethodThatTheCallBinds()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.Sibling("a").Returns(1);
@@ -153,7 +153,7 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	}
 
 	[Test]
-	public async Task NullLiteral_NextToGenericSibling_ShouldMatchOnlyNull()
+	public async Task WithNullLiteralAndGenericSibling_ShouldMatchOnlyNull()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		sut.Mock.Setup.Sibling(null!).Returns(1);
@@ -166,7 +166,7 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	}
 
 	[Test]
-	public async Task Matcher_ForLoggerScope_ShouldSetUpAndVerifyTheScope()
+	public async Task BeginScope_WithMatcher_ShouldSetUpAndVerifyTheScope()
 	{
 		ILogger logger = ILogger.CreateMock();
 		IDisposable scope = IDisposable.CreateMock();
@@ -179,7 +179,7 @@ public sealed class GenericMethodInferredTypeArgumentTests
 	}
 
 	[Test]
-	public async Task NullOrDefault_WithExplicitTypeArgument_ShouldMatchTheNullOrDefaultArgument()
+	public async Task WithNullOrDefaultAndExplicitTypeArgument_ShouldMatchTheNullOrDefaultArgument()
 	{
 		IGenericMethodClosedOverObject sut = IGenericMethodClosedOverObject.CreateMock();
 		IOptionalMethodParameters optional = IOptionalMethodParameters.CreateMock();

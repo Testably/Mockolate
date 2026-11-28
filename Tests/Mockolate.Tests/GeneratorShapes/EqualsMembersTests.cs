@@ -48,7 +48,7 @@ public sealed class EqualsMembersTests
 	}
 
 	[Test]
-	public async Task Equals_OfClass_ShouldBeSetupAndVerifiable()
+	public async Task Equals_WithClass_ShouldBeSetupAndVerifiable()
 	{
 		EqualsOnlyBase sut = EqualsOnlyBase.CreateMock();
 		sut.Mock.Setup.Equals(It.IsAny<object?>()).Returns(true);
@@ -77,7 +77,7 @@ public sealed class EqualsMembersTests
 	}
 
 	[Test]
-	public async Task EqualsAndHiddenGetHashCode_OfClass_ShouldBeSetupAndVerifiable()
+	public async Task EqualsAndHiddenGetHashCode_WithClass_ShouldBeSetupAndVerifiable()
 	{
 		HiddenGetHashCodeBase sut = HiddenGetHashCodeBase.CreateMock();
 		sut.Mock.Setup.Equals(It.IsAny<object?>()).Returns(true);
@@ -123,7 +123,7 @@ public sealed class EqualsMembersTests
 	}
 
 	[Test]
-	public async Task Equals_OfClass_WithoutSetup_ShouldUseReferenceEquality()
+	public async Task Equals_WithClassWithoutSetup_ShouldUseReferenceEquality()
 	{
 		EqualsOnlyBase sut = EqualsOnlyBase.CreateMock();
 
@@ -176,7 +176,7 @@ public sealed class EqualsMembersTests
 	}
 
 	[Test]
-	public async Task Implementing_WhenBaseDeclaresOnlyEquals_ShouldKeepBothSurfaces()
+	public async Task Implementing_WhenBaseDeclaresOnlyEquals_ShouldSetUpEqualsAndTheGetHashCodeOfTheAddedInterface()
 	{
 		IEqualsOnly sut = IEqualsOnly.CreateMock().Implementing<IEqualsAndGetHashCode>();
 		sut.Mock.Setup.Equals(It.IsAny<object?>()).Returns(true);

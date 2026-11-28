@@ -7,7 +7,7 @@ namespace Mockolate.Tests.GeneratorShapes;
 public sealed class MembersDifferingInNullabilityTests
 {
 	[Test]
-	public async Task MethodsDifferingOnlyInNullability_ShouldConfigureAndVerifyEachInterfaceSeparately()
+	public async Task Method_ShouldSetUpAndVerifyEachInterfaceSeparately()
 	{
 		IMembersDifferingInNullability sut = IMembersDifferingInNullability.CreateMock();
 		List<string?> received = [];
@@ -28,7 +28,7 @@ public sealed class MembersDifferingInNullabilityTests
 	}
 
 	[Test]
-	public async Task MethodsDifferingInNestedNullabilityAndNames_ShouldConfigureAndVerifyEachInterfaceSeparately()
+	public async Task Method_WithNestedNullabilityAndTupleNames_ShouldSetUpAndVerifyEachInterfaceSeparately()
 	{
 		IMembersDifferingInNullability sut = IMembersDifferingInNullability.CreateMock();
 		List<string> received = [];
@@ -50,7 +50,7 @@ public sealed class MembersDifferingInNullabilityTests
 	}
 
 	[Test]
-	public async Task PropertiesDifferingOnlyInNullability_ShouldConfigureAndVerifyEachInterfaceSeparately()
+	public async Task Property_ShouldSetUpAndVerifyEachInterfaceSeparately()
 	{
 		IMembersDifferingInNullability sut = IMembersDifferingInNullability.CreateMock();
 		sut.Mock.Setup.Name.InitializeWith("non-nullable");
@@ -66,7 +66,7 @@ public sealed class MembersDifferingInNullabilityTests
 	}
 
 	[Test]
-	public async Task EventsDifferingOnlyInNullability_ShouldRaiseAndVerifyEachInterfaceSeparately()
+	public async Task Event_ShouldRaiseAndVerifyEachInterfaceSeparately()
 	{
 		IMembersDifferingInNullability sut = IMembersDifferingInNullability.CreateMock();
 		List<string> received = [];
@@ -82,7 +82,7 @@ public sealed class MembersDifferingInNullabilityTests
 	}
 
 	[Test]
-	public async Task DiamondHidingWithNullability_ShouldConfigureAndVerifyEachInterfaceSeparately()
+	public async Task Method_WithDiamondHiding_ShouldSetUpAndVerifyEachInterfaceSeparately()
 	{
 		IHidingQueries sut = IHidingQueries.CreateMock();
 		List<string?> received = [];
@@ -101,7 +101,7 @@ public sealed class MembersDifferingInNullabilityTests
 	}
 
 	[Test]
-	public async Task GenericMethodsDifferingOnlyInNullability_ShouldConfigureAndVerifyEachInterfaceSeparately()
+	public async Task GenericMethod_ShouldSetUpAndVerifyEachInterfaceSeparately()
 	{
 		IGenericMembersDifferingInNullability sut = IGenericMembersDifferingInNullability.CreateMock();
 		List<string?> received = [];

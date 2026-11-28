@@ -6,7 +6,7 @@ namespace Mockolate.Tests.GeneratorShapes;
 public sealed class MethodConstrainedToClassTypeArgumentTests
 {
 	[Test]
-	public async Task ClosedOverClass_ShouldInvokeSetupsAndBeVerifiable()
+	public async Task WhenClosedOverAClass_ShouldInvokeSetupsAndBeVerifiable()
 	{
 		IMethodConstrainedToClassTypeArgument<Exception> sut = IMethodConstrainedToClassTypeArgument<Exception>.CreateMock();
 		List<string?> received = [];
@@ -26,7 +26,7 @@ public sealed class MethodConstrainedToClassTypeArgumentTests
 	}
 
 	[Test]
-	public async Task ClosedOverInterface_ShouldInvokeSetupsAndBeVerifiable()
+	public async Task WhenClosedOverAnInterface_ShouldInvokeSetupsAndBeVerifiable()
 	{
 		IMethodConstrainedToClassTypeArgument<IComparable> sut = IMethodConstrainedToClassTypeArgument<IComparable>.CreateMock();
 		List<string?> received = [];
@@ -43,7 +43,7 @@ public sealed class MethodConstrainedToClassTypeArgumentTests
 	}
 
 	[Test]
-	public async Task ClassClosedOverClass_ShouldInvokeSetupsAndBeVerifiable()
+	public async Task WithClass_WhenClosedOverAClass_ShouldInvokeSetupsAndBeVerifiable()
 	{
 		MethodConstrainedToClassTypeArgumentBase<Exception> sut = MethodConstrainedToClassTypeArgumentBase<Exception>.CreateMock();
 		List<string?> received = [];

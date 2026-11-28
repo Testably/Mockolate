@@ -75,7 +75,7 @@ public sealed class OverrideOfAbstractMemberTests
 	}
 
 	[Test]
-	public async Task GetterOnlyOverride_ShouldUseSetups()
+	public async Task PropertyAndIndexer_WithGetterOnlyOverride_ShouldUseSetups()
 	{
 		GetterOnlyOverride sut = GetterOnlyOverride.CreateMock();
 		sut.Mock.Setup.Value.InitializeWith("initial");
@@ -89,7 +89,7 @@ public sealed class OverrideOfAbstractMemberTests
 	}
 
 	[Test]
-	public async Task GetterOnlyOverride_WhenSet_ShouldStoreValueInMock()
+	public async Task PropertyAndIndexer_WithGetterOnlyOverride_WhenSet_ShouldStoreValueInMock()
 	{
 		GetterOnlyOverride sut = GetterOnlyOverride.CreateMock();
 
@@ -101,7 +101,7 @@ public sealed class OverrideOfAbstractMemberTests
 	}
 
 	[Test]
-	public async Task SetterOnlyOverride_ShouldUseSetups()
+	public async Task PropertyAndIndexer_WithSetterOnlyOverride_ShouldUseSetups()
 	{
 		SetterOnlyOverride sut = SetterOnlyOverride.CreateMock();
 		sut.Mock.Setup.Value.InitializeWith("initial");
@@ -115,7 +115,7 @@ public sealed class OverrideOfAbstractMemberTests
 	}
 
 	[Test]
-	public async Task ReabstractedWithRenamedParameters_ShouldUseSetups()
+	public async Task IndexerAndMethod_WhenReabstractedWithRenamedParameters_ShouldUseSetups()
 	{
 		ReabstractedWithRenamedParameters sut = ReabstractedWithRenamedParameters.CreateMock();
 		sut.Mock.Setup[It.IsAny<int>()].Returns(5);
@@ -132,7 +132,7 @@ public sealed class OverrideOfAbstractMemberTests
 	}
 
 	[Test]
-	public async Task ReabstractedGenericMethod_WithRenamedTypeParameter_ShouldUseSetup()
+	public async Task GenericMethod_WhenReabstractedWithRenamedTypeParameter_ShouldUseSetup()
 	{
 		ReabstractedGenericMethod sut = ReabstractedGenericMethod.CreateMock();
 		sut.Mock.Setup.Get<int>().Returns(7);
@@ -144,7 +144,7 @@ public sealed class OverrideOfAbstractMemberTests
 	}
 
 	[Test]
-	public async Task ReabstractedGetterOnly_ShouldUseSetup()
+	public async Task Property_WhenReabstractedAsGetterOnly_ShouldUseSetup()
 	{
 		ReabstractedGetterOnly sut = ReabstractedGetterOnly.CreateMock();
 		sut.Mock.Setup.Name.InitializeWith("initial");

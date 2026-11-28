@@ -6,7 +6,7 @@ namespace Mockolate.Tests.GeneratorShapes;
 public sealed class NullableMethodTypeParameterTests
 {
 	[Test]
-	public async Task ConstrainedTypeParameter_ShouldInvokeSetups()
+	public async Task Method_WithConstrainedTypeParameter_ShouldInvokeSetups()
 	{
 		INullableMethodTypeParameter sut = INullableMethodTypeParameter.CreateMock();
 		List<object?> received = [];
@@ -29,7 +29,7 @@ public sealed class NullableMethodTypeParameterTests
 	}
 
 	[Test]
-	public async Task ConstrainedTypeParameter_ShouldReturnSetupValues()
+	public async Task Method_WithConstrainedTypeParameter_ShouldReturnSetupValues()
 	{
 		INullableMethodTypeParameter sut = INullableMethodTypeParameter.CreateMock();
 		sut.Mock.Setup.GetClass<string>("a").Returns("b");
@@ -57,7 +57,7 @@ public sealed class NullableMethodTypeParameterTests
 	}
 
 	[Test]
-	public async Task ConstrainedTypeParameter_ShouldBeVerifiable()
+	public async Task Method_WithConstrainedTypeParameter_ShouldBeVerifiable()
 	{
 		INullableMethodTypeParameter sut = INullableMethodTypeParameter.CreateMock();
 

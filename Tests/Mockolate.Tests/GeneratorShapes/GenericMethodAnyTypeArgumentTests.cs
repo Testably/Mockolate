@@ -196,7 +196,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task SetupGeneric_OnAClass_ShouldKeepCallingTheBaseClassUnlessSkipped()
+	public async Task SetupGeneric_WithClass_ShouldKeepCallingTheBaseClassUnlessSkipped()
 	{
 		GenericMethodAnyTypeArgumentBase sut = GenericMethodAnyTypeArgumentBase.CreateMock();
 		int count = 0;
@@ -211,7 +211,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task SetupGeneric_OnALogger_ShouldSetUpTheScopeForEveryStateType()
+	public async Task SetupGeneric_WithLogger_ShouldSetUpTheScopeForEveryStateType()
 	{
 		Microsoft.Extensions.Logging.ILogger sut = Microsoft.Extensions.Logging.ILogger.CreateMock();
 		int count = 0;
@@ -225,7 +225,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task SetupGeneric_InScenario_ShouldStillApply()
+	public async Task SetupGeneric_WhenAnotherScenarioIsActive_ShouldStillApply()
 	{
 		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
 		int count = 0;
@@ -273,7 +273,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task VerifyGeneric_OnAClosedGenericInterface_ShouldNotCountNonGenericMethods()
+	public async Task VerifyGeneric_WithClosedGenericInterface_ShouldNotCountNonGenericMethods()
 	{
 		IGenericMethodAnyTypeArgumentOf<int> sut = IGenericMethodAnyTypeArgumentOf<int>.CreateMock();
 		IVoidMethodSetupWithCallback<object?> setup = sut.Mock.SetupGeneric.Plain(Match.AnyParameters());
@@ -287,7 +287,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task SetupGeneric_OfAHiddenBaseMethod_ShouldApplyToTheHiddenMethod()
+	public async Task SetupGeneric_WithHiddenBaseMethod_ShouldApplyToTheHiddenMethod()
 	{
 		IGenericMethodHidingDerived sut = IGenericMethodHidingDerived.CreateMock();
 		sut.Mock.As<IGenericMethodHidingBase>().SetupGeneric.Hidden(Match.AnyParameters())
@@ -416,7 +416,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task AboveFourParameters_ShouldUseTheGeneratedSetups()
+	public async Task WithMoreThanFourParameters_ShouldSetUpAndVerifyEveryTypeArgument()
 	{
 		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
 		IVoidMethodSetupWithCallback<object?, int, int, int, string> five = sut.Mock.SetupGeneric.Five(
@@ -451,7 +451,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task ParameterNamesOfGeneratedLocals_ShouldNotClash()
+	public async Task WithParametersNamedLikeGeneratedLocals_ShouldMatchEachParameter()
 	{
 		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
 		int count = 0;
@@ -465,7 +465,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task OverloadsWithAnotherNumberOfTypeParameters_ShouldBeToldApart()
+	public async Task WithOverloadsThatDifferInTheNumberOfTypeParameters_ShouldTellThemApart()
 	{
 		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
 		IVoidMethodSetupWithCallback<object?> one = sut.Mock.SetupGeneric.Arity(It.IsAny<object>());
@@ -481,7 +481,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task OverloadsThatDifferInANullableValueType_ShouldBothBeOffered()
+	public async Task WithOverloadsThatDifferInANullableValueType_ShouldVerifyEachOverload()
 	{
 		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
 
@@ -507,7 +507,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task OverloadsThatDifferInANullableValueType_ShouldBeToldApart()
+	public async Task WithOverloadsThatDifferInANullableValueType_ShouldTellThemApart()
 	{
 		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
 		IVoidMethodSetupWithCallback<int?> nullable = sut.Mock.SetupGeneric.Nullable(It.IsAny<int?>());
@@ -522,7 +522,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task OverloadsWithAsManyTypeParametersAndParameters_ShouldBeToldApart()
+	public async Task WithOverloadsOfAsManyTypeParametersAndParameters_ShouldTellThemApart()
 	{
 		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
 		IVoidMethodSetupWithCallback<object?> ofTypeArgument = sut.Mock.SetupGeneric.SameShape(It.IsAny<object>());
@@ -544,7 +544,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task OverloadsWithAsManyTypeParametersAndParameters_WithAnAnonymousTypeArgument_ShouldBeCounted()
+	public async Task WithOverloadsOfAsManyTypeParametersAndParameters_WhenTheTypeArgumentIsAnonymous_ShouldCountTheCall()
 	{
 		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
 		IVoidMethodSetupWithCallback<object?> setup = sut.Mock.SetupGeneric.SameShape(It.IsAny<object>());
@@ -557,7 +557,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task OverloadsThatDifferInANullableTypeArgument_ShouldBeToldApart()
+	public async Task WithOverloadsThatDifferInANullableTypeArgument_ShouldTellThemApart()
 	{
 		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
 
@@ -575,7 +575,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task OverloadThatIsNotOffered_ShouldNotBeCounted()
+	public async Task WithOverloadWithoutASetupForAnyTypeArgument_ShouldNotCountItsCalls()
 	{
 		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
 		sut.Mock.SetupGeneric.WithParams(Match.AnyParameters());
@@ -595,7 +595,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task OverloadsThatShareTheSignatureOnTheFacade_WhenNoSetupMatches_ShouldCheckTheMatchersOnce()
+	public async Task SetupGeneric_WithOverloadsThatShareItsSignature_WhenNoSetupMatches_ShouldCheckTheMatchersOnce()
 	{
 		IAnyTypeSender sut = IAnyTypeSender.CreateMock();
 		int count = 0;
@@ -612,7 +612,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task OverloadsThatShareTheSignatureOnTheFacade_ShouldBeSetUpAndVerifiedTogether()
+	public async Task SetupGeneric_WithOverloadsThatShareItsSignature_ShouldSetUpAndVerifyThemTogether()
 	{
 		IAnyTypeSender sut = IAnyTypeSender.CreateMock();
 		IVoidMethodSetupWithCallback<object?, CancellationToken> setup = sut.Mock.SetupGeneric
@@ -632,7 +632,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task OverloadsThatShareTheSignatureOnTheFacade_InAnotherScenario_ShouldStillLetTheLatestSetupWin()
+	public async Task SetupGeneric_WithOverloadsThatShareItsSignature_WhenInAnotherScenario_ShouldStillLetTheLatestSetupWin()
 	{
 		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
 		List<string> received = [];
@@ -649,7 +649,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task OverloadsThatShareTheSignatureOnTheFacade_ShouldCountAsUsedByACallOfAnyOfThem()
+	public async Task SetupGeneric_WithOverloadsThatShareItsSignature_ShouldCountAsUsedByACallOfAnyOfThem()
 	{
 		IAnyTypeSender sut = IAnyTypeSender.CreateMock();
 		sut.Mock.SetupGeneric.Send(Match.AnyParameters());
@@ -663,7 +663,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task OverloadsThatShareTheSignatureOnTheFacade_InScenario_ShouldBeSetUpTogether()
+	public async Task SetupGeneric_WithOverloadsThatShareItsSignature_WhenDefinedInAScenario_ShouldApplyToAllOfThem()
 	{
 		IAnyTypeSender sut = IAnyTypeSender.CreateMock();
 		sut.Mock.InScenario("special").SetupGeneric.Send(Match.AnyParameters()).Throws<TimeoutException>();
@@ -677,7 +677,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task OverloadsThatShareTheSignatureOnTheFacade_WhenDefinedLater_ShouldWinOverASetupOfEachOverload()
+	public async Task SetupGeneric_WithOverloadsThatShareItsSignature_WhenDefinedLater_ShouldWinOverASetupOfEachOverload()
 	{
 		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
 		List<string> received = [];
@@ -693,7 +693,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task Combination_WithAnotherNameForTheTypeParameter_ShouldApplyTheSetup()
+	public async Task Implementing_WithAnotherNameForTheTypeParameter_ShouldApplyTheSetup()
 	{
 		GenericMethodAnyTypeArgumentImplementor sut = GenericMethodAnyTypeArgumentImplementor.CreateMock()
 			.Implementing<IGenericMethodAnyTypeArgumentImplemented>();
@@ -722,7 +722,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task SetupGeneric_InScenario_ShouldOnlyApplyInTheScenario()
+	public async Task SetupGeneric_WhenDefinedInAScenario_ShouldOnlyApplyInThatScenario()
 	{
 		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
 		List<string> received = [];
@@ -749,7 +749,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task SetupProtectedGeneric_InScenario_ShouldOnlyApplyInTheScenario()
+	public async Task SetupProtectedGeneric_WhenDefinedInAScenario_ShouldOnlyApplyInThatScenario()
 	{
 		GenericMethodAnyTypeArgumentBase sut = GenericMethodAnyTypeArgumentBase.CreateMock();
 		sut.Mock.InScenario("special").SetupProtectedGeneric.Protected(Match.AnyParameters())
@@ -764,7 +764,7 @@ public sealed class GenericMethodAnyTypeArgumentTests
 	}
 
 	[Test]
-	public async Task VerifyGeneric_OnAMonitor_ShouldOnlyCountTheMonitoredCalls()
+	public async Task VerifyGeneric_WithMonitor_ShouldOnlyCountTheMonitoredCalls()
 	{
 		IGenericMethodAnyTypeArgument sut = IGenericMethodAnyTypeArgument.CreateMock();
 		global::Mockolate.Monitor.MockMonitor<global::Mockolate.Mock.IMockVerifyForIGenericMethodAnyTypeArgument> monitor =

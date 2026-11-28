@@ -8,7 +8,7 @@ namespace Mockolate.Tests.GeneratorShapes;
 public sealed class ParamsObjectArrayTests
 {
 	[Test]
-	public async Task ArrayMatcher_ShouldMatchTheWholeArray()
+	public async Task WithArrayMatcher_ShouldMatchTheWholeArray()
 	{
 		IParamsObjectArray sut = IParamsObjectArray.CreateMock();
 		sut.Mock.Setup.Log(1, It.IsAny<object[]>()).Returns(1);
@@ -23,7 +23,7 @@ public sealed class ParamsObjectArrayTests
 	}
 
 	[Test]
-	public async Task DefaultLiteral_ShouldMeanTheValue()
+	public async Task WithDefaultLiteral_ShouldMeanTheValue()
 	{
 		IParamsObjectArray sut = IParamsObjectArray.CreateMock();
 		sut.Mock.Setup.Log(default, "a").Returns(1);
@@ -39,7 +39,7 @@ public sealed class ParamsObjectArrayTests
 	}
 
 	[Test]
-	public async Task ElementMatchers_ShouldMatchElementByElement()
+	public async Task WithElementMatchers_ShouldMatchElementByElement()
 	{
 		IParamsObjectArray sut = IParamsObjectArray.CreateMock();
 		sut.Mock.Setup.Only(It.IsAny<object>()).Returns(1);
@@ -53,7 +53,7 @@ public sealed class ParamsObjectArrayTests
 	}
 
 	[Test]
-	public async Task FailedVerify_WithElementMatchers_ShouldListTheElementMatchers()
+	public async Task Verify_WithElementMatchers_WhenVerificationFails_ShouldListTheElementMatchers()
 	{
 		IParamsObjectArray sut = IParamsObjectArray.CreateMock();
 		_ = sut.Log(4, "a", 3);
@@ -69,7 +69,7 @@ public sealed class ParamsObjectArrayTests
 	}
 
 	[Test]
-	public async Task FailedVerify_WithoutArguments_ShouldShowAnEmptyArray()
+	public async Task Verify_WithoutArguments_WhenVerificationFails_ShouldShowAnEmptyArray()
 	{
 		IParamsObjectArray sut = IParamsObjectArray.CreateMock();
 		_ = sut.Only("a");
@@ -84,7 +84,7 @@ public sealed class ParamsObjectArrayTests
 	}
 
 	[Test]
-	public async Task NoArguments_ShouldMatchAnEmptyArrayAndKeepAnyParameters()
+	public async Task WithoutArguments_ShouldMatchAnEmptyArrayAndKeepAnyParameters()
 	{
 		IParamsObjectArray sut = IParamsObjectArray.CreateMock();
 		IParamsObjectArray any = IParamsObjectArray.CreateMock();
@@ -108,7 +108,7 @@ public sealed class ParamsObjectArrayTests
 	}
 
 	[Test]
-	public async Task NullLiterals_ShouldMeanANullArrayOrNullElements()
+	public async Task WithNullLiterals_ShouldMeanANullArrayOrNullElements()
 	{
 		IParamsObjectArray sut = IParamsObjectArray.CreateMock();
 		sut.Mock.Setup.Only(null).Returns(1);
@@ -128,7 +128,7 @@ public sealed class ParamsObjectArrayTests
 	}
 
 	[Test]
-	public async Task ObjectOverload_ShouldBeSetUpLikeItIsCalled()
+	public async Task WithObjectOverload_ShouldBeSetUpLikeItIsCalled()
 	{
 		IParamsObjectArray sut = IParamsObjectArray.CreateMock();
 		List<string> written = [];
@@ -146,7 +146,7 @@ public sealed class ParamsObjectArrayTests
 	}
 
 	[Test]
-	public async Task ParametersMatch_ShouldMatchAnyCall()
+	public async Task WithParametersMatch_ShouldMatchAnyCall()
 	{
 		IParamsObjectArray sut = IParamsObjectArray.CreateMock();
 		sut.Mock.Setup.Only(Match.AnyParameters()).Returns(1);
