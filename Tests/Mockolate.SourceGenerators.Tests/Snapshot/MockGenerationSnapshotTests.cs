@@ -164,7 +164,7 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             [],
             Snapshot: true,
-            // The mocks are covered by ConstructorDependenciesTests and ConstructorDependencyValues_CanBeCreated.
+            // The mocks are covered by ConstructorDependencyTests and ConstructorDependencyValues_CanBeCreated.
             SnapshotMocks: false),
         new(
             "ConstructorDependencyValues_CanBeCreated",
@@ -183,7 +183,7 @@ public sealed partial class MockGenerationSnapshotTests
             """,
             [typeof(Uri),],
             Snapshot: true,
-            // The mocks are covered by MockDataSourcesTests; their full output would only repeat other scenarios.
+            // The mocks are covered by MockDataSourceTests; their full output would only repeat other scenarios.
             SnapshotMocks: false),
         new(
             "DynamicMembers_CanBeCreated",
