@@ -56,7 +56,7 @@ public sealed class RefStructValuePositionTests
 	public sealed class EventTests
 	{
 		[Test]
-		public async Task RaiseWithRefStructArgument_ShouldReachSubscriber()
+		public async Task Raise_WithRefStructArgument_ShouldReachSubscriber()
 		{
 			IPacketNotifier sut = IPacketNotifier.CreateMock();
 			int receivedId = 0;
@@ -69,7 +69,7 @@ public sealed class RefStructValuePositionTests
 		}
 
 		[Test]
-		public async Task RaiseWithoutSubscriber_ShouldNotThrow()
+		public async Task Raise_WithoutSubscriber_ShouldNotThrow()
 		{
 			IPacketNotifier sut = IPacketNotifier.CreateMock();
 
@@ -85,7 +85,7 @@ public sealed class RefStructValuePositionTests
 		}
 
 		[Test]
-		public async Task RaiseWithEventHandlerOfRefStruct_ShouldReachSubscriber()
+		public async Task Raise_WithEventHandlerOfRefStruct_ShouldReachSubscriber()
 		{
 			ISpanEventSource sut = ISpanEventSource.CreateMock();
 			int receivedId = 0;
@@ -168,7 +168,7 @@ public sealed class RefStructValuePositionTests
 		}
 
 		[Test]
-		public async Task OnVirtualClassMember_ShouldRoundTripThroughBase()
+		public async Task WithVirtualClassMember_ShouldRoundTripThroughBase()
 		{
 			SpanHost sut = SpanHost.CreateMock();
 
@@ -181,7 +181,7 @@ public sealed class RefStructValuePositionTests
 		}
 
 		[Test]
-		public async Task OnAbstractClassMember_ShouldReturnConfiguredSpan()
+		public async Task WithAbstractClassMember_ShouldReturnConfiguredSpan()
 		{
 			AbstractSpanHost sut = AbstractSpanHost.CreateMock();
 			sut.Mock.Setup.Buffer.InitializeWith(new byte[] { 3, 4, }.AsSpan());
@@ -253,7 +253,7 @@ public sealed class RefStructValuePositionTests
 		}
 
 		[Test]
-		public async Task OnVirtualClassMember_ShouldRoundTripThroughBase()
+		public async Task WithVirtualClassMember_ShouldRoundTripThroughBase()
 		{
 			SpanHost sut = SpanHost.CreateMock();
 

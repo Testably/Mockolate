@@ -17,7 +17,7 @@ public sealed partial class HttpClientExtensionsTests
 			[Arguments(nameof(HttpMethod.Get), 0)]
 			[Arguments(nameof(HttpMethod.Post), 0)]
 			[Arguments(nameof(HttpMethod.Put), 0)]
-			public async Task StringUri_ShouldVerifyHttpMethod(string method, int expected)
+			public async Task WithStringUri_ShouldVerifyHttpMethod(string method, int expected)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 
@@ -35,7 +35,7 @@ public sealed partial class HttpClientExtensionsTests
 			[Arguments("*testably.org", 1)]
 			[Arguments("testably.org*", 0)]
 			[Arguments("*foo*", 0)]
-			public async Task StringUri_ShouldVerifyUriString(string pattern, int expected)
+			public async Task WithStringUri_ShouldVerifyUri(string pattern, int expected)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 
@@ -50,7 +50,7 @@ public sealed partial class HttpClientExtensionsTests
 			[Test]
 			[Arguments(true)]
 			[Arguments(false)]
-			public async Task StringUri_WithCancellationToken_ShouldVerifyCancellationToken(bool tokenMatches)
+			public async Task WithStringUriAndCancellationToken_ShouldVerifyCancellationToken(bool tokenMatches)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 
@@ -63,7 +63,7 @@ public sealed partial class HttpClientExtensionsTests
 			}
 
 			[Test]
-			public async Task StringUri_WithoutMockedHttpMessageHandler_ShouldThrowMockException()
+			public async Task WithStringUri_WhenHttpMessageHandlerIsNotMocked_ShouldThrowMockException()
 			{
 				HttpClient httpClient = HttpClient.CreateMock([]);
 
@@ -83,7 +83,7 @@ public sealed partial class HttpClientExtensionsTests
 			[Arguments(nameof(HttpMethod.Get), 0)]
 			[Arguments(nameof(HttpMethod.Post), 0)]
 			[Arguments(nameof(HttpMethod.Put), 0)]
-			public async Task Uri_ShouldVerifyHttpMethod(string method, int expected)
+			public async Task WithUri_ShouldVerifyHttpMethod(string method, int expected)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 
@@ -101,7 +101,7 @@ public sealed partial class HttpClientExtensionsTests
 			[Arguments("*testably.org", 1)]
 			[Arguments("testably.org*", 1)]
 			[Arguments("*foo*", 0)]
-			public async Task Uri_ShouldVerifyUri(string pattern, int expected)
+			public async Task WithUri_ShouldVerifyUri(string pattern, int expected)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 
@@ -115,7 +115,7 @@ public sealed partial class HttpClientExtensionsTests
 			[Test]
 			[Arguments(true)]
 			[Arguments(false)]
-			public async Task Uri_WithCancellationToken_ShouldVerifyCancellationToken(bool tokenMatches)
+			public async Task WithUriAndCancellationToken_ShouldVerifyCancellationToken(bool tokenMatches)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 
@@ -128,7 +128,7 @@ public sealed partial class HttpClientExtensionsTests
 			}
 
 			[Test]
-			public async Task Uri_WithoutMockedHttpMessageHandler_ShouldThrowMockException()
+			public async Task WithUri_WhenHttpMessageHandlerIsNotMocked_ShouldThrowMockException()
 			{
 				HttpClient httpClient = HttpClient.CreateMock([]);
 

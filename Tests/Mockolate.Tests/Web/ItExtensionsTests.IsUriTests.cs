@@ -12,7 +12,7 @@ public sealed partial class ItExtensionsTests
 	public sealed partial class IsUriTests
 	{
 		[Test]
-		public async Task NonGeneric_DispatchesNullThroughCallback()
+		public async Task InvokeCallbacks_WithNull_ShouldInvokeCallbackWithNull()
 		{
 			ItExtensions.IUriParameter sut = It.IsUri();
 			int invocations = 0;
@@ -30,7 +30,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task NonGeneric_DispatchesUriThroughCallback()
+		public async Task InvokeCallbacks_WithUri_ShouldInvokeCallback()
 		{
 			ItExtensions.IUriParameter sut = It.IsUri();
 			Uri? captured = null;
@@ -43,7 +43,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task NonGeneric_IgnoresUnrelatedTypes()
+		public async Task InvokeCallbacks_WithObjectOfMismatchedType_ShouldNotInvokeCallback()
 		{
 			ItExtensions.IUriParameter sut = It.IsUri();
 			int invocations = 0;
@@ -55,7 +55,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task NonGenericMatches_ReturnsFalseForNonUriValue()
+		public async Task Matches_WithObjectOfMismatchedType_ShouldReturnFalse()
 		{
 			ItExtensions.IUriParameter sut = It.IsUri();
 
@@ -65,7 +65,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task NonGenericMatches_ReturnsFalseForNullValue()
+		public async Task Matches_WithNullObject_ShouldReturnFalse()
 		{
 			ItExtensions.IUriParameter sut = It.IsUri();
 
@@ -123,7 +123,7 @@ public sealed partial class ItExtensionsTests
 		[Test]
 		[Arguments("*testably.org")]
 		[Arguments("*testably.org/")]
-		public async Task TrailingSlash_ShouldBeIgnored(string matchPattern)
+		public async Task WithPatternWithOrWithoutTrailingSlash_ShouldMatch(string matchPattern)
 		{
 			HttpClient httpClient = HttpClient.CreateMock();
 			httpClient.Mock.Setup
@@ -138,7 +138,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task TrailingSlash_WhenNotPresent_ShouldNotBeAdded()
+		public async Task WithTrailingSlashInPattern_WhenTheUriHasNone_ShouldNotMatch()
 		{
 			HttpClient httpClient = HttpClient.CreateMock();
 			httpClient.Mock.Setup
@@ -153,7 +153,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task WhenTypeDoesNotMatch_Null_ShouldReturnFalse()
+		public async Task Matches_WithNullUri_ShouldReturnFalse()
 		{
 			ItExtensions.IUriParameter sut = It.IsUri();
 			IParameterMatch<Uri?> parameter = (IParameterMatch<Uri?>)sut;
@@ -164,7 +164,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task WithPattern_AcceptsBothTrailingSlashAndWithoutTrailingSlash()
+		public async Task WithPattern_ShouldMatchTheUriWithAndWithoutTrailingSlash()
 		{
 			ItExtensions.IUriParameter sut = It.IsUri("http://x/foo");
 			IParameterMatch<Uri?> matcher = (IParameterMatch<Uri?>)sut;

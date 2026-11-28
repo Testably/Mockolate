@@ -17,7 +17,7 @@ public sealed partial class ItExtensionsTests
 			[Arguments("z", "345", "x", "123", true)]
 			[Arguments("x", "123", "y", "345", false)]
 			[Arguments("y", "345", "x", "123", false)]
-			public async Task MultipleCalls_ShouldVerifyKeyValuePairQueryParameters(
+			public async Task WhenCalledMultipleTimes_ShouldVerifyKeyValuePairQueryParameters(
 				string key1, string value1, string key2, string value2, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -37,7 +37,7 @@ public sealed partial class ItExtensionsTests
 			[Arguments("z", "345", "x", "123", true)]
 			[Arguments("x", "123", "y", "345", false)]
 			[Arguments("y", "345", "x", "123", false)]
-			public async Task MultipleCalls_ShouldVerifyKeyValueQueryParameters(
+			public async Task WhenCalledMultipleTimes_ShouldVerifyKeyValueQueryParameters(
 				string key1, string value1, string key2, string value2, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -57,7 +57,7 @@ public sealed partial class ItExtensionsTests
 			[Arguments("z=345", "x=123", true)]
 			[Arguments("x=123", "y=345", false)]
 			[Arguments("y=345", "x=123", false)]
-			public async Task MultipleCalls_ShouldVerifyStringQueryParameters(
+			public async Task WhenCalledMultipleTimes_ShouldVerifyStringQueryParameters(
 				string query1, string query2, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -95,7 +95,7 @@ public sealed partial class ItExtensionsTests
 			[Arguments("https://www.testably.org/foo/bar?x=123&y=234", "x", "234", false)]
 			[Arguments("http://www.testably.org/foo/bar?x=123&y=234", "y", "123", false)]
 			[Arguments("https://www.testably.org/foo/bar?x=123&foo&y=234", "foo", "", true)]
-			public async Task WithQueryParameter_ShouldVerifyQueryParameters(string uri, string key, string value,
+			public async Task WithKeyAndValue_ShouldVerifyQueryParameters(string uri, string key, string value,
 				bool expectMatch)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -112,7 +112,7 @@ public sealed partial class ItExtensionsTests
 			[Test]
 			[Arguments("x", "123", "z", "345")]
 			[Arguments("z", "345", "x", "123")]
-			public async Task WithQueryParameters_ShouldMatchQueryParametersInAnyOrder(params string[] query)
+			public async Task ShouldMatchQueryParametersInAnyOrder(params string[] query)
 			{
 				List<(string, HttpQueryParameterValue)> queryParameters = new();
 				for (int i = 0; i < query.Length; i += 2)
@@ -142,7 +142,7 @@ public sealed partial class ItExtensionsTests
 			[Arguments("http://www.testably.org/foo/bar?x=123&y=234", "y=123", false)]
 			[Arguments("http://www.testably.org/foo/bar?x=123&y=234", "x=123&y=23", false)]
 			[Arguments("http://www.testably.org/foo/bar?x=123&foo&y=234", "foo", true)]
-			public async Task WithQueryString_ShouldVerifyQueryParameters(string uri, string query, bool expectMatch)
+			public async Task WithString_ShouldVerifyQueryParameters(string uri, string query, bool expectMatch)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 				httpClient.Mock.Setup

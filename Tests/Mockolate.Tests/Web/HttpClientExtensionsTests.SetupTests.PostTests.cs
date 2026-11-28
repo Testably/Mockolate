@@ -17,7 +17,7 @@ public sealed partial class HttpClientExtensionsTests
 			[Arguments("application/json", true)]
 			[Arguments("text/plain", false)]
 			[Arguments("application/txt", false)]
-			public async Task StringUri_ShouldVerifyHttpContent(string mediaType, bool expectSuccess)
+			public async Task WithStringUri_ShouldVerifyHttpContent(string mediaType, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 				httpClient.Mock.Setup
@@ -37,7 +37,7 @@ public sealed partial class HttpClientExtensionsTests
 			[Arguments(nameof(HttpMethod.Get), false)]
 			[Arguments(nameof(HttpMethod.Post), true)]
 			[Arguments(nameof(HttpMethod.Put), false)]
-			public async Task StringUri_ShouldVerifyHttpMethod(string method, bool expectSuccess)
+			public async Task WithStringUri_ShouldVerifyHttpMethod(string method, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 				httpClient.Mock.Setup
@@ -57,7 +57,7 @@ public sealed partial class HttpClientExtensionsTests
 			[Arguments("*testably.org", true)]
 			[Arguments("testably.org*", false)]
 			[Arguments("*foo*", false)]
-			public async Task StringUri_ShouldVerifyUriString(string pattern, bool expectSuccess)
+			public async Task WithStringUri_ShouldVerifyUri(string pattern, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 				httpClient.Mock.Setup
@@ -75,7 +75,7 @@ public sealed partial class HttpClientExtensionsTests
 			[Test]
 			[Arguments(true)]
 			[Arguments(false)]
-			public async Task StringUri_WithCancellationToken_ShouldVerifyCancellationToken(bool tokenMatches)
+			public async Task WithStringUriAndCancellationToken_ShouldVerifyCancellationToken(bool tokenMatches)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 				httpClient.Mock.Setup
@@ -94,7 +94,7 @@ public sealed partial class HttpClientExtensionsTests
 			}
 
 			[Test]
-			public async Task StringUri_WithoutMockedHttpMessageHandler_ShouldThrowMockException()
+			public async Task WithStringUri_WhenHttpMessageHandlerIsNotMocked_ShouldThrowMockException()
 			{
 				HttpClient httpClient = HttpClient.CreateMock([]);
 
@@ -114,7 +114,7 @@ public sealed partial class HttpClientExtensionsTests
 			[Arguments("application/json", true)]
 			[Arguments("text/plain", false)]
 			[Arguments("application/txt", false)]
-			public async Task Uri_ShouldVerifyHttpContent(string mediaType, bool expectSuccess)
+			public async Task WithUri_ShouldVerifyHttpContent(string mediaType, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 				httpClient.Mock.Setup
@@ -134,7 +134,7 @@ public sealed partial class HttpClientExtensionsTests
 			[Arguments(nameof(HttpMethod.Get), false)]
 			[Arguments(nameof(HttpMethod.Post), true)]
 			[Arguments(nameof(HttpMethod.Put), false)]
-			public async Task Uri_ShouldVerifyHttpMethod(string method, bool expectSuccess)
+			public async Task WithUri_ShouldVerifyHttpMethod(string method, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 				httpClient.Mock.Setup
@@ -154,7 +154,7 @@ public sealed partial class HttpClientExtensionsTests
 			[Arguments("*testably.org", true)]
 			[Arguments("testably.org*", true)]
 			[Arguments("*foo*", false)]
-			public async Task Uri_ShouldVerifyUri(string pattern, bool expectSuccess)
+			public async Task WithUri_ShouldVerifyUri(string pattern, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 				httpClient.Mock.Setup
@@ -172,7 +172,7 @@ public sealed partial class HttpClientExtensionsTests
 			[Test]
 			[Arguments(true)]
 			[Arguments(false)]
-			public async Task Uri_WithCancellationToken_ShouldVerifyCancellationToken(bool tokenMatches)
+			public async Task WithUriAndCancellationToken_ShouldVerifyCancellationToken(bool tokenMatches)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 				httpClient.Mock.Setup
@@ -191,7 +191,7 @@ public sealed partial class HttpClientExtensionsTests
 			}
 
 			[Test]
-			public async Task Uri_WithoutMockedHttpMessageHandler_ShouldThrowMockException()
+			public async Task WithUri_WhenHttpMessageHandlerIsNotMocked_ShouldThrowMockException()
 			{
 				HttpClient httpClient = HttpClient.CreateMock([]);
 

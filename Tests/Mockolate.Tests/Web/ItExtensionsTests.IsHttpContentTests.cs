@@ -15,7 +15,7 @@ public sealed partial class ItExtensionsTests
 	public sealed partial class IsHttpContentTests
 	{
 		[Test]
-		public async Task NonGeneric_DispatchesContentThroughCallback()
+		public async Task InvokeCallbacks_WithHttpContent_ShouldInvokeCallback()
 		{
 			ItExtensions.IHttpContentParameter sut = It.IsHttpContent();
 			HttpContent? captured = null;
@@ -28,7 +28,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task NonGeneric_DispatchesNullThroughCallback()
+		public async Task InvokeCallbacks_WithNull_ShouldInvokeCallbackWithNull()
 		{
 			ItExtensions.IHttpContentParameter sut = It.IsHttpContent();
 			int invocations = 0;
@@ -46,7 +46,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task NonGeneric_IgnoresUnrelatedTypes()
+		public async Task InvokeCallbacks_WithObjectOfMismatchedType_ShouldNotInvokeCallback()
 		{
 			ItExtensions.IHttpContentParameter sut = It.IsHttpContent();
 			int invocations = 0;
@@ -58,7 +58,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task NonGenericMatches_ReturnsFalseForNullValue()
+		public async Task Matches_WithNullObject_ShouldReturnFalse()
 		{
 			ItExtensions.IHttpContentParameter sut = It.IsHttpContent();
 
@@ -68,7 +68,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task NonGenericMatches_ReturnsFalseForUnrelatedType()
+		public async Task Matches_WithObjectOfMismatchedType_ShouldReturnFalse()
 		{
 			ItExtensions.IHttpContentParameter sut = It.IsHttpContent();
 
@@ -129,7 +129,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task ShouldSupportWithHeadersInWrapper()
+		public async Task WithStringMatchingAndHeaders_ShouldMatch()
 		{
 			byte[] bytes = "foo"u8.ToArray();
 			HttpClient httpClient = HttpClient.CreateMock();
@@ -170,7 +170,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task TypedMatches_ReturnsFalseForNullValue()
+		public async Task Matches_WithNullHttpContent_ShouldReturnFalse()
 		{
 			ItExtensions.IHttpContentParameter sut = It.IsHttpContent();
 
@@ -201,7 +201,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task Wrapper_NonGenericInvokeCallbacks_DelegatesToInnerParameter()
+		public async Task InvokeCallbacks_WithStringMatchingAndNull_ShouldInvokeCallbackWithNull()
 		{
 			ItExtensions.IStringContentBodyMatchingParameter sut = It.IsHttpContent().WithStringMatching("foo*");
 			int invocations = 0;
@@ -219,7 +219,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task Wrapper_NonGenericMatches_DelegatesToInnerParameter()
+		public async Task Matches_WithStringMatchingAndNullOrMismatchedObject_ShouldReturnFalse()
 		{
 			ItExtensions.IStringContentBodyMatchingParameter sut = It.IsHttpContent().WithStringMatching("foo*");
 
@@ -231,7 +231,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task Wrapper_TypedMatches_ReturnsFalseForNullValue()
+		public async Task Matches_WithStringMatchingAndNullHttpContent_ShouldReturnFalse()
 		{
 			ItExtensions.IStringContentBodyMatchingParameter sut = It.IsHttpContent().WithStringMatching("foo*");
 

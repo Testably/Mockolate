@@ -80,7 +80,7 @@ public sealed partial class ItExtensionsTests
 			[Test]
 			[Arguments("x", "123", "z", "345")]
 			[Arguments("z", "345", "x", "123")]
-			public async Task WithFormData_ShouldMatchParametersInAnyOrder(params string[] rawValues)
+			public async Task ShouldMatchParametersInAnyOrder(params string[] rawValues)
 			{
 				List<(string, HttpFormDataValue)> values = new();
 				for (int i = 0; i < rawValues.Length; i += 2)
@@ -125,7 +125,7 @@ public sealed partial class ItExtensionsTests
 			[Arguments("x", "234", false)]
 			[Arguments("y", "123", false)]
 			[Arguments("foo", "", true)]
-			public async Task WithFormDataParameter_ShouldVerifyParameters(string key, string value, bool expectMatch)
+			public async Task WithKeyAndValue_ShouldVerifyParameters(string key, string value, bool expectMatch)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 				httpClient.Mock.Setup
@@ -166,7 +166,7 @@ public sealed partial class ItExtensionsTests
 			[Arguments("x=123&y=432", false)]
 			[Arguments("y=432&x=123", false)]
 			[Arguments("foo", true)]
-			public async Task WithFormDataString_ShouldVerifyParameters(string values, bool expectMatch)
+			public async Task WithString_ShouldVerifyParameters(string values, bool expectMatch)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 				httpClient.Mock.Setup

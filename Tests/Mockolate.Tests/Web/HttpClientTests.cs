@@ -10,7 +10,7 @@ namespace Mockolate.Tests.Web;
 public class HttpClientTests
 {
 	[Test]
-	public async Task HttpClientMock_WithHandler_ShouldUseSharedRegistry()
+	public async Task WithSharedHandler_ShouldShareSetupsAndInteractionsBetweenClients()
 	{
 		HttpMessageHandler handler = HttpMessageHandler.CreateMock();
 		HttpClient client1 = HttpClient.CreateMock([handler,]);
@@ -62,7 +62,7 @@ public class HttpClientTests
 	}
 
 	[Test]
-	public async Task SetupOfSendAsyncOnTheClient_ShouldNotAnswerTheHandler()
+	public async Task SendAsync_WithSetupOnTheClient_ShouldNotApplyToGetAsync()
 	{
 		HttpMessageHandler handler = HttpMessageHandler.CreateMock();
 		HttpClient client = HttpClient.CreateMock([handler,]);

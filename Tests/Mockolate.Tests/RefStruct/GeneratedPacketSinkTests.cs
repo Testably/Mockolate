@@ -11,7 +11,7 @@ public sealed class GeneratedPacketSinkTests
 	public sealed class VoidArity1Tests
 	{
 		[Test]
-		public async Task ConsumeCount_ViaInteractions_ReflectsEveryInvocation()
+		public async Task ShouldRecordEveryInvocation()
 		{
 			IGeneratedPacketSink sut = IGeneratedPacketSink.CreateMock();
 
@@ -29,7 +29,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task LatestMatchingSetupWins()
+		public async Task WithSeveralMatchingSetups_ShouldUseTheLatest()
 		{
 			IGeneratedPacketSink sut = IGeneratedPacketSink.CreateMock();
 			sut.Mock.Setup.Consume(It.IsAnyRefStruct<Packet>())
@@ -52,7 +52,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task NoSetup_ShouldBeNoOp()
+		public async Task WithoutSetup_ShouldNotThrow()
 		{
 			IGeneratedPacketSink sut = IGeneratedPacketSink.CreateMock();
 
@@ -65,7 +65,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task RecordedInteraction_StoresParameterNameButNoValue()
+		public async Task ShouldRecordTheInteractionWithTheParameterName()
 		{
 			IGeneratedPacketSink sut = IGeneratedPacketSink.CreateMock();
 
@@ -81,7 +81,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task SetupPredicateInspectingSpanPayload_ShouldOnlyActOnMatch()
+		public async Task WithPredicateOnTheSpanPayload_ShouldOnlyThrowWhenItHolds()
 		{
 			IGeneratedPacketSink sut = IGeneratedPacketSink.CreateMock();
 			// The predicate reads into the inline Span — the whole point of ref-struct mocking.
@@ -107,7 +107,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task SetupThrows_ShouldThrowConfiguredException()
+		public async Task Throws_ShouldThrowTheConfiguredException()
 		{
 			IGeneratedPacketSink sut = IGeneratedPacketSink.CreateMock();
 			sut.Mock.Setup.Consume(It.IsAnyRefStruct<Packet>())
@@ -122,7 +122,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task ThrowWhenNotSetup_ShouldThrowMockNotSetupException()
+		public async Task WithThrowWhenNotSetup_ShouldThrowMockNotSetupException()
 		{
 			MockBehavior behavior = MockBehavior.Default with
 			{
@@ -142,7 +142,7 @@ public sealed class GeneratedPacketSinkTests
 	public sealed class MixedParameterTests
 	{
 		[Test]
-		public async Task Write_WithMatcherForRefStructAndValueParam_Matches()
+		public async Task Write_WithPacketPredicate_ShouldOnlyMatchWhenThePredicateHolds()
 		{
 			IGeneratedPacketWriter sut = IGeneratedPacketWriter.CreateMock();
 			sut.Mock.Setup.Write(
@@ -165,7 +165,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task Write_WithPriorityMatcher_GatesOnNonRefStructParameter()
+		public async Task Write_WithPriorityPredicate_ShouldOnlyMatchWhenThePredicateHolds()
 		{
 			IGeneratedPacketWriter sut = IGeneratedPacketWriter.CreateMock();
 			sut.Mock.Setup.Write(
@@ -191,7 +191,7 @@ public sealed class GeneratedPacketSinkTests
 	public sealed class ReturnMethodTests
 	{
 		[Test]
-		public async Task TryParse_NoReturnConfigured_ReturnsFrameworkDefault()
+		public async Task WithoutSetup_ShouldReturnTheDefaultValue()
 		{
 			IGeneratedPacketParser sut = IGeneratedPacketParser.CreateMock();
 
@@ -201,7 +201,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task TryParse_PredicateDictatesWhichSetupMatches()
+		public async Task WithSeveralPredicates_ShouldUseTheMatchingSetup()
 		{
 			IGeneratedPacketParser sut = IGeneratedPacketParser.CreateMock();
 			sut.Mock.Setup.TryParse(It.IsRefStruct<Packet>(p => p.Id > 100)).Returns(100);
@@ -218,7 +218,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task TryParse_ReturnsConfiguredValue()
+		public async Task Returns_ShouldReturnTheConfiguredValue()
 		{
 			IGeneratedPacketParser sut = IGeneratedPacketParser.CreateMock();
 			sut.Mock.Setup.TryParse(It.IsAnyRefStruct<Packet>()).Returns(42);
@@ -229,7 +229,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task TryParse_ReturnsFunc_InvokedPerCall()
+		public async Task Returns_WithCallback_ShouldInvokeTheCallbackOnEveryCall()
 		{
 			IGeneratedPacketParser sut = IGeneratedPacketParser.CreateMock();
 			int counter = 0;
@@ -244,7 +244,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task TryParse_ThrowsConfiguredException()
+		public async Task Throws_ShouldThrowTheConfiguredException()
 		{
 			IGeneratedPacketParser sut = IGeneratedPacketParser.CreateMock();
 			sut.Mock.Setup.TryParse(It.IsAnyRefStruct<Packet>())
@@ -262,7 +262,7 @@ public sealed class GeneratedPacketSinkTests
 	public sealed class IndexerSetterTests
 	{
 		[Test]
-		public async Task OnSet_Callback_ReceivesValue()
+		public async Task OnSet_ShouldPassTheValueToTheCallback()
 		{
 			IGeneratedPacketSetter sut = IGeneratedPacketSetter.CreateMock();
 			string? captured = null;
@@ -274,7 +274,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task Predicate_FiltersByKey_OnSetOnlyForHit()
+		public async Task OnSet_WithKeyPredicate_ShouldOnlyInvokeTheCallbackForMatchingKeys()
 		{
 			IGeneratedPacketSetter sut = IGeneratedPacketSetter.CreateMock();
 			string? captured = null;
@@ -287,7 +287,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task RecordedInteraction_UsesSetItemName()
+		public async Task ShouldRecordTheInteractionAsSetItemWithKeyAndValue()
 		{
 			IGeneratedPacketSetter sut = IGeneratedPacketSetter.CreateMock();
 
@@ -306,7 +306,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task Throws_ConfiguredException()
+		public async Task Throws_ShouldThrowTheConfiguredException()
 		{
 			IGeneratedPacketSetter sut = IGeneratedPacketSetter.CreateMock();
 			sut.Mock.Setup[It.IsAnyRefStruct<Packet>()].Throws<InvalidOperationException>();
@@ -323,7 +323,7 @@ public sealed class GeneratedPacketSinkTests
 	public sealed class CombinedIndexerTests
 	{
 		[Test]
-		public async Task Predicate_FiltersByKey_AppliesToBothAccessors()
+		public async Task WithKeyPredicate_ShouldApplyToBothAccessors()
 		{
 			IGeneratedPacketStore sut = IGeneratedPacketStore.CreateMock();
 			sut.Mock.Setup[It.IsRefStruct<Packet>(p => p.Id == 42)]
@@ -345,7 +345,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task Returns_ConfiguresGet_OnSet_ConfiguresSet_Independent()
+		public async Task WithReturnsAndOnSet_ShouldConfigureGetterAndSetterIndependently()
 		{
 			IGeneratedPacketStore sut = IGeneratedPacketStore.CreateMock();
 			string? captured = null;
@@ -361,7 +361,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task Throws_AppliesToBothAccessors()
+		public async Task Throws_ShouldApplyToBothAccessors()
 		{
 			IGeneratedPacketStore sut = IGeneratedPacketStore.CreateMock();
 			sut.Mock.Setup[It.IsAnyRefStruct<Packet>()].Throws<InvalidOperationException>();
@@ -384,7 +384,7 @@ public sealed class GeneratedPacketSinkTests
 	public sealed class ExtendedArityTests
 	{
 		[Test]
-		public async Task GetterOnlyArity5_PredicateFiltersByProjectedKey()
+		public async Task GetterOnlyIndexer_With5Keys_ShouldOnlyMatchWhenThePredicateHolds()
 		{
 			IBigPacketLookup5 sut = IBigPacketLookup5.CreateMock();
 			sut.Mock.Setup[
@@ -403,7 +403,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task GetterOnlyArity5_Returns_ConfiguredValue()
+		public async Task GetterOnlyIndexer_With5Keys_ShouldReturnTheConfiguredValue()
 		{
 			IBigPacketLookup5 sut = IBigPacketLookup5.CreateMock();
 			sut.Mock.Setup[
@@ -420,7 +420,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task GetterOnlyArity5_Throws_ConfiguredException()
+		public async Task GetterOnlyIndexer_With5Keys_ShouldThrowTheConfiguredException()
 		{
 			IBigPacketLookup5 sut = IBigPacketLookup5.CreateMock();
 			sut.Mock.Setup[
@@ -440,7 +440,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task ReturnArity6_NonRefStructParameterGates_Matches()
+		public async Task ReturnMethod_With6Parameters_ShouldOnlyMatchWhenTheOffsetPredicateHolds()
 		{
 			IBigPacketParser sut = IBigPacketParser.CreateMock();
 			sut.Mock.Setup.TryParse(
@@ -471,7 +471,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task ReturnArity6_ReturnsConfiguredValue()
+		public async Task ReturnMethod_With6Parameters_ShouldReturnTheConfiguredValue()
 		{
 			IBigPacketParser sut = IBigPacketParser.CreateMock();
 			sut.Mock.Setup.TryParse(
@@ -491,7 +491,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task ReturnArity6_ReturnsFactory_InvokedPerCall()
+		public async Task ReturnMethod_With6ParametersAndReturnsCallback_ShouldInvokeTheCallbackOnEveryCall()
 		{
 			IBigPacketParser sut = IBigPacketParser.CreateMock();
 			int counter = 0;
@@ -516,7 +516,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task ReturnArity6_ThrowsExceptionFactory_InvokedPerCall()
+		public async Task ReturnMethod_With6ParametersAndThrowsCallback_ShouldInvokeTheCallbackOnEveryCall()
 		{
 			IBigPacketParser sut = IBigPacketParser.CreateMock();
 			int built = 0;
@@ -558,7 +558,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task ReturnArity6_ThrowsExceptionInstance_ThrowsSameInstance()
+		public async Task ReturnMethod_With6ParametersAndThrowsException_ShouldThrowTheSameInstance()
 		{
 			IBigPacketParser sut = IBigPacketParser.CreateMock();
 			InvalidOperationException expected = new("arity6-boom");
@@ -587,7 +587,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task SetterOnlyArity5_OnSet_ReceivesValue()
+		public async Task SetterOnlyIndexer_With5Keys_ShouldPassTheValueToTheOnSetCallback()
 		{
 			IBigPacketSetter5 sut = IBigPacketSetter5.CreateMock();
 			string? captured = null;
@@ -605,7 +605,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task SetterOnlyArity5_Throws_ConfiguredException()
+		public async Task SetterOnlyIndexer_With5Keys_ShouldThrowTheConfiguredException()
 		{
 			IBigPacketSetter5 sut = IBigPacketSetter5.CreateMock();
 			sut.Mock.Setup[
@@ -625,7 +625,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task VoidArity5_DoesNotThrow_AfterThrows_OverridesPreviousConfiguration()
+		public async Task VoidMethod_With5Parameters_WhenDoesNotThrowIsCalledAfterThrows_ShouldNotThrow()
 		{
 			IBigPacketSink sut = IBigPacketSink.CreateMock();
 
@@ -651,7 +651,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task VoidArity5_NoSetup_IsNoOp()
+		public async Task VoidMethod_With5Parameters_WhenNotSetUp_ShouldNotThrow()
 		{
 			IBigPacketSink sut = IBigPacketSink.CreateMock();
 
@@ -669,7 +669,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task VoidArity5_PredicateMatchesSelectively()
+		public async Task VoidMethod_With5Parameters_ShouldOnlyMatchWhenThePredicateHolds()
 		{
 			IBigPacketSink sut = IBigPacketSink.CreateMock();
 			sut.Mock.Setup.Absorb(
@@ -699,7 +699,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task VoidArity5_SetupThrows_ShouldThrowConfiguredException()
+		public async Task VoidMethod_With5Parameters_ShouldThrowTheConfiguredException()
 		{
 			IBigPacketSink sut = IBigPacketSink.CreateMock();
 			sut.Mock.Setup.Absorb(
@@ -724,7 +724,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task VoidArity5_ThrowsExceptionFactory_InvokedPerCall()
+		public async Task VoidMethod_With5ParametersAndThrowsCallback_ShouldInvokeTheCallbackOnEveryCall()
 		{
 			IBigPacketSink sut = IBigPacketSink.CreateMock();
 			int built = 0;
@@ -765,7 +765,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task VoidArity5_ThrowsExceptionInstance_ThrowsSameInstance()
+		public async Task VoidMethod_With5ParametersAndThrowsException_ShouldThrowTheSameInstance()
 		{
 			IBigPacketSink sut = IBigPacketSink.CreateMock();
 			InvalidOperationException expected = new("boom");
@@ -796,7 +796,7 @@ public sealed class GeneratedPacketSinkTests
 	public sealed class IndexerGetterTests
 	{
 		[Test]
-		public async Task NoSetup_ReturnsFrameworkDefault()
+		public async Task WithoutSetup_ShouldReturnTheDefaultValue()
 		{
 			IGeneratedPacketLookup sut = IGeneratedPacketLookup.CreateMock();
 
@@ -806,7 +806,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task Predicate_FiltersByKey_PayloadReadable()
+		public async Task WithPredicateOnTheSpanPayload_ShouldOnlyReturnTheValueWhenItHolds()
 		{
 			// Predicate reads the inline Span on the ref-struct key — the whole point of the
 			// ref-struct pipeline: the payload flows through to the matcher without ever being
@@ -828,7 +828,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task RecordedInteraction_UsesRefStructMethodInvocation()
+		public async Task ShouldRecordTheInteractionAsGetItemWithTheKey()
 		{
 			IGeneratedPacketLookup sut = IGeneratedPacketLookup.CreateMock();
 
@@ -844,7 +844,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task Returns_ConfiguredValue()
+		public async Task Returns_ShouldReturnTheConfiguredValue()
 		{
 			IGeneratedPacketLookup sut = IGeneratedPacketLookup.CreateMock();
 			sut.Mock.Setup[It.IsAnyRefStruct<Packet>()].Returns("hit");
@@ -855,7 +855,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task Returns_Factory_InvokedPerCall()
+		public async Task Returns_WithCallback_ShouldInvokeTheCallbackOnEveryCall()
 		{
 			IGeneratedPacketLookup sut = IGeneratedPacketLookup.CreateMock();
 			int calls = 0;
@@ -869,7 +869,7 @@ public sealed class GeneratedPacketSinkTests
 		}
 
 		[Test]
-		public async Task Throws_ConfiguredException()
+		public async Task Throws_ShouldThrowTheConfiguredException()
 		{
 			IGeneratedPacketLookup sut = IGeneratedPacketLookup.CreateMock();
 			sut.Mock.Setup[It.IsAnyRefStruct<Packet>()].Throws<KeyNotFoundException>();

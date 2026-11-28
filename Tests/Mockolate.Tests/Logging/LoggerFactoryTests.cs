@@ -70,7 +70,7 @@ public sealed class LoggerFactoryTests
 	}
 
 	[Test]
-	public async Task CreateLogger_Generic_ShouldNotReturnTheLoggerMock()
+	public async Task CreateLogger_WithTypeArgument_ShouldNotReturnTheLoggerMock()
 	{
 		ILoggerFactory factory = ILoggerFactory.CreateMock();
 		ILogger<LoggerFactoryTests> logger = factory.CreateLogger<LoggerFactoryTests>();
@@ -82,7 +82,7 @@ public sealed class LoggerFactoryTests
 	}
 
 	[Test]
-	public async Task CombinationMock_ThrowingWhenNotSetup_CreateLogger_ShouldReturnTheLoggerOfTheCategory()
+	public async Task CreateLogger_WithCombinationMockThrowingWhenNotSetup_ShouldNotThrow()
 	{
 		IChocolateDispenser mock = IChocolateDispenser.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup())
 			.Implementing<ILoggerFactory>();
@@ -105,7 +105,7 @@ public sealed class LoggerFactoryTests
 	}
 
 	[Test]
-	public async Task GetLogger_Generic_ShouldReturnTheLoggerOfTheCategoryOfTheType()
+	public async Task GetLogger_WithTypeArgument_ShouldReturnTheLoggerOfTheCategoryOfTheType()
 	{
 		int calls = 0;
 		ILoggerFactory factory = ILoggerFactory.CreateMock();
@@ -118,7 +118,7 @@ public sealed class LoggerFactoryTests
 	}
 
 	[Test]
-	public async Task GetLogger_Generic_ShouldShareTheLoggerOfTheCategory()
+	public async Task GetLogger_WithTypeArgument_ShouldShareTheLoggerOfTheCategory()
 	{
 		ILoggerFactory factory = ILoggerFactory.CreateMock();
 		ILogger<LoggerFactoryTests> logger = factory.Mock.GetLogger<LoggerFactoryTests>();
@@ -131,7 +131,7 @@ public sealed class LoggerFactoryTests
 	}
 
 	[Test]
-	public async Task GetLogger_Generic_ShouldShareTheSetupsOfAllMembers()
+	public async Task GetLogger_WithTypeArgument_ShouldShareTheSetupsOfAllMembers()
 	{
 		using CancellationTokenSource scope = new();
 		ILoggerFactory factory = ILoggerFactory.CreateMock();
@@ -146,7 +146,7 @@ public sealed class LoggerFactoryTests
 	}
 
 	[Test]
-	public async Task GetLogger_Generic_WhenTheTypedLoggerIsMocked_ShouldShareTheSetupsOfAllMembers()
+	public async Task GetLogger_WithTypeArgument_WhenTheTypedLoggerIsMocked_ShouldShareTheSetupsOfAllMembers()
 	{
 		using CancellationTokenSource scope = new();
 		ILoggerFactory factory = ILoggerFactory.CreateMock();
@@ -162,7 +162,7 @@ public sealed class LoggerFactoryTests
 	}
 
 	[Test]
-	public async Task GetLogger_Generic_WhenTheTypedLoggerIsMocked_ShouldShareTheLoggerOfTheCategory()
+	public async Task GetLogger_WithTypeArgument_WhenTheTypedLoggerIsMocked_ShouldShareTheLoggerOfTheCategory()
 	{
 		int calls = 0;
 		ILoggerFactory factory = ILoggerFactory.CreateMock();
@@ -247,7 +247,7 @@ public sealed class LoggerFactoryTests
 	}
 
 	[Test]
-	public async Task ClearAllInteractions_OnOneLogger_ShouldKeepTheCallsOnTheFactory()
+	public async Task ClearAllInteractions_WhenCalledOnALogger_ShouldKeepTheCallsOnTheFactory()
 	{
 		ILoggerFactory factory = ILoggerFactory.CreateMock();
 		ILogger logger = factory.CreateLogger("Orders");
@@ -278,7 +278,7 @@ public sealed class LoggerFactoryTests
 	}
 
 	[Test]
-	public async Task Verify_Then_ShouldOrderLogCallsAndOtherCalls()
+	public async Task Then_ShouldOrderLogCallsAndOtherCalls()
 	{
 		ILoggerFactory factory = ILoggerFactory.CreateMock();
 
@@ -288,7 +288,7 @@ public sealed class LoggerFactoryTests
 	}
 
 	[Test]
-	public async Task ThrowingWhenNotSetup_ShouldApplyToTheLoggers()
+	public async Task WithThrowingWhenNotSetup_ShouldApplyToTheLoggers()
 	{
 		ILoggerFactory factory = ILoggerFactory.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
 		ILogger logger = factory.Mock.GetLogger("Orders");
@@ -299,7 +299,7 @@ public sealed class LoggerFactoryTests
 	}
 
 	[Test]
-	public async Task ThrowingWhenNotSetup_CreateLogger_ShouldReturnTheLoggerOfTheCategory()
+	public async Task CreateLogger_WithThrowingWhenNotSetup_ShouldReturnTheLoggerOfTheCategory()
 	{
 		ILoggerFactory factory = ILoggerFactory.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
 
@@ -310,7 +310,7 @@ public sealed class LoggerFactoryTests
 	}
 
 	[Test]
-	public async Task GetLogger_Generic_WithNullableCategoryType_ShouldShareTheLoggerOfTheCategory()
+	public async Task GetLogger_WithTypeArgument_WhenTheNullableTypedLoggerIsMocked_ShouldShareTheLoggerOfTheCategory()
 	{
 		ILogger<string?> nullableLogger = ILogger<string?>.CreateMock();
 		ILoggerFactory factory = ILoggerFactory.CreateMock();

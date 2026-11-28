@@ -10,7 +10,7 @@ public sealed partial class ItExtensionsTests
 		public sealed class ToStringTests
 		{
 			[Test]
-			public async Task Default_ShouldReturnExpectedValue()
+			public async Task WithoutConditions_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IHttpRequestMessageParameter sut = It.IsHttpRequestMessage();
 
@@ -20,7 +20,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task MultipleConditions_ShouldReturnExpectedValue()
+			public async Task WithMultipleConditions_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IHttpRequestMessageParameter sut = It.IsHttpRequestMessage(HttpMethod.Post)
 					.WhoseUriIs("https://example.com")
@@ -33,7 +33,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WhoseContentIsAction_ShouldReturnExpectedValue()
+			public async Task WhoseContentIs_WithAction_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IHttpRequestMessageParameter sut =
 					It.IsHttpRequestMessage().WhoseContentIs(c => c.WithMediaType("text/plain"));
@@ -45,7 +45,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WhoseContentIsMediaType_ShouldReturnExpectedValue()
+			public async Task WhoseContentIs_WithMediaType_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IHttpRequestMessageParameter sut =
 					It.IsHttpRequestMessage().WhoseContentIs("application/json");
@@ -57,7 +57,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WhoseUriIsAction_ShouldReturnExpectedValue()
+			public async Task WhoseUriIs_WithAction_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IHttpRequestMessageParameter sut =
 					It.IsHttpRequestMessage().WhoseUriIs(u => u.ForHttps().WithHost("example.com"));
@@ -69,7 +69,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WhoseUriIsString_ShouldReturnExpectedValue()
+			public async Task WhoseUriIs_WithString_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IHttpRequestMessageParameter sut =
 					It.IsHttpRequestMessage().WhoseUriIs("https://example.com");
@@ -80,7 +80,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithHeaders_ShouldReturnExpectedValue()
+			public async Task WithHeaders_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IHttpRequestMessageParameter sut =
 					It.IsHttpRequestMessage().WithHeaders(("x-my-header", "my-value"));
@@ -91,7 +91,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithMethod_ShouldReturnExpectedValue()
+			public async Task WithMethod_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IHttpRequestMessageParameter sut =
 					It.IsHttpRequestMessage(HttpMethod.Get);

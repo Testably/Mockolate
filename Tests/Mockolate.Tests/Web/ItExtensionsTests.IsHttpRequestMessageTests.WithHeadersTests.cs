@@ -17,7 +17,7 @@ public sealed partial class ItExtensionsTests
 			[Arguments("Authorization", "Basic abcdef", "x-myHeader", "foo", true)]
 			[Arguments("Authorization", "Basic xyz", "x-myHeader", "foo", false)]
 			[Arguments("x-myHeader", "foo", "Authorization", "Basic xyz", false)]
-			public async Task MultipleCalls_ShouldVerifyKeyValueHeaders(
+			public async Task WhenCalledMultipleTimes_ShouldVerifyKeyValueHeaders(
 				string key1, string value1, string key2, string value2, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -43,7 +43,7 @@ public sealed partial class ItExtensionsTests
 			[Arguments("Authorization", "Basic abcdef", "x-myHeader", "foo", true)]
 			[Arguments("Authorization", "Basic xyz", "x-myHeader", "foo", false)]
 			[Arguments("x-myHeader", "foo", "Authorization", "Basic xyz", false)]
-			public async Task MultipleCalls_ShouldVerifyKeyValuePairHeaders(
+			public async Task WhenCalledMultipleTimes_ShouldVerifyKeyValuePairHeaders(
 				string key1, string value1, string key2, string value2, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -69,7 +69,7 @@ public sealed partial class ItExtensionsTests
 			[Arguments("Authorization: Basic abcdef", "x-myHeader: foo", true)]
 			[Arguments("Authorization: Basic xyz", "x-myHeader: foo", false)]
 			[Arguments("x-myHeader: foo", "Authorization: Basic xyz", false)]
-			public async Task MultipleCalls_ShouldVerifyStringHeaders(
+			public async Task WhenCalledMultipleTimes_ShouldVerifyStringHeaders(
 				string headers1, string headers2, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();

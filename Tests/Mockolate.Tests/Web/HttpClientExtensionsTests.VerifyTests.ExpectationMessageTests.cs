@@ -12,7 +12,7 @@ public sealed partial class HttpClientExtensionsTests
 		public sealed class ExpectationMessageTests
 		{
 			[Test]
-			public async Task DeleteAsync_StringUri_FailingVerification_ShouldMentionSendAsyncInMessage()
+			public async Task DeleteAsync_WithStringUri_WhenVerificationFails_ShouldMentionSendAsyncInMessage()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 
@@ -26,7 +26,7 @@ public sealed partial class HttpClientExtensionsTests
 			}
 
 			[Test]
-			public async Task DeleteAsync_Uri_FailingVerification_ShouldMentionSendAsyncInMessage()
+			public async Task DeleteAsync_WithUri_WhenVerificationFails_ShouldMentionSendAsyncInMessage()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 
@@ -40,7 +40,7 @@ public sealed partial class HttpClientExtensionsTests
 			}
 
 			[Test]
-			public async Task PutAsync_StringUri_FailingVerification_ShouldMentionSendAsyncInMessage()
+			public async Task PutAsync_WithStringUri_WhenVerificationFails_ShouldMentionSendAsyncInMessage()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 
@@ -54,7 +54,7 @@ public sealed partial class HttpClientExtensionsTests
 			}
 
 			[Test]
-			public async Task PutAsync_Uri_FailingVerification_ShouldMentionSendAsyncInMessage()
+			public async Task PutAsync_WithUri_WhenVerificationFails_ShouldMentionSendAsyncInMessage()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 
@@ -69,7 +69,7 @@ public sealed partial class HttpClientExtensionsTests
 
 #if NET8_0_OR_GREATER
 			[Test]
-			public async Task PatchAsync_StringUri_FailingVerification_ShouldMentionSendAsyncInMessage()
+			public async Task PatchAsync_WithStringUri_WhenVerificationFails_ShouldMentionSendAsyncInMessage()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 
@@ -83,7 +83,7 @@ public sealed partial class HttpClientExtensionsTests
 			}
 
 			[Test]
-			public async Task PatchAsync_Uri_FailingVerification_ShouldMentionSendAsyncInMessage()
+			public async Task PatchAsync_WithUri_WhenVerificationFails_ShouldMentionSendAsyncInMessage()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 

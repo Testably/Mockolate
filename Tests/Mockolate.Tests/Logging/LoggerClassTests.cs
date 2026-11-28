@@ -9,7 +9,7 @@ namespace Mockolate.Tests.Logging;
 public sealed class LoggerClassTests
 {
 	[Test]
-	public async Task AbstractLogger_IsEnabled_WithoutSetup_ShouldReturnTrue()
+	public async Task AbstractLogger_WithoutSetup_ShouldBeEnabled()
 	{
 		AbstractLogger logger = AbstractLogger.CreateMock();
 
@@ -34,7 +34,7 @@ public sealed class LoggerClassTests
 	}
 
 	[Test]
-	public async Task AbstractLogger_SetupInCreateMock_ShouldApply()
+	public async Task AbstractLogger_WithSetupInCreateMock_ShouldApply()
 	{
 		List<string> messages = [];
 		AbstractLogger logger = AbstractLogger.CreateMock(setup
@@ -46,7 +46,7 @@ public sealed class LoggerClassTests
 	}
 
 	[Test]
-	public async Task AbstractLogger_ThrowingWhenNotSetup_ShouldOnlyThrowForLogCalls()
+	public async Task AbstractLogger_WithThrowingWhenNotSetup_ShouldOnlyThrowForLogCalls()
 	{
 		AbstractLogger logger = AbstractLogger.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
 
@@ -65,7 +65,7 @@ public sealed class LoggerClassTests
 	}
 
 	[Test]
-	public async Task AbstractLogger_VerifyThatAllInteractionsAreVerified_ShouldIgnoreIsEnabledAndBeginScope()
+	public async Task AbstractLogger_WhenVerifyingThatAllInteractionsAreVerified_ShouldIgnoreIsEnabledAndBeginScope()
 	{
 		AbstractLogger logger = AbstractLogger.CreateMock();
 
@@ -110,7 +110,7 @@ public sealed class LoggerClassTests
 	}
 
 	[Test]
-	public async Task VirtualLogger_SkippingBaseClass_ShouldNotCallTheBaseImplementation()
+	public async Task VirtualLogger_WithSkippingBaseClass_ShouldNotCallTheBaseImplementation()
 	{
 		RecordingLogger logger = RecordingLogger.CreateMock(MockBehavior.Default.SkippingBaseClass());
 
@@ -121,7 +121,7 @@ public sealed class LoggerClassTests
 	}
 
 	[Test]
-	public async Task VirtualLogger_SetupSkippingBaseClass_ShouldNotCallTheBaseImplementation()
+	public async Task VirtualLogger_WithSetupSkippingBaseClass_ShouldNotCallTheBaseImplementation()
 	{
 		RecordingLogger logger = RecordingLogger.CreateMock();
 		logger.Mock.Setup.LogError().SkippingBaseClass();
@@ -133,7 +133,7 @@ public sealed class LoggerClassTests
 	}
 
 	[Test]
-	public async Task VirtualLogger_ThrowingWhenNotSetup_ShouldNotThrow()
+	public async Task VirtualLogger_WithThrowingWhenNotSetup_ShouldNotThrow()
 	{
 		RecordingLogger logger = RecordingLogger.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
 
@@ -144,7 +144,7 @@ public sealed class LoggerClassTests
 	}
 
 	[Test]
-	public async Task VirtualLogger_TypedSetupAndVerification_ShouldMatchTheLogCalls()
+	public async Task VirtualLogger_WithTypedSetupAndVerification_ShouldMatchTheLogCalls()
 	{
 		int calls = 0;
 		RecordingLogger logger = RecordingLogger.CreateMock();
@@ -197,7 +197,7 @@ public sealed class LoggerClassTests
 	}
 
 	[Test]
-	public async Task OverridingLogger_IsEnabled_WithoutSetup_ShouldCallTheOverride()
+	public async Task OverridingLogger_WithoutSetup_ShouldCallTheIsEnabledOverride()
 	{
 		ConcreteLogger logger = ConcreteLogger.CreateMock();
 
@@ -208,7 +208,7 @@ public sealed class LoggerClassTests
 	}
 
 	[Test]
-	public async Task OverridingLogger_WithSkippedBaseClass_ShouldUseTheLoggingDefaults()
+	public async Task OverridingLogger_WithSkippingBaseClass_ShouldUseTheLoggingDefaults()
 	{
 		int calls = 0;
 		ConcreteLogger logger = ConcreteLogger.CreateMock(MockBehavior.Default.SkippingBaseClass());
@@ -242,7 +242,7 @@ public sealed class LoggerClassTests
 	}
 
 	[Test]
-	public async Task VirtualLogger_IsEnabled_ShouldReturnTheBaseValue()
+	public async Task VirtualLogger_WithoutSetup_ShouldReturnTheBaseValueOfIsEnabled()
 	{
 		RecordingLogger logger = RecordingLogger.CreateMock();
 
