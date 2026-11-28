@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Mockolate.Interactions;
 
 namespace Mockolate.Internal.Tests.Interactions;
@@ -33,6 +36,141 @@ public class EventRecordsTests
 		int unsubscribeId = Mock.EventRecordsTests_IEventService.MemberId_SomeEvent_Unsubscribe;
 		EventRecords buffer = new(mockInteractions, unsubscribeId);
 		await That(buffer.Count).IsEqualTo(1);
+	}
+
+	[Test]
+	public async Task EventRecords_AppendBoxed_KindMatters()
+	{
+		MockInteractions subscribeStore = new(1);
+		MockInteractions unsubscribeStore = new(1);
+		EventRecords subscribe = InstallEventSubscribe(subscribeStore, 0);
+		EventRecords unsubscribe = InstallEventUnsubscribe(unsubscribeStore, 0);
+
+		subscribe.AppendSubscription("E", this, SampleMethod);
+		unsubscribe.AppendUnsubscription("E", this, SampleMethod);
+
+		await That(subscribeStore.Single()).IsExactly<EventSubscription>();
+		await That(unsubscribeStore.Single()).IsExactly<EventUnsubscription>();
+	}
+
+	[Test]
+	public async Task EventRecords_GetUnverifiedInteractions_ShouldSkipMatchedSlots()
+	{
+		MockInteractions store = new(1);
+		EventRecords buffer = InstallEventSubscribe(store, 0);
+		buffer.AppendSubscription("E", this, SampleMethod);
+		buffer.AppendSubscription("E", this, SampleMethod);
+		buffer.AppendSubscription("E", this, SampleMethod);
+
+		_ = buffer.ConsumeAll();
+
+		List<IInteraction> dest = [..store.GetUnverifiedInteractions(),];
+
+		await That(dest).IsEmpty();
+
+		buffer.AppendSubscription("E", this, SampleMethod);
+		dest = [..store.GetUnverifiedInteractions(),];
+
+		await That(dest).HasCount(1);
+		await That(dest[0]).IsExactly<EventSubscription>();
+	}
+
+	[Test]
+	public async Task EventRecords_Subscribe_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
+	{
+		// Pins the `r.Boxed ??= new EventSubscription(...)` cache in AppendBoxed. With the
+		// `??=` mutated to `=`, every AppendBoxed call would allocate a fresh record.
+		MockInteractions store = new(1);
+		EventRecords buffer = InstallEventSubscribe(store, 0);
+		buffer.AppendSubscription("E", this, SampleMethod);
+
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
+
+		await That(first).HasCount(1);
+		await That(second).HasCount(1);
+		await That(second[0]).IsSameAs(first[0]);
+	}
+
+	[Test]
+	public async Task EventRecords_SubscribeAppend_ShouldRaiseInteractionAdded()
+		=> await VerifyRaisesInteractionAdded(store =>
+		{
+			EventRecords buffer = InstallEventSubscribe(store, 0);
+			return () => buffer.AppendSubscription("E", this, SampleMethod);
+		});
+
+	[Test]
+	public async Task EventRecords_Unsubscribe_AppendBoxed_CachesAndReusesAlreadyBoxedRecord()
+	{
+		MockInteractions store = new(1);
+		EventRecords buffer = InstallEventUnsubscribe(store, 0);
+		buffer.AppendUnsubscription("E", this, SampleMethod);
+
+		List<IInteraction> first = [];
+		List<IInteraction> second = [];
+		buffer.AppendBoxed(first);
+		buffer.AppendBoxed(second);
+
+		await That(first).HasCount(1);
+		await That(second).HasCount(1);
+		await That(second[0]).IsSameAs(first[0]);
+	}
+
+	[Test]
+	public async Task EventRecords_Unsubscribe_GetUnverifiedInteractions_ShouldBoxAsEventUnsubscription()
+	{
+		MockInteractions store = new(1);
+		EventRecords buffer = InstallEventUnsubscribe(store, 0);
+		buffer.AppendUnsubscription("E", this, SampleMethod);
+
+		List<IInteraction> dest = [..store.GetUnverifiedInteractions(),];
+
+		await That(dest).HasCount(1);
+		await That(dest[0]).IsExactly<EventUnsubscription>()
+			.Because(
+				"the record must pick the interaction type from its kind, so an unsubscription never surfaces as EventSubscription");
+	}
+
+	[Test]
+	public async Task EventRecords_UnsubscribeAppend_ShouldRaiseInteractionAdded()
+		=> await VerifyRaisesInteractionAdded(store =>
+		{
+			EventRecords buffer = InstallEventUnsubscribe(store, 0);
+			return () => buffer.AppendUnsubscription("E", this, SampleMethod);
+		});
+
+	private static EventRecords InstallEventSubscribe(MockInteractions store, int memberId)
+		=> new EventRecords(store, memberId);
+
+	private static EventRecords InstallEventUnsubscribe(MockInteractions store, int memberId)
+		=> new EventRecords(store, memberId);
+
+	private static readonly MethodInfo SampleMethod =
+		typeof(EventRecordsTests).GetMethod(
+			nameof(SampleMethodImpl),
+			BindingFlags.Static | BindingFlags.NonPublic)!;
+
+	private static void SampleMethodImpl()
+	{
+	}
+
+	private static async Task VerifyRaisesInteractionAdded(Func<MockInteractions, Action> appendFactory)
+	{
+		MockInteractions store = new(1);
+		Action append = appendFactory(store);
+		int invocations = 0;
+		EventHandler handler = (_, _) => invocations++;
+		store.InteractionAdded += handler;
+
+		append();
+		append();
+
+		store.InteractionAdded -= handler;
+
+		await That(invocations).IsEqualTo(2);
 	}
 
 	public interface IEventService
