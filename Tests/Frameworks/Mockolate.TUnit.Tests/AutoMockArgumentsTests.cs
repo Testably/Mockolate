@@ -358,6 +358,11 @@ public sealed class AutoMockArgumentsTests
 
 	[Test]
 	[AutoMockArguments]
+	public async Task ValueFrom_WithConstant_ShouldPassItsValue([ValueFrom(nameof(DefaultProductCode))] string productCode)
+		=> await That(productCode).IsEqualTo("Dark");
+
+	[Test]
+	[AutoMockArguments]
 	public async Task ValueFrom_WithMethod_ShouldPassItsResultBeforeTheClassUnderTestIsCreated(StockIndicator sut,
 		[ValueFrom(nameof(CreateStockOfFive))] IChocolateStock stock)
 	{
@@ -435,6 +440,8 @@ public sealed class AutoMockArgumentsTests
 	{
 		public object? ProvideValue(ParameterInfo parameter) => IOrderRepository.CreateMock();
 	}
+
+	private const string DefaultProductCode = "Dark";
 
 	private static DiscountRule TenPercentOff => new()
 	{

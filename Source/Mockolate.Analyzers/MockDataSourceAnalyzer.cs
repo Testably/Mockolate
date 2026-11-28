@@ -73,8 +73,8 @@ isEnabledByDefault: true,
 			Resources.ResourceManager, typeof(Resources)));
 
 	/// <summary>
-	///     A <c>[ValueFrom]</c> test parameter whose member is missing, not static, a field or of another type, or that is
-	///     also <c>[Deferred]</c> or gets a given argument.
+	///     A <c>[ValueFrom]</c> test parameter whose member is missing, not static, a non-constant field or of another
+	///     type, or that is also <c>[Deferred]</c> or gets a given argument.
 	/// </summary>
 	public static readonly DiagnosticDescriptor ValueFromParameterRule = new(
 		"Mockolate0013",
@@ -328,8 +328,8 @@ isEnabledByDefault: true,
 		=> parameter.GetAttributes().FirstOrDefault(attribute => IsMarker(attribute, "ValueFromParameterAttribute"));
 
 	/// <summary>
-	///     Mirrors <c>AutoMockRow.FindValueMember</c>, which looks up a static property or parameterless static method of the
-	///     type that declares the parameter, including the non-private ones of its base types.
+	///     Mirrors <c>AutoMockRow.FindValueMember</c>, which looks up a constant, static property or parameterless static
+	///     method of the type that declares the parameter, including the non-private ones of its base types.
 	/// </summary>
 	private static string? GetValueFromReason(IParameterSymbol parameter, AttributeData attribute,
 		Compilation compilation)
@@ -346,13 +346,14 @@ isEnabledByDefault: true,
 				.Where(member => SymbolEqualityComparer.Default.Equals(type, testClass) ||
 				                 (GetValueAccessor(member) ?? member).DeclaredAccessibility != Accessibility.Private))
 			.ToArray();
-		ISymbol? valueMember = members.FirstOrDefault(member => GetValueAccessor(member) is not null);
-		if (valueMember is null)
+		ISymbol? valueMember = members.FirstOrDefault(member
+			=> member is IFieldSymbol || GetValueAccessor(member) is not null);
+		if (valueMember is null or IFieldSymbol { IsConst: false, })
 		{
 			return string.Format(CultureInfo.InvariantCulture,
-				members.Any(member => member is IFieldSymbol)
-					? Resources.Mockolate0013FieldReason
-					: Resources.Mockolate0013NotFoundReason,
+				valueMember is null
+					? Resources.Mockolate0013NotFoundReason
+					: Resources.Mockolate0013FieldReason,
 				memberName, testClass.ToDisplayString());
 		}
 
@@ -361,9 +362,12 @@ isEnabledByDefault: true,
 			return string.Format(CultureInfo.InvariantCulture, Resources.Mockolate0013NotStaticReason, memberName);
 		}
 
-		ITypeSymbol memberType = valueMember is IPropertySymbol property
-			? property.Type
-			: ((IMethodSymbol)valueMember).ReturnType;
+		ITypeSymbol memberType = valueMember switch
+		{
+			IFieldSymbol field => field.Type,
+			IPropertySymbol property => property.Type,
+			_ => ((IMethodSymbol)valueMember).ReturnType,
+		};
 		return IsAssignable(memberType, parameter.Type, compilation)
 			? null
 			: string.Format(CultureInfo.InvariantCulture, Resources.Mockolate0013NotAssignableReason, memberName,

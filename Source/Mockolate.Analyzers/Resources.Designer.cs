@@ -636,7 +636,7 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to A [ValueFrom] parameter takes its value from a static property or parameterless static method of the test class or a non-private one of its base classes, whose type must be assignable to the parameter. A field is not supported, because it would share one instance with all test cases. A given argument of the attribute replaces the value, and a [Deferred] marker contradicts it..
+        ///   Looks up a localized string similar to A [ValueFrom] parameter takes its value from a constant, static property or parameterless static method of the test class or a non-private one of its base classes, whose type must be assignable to the parameter. Any other field is not supported, because it would share one instance with all test cases. A given argument of the attribute replaces the value, and a [Deferred] marker contradicts it..
         /// </summary>
         internal static string Mockolate0013Description {
             get {
@@ -645,7 +645,7 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to names the field &apos;{0}&apos; of &apos;{1}&apos;; use a property or method, so that each test case gets a new value.
+        ///   Looks up a localized string similar to names the field &apos;{0}&apos; of &apos;{1}&apos;, which is not constant; use a property or method, so that each test case gets a new value.
         /// </summary>
         internal static string Mockolate0013FieldReason {
             get {
@@ -681,7 +681,7 @@ namespace Mockolate.Analyzers {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to names no static property or parameterless static method &apos;{0}&apos; of &apos;{1}&apos;.
+        ///   Looks up a localized string similar to names no constant, static property or parameterless static method &apos;{0}&apos; of &apos;{1}&apos;.
         /// </summary>
         internal static string Mockolate0013NotFoundReason {
             get {

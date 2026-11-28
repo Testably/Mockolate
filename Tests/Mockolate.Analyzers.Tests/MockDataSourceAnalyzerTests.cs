@@ -633,6 +633,8 @@ public class MockDataSourceAnalyzerTests
 			      public class BaseTests
 			      {
 			          protected static IDep InheritedDep => null!;
+			          protected const int InheritedLimit = 3;
+			          protected static int EventHidden => 1;
 			      }
 
 			      public class Tests : BaseTests
@@ -642,8 +644,18 @@ public class MockDataSourceAnalyzerTests
 			              [ValueFrom(nameof(InheritedDep))] IDep c, [ValueFrom(nameof(Number))] int? d,
 			              [ValueFrom(nameof(Boxed))] object e, [ValueFrom(nameof(CreateRule))] Rule? f,
 			              [AsDefault, ValueFrom(nameof(InheritedDep))] IDep g,
-			              [NotShared, ValueFrom(nameof(GenericValue))] Generic<int> h) { }
+			              [NotShared, ValueFrom(nameof(GenericValue))] Generic<int> h,
+			              [ValueFrom(nameof(Limit))] int i, [ValueFrom(nameof(Name))] string j,
+			              [ValueFrom(nameof(Price))] decimal k, [ValueFrom(nameof(Comparison))] System.StringComparison l,
+			              [ValueFrom(nameof(InheritedLimit))] int? m, [ValueFrom(nameof(NoName))] string? n,
+			              [ValueFrom(nameof(EventHidden))] int o) { }
 
+			          public static new event System.Action? EventHidden;
+			          private const int Limit = 1;
+			          private const string Name = "name";
+			          private const decimal Price = 1.5m;
+			          private const System.StringComparison Comparison = System.StringComparison.Ordinal;
+			          private const string? NoName = null;
 			          private static Rule CreateRule() => new() { Code = "a", };
 			          private static Rule CreateRule(int value) => new() { Code = "b", };
 			          private static Generic<int> GenericValue => new();
@@ -675,6 +687,9 @@ public class MockDataSourceAnalyzerTests
 			          private static IDep PrivateBaseDep => null!;
 			          protected static IDep PrivateGetterDep { private get => null!; set { } }
 			          protected static IDep HiddenDep => null!;
+			          private const int PrivateBaseLimit = 1;
+			          protected const int HiddenLimit = 1;
+			          protected static IDep FieldHiddenDep => null!;
 			      }
 
 			      public class Tests : BaseTests
@@ -684,7 +699,17 @@ public class MockDataSourceAnalyzerTests
 			              [ValueFrom(nameof(Instance))] IDep {|#2:c|}, [ValueFrom(nameof(Text))] IDep {|#3:d|},
 			              [ValueFrom(nameof(WithParameter))] IDep {|#4:e|}, [ValueFrom("PrivateBaseDep")] IDep {|#5:f|},
 			              [ValueFrom(nameof(Nothing))] IDep {|#6:g|}, [ValueFrom(nameof(Dep)), Deferred] Func<IDep> {|#7:h|},
-			              [ValueFrom("PrivateGetterDep")] IDep {|#8:i|}, [ValueFrom(nameof(HiddenDep))] IDep {|#9:j|}) { }
+			              [ValueFrom("PrivateGetterDep")] IDep {|#8:i|}, [ValueFrom(nameof(HiddenDep))] IDep {|#9:j|},
+			              [ValueFrom(nameof(Limit))] IDep {|#10:k|}, [ValueFrom("PrivateBaseLimit")] int {|#11:l|},
+			              [ValueFrom(nameof(Limit))] long {|#12:m|}, [ValueFrom(nameof(InstanceField))] int {|#13:n|},
+			              [ValueFrom(nameof(HiddenLimit))] int {|#14:o|}, [ValueFrom(nameof(FieldHiddenDep))] IDep {|#15:p|},
+			              [ValueFrom(nameof(ReadonlyPrice))] decimal {|#16:q|}) { }
+
+			          private const int Limit = 1;
+			          private readonly int InstanceField = 1;
+			          private static new readonly int HiddenLimit = 5;
+			          private static new readonly IDep FieldHiddenDep = null!;
+			          private static readonly decimal ReadonlyPrice = 1.5m;
 
 			          private new IDep HiddenDep => null!;
 
@@ -705,25 +730,39 @@ public class MockDataSourceAnalyzerTests
 			  {{Markers}}
 			  """,
 			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(0)
-				.WithArguments("a", "names no static property or parameterless static method 'Missing' of 'MyCode.Tests'"),
+				.WithArguments("a", "names no constant, static property or parameterless static method 'Missing' of 'MyCode.Tests'"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(1)
-				.WithArguments("b", "names the field 'Field' of 'MyCode.Tests'; use a property or method, so that each test case gets a new value"),
+				.WithArguments("b", "names the field 'Field' of 'MyCode.Tests', which is not constant; use a property or method, so that each test case gets a new value"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(2)
 				.WithArguments("c", "names 'Instance', which is not static"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(3)
 				.WithArguments("d", "names 'Text' of type 'string', which is not assignable to 'MyCode.IDep'"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(4)
-				.WithArguments("e", "names no static property or parameterless static method 'WithParameter' of 'MyCode.Tests'"),
+				.WithArguments("e", "names no constant, static property or parameterless static method 'WithParameter' of 'MyCode.Tests'"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(5)
-				.WithArguments("f", "names no static property or parameterless static method 'PrivateBaseDep' of 'MyCode.Tests'"),
+				.WithArguments("f", "names no constant, static property or parameterless static method 'PrivateBaseDep' of 'MyCode.Tests'"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(6)
 				.WithArguments("g", "names 'Nothing' of type 'void', which is not assignable to 'MyCode.IDep'"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(7)
 				.WithArguments("h", "is also marked [Deferred]"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(8)
-				.WithArguments("i", "names no static property or parameterless static method 'PrivateGetterDep' of 'MyCode.Tests'"),
+				.WithArguments("i", "names no constant, static property or parameterless static method 'PrivateGetterDep' of 'MyCode.Tests'"),
 			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(9)
-				.WithArguments("j", "names 'HiddenDep', which is not static")
+				.WithArguments("j", "names 'HiddenDep', which is not static"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(10)
+				.WithArguments("k", "names 'Limit' of type 'int', which is not assignable to 'MyCode.IDep'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(11)
+				.WithArguments("l", "names no constant, static property or parameterless static method 'PrivateBaseLimit' of 'MyCode.Tests'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(12)
+				.WithArguments("m", "names 'Limit' of type 'int', which is not assignable to 'long'"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(13)
+				.WithArguments("n", "names the field 'InstanceField' of 'MyCode.Tests', which is not constant; use a property or method, so that each test case gets a new value"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(14)
+				.WithArguments("o", "names the field 'HiddenLimit' of 'MyCode.Tests', which is not constant; use a property or method, so that each test case gets a new value"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(15)
+				.WithArguments("p", "names the field 'FieldHiddenDep' of 'MyCode.Tests', which is not constant; use a property or method, so that each test case gets a new value"),
+			Verifier.Diagnostic(MockDataSourceAnalyzer.ValueFromParameterRule).WithLocation(16)
+				.WithArguments("q", "names the field 'ReadonlyPrice' of 'MyCode.Tests', which is not constant; use a property or method, so that each test case gets a new value")
 		);
 
 	[Test]

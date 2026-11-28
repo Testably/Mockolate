@@ -246,7 +246,7 @@ public sealed class AutoMockRowTests
 			=> AutoMockRow.GetValueFrom(parameter);
 
 		await That(Act).Throws<MockException>()
-			.WithMessage("The [ValueFrom] parameter 'value' needs a static property or parameterless static method 'Shadowed' in 'Mockolate.TUnit.Tests.AutoMockRowTests+DerivedTestClass'.")
+			.WithMessage("The [ValueFrom] parameter 'value' needs a constant, static property or parameterless static method 'Shadowed' in 'Mockolate.TUnit.Tests.AutoMockRowTests+DerivedTestClass'.")
 			.Because("like C# name lookup, the instance member hides the static one of the base class");
 	}
 
@@ -281,7 +281,7 @@ public sealed class AutoMockRowTests
 			=> AutoMockRow.GetValueFrom(parameter);
 
 		await That(Act).Throws<MockException>()
-			.WithMessage("The [ValueFrom] parameter 'value' needs a static property or parameterless static method 'PrivateBaseValue' in 'Mockolate.TUnit.Tests.AutoMockRowTests+DerivedTestClass'.");
+			.WithMessage("The [ValueFrom] parameter 'value' needs a constant, static property or parameterless static method 'PrivateBaseValue' in 'Mockolate.TUnit.Tests.AutoMockRowTests+DerivedTestClass'.");
 	}
 
 	[Test]
@@ -291,7 +291,7 @@ public sealed class AutoMockRowTests
 			=> AutoMockRow.GetValueFrom(GetParameters(nameof(FromMissingMember))[0]);
 
 		await That(Act).Throws<MockException>()
-			.WithMessage("The [ValueFrom] parameter 'value' needs a static property or parameterless static method 'Missing' in 'Mockolate.TUnit.Tests.AutoMockRowTests'.");
+			.WithMessage("The [ValueFrom] parameter 'value' needs a constant, static property or parameterless static method 'Missing' in 'Mockolate.TUnit.Tests.AutoMockRowTests'.");
 	}
 
 	[Test]
@@ -301,7 +301,104 @@ public sealed class AutoMockRowTests
 			=> AutoMockRow.GetValueFrom(GetParameters(nameof(FromInstanceProperty))[0]);
 
 		await That(Act).Throws<MockException>()
-			.WithMessage("The [ValueFrom] parameter 'value' needs a static property or parameterless static method 'InstanceValue' in 'Mockolate.TUnit.Tests.AutoMockRowTests'.");
+			.WithMessage("The [ValueFrom] parameter 'value' needs a constant, static property or parameterless static method 'InstanceValue' in 'Mockolate.TUnit.Tests.AutoMockRowTests'.");
+	}
+
+	[Test]
+	[Arguments(nameof(FromStaticReadonlyField), "ReadonlyNumber")]
+	[Arguments(nameof(FromStaticReadonlyDecimalField), "ReadonlyPrice")]
+	[Arguments(nameof(FromInstanceField), "_instanceNumber")]
+	public async Task GetValueFrom_WithFieldThatIsNotConstant_ShouldThrow(string methodName, string memberName)
+	{
+		void Act()
+			=> AutoMockRow.GetValueFrom(GetParameters(methodName)[0]);
+
+		await That(Act).Throws<MockException>()
+			.WithMessage($"The [ValueFrom] parameter 'value' needs a constant, static property or parameterless static method '{memberName}' in 'Mockolate.TUnit.Tests.AutoMockRowTests'.")
+			.Because("a field that is not constant would share one instance with all test cases");
+	}
+
+	[Test]
+	[Arguments(nameof(DerivedTestClass.FromHiddenConstant), "HiddenConstant")]
+	[Arguments(nameof(DerivedTestClass.FromFieldHiddenValue), "FieldHiddenValue")]
+	public async Task GetValueFrom_WithFieldThatHidesAMemberOfTheBaseClass_ShouldThrow(string methodName,
+		string memberName)
+	{
+		ParameterInfo parameter = typeof(DerivedTestClass).GetMethod(methodName)!.GetParameters()[0];
+
+		void Act()
+			=> AutoMockRow.GetValueFrom(parameter);
+
+		await That(Act).Throws<MockException>()
+			.WithMessage($"The [ValueFrom] parameter 'value' needs a constant, static property or parameterless static method '{memberName}' in 'Mockolate.TUnit.Tests.AutoMockRowTests+DerivedTestClass'.")
+			.Because("like C# name lookup, the field hides the member of the base class");
+	}
+
+	[Test]
+	public async Task GetValueFrom_WithEventThatHasTheNameOfAPropertyOfTheBaseClass_ShouldReadTheProperty()
+	{
+		ParameterInfo parameter = typeof(DerivedTestClass).GetMethod(nameof(DerivedTestClass.FromEventHiddenValue))!.GetParameters()[0];
+
+		Func<object?> valueFrom = AutoMockRow.GetValueFrom(parameter)!;
+
+		await That(valueFrom()).IsEqualTo("base")
+			.Because("the compiler-generated backing field of the event is no member that C# name lookup finds, like the analyzer");
+	}
+
+	[Test]
+	public async Task GetValueFrom_WithConstant_ShouldReadIt()
+	{
+		Func<object?> valueFrom = AutoMockRow.GetValueFrom(GetParameters(nameof(FromConstant))[0])!;
+
+		await That(valueFrom()).IsEqualTo(7);
+	}
+
+	[Test]
+	public async Task GetValueFrom_WithDecimalConstant_ShouldReadIt()
+	{
+		Func<object?> valueFrom = AutoMockRow.GetValueFrom(GetParameters(nameof(FromDecimalConstant))[0])!;
+
+		await That(valueFrom()).IsEqualTo(1.5m)
+			.Because("the compiler emits a decimal constant as a static readonly field with a DecimalConstantAttribute");
+	}
+
+	[Test]
+	public async Task GetValueFrom_WithEnumConstant_ShouldReadTheEnumValue()
+	{
+		Func<object?> valueFrom = AutoMockRow.GetValueFrom(GetParameters(nameof(FromEnumConstant))[0])!;
+
+		await That(valueFrom()).IsEqualTo(StringComparison.Ordinal)
+			.Because("the parameter only accepts the enum type, not its underlying value");
+	}
+
+	[Test]
+	public async Task GetValueFrom_WithNullConstant_ShouldReturnNull()
+	{
+		Func<object?> valueFrom = AutoMockRow.GetValueFrom(GetParameters(nameof(FromNullConstant))[0])!;
+
+		await That(valueFrom()).IsNull();
+	}
+
+	[Test]
+	public async Task GetValueFrom_WithConstantOfBaseClass_ShouldReadIt()
+	{
+		ParameterInfo parameter = typeof(DerivedTestClass).GetMethod(nameof(DerivedTestClass.FromBaseConstant))!.GetParameters()[0];
+
+		Func<object?> valueFrom = AutoMockRow.GetValueFrom(parameter)!;
+
+		await That(valueFrom()).IsEqualTo("base constant");
+	}
+
+	[Test]
+	public async Task GetValueFrom_WithPrivateConstantOfBaseClass_ShouldThrow()
+	{
+		ParameterInfo parameter = typeof(DerivedTestClass).GetMethod(nameof(DerivedTestClass.FromPrivateBaseConstant))!.GetParameters()[0];
+
+		void Act()
+			=> AutoMockRow.GetValueFrom(parameter);
+
+		await That(Act).Throws<MockException>()
+			.WithMessage("The [ValueFrom] parameter 'value' needs a constant, static property or parameterless static method 'PrivateBaseConstant' in 'Mockolate.TUnit.Tests.AutoMockRowTests+DerivedTestClass'.");
 	}
 
 	[Test]
@@ -480,6 +577,50 @@ public sealed class AutoMockRowTests
 	{
 	}
 
+	private static void FromStaticReadonlyField([ValueFrom(nameof(ReadonlyNumber))] int value)
+	{
+	}
+
+	private static void FromStaticReadonlyDecimalField([ValueFrom(nameof(ReadonlyPrice))] decimal value)
+	{
+	}
+
+	private static void FromInstanceField([ValueFrom(nameof(_instanceNumber))] int value)
+	{
+	}
+
+	private static void FromConstant([ValueFrom(nameof(Seven))] int value)
+	{
+	}
+
+	private static void FromDecimalConstant([ValueFrom(nameof(Price))] decimal value)
+	{
+	}
+
+	private static void FromEnumConstant([ValueFrom(nameof(Comparison))] StringComparison value)
+	{
+	}
+
+	private static void FromNullConstant([ValueFrom(nameof(NoText))] string? value)
+	{
+	}
+
+#pragma warning disable CS0414 // The field is assigned but its value is never used
+	private static readonly int ReadonlyNumber = 1;
+
+	private static readonly decimal ReadonlyPrice = 1.5m;
+
+	private readonly int _instanceNumber = 1;
+#pragma warning restore CS0414
+
+	private const int Seven = 7;
+
+	private const decimal Price = 1.5m;
+
+	private const StringComparison Comparison = StringComparison.Ordinal;
+
+	private const string? NoText = null;
+
 	private static IUncreatableService NewService => new UncreatableService();
 
 	private static IUncreatableService? NullService => null;
@@ -527,6 +668,16 @@ public sealed class AutoMockRowTests
 		private static string PrivateBaseValue => "base";
 
 		protected static string Shadowed => "base";
+
+		protected const string BaseConstant = "base constant";
+
+		private const string PrivateBaseConstant = "base";
+
+		protected const string HiddenConstant = "base";
+
+		protected static string FieldHiddenValue => "base";
+
+		protected static string EventHiddenValue => "base";
 	}
 
 	public sealed class DerivedTestClass : BaseTestClass
@@ -556,6 +707,36 @@ public sealed class AutoMockRowTests
 		public static void FromPrivateBase([ValueFrom("PrivateBaseValue")] string value)
 		{
 		}
+
+		public static void FromBaseConstant([ValueFrom(nameof(BaseConstant))] string value)
+		{
+		}
+
+		public static void FromPrivateBaseConstant([ValueFrom("PrivateBaseConstant")] string value)
+		{
+		}
+
+		public static void FromHiddenConstant([ValueFrom(nameof(HiddenConstant))] string value)
+		{
+		}
+
+		public static void FromFieldHiddenValue([ValueFrom(nameof(FieldHiddenValue))] string value)
+		{
+		}
+
+		public static void FromEventHiddenValue([ValueFrom(nameof(EventHiddenValue))] string value)
+		{
+		}
+
+#pragma warning disable CS0414 // The field is assigned but its value is never used
+		private static new readonly string HiddenConstant = "derived";
+
+		private static new readonly string FieldHiddenValue = "derived";
+#pragma warning restore CS0414
+
+#pragma warning disable CS0067 // The event is never used
+		private static new event Action? EventHiddenValue;
+#pragma warning restore CS0067
 
 		private static string Generic<T>() => typeof(T).Name;
 	}
