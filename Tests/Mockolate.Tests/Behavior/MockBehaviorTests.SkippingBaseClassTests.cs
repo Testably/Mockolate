@@ -5,7 +5,7 @@ public sealed partial class MockBehaviorTests
 	public sealed class SkippingBaseClassTests
 	{
 		[Test]
-		public async Task DefaultBehavior_ForRefAndOutParameter_WhenMethodNotSetup_ShouldUseDefaultValues()
+		public async Task MethodWithRefAndOutParameters_WithDefaultBehavior_WhenNotSetup_ShouldUseTheBaseClassValues()
 		{
 			MyBaseClassWithVirtualCalls sut =
 				MyBaseClassWithVirtualCalls.CreateMock(MockBehavior.Default);
@@ -20,7 +20,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task DefaultBehavior_ForRefAndOutParameter_WhenMethodSetup_ShouldUseSetupValues()
+		public async Task MethodWithRefAndOutParameters_WithDefaultBehavior_WhenSetup_ShouldUseSetupValues()
 		{
 			MyBaseClassWithVirtualCalls sut =
 				MyBaseClassWithVirtualCalls.CreateMock(MockBehavior.Default);
@@ -37,7 +37,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task DefaultBehavior_WhenIndexerNotSetup_ShouldInitializeIndexerValuesFromBaseClass()
+		public async Task Indexer_WithDefaultBehavior_WhenNotSetup_ShouldInitializeValuesFromBaseClass()
 		{
 			MyBaseClassWithVirtualCalls sut =
 				MyBaseClassWithVirtualCalls.CreateMock(MockBehavior.Default);
@@ -55,7 +55,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task DefaultBehavior_WhenIndexerSetup_ShouldUseSetupValues()
+		public async Task Indexer_WithDefaultBehavior_WhenSetup_ShouldUseSetupValues()
 		{
 			MyBaseClassWithVirtualCalls sut =
 				MyBaseClassWithVirtualCalls.CreateMock(MockBehavior.Default);
@@ -72,7 +72,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task DefaultBehavior_WhenMethodNotSetup_ShouldReturnBaseValues()
+		public async Task Method_WithDefaultBehavior_WhenNotSetup_ShouldReturnBaseValues()
 		{
 			MyBaseClassWithVirtualCalls sut =
 				MyBaseClassWithVirtualCalls.CreateMock(MockBehavior.Default);
@@ -84,7 +84,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task DefaultBehavior_WhenMethodSetup_ShouldReturnSetupValues()
+		public async Task Method_WithDefaultBehavior_WhenSetup_ShouldReturnSetupValues()
 		{
 			MyBaseClassWithVirtualCalls sut =
 				MyBaseClassWithVirtualCalls.CreateMock(MockBehavior.Default);
@@ -97,7 +97,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task DefaultBehavior_WhenPropertyNotSetup_ShouldInitializePropertyWithValueFromBaseClass()
+		public async Task Property_WithDefaultBehavior_WhenNotSetup_ShouldInitializeWithValueFromBaseClass()
 		{
 			MyBaseClassWithVirtualCalls sut =
 				MyBaseClassWithVirtualCalls.CreateMock(MockBehavior.Default);
@@ -114,7 +114,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task DefaultBehavior_WhenPropertySetup_ShouldUseSetupValues()
+		public async Task Property_WithDefaultBehavior_WhenSetup_ShouldUseSetupValues()
 		{
 			MyBaseClassWithVirtualCalls sut =
 				MyBaseClassWithVirtualCalls.CreateMock(MockBehavior.Default);
@@ -133,7 +133,7 @@ public sealed partial class MockBehaviorTests
 
 		[Test]
 		public async Task
-			SkippingBaseClass_ForRefAndOutParameter_WhenMethodNotSetup_ShouldSetToPreviousOrDefaultValues()
+			MethodWithRefAndOutParameters_WhenNotSetup_ShouldSetToPreviousOrDefaultValues()
 		{
 			MyBaseClassWithVirtualCalls sut =
 				MyBaseClassWithVirtualCalls.CreateMock(MockBehavior.Default.SkippingBaseClass());
@@ -148,7 +148,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task SkippingBaseClass_ShouldNotCallIndexersOfBaseClass()
+		public async Task ShouldNotCallIndexersOfBaseClass()
 		{
 			MyBaseClassWithVirtualCalls sut =
 				MyBaseClassWithVirtualCalls.CreateMock(MockBehavior.Default.SkippingBaseClass());
@@ -164,7 +164,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task SkippingBaseClass_ShouldNotCallMethodOfBaseClass()
+		public async Task ShouldNotCallMethodOfBaseClass()
 		{
 			MyBaseClassWithVirtualCalls sut =
 				MyBaseClassWithVirtualCalls.CreateMock(MockBehavior.Default.SkippingBaseClass());
@@ -175,7 +175,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task SkippingBaseClass_ShouldNotCallPropertiesOfBaseClass()
+		public async Task ShouldNotCallPropertiesOfBaseClass()
 		{
 			MyBaseClassWithVirtualCalls sut =
 				MyBaseClassWithVirtualCalls.CreateMock(MockBehavior.Default.SkippingBaseClass());

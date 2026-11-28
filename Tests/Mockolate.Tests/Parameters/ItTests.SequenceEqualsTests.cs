@@ -140,7 +140,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_ShouldReturnExpectedValue()
+		public async Task ToString_ShouldDescribeTheMatcher()
 		{
 			IParameter<int[]> sut = It.SequenceEquals(1, 2, 3);
 			string expectedValue = "It.SequenceEquals(1, 2, 3)";
@@ -151,7 +151,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_Using_ShouldReturnExpectedValue()
+		public async Task ToString_WithComparer_ShouldIncludeTheComparer()
 		{
 			IParameter<int[]> sut = It.SequenceEquals(1, 2, 3).Using(new AllEqualComparer());
 			string expectedValue = "It.SequenceEquals(1, 2, 3).Using(new AllEqualComparer())";
@@ -162,7 +162,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_WithNullElement_ShouldRenderNullToken()
+		public async Task ToString_WithNullElement_ShouldShowNull()
 		{
 			IParameter<object?[]> sut = It.SequenceEquals<object?>("foo", null, 3);
 			string expectedValue = "It.SequenceEquals(\"foo\", null, 3)";
@@ -173,7 +173,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_WithStringValues_ShouldReturnExpectedValue()
+		public async Task ToString_WithStringValues_ShouldQuoteTheValues()
 		{
 			IParameter<string[]> sut = It.SequenceEquals("foo", "bar");
 			string expectedValue = "It.SequenceEquals(\"foo\", \"bar\")";
@@ -194,7 +194,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task TypedArrayMatch_WithNullValue_ShouldNotMatch()
+		public async Task WhenTheArrayIsNull_ShouldNotMatch()
 		{
 			IParameter<int[]> sut = It.SequenceEquals(1, 2, 3);
 
@@ -206,7 +206,7 @@ public sealed partial class ItTests
 		public sealed class DoTests
 		{
 			[Test]
-			public async Task Do_MultipleRegistrations_ShouldAllInvoke()
+			public async Task WithMultipleCallbacks_ShouldInvokeAllOfThem()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);
 				int firstCount = 0;
@@ -222,7 +222,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task Do_RegistersCallbackForArray()
+			public async Task WithArray_ShouldPassTheCollectionToTheCallback()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);
 				int[]? captured = null;
@@ -235,7 +235,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task Do_RegistersCallbackForICollection()
+			public async Task WithICollection_ShouldPassTheCollectionToTheCallback()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);
 				ICollection<int>? captured = null;
@@ -248,7 +248,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task Do_RegistersCallbackForIEnumerable()
+			public async Task WithIEnumerable_ShouldPassTheCollectionToTheCallback()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);
 				IEnumerable<int>? captured = null;
@@ -261,7 +261,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task Do_RegistersCallbackForIList()
+			public async Task WithIList_ShouldPassTheCollectionToTheCallback()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);
 				IList<int>? captured = null;
@@ -274,7 +274,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task Do_RegistersCallbackForIReadOnlyCollection()
+			public async Task WithIReadOnlyCollection_ShouldPassTheCollectionToTheCallback()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);
 				IReadOnlyCollection<int>? captured = null;
@@ -287,7 +287,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task Do_RegistersCallbackForIReadOnlyList()
+			public async Task WithIReadOnlyList_ShouldPassTheCollectionToTheCallback()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);
 				IReadOnlyList<int>? captured = null;
@@ -300,7 +300,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task Do_RegistersCallbackForList()
+			public async Task WithList_ShouldPassTheCollectionToTheCallback()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);
 				List<int>? captured = null;
@@ -313,7 +313,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task Do_RegistersCallbackForQueue()
+			public async Task WithQueue_ShouldPassTheCollectionToTheCallback()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);
 				Queue<int>? captured = null;
@@ -327,7 +327,7 @@ public sealed partial class ItTests
 			}
 
 			[Test]
-			public async Task Do_RegistersCallbackForStack()
+			public async Task WithStack_ShouldPassTheCollectionToTheCallback()
 			{
 				It.ISequenceEqualsParameter<int> sut = It.SequenceEquals(1, 2, 3);
 				Stack<int>? captured = null;

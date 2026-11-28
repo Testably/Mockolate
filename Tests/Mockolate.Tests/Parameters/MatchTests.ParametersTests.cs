@@ -24,7 +24,7 @@ public sealed partial class MatchTests
 		}
 
 		[Test]
-		public async Task ToString_ShouldReturnExpectedValue()
+		public async Task ToString_ShouldDescribeTheMatcher()
 		{
 			IParameters sut = Match.Parameters(_ => true);
 			string expectedValue = "Match.Parameters(_ => true)";

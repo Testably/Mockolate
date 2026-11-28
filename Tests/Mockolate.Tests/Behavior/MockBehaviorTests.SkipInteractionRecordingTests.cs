@@ -34,7 +34,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task WhenSkipping_Indexer_ShouldStillStoreAndReturnValue()
+		public async Task Indexer_WhenSkipping_ShouldStillStoreAndReturnValue()
 		{
 			IMyService sut = IMyService.CreateMock(MockBehavior.Default.SkippingInteractionRecording());
 			sut[7] = "hello";
@@ -45,7 +45,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task WhenSkipping_Method_ShouldStillReturnSetupValue()
+		public async Task Method_WhenSkipping_ShouldStillReturnSetupValue()
 		{
 			IMyService sut = IMyService.CreateMock(MockBehavior.Default.SkippingInteractionRecording());
 			sut.Mock.Setup.IsValid(It.IsAny<int>()).Returns(true);
@@ -56,7 +56,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task WhenSkipping_NoInteractionsAreRecorded()
+		public async Task WhenSkipping_ShouldNotRecordAnyInteraction()
 		{
 			IMyService sut = IMyService.CreateMock(MockBehavior.Default.SkippingInteractionRecording());
 			sut.Mock.Setup.SomeFlag.InitializeWith(true);
@@ -71,7 +71,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task WhenSkipping_PropertyGetter_ShouldStillReturnSetupValue()
+		public async Task PropertyGetter_WhenSkipping_ShouldStillReturnSetupValue()
 		{
 			IMyService sut = IMyService.CreateMock(MockBehavior.Default.SkippingInteractionRecording());
 			sut.Mock.Setup.SomeFlag.InitializeWith(true);
@@ -82,7 +82,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task WhenSkipping_PropertySetter_ShouldStillStoreValue()
+		public async Task PropertySetter_WhenSkipping_ShouldStillStoreValue()
 		{
 			IMyService sut = IMyService.CreateMock(MockBehavior.Default.SkippingInteractionRecording());
 			sut.Mock.Setup.SomeFlag.InitializeWith(false);
@@ -94,7 +94,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task WhenSkipping_Verify_ShouldThrow()
+		public async Task Verify_WhenSkipping_ShouldThrow()
 		{
 			IMyService sut = IMyService.CreateMock(MockBehavior.Default.SkippingInteractionRecording());
 			sut.Mock.Setup.SomeFlag.InitializeWith(true);

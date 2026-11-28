@@ -9,7 +9,7 @@ public sealed partial class ItTests
 	public sealed class IsRefSpanTests
 	{
 		[Test]
-		public async Task ToString_WithPredicateAndSetter_ShouldReturnExpectedValue()
+		public async Task ToString_WithPredicateAndSetter_ShouldDescribeTheMatcher()
 		{
 			IRefParameter<SpanWrapper<int>> sut = It.IsRefSpan<int>(
 				value => value.SpanValues.Length > 0,
@@ -23,7 +23,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_WithPredicateOnly_ShouldReturnExpectedValue()
+		public async Task ToString_WithPredicateOnly_ShouldDescribeTheMatcher()
 		{
 			IRefParameter<SpanWrapper<int>> sut =
 				It.IsRefSpan<int>(value => value.SpanValues.Length > 0);
@@ -35,7 +35,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_WithSetterOnly_ShouldReturnExpectedValue()
+		public async Task ToString_WithSetterOnly_ShouldDescribeTheMatcher()
 		{
 			IRefParameter<SpanWrapper<int>> sut = It.IsRefSpan<int>(value => value);
 			string expectedValue = "It.IsRef<SpanWrapper<int>>(value => value)";

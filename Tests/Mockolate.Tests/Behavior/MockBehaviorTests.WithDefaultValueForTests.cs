@@ -5,7 +5,7 @@ public sealed partial class MockBehaviorTests
 	public sealed class WithDefaultValueForTests
 	{
 		[Test]
-		public async Task MultipleTypedFactories_ShouldSupportAll()
+		public async Task WithMultipleTypedFactories_ShouldSupportAll()
 		{
 			MockBehavior behavior = MockBehavior.Default
 				.WithDefaultValueFor(() => new MySpecialValue(5))

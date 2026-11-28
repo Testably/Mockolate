@@ -12,7 +12,7 @@ public sealed partial class MockVerificationResultTests
 	public class AsyncTests
 	{
 		[Test]
-		public async Task MultipleWithin_ShouldOverwritePreviousTimeout()
+		public async Task Within_WhenCalledTwice_ShouldOverwritePreviousTimeout()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 
@@ -30,7 +30,7 @@ public sealed partial class MockVerificationResultTests
 		}
 
 		[Test]
-		public async Task Verify_OnAwaitable_WhenPredicateBecomesSatisfied_ShouldReturnTrue()
+		public async Task Verify_WithTimeout_WhenPredicateBecomesSatisfied_ShouldReturnTrue()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 
@@ -58,7 +58,7 @@ public sealed partial class MockVerificationResultTests
 		}
 
 		[Test]
-		public async Task Verify_OnAwaitable_WhenPredicateIsAlreadySatisfied_ShouldReturnTrue()
+		public async Task Verify_WithTimeout_WhenPredicateIsAlreadySatisfied_ShouldReturnTrue()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 			sut.Dispense("Dark", 1);
@@ -71,7 +71,7 @@ public sealed partial class MockVerificationResultTests
 		}
 
 		[Test]
-		public async Task Verify_OnAwaitable_WhenPredicateIsNeverSatisfied_ShouldThrowTimeoutException()
+		public async Task Verify_WithTimeout_WhenPredicateIsNeverSatisfied_ShouldThrowTimeoutException()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 
@@ -226,7 +226,7 @@ public sealed partial class MockVerificationResultTests
 		}
 
 		[Test]
-		public async Task WithCancellationAndTimeout_ShouldCombineBoth()
+		public async Task WithCancellation_WithLongerTimeout_ShouldNotIncludeTimeoutInException()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 			using CancellationTokenSource cts = new(50);
@@ -246,7 +246,7 @@ public sealed partial class MockVerificationResultTests
 		}
 
 		[Test]
-		public async Task WithCancellationAndTimeout_ShouldIncludeTimeoutInExceptionWhenLessThanCancellationToken()
+		public async Task WithCancellation_WithShorterTimeout_ShouldIncludeTimeoutInException()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 			using CancellationTokenSource cts = new(30000);
@@ -266,7 +266,7 @@ public sealed partial class MockVerificationResultTests
 		}
 
 		[Test]
-		public async Task WithCancellationToken_ShouldIncludeTimeoutInException()
+		public async Task WithCancellation_WhenTheTokenIsCanceled_ShouldReportThatItTimedOut()
 		{
 			IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 			using CancellationTokenSource cts = new(100);

@@ -6,7 +6,7 @@ namespace Mockolate.Tests.Verify;
 public sealed partial class MockVerificationResultTests
 {
 	[Test]
-	public async Task AnyParameters_OnOverloadedGenericMethod_LegacyPath_ShouldOnlyCountTheTargetedOverload()
+	public async Task AnyParameters_WithOverloadedGenericMethod_ShouldOnlyCountTheTargetedOverload()
 	{
 		IOverloadedMethodService sut = IOverloadedMethodService.CreateMock();
 
@@ -19,7 +19,7 @@ public sealed partial class MockVerificationResultTests
 	}
 
 	[Test]
-	public async Task AnyParameters_OnOverloadedMethod_FastPath_ShouldOnlyCountTheTargetedOverload()
+	public async Task AnyParameters_WithOverloadedMethod_ShouldOnlyCountTheTargetedOverload()
 	{
 		IOverloadedMethodService sut = IOverloadedMethodService.CreateMock();
 
@@ -32,7 +32,7 @@ public sealed partial class MockVerificationResultTests
 	}
 
 	[Test]
-	public async Task AnyParameters_OnUntypedDefaultArguments_ShouldBindToValuesOverload()
+	public async Task AnyParameters_WithUntypedDefaultArguments_ShouldBindToValuesOverload()
 	{
 		IOverloadedMethodService sut = IOverloadedMethodService.CreateMock();
 
@@ -46,7 +46,7 @@ public sealed partial class MockVerificationResultTests
 	}
 
 	[Test]
-	public async Task VerificationResult_Got_ShouldHaveExpectedValue()
+	public async Task Expectation_WithPropertyGot_ShouldDescribeTheVerification()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 
@@ -57,7 +57,7 @@ public sealed partial class MockVerificationResultTests
 	}
 
 	[Test]
-	public async Task VerificationResult_GotIndexer_ShouldHaveExpectedValue()
+	public async Task Expectation_WithIndexerGot_ShouldDescribeTheVerification()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 
@@ -68,7 +68,7 @@ public sealed partial class MockVerificationResultTests
 	}
 
 	[Test]
-	public async Task VerificationResult_GotIndexerWithMultipleParameters_ShouldHaveExpectedValue()
+	public async Task Expectation_WithIndexerGotAndMultipleKeys_ShouldDescribeTheVerification()
 	{
 		IIndexerVerificationService sut = IIndexerVerificationService.CreateMock();
 
@@ -79,7 +79,7 @@ public sealed partial class MockVerificationResultTests
 	}
 
 	[Test]
-	public async Task VerificationResult_Invoked_AnyParameters_ShouldHaveExpectedValue()
+	public async Task Expectation_WithInvokedAndAnyParameters_ShouldDescribeTheVerification()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 
@@ -91,7 +91,7 @@ public sealed partial class MockVerificationResultTests
 	}
 
 	[Test]
-	public async Task VerificationResult_Invoked_ShouldHaveExpectedValue()
+	public async Task Expectation_WithInvoked_ShouldDescribeTheVerification()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 
@@ -103,7 +103,7 @@ public sealed partial class MockVerificationResultTests
 	}
 
 	[Test]
-	public async Task VerificationResult_MockInteractions_HasAllInteractions()
+	public async Task Interactions_ShouldContainAllInteractionsOfTheMock()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 
@@ -120,7 +120,7 @@ public sealed partial class MockVerificationResultTests
 	}
 
 	[Test]
-	public async Task VerificationResult_Set_ShouldHaveExpectedValue()
+	public async Task Expectation_WithPropertySet_ShouldDescribeTheVerification()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 
@@ -132,7 +132,7 @@ public sealed partial class MockVerificationResultTests
 	}
 
 	[Test]
-	public async Task VerificationResult_SetIndexer_ShouldHaveExpectedValue()
+	public async Task Expectation_WithIndexerSet_ShouldDescribeTheVerification()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 
@@ -144,7 +144,7 @@ public sealed partial class MockVerificationResultTests
 	}
 
 	[Test]
-	public async Task VerificationResult_SetIndexerWithMultipleParameters_ShouldHaveExpectedValue()
+	public async Task Expectation_WithIndexerSetAndMultipleKeys_ShouldDescribeTheVerification()
 	{
 		IIndexerVerificationService sut = IIndexerVerificationService.CreateMock();
 
@@ -155,7 +155,7 @@ public sealed partial class MockVerificationResultTests
 	}
 
 	[Test]
-	public async Task VerificationResult_SetIndexerWithMultipleParametersToNull_ShouldHaveExpectedValue()
+	public async Task Expectation_WithIndexerSetToNullAndMultipleKeys_ShouldDescribeTheVerification()
 	{
 		IIndexerVerificationService sut = IIndexerVerificationService.CreateMock();
 
@@ -166,7 +166,7 @@ public sealed partial class MockVerificationResultTests
 	}
 
 	[Test]
-	public async Task VerificationResult_SubscribedTo_ShouldHaveExpectedValue()
+	public async Task Expectation_WithSubscribed_ShouldDescribeTheVerification()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 
@@ -177,7 +177,7 @@ public sealed partial class MockVerificationResultTests
 	}
 
 	[Test]
-	public async Task VerificationResult_UnsubscribedFrom_ShouldHaveExpectedValue()
+	public async Task Expectation_WithUnsubscribed_ShouldDescribeTheVerification()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 

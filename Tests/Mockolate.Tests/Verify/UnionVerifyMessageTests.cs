@@ -10,7 +10,7 @@ public sealed class UnionVerifyMessageTests
 	[Test]
 	[Arguments(true)]
 	[Arguments(false)]
-	public async Task FailedVerify_ShouldDescribeEverySlotKind(bool invokedBefore)
+	public async Task WhenVerificationFails_ShouldDescribeEveryArgumentKind(bool invokedBefore)
 	{
 		IUnionMessageService sut = IUnionMessageService.CreateMock();
 		if (invokedBefore)
@@ -86,7 +86,7 @@ public sealed class UnionVerifyMessageTests
 	}
 
 	[Test]
-	public async Task FailedNeverVerify_ShouldDescribeTheUnionArguments()
+	public async Task Never_WhenVerificationFails_ShouldDescribeTheUnionArguments()
 	{
 		IUnionMessageService sut = IUnionMessageService.CreateMock();
 		sut.Two(1, null);
@@ -104,7 +104,7 @@ public sealed class UnionVerifyMessageTests
 	}
 
 	[Test]
-	public async Task FailedThenVerify_WithMixedLiteralAndMatcher_ShouldDescribeTheUnionArguments()
+	public async Task Then_WithMixedLiteralAndMatcher_WhenVerificationFails_ShouldDescribeTheUnionArguments()
 	{
 		IUnionMessageService sut = IUnionMessageService.CreateMock();
 		sut.Two(1, "a");

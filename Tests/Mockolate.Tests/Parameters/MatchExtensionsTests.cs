@@ -6,7 +6,7 @@ namespace Mockolate.Tests.Parameters;
 public sealed class MatchExtensionsTests
 {
 	[Test]
-	public async Task OutParameterMonitor_MultipleMonitors_ShouldAllMonitorValues()
+	public async Task Monitor_WithOutParameterAndMultipleMonitors_ShouldRecordTheAssignedValuesInEach()
 	{
 		int idx = 1;
 		IMyService sut = IMyService.CreateMock();
@@ -24,7 +24,7 @@ public sealed class MatchExtensionsTests
 	}
 
 	[Test]
-	public async Task OutParameterMonitor_ShouldMonitorReceivedValues()
+	public async Task Monitor_WithOutParameter_ShouldRecordTheAssignedValues()
 	{
 		int idx = 1;
 		IMyService sut = IMyService.CreateMock();
@@ -38,7 +38,7 @@ public sealed class MatchExtensionsTests
 	}
 
 	[Test]
-	public async Task ParameterMonitor_MultipleMonitors_ShouldAllMonitorValues()
+	public async Task Monitor_WithMultipleMonitors_ShouldRecordTheReceivedValuesInEach()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		sut.Mock.Setup.Dispense(
@@ -57,7 +57,7 @@ public sealed class MatchExtensionsTests
 	}
 
 	[Test]
-	public async Task ParameterMonitor_ShouldMonitorReceivedValues()
+	public async Task Monitor_ShouldRecordTheReceivedValues()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		sut.Mock.Setup.Dispense(It.IsAny<string>().Monitor(out IParameterMonitor<string> monitor), It.IsAny<int>());
@@ -69,7 +69,7 @@ public sealed class MatchExtensionsTests
 	}
 
 	[Test]
-	public async Task ParameterMonitor_WithFilter_ShouldMonitorMatchingValues()
+	public async Task Monitor_WithPredicate_ShouldOnlyRecordMatchingValues()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 		sut.Mock.Setup.Dispense(It.IsAny<string>(),
@@ -87,7 +87,7 @@ public sealed class MatchExtensionsTests
 	}
 
 	[Test]
-	public async Task RefParameterMonitor_MultipleMonitors_ShouldAllMonitorValues()
+	public async Task Monitor_WithRefParameterAndMultipleMonitors_ShouldRecordTheAssignedValuesInEach()
 	{
 		IMyService sut = IMyService.CreateMock();
 		sut.Mock.Setup.MyMethodWithRefParam(It.IsRef<int>(v => 2 * v)
@@ -104,7 +104,7 @@ public sealed class MatchExtensionsTests
 	}
 
 	[Test]
-	public async Task RefParameterMonitor_ShouldMonitorReceivedValues()
+	public async Task Monitor_WithRefParameter_ShouldRecordTheAssignedValues()
 	{
 		IMyService sut = IMyService.CreateMock();
 		sut.Mock.Setup.MyMethodWithRefParam(It.IsRef<int>(v => 2 * v)
@@ -119,7 +119,7 @@ public sealed class MatchExtensionsTests
 	}
 
 	[Test]
-	public async Task RefParameterMonitor_WithFilter_ShouldMonitorMatchingValues()
+	public async Task Monitor_WithRefParameterAndPredicate_ShouldOnlyRecordTheAssignedValuesOfMatches()
 	{
 		IMyService sut = IMyService.CreateMock();
 		sut.Mock.Setup.MyMethodWithRefParam(It.IsRef<int>(i => i > 4, v => 2 * v)

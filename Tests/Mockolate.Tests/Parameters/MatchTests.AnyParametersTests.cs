@@ -7,7 +7,7 @@ public sealed partial class MatchTests
 	public sealed class AnyParametersTests
 	{
 		[Test]
-		public async Task ToString_ShouldReturnExpectedValue()
+		public async Task ToString_ShouldDescribeTheMatcher()
 		{
 			IParameters sut = Match.AnyParameters();
 			string expectedValue = "Match.AnyParameters()";

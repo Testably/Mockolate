@@ -7,7 +7,7 @@ public sealed partial class ItTests
 	public sealed class IsAnyTests
 	{
 		[Test]
-		public async Task CachedMatcher_CallbackFromPriorDo_ShouldNotLeakIntoSubsequentUsage()
+		public async Task WhenCalledAgain_ShouldNotInvokeTheCallbackOfAPriorUsage()
 		{
 			_ = It.IsAny<int>().Do(_ => throw new InvalidOperationException("callback leaked from prior use"));
 
@@ -17,7 +17,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task CachedMatcher_MonitorFromPriorUsage_ShouldNotLeakIntoSubsequentUsage()
+		public async Task WhenCalledAgain_ShouldNotRecordIntoTheMonitorOfAPriorUsage()
 		{
 			_ = It.IsAny<int>().Monitor(out IParameterMonitor<int> leakedMonitor);
 
@@ -41,7 +41,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_ShouldReturnExpectedValue()
+		public async Task ToString_ShouldDescribeTheMatcher()
 		{
 			IParameter<string> sut = It.IsAny<string>();
 			string expectedValue = "It.IsAny<string>()";

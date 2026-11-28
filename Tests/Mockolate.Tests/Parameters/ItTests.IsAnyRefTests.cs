@@ -27,7 +27,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_ShouldReturnExpectedValue()
+		public async Task ToString_ShouldDescribeTheMatcher()
 		{
 			IRefParameter<int> sut = It.IsAnyRef<int>();
 			string expectedValue = "It.IsAnyRef<int>()";

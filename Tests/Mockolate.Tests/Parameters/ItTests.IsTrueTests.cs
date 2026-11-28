@@ -7,7 +7,7 @@ public sealed partial class ItTests
 	public sealed class IsTrueTests
 	{
 		[Test]
-		public async Task CachedMatcher_CallbackFromPriorDo_ShouldNotLeakIntoSubsequentUsage()
+		public async Task WhenCalledAgain_ShouldNotInvokeTheCallbackOfAPriorUsage()
 		{
 			_ = It.IsTrue().Do(_ => throw new InvalidOperationException("callback leaked from prior use"));
 
@@ -17,7 +17,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_ShouldReturnExpectedValue()
+		public async Task ToString_ShouldDescribeTheMatcher()
 		{
 			IParameter<bool> sut = It.IsTrue();
 			string expectedValue = "It.IsTrue()";
@@ -30,7 +30,7 @@ public sealed partial class ItTests
 		[Test]
 		[Arguments(true, 1)]
 		[Arguments(false, 0)]
-		public async Task True_ShouldMatchWhenTrue(bool value, int expectedCount)
+		public async Task ShouldMatchWhenTrue(bool value, int expectedCount)
 		{
 			IMyServiceWithNullable sut = IMyServiceWithNullable.CreateMock();
 			sut.Mock.Setup.DoSomething(null, It.IsTrue());

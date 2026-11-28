@@ -9,7 +9,7 @@ public sealed partial class ItTests
 	public sealed class IsOutSpanTests
 	{
 		[Test]
-		public async Task ToString_ShouldReturnExpectedValue()
+		public async Task ToString_ShouldDescribeTheMatcher()
 		{
 			IOutParameter<SpanWrapper<int>> sut =
 				It.IsOutSpan(() => new SpanWrapper<int>([1, 2, 3,]));

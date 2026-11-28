@@ -12,7 +12,7 @@ public sealed partial class ItTests
 		[Arguments("", false)]
 		[Arguments("foo", false)]
 		[Arguments("bar", true)]
-		public async Task ShouldAlwaysMatch(string value, bool expectSuccess)
+		public async Task ShouldMatchWhenThePredicateHolds(string value, bool expectSuccess)
 		{
 			Span<char> valueSpan = new(value.ToCharArray());
 			IVerifySpanParameter<char> sut = It.IsSpan<char>(c => c.Length > 0 && c[0] == 'b');
@@ -23,7 +23,7 @@ public sealed partial class ItTests
 		}
 
 		[Test]
-		public async Task ToString_ShouldReturnExpectedValue()
+		public async Task ToString_ShouldDescribeTheMatcher()
 		{
 			IVerifySpanParameter<char> sut = It.IsSpan<char>(c => c[0] == 'a');
 			string expectedValue = "It.IsSpan<char>(c => c[0] == 'a')";

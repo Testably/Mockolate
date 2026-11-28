@@ -12,7 +12,7 @@ public sealed partial class MockBehaviorTests
 	public sealed class DefaultValueTests
 	{
 		[Test]
-		public async Task Recursive_ShouldReturnNull()
+		public async Task WithInterface_WhenSkippingAutoMocking_ShouldReturnNull()
 		{
 			IDefaultValueGeneratorProperties sut = IDefaultValueGeneratorProperties.CreateMock(MockBehavior.Default.SkippingAutoMocking());
 
@@ -42,7 +42,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task WithCombination_ShouldReturnNotNullValues()
+		public async Task WithValueTupleInTask_ShouldReturnValueTupleWithDefaultValues()
 		{
 			IDefaultValueGeneratorProperties sut = IDefaultValueGeneratorProperties.CreateMock();
 
@@ -290,7 +290,7 @@ public sealed partial class MockBehaviorTests
 		}
 
 		[Test]
-		public async Task WithTaskIntArray_ShouldReturnZero()
+		public async Task WithTaskIntArray_ShouldReturnEmptyArray()
 		{
 			IDefaultValueGeneratorProperties sut = IDefaultValueGeneratorProperties.CreateMock();
 
@@ -313,7 +313,7 @@ public sealed partial class MockBehaviorTests
 
 #if NET8_0_OR_GREATER
 		[Test]
-		public async Task WithValueTaskIntArray_ShouldReturnZero()
+		public async Task WithValueTaskIntArray_ShouldReturnEmptyArray()
 		{
 			IDefaultValueGeneratorProperties sut = IDefaultValueGeneratorProperties.CreateMock();
 

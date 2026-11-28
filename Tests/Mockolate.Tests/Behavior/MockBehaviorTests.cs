@@ -5,7 +5,7 @@ namespace Mockolate.Tests.Behavior;
 public sealed partial class MockBehaviorTests
 {
 	[Test]
-	public async Task Default_ShouldInitializeCorrectly()
+	public async Task Default_ShouldNotSkipTheBaseClassOrThrowWhenNotSetup()
 	{
 		IMyService sut = IMyService.CreateMock();
 		MockBehavior behavior = ((IMock)sut).MockRegistry.Behavior;
@@ -51,7 +51,7 @@ public sealed partial class MockBehaviorTests
 	}
 
 	[Test]
-	public async Task WithDefaultValueGenerator_AfterWithDefaultValueFor_ShouldKeepFactories()
+	public async Task WithDefaultValueGenerator_WhenCalledAfterWithDefaultValueFor_ShouldKeepFactories()
 	{
 		MockBehavior sut = MockBehavior.Default
 			.WithDefaultValueFor(() => 42)
@@ -63,7 +63,7 @@ public sealed partial class MockBehaviorTests
 	}
 
 	[Test]
-	public async Task WithDefaultValueGenerator_BeforeWithDefaultValueFor_ShouldUseFactoriesAndGenerator()
+	public async Task WithDefaultValueGenerator_WhenCalledBeforeWithDefaultValueFor_ShouldUseFactoriesAndGenerator()
 	{
 		MockBehavior sut = MockBehavior.Default
 			.WithDefaultValueGenerator(new MyDefaultValueGenerator())
@@ -85,7 +85,7 @@ public sealed partial class MockBehaviorTests
 	}
 
 	[Test]
-	public async Task ToString_Default_ShouldReturnDefault()
+	public async Task ToString_WithDefaultBehavior_ShouldReturnDefault()
 	{
 		MockBehavior sut = MockBehavior.Default;
 
@@ -95,7 +95,7 @@ public sealed partial class MockBehaviorTests
 	}
 
 	[Test]
-	public async Task ToString_SkippingBaseClass_ShouldReturnExpectedValue()
+	public async Task ToString_WithSkippingBaseClass_ShouldNameTheFlag()
 	{
 		MockBehavior sut = MockBehavior.Default.SkippingBaseClass();
 
@@ -105,7 +105,7 @@ public sealed partial class MockBehaviorTests
 	}
 
 	[Test]
-	public async Task ToString_SkippingBaseClassAndThrowingWhenNotSetup_ShouldReturnExpectedValue()
+	public async Task ToString_WithSkippingBaseClassAndThrowingWhenNotSetup_ShouldNameBothFlags()
 	{
 		MockBehavior sut = MockBehavior.Default with
 		{
@@ -119,7 +119,7 @@ public sealed partial class MockBehaviorTests
 	}
 
 	[Test]
-	public async Task ToString_ThrowingWhenNotSetup_ShouldReturnExpectedValue()
+	public async Task ToString_WithThrowingWhenNotSetup_ShouldNameTheFlag()
 	{
 		MockBehavior sut = MockBehavior.Default.ThrowingWhenNotSetup();
 
@@ -129,7 +129,7 @@ public sealed partial class MockBehaviorTests
 	}
 
 	[Test]
-	public async Task ToString_WithSetups_ShouldReturnExpectedValue()
+	public async Task ToString_WithInitializeAndConstructorParameters_ShouldCountTheRegistrations()
 	{
 		MockBehavior sut = MockBehavior.Default.SkippingBaseClass()
 			.UseConstructorParametersFor<MyServiceBase>(1)
@@ -142,7 +142,7 @@ public sealed partial class MockBehaviorTests
 	}
 
 	[Test]
-	public async Task ToString_WithUseConstructorParametersFor_ShouldReturnExpectedValue()
+	public async Task ToString_WithUseConstructorParametersFor_ShouldCountTheRegistrations()
 	{
 		MockBehavior sut = MockBehavior.Default
 			.UseConstructorParametersFor<MyServiceBase>(1)
@@ -154,7 +154,7 @@ public sealed partial class MockBehaviorTests
 	}
 
 	[Test]
-	public async Task WithMultipleFlags_ShouldKeepAllPartsInOutput()
+	public async Task ToString_WithMultipleFlags_ShouldNameAllFlags()
 	{
 		MockBehavior behavior = MockBehavior.Default
 			.ThrowingWhenNotSetup()

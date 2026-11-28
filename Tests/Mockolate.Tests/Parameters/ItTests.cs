@@ -8,7 +8,7 @@ namespace Mockolate.Tests.Parameters;
 public sealed partial class ItTests
 {
 	[Test]
-	public async Task InvokeCallbacks_NonGeneric_WithMatchingType_ShouldInvokeCallback()
+	public async Task InvokeCallbacks_WithObjectOfMatchingType_ShouldInvokeCallback()
 	{
 		int isCalled = 0;
 		IParameter<int> sut = It.Satisfies<int>(_ => true)
@@ -20,7 +20,7 @@ public sealed partial class ItTests
 	}
 
 	[Test]
-	public async Task InvokeCallbacks_NonGeneric_WithMismatchedType_ShouldNotInvokeCallback()
+	public async Task InvokeCallbacks_WithObjectOfMismatchedType_ShouldNotInvokeCallback()
 	{
 		int isCalled = 0;
 		IParameter<int> sut = It.Satisfies<int>(_ => true)
@@ -32,7 +32,7 @@ public sealed partial class ItTests
 	}
 
 	[Test]
-	public async Task InvokeCallbacks_NonGeneric_WithNullForNonNullableValueType_ShouldNotInvokeCallback()
+	public async Task InvokeCallbacks_WithNullForNonNullableValueType_ShouldNotInvokeCallback()
 	{
 		int isCalled = 0;
 		IParameter<int> sut = It.Satisfies<int>(_ => true)
@@ -44,7 +44,7 @@ public sealed partial class ItTests
 	}
 
 	[Test]
-	public async Task InvokeCallbacks_NonGeneric_WithNullForNullableValueType_ShouldInvokeCallbackWithDefault()
+	public async Task InvokeCallbacks_WithNullForNullableValueType_ShouldInvokeCallbackWithDefault()
 	{
 		int isCalled = 0;
 		int? capturedValue = 42;
@@ -62,7 +62,7 @@ public sealed partial class ItTests
 	}
 
 	[Test]
-	public async Task InvokeCallbacks_NonGeneric_WithNullForReferenceType_ShouldInvokeCallbackWithDefault()
+	public async Task InvokeCallbacks_WithNullForReferenceType_ShouldInvokeCallbackWithDefault()
 	{
 		int isCalled = 0;
 		string? capturedValue = "not-null";
@@ -80,7 +80,7 @@ public sealed partial class ItTests
 	}
 
 	[Test]
-	public async Task InvokeCallbacks_WithCorrectType_ShouldInvokeCallback()
+	public async Task InvokeCallbacks_WithTypedValue_ShouldInvokeCallback()
 	{
 		int isCalled = 0;
 		IParameter<int> sut = It.Satisfies<int>(_ => true)
