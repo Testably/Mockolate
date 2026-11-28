@@ -364,6 +364,14 @@ internal static class Helpers
 		};
 
 	/// <summary>
+	///     False when closing the containing type turns the constraints of a method type parameter into a
+	///     contradiction (see <see cref="ConstraintConflicts" />), so no mock can implement the method.
+	/// </summary>
+	public static bool HasSatisfiableConstraints(ISymbol member)
+		=> member is not IMethodSymbol method ||
+		   method.TypeParameters.All(typeParameter => ConstraintConflicts.Find(typeParameter) is null);
+
+	/// <summary>
 	///     Whether <paramref name="a" /> and <paramref name="b" /> are emitted as the same type, which also holds for
 	///     <see langword="dynamic" /> and <see langword="object" /> (see <see cref="Type" />).
 	/// </summary>

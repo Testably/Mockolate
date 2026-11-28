@@ -47,11 +47,7 @@ This rule prevents you from mocking unsupported types:
 - `CreateMock(out ConstructorArguments arguments)`: the type must be a sealed class or a record that your assembly can access, with a single accessible constructor with the most parameters that sets all `required` members. It must not be abstract, generic or nested in a generic type, obsolete, file-local, in the `System`, `Microsoft` or `Windows` namespaces, or have a member named `CreateMock` or inherit one that hides the generated one.
 - `Implementing<T>()`: the type must be an interface.
 
-It also fires when the type has a member that the mock would have to implement (an abstract member, or an interface
-member without a default implementation), but that your assembly cannot access: for example an `internal abstract` or
-`private protected abstract` member, or a `{ get; internal set; }` property, on a type from a referenced assembly that
-does not grant `InternalsVisibleTo`. There is no valid code a mock could emit for such a member, so the type cannot be
-mocked at all.
+It also fires when the type has a member that the mock would have to implement (an abstract member, or an interface member without a default implementation), but for which no implementation compiles: a member your assembly cannot access, for example an `internal abstract` or `private protected abstract` member, or a `{ get; internal set; }` property, on a type from a referenced assembly that does not grant `InternalsVisibleTo`, or a generic method whose type parameter constraints contradict each other once the type is closed, such as `where U : class, T` with `T` as `int`. There is no valid code a mock could emit for such a member, so the type cannot be mocked at all.
 
 <details>
 <summary>When a derived type already implements the inaccessible member</summary>

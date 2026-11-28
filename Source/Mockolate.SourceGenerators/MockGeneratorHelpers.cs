@@ -269,6 +269,7 @@ internal static partial class MockGeneratorHelpers
 
 	private static bool IsCompilableMockMember(ISymbol member)
 		=> !HasUsageDiagnostic(member) && !HasRefReadOnlyRefStructParameter(member) && !HasUnsupportedShape(member) &&
+		   (!member.IsAbstract || Helpers.HasSatisfiableConstraints(member)) &&
 		   GetSignatureTypes(member).All(type => !UsesUnusableType(type));
 
 	private const int MaxTypeArgumentDepth = 5;
