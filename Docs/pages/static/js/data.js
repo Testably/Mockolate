@@ -1992,6 +1992,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -2326,7 +2332,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -2664,7 +2671,8 @@ window.BENCHMARK_DATA = {
           178.91117634773255,
           121.41323016371045,
           112.9277146021525,
-          132.08857901891074
+          132.08857901891074,
+          151.42237213452657
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -2993,6 +3001,7 @@ window.BENCHMARK_DATA = {
           800,
           800,
           800,
+          808,
           808,
           808,
           808,
@@ -3353,7 +3362,8 @@ window.BENCHMARK_DATA = {
           36481.23522949219,
           29864.65078125,
           28974.36519211989,
-          30861.6958211263
+          30861.6958211263,
+          60560.0844538762
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -3696,7 +3706,8 @@ window.BENCHMARK_DATA = {
           9046,
           9055,
           9055,
-          9055
+          9055,
+          9056
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -4042,7 +4053,8 @@ window.BENCHMARK_DATA = {
           3353.7073691231863,
           2437.860776901245,
           2347.655282701765,
-          2488.0991104670934
+          2488.0991104670934,
+          3479.5114616394044
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -4203,6 +4215,7 @@ window.BENCHMARK_DATA = {
           7896,
           7896,
           7896,
+          7864,
           7864,
           7864,
           7864,
@@ -4731,7 +4744,8 @@ window.BENCHMARK_DATA = {
           3064.7886202494306,
           2412.6706556592667,
           2280.4464668273927,
-          2539.7592980521067
+          2539.7592980521067,
+          3484.446696472168
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -5072,6 +5086,7 @@ window.BENCHMARK_DATA = {
           6930,
           6930,
           6924,
+          6930,
           6930,
           6930,
           6930
@@ -5420,7 +5435,8 @@ window.BENCHMARK_DATA = {
           187.91665541330974,
           132.34613890647887,
           117.69420857429505,
-          137.4989736398061
+          137.4989736398061,
+          153.91780504158564
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -5586,6 +5602,7 @@ window.BENCHMARK_DATA = {
           736,
           736,
           736,
+          616,
           616,
           616,
           616,
@@ -6109,7 +6126,8 @@ window.BENCHMARK_DATA = {
           337.7803147315979,
           234.15918453534445,
           206.48129957062858,
-          232.27818972723824
+          232.27818972723824,
+          280.3291354497274
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -6420,6 +6438,7 @@ window.BENCHMARK_DATA = {
           2056,
           2056,
           2056,
+          1352,
           1352,
           1352,
           1352,
@@ -8458,6 +8477,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -8792,7 +8817,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -9130,7 +9156,8 @@ window.BENCHMARK_DATA = {
           164.91218597548348,
           153.10170114835103,
           82.37093091011047,
-          146.335693581899
+          146.335693581899,
+          145.1045389175415
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -9459,6 +9486,7 @@ window.BENCHMARK_DATA = {
           712,
           712,
           712,
+          720,
           720,
           720,
           720,
@@ -9819,7 +9847,8 @@ window.BENCHMARK_DATA = {
           10588.184415377104,
           15096.105910081129,
           7360.004795328776,
-          9787.528673444476
+          9787.528673444476,
+          15209.503731863839
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -10162,6 +10191,7 @@ window.BENCHMARK_DATA = {
           12761,
           12761,
           12760,
+          12761,
           12761
         ],
         "borderColor": "#A052B0",
@@ -10508,7 +10538,8 @@ window.BENCHMARK_DATA = {
           4453.472457885742,
           5721.901653544108,
           2781.5415893554687,
-          3990.7862821306503
+          3990.7862821306503,
+          5708.791141255697
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -10669,6 +10700,7 @@ window.BENCHMARK_DATA = {
           9264,
           9264,
           9264,
+          9192,
           9192,
           9192,
           9192,
@@ -11197,7 +11229,8 @@ window.BENCHMARK_DATA = {
           118040.49210030692,
           225696.64643205915,
           111373.93162184495,
-          107497.37648111979
+          107497.37648111979,
+          223331.78867885045
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11540,7 +11573,8 @@ window.BENCHMARK_DATA = {
           15578,
           15618,
           15630,
-          15578
+          15578,
+          15618
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -11886,7 +11920,8 @@ window.BENCHMARK_DATA = {
           184.9266003710883,
           173.24227162996928,
           103.79409421284994,
-          162.87986205305373
+          162.87986205305373,
+          166.47205059344952
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -12027,6 +12062,7 @@ window.BENCHMARK_DATA = {
           7352,
           7352,
           7352,
+          512,
           512,
           512,
           512,
@@ -12575,7 +12611,8 @@ window.BENCHMARK_DATA = {
           236.17756046567644,
           163.09326850573223,
           95.63052508660725,
-          155.31813952128093
+          155.31813952128093,
+          167.50597418149312
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -12709,6 +12746,7 @@ window.BENCHMARK_DATA = {
           1376,
           1376,
           1376,
+          1392,
           1392,
           1392,
           1392,
@@ -14924,6 +14962,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -15258,7 +15302,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -15596,7 +15641,8 @@ window.BENCHMARK_DATA = {
           306.6900173936571,
           568.0191492353167,
           416.2012966156006,
-          519.2557058652242
+          519.2557058652242,
+          351.36747522354125
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -15925,6 +15971,7 @@ window.BENCHMARK_DATA = {
           1824,
           1824,
           1840,
+          1848,
           1848,
           1848,
           1848,
@@ -16285,7 +16332,8 @@ window.BENCHMARK_DATA = {
           165098.15931919642,
           412123.0083984375,
           176053.06113978795,
-          569324.423828125
+          569324.423828125,
+          407179.8182291667
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16628,7 +16676,8 @@ window.BENCHMARK_DATA = {
           38485,
           38542,
           38380,
-          38611
+          38611,
+          38651
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -16974,7 +17023,8 @@ window.BENCHMARK_DATA = {
           45744.83968505859,
           145158.75200946516,
           64063.66574800931,
-          156029.7768031529
+          156029.7768031529,
+          112204.08163248698
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17317,7 +17367,8 @@ window.BENCHMARK_DATA = {
           28104,
           28155,
           28154,
-          28100
+          28100,
+          28104
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -17663,7 +17714,8 @@ window.BENCHMARK_DATA = {
           59674.485454852766,
           169924.64654947916,
           65098.29073893229,
-          200935.74609375
+          200935.74609375,
+          141984.4223795573
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -18006,6 +18058,7 @@ window.BENCHMARK_DATA = {
           30272,
           30253,
           30247,
+          30273,
           30273
         ],
         "borderColor": "#4A6FA5",
@@ -18352,7 +18405,8 @@ window.BENCHMARK_DATA = {
           233.42812044279916,
           385.7393468788692,
           305.1389337857564,
-          370.1281085014343
+          370.1281085014343,
+          269.71009019442965
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -18695,6 +18749,7 @@ window.BENCHMARK_DATA = {
           1216,
           1216,
           1216,
+          1216,
           1216
         ],
         "borderColor": "#E84393",
@@ -18837,7 +18892,8 @@ window.BENCHMARK_DATA = {
           426.368260213307,
           768.3700815200806,
           562.0174513596755,
-          691.9531050999959
+          691.9531050999959,
+          491.05431709289553
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -18944,6 +19000,7 @@ window.BENCHMARK_DATA = {
           2856,
           2856,
           2856,
+          2208,
           2208,
           2208,
           2208,
@@ -20982,6 +21039,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -21316,7 +21379,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -21654,7 +21718,8 @@ window.BENCHMARK_DATA = {
           981.3189618037297,
           1539.9666414896647,
           1190.2152606964112,
-          1341.1089886256627
+          1341.1089886256627,
+          951.2969497362773
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -21983,6 +22048,7 @@ window.BENCHMARK_DATA = {
           2760,
           2760,
           2776,
+          2784,
           2784,
           2784,
           2784,
@@ -22343,7 +22409,8 @@ window.BENCHMARK_DATA = {
           174493.55557686943,
           428449.7471454327,
           204534.25997721354,
-          576550.8626802885
+          576550.8626802885,
+          416115.5300292969
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -22686,7 +22753,8 @@ window.BENCHMARK_DATA = {
           48088,
           48144,
           48073,
-          48182
+          48182,
+          48239
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -23032,7 +23100,8 @@ window.BENCHMARK_DATA = {
           51578.94631086077,
           158071.58277994793,
           77463.87358398437,
-          173413.62239583334
+          173413.62239583334,
+          127581.56459263393
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -23375,6 +23444,7 @@ window.BENCHMARK_DATA = {
           41213,
           41261,
           41769,
+          41215,
           41215
         ],
         "borderColor": "#5E2750",
@@ -23721,7 +23791,8 @@ window.BENCHMARK_DATA = {
           64565.42269193209,
           190577.0701171875,
           80512.71114095052,
-          225082.32461751302
+          225082.32461751302,
+          160710.89840494792
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -24064,6 +24135,7 @@ window.BENCHMARK_DATA = {
           49924,
           49925,
           49922,
+          49930,
           49930
         ],
         "borderColor": "#4A6FA5",
@@ -24410,7 +24482,8 @@ window.BENCHMARK_DATA = {
           581.7508147557577,
           899.7562428883144,
           662.928554280599,
-          920.1587290445964
+          920.1587290445964,
+          637.5011122385661
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -24753,6 +24826,7 @@ window.BENCHMARK_DATA = {
           2296,
           2296,
           2296,
+          2296,
           2296
         ],
         "borderColor": "#E84393",
@@ -24895,7 +24969,8 @@ window.BENCHMARK_DATA = {
           1572.1579691569011,
           2631.2345881144206,
           1842.966956837972,
-          2524.3264906747
+          2524.3264906747,
+          1747.3696727752686
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -25002,6 +25077,7 @@ window.BENCHMARK_DATA = {
           5568,
           5568,
           5568,
+          5248,
           5248,
           5248,
           5248,
@@ -27040,6 +27116,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -27374,7 +27456,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -27712,7 +27795,8 @@ window.BENCHMARK_DATA = {
           165.24577525683813,
           130.8478418668111,
           141.2745325565338,
-          153.19538364043603
+          153.19538364043603,
+          132.62144155502318
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -28041,6 +28125,7 @@ window.BENCHMARK_DATA = {
           592,
           592,
           592,
+          600,
           600,
           600,
           600,
@@ -28401,7 +28486,8 @@ window.BENCHMARK_DATA = {
           4464.137481689453,
           4833.664431058443,
           4512.885463169643,
-          4836.8079833984375
+          4836.8079833984375,
+          4247.108238220215
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -28691,6 +28777,7 @@ window.BENCHMARK_DATA = {
           14902,
           14914,
           14906,
+          6552,
           6552,
           6552,
           6552,
@@ -29090,7 +29177,8 @@ window.BENCHMARK_DATA = {
           6239.790440695627,
           6044.0964146931965,
           5671.542948041643,
-          5920.369780985514
+          5920.369780985514,
+          5481.083866373698
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -29380,6 +29468,7 @@ window.BENCHMARK_DATA = {
           9320,
           9320,
           9320,
+          9816,
           9816,
           9816,
           9816,
@@ -29779,7 +29868,8 @@ window.BENCHMARK_DATA = {
           4486.695946284703,
           4624.503148005559,
           4419.745261056082,
-          4834.699727376302
+          4834.699727376302,
+          4259.9543116251625
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -30120,6 +30210,7 @@ window.BENCHMARK_DATA = {
           7509,
           7517,
           7504,
+          7517,
           7517,
           7517,
           7517
@@ -30468,7 +30559,8 @@ window.BENCHMARK_DATA = {
           219.59352533022562,
           180.08618679046631,
           202.28017779497,
-          209.75895599218515
+          209.75895599218515,
+          186.95250347944406
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -30758,6 +30850,7 @@ window.BENCHMARK_DATA = {
           728,
           728,
           728,
+          808,
           808,
           808,
           808,
@@ -31157,7 +31250,8 @@ window.BENCHMARK_DATA = {
           399.55717538197837,
           342.28221791131153,
           349.89735570320715,
-          387.58086779912315
+          387.58086779912315,
+          338.6630507877895
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -31468,6 +31562,7 @@ window.BENCHMARK_DATA = {
           2136,
           2136,
           2136,
+          1424,
           1424,
           1424,
           1424,
@@ -33506,6 +33601,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -33840,7 +33941,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -34178,7 +34280,8 @@ window.BENCHMARK_DATA = {
           451.17964237076893,
           364.17423655192056,
           382.21083842791046,
-          388.74457394282024
+          388.74457394282024,
+          347.77858700752256
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -34507,6 +34610,7 @@ window.BENCHMARK_DATA = {
           1096,
           1096,
           1096,
+          1104,
           1104,
           1104,
           1104,
@@ -34867,7 +34971,8 @@ window.BENCHMARK_DATA = {
           6630.4186199733185,
           6865.331545148577,
           6594.494692993164,
-          7948.825371297201
+          7948.825371297201,
+          5582.222261047364
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -35157,6 +35262,7 @@ window.BENCHMARK_DATA = {
           18901,
           18906,
           18883,
+          10536,
           10536,
           10536,
           10536,
@@ -35556,7 +35662,8 @@ window.BENCHMARK_DATA = {
           9033.624748738606,
           9186.528683471679,
           8722.414013671874,
-          9700.542858668736
+          9700.542858668736,
+          7125.159162248884
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -35899,7 +36006,8 @@ window.BENCHMARK_DATA = {
           12840,
           12841,
           12841,
-          12841
+          12841,
+          12840
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -36245,7 +36353,8 @@ window.BENCHMARK_DATA = {
           8101.643428548177,
           8050.995165506999,
           8052.906014578683,
-          8696.11172688802
+          8696.11172688802,
+          6825.599142347063
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -36584,6 +36693,7 @@ window.BENCHMARK_DATA = {
           15754,
           15754,
           15748,
+          15754,
           15754,
           15754,
           15754,
@@ -36934,7 +37044,8 @@ window.BENCHMARK_DATA = {
           444.0085987091064,
           370.050102965037,
           403.904732131958,
-          409.36863969167075
+          409.36863969167075,
+          358.39064791997276
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -37224,6 +37335,7 @@ window.BENCHMARK_DATA = {
           1088,
           1088,
           1088,
+          1168,
           1168,
           1168,
           1168,
@@ -37623,7 +37735,8 @@ window.BENCHMARK_DATA = {
           1406.5624935150147,
           1151.4367574055989,
           1227.8640506450947,
-          1243.1627481900728
+          1243.1627481900728,
+          1042.1686948140461
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -37934,6 +38047,7 @@ window.BENCHMARK_DATA = {
           3888,
           3888,
           3888,
+          3288,
           3288,
           3288,
           3288,
@@ -39972,6 +40086,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -40306,7 +40426,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -40644,7 +40765,8 @@ window.BENCHMARK_DATA = {
           186.25933854920524,
           196.61585156122842,
           251.27028490702313,
-          152.1029637813568
+          152.1029637813568,
+          203.0286577383677
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -40973,6 +41095,7 @@ window.BENCHMARK_DATA = {
           920,
           920,
           920,
+          928,
           928,
           928,
           928,
@@ -41333,7 +41456,8 @@ window.BENCHMARK_DATA = {
           7383.247438557943,
           5748.493657430013,
           9836.950728352864,
-          5205.075390407017
+          5205.075390407017,
+          7755.142386300223
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -41676,7 +41800,8 @@ window.BENCHMARK_DATA = {
           10568,
           10568,
           10457,
-          10456
+          10456,
+          10569
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -42022,7 +42147,8 @@ window.BENCHMARK_DATA = {
           5120.732834952219,
           4246.9173828125,
           7015.767402103969,
-          3757.1915822347005
+          3757.1915822347005,
+          5580.810071309407
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -42365,7 +42491,8 @@ window.BENCHMARK_DATA = {
           11664,
           11664,
           11664,
-          11688
+          11688,
+          11664
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -42711,7 +42838,8 @@ window.BENCHMARK_DATA = {
           5090.898853047689,
           4213.533190800594,
           6952.785724639893,
-          3974.2655904134112
+          3974.2655904134112,
+          5311.461874389648
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -43041,6 +43169,7 @@ window.BENCHMARK_DATA = {
           11196,
           11196,
           11191,
+          11196,
           11196,
           11196,
           11196,
@@ -43400,7 +43529,8 @@ window.BENCHMARK_DATA = {
           132.21113003217258,
           128.7015121459961,
           171.30414932966232,
-          101.97943976720174
+          101.97943976720174,
+          138.72113556861876
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -43566,6 +43696,7 @@ window.BENCHMARK_DATA = {
           616,
           616,
           616,
+          672,
           672,
           672,
           672,
@@ -44089,7 +44220,8 @@ window.BENCHMARK_DATA = {
           281.0927086243263,
           274.42875729288374,
           385.5133339677538,
-          217.44250464439392
+          217.44250464439392,
+          304.09847160748075
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -44400,6 +44532,7 @@ window.BENCHMARK_DATA = {
           1672,
           1672,
           1672,
+          1464,
           1464,
           1464,
           1464,
@@ -46438,6 +46571,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -46772,7 +46911,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -47110,7 +47250,8 @@ window.BENCHMARK_DATA = {
           481.84675666264127,
           471.38769315083823,
           649.6657749176026,
-          423.49307572841644
+          423.49307572841644,
+          529.4515869458517
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -47439,6 +47580,7 @@ window.BENCHMARK_DATA = {
           1784,
           1784,
           1784,
+          1792,
           1792,
           1792,
           1792,
@@ -47799,7 +47941,8 @@ window.BENCHMARK_DATA = {
           11851.793677193778,
           9649.754592895508,
           15893.60400797526,
-          9067.480826744666
+          9067.480826744666,
+          12703.631452433268
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -48142,7 +48285,8 @@ window.BENCHMARK_DATA = {
           18505,
           18505,
           17385,
-          17385
+          17385,
+          18505
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -48488,7 +48632,8 @@ window.BENCHMARK_DATA = {
           11892.863777160645,
           9569.767036437988,
           15649.986254010882,
-          9245.454602755033
+          9245.454602755033,
+          13611.989477539062
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -48831,7 +48976,8 @@ window.BENCHMARK_DATA = {
           21529,
           21529,
           21529,
-          21553
+          21553,
+          21529
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -49177,7 +49323,8 @@ window.BENCHMARK_DATA = {
           12584.162214152018,
           10450.736225382487,
           16780.88585335868,
-          10377.531654866536
+          10377.531654866536,
+          13869.285958862305
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -49507,6 +49654,7 @@ window.BENCHMARK_DATA = {
           30785,
           30785,
           30780,
+          30785,
           30785,
           30785,
           30785,
@@ -49866,7 +50014,8 @@ window.BENCHMARK_DATA = {
           242.89763107299805,
           286.8680274145944,
           329.07137355804446,
-          261.60702100166907
+          261.60702100166907,
+          262.06931053797405
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -50032,6 +50181,7 @@ window.BENCHMARK_DATA = {
           904,
           904,
           904,
+          960,
           960,
           960,
           960,
@@ -50555,7 +50705,8 @@ window.BENCHMARK_DATA = {
           986.6904103597005,
           1018.3581134251186,
           1315.3594154944788,
-          987.9264382680257
+          987.9264382680257,
+          1034.9625928243001
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -50866,6 +51017,7 @@ window.BENCHMARK_DATA = {
           4024,
           4024,
           4024,
+          3600,
           3600,
           3600,
           3600,
@@ -52904,6 +53056,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -53238,7 +53396,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -53576,7 +53735,8 @@ window.BENCHMARK_DATA = {
           10.192664483189583,
           12.952982398016113,
           21.271938782930373,
-          13.358687808116278
+          13.358687808116278,
+          13.517615826924642
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -53806,6 +53966,7 @@ window.BENCHMARK_DATA = {
           160,
           160,
           160,
+          136,
           136,
           136,
           136,
@@ -54265,7 +54426,8 @@ window.BENCHMARK_DATA = {
           62.016001591315636,
           75.67322179249355,
           118.3682328859965,
-          77.5687802831332
+          77.5687802831332,
+          77.28480950196584
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -54431,6 +54593,7 @@ window.BENCHMARK_DATA = {
           576,
           576,
           576,
+          504,
           504,
           504,
           504,
@@ -54954,7 +55117,8 @@ window.BENCHMARK_DATA = {
           18.35856568813324,
           22.17291717628638,
           36.22183915774028,
-          22.555650623639426
+          22.555650623639426,
+          26.90708283654281
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -55088,6 +55252,7 @@ window.BENCHMARK_DATA = {
           200,
           200,
           200,
+          216,
           216,
           216,
           216,
@@ -55643,7 +55808,8 @@ window.BENCHMARK_DATA = {
           829.9324893315633,
           969.3154551642282,
           1135.1123003641765,
-          1029.0029088338217
+          1029.0029088338217,
+          871.4318387349447
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -55804,6 +55970,7 @@ window.BENCHMARK_DATA = {
           2096,
           2096,
           2096,
+          2088,
           2088,
           2088,
           2088,
@@ -56332,7 +56499,8 @@ window.BENCHMARK_DATA = {
           1169.2641984303793,
           1350.3192673463088,
           1629.3150023142496,
-          1506.461591720581
+          1506.461591720581,
+          1233.8654749552409
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -56493,6 +56661,7 @@ window.BENCHMARK_DATA = {
           5048,
           5048,
           5048,
+          5032,
           5032,
           5032,
           5032,
@@ -57021,7 +57190,8 @@ window.BENCHMARK_DATA = {
           966.605231505174,
           1171.3986433664957,
           1350.5304554530553,
-          1242.1535809199015
+          1242.1535809199015,
+          1025.6679772694906
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -57364,7 +57534,8 @@ window.BENCHMARK_DATA = {
           2755,
           2755,
           2751,
-          2755
+          2755,
+          2751
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -58272,6 +58443,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -58423,7 +58600,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -58578,7 +58756,8 @@ window.BENCHMARK_DATA = {
           1545.5196225484212,
           1730.3354457855226,
           2206.923779296875,
-          1819.626884841919
+          1819.626884841919,
+          2232.471851621355
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -58724,6 +58903,7 @@ window.BENCHMARK_DATA = {
           5264,
           5264,
           5264,
+          5296,
           5296,
           5296,
           5296,
@@ -58901,7 +59081,8 @@ window.BENCHMARK_DATA = {
           1833.3380633762904,
           2050.9004605611167,
           2375.838481358119,
-          1944.006720860799
+          1944.006720860799,
+          2442.6841948372976
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -59059,6 +59240,7 @@ window.BENCHMARK_DATA = {
           7385,
           7385,
           7384,
+          7385,
           7385,
           7385,
           7385
@@ -59224,7 +59406,8 @@ window.BENCHMARK_DATA = {
           3072.087767791748,
           3489.0383494059247,
           4492.966823577881,
-          3464.0614782480093
+          3464.0614782480093,
+          4653.912814839681
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -59352,6 +59535,7 @@ window.BENCHMARK_DATA = {
           17360,
           17360,
           17360,
+          10920,
           10920,
           10920,
           10920,
@@ -59547,7 +59731,8 @@ window.BENCHMARK_DATA = {
           809630.609375,
           1029741.0647135417,
           1426558.0942007212,
-          1033453.8345424107
+          1033453.8345424107,
+          1467724.7890625
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -59707,7 +59892,8 @@ window.BENCHMARK_DATA = {
           92462,
           92690,
           92734,
-          93208
+          93208,
+          92009
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -59870,7 +60056,8 @@ window.BENCHMARK_DATA = {
           250278.43763020833,
           272723.2734750601,
           312190.07786458335,
-          270722.87356770836
+          270722.87356770836,
+          317336.52666015626
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -60028,6 +60215,7 @@ window.BENCHMARK_DATA = {
           54382,
           54382,
           54356,
+          54382,
           54382,
           54382,
           54382
@@ -60193,7 +60381,8 @@ window.BENCHMARK_DATA = {
           285945.2298177083,
           306987.7054361979,
           357339.11015625,
-          305345.6339192708
+          305345.6339192708,
+          362057.3394205729
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -60353,6 +60542,7 @@ window.BENCHMARK_DATA = {
           65700,
           65522,
           65519,
+          65560,
           65560
         ],
         "borderColor": "#4A6FA5",
@@ -61147,6 +61337,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -61279,7 +61475,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -61415,7 +61612,8 @@ window.BENCHMARK_DATA = {
           29017.720096842448,
           25996.392999267577,
           27680.1034769694,
-          26420.10530090332
+          26420.10530090332,
+          23740.391855875652
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -61542,6 +61740,7 @@ window.BENCHMARK_DATA = {
           56536,
           56536,
           56536,
+          56544,
           56544,
           56544,
           56544,
@@ -61700,7 +61899,8 @@ window.BENCHMARK_DATA = {
           24376.182967122397,
           22832.417818196616,
           24591.977360652043,
-          22798.687534877234
+          22798.687534877234,
+          21285.393933105468
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -61788,6 +61988,7 @@ window.BENCHMARK_DATA = {
           40688,
           40688,
           40688,
+          40768,
           40768,
           40768,
           40768,
@@ -61985,7 +62186,8 @@ window.BENCHMARK_DATA = {
           102291.79520961216,
           78643.33502197266,
           87065.42883300781,
-          84744.96738106864
+          84744.96738106864,
+          76922.22351946149
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -62119,6 +62321,7 @@ window.BENCHMARK_DATA = {
           178353,
           178353,
           178352,
+          178353,
           178353,
           178353,
           178353,
@@ -62270,7 +62473,8 @@ window.BENCHMARK_DATA = {
           210532.47870279948,
           186133.18530273438,
           207794.06668795072,
-          196977.50903320312
+          196977.50903320312,
+          175503.26820882162
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -62409,6 +62613,7 @@ window.BENCHMARK_DATA = {
           423539,
           423564,
           423559,
+          423564,
           423564,
           423564,
           423564
@@ -62555,7 +62760,8 @@ window.BENCHMARK_DATA = {
           270514.8280901228,
           284794.60696847097,
           280458.396875,
-          263265.5571940104
+          263265.5571940104,
+          239965.8553466797
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -62696,7 +62902,8 @@ window.BENCHMARK_DATA = {
           378534,
           378537,
           378537,
-          378539
+          378539,
+          378535
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -62840,7 +63047,8 @@ window.BENCHMARK_DATA = {
           437662.8996582031,
           380785.958203125,
           379112.7600911458,
-          410610.87786458334
+          410610.87786458334,
+          349786.0812049279
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -62981,7 +63189,8 @@ window.BENCHMARK_DATA = {
           943763,
           943763,
           943763,
-          943763
+          943763,
+          943722
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -63775,6 +63984,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -63907,7 +64122,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -64043,7 +64259,8 @@ window.BENCHMARK_DATA = {
           33112.82590593611,
           30972.266370500838,
           42988.0728922526,
-          27998.120638333836
+          27998.120638333836,
+          33106.23064371745
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -64170,6 +64387,7 @@ window.BENCHMARK_DATA = {
           96824,
           96824,
           96824,
+          96832,
           96832,
           96832,
           96832,
@@ -64328,7 +64546,8 @@ window.BENCHMARK_DATA = {
           12978.427621459961,
           16214.903085561898,
           16890.162085396903,
-          14642.365262858073
+          14642.365262858073,
+          13694.81014811198
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -64456,6 +64675,7 @@ window.BENCHMARK_DATA = {
           32641,
           32641,
           32640,
+          32641,
           32641,
           32641,
           32641,
@@ -64613,7 +64833,8 @@ window.BENCHMARK_DATA = {
           73146.86970402644,
           76649.76513671875,
           96800.30949707031,
-          70296.31626790365
+          70296.31626790365,
+          74985.29431152344
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -64747,6 +64968,7 @@ window.BENCHMARK_DATA = {
           218305,
           218305,
           218304,
+          218305,
           218305,
           218305,
           218305,
@@ -64898,7 +65120,8 @@ window.BENCHMARK_DATA = {
           501641.6947591146,
           405459.9512939453,
           631251.7827845982,
-          339074.2141301082
+          339074.2141301082,
+          533571.583203125
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -65039,7 +65262,8 @@ window.BENCHMARK_DATA = {
           836541,
           836537,
           724509,
-          724504
+          724504,
+          836541
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -65183,7 +65407,8 @@ window.BENCHMARK_DATA = {
           742878.3337053572,
           595771.1321847098,
           975278.6268833706,
-          524838.794140625
+          524838.794140625,
+          880476.857282366
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -65324,7 +65549,8 @@ window.BENCHMARK_DATA = {
           1139701,
           1139697,
           1139702,
-          1139725
+          1139725,
+          1139702
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -65468,7 +65694,8 @@ window.BENCHMARK_DATA = {
           921832.0410853794,
           747326.7356119792,
           1252362.8259114583,
-          682760.2264322917
+          682760.2264322917,
+          1006145.255078125
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -65609,7 +65836,8 @@ window.BENCHMARK_DATA = {
           2194325,
           2194325,
           2194291,
-          2194323
+          2194323,
+          2194290
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -66403,6 +66631,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -66535,7 +66769,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -66671,7 +66906,8 @@ window.BENCHMARK_DATA = {
           70540.24133770283,
           110640.25035749163,
           82682.25671386719,
-          90423.02049153646
+          90423.02049153646,
+          66829.52185058594
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -66810,6 +67046,7 @@ window.BENCHMARK_DATA = {
           105745,
           105745,
           105744,
+          105745,
           105745,
           105745,
           105745
@@ -66956,7 +67193,8 @@ window.BENCHMARK_DATA = {
           31820.849072265624,
           56080.62082781111,
           37577.55538736979,
-          57947.84654134115
+          57947.84654134115,
+          42148.6279296875
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -67097,6 +67335,7 @@ window.BENCHMARK_DATA = {
           121101,
           121100,
           121097,
+          121101,
           121101
         ],
         "borderColor": "#E84393",
@@ -67241,7 +67480,8 @@ window.BENCHMARK_DATA = {
           662680.685407366,
           1313763.5824497768,
           804601.1684570312,
-          1454352.2534877232
+          1454352.2534877232,
+          1052664.2092447917
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -67382,7 +67622,8 @@ window.BENCHMARK_DATA = {
           1048313,
           1048360,
           1048197,
-          1048446
+          1048446,
+          1048482
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -67526,7 +67767,8 @@ window.BENCHMARK_DATA = {
           1076641.5885416667,
           1897327.1651785714,
           1303989.0961216518,
-          1809015.4671875
+          1809015.4671875,
+          1405565.6717354911
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -67667,6 +67909,7 @@ window.BENCHMARK_DATA = {
           1515860,
           1515864,
           1571717,
+          1515860,
           1515860
         ],
         "borderColor": "#5E2750",
@@ -67811,7 +68054,8 @@ window.BENCHMARK_DATA = {
           931115.6716796875,
           1847740.5202473958,
           1114478.2139322916,
-          1549940.266796875
+          1549940.266796875,
+          1243997.5269252232
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -67952,6 +68196,7 @@ window.BENCHMARK_DATA = {
           2221394,
           2221373,
           2221357,
+          2221424,
           2221424
         ],
         "borderColor": "#4A6FA5",
@@ -68094,7 +68339,8 @@ window.BENCHMARK_DATA = {
           117330.01888333834,
           193553.31874302455,
           133263.6616048177,
-          185952.09873046874
+          185952.09873046874,
+          130214.53553185097
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -68201,6 +68447,7 @@ window.BENCHMARK_DATA = {
           300785,
           300785,
           300785,
+          299545,
           299545,
           299545,
           299545,
@@ -68979,6 +69226,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -69103,7 +69356,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -69231,7 +69485,8 @@ window.BENCHMARK_DATA = {
           302.23667570749916,
           448.9757109085719,
           337.65945936838784,
-          336.99824180603025
+          336.99824180603025,
+          344.77261479695636
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -69350,6 +69605,7 @@ window.BENCHMARK_DATA = {
           1544,
           1544,
           1560,
+          1568,
           1568,
           1568,
           1568,
@@ -69500,7 +69756,8 @@ window.BENCHMARK_DATA = {
           195.43689770698546,
           269.3138106209891,
           221.5099002463477,
-          219.52849431037902
+          219.52849431037902,
+          223.9562734603882
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -69512,6 +69769,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1088,
           1088,
           1088,
           1088,
@@ -69769,7 +70027,8 @@ window.BENCHMARK_DATA = {
           357.29175010094275,
           510.12671988351,
           393.31242933273313,
-          378.4511762301127
+          378.4511762301127,
+          390.53166319529214
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -69870,6 +70129,7 @@ window.BENCHMARK_DATA = {
           1856,
           1856,
           1856,
+          1784,
           1784,
           1784,
           1784,
@@ -70038,7 +70298,8 @@ window.BENCHMARK_DATA = {
           34002.19092668806,
           114890.93992396763,
           69972.9079938616,
-          70258.85834612165
+          70258.85834612165,
+          71213.03608398438
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -70169,6 +70430,7 @@ window.BENCHMARK_DATA = {
           10030,
           10009,
           10031,
+          10030,
           10030,
           10030,
           10030
@@ -70307,7 +70569,8 @@ window.BENCHMARK_DATA = {
           4261.306589566744,
           7638.110456848144,
           5326.571031423716,
-          5325.615818568638
+          5325.615818568638,
+          5552.90128733317
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -70437,6 +70700,7 @@ window.BENCHMARK_DATA = {
           10248,
           10248,
           10416,
+          10248,
           10248,
           10248,
           10248,
@@ -70576,7 +70840,8 @@ window.BENCHMARK_DATA = {
           4360.7149493877705,
           7687.880860548753,
           5080.361485994779,
-          4916.598724952111
+          4916.598724952111,
+          5811.640858968099
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -70707,6 +70972,7 @@ window.BENCHMARK_DATA = {
           11854,
           11848,
           11853,
+          11854,
           11854,
           11854,
           11854
@@ -71455,6 +71721,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -71579,7 +71851,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -71707,7 +71980,8 @@ window.BENCHMARK_DATA = {
           1154.8990066234883,
           1614.9212284088135,
           1257.8049809382512,
-          1225.3698492685953
+          1225.3698492685953,
+          1240.3281926472982
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -71826,6 +72100,7 @@ window.BENCHMARK_DATA = {
           4016,
           4016,
           4032,
+          4040,
           4040,
           4040,
           4040,
@@ -71976,7 +72251,8 @@ window.BENCHMARK_DATA = {
           702.6292642593384,
           991.4382395426433,
           796.2608498845782,
-          786.8409074374607
+          786.8409074374607,
+          797.8204742159162
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -71988,6 +72264,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2960,
           2960,
           2960,
           2960,
@@ -72245,7 +72522,8 @@ window.BENCHMARK_DATA = {
           2238.661650793893,
           3293.8836580004013,
           2468.5024472554524,
-          2385.082599385579
+          2385.082599385579,
+          2674.529957326253
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -72346,6 +72624,7 @@ window.BENCHMARK_DATA = {
           8672,
           8672,
           8672,
+          8600,
           8600,
           8600,
           8600,
@@ -72514,7 +72793,8 @@ window.BENCHMARK_DATA = {
           42343.82613699777,
           130797.40291341145,
           81564.2346473107,
-          82239.8190133231
+          82239.8190133231,
+          83599.36896158854
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -72646,6 +72926,7 @@ window.BENCHMARK_DATA = {
           25109,
           25114,
           25115,
+          25114,
           25114,
           25114
         ],
@@ -72783,7 +73064,8 @@ window.BENCHMARK_DATA = {
           12985.736840384347,
           23319.021252441406,
           16093.039318378154,
-          16334.881923421224
+          16334.881923421224,
+          16985.197244262694
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -72913,6 +73195,7 @@ window.BENCHMARK_DATA = {
           23481,
           23481,
           25664,
+          23481,
           23481,
           23481,
           23481,
@@ -73052,7 +73335,8 @@ window.BENCHMARK_DATA = {
           17326.05649977464,
           29268.598862711588,
           20133.4756665911,
-          20118.83673909505
+          20118.83673909505,
+          21566.117256673177
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -73182,6 +73466,7 @@ window.BENCHMARK_DATA = {
           55216,
           55216,
           55213,
+          55216,
           55216,
           55216,
           55216,
@@ -73931,6 +74216,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -74055,7 +74346,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -74183,7 +74475,8 @@ window.BENCHMARK_DATA = {
           92971.556413923,
           133220.7990234375,
           95754.95119628907,
-          98112.74283541166
+          98112.74283541166,
+          99751.12581380208
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -74316,6 +74609,7 @@ window.BENCHMARK_DATA = {
           273321,
           273321,
           273320,
+          273321,
           273321
         ],
         "borderColor": "#63A2AC",
@@ -74452,7 +74746,8 @@ window.BENCHMARK_DATA = {
           61762.53642578125,
           85036.59880371093,
           65565.93061174665,
-          66750.88143484933
+          66750.88143484933,
+          68756.40914713542
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -74582,6 +74877,7 @@ window.BENCHMARK_DATA = {
           208883,
           208883,
           208881,
+          208883,
           208883,
           208883,
           208883,
@@ -74721,7 +75017,8 @@ window.BENCHMARK_DATA = {
           218400.94619954427,
           317891.59446614585,
           231283.13566080728,
-          239951.90904822716
+          239951.90904822716,
+          257981.3055889423
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -74854,7 +75151,8 @@ window.BENCHMARK_DATA = {
           707721,
           707722,
           707721,
-          707721
+          707721,
+          707722
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -74990,7 +75288,8 @@ window.BENCHMARK_DATA = {
           874015.5595703125,
           1575741.6055989584,
           1142021.207782452,
-          1203281.6654947917
+          1203281.6654947917,
+          1269957.9895182292
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -75123,7 +75422,8 @@ window.BENCHMARK_DATA = {
           1692670,
           1692680,
           1692673,
-          1692675
+          1692675,
+          1692680
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -75259,7 +75559,8 @@ window.BENCHMARK_DATA = {
           992877.1069335938,
           1718328.4859095982,
           1196787.0135416666,
-          1248011.3996930805
+          1248011.3996930805,
+          1277180.5180989583
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -75390,6 +75691,7 @@ window.BENCHMARK_DATA = {
           1468915,
           1692753,
           1468915,
+          1468916,
           1468916,
           1468916,
           1468916
@@ -75528,7 +75830,8 @@ window.BENCHMARK_DATA = {
           1925042.9815104166,
           3162141.943489583,
           2277445.677604167,
-          2238153.9578125
+          2238153.9578125,
+          2502941.071875
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -75661,7 +75964,8 @@ window.BENCHMARK_DATA = {
           4803367,
           4803387,
           4803384,
-          4803385
+          4803385,
+          4803387
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -76203,6 +76507,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -76293,7 +76603,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -76387,7 +76698,8 @@ window.BENCHMARK_DATA = {
           313.84470936457313,
           383.1214132675758,
           350.664037500109,
-          376.02767062187195
+          376.02767062187195,
+          405.5464032173157
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -76472,6 +76784,7 @@ window.BENCHMARK_DATA = {
           1024,
           1024,
           1024,
+          1032,
           1032,
           1032,
           1032,
@@ -76588,7 +76901,8 @@ window.BENCHMARK_DATA = {
           413.03879906336465,
           507.742112159729,
           432.5147974650065,
-          460.1025432073153
+          460.1025432073153,
+          514.6668319702148
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -76600,6 +76914,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          1616,
           1616,
           1616,
           1616,
@@ -76789,7 +77104,8 @@ window.BENCHMARK_DATA = {
           715.3068979899089,
           906.3939792633057,
           819.0442728315081,
-          892.779214032491
+          892.779214032491,
+          920.0942531732412
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -76856,6 +77172,7 @@ window.BENCHMARK_DATA = {
           4464,
           4464,
           4464,
+          2632,
           2632,
           2632,
           2632,
@@ -76990,7 +77307,8 @@ window.BENCHMARK_DATA = {
           117674.11338588169,
           147243.94060407366,
           336478.2462439904,
-          332886.7772739955
+          332886.7772739955,
+          147982.607421875
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -77089,7 +77407,8 @@ window.BENCHMARK_DATA = {
           23642,
           23246,
           23282,
-          23282
+          23282,
+          23246
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -77191,7 +77510,8 @@ window.BENCHMARK_DATA = {
           10333.577360026042,
           13742.49663761684,
           15838.53519330706,
-          17035.5879305326
+          17035.5879305326,
+          13844.292793860803
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -77290,7 +77610,8 @@ window.BENCHMARK_DATA = {
           19515,
           19515,
           19554,
-          19742
+          19742,
+          19745
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -77392,7 +77713,8 @@ window.BENCHMARK_DATA = {
           6969.1859064737955,
           8971.43395451137,
           11347.685868399483,
-          12311.872353108723
+          12311.872353108723,
+          8905.842561994281
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -77491,7 +77813,8 @@ window.BENCHMARK_DATA = {
           14325,
           14324,
           14332,
-          14332
+          14332,
+          14324
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -78033,6 +78356,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -78123,7 +78452,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -78217,7 +78547,8 @@ window.BENCHMARK_DATA = {
           1229.641661198934,
           1625.7427850869985,
           1614.3270081837973,
-          1765.1115721384683
+          1765.1115721384683,
+          1627.9832387651716
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -78302,6 +78633,7 @@ window.BENCHMARK_DATA = {
           3040,
           3040,
           3040,
+          3048,
           3048,
           3048,
           3048,
@@ -78418,7 +78750,8 @@ window.BENCHMARK_DATA = {
           1172.8548234303792,
           1573.8455190022787,
           1391.8114996592203,
-          1466.310912322998
+          1466.310912322998,
+          1586.400437927246
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -78430,6 +78763,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          3488,
           3488,
           3488,
           3488,
@@ -78619,7 +78953,8 @@ window.BENCHMARK_DATA = {
           3355.0826110839844,
           4515.008094787598,
           5361.78732808431,
-          4308.817263793945
+          4308.817263793945,
+          4445.2325637817385
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -78686,6 +79021,7 @@ window.BENCHMARK_DATA = {
           10536,
           10536,
           10536,
+          9440,
           9440,
           9440,
           9440,
@@ -78820,7 +79156,8 @@ window.BENCHMARK_DATA = {
           146640.95029296874,
           193214.19641927083,
           375667.86793870194,
-          375135.53062220983
+          375135.53062220983,
+          192849.7451171875
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -78919,7 +79256,8 @@ window.BENCHMARK_DATA = {
           41482,
           41147,
           41155,
-          41155
+          41155,
+          41147
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -79021,7 +79359,8 @@ window.BENCHMARK_DATA = {
           18315.1148824056,
           23831.281970684344,
           29382.958073207312,
-          31036.43800001878
+          31036.43800001878,
+          24201.208883666994
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -79120,7 +79459,8 @@ window.BENCHMARK_DATA = {
           30082,
           30082,
           30101,
-          31336
+          31336,
+          31315
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -79222,7 +79562,8 @@ window.BENCHMARK_DATA = {
           28387.112518310547,
           36312.907623291016,
           45255.81553955078,
-          45027.17919921875
+          45027.17919921875,
+          36629.92558186849
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -79321,7 +79662,8 @@ window.BENCHMARK_DATA = {
           60493,
           60493,
           60496,
-          60496
+          60496,
+          60493
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -79863,6 +80205,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -79953,7 +80301,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -80047,7 +80396,8 @@ window.BENCHMARK_DATA = {
           108275.8309000651,
           142075.90295410156,
           143269.7470703125,
-          154548.12958635602
+          154548.12958635602,
+          142306.702738444
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -80135,6 +80485,7 @@ window.BENCHMARK_DATA = {
           224809,
           224809,
           224808,
+          224809,
           224809,
           224809,
           224809,
@@ -80248,7 +80599,8 @@ window.BENCHMARK_DATA = {
           88966.005859375,
           121893.8471867488,
           112371.32972005209,
-          114540.39623209635
+          114540.39623209635,
+          122918.54522235577
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -80345,6 +80697,7 @@ window.BENCHMARK_DATA = {
           209409,
           209409,
           209408,
+          209409,
           209409,
           209409,
           209409
@@ -80449,7 +80802,8 @@ window.BENCHMARK_DATA = {
           273514.00625,
           378014.9944986979,
           360455.2727748326,
-          364912.3806715745
+          364912.3806715745,
+          378068.1526576451
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -80539,6 +80893,7 @@ window.BENCHMARK_DATA = {
           653538,
           653538,
           653537,
+          653538,
           653538,
           653538,
           653538,
@@ -80650,7 +81005,8 @@ window.BENCHMARK_DATA = {
           2523695.183984375,
           3220537.5203683036,
           4299995.466145833,
-          4095943.7717633927
+          4095943.7717633927,
+          3296083.6540178573
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -80749,7 +81105,8 @@ window.BENCHMARK_DATA = {
           1936451,
           1936120,
           1936429,
-          1936429
+          1936429,
+          1936120
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -80851,7 +81208,8 @@ window.BENCHMARK_DATA = {
           783284.2990234375,
           980514.7820012019,
           1345148.5373046875,
-          1426945.8670572916
+          1426945.8670572916,
+          1072558.9912109375
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -80950,7 +81308,8 @@ window.BENCHMARK_DATA = {
           1117064,
           1117076,
           1119169,
-          1231501
+          1231501,
+          1229256
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -81052,7 +81411,8 @@ window.BENCHMARK_DATA = {
           2979260.48359375,
           3399764.895703125,
           4055742.50390625,
-          4026980.3856026786
+          4026980.3856026786,
+          3573976.79296875
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -81151,7 +81511,8 @@ window.BENCHMARK_DATA = {
           5051642,
           5051646,
           5051944,
-          5052257
+          5052257,
+          5051646
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -81693,6 +82054,12 @@ window.BENCHMARK_DATA = {
         "author": "Valentin Breu\u00DF",
         "date": "Fri Nov 27 19:01:43 2026 \u002B0100",
         "message": "fix: match a null array for a null params argument in Setup and Verify (#1158)"
+      },
+      {
+        "sha": "6069e31c719704955b0141f07000fe23035ed8b9",
+        "author": "Valentin Breu\u00DF",
+        "date": "Sat Nov 28 06:39:55 2026 \u002B0100",
+        "message": "fix: list the params values in failure messages of Verify (#1171)"
       }
     ],
     "labels": [
@@ -81783,7 +82150,8 @@ window.BENCHMARK_DATA = {
       "e1ee64a5",
       "743cb8c4",
       "32634560",
-      "d46f993d"
+      "d46f993d",
+      "6069e31c"
     ],
     "datasets": [
       {
@@ -81877,7 +82245,8 @@ window.BENCHMARK_DATA = {
           1883.0710281372071,
           2655.6313685099285,
           3834.8772408621653,
-          1960.673282623291
+          1960.673282623291,
+          3421.689984639486
         ],
         "borderColor": "#63A2AC",
         "backgroundColor": "#63A2AC",
@@ -81962,6 +82331,7 @@ window.BENCHMARK_DATA = {
           2288,
           2288,
           2288,
+          2296,
           2296,
           2296,
           2296,
@@ -82078,7 +82448,8 @@ window.BENCHMARK_DATA = {
           1739.2551905314128,
           2456.427822993352,
           3087.6165932246618,
-          1746.844172414144
+          1746.844172414144,
+          3034.7557360331216
         ],
         "borderColor": "#E84393",
         "backgroundColor": "#E84393",
@@ -82090,6 +82461,7 @@ window.BENCHMARK_DATA = {
         "label": "Imposter memory",
         "unit": "b",
         "data": [
+          2288,
           2288,
           2288,
           2288,
@@ -82279,7 +82651,8 @@ window.BENCHMARK_DATA = {
           2036.005644117083,
           3024.912947845459,
           3905.790532430013,
-          2049.008408682687
+          2049.008408682687,
+          3595.155322265625
         ],
         "borderColor": "#FF8C00",
         "backgroundColor": "#FF8C00",
@@ -82346,6 +82719,7 @@ window.BENCHMARK_DATA = {
           3344,
           3344,
           3344,
+          2912,
           2912,
           2912,
           2912,
@@ -82480,7 +82854,8 @@ window.BENCHMARK_DATA = {
           6854.532816060384,
           10037.056235758464,
           13187.693956647601,
-          7041.124778238932
+          7041.124778238932,
+          14139.819659641811
         ],
         "borderColor": "#A052B0",
         "backgroundColor": "#A052B0",
@@ -82551,6 +82926,7 @@ window.BENCHMARK_DATA = {
           11048,
           11048,
           11049,
+          11048,
           11048,
           11048,
           11048,
@@ -82681,7 +83057,8 @@ window.BENCHMARK_DATA = {
           5683.457934824625,
           8576.49918314616,
           11889.918772379557,
-          6014.4077028910315
+          6014.4077028910315,
+          12441.378062656948
         ],
         "borderColor": "#5E2750",
         "backgroundColor": "#5E2750",
@@ -82780,6 +83157,7 @@ window.BENCHMARK_DATA = {
           14633,
           14633,
           14632,
+          14633,
           14633
         ],
         "borderColor": "#5E2750",
@@ -82882,7 +83260,8 @@ window.BENCHMARK_DATA = {
           6241.062094624837,
           9142.944232177735,
           12211.490986124674,
-          6332.856292215983
+          6332.856292215983,
+          13552.050604013297
         ],
         "borderColor": "#4A6FA5",
         "backgroundColor": "#4A6FA5",
@@ -82981,6 +83360,7 @@ window.BENCHMARK_DATA = {
           14620,
           14620,
           14614,
+          14620,
           14620
         ],
         "borderColor": "#4A6FA5",
