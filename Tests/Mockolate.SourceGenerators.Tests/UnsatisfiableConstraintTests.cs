@@ -199,8 +199,7 @@ public sealed class UnsatisfiableConstraintTests
 		                                           void MyMethod<U>(U value) where U : class, T { }
 		                                           int Other();
 		                                       }
-		                                       """, LanguageVersion.CSharp14,
-			new Dictionary<string, string> { ["build_property.MockolateAutoMocking"] = "true", });
+		                                       """, LanguageVersion.CSharp14, null);
 
 		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources).ContainsKey("Mock.IMyService_int.g.cs");
@@ -233,8 +232,7 @@ public sealed class UnsatisfiableConstraintTests
 		                                       {
 		                                           void MyMethod<U>(U value) where U : class, T;
 		                                       }
-		                                       """, LanguageVersion.CSharp14,
-			new Dictionary<string, string> { ["build_property.MockolateAutoMocking"] = "true", });
+		                                       """, LanguageVersion.CSharp14, null);
 
 		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources).ContainsKey("Mock.IMyFactory.g.cs").And

@@ -6,8 +6,8 @@ namespace Mockolate.SourceGenerators.Sources;
 internal static partial class SourceTemplates
 {
 	/// <remarks>
-	///     The <paramref name="autoMockableTypes" /> are <see langword="null" /> unless the compilation sets the
-	///     <c>MockolateAutoMocking</c> build property.
+	///     The <paramref name="autoMockableTypes" /> are <see langword="null" /> when the compilation sets the
+	///     <c>MockolateSkipAutoMocking</c> build property.
 	/// </remarks>
 	public static string MockBehaviorExtensions(bool includeHttpClient, bool includeAsyncEnumerable, EquatableArray<string>? autoMockableTypes)
 	{

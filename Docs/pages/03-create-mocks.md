@@ -128,7 +128,7 @@ The flags can also be set with a `with` expression, e.g. `MockBehavior.Default w
 | `ThrowingWhenNotSetup()`              | off               | Throws a `MockNotSetupException` when no matching setup is found, instead of returning a default value.                                                                         |
 | `SkippingBaseClass()`                 | off               | Class mocks no longer call the base class implementation; without a setup they return a default value instead.                                                                  |
 | `SkippingInteractionRecording()`      | off               | Interactions are not recorded. Setups, return values, callbacks and base class calls still work, but every verification throws a `MockException`. Useful in performance-sensitive scenarios. |
-| `SkippingAutoMocking()`               | off               | Members that return an interface return `null` instead of an auto-mock in projects with the `MockolateAutoMocking` build property (see [Auto-mocking](#auto-mocking)).        |
+| `SkippingAutoMocking()`               | off               | Members that return an interface return `null` instead of an auto-mock (see [Auto-mocking](#auto-mocking)).                                                                     |
 | `WithDefaultValueFor<T>(…)`           | sensible defaults | Customizes the default value for type `T` (see below).                                                                                                                          |
 | `Initialize<T>(…)`                    | -                 | Applies the given setups to every mock of type `T` created with this behavior.                                                                                                  |
 | `UseConstructorParametersFor<T>(…)`   | -                 | Default constructor arguments for mocks of class `T`, used unless you pass explicit arguments to `CreateMock([…])`. The `Func<object?[]>` overload creates them anew for each mock. |
@@ -171,15 +171,7 @@ For full control, implement `IDefaultValueGenerator` and pass it to the `MockBeh
 
 With auto-mocking, a method, property, indexer or delegate that returns an interface returns a mock of that interface instead of `null` when no setup and no default value factory provides a value. This lets the code under test walk a chain like `context.Services.GetRepository().Find(id)` without a setup for every link.
 
-Enable it in the project file. The source generator then also creates mocks for the interfaces that the members of your mocks return, transitively:
-
-```xml
-<PropertyGroup>
-    <MockolateAutoMocking>true</MockolateAutoMocking>
-</PropertyGroup>
-```
-
-Every mock that the project creates then returns them:
+Auto-mocking is enabled by default. The source generator also creates mocks for the interfaces that the members of your mocks return, transitively, and every mock that the project creates returns them:
 
 ```csharp
 IShop shop = IShop.CreateMock();
@@ -195,11 +187,18 @@ await That(shop.GetDispenser().Dispense("Dark", 5)).IsTrue();
 - Setups and `WithDefaultValueFor` factories take precedence over auto-mocks.
 - Opt out per mock with `MockBehavior.Default.SkippingAutoMocking()`.
 
+To turn auto-mocking off for a project, so that the source generator creates no mocks for the returned interfaces, set the `MockolateSkipAutoMocking` build property:
+
+```xml
+<PropertyGroup>
+    <MockolateSkipAutoMocking>true</MockolateSkipAutoMocking>
+</PropertyGroup>
+```
+
 Interfaces in the `System`, `Microsoft` and `Windows` namespaces are not auto-mocked. A mocked type from a large SDK can pull in mocks for much of the SDK, so exclude such namespaces with a `;`-separated list. An interface in a namespace of this list is still auto-mocked when the project creates a mock of it with `CreateMock`:
 
 ```xml
 <PropertyGroup>
-    <MockolateAutoMocking>true</MockolateAutoMocking>
     <MockolateAutoMockingExcludedNamespaces>Azure;Amazon.S3</MockolateAutoMockingExcludedNamespaces>
 </PropertyGroup>
 ```
@@ -208,7 +207,6 @@ To auto-mock the interfaces of some namespaces anyway, list them as exceptions i
 
 ```xml
 <PropertyGroup>
-    <MockolateAutoMocking>true</MockolateAutoMocking>
     <MockolateAutoMockingIncludedNamespaces>$(MockolateAutoMockingIncludedNamespaces);Microsoft.Extensions.Logging</MockolateAutoMockingIncludedNamespaces>
 </PropertyGroup>
 ```
@@ -224,11 +222,11 @@ Both lists also apply to the nested namespaces, e.g. listing `Sdk` also covers `
 - A member that returns a tuple, e.g. `(int Stock, IChocolateDispenser Dispenser)` or `Tuple<int, IChocolateDispenser>`, returns an auto-mock for each interface element, also in a nested tuple and in a tuple wrapped in a `Task<T>` or `ValueTask<T>`. Each element has its own auto-mock, also when two elements have the same type. A `WithDefaultValueFor` factory for the tuple type takes precedence over the elements. A nullable value tuple, e.g. `(int, IChocolateDispenser)?`, returns `null`.
 - The base class implementation of a class mock also takes precedence, and `ThrowingWhenNotSetup()` still throws. A `WithDefaultValueFor` factory that returns `null` counts as no value, so the member returns an auto-mock instead.
 - The auto-mock is created when the member computes its default value, so `Initialize<T>(…)` can run for an auto-mock that the member never returns, e.g. when a setup provides the value of a property.
-- The property applies to the project whose `CreateMock` creates the mock: mocks created in a project without the property return no auto-mocks.
+- The `MockolateSkipAutoMocking` property applies to the project whose `CreateMock` creates the mock: mocks created in a project with the property return no auto-mocks.
 - `Directory.Build.props` is read before the Mockolate package sets the default included namespaces, so `$(MockolateAutoMockingIncludedNamespaces)` is still empty there: a list set there replaces the default, and an empty value there does not turn the default off. Set the list in the project file or in `Directory.Build.targets` instead.
 - An interface that members return in several spellings, e.g. `IRepository<string?>` and `IRepository<string>`, gets one auto-mock whose `Mock` property accepts every spelling, unless the project creates a mock of one spelling with `CreateMock`.
 - The generator skips interfaces whose mock would not compile cleanly, e.g. interfaces that are inaccessible, obsolete or experimental, nested in a generic type, have static abstract members or a member named `CreateMock`, or use pointers or unsupported ref structs. It also skips interfaces in the global namespace, `out` parameters and indexers that return a task. Such members still return `null`, or a task with a `null` result; set them up yourself or register a factory with `WithDefaultValueFor`.
-- With the property, the generator discovers the auto-mocks again when you edit a file that declares one of the mocked or returned types, so with many mocked interfaces the IDE may take longer to update the generated code after such an edit. Edits in other files, e.g. in your tests, reuse the auto-mocks.
+- The generator discovers the auto-mocks again when you edit a file that declares one of the mocked or returned types, so with many mocked interfaces the IDE may take longer to update the generated code after such an edit. Edits in other files, e.g. in your tests, reuse the auto-mocks.
 
 </details>
 

@@ -8,7 +8,7 @@ namespace Mockolate.Internals;
 
 /// <summary>
 ///     Creates the auto-mocks with the factory that the source generator
-///     emits into each assembly that sets the <c>MockolateAutoMocking</c> build property.
+///     emits into each assembly that does not set the <c>MockolateSkipAutoMocking</c> build property.
 /// </summary>
 /// <remarks>
 ///     The factory creates the mocks of its own assembly with a <see langword="typeof" /> comparison, so creating an

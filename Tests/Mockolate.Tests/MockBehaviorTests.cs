@@ -25,7 +25,7 @@ public sealed partial class MockBehaviorTests
 		IAutoMockRoot sut = IAutoMockRoot.CreateMock(behavior);
 
 		await That(sut[1]).IsNull()
-			.Because("this project does not set the MockolateAutoMocking build property");
+			.Because("this project sets the MockolateSkipAutoMocking build property");
 	}
 
 	[Test]

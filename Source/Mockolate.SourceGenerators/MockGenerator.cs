@@ -101,12 +101,12 @@ public class MockGenerator : IIncrementalGenerator
 
 		IncrementalValueProvider<AutoMockingOptions?> autoMockingOptions = context.AnalyzerConfigOptionsProvider
 			.Select(static (options, _) =>
-				options.GlobalOptions.TryGetValue("build_property.MockolateAutoMocking", out string? value) &&
+				options.GlobalOptions.TryGetValue("build_property.MockolateSkipAutoMocking", out string? value) &&
 				string.Equals(value.Trim(), "true", StringComparison.OrdinalIgnoreCase)
-					? new AutoMockingOptions(
+					? null
+					: new AutoMockingOptions(
 						ReadNamespaces(options, "build_property.MockolateAutoMockingExcludedNamespaces"),
-						ReadNamespaces(options, "build_property.MockolateAutoMockingIncludedNamespaces"))
-					: null);
+						ReadNamespaces(options, "build_property.MockolateAutoMockingIncludedNamespaces")));
 
 		IncrementalValueProvider<bool> autoMocking = autoMockingOptions
 			.Select(static (options, _) => options is not null);
@@ -117,9 +117,9 @@ public class MockGenerator : IIncrementalGenerator
 				? null
 				: options with { ExcludedNamespaces = new EquatableArray<string>([]), });
 
-		// Mocks for auto-mocking are only discovered with the MockolateAutoMocking build property, from the
-		// CreateMock calls bound again in the current compilation, so that every other compilation does no work
-		// for them and its output stays unchanged.
+		// Mocks for auto-mocking are only discovered without the MockolateSkipAutoMocking build property, from the
+		// CreateMock calls bound again in the current compilation, so that a compilation that skips auto-mocking
+		// does no work for them and its output stays unchanged.
 		IncrementalValueProvider<EquatableArray<MockClass>> discoveredMocks = creations
 			.Collect()
 			.Combine(dataSourceCreations

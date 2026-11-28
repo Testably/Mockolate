@@ -234,7 +234,7 @@ public async Task Dispenser_ShouldBeTheMockOfTheTest(IVendingMachine machine, [A
 - Every member of the type returns the same instance, also a method that creates a new one in the real implementation or an indexer for every key. Set up such a member when it needs other instances.
 - The parameter is still passed to the constructor of a class under test.
 
-To let all members that return an interface return a mock instead of `null`, set the `MockolateAutoMocking` build property (see [Auto-mocking](03-create-mocks.md#auto-mocking)), and keep `[AsDefault]` for the instances that the test needs.
+Members that return another interface return an [auto-mock](03-create-mocks.md#auto-mocking) instead of `null`, so keep `[AsDefault]` for the instances that the test needs.
 
 ## Use a fake for an interface
 
