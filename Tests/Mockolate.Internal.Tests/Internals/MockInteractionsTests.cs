@@ -5,7 +5,7 @@ using System.Threading;
 using Mockolate.Interactions;
 using Mockolate.Parameters;
 
-namespace Mockolate.Internal.Tests.Interactions;
+namespace Mockolate.Internal.Tests.Internals;
 
 public class MockInteractionsTests
 {

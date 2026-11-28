@@ -4,7 +4,7 @@ using Mockolate.Interactions;
 using Mockolate.Parameters;
 using Mockolate.Verify;
 
-namespace Mockolate.Internal.Tests.Verify;
+namespace Mockolate.Internal.Tests.Registry;
 
 public class TypedVerifyFastPathTests
 {
