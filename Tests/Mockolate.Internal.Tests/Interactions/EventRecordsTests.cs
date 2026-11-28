@@ -142,6 +142,22 @@ public class EventRecordsTests
 			return () => buffer.AppendUnsubscription("E", this, SampleMethod);
 		});
 
+	[Test]
+	public async Task EventRecords_ConsumeMatching_ShouldReturnCount()
+	{
+		MockInteractions store = new(1);
+		EventRecords buffer = new(store, 0);
+
+		await That(buffer.ConsumeAll()).IsEqualTo(0);
+
+		MethodInfo method = typeof(EventRecordsTests).GetMethod(
+			nameof(EventRecords_ConsumeMatching_ShouldReturnCount))!;
+		buffer.AppendSubscription("OnFoo", null, method);
+		buffer.AppendSubscription("OnFoo", null, method);
+
+		await That(buffer.ConsumeAll()).IsEqualTo(2);
+	}
+
 	private static EventRecords InstallEventSubscribe(MockInteractions store, int memberId)
 		=> new EventRecords(store, memberId);
 

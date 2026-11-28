@@ -199,6 +199,35 @@ public class PropertyRecordsTests
 				"ConsumeMatching must write `_storage.VerifiedUnderLock(slot) = true`, otherwise the matched slots stay unverified and a second call would re-count the same records");
 	}
 
+	[Test]
+	public async Task PropertyGetterRecords_ConsumeMatching_ShouldReturnCount()
+	{
+		MockInteractions store = new(1);
+		PropertyGetterRecords buffer = new(store, 0);
+
+		await That(buffer.ConsumeAll()).IsEqualTo(0);
+
+		buffer.Append();
+		buffer.Append();
+
+		await That(buffer.ConsumeAll()).IsEqualTo(2);
+	}
+
+	[Test]
+	public async Task PropertySetterRecords_ConsumeMatching_ShouldHonorMatcher()
+	{
+		MockInteractions store = new(1);
+		PropertySetterRecords<int> buffer = new(store, 0);
+
+		buffer.Append("Bar", 1);
+		buffer.Append("Bar", 2);
+		buffer.Append("Bar", 1);
+
+		await That(buffer.ConsumeMatching((IParameterMatch<int>)It.IsAny<int>())).IsEqualTo(3);
+		await That(buffer.ConsumeMatching((IParameterMatch<int>)It.Is(1))).IsEqualTo(2);
+		await That(buffer.ConsumeMatching((IParameterMatch<int>)It.Is(99))).IsEqualTo(0);
+	}
+
 	private static PropertyGetterRecords InstallPropertyGetter(MockInteractions store, int memberId)
 		=> new PropertyGetterRecords(store, memberId);
 
