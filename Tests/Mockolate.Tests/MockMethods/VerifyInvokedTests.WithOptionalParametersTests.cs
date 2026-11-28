@@ -96,7 +96,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task WithSibling_WithExplicitNull_ShouldStillCountTheDeclaredDefault()
+		public async Task SiblingOverload_WithExplicitNull_ShouldStillCountTheDeclaredDefault()
 		{
 			IOptionalMethodParameters sut = IOptionalMethodParameters.CreateMock();
 			sut.WithSibling(1, 5);

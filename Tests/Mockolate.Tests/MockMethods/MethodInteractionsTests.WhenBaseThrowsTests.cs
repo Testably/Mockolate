@@ -7,7 +7,7 @@ public sealed partial class MethodInteractionsTests
 	public sealed class WhenBaseThrowsTests
 	{
 		[Test]
-		public async Task ReturnMethod_WhenBaseThrows_AndSkipBaseClass_ShouldNotThrow_AndShouldRecordInvocation()
+		public async Task ReturnMethod_WithSkippingBaseClass_ShouldRecordTheInvocationWithoutThrowing()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock(MockBehavior.Default.SkippingBaseClass());
 
@@ -21,7 +21,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task ReturnMethodWith0Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
+		public async Task ReturnMethod_With0Parameters_ShouldStillRecordTheInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 
@@ -35,7 +35,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task ReturnMethodWith1Parameter_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task ReturnMethod_With1Parameter_ShouldRecordTheArgumentsPassedByTheCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 			sut.Mock.Setup.ReturnMethodWith1Parameter(It.IsAny<int>().Monitor(out IParameterMonitor<int> v1))
@@ -51,7 +51,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task ReturnMethodWith1Parameter_WhenBaseThrows_ShouldStillRecordInvocation()
+		public async Task ReturnMethod_With1Parameter_ShouldStillRecordTheInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 
@@ -65,7 +65,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task ReturnMethodWith2Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task ReturnMethod_With2Parameters_ShouldRecordTheArgumentsPassedByTheCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 			sut.Mock.Setup.ReturnMethodWith2Parameters(
@@ -84,7 +84,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task ReturnMethodWith2Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
+		public async Task ReturnMethod_With2Parameters_ShouldStillRecordTheInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 
@@ -98,7 +98,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task ReturnMethodWith3Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task ReturnMethod_With3Parameters_ShouldRecordTheArgumentsPassedByTheCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 			sut.Mock.Setup.ReturnMethodWith3Parameters(
@@ -119,7 +119,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task ReturnMethodWith3Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
+		public async Task ReturnMethod_With3Parameters_ShouldStillRecordTheInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 
@@ -133,7 +133,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task ReturnMethodWith4Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task ReturnMethod_With4Parameters_ShouldRecordTheArgumentsPassedByTheCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 			sut.Mock.Setup.ReturnMethodWith4Parameters(
@@ -156,7 +156,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task ReturnMethodWith4Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
+		public async Task ReturnMethod_With4Parameters_ShouldStillRecordTheInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 
@@ -170,7 +170,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task ReturnMethodWith5Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task ReturnMethod_With5Parameters_ShouldRecordTheArgumentsPassedByTheCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 			sut.Mock.Setup.ReturnMethodWith5Parameters(
@@ -195,7 +195,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task ReturnMethodWith5Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
+		public async Task ReturnMethod_With5Parameters_ShouldStillRecordTheInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 
@@ -209,7 +209,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task VoidMethod_WhenBaseThrows_AndSkipBaseClass_ShouldNotThrow_AndShouldRecordInvocation()
+		public async Task VoidMethod_WithSkippingBaseClass_ShouldRecordTheInvocationWithoutThrowing()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock(MockBehavior.Default.SkippingBaseClass());
 
@@ -223,7 +223,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task VoidMethodWith0Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
+		public async Task VoidMethod_With0Parameters_ShouldStillRecordTheInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 
@@ -237,7 +237,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task VoidMethodWith1Parameter_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task VoidMethod_With1Parameter_ShouldRecordTheArgumentsPassedByTheCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 			sut.Mock.Setup.VoidMethodWith1Parameter(It.IsAny<int>().Monitor(out IParameterMonitor<int> v1))
@@ -253,7 +253,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task VoidMethodWith1Parameter_WhenBaseThrows_ShouldStillRecordInvocation()
+		public async Task VoidMethod_With1Parameter_ShouldStillRecordTheInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 
@@ -267,7 +267,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task VoidMethodWith2Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task VoidMethod_With2Parameters_ShouldRecordTheArgumentsPassedByTheCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 			sut.Mock.Setup.VoidMethodWith2Parameters(
@@ -286,7 +286,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task VoidMethodWith2Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
+		public async Task VoidMethod_With2Parameters_ShouldStillRecordTheInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 
@@ -300,7 +300,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task VoidMethodWith3Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task VoidMethod_With3Parameters_ShouldRecordTheArgumentsPassedByTheCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 			sut.Mock.Setup.VoidMethodWith3Parameters(
@@ -321,7 +321,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task VoidMethodWith3Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
+		public async Task VoidMethod_With3Parameters_ShouldStillRecordTheInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 
@@ -335,7 +335,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task VoidMethodWith4Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task VoidMethod_With4Parameters_ShouldRecordTheArgumentsPassedByTheCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 			sut.Mock.Setup.VoidMethodWith4Parameters(
@@ -358,7 +358,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task VoidMethodWith4Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
+		public async Task VoidMethod_With4Parameters_ShouldStillRecordTheInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 
@@ -372,7 +372,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task VoidMethodWith5Parameters_WhenBaseThrows_ShouldRecordArgumentsPassedByCaller()
+		public async Task VoidMethod_With5Parameters_ShouldRecordTheArgumentsPassedByTheCaller()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 			sut.Mock.Setup.VoidMethodWith5Parameters(
@@ -397,7 +397,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task VoidMethodWith5Parameters_WhenBaseThrows_ShouldStillRecordInvocation()
+		public async Task VoidMethod_With5Parameters_ShouldStillRecordTheInvocation()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 

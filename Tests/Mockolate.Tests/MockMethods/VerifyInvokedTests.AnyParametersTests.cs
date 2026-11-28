@@ -9,7 +9,7 @@ public sealed partial class VerifyInvokedTests
 	public sealed class AnyParametersTests
 	{
 		[Test]
-		public async Task AnyParameters_WhenVerificationFails_ShouldDescribeAnyParameters()
+		public async Task WhenVerificationFails_ShouldDescribeAnyParameters()
 		{
 			IAnyParametersService sut = IAnyParametersService.CreateMock();
 			sut.Zero();
@@ -43,7 +43,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task AnyParameters_WhenWaitingOrOrderedVerificationFails_ShouldDescribeAnyParameters()
+		public async Task WhenWaitingOrOrderedVerificationFails_ShouldDescribeAnyParameters()
 		{
 			IAnyParametersService sut = IAnyParametersService.CreateMock();
 			sut.Two("Bob", 1m);
@@ -69,7 +69,7 @@ public sealed partial class VerifyInvokedTests
 
 #if NET11_0_OR_GREATER
 		[Test]
-		public async Task AnyParameters_WithMatchersAndPredicates_WhenVerificationFails_ShouldDescribeAnyParameters()
+		public async Task WithMatchersAndPredicates_WhenVerificationFails_ShouldDescribeAnyParameters()
 		{
 			IAnyParametersService sut = IAnyParametersService.CreateMock();
 			sut.One(1);

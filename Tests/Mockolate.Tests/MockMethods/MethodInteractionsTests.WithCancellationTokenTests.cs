@@ -90,7 +90,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task WithNonCanceledToken_ShouldReturnDefaultValue()
+		public async Task WithNonCanceledToken_ShouldReturnCompletedTask()
 		{
 			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
 			CancellationToken nonCanceledToken = new(false);
@@ -141,7 +141,7 @@ public sealed partial class MethodInteractionsTests
 		}
 
 		[Test]
-		public async Task WithTask_WithoutTokenParameter_ShouldReturnCompletedTask()
+		public async Task WithoutTokenParameter_WhenReturningATask_ShouldReturnCompletedTask()
 		{
 			IMockWithCancellationToken sut = IMockWithCancellationToken.CreateMock();
 

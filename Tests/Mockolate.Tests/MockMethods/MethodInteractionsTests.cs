@@ -5,7 +5,7 @@ namespace Mockolate.Tests.MockMethods;
 public sealed partial class MethodInteractionsTests
 {
 	[Test]
-	public async Task MethodInvocation_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_WithoutParameters_ShouldDescribeTheInvocation()
 	{
 		MockInteractions interactions = new(0);
 		MethodInvocation interaction = ((IMockInteractions)interactions).RegisterInteraction(
@@ -16,7 +16,7 @@ public sealed partial class MethodInteractionsTests
 	}
 
 	[Test]
-	public async Task MethodInvocation1_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_With1Parameter_ShouldDescribeTheInvocation()
 	{
 		MockInteractions interactions = new(0);
 		MethodInvocation<int> interaction = ((IMockInteractions)interactions).RegisterInteraction(
@@ -29,7 +29,7 @@ public sealed partial class MethodInteractionsTests
 	}
 
 	[Test]
-	public async Task MethodInvocation1_ToString_WithNull_ShouldReturnExpectedValue()
+	public async Task ToString_With1Parameter_WhenTheArgumentIsNull_ShouldShowNull()
 	{
 		MockInteractions interactions = new(0);
 		MethodInvocation<string?> interaction = ((IMockInteractions)interactions).RegisterInteraction(
@@ -42,7 +42,7 @@ public sealed partial class MethodInteractionsTests
 	}
 
 	[Test]
-	public async Task MethodInvocation2_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_With2Parameters_ShouldDescribeTheInvocation()
 	{
 		MockInteractions interactions = new(0);
 		MethodInvocation<int, string> interaction = ((IMockInteractions)interactions).RegisterInteraction(
@@ -56,7 +56,7 @@ public sealed partial class MethodInteractionsTests
 	}
 
 	[Test]
-	public async Task MethodInvocation2_ToString_WithNull_ShouldReturnExpectedValue()
+	public async Task ToString_With2Parameters_WhenTheArgumentsAreNull_ShouldShowNull()
 	{
 		MockInteractions interactions = new(0);
 		MethodInvocation<string?, long?> interaction = ((IMockInteractions)interactions).RegisterInteraction(
@@ -70,7 +70,7 @@ public sealed partial class MethodInteractionsTests
 	}
 
 	[Test]
-	public async Task MethodInvocation3_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_With3Parameters_ShouldDescribeTheInvocation()
 	{
 		MockInteractions interactions = new(0);
 		MethodInvocation<int, long?, TimeSpan> interaction = ((IMockInteractions)interactions).RegisterInteraction(
@@ -85,7 +85,7 @@ public sealed partial class MethodInteractionsTests
 	}
 
 	[Test]
-	public async Task MethodInvocation3_ToString_WithNull_ShouldReturnExpectedValue()
+	public async Task ToString_With3Parameters_WhenTheArgumentsAreNull_ShouldShowNull()
 	{
 		MockInteractions interactions = new(0);
 		MethodInvocation<int?, long?, TimeSpan?> interaction = ((IMockInteractions)interactions).RegisterInteraction(
@@ -100,7 +100,7 @@ public sealed partial class MethodInteractionsTests
 	}
 
 	[Test]
-	public async Task MethodInvocation4_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_With4Parameters_ShouldDescribeTheInvocation()
 	{
 		MockInteractions interactions = new(0);
 		MethodInvocation<string, int, long?, TimeSpan> interaction = ((IMockInteractions)interactions).RegisterInteraction(
@@ -116,7 +116,7 @@ public sealed partial class MethodInteractionsTests
 	}
 
 	[Test]
-	public async Task MethodInvocation4_ToString_WithNull_ShouldReturnExpectedValue()
+	public async Task ToString_With4Parameters_WhenTheArgumentsAreNull_ShouldShowNull()
 	{
 		MockInteractions interactions = new(0);
 		MethodInvocation<string?, int?, long?, TimeSpan?> interaction = ((IMockInteractions)interactions).RegisterInteraction(
@@ -132,7 +132,7 @@ public sealed partial class MethodInteractionsTests
 	}
 
 	[Test]
-	public async Task MethodInvocation5_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_With5Parameters_ShouldDescribeTheInvocation()
 	{
 		MockInteractions interactions = new(0);
 		MethodInvocation<string, int, long?, TimeSpan, bool> interaction = ((IMockInteractions)interactions).RegisterInteraction(
@@ -149,7 +149,7 @@ public sealed partial class MethodInteractionsTests
 	}
 
 	[Test]
-	public async Task MethodInvocation5_ToString_WithNull_ShouldReturnExpectedValue()
+	public async Task ToString_With5Parameters_WhenTheArgumentsAreNull_ShouldShowNull()
 	{
 		MockInteractions interactions = new(0);
 		MethodInvocation<string?, int?, long?, TimeSpan?, bool?> interaction = ((IMockInteractions)interactions).RegisterInteraction(

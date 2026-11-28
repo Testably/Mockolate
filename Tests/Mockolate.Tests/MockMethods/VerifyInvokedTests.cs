@@ -8,7 +8,7 @@ namespace Mockolate.Tests.MockMethods;
 public sealed partial class VerifyInvokedTests
 {
 	[Test]
-	public async Task Equals_ShouldWork()
+	public async Task Equals_ShouldCountTheInvocation()
 	{
 		object obj = new();
 		IMethodService sut = IMethodService.CreateMock();
@@ -19,7 +19,7 @@ public sealed partial class VerifyInvokedTests
 	}
 
 	[Test]
-	public async Task Equals_ShouldWorkWithNull()
+	public async Task Equals_WithNull_ShouldCountTheInvocation()
 	{
 		object? obj = null;
 		IMethodService sut = IMethodService.CreateMock();
@@ -30,7 +30,7 @@ public sealed partial class VerifyInvokedTests
 	}
 
 	[Test]
-	public async Task Equals_WithOtherOverload_ShouldWork()
+	public async Task Equals_WithDifferentArgument_ShouldNotCountTheInvocation()
 	{
 		object obj = new();
 		IMethodService sut = IMethodService.CreateMock();
@@ -41,7 +41,7 @@ public sealed partial class VerifyInvokedTests
 	}
 
 	[Test]
-	public async Task GetHashCode_ShouldWork()
+	public async Task GetHashCode_ShouldCountTheInvocation()
 	{
 		IMethodService sut = IMethodService.CreateMock();
 
@@ -53,7 +53,7 @@ public sealed partial class VerifyInvokedTests
 	[Test]
 	[Arguments(-1, 0)]
 	[Arguments(1, 1)]
-	public async Task InvokedSetup_ShouldVerifySameConditionAsSetup(int firstParameter, int expectedCallCount)
+	public async Task VerifySetup_ShouldCountMatchingInvocations(int firstParameter, int expectedCallCount)
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock();
 		IMethodSetup setup = sut.Mock.Setup.Subtract(
@@ -66,7 +66,7 @@ public sealed partial class VerifyInvokedTests
 	}
 
 	[Test]
-	public async Task MethodWithDifferentName_ShouldNotMatch()
+	public async Task WithDifferentMethodName_ShouldNotMatch()
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock();
 
@@ -77,7 +77,7 @@ public sealed partial class VerifyInvokedTests
 	}
 
 	[Test]
-	public async Task MethodWithDifferentName_WithParameters_ShouldNotMatch()
+	public async Task WithDifferentMethodNameAndAnyParameters_ShouldNotMatch()
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock();
 
@@ -88,7 +88,7 @@ public sealed partial class VerifyInvokedTests
 	}
 
 	[Test]
-	public async Task MethodWithDifferentOverload_ShouldNotMatch()
+	public async Task WithDifferentOverload_ShouldNotMatch()
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock();
 
@@ -101,7 +101,7 @@ public sealed partial class VerifyInvokedTests
 	[Test]
 	[Arguments(2)]
 	[Arguments(42)]
-	public async Task MethodWithReturnValue_ShouldBeRegistered(int numberOfInvocations)
+	public async Task ReturnMethod_ShouldCountEveryInvocation(int numberOfInvocations)
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock();
 		sut.Mock.Setup.Multiply(It.IsAny<int>(), It.IsAny<int?>()).Returns(1);
@@ -115,7 +115,7 @@ public sealed partial class VerifyInvokedTests
 	}
 
 	[Test]
-	public async Task ToString_ShouldWork()
+	public async Task ToString_ShouldCountTheInvocation()
 	{
 		IMethodService sut = IMethodService.CreateMock();
 
@@ -127,7 +127,7 @@ public sealed partial class VerifyInvokedTests
 	[Test]
 	[Arguments(2)]
 	[Arguments(42)]
-	public async Task VoidMethod_ShouldBeRegistered(int numberOfInvocations)
+	public async Task VoidMethod_ShouldCountEveryInvocation(int numberOfInvocations)
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock();
 		sut.Mock.Setup.SetIsValid(It.IsAny<bool>(), It.IsAny<Func<bool>?>());
@@ -144,7 +144,7 @@ public sealed partial class VerifyInvokedTests
 	[Test]
 	[Arguments(true)]
 	[Arguments(false)]
-	public async Task VoidMethod_ShouldThrowMockNotSetupExceptionWhenBehaviorIsSetToThrow(
+	public async Task VoidMethod_WhenNotSetup_ShouldThrowMockNotSetupExceptionOnlyIfConfigured(
 		bool throwWhenNotSetup)
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock(MockBehavior.Default with
@@ -164,7 +164,7 @@ public sealed partial class VerifyInvokedTests
 	}
 
 	[Test]
-	public async Task WhenBehaviorIsSetToThrow_ShouldThrowMockNotSetupException()
+	public async Task WithThrowWhenNotSetup_WhenNotSetup_ShouldThrowMockNotSetupException()
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock(MockBehavior.Default with
 		{
@@ -233,7 +233,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task WithExplicitParameter_ShouldWork()
+		public async Task WithExplicitParameter_ShouldOnlyCountTheExplicitValue()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -244,7 +244,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task WithIParameterOverload_ShouldStillWork()
+		public async Task WithMatcher_ShouldOnlyCountMatchingInvocations()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -269,7 +269,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task WithExplicitParameter1_ShouldWork()
+		public async Task WithExplicitParameter1_ShouldOnlyCountTheExplicitValue()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -280,7 +280,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task WithExplicitParameter2_ShouldWork()
+		public async Task WithExplicitParameter2_ShouldOnlyCountTheExplicitValue()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -291,7 +291,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task WithExplicitParameters_ShouldWork()
+		public async Task WithExplicitParameters_ShouldOnlyCountTheExplicitValues()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -317,7 +317,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task WithExplicitParameter1_ShouldWork()
+		public async Task WithExplicitParameter1_ShouldOnlyCountTheExplicitValue()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -328,7 +328,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task WithExplicitParameter2_ShouldWork()
+		public async Task WithExplicitParameter2_ShouldOnlyCountTheExplicitValue()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -339,7 +339,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task WithExplicitParameter3_ShouldWork()
+		public async Task WithExplicitParameter3_ShouldOnlyCountTheExplicitValue()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -350,7 +350,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task WithExplicitParameters_ShouldWork()
+		public async Task WithExplicitParameters_ShouldOnlyCountTheExplicitValues()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -377,7 +377,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task WithExplicitParameters_ShouldWork()
+		public async Task WithExplicitParameters_ShouldOnlyCountTheExplicitValues()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -406,7 +406,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task WithExplicitParameter1_ShouldWork()
+		public async Task WithExplicitParameter1_ShouldOnlyCountTheExplicitValue()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -417,7 +417,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task WithExplicitParameter2_ShouldWork()
+		public async Task WithExplicitParameter2_ShouldOnlyCountTheExplicitValue()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -428,7 +428,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task WithExplicitParameter3_ShouldWork()
+		public async Task WithExplicitParameter3_ShouldOnlyCountTheExplicitValue()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -439,7 +439,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task WithExplicitParameter4_ShouldWork()
+		public async Task WithExplicitParameter4_ShouldOnlyCountTheExplicitValue()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -450,7 +450,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task WithExplicitParameters_ShouldWork()
+		public async Task WithExplicitParameters_ShouldOnlyCountTheExplicitValues()
 		{
 			IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
