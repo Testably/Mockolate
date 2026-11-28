@@ -37,13 +37,13 @@
 		<PackageReference Include="Microsoft.CodeAnalysis.Common" PrivateAssets="all" VersionOverride="$(MinimumRoslynVersion)"/>
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" VersionOverride="$(MinimumRoslynVersion)"/>
 		<!-- The snapshots cover the union scenarios too, so they are only checked with the C# 15 compiler. -->
-		<Compile Remove="Snapshot\**;UnionOverloadTests.cs;UnionParameterArgTests.cs"/>
+		<Compile Remove="Snapshot\**;Modes\UnionOverloadTests.cs;Modes\UnionParameterArgTests.cs"/>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' != 'net10.0'">
 		<PackageReference Include="Microsoft.CodeAnalysis.Common" PrivateAssets="all"/>
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all"/>
-		<Compile Remove="MinimumRoslynTests.cs"/>
+		<Compile Remove="Modes\MinimumRoslynTests.cs"/>
 	</ItemGroup>
 
 </Project>
