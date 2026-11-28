@@ -21,7 +21,7 @@ public sealed class MockDataSourceTests
 	                                     """;
 
 	[Test]
-	public async Task CreateMockWithConstructorDependenciesWithoutDataSource_ShouldNotRegisterAFactory()
+	public async Task CreateMock_WithConstructorDependenciesButWithoutDataSource_ShouldNotRegisterAFactory()
 	{
 		GeneratorResult result = Generator.Run("""
 		                                       #nullable enable
@@ -869,7 +869,7 @@ public sealed class MockDataSourceTests
 	}
 
 	[Test]
-	public async Task UnrelatedEdit_ShouldNotGenerateTheFactoryAgain()
+	public async Task WhenAnUnrelatedFileIsEdited_ShouldNotGenerateTheFactoryAgain()
 	{
 		CSharpParseOptions parseOptions = new(LanguageVersion.CSharp14);
 		SyntaxTree unrelated = CSharpSyntaxTree.ParseText("namespace MyCode { public class Unrelated { } }",
@@ -1185,7 +1185,7 @@ public sealed class MockDataSourceTests
 	}
 
 	[Test]
-	public async Task TryCreate_BeforeAnyTypeOfTheAssemblyIsUsed_ShouldRunItsModuleInitializer()
+	public async Task TryCreate_WhenNoTypeOfTheAssemblyWasUsedYet_ShouldRunItsModuleInitializer()
 	{
 		Assembly assembly = Generator.CompileAndLoad($$"""
 		                                               namespace MyCode
@@ -1338,7 +1338,7 @@ public sealed class MockDataSourceTests
 	[Test]
 	[Arguments(true)]
 	[Arguments(false)]
-	public async Task MockDataSourcesSource_ShouldContainThePolyfillOnlyWhenRequested(bool emitPolyfill)
+	public async Task SourceTemplate_ShouldContainThePolyfillOnlyWhenRequested(bool emitPolyfill)
 	{
 		string source = SourceTemplates.MockDataSources(new EquatableArray<DataSourceClass>([]),
 			new EquatableArray<string>(["global::MyCode.IDep",]), new EquatableArray<string>([]),

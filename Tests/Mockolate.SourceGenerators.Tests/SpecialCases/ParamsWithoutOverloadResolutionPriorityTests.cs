@@ -145,7 +145,7 @@ public sealed class ParamsWithoutOverloadResolutionPriorityTests
 	];
 
 	[Test]
-	public async Task WithoutOverloadResolutionPriority_ShouldNotEmitPriorities()
+	public async Task ShouldNotEmitPriorities()
 	{
 		GeneratorResult result = Generator.RunWithReferences($$"""
 		                                                       using Mockolate;
@@ -171,7 +171,7 @@ public sealed class ParamsWithoutOverloadResolutionPriorityTests
 	}
 
 	[Test]
-	public async Task WithoutOverloadResolutionPriority_ParamsCallsWithoutParamsArguments_ShouldNotBeAmbiguous()
+	public async Task WhenCalledWithoutParamsArguments_ShouldNotBeAmbiguous()
 	{
 		(Group Group, string[] Expected)[] groups = Groups.Select(group => (group, Lines(group.Expected))).ToArray();
 		string[] results = OverloadMatrix.Run(Declarations, groups

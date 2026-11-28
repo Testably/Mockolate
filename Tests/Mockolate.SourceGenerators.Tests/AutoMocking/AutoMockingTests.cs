@@ -803,7 +803,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task MockNamedInCreateMock_ShouldKeepItsNameWhenADiscoveredMockHasTheSameName()
+	public async Task MockNamedInCreateMock_WhenADiscoveredMockHasTheSameName_ShouldKeepItsName()
 	{
 		GeneratorResult result = Run("""
 		                             namespace MyCode.A
@@ -983,7 +983,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task UnrelatedEdit_ShouldKeepTheGeneratedOutputCached()
+	public async Task WhenAnUnrelatedFileIsEdited_ShouldNotRegenerateAnyFile()
 	{
 		CSharpParseOptions parseOptions = new(LanguageVersion.CSharp14);
 		SyntaxTree unrelated = CSharpSyntaxTree.ParseText("namespace MyCode { public class Unrelated { } }",
@@ -1243,7 +1243,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task TogglingSkipAutoMocking_ShouldUpdateTheOutput()
+	public async Task WhenSkipAutoMockingIsToggled_ShouldUpdateTheOutput()
 	{
 		CSharpParseOptions parseOptions = new(LanguageVersion.CSharp14);
 		CSharpCompilation compilation = CSharpCompilation.Create("TestAssembly",
@@ -1291,7 +1291,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task ChangingTheIncludedNamespaces_ShouldUpdateTheOutput()
+	public async Task WhenTheIncludedNamespacesChange_ShouldUpdateTheOutput()
 	{
 		CSharpParseOptions parseOptions = new(LanguageVersion.CSharp14);
 		CSharpCompilation compilation = CreateCompilationWithFrameworkChild(parseOptions);
@@ -1321,7 +1321,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task ChangingOnlyTheExcludedNamespaces_ShouldNotRegenerateAnyFile()
+	public async Task WhenOnlyTheExcludedNamespacesChange_ShouldNotRegenerateAnyFile()
 	{
 		CSharpParseOptions parseOptions = new(LanguageVersion.CSharp14);
 		CSharpCompilation compilation = CreateCompilationWithFrameworkChild(parseOptions);

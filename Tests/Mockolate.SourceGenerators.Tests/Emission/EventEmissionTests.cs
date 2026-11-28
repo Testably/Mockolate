@@ -3,7 +3,7 @@ namespace Mockolate.SourceGenerators.Tests.Emission;
 public sealed partial class EventEmissionTests
 {
 	[Test]
-	public async Task EventWithRefOutDelegate_ShouldPreserveModifiersOnRaise()
+	public async Task WithRefAndOutDelegateParameters_ShouldCompile()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -30,7 +30,7 @@ public sealed partial class EventEmissionTests
 	}
 
 	[Test]
-	public async Task MultipleImplementations_ShouldOnlyHaveOneExplicitImplementation()
+	public async Task WithMultipleImplementations_ShouldOnlyHaveOneExplicitImplementation()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -475,7 +475,7 @@ public sealed partial class EventEmissionTests
 	}
 
 	[Test]
-	public async Task StaticAbstractEventOnly_ShouldCompile()
+	public async Task StaticAbstract_WithoutOtherMembers_ShouldCompile()
 	{
 		GeneratorResult result = Generator
 			.Run("""

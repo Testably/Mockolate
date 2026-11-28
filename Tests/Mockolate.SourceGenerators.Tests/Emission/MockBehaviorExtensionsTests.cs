@@ -7,7 +7,7 @@ namespace Mockolate.SourceGenerators.Tests.Emission;
 public sealed class MockBehaviorExtensionsTests
 {
 	[Test]
-	public async Task DefaultValueGenerator_ForValueTuples_ShouldEmitInlineExpressions()
+	public async Task DefaultValueGenerator_WithValueTuples_ShouldEmitInlineExpressions()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -207,7 +207,7 @@ public sealed class MockBehaviorExtensionsTests
 	[Test]
 	[Arguments(true)]
 	[Arguments(false)]
-	public async Task MockBehaviorExtensionsSource_ShouldContainTheIAsyncEnumerableDefaultOnlyWhenAvailable(bool includeAsyncEnumerable)
+	public async Task SourceTemplate_ShouldContainTheIAsyncEnumerableDefaultOnlyWhenAvailable(bool includeAsyncEnumerable)
 	{
 		string source = SourceTemplates.MockBehaviorExtensions(false, includeAsyncEnumerable, null);
 

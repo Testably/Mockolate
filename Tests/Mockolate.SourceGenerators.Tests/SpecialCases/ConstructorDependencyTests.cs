@@ -205,7 +205,7 @@ public sealed class ConstructorDependencyTests
 	[Test]
 	[Arguments("IGen<string>", "IGen<string?>")]
 	[Arguments("IGen<(int a, int b)>", "IGen<(int x, int y)>")]
-	public async Task DependencySpelledDifferentlyThanACreateMockCall_ShouldShareTheMock(string dependency,
+	public async Task DependencySpelledDifferentlyThanACreateMockCall_ShouldCompile(string dependency,
 		string created)
 	{
 		GeneratorResult result = Generator.Run($$"""

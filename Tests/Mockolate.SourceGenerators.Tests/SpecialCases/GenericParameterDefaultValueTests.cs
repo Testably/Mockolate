@@ -10,7 +10,7 @@ public sealed class GenericParameterDefaultValueTests
 #if NET11_0_OR_GREATER
 	[Arguments(LanguageVersion.CSharp15)]
 #endif
-	public async Task OptionalParameterOfTypeParameterType_ShouldSetupAndVerifyWithTheArgumentOmitted(
+	public async Task WhenTheArgumentIsOmitted_ShouldSetUpAndVerify(
 		LanguageVersion languageVersion)
 	{
 		Assembly assembly = Generator.CompileAndLoad("""

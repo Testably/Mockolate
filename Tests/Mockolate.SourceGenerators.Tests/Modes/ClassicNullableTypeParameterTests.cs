@@ -6,7 +6,7 @@ namespace Mockolate.SourceGenerators.Tests.Modes;
 public sealed class ClassicNullableTypeParameterTests
 {
 	[Test]
-	public async Task NullableMethodTypeParameter_InClassicMode_WithConstraint_ShouldSetupAndVerify()
+	public async Task MethodTypeParameter_WithConstraint_ShouldSetUpAndVerify()
 	{
 		Assembly assembly = Generator.CompileAndLoad("""
 		                                             using System;
@@ -94,7 +94,7 @@ public sealed class ClassicNullableTypeParameterTests
 
 
 	[Test]
-	public async Task NullableTypeParameter_InClassicMode_ClosedOverValueAndReferenceType_ShouldSetupAndVerify()
+	public async Task InterfaceTypeParameter_WhenClosedOverAValueOrReferenceType_ShouldSetUpAndVerify()
 	{
 		Assembly assembly = Generator.CompileAndLoad("""
 		                                             using System;

@@ -67,7 +67,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	};
 
 	[Test]
-	public async Task EditInTestMethod_ShouldGenerateTheSameAsAFreshRun()
+	public async Task WhenTheTestMethodIsEdited_ShouldGenerateTheSameAsAFreshRun()
 	{
 		(string[] before, string[] incremental, string[] fresh) = RunEdit("Tests.cs", Files["Tests.cs"]
 			.Replace("_ = MyCode.Sdk.IRoot.CreateMock();", "_ = MyCode.Sdk.IRoot.CreateMock(); int x = 1;"));
@@ -77,7 +77,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task ObsoleteDiscoveredInterface_ShouldGenerateTheSameAsAFreshRun()
+	public async Task WhenADiscoveredInterfaceBecomesObsolete_ShouldGenerateTheSameAsAFreshRun()
 	{
 		(string[] before, string[] incremental, string[] fresh) = RunEdit("Child.cs", Files["Child.cs"]
 			.Replace("public interface IChild", "[System.Obsolete] public interface IChild"));
@@ -87,7 +87,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task NewMemberInBaseInterface_ShouldGenerateTheSameAsAFreshRun()
+	public async Task WhenAMemberIsAddedToABaseInterface_ShouldGenerateTheSameAsAFreshRun()
 	{
 		(string[] before, string[] incremental, string[] fresh) = RunEdit("Base.cs", """
 			namespace MyCode.Sdk
@@ -108,7 +108,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task ChangedConstantOfDefaultValue_ShouldGenerateTheSameAsAFreshRun()
+	public async Task WhenTheConstantOfADefaultValueChanges_ShouldGenerateTheSameAsAFreshRun()
 	{
 		(string[] before, string[] incremental, string[] fresh) = RunEdit("Limits.cs", Files["Limits.cs"]
 			.Replace("Max = 5", "Max = 10"));
@@ -118,7 +118,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task NewTypeThatShadowsADependency_ShouldGenerateTheSameAsAFreshRun()
+	public async Task WhenATypeThatShadowsADependencyIsAdded_ShouldGenerateTheSameAsAFreshRun()
 	{
 		(string[] before, string[] incremental, string[] fresh) = RunEdit("Shadow.cs", """
 			namespace MyCode.Sdk
@@ -135,7 +135,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task EditInTestMethod_ShouldReuseTheResult()
+	public async Task WhenTheTestMethodIsEdited_ShouldReuseTheResult()
 	{
 		Compilation compilation = CreateCompilation(Files);
 		Counter counter = new();
@@ -149,7 +149,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task NewFileInTheNamespaceOfADependency_ShouldReuseTheResult()
+	public async Task WhenAFileIsAddedToTheNamespaceOfADependency_ShouldReuseTheResult()
 	{
 		Compilation compilation = CreateCompilation(Files);
 		Counter counter = new();
@@ -161,7 +161,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task RemovedLastFileOfANamespaceWithTheNameOfADependency_ShouldDiscoverAgain()
+	public async Task WhenTheLastFileOfANamespaceWithTheNameOfADependencyIsRemoved_ShouldDiscoverAgain()
 	{
 		Compilation compilation = CreateCompilation(new Dictionary<string, string>(Files)
 		{
@@ -177,7 +177,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task AddedUnrelatedFile_ShouldReuseTheResult()
+	public async Task WhenAnUnrelatedFileIsAdded_ShouldReuseTheResult()
 	{
 		Compilation compilation = CreateCompilation(Files);
 		Counter counter = new();
@@ -189,7 +189,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task RemovedUnrelatedFile_ShouldReuseTheResult()
+	public async Task WhenAnUnrelatedFileIsRemoved_ShouldReuseTheResult()
 	{
 		Compilation compilation = CreateCompilation(Files);
 		Counter counter = new();
@@ -202,7 +202,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task EditOfADependency_ShouldDiscoverAgain()
+	public async Task WhenADependencyIsEdited_ShouldDiscoverAgain()
 	{
 		Compilation compilation = CreateCompilation(Files);
 		Counter counter = new();
@@ -214,7 +214,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task RemovedFileDeclaringADependency_ShouldDiscoverAgain()
+	public async Task WhenAFileInTheNamespaceOfADependencyIsRemoved_ShouldDiscoverAgain()
 	{
 		Compilation compilation = CreateCompilation(Files);
 		Counter counter = new();
@@ -227,7 +227,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task NewNamespaceWithTheNameOfADependency_ShouldDiscoverAgain()
+	public async Task WhenANamespaceWithTheNameOfADependencyIsAdded_ShouldDiscoverAgain()
 	{
 		Compilation compilation = CreateCompilation(Files);
 		Counter counter = new();
@@ -240,7 +240,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task NewGlobalUsing_ShouldDiscoverAgain()
+	public async Task WhenAGlobalUsingIsAdded_ShouldDiscoverAgain()
 	{
 		Compilation compilation = CreateCompilation(Files);
 		Counter counter = new();
@@ -252,7 +252,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task RemovedGlobalUsing_ShouldDiscoverAgain()
+	public async Task WhenAGlobalUsingIsRemoved_ShouldDiscoverAgain()
 	{
 		Compilation compilation = CreateCompilation(new Dictionary<string, string>(Files)
 		{
@@ -268,7 +268,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task NewAssemblyAttribute_ShouldDiscoverAgain()
+	public async Task WhenAnAssemblyAttributeIsAdded_ShouldDiscoverAgain()
 	{
 		Compilation compilation = CreateCompilation(Files);
 		Counter counter = new();
@@ -281,7 +281,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task OtherSettings_ShouldDiscoverAgain()
+	public async Task WhenTheSettingsChange_ShouldDiscoverAgain()
 	{
 		Compilation compilation = CreateCompilation(Files);
 		Counter counter = new();
@@ -293,7 +293,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task OtherOptions_ShouldDiscoverAgain()
+	public async Task WhenTheCompilationOptionsChange_ShouldDiscoverAgain()
 	{
 		Compilation compilation = CreateCompilation(Files);
 		Counter counter = new();
@@ -305,7 +305,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task NewResolverWhoseEqualsThrows_ShouldReuseTheResult()
+	public async Task WithNewResolverWhoseEqualsThrows_ShouldReuseTheResult()
 	{
 		Compilation compilation = CreateCompilation(Files);
 		Counter counter = new();
@@ -322,7 +322,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task OtherReferences_ShouldDiscoverAgain()
+	public async Task WhenAReferenceIsRemoved_ShouldDiscoverAgain()
 	{
 		Compilation compilation = CreateCompilation(Files);
 		Counter counter = new();
@@ -334,7 +334,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task ReplacedReference_ShouldDiscoverAgain()
+	public async Task WhenAReferenceIsReplaced_ShouldDiscoverAgain()
 	{
 		Compilation compilation = CreateCompilation(Files);
 		Counter counter = new();
@@ -347,7 +347,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task FilesWithTheSamePath_ShouldNotBeCached()
+	public async Task WithTwoFilesOfTheSamePath_ShouldDiscoverAgain()
 	{
 		Compilation compilation = CreateCompilation(Files)
 			.AddSyntaxTrees(CSharpSyntaxTree.ParseText("class A { }", ParseOptions, "Tests.cs"));
@@ -360,7 +360,7 @@ public sealed class AutoMockDiscoveryCacheTests
 	}
 
 	[Test]
-	public async Task EditOfAFileWithTheSamePathAsAnother_ShouldDiscoverAgain()
+	public async Task WhenAFileWithTheSamePathAsAnotherIsAdded_ShouldDiscoverAgain()
 	{
 		Compilation compilation = CreateCompilation(Files);
 		Counter counter = new();

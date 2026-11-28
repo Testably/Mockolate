@@ -3,7 +3,7 @@ namespace Mockolate.SourceGenerators.Tests.Emission;
 public sealed partial class DelegateEmissionTests
 {
 	[Test]
-	public async Task CustomDelegates_ShouldOnlyCreateTwoExtensionsForSetupAndVerify()
+	public async Task WithReturnValue_ShouldEmitSetupAndVerifyForMatchersAndForParameters()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -50,7 +50,7 @@ public sealed partial class DelegateEmissionTests
 	}
 
 	[Test]
-	public async Task CustomDelegates_ShouldSupportSpanAndReadOnlySpanReturnTypes()
+	public async Task WithSpanOrReadOnlySpanReturnType_ShouldWrapTheReturnValueInTheSetup()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -123,7 +123,7 @@ public sealed partial class DelegateEmissionTests
 	}
 
 	[Test]
-	public async Task CustomDelegates_WithSpanParameter_ShouldUseWrapperInsteadOfDegrading()
+	public async Task WithSpanParameter_ShouldUseWrapperInsteadOfDegrading()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -154,7 +154,7 @@ public sealed partial class DelegateEmissionTests
 	}
 
 	[Test]
-	public async Task CustomVoidDelegates_ShouldOnlyCreateTwoExtensionsForSetupAndVerify()
+	public async Task WithoutReturnValue_ShouldEmitSetupAndVerifyForMatchersAndForParameters()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -201,7 +201,7 @@ public sealed partial class DelegateEmissionTests
 	}
 
 	[Test]
-	public async Task Delegate_ShouldHaveCorrectReferenceInXMLDocumentation()
+	public async Task XmlDocumentation_ShouldReferenceTheDelegate()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -229,7 +229,7 @@ public sealed partial class DelegateEmissionTests
 	}
 
 	[Test]
-	public async Task Delegates_ShouldCreateDelegateInsteadOfMockSubject()
+	public async Task WithFuncType_ShouldCreateADelegateInsteadOfAMockSubject()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -256,7 +256,7 @@ public sealed partial class DelegateEmissionTests
 	}
 
 	[Test]
-	public async Task DelegateWithMoreThanMaxParameters_ShouldGenerateSingleAllValueFlagsOverload()
+	public async Task WithMoreThanFourParameters_ShouldGenerateAnOverloadThatTakesOnlyValues()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -287,7 +287,7 @@ public sealed partial class DelegateEmissionTests
 	}
 
 	[Test]
-	public async Task DelegateWithMoreThanMaxParametersAllOut_ShouldNotGenerateValueFlagsOverload()
+	public async Task WithMoreThanFourOutParameters_ShouldNotGenerateAnOverloadThatTakesValues()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -316,7 +316,7 @@ public sealed partial class DelegateEmissionTests
 	}
 
 	[Test]
-	public async Task DelegateWithParameterNamedMethodSetup_ShouldGenerateUniqueLocalVariableName()
+	public async Task WithParameterNamedMethodSetup_ShouldGenerateUniqueLocalVariableName()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -347,7 +347,7 @@ public sealed partial class DelegateEmissionTests
 	}
 
 	[Test]
-	public async Task VoidDelegateWithParameterNamedMethodSetup_ShouldGenerateUniqueLocalVariableName()
+	public async Task WithParameterNamedMethodSetupAndNoReturnValue_ShouldGenerateUniqueLocalVariableName()
 	{
 		GeneratorResult result = Generator
 			.Run("""

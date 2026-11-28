@@ -10,14 +10,14 @@ namespace Mockolate.SourceGenerators.Tests.Incrementality;
 public class EventEqualityComparerTests
 {
 	[Test]
-	public async Task BothNull_ShouldReturnTrue()
+	public async Task WhenBothEventsAreNull_ShouldReturnTrue()
 	{
 		await That(Event.EqualityComparer.Equals(null, null)).IsTrue();
 		await That(Event.ContainingTypeIndependentEqualityComparer.Equals(null, null)).IsTrue();
 	}
 
 	[Test]
-	public async Task ContainingTypeIndependent_DifferentNames_ShouldReturnFalse()
+	public async Task WithContainingTypeIndependentComparer_WhenEventsHaveDifferentNames_ShouldReturnFalse()
 	{
 		IEqualityComparer<Event> comparer = Event.ContainingTypeIndependentEqualityComparer;
 		Event e1 = CreateEvent(
@@ -31,7 +31,7 @@ public class EventEqualityComparerTests
 	}
 
 	[Test]
-	public async Task ContainingTypeIndependent_SameNameDifferentContainingType_ShouldReturnTrue()
+	public async Task WithContainingTypeIndependentComparer_WhenEventsHaveDifferentContainingTypes_ShouldReturnTrue()
 	{
 		IEqualityComparer<Event> comparer = Event.ContainingTypeIndependentEqualityComparer;
 		Event fromC = CreateEvent(
@@ -45,7 +45,7 @@ public class EventEqualityComparerTests
 	}
 
 	[Test]
-	public async Task EventsWithDifferentContainingType_ShouldReturnFalse()
+	public async Task WhenEventsHaveDifferentContainingTypes_ShouldReturnFalse()
 	{
 		IEqualityComparer<Event> comparer = Event.EqualityComparer;
 		Event fromC = CreateEvent(
@@ -59,7 +59,7 @@ public class EventEqualityComparerTests
 	}
 
 	[Test]
-	public async Task EventsWithDifferentNames_ShouldReturnFalse()
+	public async Task WhenEventsHaveDifferentNames_ShouldReturnFalse()
 	{
 		IEqualityComparer<Event> comparer = Event.EqualityComparer;
 		Event e1 = CreateEvent(
@@ -73,7 +73,7 @@ public class EventEqualityComparerTests
 	}
 
 	[Test]
-	public async Task LeftOrRightNull_ShouldReturnFalse()
+	public async Task WhenOneEventIsNull_ShouldReturnFalse()
 	{
 		IEqualityComparer<Event> comparer = Event.EqualityComparer;
 		Event e = CreateEvent(

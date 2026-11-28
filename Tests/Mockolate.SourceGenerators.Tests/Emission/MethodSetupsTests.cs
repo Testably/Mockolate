@@ -5,7 +5,7 @@ namespace Mockolate.SourceGenerators.Tests.Emission;
 public sealed class MethodSetupsTests
 {
 	[Test]
-	public async Task GenerateMethodSetupsForMethodsWithMoreParameters()
+	public async Task WhenMethodsHaveMoreThan4Parameters_ShouldGenerateMethodSetups()
 	{
 		GeneratorResult result = Generator
 			.Run("""
@@ -44,7 +44,7 @@ public sealed class MethodSetupsTests
 	}
 
 	[Test]
-	public async Task GenerateMethodSetupsForDelegatesWithMoreParameters()
+	public async Task WhenDelegatesHaveMoreThan4Parameters_ShouldGenerateMethodSetups()
 	{
 		GeneratorResult result = Generator
 			.Run("""

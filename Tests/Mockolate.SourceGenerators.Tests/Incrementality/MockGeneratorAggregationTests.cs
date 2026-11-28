@@ -122,7 +122,7 @@ public sealed class MockGeneratorAggregationTests
 	}
 
 	[Test]
-	public async Task NonVoidMethodWithArity5_ShouldEmitReturnsThrowsAsyncExtensions()
+	public async Task NonVoidMethodWithMoreThanFourParameters_ShouldEmitReturnsThrowsAsyncExtensions()
 	{
 		GeneratorResult result = Generator
 			.Run("""

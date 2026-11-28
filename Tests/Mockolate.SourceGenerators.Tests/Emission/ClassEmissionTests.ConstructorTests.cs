@@ -11,7 +11,7 @@ public sealed partial class ClassEmissionTests
 	public sealed partial class ConstructorTests
 	{
 		[Test]
-		public async Task ForTypesWithAdditionalConstructorsWithParameters_ShouldWorkForAllNonPrivateConstructors()
+		public async Task WithParameterlessAndOtherConstructors_ShouldNotEmitTheMissingParameterlessConstructorException()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -41,7 +41,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task ForTypesWithOnlyOptionalConstructorParameters_ShouldCallTheConstructorWithTheDeclaredDefaults()
+		public async Task WithOnlyOptionalParameters_ShouldCallTheConstructorWithTheDeclaredDefaults()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -90,7 +90,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task ForTypesWithParameterlessAndOptionalConstructor_ShouldPreferTheParameterlessConstructor()
+		public async Task WithParameterlessAndOptionalConstructor_ShouldPreferTheParameterlessConstructor()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -126,7 +126,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task ForTypesWithParamsConstructor_ShouldCallItWithAnEmptyArrayAndTheDeclaredDefaults()
+		public async Task WithParamsParameter_ShouldCallItWithAnEmptyArrayAndTheDeclaredDefaults()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -164,7 +164,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task ForTypesWithParamsSpanConstructor_ShouldCallItWithAnEmptySpan()
+		public async Task WithParamsSpanParameter_ShouldCallItWithAnEmptySpan()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -222,7 +222,7 @@ public sealed partial class ClassEmissionTests
 		[Arguments("protected MyBaseClass(params object[] values) { }", "protected MyBaseClass(params System.ReadOnlySpan<string> values) { }", 1)]
 		[Arguments("protected MyBaseClass(params System.Collections.Generic.List<int> values) { }", "protected MyBaseClass(params System.ReadOnlySpan<int> values) { }", 1)]
 		[Arguments("protected MyBaseClass(params System.ReadOnlySpan<object> values) { }", "protected MyBaseClass(params System.ReadOnlySpan<string> values) { }", 1)]
-		public async Task ForTypesWithSeveralConstructorsWithoutArguments_ShouldFollowCSharpOverloadResolution(
+		public async Task WithSeveralConstructorsCallableWithoutArguments_ShouldFollowCSharpOverloadResolution(
 			string first, string second, int expectedConstructor)
 		{
 			GeneratorResult result = Generator
@@ -254,7 +254,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task ForTypesWithConstructorWithParameters_ShouldWorkForAllNonPrivateConstructors()
+		public async Task WithParameters_ShouldEmitEveryNonPrivateConstructor()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -340,7 +340,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task ForTypesWithOnlyParameterlessConstructor_ShouldOmitConstructorParametersOverloads()
+		public async Task WithOnlyParameterlessConstructor_ShouldOmitConstructorParametersOverloads()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -372,7 +372,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task ForTypesWithoutExplicitConstructor_ShouldOmitConstructorParametersOverloads()
+		public async Task WithoutExplicitConstructor_ShouldOmitConstructorParametersOverloads()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -402,7 +402,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task ForTypesWithoutPublicOrProtectedConstructor_ShouldOnlyGenerateMockThatThrowsException()
+		public async Task WithoutPublicOrProtectedConstructor_ShouldNotGenerateTheMock()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -428,7 +428,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task ClassWithBaseConstructorAlreadyAnnotatedSetsRequiredMembers_ShouldNotDuplicateAttribute()
+		public async Task WithSetsRequiredMembersOnTheBaseConstructor_ShouldNotDuplicateTheAttribute()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -465,7 +465,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task ClassWithInheritedRequiredMember_ShouldEmitSetsRequiredMembersOnGeneratedConstructor()
+		public async Task WithInheritedRequiredMember_ShouldEmitSetsRequiredMembers()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -499,7 +499,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task ClassWithoutRequiredMember_ShouldNotEmitSetsRequiredMembers()
+		public async Task WithoutRequiredMember_ShouldNotEmitSetsRequiredMembers()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -529,7 +529,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task ClassWithRequiredMember_ShouldEmitSetsRequiredMembersOnGeneratedConstructor()
+		public async Task WithRequiredMember_ShouldEmitSetsRequiredMembers()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -563,7 +563,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task Constructor_WithRegistrationsParameter_ShouldRenameAdditionalParameter()
+		public async Task WithParameterNamedMockRegistry_ShouldRenameTheGeneratedParameter()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -607,7 +607,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task Constructor_WithParameterAndMemberNamedLikeTheSignatureField_ShouldCompile()
+		public async Task WithParameterAndMemberNamedLikeTheSignatureField_ShouldCompile()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -646,7 +646,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task Constructor_WithAlreadySuffixedBehaviorParameter_ShouldSuffixFromBaseName()
+		public async Task WithAlreadySuffixedBehaviorParameter_ShouldSuffixFromBaseName()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -680,7 +680,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenClassHasConstructorWithParameters_ShouldGenerateTypedCreateMockOverload()
+		public async Task WithParameters_ShouldGenerateTypedCreateMockOverload()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -719,7 +719,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenClassHasMultipleConstructors_ShouldGenerateTypedOverloadPerConstructor()
+		public async Task WithSeveralConstructors_ShouldGenerateTypedOverloadPerConstructor()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -753,7 +753,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenClassHasOnlyParameterlessConstructor_ShouldNotEmitAdditionalTypedOverloads()
+		public async Task WithOnlyParameterlessConstructor_ShouldNotEmitAdditionalTypedOverloads()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -782,7 +782,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenConstructorHasCharDefault_ShouldEscapeInTypedOverload()
+		public async Task WithCharDefault_ShouldEscapeInTypedOverload()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -812,7 +812,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenConstructorHasDecimalDefault_ShouldAppendMSuffixInTypedOverload()
+		public async Task WithDecimalDefault_ShouldAppendMSuffixInTypedOverload()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -842,7 +842,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenConstructorHasEnumDefault_ShouldCastToFullyQualifiedEnumTypeInTypedOverload()
+		public async Task WithEnumDefault_ShouldCastToFullyQualifiedEnumTypeInTypedOverload()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -874,7 +874,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenConstructorHasFloatDefault_ShouldAppendFSuffixInTypedOverload()
+		public async Task WithFloatDefault_ShouldAppendFSuffixInTypedOverload()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -904,7 +904,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenConstructorHasInParameter_ShouldNotEmitTypedOverload()
+		public async Task WithInParameter_ShouldNotEmitTypedOverload()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -937,7 +937,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenConstructorHasLongAndDoubleDefaults_ShouldPreserveLiteralsInTypedOverload()
+		public async Task WithLongAndDoubleDefaults_ShouldPreserveLiteralsInTypedOverload()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -967,7 +967,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenConstructorHasNullableDecimalDefault_ShouldAppendMSuffixInTypedOverload()
+		public async Task WithNullableDecimalDefault_ShouldAppendMSuffixInTypedOverload()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -998,7 +998,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenConstructorHasNullableReferenceDefaultNull_ShouldEmitNullLiteralInTypedOverload()
+		public async Task WithNullableReferenceDefaultNull_ShouldEmitNullLiteralInTypedOverload()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -1029,7 +1029,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenConstructorHasRefOrParamsParameter_ShouldNotEmitTypedOverload()
+		public async Task WithParamsParameter_ShouldNotEmitTypedOverload()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -1061,7 +1061,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenConstructorHasStringDefaultWithQuotes_ShouldEscapeInTypedOverload()
+		public async Task WithQuotedStringDefault_ShouldEscapeInTypedOverload()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -1091,7 +1091,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenConstructorHasValueTypeDefaultNull_ShouldEmitDefaultInTypedOverload()
+		public async Task WithValueTypeDefault_ShouldEmitDefaultInTypedOverload()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -1123,7 +1123,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenConstructorParameterIsMockBehavior_ShouldNotEmitAmbiguousTypedOverload()
+		public async Task WithMockBehaviorParameter_ShouldNotEmitAmbiguousTypedOverload()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -1153,7 +1153,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenConstructorParameterIsUnrelatedAction_ShouldEmitTypedOverload()
+		public async Task WithUnrelatedActionParameter_ShouldEmitTypedOverload()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -1187,7 +1187,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenConstructorParameterTypeIsProtectedInternalNestedType_ShouldEmitConstructor()
+		public async Task WithProtectedInternalNestedParameterType_ShouldEmitConstructor()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -1219,7 +1219,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenConstructorParameterTypeIsProtectedNestedType_ShouldNotEmitConstructor()
+		public async Task WithProtectedNestedParameterType_ShouldNotEmitConstructor()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -1253,7 +1253,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenConstructorParameterTypeIsProtectedNestedTypeArgument_ShouldNotEmitConstructor()
+		public async Task WithProtectedNestedTypeInArrayOrTypeArgument_ShouldNotEmitConstructor()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -1287,7 +1287,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenOnlyConstructorHasProtectedNestedParameterType_ShouldNotGenerateMock()
+		public async Task WithProtectedNestedParameterTypeInTheOnlyConstructor_ShouldNotGenerateTheMock()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -1315,7 +1315,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenConstructorParameterTypeNestsInProtectedTypeArgumentOfContainingType_ShouldNotEmitConstructor()
+		public async Task WithProtectedTypeArgumentOfTheParameterTypesContainingType_ShouldNotEmitConstructor()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -1353,7 +1353,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenConstructorParameterTypeIsInternalInSameAssembly_ShouldEmitConstructor()
+		public async Task WithInternalParameterTypeInTheSameAssembly_ShouldEmitConstructor()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -1386,7 +1386,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenConstructorsDifferOnlyByNullableValueType_ShouldEmitBothTypedOverloads()
+		public async Task WithOverloadsDifferingOnlyInANullableValueType_ShouldEmitBothTypedOverloads()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -1421,7 +1421,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenDerivedClassHasBaseClassConstructorParameters_ShouldEmitTypedOverloadForDerived()
+		public async Task WithDerivedClass_ShouldEmitTypedOverloadForTheDerivedClass()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -1456,7 +1456,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenGenericClassHasTypedConstructor_ShouldEmitTypedOverloadForClosedType()
+		public async Task WithGenericClass_ShouldEmitTypedOverloadForClosedType()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -1488,7 +1488,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenOneCtorStartsWithMockBehaviorAndAnotherOmitsIt_ShouldNotEmitDuplicateTypedOverloads()
+		public async Task WithLeadingMockBehaviorInOnlyOneOfTwoConstructors_ShouldNotEmitDuplicateTypedOverloads()
 		{
 			// Two constructors that could produce the same C# signature after the generator's
 			// mockBehavior-prefixed overload expansion:
@@ -1523,7 +1523,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenTypedCreateMockOverloadIsEmitted_ConstructorCrefShouldResolve()
+		public async Task TypedOverload_ShouldEmitAConstructorCrefThatResolves()
 		{
 			const string expectedCref = "global::MyCode.MyService(int, string)";
 
@@ -1561,7 +1561,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenTypedCreateMockOverloadIsEmittedForExternalType_ConstructorCrefShouldResolve()
+		public async Task TypedOverload_WithExternalType_ShouldEmitAConstructorCrefThatResolves()
 		{
 			GeneratorResult result = Generator
 				.Run("""
@@ -1593,7 +1593,7 @@ public sealed partial class ClassEmissionTests
 		}
 
 		[Test]
-		public async Task WhenTypedCreateMockOverloadIsEmittedForGenericClass_ShouldNotEmitConstructorCref()
+		public async Task TypedOverload_WithGenericClass_ShouldNotEmitAConstructorCref()
 		{
 			GeneratorResult result = Generator
 				.Run("""

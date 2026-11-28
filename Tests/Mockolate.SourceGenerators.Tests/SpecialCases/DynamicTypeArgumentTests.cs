@@ -103,7 +103,7 @@ public sealed class DynamicTypeArgumentTests
 #if NET11_0_OR_GREATER
 	[Arguments(LanguageVersion.CSharp15)]
 #endif
-	public async Task BothSpellings_InDifferentCombinations_ShouldCompileAndShareTheMocks(
+	public async Task BothSpellings_WithDifferentCombinations_ShouldCompileAndShareTheMocks(
 		LanguageVersion languageVersion)
 	{
 		Assembly assembly = Generator.CompileAndLoad(Types + """
