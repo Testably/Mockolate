@@ -7,7 +7,7 @@ public sealed partial class SetupPropertyTests
 	public sealed class OnSetTests
 	{
 		[Test]
-		public async Task MultipleOnSet_InParallel_ShouldInvokeCallbacksInSequence()
+		public async Task InParallel_ShouldInvokeParallelCallbacksAlways()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -34,7 +34,7 @@ public sealed partial class SetupPropertyTests
 		[Arguments(1, 1)]
 		[Arguments(2, 3)]
 		[Arguments(3, 6)]
-		public async Task MultipleOnSet_Only_ShouldInvokeCallbacksOnlyTheGivenNumberOfTimes(int times,
+		public async Task Only_ShouldInvokeCallbacksOnlyTheGivenNumberOfTimes(int times,
 			int expectedValue)
 		{
 			int sum = 0;
@@ -53,7 +53,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task MultipleOnSet_OnlyOnce_ShouldDeactivateCallbackAfterFirstExecution()
+		public async Task OnlyOnce_ShouldDeactivateCallbackAfterFirstExecution()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -73,7 +73,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task MultipleOnSet_ShouldInvokeCallbacksInSequence()
+		public async Task ShouldInvokeCallbacksInSequence()
 		{
 			int callCount1 = 0;
 			int callCount2 = 0;
@@ -175,7 +175,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task WithIndexAndValue_ShouldExecuteWhenPropertyIsWrittenTo()
+		public async Task WithCounterAndValue_ShouldPassTheAccessCounterAndTheNewValueToTheCallback()
 		{
 			List<int> receivedIndexes = [];
 			List<int> receivedValues = [];

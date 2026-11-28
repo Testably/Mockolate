@@ -35,7 +35,7 @@ public sealed partial class VerifySetIndexerTests
 		}
 
 		[Test]
-		public async Task WithSixKeys_WithOmittedKeys_ShouldOnlyCountTheDeclaredDefaults()
+		public async Task WithSixKeysAndOmittedKeys_ShouldOnlyCountTheDeclaredDefaults()
 		{
 			IOptionalIndexerKeysWithSixKeys sut = IOptionalIndexerKeysWithSixKeys.CreateMock();
 

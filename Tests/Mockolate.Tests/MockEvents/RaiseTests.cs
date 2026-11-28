@@ -35,7 +35,7 @@ public sealed partial class RaiseTests
 	}
 
 	[Test]
-	public async Task Subscription_ShouldBeRegistered()
+	public async Task WhenSubscribing_ShouldRecordEachSubscription()
 	{
 		IRaiseEvent sut = IRaiseEvent.CreateMock();
 		EventHandler handler = (_, _) => { };
@@ -48,7 +48,7 @@ public sealed partial class RaiseTests
 	}
 
 	[Test]
-	public async Task Unsubscription_ShouldBeRegistered()
+	public async Task WhenUnsubscribing_ShouldRecordTheUnsubscription()
 	{
 		IRaiseEvent sut = IRaiseEvent.CreateMock();
 		EventHandler handler = (_, _) => { };
@@ -60,7 +60,7 @@ public sealed partial class RaiseTests
 	}
 
 	[Test]
-	public async Task WhenMockInheritsEventMultipleTimes()
+	public async Task WhenMockInheritsEventMultipleTimes_ShouldRaiseAndVerifyTheMostDerivedEvent()
 	{
 		IMyEventService sut = IMyEventService.CreateMock().Implementing<IMyEventServiceBase1>();
 		int callCount = 0;
@@ -141,7 +141,7 @@ public sealed partial class RaiseTests
 	}
 
 	[Test]
-	public async Task WhenUsingRaise_AnyParameters_ShouldInvokeEvent()
+	public async Task WithDefaultParameters_ShouldOnlyInvokeSubscribedHandlers()
 	{
 		int callCount = 0;
 		IRaiseEvent sut = IRaiseEvent.CreateMock();
@@ -158,7 +158,7 @@ public sealed partial class RaiseTests
 	}
 
 	[Test]
-	public async Task WhenUsingRaise_ShouldInvokeEvent()
+	public async Task ShouldOnlyInvokeSubscribedHandlers()
 	{
 		int callCount = 0;
 		IRaiseEvent sut = IRaiseEvent.CreateMock();
@@ -175,7 +175,7 @@ public sealed partial class RaiseTests
 	}
 
 	[Test]
-	public async Task WhenUsingRaise_WithoutRegistration_ShouldNotThrow()
+	public async Task WithoutSubscription_ShouldNotThrow()
 	{
 		IRaiseEvent sut = IRaiseEvent.CreateMock();
 

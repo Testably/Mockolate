@@ -5,7 +5,7 @@ public sealed partial class PropertyInteractionsTests
 	public sealed class WhenBaseThrowsTests
 	{
 		[Test]
-		public async Task VirtualPropertyGetter_WhenBaseThrows_AndSkipBaseClass_ShouldNotThrow_AndShouldRecordAccess()
+		public async Task Getter_WithSkippingBaseClass_ShouldRecordTheAccessWithoutThrowing()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock(MockBehavior.Default.SkippingBaseClass());
 
@@ -19,7 +19,7 @@ public sealed partial class PropertyInteractionsTests
 		}
 
 		[Test]
-		public async Task VirtualPropertyGetter_WhenBaseThrows_ShouldStillExecuteOnGetCallback()
+		public async Task Getter_ShouldStillExecuteTheOnGetCallback()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 			int callCount = 0;
@@ -35,7 +35,7 @@ public sealed partial class PropertyInteractionsTests
 		}
 
 		[Test]
-		public async Task VirtualPropertyGetter_WhenBaseThrows_ShouldStillRecordAccess()
+		public async Task Getter_ShouldStillRecordTheAccess()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 
@@ -49,7 +49,7 @@ public sealed partial class PropertyInteractionsTests
 		}
 
 		[Test]
-		public async Task VirtualPropertySetter_WhenBaseThrows_AndSkipBaseClass_ShouldNotThrow_AndShouldRecordAccess()
+		public async Task Setter_WithSkippingBaseClass_ShouldRecordTheAccessWithoutThrowing()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock(MockBehavior.Default.SkippingBaseClass());
 
@@ -63,7 +63,7 @@ public sealed partial class PropertyInteractionsTests
 		}
 
 		[Test]
-		public async Task VirtualPropertySetter_WhenBaseThrows_ShouldStillExecuteOnSetCallback()
+		public async Task Setter_ShouldStillExecuteTheOnSetCallback()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 			int receivedValue = 0;
@@ -79,7 +79,7 @@ public sealed partial class PropertyInteractionsTests
 		}
 
 		[Test]
-		public async Task VirtualPropertySetter_WhenBaseThrows_ShouldStillRecordAccess()
+		public async Task Setter_ShouldStillRecordTheAccess()
 		{
 			ThrowingBaseService sut = ThrowingBaseService.CreateMock();
 

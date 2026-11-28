@@ -5,7 +5,7 @@ public sealed partial class EventInteractionsTests
 	public sealed class WhenCallbackThrowsTests
 	{
 		[Test]
-		public async Task EventSubscribe_WhenSetupCallbackThrows_ShouldStillRecordSubscription()
+		public async Task Subscribe_ShouldStillRecordTheSubscription()
 		{
 			ThrowingCallbackEventService sut = ThrowingCallbackEventService.CreateMock();
 			sut.Mock.Setup.SomeEvent.OnSubscribed
@@ -25,7 +25,7 @@ public sealed partial class EventInteractionsTests
 		}
 
 		[Test]
-		public async Task EventUnsubscribe_WhenSetupCallbackThrows_ShouldStillRecordUnsubscription()
+		public async Task Unsubscribe_ShouldStillRecordTheUnsubscription()
 		{
 			ThrowingCallbackEventService sut = ThrowingCallbackEventService.CreateMock();
 			sut.Mock.Setup.SomeEvent.OnUnsubscribed

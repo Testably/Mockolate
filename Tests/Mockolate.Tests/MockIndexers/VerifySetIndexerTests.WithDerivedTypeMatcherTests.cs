@@ -29,7 +29,7 @@ public sealed partial class VerifySetIndexerTests
 		}
 
 		[Test]
-		public async Task SetOnWriteOnlyIndexer_WithMatcherForDerivedType_ShouldMatchOnlyTheDerivedType()
+		public async Task Set_WithMatcherForDerivedTypeOnWriteOnlyIndexer_ShouldMatchOnlyTheDerivedType()
 		{
 			IBaseValueWriteOnlyIndexers sut = IBaseValueWriteOnlyIndexers.CreateMock();
 

@@ -7,7 +7,7 @@ public sealed partial class SetupEventTests
 	public sealed class WhenInScenarioTests
 	{
 		[Test]
-		public async Task WithMatchingScopedAndGlobalSubscribedSetups_OnlyScopedShouldFire()
+		public async Task OnSubscribed_WithScopedAndGlobalSetup_ShouldOnlyFireTheScopedSetup()
 		{
 			int scopedCount = 0;
 			int globalCount = 0;
@@ -24,7 +24,7 @@ public sealed partial class SetupEventTests
 		}
 
 		[Test]
-		public async Task WithMatchingScopedAndGlobalUnsubscribedSetups_OnlyScopedShouldFire()
+		public async Task OnUnsubscribed_WithScopedAndGlobalSetup_ShouldOnlyFireTheScopedSetup()
 		{
 			int scopedCount = 0;
 			int globalCount = 0;
@@ -42,7 +42,7 @@ public sealed partial class SetupEventTests
 		}
 
 		[Test]
-		public async Task WithScopedBucketButNoScopedEventSetup_GlobalShouldStillFire()
+		public async Task OnSubscribed_WithOnlyOtherScopedSetups_ShouldStillFireTheGlobalSetup()
 		{
 			int globalCount = 0;
 			IScenarioService sut = IScenarioService.CreateMock();

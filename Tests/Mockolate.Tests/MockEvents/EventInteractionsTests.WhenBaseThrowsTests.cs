@@ -5,7 +5,7 @@ public sealed partial class EventInteractionsTests
 	public sealed class WhenBaseThrowsTests
 	{
 		[Test]
-		public async Task BaseClass_InvokesEvent_AfterUnsubscribe_ShouldNotForwardToSubscribers()
+		public async Task WhenBaseClassRaisesTheEventAfterUnsubscribe_ShouldNotForwardToSubscribers()
 		{
 			BroadcastingService sut = BroadcastingService.CreateMock();
 			int received = -1;
@@ -23,7 +23,7 @@ public sealed partial class EventInteractionsTests
 		}
 
 		[Test]
-		public async Task BaseClass_InvokesEvent_ShouldForwardToSubscribers()
+		public async Task WhenBaseClassRaisesTheEvent_ShouldForwardToSubscribers()
 		{
 			BroadcastingService sut = BroadcastingService.CreateMock();
 			int received = -1;
@@ -35,7 +35,7 @@ public sealed partial class EventInteractionsTests
 		}
 
 		[Test]
-		public async Task BaseClass_InvokesEvent_WhenSkipBaseClass_ShouldNotForwardToSubscribers()
+		public async Task WithSkippingBaseClass_WhenBaseClassRaisesTheEvent_ShouldNotForwardToSubscribers()
 		{
 			BroadcastingService sut = BroadcastingService.CreateMock(MockBehavior.Default.SkippingBaseClass());
 			int received = -1;
@@ -47,8 +47,7 @@ public sealed partial class EventInteractionsTests
 		}
 
 		[Test]
-		public async Task
-			EventSubscribe_WhenBaseClassThrows_AndSkipBaseClass_ShouldNotThrow_AndShouldRecordSubscription()
+		public async Task Subscribe_WithSkippingBaseClass_ShouldRecordTheSubscriptionWithoutThrowing()
 		{
 			ThrowingBaseEventService
 				sut = ThrowingBaseEventService.CreateMock(MockBehavior.Default.SkippingBaseClass());
@@ -67,7 +66,7 @@ public sealed partial class EventInteractionsTests
 		}
 
 		[Test]
-		public async Task EventSubscribe_WhenBaseClassThrows_ShouldStillRecordSubscription()
+		public async Task Subscribe_ShouldStillRecordTheSubscription()
 		{
 			ThrowingBaseEventService sut = ThrowingBaseEventService.CreateMock();
 
@@ -85,8 +84,7 @@ public sealed partial class EventInteractionsTests
 		}
 
 		[Test]
-		public async Task
-			EventUnsubscribe_WhenBaseClassThrows_AndSkipBaseClass_ShouldNotThrow_AndShouldRecordUnsubscription()
+		public async Task Unsubscribe_WithSkippingBaseClass_ShouldRecordTheUnsubscriptionWithoutThrowing()
 		{
 			ThrowingBaseEventService
 				sut = ThrowingBaseEventService.CreateMock(MockBehavior.Default.SkippingBaseClass());
@@ -105,7 +103,7 @@ public sealed partial class EventInteractionsTests
 		}
 
 		[Test]
-		public async Task EventUnsubscribe_WhenBaseClassThrows_ShouldStillRecordUnsubscription()
+		public async Task Unsubscribe_ShouldStillRecordTheUnsubscription()
 		{
 			ThrowingBaseEventService sut = ThrowingBaseEventService.CreateMock();
 

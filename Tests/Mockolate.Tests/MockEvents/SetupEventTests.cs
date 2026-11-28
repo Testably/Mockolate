@@ -7,7 +7,7 @@ namespace Mockolate.Tests.MockEvents;
 public sealed partial class SetupEventTests
 {
 	[Test]
-	public async Task Forever_Extension_RepeatsIndefinitely()
+	public async Task OnSubscribed_WithForever_ShouldRepeatIndefinitely()
 	{
 		int callCount = 0;
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -26,7 +26,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task MultipleSetups_AreAllInvoked()
+	public async Task OnSubscribed_WithMultipleSetups_ShouldInvokeAllOfThem()
 	{
 		int callCount1 = 0;
 		int callCount2 = 0;
@@ -44,7 +44,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task OnlyOnce_Extension_StopsAfterSingleInvocation()
+	public async Task OnSubscribed_WithOnlyOnce_ShouldStopAfterASingleInvocation()
 	{
 		int callCount = 0;
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -61,7 +61,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task OnSubscribed_Do_Action_IsInvokedOnSubscribe()
+	public async Task OnSubscribed_WithAction_ShouldInvokeItOnEverySubscription()
 	{
 		int callCount = 0;
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -77,7 +77,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task OnSubscribed_Do_TargetMethod_ReceivesCorrectValues()
+	public async Task OnSubscribed_WithTargetAndMethod_ShouldPassTheSubscribedMethod()
 	{
 		List<MethodInfo> received = [];
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -93,7 +93,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task OnSubscribed_DoesNotFireOnUnsubscribe()
+	public async Task OnSubscribed_WhenUnsubscribing_ShouldNotExecuteTheCallback()
 	{
 		int callCount = 0;
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -108,7 +108,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task OnSubscribed_For_RepeatsCallbackNTimes()
+	public async Task OnSubscribed_WithFor_ShouldRepeatTheCallbackTheGivenNumberOfTimes()
 	{
 		int count1 = 0;
 		int count2 = 0;
@@ -129,7 +129,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task OnSubscribed_For2_HoldsFirstCallbackForTwoSubscriptionsBeforeAdvancing()
+	public async Task OnSubscribed_WithFor_ShouldHoldTheFirstCallbackForTwoSubscriptionsBeforeAdvancing()
 	{
 		int count1 = 0;
 		int count2 = 0;
@@ -151,7 +151,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task OnSubscribed_InParallel_RunsAlongsideNextCallback()
+	public async Task OnSubscribed_WithInParallel_ShouldRunAlongsideTheNextCallback()
 	{
 		int count1 = 0;
 		int count2 = 0;
@@ -171,7 +171,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task OnSubscribed_Only_StopsAfterNInvocations()
+	public async Task OnSubscribed_WithOnly_ShouldStopAfterTheGivenNumberOfInvocations()
 	{
 		int callCount = 0;
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -189,7 +189,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task OnSubscribed_When_OnlyFires_WhenPredicateMatches()
+	public async Task OnSubscribed_WithWhen_ShouldOnlyFireWhenPredicateMatches()
 	{
 		int callCount = 0;
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -208,7 +208,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task OnUnsubscribed_Do_Action_IsInvokedOnUnsubscribe()
+	public async Task OnUnsubscribed_WithAction_ShouldInvokeItOnEveryUnsubscription()
 	{
 		int callCount = 0;
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -225,7 +225,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task OnUnsubscribed_Do_TargetMethod_ReceivesCorrectValues()
+	public async Task OnUnsubscribed_WithTargetAndMethod_ShouldPassTheUnsubscribedMethod()
 	{
 		List<MethodInfo> received = [];
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -242,7 +242,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task OnUnsubscribed_DoesNotFireOnSubscribe()
+	public async Task OnUnsubscribed_WhenSubscribing_ShouldNotExecuteTheCallback()
 	{
 		int callCount = 0;
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -256,7 +256,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task OnUnsubscribed_For_RepeatsCallbackNTimes()
+	public async Task OnUnsubscribed_WithFor_ShouldRepeatTheCallbackTheGivenNumberOfTimes()
 	{
 		int count1 = 0;
 		int count2 = 0;
@@ -277,7 +277,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task OnUnsubscribed_For2_HoldsFirstCallbackForTwoUnsubscriptionsBeforeAdvancing()
+	public async Task OnUnsubscribed_WithFor_ShouldHoldTheFirstCallbackForTwoUnsubscriptionsBeforeAdvancing()
 	{
 		int count1 = 0;
 		int count2 = 0;
@@ -299,7 +299,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task OnUnsubscribed_Forever_Extension_RepeatsIndefinitely()
+	public async Task OnUnsubscribed_WithForever_ShouldRepeatIndefinitely()
 	{
 		int callCount = 0;
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -318,7 +318,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task OnUnsubscribed_InParallel_RunsAlongsideNextCallback()
+	public async Task OnUnsubscribed_WithInParallel_ShouldRunAlongsideTheNextCallback()
 	{
 		int count1 = 0;
 		int count2 = 0;
@@ -338,7 +338,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task OnUnsubscribed_Only_StopsAfterNInvocations()
+	public async Task OnUnsubscribed_WithOnly_ShouldStopAfterTheGivenNumberOfInvocations()
 	{
 		int callCount = 0;
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -356,7 +356,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task OnUnsubscribed_OnlyOnce_Extension_StopsAfterSingleInvocation()
+	public async Task OnUnsubscribed_WithOnlyOnce_ShouldStopAfterASingleInvocation()
 	{
 		int callCount = 0;
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -373,7 +373,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task OnUnsubscribed_When_OnlyFires_WhenPredicateMatches()
+	public async Task OnUnsubscribed_WithWhen_ShouldOnlyFireWhenPredicateMatches()
 	{
 		int callCount = 0;
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
@@ -392,7 +392,7 @@ public sealed partial class SetupEventTests
 	}
 
 	[Test]
-	public async Task SetupDoesNotInterfereWithVerification()
+	public async Task OnSubscribed_ShouldNotInterfereWithVerification()
 	{
 		IChocolateDispenser sut = IChocolateDispenser.CreateMock();
 

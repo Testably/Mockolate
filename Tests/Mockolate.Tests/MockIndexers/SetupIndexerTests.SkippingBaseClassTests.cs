@@ -7,7 +7,7 @@ public sealed partial class SetupIndexerTests
 		[Test]
 		[Arguments(false, 1)]
 		[Arguments(true, 0)]
-		public async Task IndexerWith1Key_Getter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
+		public async Task Getter_With1Key_ShouldCallTheBaseClassUnlessSkipped(bool skipBaseClass,
 			int expectedCallCount)
 		{
 			MyIndexerService sut = MyIndexerService.CreateMock();
@@ -21,7 +21,7 @@ public sealed partial class SetupIndexerTests
 		[Test]
 		[Arguments(false, 1)]
 		[Arguments(true, 0)]
-		public async Task IndexerWith1Key_Setter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
+		public async Task Setter_With1Key_ShouldCallTheBaseClassUnlessSkipped(bool skipBaseClass,
 			int expectedCallCount)
 		{
 			MyIndexerService sut = MyIndexerService.CreateMock();
@@ -35,7 +35,7 @@ public sealed partial class SetupIndexerTests
 		[Test]
 		[Arguments(false, 1)]
 		[Arguments(true, 0)]
-		public async Task IndexerWith2Keys_Getter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
+		public async Task Getter_With2Keys_ShouldCallTheBaseClassUnlessSkipped(bool skipBaseClass,
 			int expectedCallCount)
 		{
 			MyIndexerService sut = MyIndexerService.CreateMock();
@@ -49,7 +49,7 @@ public sealed partial class SetupIndexerTests
 		[Test]
 		[Arguments(false, 1)]
 		[Arguments(true, 0)]
-		public async Task IndexerWith2Keys_Setter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
+		public async Task Setter_With2Keys_ShouldCallTheBaseClassUnlessSkipped(bool skipBaseClass,
 			int expectedCallCount)
 		{
 			MyIndexerService sut = MyIndexerService.CreateMock();
@@ -63,7 +63,7 @@ public sealed partial class SetupIndexerTests
 		[Test]
 		[Arguments(false, 1)]
 		[Arguments(true, 0)]
-		public async Task IndexerWith3Keys_Getter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
+		public async Task Getter_With3Keys_ShouldCallTheBaseClassUnlessSkipped(bool skipBaseClass,
 			int expectedCallCount)
 		{
 			MyIndexerService sut = MyIndexerService.CreateMock();
@@ -77,7 +77,7 @@ public sealed partial class SetupIndexerTests
 		[Test]
 		[Arguments(false, 1)]
 		[Arguments(true, 0)]
-		public async Task IndexerWith3Keys_Setter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
+		public async Task Setter_With3Keys_ShouldCallTheBaseClassUnlessSkipped(bool skipBaseClass,
 			int expectedCallCount)
 		{
 			MyIndexerService sut = MyIndexerService.CreateMock();
@@ -91,7 +91,7 @@ public sealed partial class SetupIndexerTests
 		[Test]
 		[Arguments(false, 1)]
 		[Arguments(true, 0)]
-		public async Task IndexerWith4Keys_Getter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
+		public async Task Getter_With4Keys_ShouldCallTheBaseClassUnlessSkipped(bool skipBaseClass,
 			int expectedCallCount)
 		{
 			MyIndexerService sut = MyIndexerService.CreateMock();
@@ -105,7 +105,7 @@ public sealed partial class SetupIndexerTests
 		[Test]
 		[Arguments(false, 1)]
 		[Arguments(true, 0)]
-		public async Task IndexerWith4Keys_Setter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
+		public async Task Setter_With4Keys_ShouldCallTheBaseClassUnlessSkipped(bool skipBaseClass,
 			int expectedCallCount)
 		{
 			MyIndexerService sut = MyIndexerService.CreateMock();
@@ -119,7 +119,7 @@ public sealed partial class SetupIndexerTests
 		[Test]
 		[Arguments(false, 1)]
 		[Arguments(true, 0)]
-		public async Task IndexerWith5Keys_Getter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
+		public async Task Getter_With5Keys_ShouldCallTheBaseClassUnlessSkipped(bool skipBaseClass,
 			int expectedCallCount)
 		{
 			MyIndexerService sut = MyIndexerService.CreateMock();
@@ -134,7 +134,7 @@ public sealed partial class SetupIndexerTests
 		[Test]
 		[Arguments(false, 1)]
 		[Arguments(true, 0)]
-		public async Task IndexerWith5Keys_Setter_ShouldSkipCallingBaseWhenRequested(bool skipBaseClass,
+		public async Task Setter_With5Keys_ShouldCallTheBaseClassUnlessSkipped(bool skipBaseClass,
 			int expectedCallCount)
 		{
 			MyIndexerService sut = MyIndexerService.CreateMock();
@@ -147,7 +147,7 @@ public sealed partial class SetupIndexerTests
 		}
 
 		[Test]
-		public async Task SetupSkippingBaseClassWithoutParameter_ShouldReturnDefaultValue()
+		public async Task WithoutArgument_ShouldSkipTheBaseClassAndReturnTheDefaultValue()
 		{
 			MyIndexerService sut = MyIndexerService.CreateMock();
 			sut.Mock.Setup[It.IsAny<string>()]

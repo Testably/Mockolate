@@ -9,7 +9,7 @@ public sealed partial class SetupPropertyTests
 	public sealed class ReturnsThrowsTests
 	{
 		[Test]
-		public async Task MixReturnsAndThrows_ShouldIterateThroughBoth()
+		public async Task WithReturnsAndThrows_ShouldIterateThroughBoth()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 
@@ -28,7 +28,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task MultipleReturns_ShouldIterateThroughAllRegisteredValues()
+		public async Task Returns_WithMultipleValues_ShouldIterateThroughAllRegisteredValues()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 
@@ -47,7 +47,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task Returns_Callback_ShouldReturnExpectedValue()
+		public async Task Returns_WithCallback_ShouldReturnTheCallbackResult()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 
@@ -60,7 +60,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task Returns_CallbackWithValue_ShouldReturnExpectedValue()
+		public async Task Returns_WithCallback_ShouldPassTheCurrentValueToTheCallback()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 
@@ -74,7 +74,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task Returns_CallbackWithWhen_ShouldReturnDefaultValueWhenPredicateIsFalse()
+		public async Task Returns_WithCallbackAndWhen_ShouldReturnDefaultValueWhenPredicateIsFalse()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 
@@ -89,7 +89,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task Returns_For_OnlyOnce_ShouldLimitUsage_ToSpecifiedNumber()
+		public async Task For_WithOnlyOnce_ShouldLimitUsageToTheSpecifiedNumber()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 
@@ -108,7 +108,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task Returns_For_ShouldRepeatUsage_ToSpecifiedNumber()
+		public async Task For_ShouldRepeatEachValueTheSpecifiedNumberOfTimes()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 
@@ -128,7 +128,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task Returns_Forever_ShouldUseTheLastValueForever()
+		public async Task Forever_ShouldUseTheLastValueForever()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 
@@ -147,7 +147,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task Returns_OnlyOnce_ShouldKeepLastUsedValue()
+		public async Task OnlyOnce_ShouldKeepLastUsedValue()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 			sut.Mock.Setup.MyProperty.Returns(1).OnlyOnce();
@@ -166,7 +166,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task Returns_OnlyOnce_ShouldUseReturnValueOnlyOnce()
+		public async Task OnlyOnce_ShouldUseReturnValueOnlyOnce()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 			sut.Mock.Setup.MyProperty.Returns(1).OnlyOnce();
@@ -182,7 +182,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task Returns_PredicateIsFalse_ShouldUseInitializedDefaultValue()
+		public async Task Returns_WhenPredicateIsFalse_ShouldReturnTheCurrentValue()
 		{
 			List<int> results = [];
 			IPropertyService sut = IPropertyService.CreateMock();
@@ -203,7 +203,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task Returns_ShouldReturnExpectedValue()
+		public async Task Returns_ShouldReturnTheConfiguredValue()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 
@@ -216,7 +216,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
+		public async Task When_ShouldOnlyUseValueWhenPredicateIsTrue()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 
@@ -233,7 +233,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
+		public async Task For_WithWhen_ShouldLimitUsageToTheSpecifiedNumber()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 
@@ -254,7 +254,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task Returns_WithoutSetup_ShouldReturnDefault()
+		public async Task WithoutSetup_ShouldReturnDefault()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 
@@ -264,7 +264,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task Throws_Callback_ShouldThrowException()
+		public async Task Throws_WithCallback_ShouldThrowTheCallbackException()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 
@@ -280,7 +280,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task Throws_CallbackWithValue_ShouldThrowException()
+		public async Task Throws_WithCallback_ShouldPassTheCurrentValueToTheCallback()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 
@@ -297,7 +297,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task Throws_Generic_ShouldThrowException()
+		public async Task Throws_WithTypeArgument_ShouldThrowException()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 
@@ -329,7 +329,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task WithoutCallback_IPropertySetupReturnBuilder_ShouldNotThrow()
+		public async Task WithoutCallback_WhenCallingWhenOrFor_ShouldNotThrow()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 			IPropertySetupReturnBuilder<int> setup =
@@ -350,7 +350,7 @@ public sealed partial class SetupPropertyTests
 		}
 
 		[Test]
-		public async Task WithoutCallback_IPropertySetupReturnWhenBuilder_ShouldNotThrow()
+		public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 		{
 			IPropertyService sut = IPropertyService.CreateMock();
 			IPropertySetupReturnWhenBuilder<int> setup =

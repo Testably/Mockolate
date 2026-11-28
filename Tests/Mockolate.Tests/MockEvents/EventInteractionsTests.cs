@@ -5,7 +5,7 @@ namespace Mockolate.Tests.MockEvents;
 public sealed partial class EventInteractionsTests
 {
 	[Test]
-	public async Task EventSubscription_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_WithSubscription_ShouldDescribeTheSubscription()
 	{
 		MockInteractions interactions = new(0);
 		EventSubscription interaction = ((IMockInteractions)interactions).RegisterInteraction(
@@ -16,7 +16,7 @@ public sealed partial class EventInteractionsTests
 	}
 
 	[Test]
-	public async Task EventUnsubscription_ToString_ShouldReturnExpectedValue()
+	public async Task ToString_WithUnsubscription_ShouldDescribeTheUnsubscription()
 	{
 		MockInteractions interactions = new(0);
 		EventUnsubscription interaction = ((IMockInteractions)interactions).RegisterInteraction(

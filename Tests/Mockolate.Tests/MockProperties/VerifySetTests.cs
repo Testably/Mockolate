@@ -101,7 +101,7 @@ public sealed class VerifySetTests
 	}
 
 	[Test]
-	public async Task ShouldIncreaseInvocationCountOfGetter()
+	public async Task ShouldIncreaseInvocationCountOfSetter()
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock();
 
@@ -114,7 +114,7 @@ public sealed class VerifySetTests
 	[Test]
 	[Arguments(true)]
 	[Arguments(false)]
-	public async Task ShouldThrowMockNotSetupExceptionWhenBehaviorIsSetToThrow(bool throwWhenNotSetup)
+	public async Task WhenNotSetup_ShouldThrowMockNotSetupExceptionOnlyIfConfigured(bool throwWhenNotSetup)
 	{
 		MockTests.IMyService sut = MockTests.IMyService.CreateMock(MockBehavior.Default with
 		{

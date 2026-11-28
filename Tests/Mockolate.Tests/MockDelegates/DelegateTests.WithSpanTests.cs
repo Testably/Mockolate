@@ -7,7 +7,7 @@ public partial class DelegateTests
 	public sealed class WithSpanTests
 	{
 		[Test]
-		public async Task ReadOnlySpanParameter_ShouldSupportSetup()
+		public async Task ReadOnlySpan_ShouldSupportSetup()
 		{
 			ReadOnlySpanConsumer sut = ReadOnlySpanConsumer.CreateMock();
 			sut.Mock.Setup(It.IsReadOnlySpan<char>(values => values.Length == 3)).Returns(42);
@@ -20,7 +20,7 @@ public partial class DelegateTests
 		}
 
 		[Test]
-		public async Task SpanParameter_ShouldSupportSetup()
+		public async Task Span_ShouldSupportSetup()
 		{
 			SpanConsumer sut = SpanConsumer.CreateMock();
 			sut.Mock.Setup(It.IsSpan<byte>(values => values.Length == 2)).Returns(42);
@@ -33,7 +33,7 @@ public partial class DelegateTests
 		}
 
 		[Test]
-		public async Task SpanParameter_ShouldSupportVerify()
+		public async Task Span_ShouldSupportVerify()
 		{
 			SpanConsumer sut = SpanConsumer.CreateMock();
 

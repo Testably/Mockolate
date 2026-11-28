@@ -6,7 +6,7 @@ namespace Mockolate.Tests.MockProperties;
 public sealed partial class SetupPropertyTests
 {
 	[Test]
-	public async Task InvokeGetter_InvalidType_ShouldFallBackToDefaultValueGenerator()
+	public async Task InvokeGetter_WithDifferentType_ShouldFallBackToDefaultValueGenerator()
 	{
 		MyPropertySetup<int> setup = new();
 
@@ -16,7 +16,7 @@ public sealed partial class SetupPropertyTests
 	}
 
 	[Test]
-	public async Task InvokeSetter_InvalidType_ShouldThrowMockException()
+	public async Task InvokeSetter_WithDifferentType_ShouldThrowMockException()
 	{
 		MyPropertySetup<int> setup = new();
 
@@ -32,7 +32,7 @@ public sealed partial class SetupPropertyTests
 	}
 
 	[Test]
-	public async Task Register_MultipleProperties_ShouldAllStoreValues()
+	public async Task WithoutSetup_WhenSettingMultipleProperties_ShouldStoreEachValueSeparately()
 	{
 		IPropertyService sut = IPropertyService.CreateMock();
 
@@ -55,7 +55,7 @@ public sealed partial class SetupPropertyTests
 	}
 
 	[Test]
-	public async Task Register_SamePropertyTwice_ShouldOverwritePreviousSetup()
+	public async Task WithRepeatedSetup_ShouldUseLatestSetup()
 	{
 		IPropertyService sut = IPropertyService.CreateMock();
 		sut.Mock.Setup.MyProperty.InitializeWith(4);
@@ -77,7 +77,7 @@ public sealed partial class SetupPropertyTests
 	}
 
 	[Test]
-	public async Task ToString_ShouldReturnType()
+	public async Task ToString_ShouldReturnTypeAndName()
 	{
 		PropertySetup<int> setup = new(new MockRegistry(MockBehavior.Default, new MockInteractions(0)), "Foo");
 
@@ -87,7 +87,7 @@ public sealed partial class SetupPropertyTests
 	}
 
 	[Test]
-	public async Task WhenMockInheritsPropertyMultipleTimes()
+	public async Task WhenMockInheritsPropertyMultipleTimes_ShouldSetUpAndVerifyTheMostDerivedProperty()
 	{
 		IMyPropertyService sut = IMyPropertyService.CreateMock().Implementing<IMyPropertyServiceBase1>();
 		sut.Mock.Setup.Value.InitializeWith("Hello");

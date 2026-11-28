@@ -7,7 +7,7 @@ public sealed partial class VerifySetIndexerTests
 	public sealed class WithSpanTests
 	{
 		[Test]
-		public async Task Memory_WhenPredicateMatches_ShouldApplySetup()
+		public async Task Memory_WithPredicate_ShouldOnlyCountMatchingAccesses()
 		{
 			ISpanMock sut = ISpanMock.CreateMock();
 
@@ -19,7 +19,7 @@ public sealed partial class VerifySetIndexerTests
 		}
 
 		[Test]
-		public async Task Memory_WithoutPredicate_ShouldApplyAllCalls()
+		public async Task Memory_WithoutPredicate_ShouldCountEveryMemoryAccess()
 		{
 			ISpanMock sut = ISpanMock.CreateMock();
 
@@ -31,7 +31,7 @@ public sealed partial class VerifySetIndexerTests
 		}
 
 		[Test]
-		public async Task ReadOnlySpan_WhenPredicateMatches_ShouldApplySetup()
+		public async Task ReadOnlySpan_WithPredicate_ShouldOnlyCountMatchingAccesses()
 		{
 			ISpanMock sut = ISpanMock.CreateMock();
 
@@ -43,7 +43,7 @@ public sealed partial class VerifySetIndexerTests
 		}
 
 		[Test]
-		public async Task ReadOnlySpan_WithoutPredicate_ShouldApplyAllCalls()
+		public async Task ReadOnlySpan_WithoutPredicate_ShouldCountEveryReadOnlySpanAccess()
 		{
 			ISpanMock sut = ISpanMock.CreateMock();
 
@@ -55,7 +55,7 @@ public sealed partial class VerifySetIndexerTests
 		}
 
 		[Test]
-		public async Task Span_WhenPredicateMatches_ShouldApplySetup()
+		public async Task Span_WithPredicate_ShouldOnlyCountMatchingAccesses()
 		{
 			ISpanMock sut = ISpanMock.CreateMock();
 
@@ -67,7 +67,7 @@ public sealed partial class VerifySetIndexerTests
 		}
 
 		[Test]
-		public async Task Span_WithoutPredicate_ShouldApplyAllCalls()
+		public async Task Span_WithoutPredicate_ShouldCountEverySpanAccess()
 		{
 			ISpanMock sut = ISpanMock.CreateMock();
 
