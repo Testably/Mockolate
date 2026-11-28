@@ -13,7 +13,7 @@ public sealed partial class ItExtensionsTests
 		public sealed class WithBytesTests
 		{
 			[Test]
-			public async Task CalledTwice_ShouldUseFirstPredicate()
+			public async Task WhenCalledTwice_ShouldUseTheFirstPredicate()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 				byte[] payload =
@@ -55,7 +55,7 @@ public sealed partial class ItExtensionsTests
 			{
 				0x1, 0x2, 0x3,
 			}, 0x3, false)]
-			public async Task Predicate_ShouldValidatePredicate(byte[] body, byte expectedFirstByte, bool expectSuccess)
+			public async Task WithPredicate_ShouldMatchWhenThePredicateHolds(byte[] body, byte expectedFirstByte, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 				httpClient.Mock.Setup
@@ -117,7 +117,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WhenValidatedAndSetup_ShouldResetStreamPosition()
+			public async Task WhenUsedInSetupAndVerification_ShouldMatchBoth()
 			{
 				byte[] body = [0x66, 0x67,];
 				HttpClient httpClient = HttpClient.CreateMock();

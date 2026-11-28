@@ -17,7 +17,7 @@ public sealed class ProjectionIndexerTests
 	public sealed class EndToEndTests
 	{
 		[Test]
-		public async Task WithProjection_SetterWrite_FeedsGetterRead_UnderProjectedKey()
+		public async Task WithProjection_WhenWritten_ShouldReturnTheValueForKeysWithTheSameProjection()
 		{
 			IGeneratedPacketStore sut = IGeneratedPacketStore.CreateMock();
 			sut.Mock.Setup[It.IsRefStructBy<Packet, int>(p => p.Id)].Returns("fallback");
@@ -32,7 +32,7 @@ public sealed class ProjectionIndexerTests
 		}
 
 		[Test]
-		public async Task WithoutProjection_SetterWrite_IsStorageNoOp()
+		public async Task WithoutProjection_WhenWritten_ShouldStillReturnTheConfiguredValue()
 		{
 			IGeneratedPacketStore sut = IGeneratedPacketStore.CreateMock();
 			sut.Mock.Setup[It.IsAnyRefStruct<Packet>()].Returns("fallback");
@@ -45,7 +45,7 @@ public sealed class ProjectionIndexerTests
 		}
 
 		[Test]
-		public async Task WithProjection_MultipleWrites_LastWriteWinsUnderSameProjectedKey()
+		public async Task WithProjection_WhenWrittenTwiceWithTheSameProjection_ShouldReturnTheLastValue()
 		{
 			IGeneratedPacketStore sut = IGeneratedPacketStore.CreateMock();
 			sut.Mock.Setup[It.IsRefStructBy<Packet, int>(p => p.Id)].Returns("fallback");
@@ -61,7 +61,7 @@ public sealed class ProjectionIndexerTests
 		}
 
 		[Test]
-		public async Task WithProjectionAndPredicate_StoresOnlyWhenPredicateMatches()
+		public async Task WithProjectionAndPredicate_ShouldOnlyStoreValuesWhenThePredicateHolds()
 		{
 			IGeneratedPacketStore sut = IGeneratedPacketStore.CreateMock();
 			sut.Mock.Setup[It.IsRefStructBy<Packet, int>(p => p.Id, id => id > 10)]
@@ -81,7 +81,7 @@ public sealed class ProjectionIndexerTests
 		}
 
 		[Test]
-		public async Task MatcherOnlySetup_NoProjection_ReturnsConfiguredValueRegardlessOfWrite()
+		public async Task WithPredicateButWithoutProjection_WhenWritten_ShouldStillReturnTheConfiguredValue()
 		{
 			IGeneratedPacketStore sut = IGeneratedPacketStore.CreateMock();
 			sut.Mock.Setup[It.IsRefStruct<Packet>(p => p.Id > 100)].Returns("hit");
@@ -93,7 +93,7 @@ public sealed class ProjectionIndexerTests
 		}
 
 		[Test]
-		public async Task WithProjection_NoReturnsConfigured_ReadsStoredValue()
+		public async Task WithProjectionWithoutReturns_WhenWritten_ShouldReturnTheStoredValue()
 		{
 			IGeneratedPacketStore sut = IGeneratedPacketStore.CreateMock();
 			_ = sut.Mock.Setup[It.IsRefStructBy<Packet, int>(p => p.Id)];
@@ -106,7 +106,7 @@ public sealed class ProjectionIndexerTests
 		}
 
 		[Test]
-		public async Task WithProjection_NoWrite_EmptyBucket_FallsBackToReturns()
+		public async Task WithProjection_WhenNotWritten_ShouldReturnTheConfiguredValue()
 		{
 			IGeneratedPacketStore sut = IGeneratedPacketStore.CreateMock();
 			sut.Mock.Setup[It.IsRefStructBy<Packet, int>(p => p.Id)].Returns("fallback");
@@ -117,7 +117,7 @@ public sealed class ProjectionIndexerTests
 		}
 
 		[Test]
-		public async Task WithProjection_NoWriteNoReturns_ReturnsDefault()
+		public async Task WithProjectionWithoutReturns_WhenNotWritten_ShouldReturnNull()
 		{
 			// When storage is active but the bucket is empty and no Returns(...) was configured,
 			// we reach rule 5: the setup takes the default factory provided by the generator,
@@ -132,7 +132,7 @@ public sealed class ProjectionIndexerTests
 		}
 
 		[Test]
-		public async Task SetterOnly_NoBoundGetter_DoesNotStore()
+		public async Task SetterOnlyIndexer_WithProjection_ShouldPassTheValueToTheOnSetCallback()
 		{
 			// IGeneratedPacketSetter exposes only a setter. Writing via a projection matcher
 			// must not fail, but there is no getter to read the value back from — the matcher
@@ -151,7 +151,7 @@ public sealed class ProjectionIndexerTests
 	public sealed class UnitLevelTests
 	{
 		[Test]
-		public async Task CombinedSetup_WiresSetterBoundGetter_WritesFeedReads()
+		public async Task RefStructIndexerSetup_WithProjection_ShouldReturnTheValueWrittenThroughTheSetter()
 		{
 			// Exercises the setup plumbing at a coarser level than the internal StoreValue /
 			// TryGetStoredValue tests (which live in Mockolate.Internal.Tests and can reach the
@@ -171,7 +171,7 @@ public sealed class ProjectionIndexerTests
 	public sealed class MultiParameterTests
 	{
 		[Test]
-		public async Task MixedIndexer_NormalAndProjection_WritesFeedReadsUnderProjectedKey()
+		public async Task MixedIndexer_WithProjection_WhenWritten_ShouldReturnTheValueForMatchingKeys()
 		{
 			IGeneratedMixedStore sut = IGeneratedMixedStore.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsRefStructBy<Packet, int>(p => p.Id)]
@@ -189,7 +189,7 @@ public sealed class ProjectionIndexerTests
 		}
 
 		[Test]
-		public async Task MixedIndexer_RefStructWithoutProjection_DisablesStorage()
+		public async Task MixedIndexer_WithoutProjection_WhenWritten_ShouldStillReturnTheConfiguredValue()
 		{
 			IGeneratedMixedStore sut = IGeneratedMixedStore.CreateMock();
 			sut.Mock.Setup[It.IsAny<int>(), It.IsAnyRefStruct<Packet>()].Returns("fallback");
@@ -202,7 +202,7 @@ public sealed class ProjectionIndexerTests
 		}
 
 		[Test]
-		public async Task Arity5_MixedProjectionsAndNormals_WritesFeedReads()
+		public async Task With5KeysAndProjections_WhenWritten_ShouldReturnTheValueForMatchingKeys()
 		{
 			// Exercises the generator-emitted arity 5+ RefStructIndexerSetup class — three
 			// ref-struct slots with projections interleaved with two non-ref-struct slots.
@@ -227,7 +227,7 @@ public sealed class ProjectionIndexerTests
 		}
 
 		[Test]
-		public async Task DoubleRefStructIndexer_BothProjections_WritesFeedReads()
+		public async Task With2RefStructKeysAndProjections_WhenWritten_ShouldReturnTheValueForMatchingKeys()
 		{
 			IGeneratedDoublePacketStore sut = IGeneratedDoublePacketStore.CreateMock();
 			sut.Mock.Setup[
@@ -249,7 +249,7 @@ public sealed class ProjectionIndexerTests
 	public sealed class MatcherTests
 	{
 		[Test]
-		public async Task IsRefStructBy_ReturnsProjectionMatcher()
+		public async Task IsRefStructBy_ShouldReturnAProjectionMatcher()
 		{
 			IParameter<Packet> matcher = It.IsRefStructBy<Packet, int>(p => p.Id);
 
@@ -258,7 +258,7 @@ public sealed class ProjectionIndexerTests
 		}
 
 		[Test]
-		public async Task IsRefStructBy_Project_ReturnsTypedProjection()
+		public async Task Project_ShouldReturnTheTypedProjection()
 		{
 			IParameter<Packet> matcher = It.IsRefStructBy<Packet, int>(p => p.Id);
 			IRefStructProjectionMatch<Packet, int> typed = (IRefStructProjectionMatch<Packet, int>)matcher;
@@ -269,7 +269,7 @@ public sealed class ProjectionIndexerTests
 		}
 
 		[Test]
-		public async Task IsRefStructBy_NonGenericProject_BoxesProjection()
+		public async Task Project_WithNonGenericInterface_ShouldReturnTheBoxedProjection()
 		{
 			IParameter<Packet> matcher = It.IsRefStructBy<Packet, int>(p => p.Id);
 			IRefStructProjectionMatch<Packet> nonGeneric = (IRefStructProjectionMatch<Packet>)matcher;
@@ -281,7 +281,7 @@ public sealed class ProjectionIndexerTests
 		}
 
 		[Test]
-		public async Task IsRefStructBy_NoPredicate_MatchesAny()
+		public async Task IsRefStructBy_WithoutPredicate_ShouldMatchAnyValue()
 		{
 			IParameter<Packet> matcher = It.IsRefStructBy<Packet, int>(p => p.Id);
 			IParameterMatch<Packet> asMatch = (IParameterMatch<Packet>)matcher;
@@ -291,7 +291,7 @@ public sealed class ProjectionIndexerTests
 		}
 
 		[Test]
-		public async Task IsRefStructBy_WithPredicate_FiltersOnProjectedValue()
+		public async Task IsRefStructBy_WithPredicate_ShouldMatchWhenThePredicateHoldsForTheProjectedValue()
 		{
 			IParameter<Packet> matcher = It.IsRefStructBy<Packet, int>(p => p.Id, id => id == 7);
 			IParameterMatch<Packet> asMatch = (IParameterMatch<Packet>)matcher;
@@ -301,7 +301,7 @@ public sealed class ProjectionIndexerTests
 		}
 
 		[Test]
-		public async Task IsRefStructBy_ToString_WithoutPredicate()
+		public async Task ToString_WithoutPredicate_ShouldDescribeTheMatcher()
 		{
 			IParameter<Packet> matcher = It.IsRefStructBy<Packet, int>(p => p.Id);
 
@@ -309,7 +309,7 @@ public sealed class ProjectionIndexerTests
 		}
 
 		[Test]
-		public async Task IsRefStructBy_ToString_WithPredicate()
+		public async Task ToString_WithPredicate_ShouldDescribeTheMatcher()
 		{
 			IParameter<Packet> matcher = It.IsRefStructBy<Packet, int>(p => p.Id, id => id > 0);
 
@@ -318,7 +318,7 @@ public sealed class ProjectionIndexerTests
 		}
 
 		[Test]
-		public async Task IsRefStructBy_Matches_ObjectOverload_ReturnsFalse()
+		public async Task Matches_WithObject_ShouldReturnFalse()
 		{
 			IParameter<Packet> matcher = It.IsRefStructBy<Packet, int>(p => p.Id);
 

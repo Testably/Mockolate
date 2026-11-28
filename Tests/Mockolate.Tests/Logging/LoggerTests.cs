@@ -50,7 +50,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task CombinationMock_WithAddedLogger_ThrowingWhenNotSetup_ShouldAnswerIsEnabled()
+	public async Task CombinationMock_WithAddedLoggerAndThrowingWhenNotSetup_ShouldAnswerIsEnabled()
 	{
 		IChocolateDispenser mock = IChocolateDispenser.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup())
 			.Implementing<ILogger>();
@@ -128,7 +128,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task Setup_LogError_WithMessageMatcher_ShouldMatchFormattedMessageAndLevel()
+	public async Task Setup_WithMessageMatcher_ShouldMatchFormattedMessageAndLevel()
 	{
 		List<string> messages = [];
 		ILogger<LoggerTests> logger = ILogger<LoggerTests>.CreateMock();
@@ -182,7 +182,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task Setup_InScenario_ShouldOnlyApplyInScenario()
+	public async Task Setup_WhenInScenario_ShouldOnlyApplyInScenario()
 	{
 		int calls = 0;
 		ILogger logger = ILogger.CreateMock();
@@ -196,7 +196,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task Setup_InScenario_WithTypedAndLoggingSetups_ShouldUseLatest()
+	public async Task Setup_WithTypedAndLoggingSetups_WhenInScenario_ShouldUseLatest()
 	{
 		List<string> calls = [];
 		ILogger logger = ILogger.CreateMock();
@@ -211,7 +211,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task Setup_InScenario_WithLoggingAndTypedSetups_ShouldUseLatest()
+	public async Task Setup_WithLoggingAndTypedSetups_WhenInScenario_ShouldUseLatest()
 	{
 		List<string> calls = [];
 		ILogger logger = ILogger.CreateMock();
@@ -242,7 +242,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task ThrowingWhenNotSetup_IsEnabledWithoutSetup_ShouldReturnTrue()
+	public async Task IsEnabled_WithThrowingWhenNotSetup_ShouldReturnTrue()
 	{
 		ILogger logger = ILogger.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
 
@@ -252,7 +252,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task ThrowingWhenNotSetup_LoggerMessage_WithLoggingSetup_ShouldNotThrow()
+	public async Task LoggerMessage_WithThrowingWhenNotSetupAndLoggingSetup_ShouldNotThrow()
 	{
 		Action<ILogger, int, Exception?> logOrderFailed =
 			LoggerMessage.Define<int>(LogLevel.Error, new EventId(1), "Order {OrderId} failed");
@@ -265,7 +265,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task ThrowingWhenNotSetup_LoggerMessage_WithoutSetup_ShouldThrow()
+	public async Task LoggerMessage_WithThrowingWhenNotSetup_ShouldThrow()
 	{
 		Action<ILogger, int, Exception?> logOrderFailed =
 			LoggerMessage.Define<int>(LogLevel.Error, new EventId(1), "Order {OrderId} failed");
@@ -278,7 +278,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task ThrowingWhenNotSetup_WithoutSetup_ShouldThrow()
+	public async Task LogError_WithThrowingWhenNotSetup_ShouldThrow()
 	{
 		ILogger logger = ILogger.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
 
@@ -288,7 +288,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task ThrowingWhenNotSetup_BeginScope_ShouldNotThrow()
+	public async Task BeginScope_WithThrowingWhenNotSetup_ShouldNotThrow()
 	{
 		ILogger logger = ILogger.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
 		logger.Mock.Setup.LogError();
@@ -322,7 +322,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task ThrowingWhenNotSetup_WithLoggingSetup_ShouldNotThrow()
+	public async Task LogError_WithThrowingWhenNotSetupAndLoggingSetup_ShouldNotThrow()
 	{
 		ILogger logger = ILogger.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
 		logger.Mock.Setup.LogError();
@@ -333,7 +333,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task Verify_Level_ShouldCountTheCallsOnTheLevel()
+	public async Task Verify_WithLevel_ShouldCountTheCallsOnTheLevel()
 	{
 		ILogger logger = ILogger.CreateMock();
 
@@ -348,7 +348,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task Verify_OrHigher_ShouldIncludeHigherLevels()
+	public async Task OrHigher_ShouldIncludeHigherLevels()
 	{
 		ILogger logger = ILogger.CreateMock();
 
@@ -388,7 +388,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task Verify_WithMessageTemplate_WithProperty_ShouldMatchTheValue()
+	public async Task Verify_WithMessageTemplateAndProperty_ShouldMatchTheValue()
 	{
 		ILogger logger = ILogger.CreateMock();
 
@@ -410,7 +410,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task Verify_WithMessageTemplate_WithNullProperty_ShouldMatchNull()
+	public async Task Verify_WithMessageTemplateAndNullProperty_ShouldMatchNull()
 	{
 		ILogger logger = ILogger.CreateMock();
 
@@ -463,7 +463,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task Verify_WithCategory_OnGenericLogger_ShouldMatchTheCategoryOfTheType()
+	public async Task Verify_WithCategory_WhenTheLoggerIsGeneric_ShouldMatchTheCategoryOfTheType()
 	{
 		ILogger<LoggerTests> logger = ILogger<LoggerTests>.CreateMock();
 
@@ -475,7 +475,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task Verify_WithCategory_OnLoggerWithoutCategory_ShouldNotMatch()
+	public async Task Verify_WithCategory_WhenTheLoggerHasNoCategory_ShouldNotMatch()
 	{
 		ILogger logger = ILogger.CreateMock();
 
@@ -499,7 +499,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task Verify_Then_ShouldCheckTheOrder()
+	public async Task Then_ShouldCheckTheOrder()
 	{
 		ILogger logger = ILogger.CreateMock();
 
@@ -510,7 +510,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task Verify_Then_WhenInWrongOrder_ShouldFail()
+	public async Task Then_WhenInWrongOrder_ShouldFail()
 	{
 		ILogger logger = ILogger.CreateMock();
 
@@ -524,7 +524,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task Verify_Then_ShouldOrderLogCallsAndOtherCalls()
+	public async Task Then_ShouldOrderLogCallsAndOtherCalls()
 	{
 		ILogger logger = ILogger.CreateMock();
 
@@ -537,7 +537,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task Verify_Within_ShouldWaitForLogCallsOnAnotherThread()
+	public async Task Within_ShouldWaitForLogCallsOnAnotherThread()
 	{
 		ILogger logger = ILogger.CreateMock();
 
@@ -584,7 +584,7 @@ public sealed class LoggerTests
 	}
 
 	[Test]
-	public async Task Verify_WithCategory_OnInterfaceDerivedFromGenericLogger_ShouldUseTheCategoryOfTheTypeArgument()
+	public async Task Verify_WithCategory_WhenTheLoggerInterfaceDerivesFromAGenericLogger_ShouldUseTheCategoryOfTheTypeArgument()
 	{
 		ITypedLogger logger = ITypedLogger.CreateMock();
 

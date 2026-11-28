@@ -12,7 +12,7 @@ namespace Mockolate.Tests.Web;
 public sealed partial class HttpClientExtensionsTests
 {
 	[Test]
-	public async Task CustomParameter_WithoutIParameterMatch_ShouldBeInvokedViaAdapter()
+	public async Task GetAsync_WithCustomParameter_ShouldUseItsMatchesMethod()
 	{
 		HttpClient httpClient = HttpClient.CreateMock();
 		IReturnMethodSetup<Task<HttpResponseMessage>, HttpRequestMessage, CancellationToken> setup = httpClient
@@ -33,7 +33,7 @@ public sealed partial class HttpClientExtensionsTests
 	}
 
 	[Test]
-	public async Task InvokedSetup_ShouldWorkForHttpClient()
+	public async Task VerifySetup_ShouldCountTheInvocationsOfTheSetup()
 	{
 		HttpClient httpClient = HttpClient.CreateMock();
 		IMethodSetup setup = httpClient
@@ -48,7 +48,7 @@ public sealed partial class HttpClientExtensionsTests
 	}
 
 	[Test]
-	public async Task InvokedSetup_WhenMethodSetupIsNotVerifiable_ShouldThrowMockException()
+	public async Task VerifySetup_WhenTheSetupIsNotVerifiable_ShouldThrowMockException()
 	{
 		HttpClient sut = HttpClient.CreateMock();
 		IMethodSetup setup = new MyMethodSetup();
@@ -63,7 +63,7 @@ public sealed partial class HttpClientExtensionsTests
 	}
 
 	[Test]
-	public async Task NullRequestUri_ShouldInvokeCallbackWithNull()
+	public async Task WithPattern_WhenTheRequestUriIsNull_ShouldInvokeTheCallbackWithNull()
 	{
 		// ReSharper disable once VariableCanBeNotNullable
 		string? callbackUri = "initialized";
@@ -79,7 +79,7 @@ public sealed partial class HttpClientExtensionsTests
 	}
 
 	[Test]
-	public async Task NullRequestUri_ShouldReturnFalse()
+	public async Task WithPattern_WhenTheRequestUriIsNull_ShouldNotMatch()
 	{
 		HttpClient httpClient = HttpClient.CreateMock();
 		IMethodSetup setup = httpClient
@@ -95,7 +95,7 @@ public sealed partial class HttpClientExtensionsTests
 	}
 
 	[Test]
-	public async Task NullUri_ShouldReturnFalse()
+	public async Task WithAnyString_WhenTheRequestUriIsNull_ShouldNotMatch()
 	{
 		HttpClient httpClient = HttpClient.CreateMock();
 		IReturnMethodSetup<Task<HttpResponseMessage>, HttpRequestMessage, CancellationToken> setup = httpClient
@@ -111,7 +111,7 @@ public sealed partial class HttpClientExtensionsTests
 	}
 
 	[Test]
-	public async Task SendAsync_WithoutMockedHttpMessageHandler_ShouldThrowMockException()
+	public async Task SendAsync_WhenHttpMessageHandlerIsNotMocked_ShouldThrowMockException()
 	{
 		HttpClient httpClient = HttpClient.CreateMock([]);
 
@@ -152,7 +152,7 @@ public sealed partial class HttpClientExtensionsTests
 	[Test]
 	[Arguments("*testably.org")]
 	[Arguments("*testably.org/")]
-	public async Task TrailingSlash_ShouldBeIgnored(string matchPattern)
+	public async Task WithPatternWithOrWithoutTrailingSlash_ShouldMatch(string matchPattern)
 	{
 		HttpClient httpClient = HttpClient.CreateMock();
 		httpClient.Mock.Setup
@@ -167,7 +167,7 @@ public sealed partial class HttpClientExtensionsTests
 	}
 
 	[Test]
-	public async Task TrailingSlash_WhenNotPresent_ShouldNotBeAdded()
+	public async Task WithTrailingSlashInPattern_WhenTheUriHasNone_ShouldNotMatch()
 	{
 		HttpClient httpClient = HttpClient.CreateMock();
 		httpClient.Mock.Setup

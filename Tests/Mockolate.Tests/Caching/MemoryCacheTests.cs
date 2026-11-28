@@ -11,7 +11,7 @@ namespace Mockolate.Tests.Caching;
 public sealed class MemoryCacheTests
 {
 	[Test]
-	public async Task Get_AfterSet_ShouldReturnStoredValue()
+	public async Task Get_WhenCalledAfterSet_ShouldReturnStoredValue()
 	{
 		IMemoryCache cache = IMemoryCache.CreateMock();
 
@@ -22,7 +22,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task Get_WithoutEntry_ShouldMiss()
+	public async Task TryGetValue_WithoutEntry_ShouldMiss()
 	{
 		IMemoryCache cache = IMemoryCache.CreateMock();
 
@@ -82,7 +82,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task ThrowingWhenNotSetup_WhenKeyIsMissing_ShouldThrow()
+	public async Task TryGetValue_WithThrowingWhenNotSetup_WhenKeyIsMissing_ShouldThrow()
 	{
 		IMemoryCache cache = IMemoryCache.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
 
@@ -122,7 +122,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task ThrowingWhenNotSetup_WithSetupWithoutReturnValue_ShouldMissWithoutThrowing()
+	public async Task SetupTryGetValue_WithoutReturnValueAndThrowingWhenNotSetup_ShouldMissWithoutThrowing()
 	{
 		IMemoryCache cache = IMemoryCache.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
 		int calls = 0;
@@ -161,7 +161,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task SetupGet_InitializeWithAfterRemove_ShouldApply()
+	public async Task InitializeWith_WhenCalledAfterRemove_ShouldApply()
 	{
 		IMemoryCache cache = IMemoryCache.CreateMock();
 		cache.Mock.Setup.Get("order-42").InitializeWith("Milk");
@@ -252,7 +252,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task CombinationMock_OfClassWithBaseImplementationsAndLogger_ShouldThrowForCacheSetups()
+	public async Task ClassWithBaseImplementations_WhenCombinedWithLogger_ShouldThrowForCacheSetups()
 	{
 		VirtualMemoryCache cache = VirtualMemoryCache.CreateMock().Implementing<ILogger>();
 
@@ -264,7 +264,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task Wrapping_InitializeWith_ShouldThrow()
+	public async Task InitializeWith_WhenWrappingACache_ShouldThrow()
 	{
 		IMemoryCache cache = IMemoryCache.CreateMock().Wrapping(IMemoryCache.CreateMock());
 
@@ -289,7 +289,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task ClassWithOverridableMembers_SetupInCreateMock_ShouldApply()
+	public async Task ClassWithOverridableMembers_WithSetupInCreateMock_ShouldApply()
 	{
 		AbstractMemoryCacheBase cache = AbstractMemoryCacheBase.CreateMock(setup =>
 		{
@@ -326,7 +326,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task ClassWithOverridableMembers_SetupGetInScenario_ShouldApplyInScenario()
+	public async Task ClassWithOverridableMembers_WithSetupGetInScenario_ShouldApplyInScenario()
 	{
 		AbstractMemoryCacheBase cache = AbstractMemoryCacheBase.CreateMock();
 		cache.Mock.InScenario("cached").Setup.Get("order-42").Returns("Dark");
@@ -352,7 +352,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task ThrowingWhenNotSetup_ShouldStoreRemoveAndReadEntries()
+	public async Task WithThrowingWhenNotSetup_ShouldStoreRemoveAndReadEntries()
 	{
 		IMemoryCache cache = IMemoryCache.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
 
@@ -366,7 +366,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task ThrowingWhenNotSetup_WithSetupThatMisses_ShouldNotThrow()
+	public async Task SetupTryGetValue_WithReturnsFalseAndThrowingWhenNotSetup_ShouldNotThrow()
 	{
 		IMemoryCache cache = IMemoryCache.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
 		cache.Mock.Setup.TryGetValue("order-42", It.IsAnyOut<object?>()).Returns(false);
@@ -377,7 +377,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task SetupGet_InitializeWith_ShouldBehaveLikeStoredValue()
+	public async Task InitializeWith_ShouldBehaveLikeStoredValue()
 	{
 		IMemoryCache cache = IMemoryCache.CreateMock();
 		cache.Mock.Setup.Get(It.Matches("order-*")).InitializeWith("Dark");
@@ -395,7 +395,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task SetupGet_InitializeWithInScenario_ShouldOnlyApplyInScenario()
+	public async Task InitializeWith_WhenInScenario_ShouldOnlyApplyInScenario()
 	{
 		IMemoryCache cache = IMemoryCache.CreateMock();
 		cache.Mock.InScenario("cached").Setup.Get("order-42").InitializeWith("Dark");
@@ -409,7 +409,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task SetupGet_InitializeWithInScenario_ShouldTakePrecedenceOverDefaultScope()
+	public async Task InitializeWith_WhenInScenario_ShouldTakePrecedenceOverDefaultScope()
 	{
 		IMemoryCache cache = IMemoryCache.CreateMock();
 		cache.Mock.InScenario("cached").Setup.Get("order-42").InitializeWith("Dark");
@@ -436,7 +436,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task SetupGet_InitializeWithValueTypeMatcher_ShouldMatchKeys()
+	public async Task InitializeWith_WithValueTypeMatcher_ShouldMatchKeys()
 	{
 		IMemoryCache cache = IMemoryCache.CreateMock();
 		cache.Mock.Setup.Get(It.IsAny<int>()).InitializeWith("Dark");
@@ -446,7 +446,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task SetupGet_Returns_ShouldAlwaysReturnValue()
+	public async Task Returns_ShouldAlwaysReturnValue()
 	{
 		IMemoryCache cache = IMemoryCache.CreateMock();
 		cache.Mock.Setup.Get("order-42").Returns("Dark");
@@ -458,7 +458,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task SetupGetTyped_ShouldReturnAndInitializeTypedValues()
+	public async Task SetupGet_WithTypeArgument_ShouldReturnAndInitializeTypedValues()
 	{
 		IMemoryCache cache = IMemoryCache.CreateMock();
 		cache.Mock.Setup.Get<decimal>("price-Dark").Returns(2.5m);
@@ -469,7 +469,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task SetupGet_Misses_ShouldMissAlsoAfterSet()
+	public async Task Misses_ShouldMissAlsoAfterSet()
 	{
 		IMemoryCache cache = IMemoryCache.CreateMock();
 		int calls = 0;
@@ -485,7 +485,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task ThrowingWhenNotSetup_WithMisses_ShouldNotThrow()
+	public async Task Misses_WithThrowingWhenNotSetup_ShouldNotThrow()
 	{
 		IMemoryCache cache = IMemoryCache.CreateMock(MockBehavior.Default.ThrowingWhenNotSetup());
 		cache.Mock.Setup.Get<string>("order-42").Misses();
@@ -496,7 +496,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task SetupGet_ThrowsException_ShouldThrow()
+	public async Task Throws_ShouldThrowTheException()
 	{
 		IMemoryCache cache = IMemoryCache.CreateMock();
 		cache.Mock.Setup.Get("order-42").Throws<TimeoutException>();
@@ -507,7 +507,7 @@ public sealed class MemoryCacheTests
 	}
 
 	[Test]
-	public async Task SetupGet_InScenario_ShouldOnlyApplyInScenario()
+	public async Task SetupGet_WhenInScenario_ShouldOnlyApplyInScenario()
 	{
 		IMemoryCache cache = IMemoryCache.CreateMock();
 		cache.Mock.InScenario("cached").Setup.Get("order-42").Returns("Dark");

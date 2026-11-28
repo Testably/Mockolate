@@ -17,7 +17,7 @@ public sealed partial class ItExtensionsTests
 			[Arguments("foo", "f[aeiou]*", true)]
 			[Arguments("foo", "F[aeiou]*", true)]
 			[Arguments("foo", ".a.", false)]
-			public async Task AsRegex_IgnoringCase_ShouldCheckForCaseInsensitiveMatchingWildcard(
+			public async Task AsRegex_WithIgnoringCase_ShouldCheckForCaseInsensitiveRegexMatch(
 				string body, string pattern, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -37,7 +37,7 @@ public sealed partial class ItExtensionsTests
 			[Arguments("foo", "f[aeiou]*", true)]
 			[Arguments("foo", "F[aeiou]*", false)]
 			[Arguments("foo", ".a.", false)]
-			public async Task AsRegex_ShouldCheckForMatchingWildcard(string body, string pattern, bool expectSuccess)
+			public async Task AsRegex_ShouldCheckForRegexMatch(string body, string pattern, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 				httpClient.Mock.Setup

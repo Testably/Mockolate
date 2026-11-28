@@ -74,7 +74,7 @@ public sealed partial class ItExtensionsTests
 			[Test]
 			[Arguments("*testably.org")]
 			[Arguments("*testably.org/")]
-			public async Task TrailingSlash_ShouldBeIgnored(string matchPattern)
+			public async Task WithPatternWithOrWithoutTrailingSlash_ShouldMatch(string matchPattern)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 				httpClient.Mock.Setup
@@ -90,7 +90,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task TrailingSlash_WhenNotPresent_ShouldNotBeAdded()
+			public async Task WithTrailingSlashInPattern_WhenTheUriHasNone_ShouldNotMatch()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 				httpClient.Mock.Setup

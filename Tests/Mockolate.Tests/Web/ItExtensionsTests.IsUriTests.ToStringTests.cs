@@ -9,7 +9,7 @@ public sealed partial class ItExtensionsTests
 		public sealed class ToStringTests
 		{
 			[Test]
-			public async Task Default_ShouldReturnExpectedValue()
+			public async Task WithoutConditions_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri();
 
@@ -19,7 +19,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task ForHttp_ShouldReturnExpectedValue()
+			public async Task ForHttp_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri().ForHttp();
 
@@ -29,7 +29,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task ForHttps_ShouldReturnExpectedValue()
+			public async Task ForHttps_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri().ForHttps();
 
@@ -39,7 +39,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task MultipleConditions_ShouldReturnExpectedValue()
+			public async Task WithMultipleConditions_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri("*example.com*")
 					.ForHttps()
@@ -55,7 +55,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task MultipleWithQuery_ShouldReturnExpectedValue()
+			public async Task WithMultipleQueryParameters_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri()
 					.WithQuery("x", "1")
@@ -67,7 +67,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithHost_ShouldReturnExpectedValue()
+			public async Task WithHost_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri().WithHost("example.com");
 
@@ -77,7 +77,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithPath_ShouldReturnExpectedValue()
+			public async Task WithPath_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri().WithPath("/api/v1");
 
@@ -87,7 +87,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithPattern_ShouldReturnExpectedValue()
+			public async Task WithPattern_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri("*example.com*");
 
@@ -97,7 +97,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithPort_ShouldReturnExpectedValue()
+			public async Task WithPort_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri().WithPort(443);
 
@@ -107,7 +107,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithQueryKeyValue_ShouldReturnExpectedValue()
+			public async Task WithQueryKeyValue_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri().WithQuery("x", "1");
 
@@ -117,7 +117,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithQueryString_ShouldReturnExpectedValue()
+			public async Task WithQueryString_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri().WithQuery("x=1");
 
@@ -127,7 +127,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithQueryTuple_ShouldReturnExpectedValue()
+			public async Task WithQueryTuple_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IUriParameter sut = It.IsUri().WithQuery(("x", "1"));
 

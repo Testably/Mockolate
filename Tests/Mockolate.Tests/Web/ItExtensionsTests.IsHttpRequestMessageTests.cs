@@ -13,7 +13,7 @@ public sealed partial class ItExtensionsTests
 	public sealed partial class IsHttpRequestMessageTests
 	{
 		[Test]
-		public async Task NonGeneric_DispatchesHttpRequestMessageThroughCallback()
+		public async Task InvokeCallbacks_WithHttpRequestMessage_ShouldInvokeCallback()
 		{
 			ItExtensions.IHttpRequestMessageParameter sut = It.IsHttpRequestMessage();
 			HttpRequestMessage? captured = null;
@@ -26,7 +26,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task NonGeneric_IgnoresUnrelatedTypes()
+		public async Task InvokeCallbacks_WithObjectOfMismatchedType_ShouldNotInvokeCallback()
 		{
 			ItExtensions.IHttpRequestMessageParameter sut = It.IsHttpRequestMessage();
 			int invocations = 0;
@@ -38,7 +38,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task NonGenericMatches_ReturnsFalseForUnrelatedType()
+		public async Task Matches_WithObjectOfMismatchedType_ShouldReturnFalse()
 		{
 			ItExtensions.IHttpRequestMessageParameter sut = It.IsHttpRequestMessage();
 
@@ -48,7 +48,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task NonGenericMatches_ReturnsTrueForHttpRequestMessage()
+		public async Task Matches_WithHttpRequestMessage_ShouldReturnTrue()
 		{
 			ItExtensions.IHttpRequestMessageParameter sut = It.IsHttpRequestMessage();
 
@@ -87,7 +87,7 @@ public sealed partial class ItExtensionsTests
 		}
 
 		[Test]
-		public async Task WithHeaders_OnRequestWithoutContent_ShouldStillEvaluate()
+		public async Task WithHeaders_ShouldMatchRequestsWithAndWithoutContent()
 		{
 			ItExtensions.IHttpRequestMessageParameter sut = It.IsHttpRequestMessage()
 				.WithHeaders(("x-correlation", "abc"));

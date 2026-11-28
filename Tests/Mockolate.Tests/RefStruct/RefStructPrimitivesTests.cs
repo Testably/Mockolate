@@ -28,7 +28,7 @@ public sealed class RefStructPrimitivesTests
 		}
 
 		[Test]
-		public async Task IsAnyRefStruct_ToString_ShouldIncludeTypeName()
+		public async Task ToString_WithIsAnyRefStruct_ShouldIncludeTheTypeName()
 		{
 			IParameter<Packet> sut = It.IsAnyRefStruct<Packet>();
 
@@ -51,7 +51,7 @@ public sealed class RefStructPrimitivesTests
 		}
 
 		[Test]
-		public async Task IsRefStruct_PredicateSeesSpanPayload()
+		public async Task IsRefStruct_WithPredicateOnTheSpanPayload_ShouldMatchWhenThePredicateHolds()
 		{
 			// Demonstrates the predicate can read into the ref struct's inline Span — which is the
 			// whole reason ref-struct parameters exist. A non-ref-struct matcher could never do this
@@ -71,7 +71,7 @@ public sealed class RefStructPrimitivesTests
 		}
 
 		[Test]
-		public async Task IsAnyRefStruct_NonGenericMatches_ReturnsFalseForBoxedSlot()
+		public async Task IsAnyRefStruct_WithNullObject_ShouldReturnFalse()
 		{
 			IParameter sut = It.IsAnyRefStruct<Packet>();
 
@@ -86,7 +86,7 @@ public sealed class RefStructPrimitivesTests
 	public sealed class InteractionTests
 	{
 		[Test]
-		public async Task SingleArityInteraction_RendersParameterNameWithPlaceholder()
+		public async Task ToString_With1Parameter_ShouldDescribeTheInvocation()
 		{
 			RefStructMethodInvocation invocation = new("Consume", "packet");
 
@@ -96,7 +96,7 @@ public sealed class RefStructPrimitivesTests
 		}
 
 		[Test]
-		public async Task MultiArityInteraction_RendersAllParameterNames()
+		public async Task ToString_With3Parameters_ShouldDescribeTheInvocation()
 		{
 			RefStructMethodInvocation invocation = new("Encode", "left", "right", "scratch");
 
@@ -110,7 +110,7 @@ public sealed class RefStructPrimitivesTests
 	public sealed class MultiAritySetupTests
 	{
 		[Test]
-		public async Task Arity2_Matches_AllMatchersMustAccept()
+		public async Task Matches_With2Parameters_ShouldRequireAllMatchersToMatch()
 		{
 			RefStructVoidMethodSetup<Packet, Packet> setup = new(
 				"Encode",
@@ -127,7 +127,7 @@ public sealed class RefStructPrimitivesTests
 		}
 
 		[Test]
-		public async Task Arity2_Invoke_ThrowsConfiguredException()
+		public async Task Invoke_With2Parameters_ShouldThrowTheConfiguredException()
 		{
 			RefStructVoidMethodSetup<Packet, Packet> setup = new("Encode");
 			((IRefStructVoidMethodSetup<Packet, Packet>)setup)
@@ -139,7 +139,7 @@ public sealed class RefStructPrimitivesTests
 		}
 
 		[Test]
-		public async Task Arity3_Matches_AllMatchersMustAccept()
+		public async Task Matches_With3Parameters_ShouldTreatAMissingMatcherAsAnyValue()
 		{
 			RefStructVoidMethodSetup<Packet, Packet, Packet> setup = new(
 				"Fold",
@@ -157,7 +157,7 @@ public sealed class RefStructPrimitivesTests
 		}
 
 		[Test]
-		public async Task Arity4_Invoke_ThrowsFromFactory()
+		public async Task Invoke_With4ParametersAndThrowsCallback_ShouldThrowTheExceptionOfTheCallback()
 		{
 			RefStructVoidMethodSetup<Packet, Packet, Packet, Packet> setup =
 				new("Merge");
@@ -175,7 +175,7 @@ public sealed class RefStructPrimitivesTests
 	public sealed class ReturnSetupTests
 	{
 		[Test]
-		public async Task Arity1_Returns_Value_ReturnsConfiguredValue()
+		public async Task Returns_With1Parameter_ShouldReturnTheConfiguredValue()
 		{
 			RefStructReturnMethodSetup<int, Packet> setup = new(
 				"TryParse", It.IsAnyRefStruct<Packet>() as IParameterMatch<Packet>);
@@ -187,7 +187,7 @@ public sealed class RefStructPrimitivesTests
 		}
 
 		[Test]
-		public async Task Arity1_Returns_Factory_InvokedPerCall()
+		public async Task Returns_With1ParameterAndCallback_ShouldInvokeTheCallbackOnEveryCall()
 		{
 			int calls = 0;
 			RefStructReturnMethodSetup<int, Packet> setup = new("TryParse");
@@ -202,7 +202,7 @@ public sealed class RefStructPrimitivesTests
 		}
 
 		[Test]
-		public async Task Arity1_NoReturnConfigured_UsesDefaultFactory()
+		public async Task Invoke_With1Parameter_WhenNoReturnIsConfigured_ShouldUseTheDefaultFactory()
 		{
 			RefStructReturnMethodSetup<string, Packet> setup = new("Decode");
 
@@ -212,7 +212,7 @@ public sealed class RefStructPrimitivesTests
 		}
 
 		[Test]
-		public async Task Arity1_Throws_BeatsReturn_WhenBothConfigured()
+		public async Task Throws_With1Parameter_ShouldTakePrecedenceOverReturns()
 		{
 			RefStructReturnMethodSetup<int, Packet> setup = new("TryParse");
 			((IRefStructReturnMethodSetup<int, Packet>)setup)
@@ -225,7 +225,7 @@ public sealed class RefStructPrimitivesTests
 		}
 
 		[Test]
-		public async Task Arity1_HasReturnValue_ReflectsConfiguration()
+		public async Task HasReturnValue_With1Parameter_ShouldOnlyBeTrueAfterReturns()
 		{
 			RefStructReturnMethodSetup<int, Packet> setup = new("TryParse");
 			bool before = setup.HasReturnValue;
@@ -237,7 +237,7 @@ public sealed class RefStructPrimitivesTests
 		}
 
 		[Test]
-		public async Task Arity2_Matches_AllMatchersMustAccept()
+		public async Task Matches_With2Parameters_ShouldRequireAllMatchersToMatch()
 		{
 			RefStructReturnMethodSetup<bool, Packet, Packet> setup = new(
 				"Compare",
@@ -253,7 +253,7 @@ public sealed class RefStructPrimitivesTests
 		}
 
 		[Test]
-		public async Task Arity3_Invoke_ReturnsConfiguredValue()
+		public async Task Invoke_With3Parameters_ShouldReturnTheConfiguredValue()
 		{
 			RefStructReturnMethodSetup<string, Packet, Packet, Packet> setup =
 				new("Blend");
@@ -267,7 +267,7 @@ public sealed class RefStructPrimitivesTests
 		}
 
 		[Test]
-		public async Task Arity4_Invoke_RunsThrowOverReturn()
+		public async Task Throws_With4Parameters_ShouldTakePrecedenceOverReturns()
 		{
 			RefStructReturnMethodSetup<int, Packet, Packet, Packet, Packet> setup =
 				new("Combine");
@@ -286,7 +286,7 @@ public sealed class RefStructPrimitivesTests
 	public sealed class IndexerGetterSetupTests
 	{
 		[Test]
-		public async Task Arity1_Returns_Value_ReturnsConfiguredValue()
+		public async Task Returns_With1Key_ShouldReturnTheConfiguredValue()
 		{
 			RefStructIndexerGetterSetup<int, Packet> setup = new(
 				"get_Item", It.IsAnyRefStruct<Packet>() as IParameterMatch<Packet>);
@@ -298,7 +298,7 @@ public sealed class RefStructPrimitivesTests
 		}
 
 		[Test]
-		public async Task Arity1_PredicateMatches_FiltersByKey()
+		public async Task Matches_With1Key_ShouldOnlyMatchWhenThePredicateHolds()
 		{
 			RefStructIndexerGetterSetup<string, Packet> setup = new(
 				"get_Item",
@@ -313,7 +313,7 @@ public sealed class RefStructPrimitivesTests
 		}
 
 		[Test]
-		public async Task Arity1_NoReturnConfigured_UsesDefaultFactory()
+		public async Task Invoke_With1Key_WhenNoReturnIsConfigured_ShouldUseTheDefaultFactory()
 		{
 			RefStructIndexerGetterSetup<string, Packet> setup = new("get_Item");
 
@@ -323,7 +323,7 @@ public sealed class RefStructPrimitivesTests
 		}
 
 		[Test]
-		public async Task Arity1_Throws_TakesPrecedenceOverReturn()
+		public async Task Throws_With1Key_ShouldTakePrecedenceOverReturns()
 		{
 			RefStructIndexerGetterSetup<int, Packet> setup = new("get_Item");
 			((IRefStructIndexerGetterSetup<int, Packet>)setup)
@@ -336,7 +336,7 @@ public sealed class RefStructPrimitivesTests
 		}
 
 		[Test]
-		public async Task Arity2_Matches_AllMatchersMustAccept()
+		public async Task Matches_With2Keys_ShouldRequireAllMatchersToMatch()
 		{
 			RefStructIndexerGetterSetup<int, Packet, Packet> setup = new(
 				"get_Item",
@@ -351,7 +351,7 @@ public sealed class RefStructPrimitivesTests
 		}
 
 		[Test]
-		public async Task Arity4_Invoke_ReturnsFactoryValue()
+		public async Task Returns_With4KeysAndCallback_ShouldReturnTheCallbackResult()
 		{
 			RefStructIndexerGetterSetup<string, Packet, Packet, Packet, Packet>
 				setup = new("get_Item");

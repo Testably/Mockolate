@@ -20,7 +20,7 @@ public sealed partial class ItExtensionsTests
 		{
 			[Test]
 			[Arguments("foo", "FOO", true)]
-			public async Task Exactly_IgnoringCase_ShouldCheckCaseInsensitiveForFullContentBody(
+			public async Task Exactly_WithIgnoringCase_ShouldCheckCaseInsensitiveForFullContentBody(
 				string body, string expected, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -63,7 +63,7 @@ public sealed partial class ItExtensionsTests
 			[Arguments(" foo", "FOO", true)]
 			[Arguments("FOO ", "foo", true)]
 			[Arguments("foo", "bar", false)]
-			public async Task IgnoringCase_ShouldCheckForCaseInsensitiveEquality(string body,
+			public async Task IgnoringCase_ShouldCheckCaseInsensitivelyForContainedString(string body,
 				string expected, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -85,7 +85,7 @@ public sealed partial class ItExtensionsTests
 			[Arguments("FOO", false)]
 			[Arguments("bar", true)]
 			[Arguments("BAR", false)]
-			public async Task Predicate_ShouldValidatePredicate(string content, bool expectSuccess)
+			public async Task WithPredicate_ShouldMatchWhenThePredicateHolds(string content, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 				httpClient.Mock.Setup
@@ -106,7 +106,7 @@ public sealed partial class ItExtensionsTests
 			[Arguments("foo", "FOO", false)]
 			[Arguments("foo", "bar", false)]
 			[Arguments("foo", "f*o", false)]
-			public async Task ShouldCheckForEquality(string body, string expected,
+			public async Task ShouldCheckForContainedString(string body, string expected,
 				bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -236,7 +236,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WhenValidatedAndSetup_ShouldResetStreamPosition()
+			public async Task WhenUsedInSetupAndVerification_ShouldMatchBoth()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 				httpClient.Mock.Setup
@@ -327,7 +327,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithMultipleWithString_FailingVerification_ShouldJoinPredicatesWithAnd()
+			public async Task WithMultiplePredicates_WhenVerificationFails_ShouldJoinPredicatesWithAnd()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 

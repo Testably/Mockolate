@@ -10,7 +10,7 @@ public sealed partial class HttpClientExtensionsTests
 	public sealed class ToStringTests
 	{
 		[Test]
-		public async Task GetAsync_StringUri_ShouldIncludeMethodAndUriInVerificationMessage()
+		public async Task GetAsync_WithStringUri_ShouldIncludeMethodAndUriInVerificationMessage()
 		{
 			HttpClient httpClient = HttpClient.CreateMock();
 
@@ -24,7 +24,7 @@ public sealed partial class HttpClientExtensionsTests
 		}
 
 		[Test]
-		public async Task GetAsync_UriParameter_ShouldIncludeMethodAndUriInVerificationMessage()
+		public async Task GetAsync_WithUri_ShouldIncludeMethodAndUriInVerificationMessage()
 		{
 			HttpClient httpClient = HttpClient.CreateMock();
 
@@ -38,7 +38,7 @@ public sealed partial class HttpClientExtensionsTests
 		}
 
 		[Test]
-		public async Task PostAsync_ShouldIncludeMethodInVerificationMessage()
+		public async Task PostAsync_WithMediaType_ShouldIncludeMethodUriAndContentInVerificationMessage()
 		{
 			HttpClient httpClient = HttpClient.CreateMock();
 
@@ -54,7 +54,7 @@ public sealed partial class HttpClientExtensionsTests
 		}
 
 		[Test]
-		public async Task PostAsync_ShouldIncludeStringInformationInVerificationMessage()
+		public async Task PostAsync_WithStringContent_ShouldIncludeMethodUriAndContentInVerificationMessage()
 		{
 			HttpClient httpClient = HttpClient.CreateMock();
 

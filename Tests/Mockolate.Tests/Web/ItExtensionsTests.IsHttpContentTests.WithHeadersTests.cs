@@ -32,7 +32,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task IncludingRequestHeaders_WhenNotSet_ShouldOnlyMatchRequestHeadersFromContent()
+			public async Task WithoutIncludingRequestHeaders_ShouldOnlyMatchHeadersFromContent()
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
 				httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "abcdef");
@@ -55,7 +55,7 @@ public sealed partial class ItExtensionsTests
 			[Arguments("x-myHeader3", "baz", "x-myHeader1", "foo", true)]
 			[Arguments("x-myHeader2", "baz", "x-myHeader1", "foo", false)]
 			[Arguments("x-myHeader1", "foo", "x-myHeader2", "baz", false)]
-			public async Task MultipleCalls_ShouldVerifyKeyValueHeaders(
+			public async Task WhenCalledMultipleTimes_ShouldVerifyKeyValueHeaders(
 				string key1, string value1, string key2, string value2, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -81,7 +81,7 @@ public sealed partial class ItExtensionsTests
 			[Arguments("x-myHeader3", "baz", "x-myHeader1", "foo", true)]
 			[Arguments("x-myHeader2", "baz", "x-myHeader1", "foo", false)]
 			[Arguments("x-myHeader1", "foo", "x-myHeader2", "baz", false)]
-			public async Task MultipleCalls_ShouldVerifyKeyValuePairHeaders(
+			public async Task WhenCalledMultipleTimes_ShouldVerifyKeyValuePairHeaders(
 				string key1, string value1, string key2, string value2, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();
@@ -107,7 +107,7 @@ public sealed partial class ItExtensionsTests
 			[Arguments("x-myHeader3: baz", "x-myHeader1: foo", true)]
 			[Arguments("x-myHeader2: baz", "x-myHeader1: foo", false)]
 			[Arguments("x-myHeader1: foo", "x-myHeader2: baz", false)]
-			public async Task MultipleCalls_ShouldVerifyStringHeaders(
+			public async Task WhenCalledMultipleTimes_ShouldVerifyStringHeaders(
 				string headers1, string headers2, bool expectSuccess)
 			{
 				HttpClient httpClient = HttpClient.CreateMock();

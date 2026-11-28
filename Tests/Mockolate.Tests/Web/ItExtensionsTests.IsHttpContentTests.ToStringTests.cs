@@ -10,7 +10,7 @@ public sealed partial class ItExtensionsTests
 		public sealed class ToStringTests
 		{
 			[Test]
-			public async Task Default_ShouldReturnExpectedValue()
+			public async Task WithoutConditions_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IHttpContentParameter sut = It.IsHttpContent();
 
@@ -20,7 +20,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task MultipleConditions_ShouldReturnExpectedValue()
+			public async Task WithMultipleConditions_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IHttpContentParameter sut = It.IsHttpContent("image/png")
 					.WithString(c => c.Length > 0)
@@ -33,7 +33,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithBytesPredicate_ShouldReturnExpectedValue()
+			public async Task WithBytesPredicate_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IHttpContentParameter sut = It.IsHttpContent().WithBytes(b => b.Length > 0);
 
@@ -43,7 +43,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithFormData_Exactly_ShouldReturnExpectedValue()
+			public async Task WithFormDataExactly_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IFormDataContentParameter sut =
 					It.IsHttpContent().WithFormData("x", "123").Exactly();
@@ -54,7 +54,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithFormData_KeyValue_ShouldReturnExpectedValue()
+			public async Task WithFormDataKeyAndValue_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IFormDataContentParameter sut =
 					It.IsHttpContent().WithFormData("x", "123");
@@ -65,7 +65,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithFormData_MultipleValues_Exactly_ShouldReturnExpectedValue()
+			public async Task WithMultipleFormDataValuesExactly_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IFormDataContentParameter sut =
 					It.IsHttpContent().WithFormData(("x", "123"), ("y", "234")).Exactly();
@@ -76,7 +76,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithFormData_MultipleValues_ShouldReturnExpectedValue()
+			public async Task WithMultipleFormDataValues_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IFormDataContentParameter sut =
 					It.IsHttpContent().WithFormData(("x", "123"), ("y", "234"));
@@ -87,7 +87,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithFormData_String_ShouldReturnExpectedValue()
+			public async Task WithFormDataString_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IFormDataContentParameter sut =
 					It.IsHttpContent().WithFormData("x=123");
@@ -98,7 +98,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithFormData_StringMultiple_ShouldReturnExpectedValue()
+			public async Task WithFormDataStringOfMultipleValues_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IFormDataContentParameter sut =
 					It.IsHttpContent().WithFormData("x=123&y=234");
@@ -109,7 +109,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithHeaders_Multiple_ShouldReturnExpectedValue()
+			public async Task WithMultipleHeaders_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IHttpContentParameter sut =
 					It.IsHttpContent()
@@ -123,7 +123,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithHeaders_ShouldReturnExpectedValue()
+			public async Task WithHeaders_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IHttpContentParameter sut =
 					It.IsHttpContent().WithHeaders(("x-my-header", "my-value"));
@@ -134,7 +134,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithMediaType_ShouldReturnExpectedValue()
+			public async Task WithMediaType_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IHttpContentParameter sut = It.IsHttpContent().WithMediaType("text/plain");
 
@@ -144,7 +144,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithMediaTypeThenWithString_ShouldReturnExpectedValue()
+			public async Task WithMediaTypeAndString_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IStringContentBodyParameter sut =
 					It.IsHttpContent("text/plain").WithString("foo");
@@ -156,7 +156,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithMediaTypeViaFactory_ShouldReturnExpectedValue()
+			public async Task WithMediaTypeViaFactory_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IHttpContentParameter sut = It.IsHttpContent("application/json");
 
@@ -166,7 +166,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithString_Exactly_IgnoringCase_ShouldReturnExpectedValue()
+			public async Task WithStringExactlyAndIgnoringCase_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IStringContentBodyParameter sut = It.IsHttpContent().WithString("foo").Exactly()
 					.IgnoringCase();
@@ -177,7 +177,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithString_Exactly_ShouldReturnExpectedValue()
+			public async Task WithStringExactly_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IStringContentBodyParameter sut = It.IsHttpContent().WithString("foo").Exactly();
 
@@ -187,7 +187,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithString_IgnoringCase_ShouldReturnExpectedValue()
+			public async Task WithStringAndIgnoringCase_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IStringContentBodyParameter sut =
 					It.IsHttpContent().WithString("foo").IgnoringCase();
@@ -198,7 +198,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithString_ShouldReturnExpectedValue()
+			public async Task WithString_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IStringContentBodyParameter sut = It.IsHttpContent().WithString("foo");
 
@@ -208,7 +208,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithStringMatching_AsRegex_IgnoringCase_ShouldReturnExpectedValue()
+			public async Task WithRegexAndIgnoringCase_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IStringContentBodyParameter sut =
 					It.IsHttpContent().WithStringMatching("^foo").AsRegex().IgnoringCase();
@@ -219,7 +219,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithStringMatching_AsRegex_IgnoringCase_WithOptions_ShouldReturnExpectedValue()
+			public async Task WithRegexOptionsAndIgnoringCase_ShouldIncludeTheOptions()
 			{
 				ItExtensions.IStringContentBodyParameter sut =
 					It.IsHttpContent().WithStringMatching("^foo").AsRegex(RegexOptions.Multiline).IgnoringCase();
@@ -231,7 +231,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithStringMatching_AsRegex_ShouldReturnExpectedValue()
+			public async Task WithRegex_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IStringContentBodyParameter sut =
 					It.IsHttpContent().WithStringMatching("^foo").AsRegex();
@@ -242,7 +242,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithStringMatching_AsRegex_WithOptions_ShouldReturnExpectedValue()
+			public async Task WithRegexOptions_ShouldIncludeTheOptions()
 			{
 				ItExtensions.IStringContentBodyParameter sut =
 					It.IsHttpContent().WithStringMatching("^foo").AsRegex(RegexOptions.Multiline);
@@ -253,7 +253,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithStringMatching_IgnoringCase_ShouldReturnExpectedValue()
+			public async Task WithStringMatchingAndIgnoringCase_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IStringContentBodyParameter sut =
 					It.IsHttpContent().WithStringMatching("*foo*").IgnoringCase();
@@ -264,7 +264,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithStringMatching_ShouldReturnExpectedValue()
+			public async Task WithStringMatching_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IStringContentBodyMatchingParameter sut =
 					It.IsHttpContent().WithStringMatching("*foo*");
@@ -275,7 +275,7 @@ public sealed partial class ItExtensionsTests
 			}
 
 			[Test]
-			public async Task WithStringPredicate_ShouldReturnExpectedValue()
+			public async Task WithStringPredicate_ShouldDescribeTheMatcher()
 			{
 				ItExtensions.IHttpContentParameter sut = It.IsHttpContent().WithString(c => c.Length > 0);
 
