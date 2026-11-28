@@ -87,7 +87,7 @@ public sealed partial class SetupIndexerTests
 				.WithMessage("The indexer is already initialized. You cannot initialize it twice.");
 		}
 
-		public sealed class With2Levels
+		public sealed class With2LevelsTests
 		{
 			[Test]
 			public async Task InitializeWith_Callback_ShouldInitializeMatchingIndexers()
@@ -158,7 +158,7 @@ public sealed partial class SetupIndexerTests
 			}
 		}
 
-		public sealed class With3Levels
+		public sealed class With3LevelsTests
 		{
 			[Test]
 			public async Task InitializeWith_Callback_ShouldInitializeMatchingIndexers()
@@ -237,7 +237,7 @@ public sealed partial class SetupIndexerTests
 			}
 		}
 
-		public sealed class With4Levels
+		public sealed class With4LevelsTests
 		{
 			[Test]
 			public async Task InitializeWith_Callback_ShouldInitializeMatchingIndexers()
@@ -320,7 +320,7 @@ public sealed partial class SetupIndexerTests
 			}
 		}
 
-		public sealed class With5Levels
+		public sealed class With5LevelsTests
 		{
 			[Test]
 			public async Task InitializeWith_Callback_ShouldInitializeMatchingIndexers()
