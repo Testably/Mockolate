@@ -53,7 +53,7 @@
 		<PackageVersion Include="Azure.Data.Tables" Version="12.13.0"/>
 		<PackageVersion Include="Azure.Storage.Blobs" Version="12.30.2"/>
 		<PackageVersion Include="Microsoft.Extensions.Caching.Abstractions" Version="10.0.15"/>
-		<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.15"/>
+		<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="11.0.0"/>
 	</ItemGroup>
 	<ItemGroup>
 		<PackageVersion Include="Moq" Version="4.21.0"/>
