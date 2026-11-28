@@ -1114,7 +1114,7 @@ public sealed class AutoMockingTests
 	}
 
 	[Test]
-	public async Task WithBuildProperty_ShouldMockReturnTypesTransitively()
+	public async Task ShouldMockReturnTypesTransitively()
 	{
 		GeneratorResult result = Run("""
 		                             using System.Threading.Tasks;
@@ -1394,7 +1394,7 @@ public sealed class AutoMockingTests
 
 		await That(result.Diagnostics).IsEmpty();
 		await That(result.Sources).ContainsKey("Mock.CreateAutoMock.g.cs")
-			.Because("the generated output when skipping auto-mocking must not change");
+			.Because("without auto-mocking no factory named CreateAutoMock is generated that the mock would clash with");
 	}
 
 	[Test]
@@ -1424,7 +1424,39 @@ public sealed class AutoMockingTests
 		await That(result.Sources["Mock.IMyInterface1.g.cs"]).DoesNotContain("CreateAutoMock").And.DoesNotContain("AutoMockOr")
 			.And.Contains("global::Mockolate.Internals.AutoMocks.UseFactory(mockBehavior, null);")
 			.Because("a behavior of another project may carry its auto-mock factory");
-		await That(result.Sources["MockBehaviorExtensions.g.cs"]).DoesNotContain("AutoMock");
+		await That(result.Sources["MockBehaviorExtensions.g.cs"]).DoesNotContain("CreateAutoMock").And
+			.DoesNotContain("AutoMocks.UseFactory");
+	}
+
+	[Test]
+	[Arguments("", true)]
+	[Arguments("false", true)]
+	[Arguments(" True ", false)]
+	public async Task WithSkipAutoMockingValue_ShouldOnlySkipAutoMockingForTrue(string value, bool expectAutoMock)
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       using Mockolate;
+
+		                                       namespace MyCode
+		                                       {
+		                                           public class Program
+		                                           {
+		                                               public static void Main(string[] args) => _ = IMyInterface1.CreateMock();
+		                                           }
+
+		                                           public interface IMyInterface1
+		                                           {
+		                                               IMyInterface2 Get();
+		                                           }
+
+		                                           public interface IMyInterface2 { }
+		                                       }
+		                                       """, LanguageVersion.CSharp14,
+			new Dictionary<string, string> { ["build_property.MockolateSkipAutoMocking"] = value, });
+
+		await That(result.Diagnostics).IsEmpty();
+		await That(result.Sources.ContainsKey("Mock.IMyInterface2.g.cs")).IsEqualTo(expectAutoMock)
+			.Because("a project without the property gets an empty value, and only true skips auto-mocking");
 	}
 
 	private static GeneratorResult Run(string types, params string[] mockedTypes)

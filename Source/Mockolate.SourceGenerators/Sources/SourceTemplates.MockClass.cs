@@ -7577,7 +7577,8 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 
 	/// <summary>
 	///     Lets the mock create the auto-mocks of this assembly, so that their <c>Mock</c> property works here, and
-	///     without the build property removes the factory that a behavior of another assembly may carry.
+	///     with the <c>MockolateSkipAutoMocking</c> build property removes the factory that a behavior of another assembly
+	///     may carry.
 	/// </summary>
 	private static void AppendUseAutoMockFactory(StringBuilder sb, string indent, string behavior,
 		AutoMockingOptions? autoMocking)

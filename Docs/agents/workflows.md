@@ -47,7 +47,7 @@ A newer language feature can compile for `net10.0` and fail for `net48`; build o
 | Change in | Run |
 |---|---|
 | `Source/Mockolate` | `Mockolate.Tests`, `Mockolate.Internal.Tests`, `Mockolate.Api.Tests` |
-| `Source/Mockolate.SourceGenerators` | `Mockolate.SourceGenerators.Tests`, `Mockolate.Tests` (it compiles the generated mocks; `net11.0` for union mode and `net10.0` for classic mode) |
+| `Source/Mockolate.SourceGenerators` | `Mockolate.SourceGenerators.Tests`, `Mockolate.Tests` (it compiles the generated mocks without auto-mocking; `net11.0` for union mode and `net10.0` for classic mode), `Mockolate.AutoMocking.Tests` (it compiles them with auto-mocking) |
 | `Source/Mockolate.Analyzers*` | `Mockolate.Analyzers.Tests` |
 | Usage examples | `Mockolate.ExampleTests` |
 | `AutoMockArguments` attributes (`SourceTemplates.TestFrameworks*.cs`, `Mockolate.targets`) | the projects in `Tests/Frameworks`, `Mockolate.SourceGenerators.Tests` |

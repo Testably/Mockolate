@@ -69,7 +69,7 @@ await That(machine.Mock).IsEqualTo(4);
 
 ### A member without setup returns a value instead of failing
 
-By default, a mock never fails for a missing setup. Methods return a [default value](./03-create-mocks.md#default-values) (`false`, `0`, an empty string, an empty collection, a completed task, or `null` for other reference types), and properties and indexers store the values written to them. A method that returns an interface or a class therefore returns `null` until you set it up.
+By default, a mock never fails for a missing setup. Methods return a [default value](./03-create-mocks.md#default-values) (`false`, `0`, an empty string, an empty collection, a completed task, an [auto-mock](./03-create-mocks.md#auto-mocking) for an interface, or `null` for other reference types), and properties and indexers store the values written to them. A method that returns a class therefore returns `null` until you set it up.
 
 To fail on every call without a matching setup, create the mock with [`ThrowingWhenNotSetup()`](./03-create-mocks.md#customizing-mock-behavior). To change the default value of a type, use `WithDefaultValueFor<T>(…)`.
 
