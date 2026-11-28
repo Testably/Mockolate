@@ -25,6 +25,9 @@ public interface IVoidObjectLookAlikes
 {
 	void Equals(object? other);
 	void GetHashCode();
+#pragma warning disable CS0465 // Introducing a 'Finalize' method can interfere with destructor invocation
+	void Finalize();
+#pragma warning restore CS0465
 }
 
 public interface IRefObjectLookAlikes

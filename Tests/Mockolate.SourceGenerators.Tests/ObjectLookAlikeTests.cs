@@ -177,6 +177,140 @@ public sealed class ObjectLookAlikeTests
 		}
 	}
 
+	[Test]
+	public async Task FinalizeMethod_ShouldNotReportCS0465()
+	{
+		foreach (LanguageVersion languageVersion in LanguageVersions)
+		{
+			GeneratorResult result = GenerateFinalize("void Finalize();", languageVersion);
+
+			await That(result.Diagnostics).IsEmpty()
+				.Because($"the user already suppresses CS0465 for the mocked member, which the mock must repeat in {languageVersion}");
+		}
+	}
+
+	[Test]
+	public async Task StaticFinalizeMethod_ShouldNotReportCS0465()
+	{
+		foreach (LanguageVersion languageVersion in LanguageVersions)
+		{
+			GeneratorResult result = Generator.Run("""
+			                                       #nullable enable
+			                                       using Mockolate;
+
+			                                       namespace MyCode;
+
+			                                       public class Program
+			                                       {
+			                                           public static void Main(string[] args)
+			                                           {
+			                                               _ = IFoo.CreateMock();
+			                                           }
+			                                       }
+
+			                                       #pragma warning disable CS0465
+			                                       public interface IFoo
+			                                       {
+			                                           static abstract void Finalize();
+			                                       }
+			                                       #pragma warning restore CS0465
+			                                       """, languageVersion, null);
+
+			await That(result.Diagnostics).IsEmpty()
+				.Because($"the user already suppresses CS0465 for the mocked member, which the mock must repeat in {languageVersion}");
+		}
+	}
+
+	[Test]
+	[Arguments("int Finalize();")]
+	[Arguments("void Finalize(int value);")]
+	[Arguments("void Finalize<T>();")]
+	[Arguments("int Finalize { get; set; }")]
+	public async Task FinalizeLookAlike_ShouldNotSuppressCS0465(string member)
+	{
+		foreach (LanguageVersion languageVersion in LanguageVersions)
+		{
+			GeneratorResult result = GenerateFinalize(member, languageVersion);
+
+			await That(result.Diagnostics).IsEmpty();
+			await That(result.Sources.Values).None().Satisfy(source => source.Contains("CS0465"))
+				.Because($"only a parameterless void Finalize method triggers CS0465 in {languageVersion}");
+		}
+	}
+
+	[Test]
+	public async Task FinalizeMethodOfClass_ShouldNotReportCS0465()
+	{
+		foreach (LanguageVersion languageVersion in LanguageVersions)
+		{
+			GeneratorResult result = Generator.Run("""
+			                                       #nullable enable
+			                                       using Mockolate;
+
+			                                       namespace MyCode;
+
+			                                       public class Program
+			                                       {
+			                                           public static void Main(string[] args)
+			                                           {
+			                                               _ = MyBase.CreateMock();
+			                                               _ = MyBase.CreateMock().Implementing<IOther>();
+			                                           }
+			                                       }
+
+			                                       #pragma warning disable CS0465
+			                                       public abstract class MyBase
+			                                       {
+			                                           public abstract void Finalize();
+			                                       }
+			                                       #pragma warning restore CS0465
+
+			                                       public interface IOther
+			                                       {
+			                                           void Dispose();
+			                                       }
+			                                       """, languageVersion, null);
+
+			await That(result.Diagnostics).IsEmpty()
+				.Because($"the user already suppresses CS0465 for the mocked member, which the mock must repeat in {languageVersion}");
+		}
+	}
+
+	private static GeneratorResult GenerateFinalize(string member, LanguageVersion languageVersion)
+		=> Generator.Run($$"""
+		                   #nullable enable
+		                   using Mockolate;
+
+		                   namespace MyCode;
+
+		                   public class Program
+		                   {
+		                       public static void Main(string[] args)
+		                       {
+		                           _ = IFoo.CreateMock();
+		                           _ = IFooDerived.CreateMock();
+		                           _ = IFoo.CreateMock().Implementing<IOther>();
+		                           _ = IOther.CreateMock().Implementing<IFoo>();
+		                       }
+		                   }
+
+		                   #pragma warning disable CS0465
+		                   public interface IFoo
+		                   {
+		                       {{member}}
+		                   }
+		                   #pragma warning restore CS0465
+
+		                   public interface IFooDerived : IFoo
+		                   {
+		                   }
+
+		                   public interface IOther
+		                   {
+		                       void Dispose();
+		                   }
+		                   """, languageVersion, null);
+
 	private static GeneratorResult Generate(string member, LanguageVersion languageVersion)
 		=> Generator.Run($$"""
 		                   #nullable enable
