@@ -400,8 +400,8 @@
 		<value>gets a given argument of the attribute, which replaces the value of its value provider</value>
 		<comment>Completes Mockolate0014MessageFormat.</comment>
 	</data>
-	<data name="AsDefaultSuppressionJustification" xml:space="preserve">
-		<value>The other mocks of the test case may return the [AsDefault] parameter.</value>
+	<data name="UnusedParameterSuppressionJustification" xml:space="preserve">
+		<value>The other mocks of the test case may return the [AsDefault] parameter, and a class under test may receive the value of a [ValueFrom] or value provider parameter.</value>
 		<comment>The justification of the suppressions Mockolate1001 (IDE0060) and Mockolate1002 (xUnit1026).</comment>
 	</data>
 	<data name="UnionArgumentCodeFixTitle" xml:space="preserve">

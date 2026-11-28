@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<UseTUnit>false</UseTUnit>
-		<!-- Fails the build when Mockolate no longer suppresses xUnit1026 for an unused [AsDefault] parameter. -->
+		<!-- Fails the build when Mockolate no longer suppresses xUnit1026 for an unused [AsDefault], [ValueFrom] or value provider parameter. -->
 		<WarningsAsErrors>$(WarningsAsErrors);xUnit1026</WarningsAsErrors>
 		<!-- Reports IDE0060 in the build, which .editorconfig makes an error for the same reason. -->
 		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>

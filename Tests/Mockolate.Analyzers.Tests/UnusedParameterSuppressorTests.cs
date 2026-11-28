@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using Verifier = Mockolate.Analyzers.Tests.Verifiers.CSharpSuppressorVerifier<Mockolate.Analyzers.AsDefaultSuppressor>;
+using Verifier = Mockolate.Analyzers.Tests.Verifiers.CSharpSuppressorVerifier<Mockolate.Analyzers.UnusedParameterSuppressor>;
 
 namespace Mockolate.Analyzers.Tests;
 
-public class AsDefaultSuppressorTests
+public class UnusedParameterSuppressorTests
 {
 	private const string Attributes = """
 	                                  [System.AttributeUsage(System.AttributeTargets.Method)]
@@ -11,6 +11,11 @@ public class AsDefaultSuppressorTests
 
 	                                  [System.AttributeUsage(System.AttributeTargets.Method)]
 	                                  public sealed class OtherAttribute : System.Attribute;
+
+	                                  public sealed class ProviderAttribute : System.Attribute, Mockolate.IParameterValueProvider
+	                                  {
+	                                      object? Mockolate.IParameterValueProvider.ProvideValue(System.Reflection.ParameterInfo parameter) => null;
+	                                  }
 	                                  """;
 
 	private const string Markers = """
@@ -18,9 +23,11 @@ public class AsDefaultSuppressorTests
 	                               {
 	                                   public abstract class AsDefaultParameterAttribute : System.Attribute;
 	                                   public abstract class NotSharedParameterAttribute : System.Attribute;
+	                                   public abstract class ValueFromParameterAttribute : System.Attribute;
 	                                   public sealed class AsDefaultAttribute(params System.Type[] types) : AsDefaultParameterAttribute;
 	                                   public sealed class AsDefaultAttribute<T1> : AsDefaultParameterAttribute;
 	                                   public sealed class NotSharedAttribute : NotSharedParameterAttribute;
+	                                   public sealed class ValueFromAttribute(string memberName) : ValueFromParameterAttribute;
 	                               }
 	                               """;
 
@@ -57,7 +64,62 @@ public class AsDefaultSuppressorTests
 	[Test]
 	[Arguments("IDE0060")]
 	[Arguments("xUnit1026")]
-	public async Task WhenParameterIsNotAsDefault_ShouldNotSuppressUnusedParameter(string diagnosticId) => await Verifier
+	public async Task WhenValueSourceParameterOfMockDataSource_ShouldSuppressUnusedParameter(string diagnosticId) => await Verifier
+		.VerifySuppressorAsync(diagnosticId,
+			$$"""
+			  namespace MyCode
+			  {
+			      using Mockolate.Integrations;
+
+			      public class Tests
+			      {
+			          [Data]
+			          public void Test([ValueFrom(nameof(Value))] int {|#0:valueFrom|}, [Provider] int {|#1:provided|}) { }
+
+			          private static int Value => 1;
+			      }
+
+			      {{Attributes}}
+			  }
+
+			  {{Markers}}
+			  """,
+			Verifier.UnusedParameter(diagnosticId, 0, true),
+			Verifier.UnusedParameter(diagnosticId, 1, true)
+		);
+
+	[Test]
+	[Arguments("IDE0060")]
+	[Arguments("xUnit1026")]
+	public async Task WhenValueSourceParameterIsNotShared_ShouldNotSuppressUnusedParameter(string diagnosticId) => await Verifier
+		.VerifySuppressorAsync(diagnosticId,
+			$$"""
+			  namespace MyCode
+			  {
+			      using Mockolate.Integrations;
+
+			      public class Tests
+			      {
+			          [Data]
+			          public void Test([ValueFrom(nameof(Value)), NotShared] int {|#0:valueFrom|},
+			              [Provider, NotShared] int {|#1:provided|}) { }
+
+			          private static int Value => 1;
+			      }
+
+			      {{Attributes}}
+			  }
+
+			  {{Markers}}
+			  """,
+			Verifier.UnusedParameter(diagnosticId, 0, false),
+			Verifier.UnusedParameter(diagnosticId, 1, false)
+		);
+
+	[Test]
+	[Arguments("IDE0060")]
+	[Arguments("xUnit1026")]
+	public async Task WhenParameterIsNeitherAsDefaultNorValueSource_ShouldNotSuppressUnusedParameter(string diagnosticId) => await Verifier
 		.VerifySuppressorAsync(diagnosticId,
 			$$"""
 			  namespace MyCode
