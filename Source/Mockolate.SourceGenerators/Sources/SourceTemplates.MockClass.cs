@@ -46,11 +46,17 @@ internal static partial class SourceTemplates
 		string memberIdPrefix = $"global::Mockolate.Mock.{name}.";
 		
 		bool overridesEquals = OverridesEquals(@class);
+		bool declaresFinalize = DeclaresFinalize(@class);
 		StringBuilder sb = InitializeBuilder();
 		sb.Append("#nullable enable annotations").AppendLine();
 		if (overridesEquals)
 		{
 			sb.Append(DisableEqualsWithoutGetHashCodeWarning).AppendLine();
+		}
+
+		if (declaresFinalize)
+		{
+			sb.Append(DisableFinalizeWarning).AppendLine();
 		}
 
 		sb.Append("namespace Mockolate;").AppendLine();
@@ -1375,6 +1381,11 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 			sb.AppendLine(RestoreEqualsWithoutGetHashCodeWarning);
 		}
 
+		if (declaresFinalize)
+		{
+			sb.AppendLine(RestoreFinalizeWarning);
+		}
+
 		sb.AppendLine("#nullable disable annotations");
 		return sb.ToString();
 	}
@@ -1383,6 +1394,18 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 		"#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()";
 
 	private const string RestoreEqualsWithoutGetHashCodeWarning = "#pragma warning restore CS0659";
+
+	private const string DisableFinalizeWarning =
+		"#pragma warning disable CS0465 // Introducing a 'Finalize' method can interfere with destructor invocation";
+
+	private const string RestoreFinalizeWarning = "#pragma warning restore CS0465";
+
+	/// <summary>
+	///     True when the mock declares a mocked <c>void Finalize()</c> member, for which the compiler reports CS0465
+	///     on the mock. The mocked type already gets the same warning, so the user has accepted it there.
+	/// </summary>
+	private static bool DeclaresFinalize(Class @class)
+		=> @class.AllMethods().Any(method => method.ExplicitImplementation is null && method.IsFinalize());
 
 	/// <summary>
 	///     True when the mock overrides <c>Equals(object)</c> for a mocked member, for which the compiler can report

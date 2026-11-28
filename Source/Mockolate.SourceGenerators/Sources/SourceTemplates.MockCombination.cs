@@ -51,12 +51,18 @@ internal static partial class SourceTemplates
 		MemberIdTable memberIds = ComputeMemberIds(aliases, allMemberClasses);
 		string memberIdPrefix = $"global::Mockolate.Mock.{fileName}.";
 		bool overridesEquals = OverridesEquals(@class);
+		bool declaresFinalize = DeclaresFinalize(@class);
 		StringBuilder sb = InitializeBuilder();
 
 		sb.Append("#nullable enable annotations").AppendLine();
 		if (overridesEquals)
 		{
 			sb.Append(DisableEqualsWithoutGetHashCodeWarning).AppendLine();
+		}
+
+		if (declaresFinalize)
+		{
+			sb.Append(DisableFinalizeWarning).AppendLine();
 		}
 
 		sb.Append("namespace Mockolate;").AppendLine();
@@ -595,6 +601,11 @@ hasProtectedEvents: false /* Interfaces cannot have protected events */,
 		if (overridesEquals)
 		{
 			sb.AppendLine(RestoreEqualsWithoutGetHashCodeWarning);
+		}
+
+		if (declaresFinalize)
+		{
+			sb.AppendLine(RestoreFinalizeWarning);
 		}
 
 		sb.AppendLine("#nullable disable annotations");

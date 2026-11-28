@@ -116,17 +116,22 @@ public sealed class ObjectLookAlikeTests
 	{
 		int equalsCalls = 0;
 		int getHashCodeCalls = 0;
+		int finalizeCalls = 0;
 		IVoidObjectLookAlikes sut = IVoidObjectLookAlikes.CreateMock();
 		sut.Mock.Setup.Equals(It.IsAny<object?>()).Do(() => equalsCalls++);
 		sut.Mock.Setup.GetHashCode().Do(() => getHashCodeCalls++);
+		sut.Mock.Setup.Finalize().Do(() => finalizeCalls++);
 
 		sut.Equals(null);
 		sut.GetHashCode();
+		sut.Finalize();
 
 		await That(equalsCalls).IsEqualTo(1);
 		await That(getHashCodeCalls).IsEqualTo(1);
+		await That(finalizeCalls).IsEqualTo(1);
 		await That(sut.Mock.Verify.Equals(It.IsNull<object?>())).Once();
 		await That(sut.Mock.Verify.GetHashCode()).Once();
+		await That(sut.Mock.Verify.Finalize()).Once();
 	}
 
 	[Test]

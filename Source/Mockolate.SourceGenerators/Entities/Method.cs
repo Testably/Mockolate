@@ -234,6 +234,9 @@ internal record Method
 		=> string.Equals(Name, "Equals", StringComparison.Ordinal) &&Parameters.Count == 1 && IsObjectParameter(Parameters.Single()) &&
 		   CanOverrideObjectMember(SpecialType.System_Boolean);
 
+	public bool IsFinalize()
+		=> string.Equals(Name, "Finalize", StringComparison.Ordinal) && Parameters.Count == 0 && ReturnType == Type.Void;
+
 	/// <summary>
 	///     Whether the method has the signature of a member the mock inherits from <see cref="object" />, but cannot
 	///     override it, so an implicit implementation on an interface mock hides it (CS0108, CS0114).
