@@ -116,7 +116,7 @@ internal record Method
 	public string XmlDocReference { get; }
 
 	public EquatableArray<MethodParameter> Parameters { get; }
-	public string? ExplicitImplementation { get; }
+	public string? ExplicitImplementation { get; init; }
 	public EquatableArray<Attribute>? Attributes { get; }
 
 	/// <summary>

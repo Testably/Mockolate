@@ -348,6 +348,8 @@ shelf.Mock.As<IChocolateShelfBase>().Verify.Restock().Once();
 
 The same applies when the mocked interface inherits a member with the same signature from two base interfaces, also when the signatures differ only in nullable annotations, such as `Find(string name)` and `Find(string? name)`: `Mock.Setup` and `Mock.Verify` reach the member of the first interface, and `Mock.As<T>()` reaches the member of the other.
 
+A `new` member can also hide an inherited member of another kind with the same name, such as a property `new int Restock { get; }` that hides the method `Restock()`. `Mock.Setup.Restock` then configures the property and `Mock.As<IChocolateShelfBase>().Setup.Restock()` the method. The same applies when two base interfaces declare members of different kinds with the same name. A mocked class cannot override an inherited virtual member that shares its name with a member of another kind, so calls to it run the base implementation.
+
 Indexers are the exception: they are keyed by their parameter signature rather than by the declaring interface, so a
 `new` indexer and the base indexer it hides share the same storage.
 

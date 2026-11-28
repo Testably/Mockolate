@@ -70,7 +70,7 @@ internal record Event
 	public Accessibility Accessibility { get; }
 	public string OverrideAccessibility { get; }
 	public string Name { get; }
-	public string? ExplicitImplementation { get; }
+	public string? ExplicitImplementation { get; init; }
 
 	internal string GetUniqueNameString()
 		=> $"\"{ContainingType}.{Name}\"";
