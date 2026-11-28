@@ -2,7 +2,7 @@ using Mockolate.Interactions;
 using Mockolate.Monitor;
 using Mockolate.Verify;
 
-namespace Mockolate.Internal.Tests.Interactions;
+namespace Mockolate.Internal.Tests.Internals;
 
 public sealed class CombinedMockRecordingTests
 {

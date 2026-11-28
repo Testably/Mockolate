@@ -2,7 +2,7 @@ using Mockolate.Exceptions;
 using Mockolate.Monitor;
 using Mockolate.Verify;
 
-namespace Mockolate.Internal.Tests.Interactions;
+namespace Mockolate.Internal.Tests.Registry;
 
 public sealed class UncalledMemberVerificationTests
 {

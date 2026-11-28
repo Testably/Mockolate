@@ -5,7 +5,7 @@ using Mockolate.Interactions;
 using Mockolate.Internals;
 using Mockolate.Parameters;
 
-namespace Mockolate.Internal.Tests.Interactions;
+namespace Mockolate.Internal.Tests.Internals;
 
 public class MemberRecordsTests
 {
