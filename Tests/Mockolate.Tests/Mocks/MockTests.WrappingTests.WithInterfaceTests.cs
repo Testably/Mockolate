@@ -10,7 +10,7 @@ public sealed partial class MockTests
 		public sealed class WithInterfaceTests
 		{
 			[Test]
-			public async Task Wrap_Events_ForwardEventsFromWrappedInstance()
+			public async Task Event_ShouldForwardEventsFromTheWrappedInstance()
 			{
 				MyChocolateDispenser myDispenser = new();
 				IChocolateDispenser wrappedDispenser = IChocolateDispenser.CreateMock().Wrapping(myDispenser);
@@ -31,7 +31,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_Events_ForwardsFromWrapper()
+			public async Task Event_WhenTriggeredThroughTheWrapper_ShouldNotifyTheSubscribersOfTheWrappedInstance()
 			{
 				MyChocolateDispenser myDispenser = new();
 				IChocolateDispenser wrappedDispenser = IChocolateDispenser.CreateMock().Wrapping(myDispenser);
@@ -52,7 +52,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_Events_Unsubscribe_ShouldRemoveSubscription()
+			public async Task Event_WhenUnsubscribed_ShouldRemoveTheSubscription()
 			{
 				MyChocolateDispenser myDispenser = new();
 				IChocolateDispenser wrappedDispenser = IChocolateDispenser.CreateMock().Wrapping(myDispenser);
@@ -82,7 +82,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_HiddenEvent_ShouldSubscribeOnDeclaringInterface()
+			public async Task HiddenEvent_ShouldSubscribeOnDeclaringInterface()
 			{
 				MyChocolateShelf myShelf = new();
 				IChocolateShelf wrappedShelf = IChocolateShelf.CreateMock().Wrapping(myShelf);
@@ -100,7 +100,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_HiddenGenericMethod_ShouldDelegateToDeclaringInterface()
+			public async Task HiddenGenericMethod_ShouldDelegateToDeclaringInterface()
 			{
 				MyChocolateCatalog myCatalog = new();
 				IChocolateCatalog wrappedCatalog = IChocolateCatalog.CreateMock().Wrapping(myCatalog);
@@ -112,7 +112,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_HiddenGetOnlyProperty_ShouldDelegateToDeclaringInterface()
+			public async Task HiddenGetOnlyProperty_ShouldDelegateToDeclaringInterface()
 			{
 				MyChocolateShelf myShelf = new();
 				IChocolateShelf wrappedShelf = IChocolateShelf.CreateMock().Wrapping(myShelf);
@@ -123,7 +123,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_HiddenIndexer_ShouldDelegateGetterToDeclaringInterface()
+			public async Task HiddenIndexer_ShouldDelegateGetterToDeclaringInterface()
 			{
 				MyChocolateShelf myShelf = new();
 				IChocolateShelf wrappedShelf = IChocolateShelf.CreateMock().Wrapping(myShelf);
@@ -134,7 +134,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_HiddenIndexer_ShouldDelegateSetterToDeclaringInterface()
+			public async Task HiddenIndexer_ShouldDelegateSetterToDeclaringInterface()
 			{
 				MyChocolateShelf myShelf = new();
 				IChocolateShelf wrappedShelf = IChocolateShelf.CreateMock().Wrapping(myShelf);
@@ -148,7 +148,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_HiddenProperty_ShouldDelegateGetterToDeclaringInterface()
+			public async Task HiddenProperty_ShouldDelegateGetterToDeclaringInterface()
 			{
 				MyChocolateShelf myShelf = new();
 				IChocolateShelf wrappedShelf = IChocolateShelf.CreateMock().Wrapping(myShelf);
@@ -159,7 +159,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_HiddenProperty_ShouldDelegateSetterToDeclaringInterface()
+			public async Task HiddenProperty_ShouldDelegateSetterToDeclaringInterface()
 			{
 				MyChocolateShelf myShelf = new();
 				IChocolateShelf wrappedShelf = IChocolateShelf.CreateMock().Wrapping(myShelf);
@@ -173,7 +173,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_HiddenPropertyWithUnrelatedType_ShouldDelegateToDeclaringInterface()
+			public async Task HiddenPropertyWithUnrelatedType_ShouldDelegateToDeclaringInterface()
 			{
 				MyChocolateShelf myShelf = new();
 				IChocolateShelf wrappedShelf = IChocolateShelf.CreateMock().Wrapping(myShelf);
@@ -188,7 +188,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_Indexer_ShouldDelegateToWrappedInstance()
+			public async Task Indexer_ShouldDelegateToWrappedInstance()
 			{
 				MyChocolateDispenser myDispenser = new();
 				IChocolateDispenser wrappedDispenser = IChocolateDispenser.CreateMock().Wrapping(myDispenser);
@@ -202,7 +202,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_Method_ShouldDelegateToWrappedInstance()
+			public async Task Method_ShouldDelegateToWrappedInstance()
 			{
 				MyChocolateDispenser myDispenser = new();
 				IChocolateDispenser wrappedDispenser = IChocolateDispenser.CreateMock().Wrapping(myDispenser);
@@ -215,7 +215,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_Property_ShouldDelegateToWrappedInstance()
+			public async Task Property_ShouldDelegateToWrappedInstance()
 			{
 				MyChocolateDispenser myDispenser = new();
 				IChocolateDispenser wrappedDispenser = IChocolateDispenser.CreateMock().Wrapping(myDispenser);
@@ -227,7 +227,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_SiblingInterfaceEvent_ShouldSubscribeOnDeclaringInterface()
+			public async Task SiblingInterfaceEvent_ShouldSubscribeOnDeclaringInterface()
 			{
 				MyChocolateGiftSet myGiftSet = new();
 				IChocolateGiftSet wrappedGiftSet = IChocolateGiftSet.CreateMock().Wrapping(myGiftSet);
@@ -245,7 +245,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_SiblingInterfaceEvent_ShouldUnsubscribeOnDeclaringInterface()
+			public async Task SiblingInterfaceEvent_ShouldUnsubscribeOnDeclaringInterface()
 			{
 				MyChocolateGiftSet myGiftSet = new();
 				IChocolateGiftSet wrappedGiftSet = IChocolateGiftSet.CreateMock().Wrapping(myGiftSet);
@@ -266,7 +266,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_SiblingInterfaceIndexer_ShouldDelegateGetterToDeclaringInterface()
+			public async Task SiblingInterfaceIndexer_ShouldDelegateGetterToDeclaringInterface()
 			{
 				MyChocolateGiftSet myGiftSet = new();
 				IChocolateGiftSet wrappedGiftSet = IChocolateGiftSet.CreateMock().Wrapping(myGiftSet);
@@ -277,7 +277,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_SiblingInterfaceIndexer_ShouldDelegateSetterToDeclaringInterface()
+			public async Task SiblingInterfaceIndexer_ShouldDelegateSetterToDeclaringInterface()
 			{
 				MyChocolateGiftSet myGiftSet = new();
 				IChocolateGiftSet wrappedGiftSet = IChocolateGiftSet.CreateMock().Wrapping(myGiftSet);
@@ -291,7 +291,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_SiblingInterfaceMethod_ShouldDelegateToDeclaringInterface()
+			public async Task SiblingInterfaceMethod_ShouldDelegateToDeclaringInterface()
 			{
 				MyChocolateGiftSet myGiftSet = new();
 				IChocolateGiftSet wrappedGiftSet = IChocolateGiftSet.CreateMock().Wrapping(myGiftSet);
@@ -305,7 +305,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_SiblingInterfaceProperty_ShouldDelegateGetterToDeclaringInterface()
+			public async Task SiblingInterfaceProperty_ShouldDelegateGetterToDeclaringInterface()
 			{
 				MyChocolateGiftSet myGiftSet = new();
 				IChocolateGiftSet wrappedGiftSet = IChocolateGiftSet.CreateMock().Wrapping(myGiftSet);
@@ -316,7 +316,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_SiblingInterfaceProperty_ShouldDelegateSetterToDeclaringInterface()
+			public async Task SiblingInterfaceProperty_ShouldDelegateSetterToDeclaringInterface()
 			{
 				MyChocolateGiftSet myGiftSet = new();
 				IChocolateGiftSet wrappedGiftSet = IChocolateGiftSet.CreateMock().Wrapping(myGiftSet);
@@ -330,7 +330,7 @@ public sealed partial class MockTests
 			}
 
 			[Test]
-			public async Task Wrap_WithSetup_ShouldOverrideMethod()
+			public async Task Method_WithSetup_ShouldOverrideTheReturnValue()
 			{
 				MyChocolateDispenser myDispenser = new();
 				IChocolateDispenser wrappedDispenser = IChocolateDispenser.CreateMock().Wrapping(myDispenser);

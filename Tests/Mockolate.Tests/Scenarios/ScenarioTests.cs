@@ -9,7 +9,7 @@ public sealed partial class ScenarioTests
 	public sealed class InScenarioTests
 	{
 		[Test]
-		public async Task InScenario_IndexerArity2_ShouldScopeTheSetup()
+		public async Task Indexer_With2Keys_ShouldScopeTheSetup()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -22,7 +22,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task InScenario_IndexerArity3_ShouldScopeTheSetup()
+		public async Task Indexer_With3Keys_ShouldScopeTheSetup()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -35,7 +35,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task InScenario_IndexerArity4_ShouldScopeTheSetup()
+		public async Task Indexer_With4Keys_ShouldScopeTheSetup()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -48,7 +48,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task InScenario_IndexerGetter_ShouldScopeTheSetup()
+		public async Task Indexer_With1Key_ShouldScopeTheSetup()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -64,7 +64,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task InScenario_LambdaOverload_ShouldRegisterAllSetupsInTheScope()
+		public async Task WithLambda_ShouldRegisterAllSetupsInTheScope()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -83,7 +83,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task InScenario_LambdaOverload_ShouldReturnMockToAllowFurtherChaining()
+		public async Task WithLambda_ShouldReturnMockToAllowFurtherChaining()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -101,7 +101,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task InScenario_SetupsShouldNotLeakIntoDefaultScope()
+		public async Task ShouldNotLeakSetupsIntoTheDefaultScope()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -114,7 +114,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task InScenario_ShouldActivateWhenScenarioMatches()
+		public async Task WhenTheScenarioIsActive_ShouldApplyTheSetup()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -128,7 +128,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task InScenario_ShouldFallBackToDefaultScopeWhenNoMatchingSetup()
+		public async Task WithoutMatchingSetupInTheScenario_ShouldFallBackToTheDefaultScope()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -198,7 +198,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task IndexerGetter_Arity1_ShouldSwitchScenarioOnRead()
+		public async Task IndexerGetter_With1Key_ShouldSwitchScenarioOnRead()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -211,7 +211,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task IndexerGetter_Arity2_ShouldSwitchScenarioOnRead()
+		public async Task IndexerGetter_With2Keys_ShouldSwitchScenarioOnRead()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -224,7 +224,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task IndexerGetter_Arity3_ShouldSwitchScenarioOnRead()
+		public async Task IndexerGetter_With3Keys_ShouldSwitchScenarioOnRead()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -238,7 +238,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task IndexerGetter_Arity4_ShouldSwitchScenarioOnRead()
+		public async Task IndexerGetter_With4Keys_ShouldSwitchScenarioOnRead()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -252,7 +252,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task IndexerGetter_Arity5_ShouldSwitchScenarioOnRead()
+		public async Task IndexerGetter_With5Keys_ShouldSwitchScenarioOnRead()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -279,7 +279,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task IndexerSetter_Arity1_ShouldSwitchScenarioOnWrite()
+		public async Task IndexerSetter_With1Key_ShouldSwitchScenarioOnWrite()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -292,7 +292,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task IndexerSetter_Arity2_ShouldSwitchScenarioOnWrite()
+		public async Task IndexerSetter_With2Keys_ShouldSwitchScenarioOnWrite()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -305,7 +305,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task IndexerSetter_Arity3_ShouldSwitchScenarioOnWrite()
+		public async Task IndexerSetter_With3Keys_ShouldSwitchScenarioOnWrite()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -319,7 +319,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task IndexerSetter_Arity4_ShouldSwitchScenarioOnWrite()
+		public async Task IndexerSetter_With4Keys_ShouldSwitchScenarioOnWrite()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -333,7 +333,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task IndexerSetter_Arity5_ShouldSwitchScenarioOnWrite()
+		public async Task IndexerSetter_With5Keys_ShouldSwitchScenarioOnWrite()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -360,7 +360,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task Method_ReturnArity0_ShouldSwitchScenarioWhenInvoked()
+		public async Task ReturnMethod_With0Parameters_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -374,7 +374,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task Method_ReturnArity1_ShouldSwitchScenarioWhenInvoked()
+		public async Task ReturnMethod_With1Parameter_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -388,7 +388,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task Method_ReturnArity2_ShouldSwitchScenarioWhenInvoked()
+		public async Task ReturnMethod_With2Parameters_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -402,7 +402,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task Method_ReturnArity3_ShouldSwitchScenarioWhenInvoked()
+		public async Task ReturnMethod_With3Parameters_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -418,7 +418,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task Method_ReturnArity4_ShouldSwitchScenarioWhenInvoked()
+		public async Task ReturnMethod_With4Parameters_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -434,7 +434,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task Method_ReturnArity5_ShouldSwitchScenarioWhenInvoked()
+		public async Task ReturnMethod_With5Parameters_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -450,7 +450,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task Method_VoidArity0_ShouldSwitchScenarioWhenInvoked()
+		public async Task VoidMethod_With0Parameters_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -463,7 +463,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task Method_VoidArity1_ShouldSwitchScenarioWhenInvoked()
+		public async Task VoidMethod_With1Parameter_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -476,7 +476,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task Method_VoidArity2_ShouldSwitchScenarioWhenInvoked()
+		public async Task VoidMethod_With2Parameters_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -489,7 +489,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task Method_VoidArity3_ShouldSwitchScenarioWhenInvoked()
+		public async Task VoidMethod_With3Parameters_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -504,7 +504,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task Method_VoidArity4_ShouldSwitchScenarioWhenInvoked()
+		public async Task VoidMethod_With4Parameters_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -519,7 +519,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task Method_VoidArity5_ShouldSwitchScenarioWhenInvoked()
+		public async Task VoidMethod_With5Parameters_ShouldSwitchScenarioWhenInvoked()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -534,7 +534,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task Mock_TransitionTo_ShouldReturnMockForChaining()
+		public async Task ShouldReturnMockForChaining()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -548,7 +548,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task Mock_TransitionTo_ShouldSetActiveScenario()
+		public async Task ShouldSetActiveScenario()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -558,7 +558,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task Property_Getter_ShouldNotFireOnWrite()
+		public async Task PropertyGetter_ShouldNotFireOnWrite()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -571,7 +571,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task Property_Getter_ShouldSwitchScenarioOnRead()
+		public async Task PropertyGetter_ShouldSwitchScenarioOnRead()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -584,7 +584,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task Property_Setter_ShouldNotFireOnRead()
+		public async Task PropertySetter_ShouldNotFireOnRead()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -597,7 +597,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task Property_Setter_ShouldSwitchScenarioOnWrite()
+		public async Task PropertySetter_ShouldSwitchScenarioOnWrite()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 
@@ -629,7 +629,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task IndexerGetter_Arity5_WithWhenAndFor_ShouldRespectBothConstraints()
+		public async Task IndexerGetterWith5Keys_WithWhenAndFor_ShouldRespectBothConstraints()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 			sut.Mock.Setup[
@@ -651,7 +651,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task IndexerSetter_Arity5_WithWhenAndFor_ShouldRespectBothConstraints()
+		public async Task IndexerSetterWith5Keys_WithWhenAndFor_ShouldRespectBothConstraints()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 			sut.Mock.Setup[
@@ -673,7 +673,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task When_PredicateNeverTrue_ShouldNotTransition()
+		public async Task When_WithPredicateThatIsNeverTrue_ShouldNotTransition()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 			sut.Mock.InScenario("a").Setup.ReturnMethod0().Returns(1).TransitionTo("b").When(_ => false);
@@ -725,7 +725,7 @@ public sealed partial class ScenarioTests
 	public sealed class WithProtectedMembersTests
 	{
 		[Test]
-		public async Task InScenario_LambdaOverload_ShouldSupportSetupProtected()
+		public async Task InScenario_WithLambda_ShouldSupportSetupProtected()
 		{
 			ProtectedMockTests.MyProtectedClass sut = ProtectedMockTests.MyProtectedClass.CreateMock();
 
@@ -741,7 +741,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task InScenario_SetupProtectedMethod_ShouldScopeTheSetup()
+		public async Task InScenario_WithMethodSetup_ShouldScopeTheSetup()
 		{
 			ProtectedMockTests.MyProtectedClass sut = ProtectedMockTests.MyProtectedClass.CreateMock();
 
@@ -757,7 +757,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task InScenario_SetupProtectedProperty_ShouldScopeTheSetup()
+		public async Task InScenario_WithPropertySetup_ShouldScopeTheSetup()
 		{
 			ProtectedMockTests.MyProtectedClass sut = ProtectedMockTests.MyProtectedClass.CreateMock();
 
@@ -771,7 +771,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task TransitionTo_FromProtectedMethod_ShouldSwitchScenario()
+		public async Task TransitionTo_WhenMethodIsInvoked_ShouldSwitchScenario()
 		{
 			ProtectedMockTests.MyProtectedClass sut = ProtectedMockTests.MyProtectedClass.CreateMock();
 
@@ -788,7 +788,7 @@ public sealed partial class ScenarioTests
 	public sealed class SharedScenarioStateTests
 	{
 		[Test]
-		public async Task InScenarioSetup_ShouldApplyForDispatchDuringMonitorScope()
+		public async Task InScenarioSetup_WhenMonitorIsRunning_ShouldApply()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 			sut.Mock.InScenario("scoped").Setup.ReturnMethod0().Returns(42);
@@ -809,7 +809,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task InScenarioSetup_ShouldApplyWhenDispatchingViaWrappedMock()
+		public async Task InScenarioSetup_WhenCalledThroughTheWrappedMock_ShouldApply()
 		{
 			IChocolateDispenser original = IChocolateDispenser.CreateMock();
 			original.Mock.InScenario("scoped").Setup.Dispense(It.IsAny<string>(), It.IsAny<int>()).Returns(true);
@@ -825,7 +825,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task TransitionTo_OnOriginal_ShouldBeVisibleOnWrappedMock()
+		public async Task TransitionTo_WhenCalledOnTheOriginal_ShouldBeVisibleOnTheWrappedMock()
 		{
 			IChocolateDispenser original = IChocolateDispenser.CreateMock();
 			IChocolateDispenser wrapped = original.Wrapping(new ScenarioDispenser());
@@ -836,7 +836,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task TransitionTo_OnWrappedMock_ShouldBeVisibleOnOriginal()
+		public async Task TransitionTo_WhenCalledOnTheWrappedMock_ShouldBeVisibleOnTheOriginal()
 		{
 			IChocolateDispenser original = IChocolateDispenser.CreateMock();
 			IChocolateDispenser wrapped = original.Wrapping(new ScenarioDispenser());
@@ -847,7 +847,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task TransitionToFromSetup_CreatedAfterWrapping_ShouldStillPropagateToWrappedMock()
+		public async Task TransitionToFromSetup_WhenSetUpAfterWrapping_ShouldStillPropagateToWrappedMock()
 		{
 			IChocolateDispenser original = IChocolateDispenser.CreateMock();
 			IChocolateDispenser wrapped = original.Wrapping(new ScenarioDispenser());
@@ -862,7 +862,7 @@ public sealed partial class ScenarioTests
 		}
 
 		[Test]
-		public async Task TransitionToFromSetup_ShouldFireWhenDispatchingDuringMonitorScope()
+		public async Task TransitionToFromSetup_WhenMonitorIsRunning_ShouldSwitchScenario()
 		{
 			IScenarioService sut = IScenarioService.CreateMock();
 			sut.Mock.InScenario("a").Setup.ReturnMethod0().Returns(1).TransitionTo("b");

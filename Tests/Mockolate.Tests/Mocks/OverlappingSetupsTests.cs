@@ -7,7 +7,7 @@ namespace Mockolate.Tests.Mocks;
 public sealed class OverlappingSetupsTests
 {
 	[Test]
-	public async Task Indexer_NarrowMatcherDefinedLater_ShouldWinForMatchingArguments()
+	public async Task Indexer_WithNarrowMatcherDefinedLater_ShouldWinForMatchingArguments()
 	{
 		SetupIndexerTests.IIndexerService sut = SetupIndexerTests.IIndexerService.CreateMock();
 
@@ -22,7 +22,7 @@ public sealed class OverlappingSetupsTests
 	}
 
 	[Test]
-	public async Task Method_BroadMatcherDefinedLater_ShouldWinEvenForArgumentsTheNarrowMatcherCovered()
+	public async Task Method_WithBroadMatcherDefinedLater_ShouldWinEvenForArgumentsTheNarrowMatcherCovered()
 	{
 		SetupMethodTests.IMethodService sut = SetupMethodTests.IMethodService.CreateMock();
 
@@ -35,7 +35,7 @@ public sealed class OverlappingSetupsTests
 	}
 
 	[Test]
-	public async Task Method_MostRecentlyDefinedSetup_ShouldWin_WhenMatchersOverlap()
+	public async Task Method_WithIdenticalMatchers_ShouldUseTheMostRecentlyDefinedSetup()
 	{
 		SetupMethodTests.IMethodService sut = SetupMethodTests.IMethodService.CreateMock();
 
@@ -49,7 +49,7 @@ public sealed class OverlappingSetupsTests
 	}
 
 	[Test]
-	public async Task Method_NarrowMatcherDefinedLater_ShouldWinForMatchingArguments()
+	public async Task Method_WithNarrowMatcherDefinedLater_ShouldWinForMatchingArguments()
 	{
 		SetupMethodTests.IMethodService sut = SetupMethodTests.IMethodService.CreateMock();
 
@@ -64,7 +64,7 @@ public sealed class OverlappingSetupsTests
 	}
 
 	[Test]
-	public async Task Property_LaterReturnsCall_ShouldReplacePreviousSetup()
+	public async Task Property_WhenReturnsIsCalledAgain_ShouldReplacePreviousSetup()
 	{
 		SetupPropertyTests.IPropertyService sut = SetupPropertyTests.IPropertyService.CreateMock();
 

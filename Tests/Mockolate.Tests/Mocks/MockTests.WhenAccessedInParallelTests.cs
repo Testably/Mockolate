@@ -9,7 +9,7 @@ public sealed partial class MockTests
 	public sealed class WhenAccessedInParallelTests
 	{
 		[Test]
-		public async Task Event_ShouldBeThreadSafe()
+		public async Task Event_ShouldRecordEverySubscriptionAndUnsubscription()
 		{
 			IMyThreadSafetyService sut = IMyThreadSafetyService.CreateMock();
 			ManualResetEventSlim barrier = new(false);
@@ -38,7 +38,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task Event_SubscribeRaiseUnsubscribe_ShouldBeThreadSafe()
+		public async Task Event_WhenRaisedWhileSubscribing_ShouldRecordEverySubscriptionAndUnsubscription()
 		{
 			for (int round = 0; round < 10; round++)
 			{
@@ -98,7 +98,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task Indexer_ManyKeys_ShouldBeThreadSafe()
+		public async Task Indexer_WithManyKeys_ShouldReturnTheValueOfEachKey()
 		{
 			for (int round = 0; round < 5; round++)
 			{
@@ -179,7 +179,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task Indexer_ShouldBeThreadSafe()
+		public async Task Indexer_ShouldRecordEveryAccessAndReturnTheValue()
 		{
 			IMyThreadSafetyService sut = IMyThreadSafetyService.CreateMock();
 			sut.Mock.Setup[0].InitializeWith("hello");
@@ -228,7 +228,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task Method_HighContention_ShouldBeThreadSafe()
+		public async Task Method_WithHighContention_ShouldRecordEveryCall()
 		{
 			for (int round = 0; round < 10; round++)
 			{
@@ -261,7 +261,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task MethodWithFiveParameters_HighContention_ShouldRecordEveryCall()
+		public async Task MethodWithFiveParameters_WithHighContention_ShouldRecordEveryCall()
 		{
 			const int threadCount = 16;
 			const int iterationsPerThread = 16;
@@ -308,7 +308,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task Method_ShouldBeThreadSafe()
+		public async Task Method_ShouldRecordEveryCall()
 		{
 			IMyThreadSafetyService sut = IMyThreadSafetyService.CreateMock();
 			sut.Mock.Setup.MyMethod(It.IsAny<int>()).Returns(42);
@@ -337,7 +337,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task Property_ConcurrentSetupAndRead_ShouldBeThreadSafe()
+		public async Task Property_WhenSetUpWhileBeingRead_ShouldKeepTheSetupValue()
 		{
 			for (int round = 0; round < 10; round++)
 			{
@@ -394,7 +394,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task Property_HighContention_ShouldBeThreadSafe()
+		public async Task Property_WithHighContention_ShouldRecordEveryRead()
 		{
 			for (int round = 0; round < 10; round++)
 			{
@@ -427,7 +427,7 @@ public sealed partial class MockTests
 		}
 
 		[Test]
-		public async Task Property_ShouldBeThreadSafe()
+		public async Task Property_ShouldRecordEveryAccessAndReturnTheValue()
 		{
 			IMyThreadSafetyService sut = IMyThreadSafetyService.CreateMock();
 			Guid expectedGuid = Guid.NewGuid();

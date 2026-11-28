@@ -7,7 +7,7 @@ namespace Mockolate.Tests.Monitor;
 public sealed class MockMonitorTests
 {
 	[Test]
-	public async Task ClearAllInteractions_WhenMonitorIsRunning_ShouldClearInternalCollection()
+	public async Task ClearAllInteractions_WhenMonitorIsRunning_ShouldClearTheMonitorInteractions()
 	{
 		IMyService sut = IMyService.CreateMock();
 		MockMonitor<Mock.IMockVerifyForIMyService> monitor = sut.Mock.Monitor();
@@ -21,7 +21,7 @@ public sealed class MockMonitorTests
 	}
 
 	[Test]
-	public async Task DisposeTwice_ShouldNotIncludeMoreInvocations()
+	public async Task Run_WhenDisposedTwice_ShouldNotIncludeMoreInvocations()
 	{
 		IMyService sut = IMyService.CreateMock();
 		MockMonitor<Mock.IMockVerifyForIMyService> monitor = sut.Mock.Monitor();
@@ -49,7 +49,7 @@ public sealed class MockMonitorTests
 	}
 
 	[Test]
-	public async Task MultipleRun_ShouldMonitorInvocationsDuringTheRun()
+	public async Task Run_WhenCalledSeveralTimes_ShouldMonitorInvocationsDuringEachRun()
 	{
 		IMyService sut = IMyService.CreateMock();
 		MockMonitor<Mock.IMockVerifyForIMyService> monitor = sut.Mock.Monitor();
@@ -86,7 +86,7 @@ public sealed class MockMonitorTests
 	}
 
 	[Test]
-	public async Task NestedRun_ShouldThrowInvalidOperationException()
+	public async Task Run_WhenAlreadyRunning_ShouldThrowInvalidOperationException()
 	{
 		IMyService sut = IMyService.CreateMock();
 		MockMonitor<Mock.IMockVerifyForIMyService> monitor = sut.Mock.Monitor();
@@ -155,7 +155,7 @@ public sealed class MockMonitorTests
 	}
 
 	[Test]
-	public async Task Verify_WhileRunning_ShouldBeUpToDate()
+	public async Task Verify_WhenMonitorIsRunning_ShouldBeUpToDate()
 	{
 		IMyService sut = IMyService.CreateMock();
 		MockMonitor<Mock.IMockVerifyForIMyService> monitor = sut.Mock.Monitor();
@@ -183,7 +183,7 @@ public sealed class MockMonitorTests
 	}
 
 	[Test]
-	public async Task WhenMonitoringIsNotDisposed_ShouldStillVerify()
+	public async Task WhenMonitorIsNotDisposed_ShouldStillVerify()
 	{
 		IMyService sut = IMyService.CreateMock();
 		MockMonitor<Mock.IMockVerifyForIMyService> monitor = sut.Mock.Monitor();
@@ -204,7 +204,7 @@ public sealed class MockMonitorTests
 	}
 
 	[Test]
-	public async Task WhenSkippingInteractionRecording_Verify_ShouldThrow()
+	public async Task Verify_WhenSkippingInteractionRecording_ShouldThrow()
 	{
 		IMyService sut = IMyService.CreateMock(MockBehavior.Default.SkippingInteractionRecording());
 		MockMonitor<Mock.IMockVerifyForIMyService> monitor = sut.Mock.Monitor();
