@@ -118,8 +118,13 @@ internal record Method
 	public string? ExplicitImplementation { get; }
 	public EquatableArray<Attribute>? Attributes { get; }
 
-	public bool HasInheritedOnlyConstraint
-		=> GenericParameters?.Any(genericParameter => genericParameter.HasInheritedOnlyConstraint) == true;
+	/// <summary>
+	///     Whether the <c>where</c> clause of a generic parameter cannot restate all of its constraints, so that only an
+	///     explicit implementation, which inherits them, implements the method.
+	/// </summary>
+	public bool HasConstraintThatCannotBeRestated
+		=> GenericParameters?.Any(genericParameter =>
+			genericParameter.HasInheritedOnlyConstraint || genericParameter.OmitsConstraint) == true;
 
 	/// <summary>
 	///     A method has an unsupported <c>allows ref struct</c> type parameter when one of its

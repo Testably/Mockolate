@@ -86,6 +86,87 @@ public sealed class MethodConstrainedToTypeArgumentTests
 #if NET11_0_OR_GREATER
 	[Arguments(LanguageVersion.CSharp15)]
 #endif
+	public async Task ClosedOverOpenClassOrInterface_ShouldEmitConstraintsInDeclarableOrder(
+		LanguageVersion languageVersion)
+	{
+		GeneratorResult result = Generator.Run("""
+		                                       #nullable enable
+		                                       using Mockolate;
+
+		                                       namespace MyCode;
+
+		                                       public class Open { }
+		                                       public interface IMarker { }
+		                                       public interface IOther { }
+		                                       public class Derived : Open { }
+
+		                                       public interface ITwo<T, TBase>
+		                                       {
+		                                           void Accept<U>(U? value) where U : TBase, T;
+		                                       }
+
+		                                       public interface IRepeated<T>
+		                                       {
+		                                           void Accept<U>(U? value) where U : T, IMarker;
+		                                       }
+
+		                                       public interface IC<T>
+		                                       {
+		                                           void AcceptClass<U>(U? value) where U : class, T;
+		                                           void AcceptNullableClass<U>(U? value) where U : class?, T;
+		                                           void AcceptNotNull<U>(U? value) where U : notnull, T;
+		                                           void AcceptConstructor<U>(U? value) where U : T, new();
+		                                           void AcceptInterfaceFirst<U>(U? value) where U : IOther, T;
+		                                           void AcceptRefStruct<U>() where U : T, allows ref struct;
+		                                           void AcceptAll<U>(U? value) where U : class, IOther, T, new();
+		                                           void AcceptDependent<U, V>(U? value, V? other) where U : class, V where V : T;
+		                                           void AcceptInterfaceRefStruct<U>() where U : IOther, allows ref struct;
+		                                           void AcceptConstructorRefStruct<U>() where U : new(), allows ref struct;
+		                                       }
+
+		                                       public abstract class C<T>
+		                                       {
+		                                           public abstract void AcceptClass<U>(U? value) where U : class, T;
+		                                           public abstract void AcceptNullableClass<U>(U? value) where U : class?, T;
+		                                           public abstract void AcceptNotNull<U>(U? value) where U : notnull, T;
+		                                           public abstract void AcceptConstructor<U>(U? value) where U : T, new();
+		                                           public abstract void AcceptInterfaceFirst<U>(U? value) where U : IOther, T;
+		                                           public abstract void AcceptRefStruct<U>() where U : T, allows ref struct;
+		                                           public abstract void AcceptAll<U>(U? value) where U : class, IOther, T, new();
+		                                           public abstract void AcceptDependent<U, V>(U? value, V? other) where U : class, V where V : T;
+		                                       }
+
+		                                       public static class Program
+		                                       {
+		                                           public static void Main()
+		                                           {
+		                                               _ = IC<Open>.CreateMock();
+		                                               _ = C<Open>.CreateMock();
+		                                               _ = IC<IMarker>.CreateMock();
+		                                               _ = C<IMarker>.CreateMock();
+		                                               _ = IOther.CreateMock().Implementing<IC<Open>>();
+		                                               _ = IC<System.Enum>.CreateMock();
+		                                               _ = C<System.Enum>.CreateMock();
+		                                               _ = IC<System.Delegate>.CreateMock();
+		                                               _ = C<System.Delegate>.CreateMock();
+		                                               _ = ITwo<Derived, Open>.CreateMock();
+		                                               _ = ITwo<IMarker, Open>.CreateMock();
+		                                               _ = ITwo<Open, Open>.CreateMock();
+		                                               _ = ITwo<IMarker, IMarker>.CreateMock();
+		                                               _ = IRepeated<IMarker?>.CreateMock();
+		                                           }
+		                                       }
+		                                       """, languageVersion, null);
+
+		await That(result.Diagnostics).IsEmpty()
+			.Because("C# requires the primary constraint first and `allows ref struct` last, also after substituting a type argument");
+	}
+
+	[Test]
+	[Arguments(LanguageVersion.CSharp14)]
+#if NET11_0_OR_GREATER
+	[Arguments(LanguageVersion.CSharp15)]
+#endif
 	public async Task ClosedOverTypesThatCanOnlyBeInheritedAsConstraint_ShouldCompile(
 		LanguageVersion languageVersion)
 	{

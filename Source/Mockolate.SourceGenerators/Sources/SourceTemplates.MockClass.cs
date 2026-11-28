@@ -2743,13 +2743,14 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 				.Append(refReturnStorageField).Append(';').AppendLine();
 		}
 
-		// An implicit implementation would have to restate a constraint that C# accepts only when inherited (CS0425).
-		bool isExplicitForInheritedOnlyConstraint = !explicitInterfaceImplementation && isClassInterface &&
-		                                            method.ExplicitImplementation is null &&
-		                                            method.HasInheritedOnlyConstraint;
+		// An implicit implementation would have to restate a constraint that C# accepts only when inherited or that the
+		// where clause omits (CS0425).
+		bool isExplicitForUnrestatableConstraint = !explicitInterfaceImplementation && isClassInterface &&
+		                                           method.ExplicitImplementation is null &&
+		                                           method.HasConstraintThatCannotBeRestated;
 		sb.Append("\t\t/// <inheritdoc cref=\"").Append(method.Cref).AppendLine("\" />");
 		sb.Append(method.Attributes, "\t\t");
-		if (explicitInterfaceImplementation || isExplicitForInheritedOnlyConstraint)
+		if (explicitInterfaceImplementation || isExplicitForUnrestatableConstraint)
 		{
 			sb.Append("\t\t");
 			if (method.IsStatic)
@@ -2812,7 +2813,7 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 			}
 
 			sb.Append(parameter.Type.Fullname).Append(' ').Append(parameter.Name);
-			if (!explicitInterfaceImplementation && !isExplicitForInheritedOnlyConstraint &&
+			if (!explicitInterfaceImplementation && !isExplicitForUnrestatableConstraint &&
 			    parameter.HasExplicitDefaultValue)
 			{
 				sb.Append(" = ").Append(parameter.ExplicitDefaultValue);
@@ -2824,7 +2825,7 @@ hasProtectedEvents: false /* interfaces have no protected events */,
 		{
 			bool isOverride = !isClassInterface && method.UseOverride;
 			bool isExplicitImplementation = explicitInterfaceImplementation ||
-			                                isExplicitForInheritedOnlyConstraint ||
+			                                isExplicitForUnrestatableConstraint ||
 			                                method.ExplicitImplementation is not null;
 			bool inheritsConstraints = isExplicitImplementation || isOverride || method.IsEquals() ||
 			                           method.IsGetHashCode() || method.IsToString();

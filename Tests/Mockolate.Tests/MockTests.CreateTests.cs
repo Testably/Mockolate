@@ -326,6 +326,17 @@ public sealed partial class MockTests
 		}
 
 		[Test]
+		public async Task MethodConstrainedToClassTypeArgument_CanBeCreated()
+		{
+			IMethodConstrainedToClassTypeArgument<Exception> sut1 = IMethodConstrainedToClassTypeArgument<Exception>.CreateMock();
+			IMethodConstrainedToClassTypeArgument<IComparable> sut2 = IMethodConstrainedToClassTypeArgument<IComparable>.CreateMock();
+			MethodConstrainedToClassTypeArgumentBase<Exception> sut3 = MethodConstrainedToClassTypeArgumentBase<Exception>.CreateMock();
+			await That(sut1).IsNotNull();
+			await That(sut2).IsNotNull();
+			await That(sut3).IsNotNull();
+		}
+
+		[Test]
 		public async Task NullableMethodTypeParameter_CanBeCreated()
 		{
 			INullableMethodTypeParameter sut = INullableMethodTypeParameter.CreateMock();
