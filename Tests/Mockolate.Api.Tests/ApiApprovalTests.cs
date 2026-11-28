@@ -23,7 +23,7 @@ public sealed class ApiApprovalTests
 
 	[Test]
 	[MethodDataSource(nameof(Builds))]
-	public async Task VerifyPublicApi(string assemblyName, string framework)
+	public async Task ShouldMatchThePublicApiSnapshot(string assemblyName, string framework)
 		=> await MatchesPublicApiSnapshot(assemblyName, framework);
 
 	/// <summary>

@@ -10,7 +10,7 @@ public sealed class XunitRunnerTests
 	private static readonly TimeSpan Timeout = TimeSpan.FromMinutes(1);
 
 	[Test]
-	public async Task XunitRunner_ShouldRunTheTheoriesWithTheArguments()
+	public async Task ShouldRunTheTheoriesWithTheArguments()
 	{
 		List<string> passed = [];
 		List<string> problems = [];
@@ -51,11 +51,11 @@ public sealed class XunitRunnerTests
 		await That(passed).Contains(
 			"Mockolate.Xunit2.Tests.XunitTheories.DisplayName_ShouldNotReadTheProperties(stock: Mockolate.Frameworks.TestHelpers.Domain.IChocolateStock mock)");
 		await That(passed.Select(name => name.Split('(')[0])).IsEqualTo([
-			"Mockolate.Xunit2.Tests.XunitTheories.SharedMocks",
-			"Mockolate.Xunit2.Tests.XunitTheories.SeveralAttributes",
-			"Mockolate.Xunit2.Tests.XunitTheories.SeveralAttributes",
-			"Mockolate.Xunit2.Tests.XunitTheories.SingleNullArgument",
-			"Mockolate.Xunit2.Tests.XunitTheories.NotSharedParameter",
+			"Mockolate.Xunit2.Tests.XunitTheories.AutoMockArguments_ShouldPassTheParameterMocksToTheClassUnderTest",
+			"Mockolate.Xunit2.Tests.XunitTheories.AutoMockArguments_WithSeveralAttributes_ShouldRunOneTestCaseForEach",
+			"Mockolate.Xunit2.Tests.XunitTheories.AutoMockArguments_WithSeveralAttributes_ShouldRunOneTestCaseForEach",
+			"Mockolate.Xunit2.Tests.XunitTheories.AutoMockArguments_WithSingleNullArgument_ShouldPassNull",
+			"Mockolate.Xunit2.Tests.XunitTheories.AutoMockArguments_WithNotSharedParameter_ShouldNotShareItWithTheClassUnderTest",
 			"Mockolate.Xunit2.Tests.XunitTheories.DisplayName_ShouldNotReadTheProperties",
 		]).InAnyOrder();
 	}

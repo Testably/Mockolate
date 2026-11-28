@@ -20,13 +20,13 @@ public sealed class AutoMockArgumentsDefaultBehaviorTests
 
 	[Test]
 	[AutoMockArguments]
-	public async Task DefaultBehavior_AssignedInModuleInitializer_ShouldApplyToTheArguments(ConfiguredValue value)
+	public async Task WhenAssignedInModuleInitializer_ShouldApplyToTheArguments(ConfiguredValue value)
 		=> await That(value.Id).IsGreaterThan(0);
 
 	[Test]
 	[AutoMockArguments(1)]
 	[AutoMockArguments(2)]
-	public async Task DefaultBehavior_ShouldBeCalledOncePerTestCase(int testCase, ConfiguredValue first,
+	public async Task ShouldBeCalledOncePerTestCase(int testCase, ConfiguredValue first,
 		ConfiguredValue second)
 	{
 		await That(testCase).IsGreaterThan(0);

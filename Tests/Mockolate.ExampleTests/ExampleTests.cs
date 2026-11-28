@@ -65,7 +65,7 @@ public class ExampleTests
 #endif
 
 	[Test]
-	public async Task BaseClassWithConstructorParameters()
+	public async Task WithConstructorParameters_ShouldReturnTheSetupValue()
 	{
 		MyClass sut = MyClass.CreateMock(3);
 
@@ -83,7 +83,7 @@ public class ExampleTests
 	[Arguments(HttpStatusCode.OK)]
 	[Arguments(HttpStatusCode.NotFound)]
 	[Arguments(HttpStatusCode.ServiceUnavailable)]
-	public async Task HttpClientTest(HttpStatusCode statusCode)
+	public async Task HttpClient_ShouldReturnTheSetupStatusCode(HttpStatusCode statusCode)
 	{
 		HttpClient httpClient = HttpClient.CreateMock();
 		httpClient.Mock.Setup.PostAsync(It.Matches("*example.com*"), It.IsHttpContent())
@@ -95,7 +95,7 @@ public class ExampleTests
 	}
 
 	[Test]
-	public async Task IHttpClientFactory_SharedHandler_PreservesInvocationsAcrossDisposes()
+	public async Task IHttpClientFactory_WithSharedHandler_ShouldKeepTheInvocationsAcrossDisposedClients()
 	{
 		HttpMessageHandler handler = HttpMessageHandler.CreateMock();
 		HttpClient setupClient = HttpClient.CreateMock(handler, disposeHandler: false);
@@ -133,7 +133,7 @@ public class ExampleTests
 	}
 
 	[Test]
-	public async Task SimpleInterfaceMock()
+	public async Task WithInterface_ShouldReturnTheSetupValue()
 	{
 		Guid id = Guid.NewGuid();
 		IExampleRepository sut = IExampleRepository.CreateMock().Implementing<IOrderRepository>();
@@ -233,7 +233,7 @@ public class ExampleTests
 	[Test]
 	[Arguments("Alice", true)]
 	[Arguments("Bob", false)]
-	public async Task WithMatching_ShouldAlwaysMatch(string name, bool expectResult)
+	public async Task WithPredicate_ShouldOnlyMatchValuesThatSatisfyIt(string name, bool expectResult)
 	{
 		Guid id = Guid.NewGuid();
 		IExampleRepository sut = IExampleRepository.CreateMock();
@@ -269,7 +269,7 @@ public class ExampleTests
 	}
 
 	[Test]
-	public async Task Wrapping_HiddenMember_ShouldForwardToDeclaringInterface()
+	public async Task Wrapping_WithHiddenMember_ShouldForwardToDeclaringInterface()
 	{
 		User alice = new(Guid.NewGuid(), "Alice");
 		User bob = new(Guid.NewGuid(), "Bob");

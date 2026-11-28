@@ -22,7 +22,7 @@ public sealed class AutoMockArgumentsTests
 			() => MockBehavior.Default.WithDefaultValueFor(() => new ConfiguredValue(42));
 
 	[AutoMockArguments]
-	public async Task AutoMockArguments_ShouldPassTheParameterMocksToTheClassUnderTest(OrderService sut,
+	public async Task ShouldPassTheParameterMocksToTheClassUnderTest(OrderService sut,
 		IOrderRepository repository, IShippingClient shippingClient)
 	{
 		Order order = new(42, 10m);
@@ -35,7 +35,7 @@ public sealed class AutoMockArgumentsTests
 	}
 
 	[AutoMockArguments]
-	public async Task ClassParameter_ShouldForwardToTheRealImplementationUntilItIsSetUp(DiscountService sut,
+	public async Task WithClassParameter_ShouldForwardToTheRealImplementationUntilItIsSetUp(DiscountService sut,
 		ITaxCalculator taxCalculator)
 	{
 		taxCalculator.Mock.Setup.GetTax(100m).Returns(20m);
@@ -48,7 +48,7 @@ public sealed class AutoMockArgumentsTests
 	}
 
 	[AutoMockArguments]
-	public async Task SealedClassParameter_ShouldBeARealInstanceWithTheParameterMocks(SealedOrderService sut,
+	public async Task WithSealedClassParameter_ShouldPassARealInstanceWithTheParameterMocks(SealedOrderService sut,
 		IOrderRepository repository)
 	{
 		await That(sut.GetType()).IsEqualTo(typeof(SealedOrderService));
@@ -57,7 +57,7 @@ public sealed class AutoMockArgumentsTests
 
 	[AutoMockArguments(1)]
 	[AutoMockArguments(2)]
-	public async Task AutoMockArguments_WithSeveralAttributes_ShouldRunOneTestCaseForEach(int id, OrderService sut,
+	public async Task WithSeveralAttributes_ShouldRunOneTestCaseForEach(int id, OrderService sut,
 		IOrderRepository repository)
 	{
 		sut.Ship(id);
@@ -66,7 +66,7 @@ public sealed class AutoMockArgumentsTests
 	}
 
 	[AutoMockArguments(null)]
-	public async Task AutoMockArguments_WithSingleNullArgument_ShouldPassNull(string? name,
+	public async Task WithSingleNullArgument_ShouldPassNull(string? name,
 		OptionalArgumentsService sut)
 	{
 		await That(name).IsNull();
@@ -74,7 +74,7 @@ public sealed class AutoMockArgumentsTests
 	}
 
 	[AutoMockArguments]
-	public async Task AutoMockArguments_WithNotSharedParameter_ShouldNotShareItWithTheClassUnderTest(
+	public async Task WithNotSharedParameter_ShouldNotShareItWithTheClassUnderTest(
 		OrderService sut, IOrderRepository repository, [NotShared] IShippingClient shippingClient)
 	{
 		Order order = new(42, 10m);
@@ -132,7 +132,7 @@ public sealed class AutoMockArgumentsTests
 	}
 
 	[AutoMockArguments]
-	public async Task DefaultBehavior_AssignedInModuleInitializer_ShouldApplyToTheArguments(ConfiguredValue value)
+	public async Task DefaultBehavior_WhenAssignedInModuleInitializer_ShouldApplyToTheArguments(ConfiguredValue value)
 		=> await That(value.Id).IsEqualTo(42);
 
 	[AutoMockArguments]
@@ -164,7 +164,7 @@ public sealed class AutoMockArgumentsTests
 
 	[AutoMockArguments]
 	[Repeat(2)]
-	public async Task Repeat_ShouldGetNewMocksForEveryRun(IOrderRepository repository)
+	public async Task WithRepeat_ShouldGetNewMocksForEveryRun(IOrderRepository repository)
 	{
 		repository.Find(1);
 
@@ -173,7 +173,7 @@ public sealed class AutoMockArgumentsTests
 
 	[AutoMockArguments]
 	[Retry(2)]
-	public void Retry_ShouldGetNewMocksForEveryAttempt(IOrderRepository repository)
+	public void WithRetry_ShouldGetNewMocksForEveryAttempt(IOrderRepository repository)
 	{
 		repository.Find(1);
 		repository.Mock.Verify.Find(1).Once();
@@ -185,11 +185,11 @@ public sealed class AutoMockArgumentsTests
 
 	[AutoMockArguments]
 	[CancelAfter(60_000)]
-	public async Task CancellationToken_ShouldComeFromNUnit(IOrderRepository repository, CancellationToken token)
+	public async Task WithCancellationTokenParameter_ShouldPassTheTokenOfNUnit(IOrderRepository repository, CancellationToken token)
 		=> await That(token.CanBeCanceled).IsTrue();
 
 	[AutoMockArguments]
-	public static async Task StaticMethod_ShouldGetTheArguments(OrderService sut, IOrderRepository repository)
+	public static async Task WhenTheTestMethodIsStatic_ShouldGetTheArguments(OrderService sut, IOrderRepository repository)
 	{
 		sut.Ship(3);
 
@@ -197,12 +197,12 @@ public sealed class AutoMockArgumentsTests
 	}
 
 	[AutoMockArguments]
-	public async Task TestMethod_WithoutParameters_ShouldRun()
-		=> await That(TestContext.CurrentContext.Test.Name).IsEqualTo(nameof(TestMethod_WithoutParameters_ShouldRun));
+	public async Task WithoutParameters_ShouldRun()
+		=> await That(TestContext.CurrentContext.Test.Name).IsEqualTo(nameof(WithoutParameters_ShouldRun));
 
 	[TestCase(5, null)]
 	[AutoMockArguments(6)]
-	public async Task AutoMockArguments_NextToTestCase_ShouldOnlyFillItsOwnTestCase(int id, IOrderRepository? repository)
+	public async Task WithTestCaseAttribute_ShouldOnlyFillItsOwnTestCase(int id, IOrderRepository? repository)
 		=> await That(repository is null).IsEqualTo(id == 5);
 
 	[AutoMockArguments(double.NaN, float.PositiveInfinity, Flavor.Milk)]
@@ -211,12 +211,12 @@ public sealed class AutoMockArgumentsTests
 			"TestName_ShouldFormatSpecialValuesAndEnumsLikeCSharp(double.NaN, float.PositiveInfinity, Flavor.Milk)");
 
 	[AutoMockArguments]
-	public async Task SealedClassParameter_WhoseConstructorCanFail_ShouldBeCreated(FailingService sut)
+	public async Task WithSealedClassParameterWhoseConstructorCanFail_ShouldCreateIt(FailingService sut)
 		=> await That(sut).IsNotNull();
 
 	[AutoMockArguments]
 	[RecordingHook]
-	public async Task ExecutionHook_AfterTheAttribute_ShouldRunAndGetTheArguments(IOrderRepository repository)
+	public async Task WithExecutionHookAfterTheAttribute_ShouldRunAndGetTheArguments(IOrderRepository repository)
 	{
 		await That(repository).IsNotNull();
 		await That(RecordingHookAttribute.LastTest).IsEqualTo(TestContext.CurrentContext.Test.Name);
@@ -224,7 +224,7 @@ public sealed class AutoMockArgumentsTests
 
 	[RecordingHook]
 	[AutoMockArguments]
-	public async Task ExecutionHook_BeforeTheAttribute_ShouldRunAndGetTheArguments(IOrderRepository repository)
+	public async Task WithExecutionHookBeforeTheAttribute_ShouldRunAndGetTheArguments(IOrderRepository repository)
 	{
 		await That(repository).IsNotNull();
 		await That(RecordingHookAttribute.LastTest).IsEqualTo(TestContext.CurrentContext.Test.Name);
@@ -359,14 +359,14 @@ public static class BuildTargets
 public sealed class ParameterizedFixtureTests(string type)
 {
 	[AutoMockArguments]
-	public async Task AutoMockArguments_InParameterizedFixture_ShouldGetTheArguments(IOrderRepository repository)
+	public async Task AutoMockArguments_ShouldGetTheArguments(IOrderRepository repository)
 	{
 		repository.Find(1);
 
 		await That(type).IsEqualTo("Dark");
 		await That(repository.Mock.Verify.Find(1)).Once();
 		await That(TestContext.CurrentContext.Test.FullName).IsEqualTo(
-			"Mockolate.NUnit.Tests.ParameterizedFixtureTests(\"Dark\").AutoMockArguments_InParameterizedFixture_ShouldGetTheArguments");
+			"Mockolate.NUnit.Tests.ParameterizedFixtureTests(\"Dark\").AutoMockArguments_ShouldGetTheArguments");
 	}
 }
 

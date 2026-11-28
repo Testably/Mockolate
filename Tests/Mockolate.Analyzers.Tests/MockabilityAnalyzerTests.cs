@@ -553,7 +553,7 @@ public class MockabilityAnalyzerTests
 		);
 
 	[Test]
-	public async Task WhenPassingTheOutArgumentByNameLater_ShouldAnalyzeTheSealedOverload() => await Verifier
+	public async Task WhenCreatingMockableClassWithOutParameterPassedByName_ShouldBeFlagged() => await Verifier
 		.VerifyAnalyzerAsync(
 			"""
 			using Mockolate;

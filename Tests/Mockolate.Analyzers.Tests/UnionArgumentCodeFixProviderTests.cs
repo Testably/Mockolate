@@ -42,42 +42,42 @@ public class UnionArgumentCodeFixProviderTests
 	                                    """;
 
 	[Test]
-	public async Task UserDefinedConversion_ShouldAddACast() => await VerifyAsync(
+	public async Task WithUserDefinedConversion_ShouldAddACast() => await VerifyAsync(
 		"setup.Write({|CS1503:bytes|}, 1);",
 		"setup.Write((ReadOnlyMemory<byte>)bytes, 1);");
 
 	[Test]
-	public async Task TargetTypedNew_ShouldAddTheType() => await VerifyAsync(
+	public async Task WithTargetTypedNew_ShouldAddTheType() => await VerifyAsync(
 		"setup.Wait({|CS1729:new(0, 0, 5)|});",
 		"setup.Wait(new TimeSpan(0, 0, 5));");
 
 	[Test]
-	public async Task CollectionExpression_ShouldAddACast() => await VerifyAsync(
+	public async Task WithCollectionExpression_ShouldAddACast() => await VerifyAsync(
 		"setup.CountAll({|CS9174:[1, 2,]|});",
 		"setup.CountAll((int[])[1, 2,]);");
 
 	[Test]
-	public async Task NamedArgument_ShouldAddACast() => await VerifyAsync(
+	public async Task WithNamedArgument_ShouldAddACast() => await VerifyAsync(
 		"setup.Lookup(key: {|CS1503:\"k\"|});",
 		"setup.Lookup(key: (Key)\"k\");");
 
 	[Test]
-	public async Task IndexerKey_ShouldAddACast() => await VerifyAsync(
+	public async Task WithIndexerKey_ShouldAddACast() => await VerifyAsync(
 		"_ = setup[{|CS1503:\"k\"|}];",
 		"_ = setup[(Key)\"k\"];");
 
 	[Test]
-	public async Task CompoundExpression_ShouldBeParenthesized() => await VerifyAsync(
+	public async Task WithCompoundExpression_ShouldParenthesizeItInTheCast() => await VerifyAsync(
 		"setup.Lookup({|CS1503:\"a\" + \"b\"|});",
 		"setup.Lookup((Key)(\"a\" + \"b\"));");
 
 	[Test]
-	public async Task ArgumentWithoutConversionToTheCaseType_ShouldNotBeFixed() => await VerifyAsync(
+	public async Task WithoutConversionToTheCaseType_ShouldNotBeFixed() => await VerifyAsync(
 		"setup.Wait({|CS1503:\"5s\"|});",
 		"setup.Wait({|CS1503:\"5s\"|});");
 
 	[Test]
-	public async Task NonUnionParameter_ShouldNotBeFixed() => await VerifyAsync(
+	public async Task WithNonUnionParameter_ShouldNotBeFixed() => await VerifyAsync(
 		"setup.Plain({|CS1503:\"1\"|});",
 		"setup.Plain({|CS1503:\"1\"|});");
 

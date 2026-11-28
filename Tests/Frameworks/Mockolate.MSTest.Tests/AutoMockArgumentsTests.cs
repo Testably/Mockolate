@@ -22,7 +22,7 @@ public sealed class AutoMockArgumentsTests
 
 	[TestMethod]
 	[AutoMockArguments]
-	public async Task AutoMockArguments_ShouldPassTheParameterMocksToTheClassUnderTest(OrderService sut,
+	public async Task ShouldPassTheParameterMocksToTheClassUnderTest(OrderService sut,
 		IOrderRepository repository, IShippingClient shippingClient)
 	{
 		Order order = new(42, 10m);
@@ -36,7 +36,7 @@ public sealed class AutoMockArgumentsTests
 
 	[TestMethod]
 	[AutoMockArguments]
-	public async Task ClassParameter_ShouldForwardToTheRealImplementationUntilItIsSetUp(DiscountService sut,
+	public async Task WithClassParameter_ShouldForwardToTheRealImplementationUntilItIsSetUp(DiscountService sut,
 		ITaxCalculator taxCalculator)
 	{
 		taxCalculator.Mock.Setup.GetTax(100m).Returns(20m);
@@ -50,7 +50,7 @@ public sealed class AutoMockArgumentsTests
 
 	[TestMethod]
 	[AutoMockArguments]
-	public async Task SealedClassParameter_ShouldBeARealInstanceWithTheParameterMocks(SealedOrderService sut,
+	public async Task WithSealedClassParameter_ShouldPassARealInstanceWithTheParameterMocks(SealedOrderService sut,
 		IOrderRepository repository)
 	{
 		await That(sut.GetType()).IsEqualTo(typeof(SealedOrderService));
@@ -60,7 +60,7 @@ public sealed class AutoMockArgumentsTests
 	[TestMethod]
 	[AutoMockArguments(1)]
 	[AutoMockArguments(2)]
-	public async Task AutoMockArguments_WithSeveralAttributes_ShouldRunOneTestCaseForEach(int id, OrderService sut,
+	public async Task WithSeveralAttributes_ShouldRunOneTestCaseForEach(int id, OrderService sut,
 		IOrderRepository repository)
 	{
 		sut.Ship(id);
@@ -70,7 +70,7 @@ public sealed class AutoMockArgumentsTests
 
 	[TestMethod]
 	[AutoMockArguments("name", 5)]
-	public async Task AutoMockArguments_WithSeveralArguments_ShouldNotPassThemToTheClassUnderTest(string name,
+	public async Task WithSeveralArguments_ShouldNotPassThemToTheClassUnderTest(string name,
 		int retries, OptionalArgumentsService sut)
 	{
 		await That(name).IsEqualTo("name");
@@ -80,7 +80,7 @@ public sealed class AutoMockArgumentsTests
 
 	[TestMethod]
 	[AutoMockArguments(null)]
-	public async Task AutoMockArguments_WithSingleNullArgument_ShouldPassNull(string? name,
+	public async Task WithSingleNullArgument_ShouldPassNull(string? name,
 		OptionalArgumentsService sut)
 	{
 		await That(name).IsNull();
@@ -108,7 +108,7 @@ public sealed class AutoMockArgumentsTests
 
 	[TestMethod]
 	[AutoMockArguments]
-	public async Task AutoMockArguments_WithNotSharedParameter_ShouldNotShareItWithTheClassUnderTest(
+	public async Task WithNotSharedParameter_ShouldNotShareItWithTheClassUnderTest(
 		OrderService sut, IOrderRepository repository, [NotShared] IShippingClient shippingClient)
 	{
 		Order order = new(42, 10m);
@@ -171,7 +171,7 @@ public sealed class AutoMockArgumentsTests
 
 	[TestMethod]
 	[AutoMockArguments]
-	public async Task DefaultBehavior_AssignedInModuleInitializer_ShouldApplyToTheArguments(ConfiguredValue value)
+	public async Task DefaultBehavior_WhenAssignedInModuleInitializer_ShouldApplyToTheArguments(ConfiguredValue value)
 		=> await That(value.Id).IsEqualTo(42);
 
 	[TestMethod]
@@ -206,7 +206,7 @@ public sealed class AutoMockArgumentsTests
 	[TestMethod]
 	[Retry(2)]
 	[AutoMockArguments]
-	public async Task Retry_ShouldGetNewMocksForEveryAttempt(IOrderRepository repository)
+	public async Task WithRetry_ShouldGetNewMocksForEveryAttempt(IOrderRepository repository)
 	{
 		if (Interlocked.Increment(ref _retries) == 1)
 		{

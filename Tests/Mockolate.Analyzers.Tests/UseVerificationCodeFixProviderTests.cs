@@ -7,7 +7,7 @@ namespace Mockolate.Analyzers.Tests;
 public class UseVerificationCodeFixProviderTests
 {
 	[Test]
-	public async Task ShouldApplyCodeFix() => await Verifier.VerifyCodeFixAsync(
+	public async Task ShouldAppendAtLeastOnce() => await Verifier.VerifyCodeFixAsync(
 		"""
 		using Mockolate;
 		using Mockolate.Verify;

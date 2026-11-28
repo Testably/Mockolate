@@ -5,7 +5,7 @@ namespace Build.Tests;
 public sealed class BuildBodyTests
 {
 	[Test]
-	public async Task BuildBody_ShouldDropConfiguredColumnsFromHeaderAndDataRows()
+	public async Task ShouldDropConfiguredColumnsFromHeaderAndDataRows()
 	{
 		string[] withGen2 =
 		[
@@ -23,7 +23,7 @@ public sealed class BuildBodyTests
 	}
 
 	[Test]
-	public async Task BuildBody_WhenBdnPreBoldsTheBaselineRow_ShouldNotEmitDoubleBoldOrBreakPrefix()
+	public async Task WhenBdnPreBoldsTheBaselineRow_ShouldNotEmitDoubleBoldOrBreakPrefix()
 	{
 		string[] report =
 		[
@@ -44,7 +44,7 @@ public sealed class BuildBodyTests
 	}
 
 	[Test]
-	public async Task BuildBody_WhenTableHasEmptyRowSeparatingParameterGroups_ShouldEmitEmptyRowMatchingHeaderColumnCount()
+	public async Task WhenTableHasEmptyRowSeparatingParameterGroups_ShouldEmitEmptyRowMatchingHeaderColumnCount()
 	{
 		string body = BenchmarkReport.BuildBody([CreateFile(_groupedReportLines),], null, _columnsToRemove);
 
@@ -57,7 +57,7 @@ public sealed class BuildBodyTests
 	}
 
 	[Test]
-	public async Task BuildBody_WhenTableHasEmptyRowSeparatingParameterGroups_ShouldNotEmitBareSeparator()
+	public async Task WhenTableHasEmptyRowSeparatingParameterGroups_ShouldNotEmitBareSeparator()
 	{
 		string body = BenchmarkReport.BuildBody([CreateFile(_groupedReportLines),], null, _columnsToRemove);
 
@@ -65,7 +65,7 @@ public sealed class BuildBodyTests
 	}
 
 	[Test]
-	public async Task BuildBody_WhenTableHasEmptyRowSeparatingParameterGroups_ShouldStillStripCommonPrefix()
+	public async Task WhenTableHasEmptyRowSeparatingParameterGroups_ShouldStillStripCommonPrefix()
 	{
 		string body = BenchmarkReport.BuildBody([CreateFile(_groupedReportLines),], null, _columnsToRemove);
 
@@ -78,7 +78,7 @@ public sealed class BuildBodyTests
 	}
 
 	[Test]
-	public async Task BuildBody_WithoutMain_ShouldWarnAndRenderTheRawResultsCollapsedUnderTheClassName()
+	public async Task WithoutMain_ShouldWarnAndRenderTheRawResultsCollapsedUnderTheClassName()
 	{
 		string body = BenchmarkReport.BuildBody([CreateFile(_reportLines),], null, _columnsToRemove);
 
@@ -102,7 +102,7 @@ public sealed class BuildBodyTests
 	}
 
 	[Test]
-	public async Task BuildBody_WhenMainIsMissingForSomeClasses_ShouldWarnOnceAndCompareTheOthers()
+	public async Task WhenMainIsMissingForSomeClasses_ShouldWarnOnceAndCompareTheOthers()
 	{
 		BenchmarkReportFile compared = CreateFile("FooBenchmarks", _reportLines,
 			[("Foo_Mockolate", "", 100, 64),], ("Foo_Mockolate", "", 100, 64));
@@ -121,7 +121,7 @@ public sealed class BuildBodyTests
 	}
 
 	[Test]
-	public async Task BuildBody_ShouldOrderTheClassesLikeTheBenchmarksPage()
+	public async Task ShouldOrderTheClassesLikeTheBenchmarksPage()
 	{
 		string[] names =
 		[
@@ -143,7 +143,7 @@ public sealed class BuildBodyTests
 	}
 
 	[Test]
-	public async Task BuildBody_WhenNothingChanged_ShouldConfirmItAndLinkTheCommitOfMain()
+	public async Task WhenNothingChanged_ShouldConfirmItAndLinkTheCommitOfMain()
 	{
 		BenchmarkReportFile file = CreateFile("FooBenchmarks", _reportLines,
 			[("Foo_Mockolate", "", 100, 64),],
@@ -162,7 +162,7 @@ public sealed class BuildBodyTests
 	}
 
 	[Test]
-	public async Task BuildBody_WhenMemoryChanged_ShouldListItInTheMemoryTable()
+	public async Task WhenMemoryChanged_ShouldListItInTheMemoryTable()
 	{
 		BenchmarkReportFile file = CreateFile("FooBenchmarks", _reportLines,
 			[("Foo_Mockolate", "N=1", 100, 64),], ("Foo_Mockolate", "N=1", 100, 96));
@@ -178,7 +178,7 @@ public sealed class BuildBodyTests
 	[Test]
 	[Arguments(111.0, "| `Foo` | 100.0 ns | 111.0 ns | 🔴 +11% |")]
 	[Arguments(89.0, "| `Foo` | 100.0 ns | 89.0 ns | 🟢 -11% |")]
-	public async Task BuildBody_WhenTimeChangedByMoreThanTheThreshold_ShouldListItInTheTimeTable(double mean,
+	public async Task WhenTimeChangedByMoreThanTheThreshold_ShouldListItInTheTimeTable(double mean,
 		string expectedRow)
 	{
 		BenchmarkReportFile file = CreateFile("FooBenchmarks", _reportLines,
@@ -193,7 +193,7 @@ public sealed class BuildBodyTests
 	}
 
 	[Test]
-	public async Task BuildBody_ShouldCombineTheChangesOfAllClassesBeforeTheRawResults()
+	public async Task ShouldCombineTheChangesOfAllClassesBeforeTheRawResults()
 	{
 		BenchmarkReportFile foo = CreateFile("FooBenchmarks", _reportLines,
 			[("Foo_Mockolate", "", 100, 64),], ("Foo_Mockolate", "", 200, 64));
@@ -212,7 +212,7 @@ public sealed class BuildBodyTests
 	}
 
 	[Test]
-	public async Task BuildBody_ShouldListNewAndRemovedBenchmarks()
+	public async Task ShouldListNewAndRemovedBenchmarks()
 	{
 		BenchmarkReportFile file = CreateFile("FooBenchmarks", _reportLines,
 			[("Foo_Mockolate", "", 100, 64), ("Baz_Mockolate", "", 100, 64),],
@@ -227,7 +227,7 @@ public sealed class BuildBodyTests
 	}
 
 	[Test]
-	public async Task BuildBody_WhenTheRawResultsAreTooLong_ShouldReferToTheArtifact()
+	public async Task WhenTheRawResultsAreTooLong_ShouldReferToTheArtifact()
 	{
 		string[] longReport = Enumerable.Range(0, 1000)
 			.Select(i => $"| Foo_Moq | {i} | {new string('x', 50)} |")
