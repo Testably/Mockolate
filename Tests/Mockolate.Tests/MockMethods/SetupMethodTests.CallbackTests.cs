@@ -11,7 +11,7 @@ public sealed partial class SetupMethodTests
 		public class ReturnMethodWith0ParametersTests
 		{
 			[Test]
-			public async Task Callback_ShouldExecuteWhenInvoked()
+			public async Task WhenInvoked_ShouldExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -26,7 +26,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -40,7 +40,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task For_InParallel_ShouldLimitMatches()
+			public async Task For_WithParallelCallback_ShouldLimitMatches()
 			{
 				List<int> callIndices = [];
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -215,7 +215,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenForOrInParallel_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupCallbackBuilder<string> setup =
@@ -242,7 +242,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupCallbackWhenBuilder<string> setup =
@@ -266,7 +266,7 @@ public sealed partial class SetupMethodTests
 		public class ReturnMethodWith1ParametersTests
 		{
 			[Test]
-			public async Task Callback_ShouldExecuteWhenInvoked()
+			public async Task WhenInvoked_ShouldExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -281,7 +281,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -296,7 +296,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Callback_ShouldNotExecuteWhenParameterDoesNotMatch()
+			public async Task WhenParameterDoesNotMatch_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -310,7 +310,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
+			public async Task WithValue_WhenInvoked_ShouldPassTheArgumentToTheCallback()
 			{
 				int callCount = 0;
 				int receivedValue = 0;
@@ -330,7 +330,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WithValue_WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -345,7 +345,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenParameterDoesNotMatch()
+			public async Task WithValue_WhenParameterDoesNotMatch_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -361,7 +361,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task For_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -401,7 +401,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task Only_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -491,7 +491,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
+			public async Task Monitor_ShouldOnlyRecordValuesWhenTheParameterMatches()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -544,7 +544,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenForOrInParallel_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupCallbackBuilder<string, int> setup =
@@ -572,7 +572,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupCallbackWhenBuilder<string, int> setup =
@@ -597,7 +597,7 @@ public sealed partial class SetupMethodTests
 		public class ReturnMethodWith2ParametersTests
 		{
 			[Test]
-			public async Task Callback_ShouldExecuteWhenInvoked()
+			public async Task WhenInvoked_ShouldExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -615,7 +615,7 @@ public sealed partial class SetupMethodTests
 			[Arguments(false, false)]
 			[Arguments(true, false)]
 			[Arguments(false, true)]
-			public async Task Callback_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1, bool isMatch2)
+			public async Task WhenAnyParameterDoesNotMatch_ShouldNotExecuteTheCallback(bool isMatch1, bool isMatch2)
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -629,7 +629,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -644,7 +644,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
+			public async Task WithValues_WhenInvoked_ShouldPassTheArgumentsToTheCallback()
 			{
 				int callCount = 0;
 				int receivedValue1 = 0;
@@ -670,7 +670,7 @@ public sealed partial class SetupMethodTests
 			[Arguments(false, false)]
 			[Arguments(true, false)]
 			[Arguments(false, true)]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1,
+			public async Task WithValues_WhenAnyParameterDoesNotMatch_ShouldNotExecuteTheCallback(bool isMatch1,
 				bool isMatch2)
 			{
 				int callCount = 0;
@@ -685,7 +685,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WithValues_WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -798,7 +798,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
+			public async Task Monitor_ShouldOnlyRecordValuesWhenAllParametersMatch()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -853,7 +853,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenForOrInParallel_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupCallbackBuilder<string, int, int> setup =
@@ -881,7 +881,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupCallbackWhenBuilder<string, int, int> setup =
@@ -906,7 +906,7 @@ public sealed partial class SetupMethodTests
 		public class ReturnMethodWith3ParametersTests
 		{
 			[Test]
-			public async Task Callback_ShouldExecuteWhenInvoked()
+			public async Task WhenInvoked_ShouldExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -925,7 +925,7 @@ public sealed partial class SetupMethodTests
 			[Arguments(true, true, false)]
 			[Arguments(true, false, true)]
 			[Arguments(false, true, true)]
-			public async Task Callback_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1, bool isMatch2,
+			public async Task WhenAnyParameterDoesNotMatch_ShouldNotExecuteTheCallback(bool isMatch1, bool isMatch2,
 				bool isMatch3)
 			{
 				int callCount = 0;
@@ -941,7 +941,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -956,7 +956,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
+			public async Task WithValues_WhenInvoked_ShouldPassTheArgumentsToTheCallback()
 			{
 				int callCount = 0;
 				int receivedValue1 = 0;
@@ -986,7 +986,7 @@ public sealed partial class SetupMethodTests
 			[Arguments(true, true, false)]
 			[Arguments(true, false, true)]
 			[Arguments(false, true, true)]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1,
+			public async Task WithValues_WhenAnyParameterDoesNotMatch_ShouldNotExecuteTheCallback(bool isMatch1,
 				bool isMatch2,
 				bool isMatch3)
 			{
@@ -1003,7 +1003,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WithValues_WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1116,7 +1116,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
+			public async Task Monitor_ShouldOnlyRecordValuesWhenAllParametersMatch()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1174,7 +1174,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenForOrInParallel_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupCallbackBuilder<string, int, int, int> setup =
@@ -1202,7 +1202,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupCallbackWhenBuilder<string, int, int, int> setup =
@@ -1227,7 +1227,7 @@ public sealed partial class SetupMethodTests
 		public class ReturnMethodWith4ParametersTests
 		{
 			[Test]
-			public async Task Callback_ShouldExecuteWhenInvoked()
+			public async Task WhenInvoked_ShouldExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1247,7 +1247,7 @@ public sealed partial class SetupMethodTests
 			[Arguments(true, true, false, true)]
 			[Arguments(true, false, true, true)]
 			[Arguments(false, true, true, true)]
-			public async Task Callback_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1, bool isMatch2,
+			public async Task WhenAnyParameterDoesNotMatch_ShouldNotExecuteTheCallback(bool isMatch1, bool isMatch2,
 				bool isMatch3, bool isMatch4)
 			{
 				int callCount = 0;
@@ -1263,7 +1263,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1278,7 +1278,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
+			public async Task WithValues_WhenInvoked_ShouldPassTheArgumentsToTheCallback()
 			{
 				int callCount = 0;
 				int receivedValue1 = 0;
@@ -1312,7 +1312,7 @@ public sealed partial class SetupMethodTests
 			[Arguments(true, true, false, true)]
 			[Arguments(true, false, true, true)]
 			[Arguments(false, true, true, true)]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1,
+			public async Task WithValues_WhenAnyParameterDoesNotMatch_ShouldNotExecuteTheCallback(bool isMatch1,
 				bool isMatch2,
 				bool isMatch3, bool isMatch4)
 			{
@@ -1329,7 +1329,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WithValues_WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1442,7 +1442,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
+			public async Task Monitor_ShouldOnlyRecordValuesWhenAllParametersMatch()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1504,7 +1504,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenForOrInParallel_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupCallbackBuilder<string, int, int, int, int> setup =
@@ -1532,7 +1532,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupCallbackWhenBuilder<string, int, int, int, int> setup =
@@ -1557,7 +1557,7 @@ public sealed partial class SetupMethodTests
 		public class ReturnMethodWith5ParametersTests
 		{
 			[Test]
-			public async Task AnyParameters_Callback_ShouldExecuteWhenInvoked()
+			public async Task WithAnyParameters_WhenInvoked_ShouldExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1572,7 +1572,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task AnyParameters_CallbackWithValue_ShouldReceiveAllParameters()
+			public async Task WithAnyParametersAndValues_WhenInvoked_ShouldPassTheArgumentsToTheCallback()
 			{
 				int receivedValue1 = 0;
 				int receivedValue2 = 0;
@@ -1602,7 +1602,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Callback_ShouldExecuteWhenInvoked()
+			public async Task WhenInvoked_ShouldExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1624,7 +1624,7 @@ public sealed partial class SetupMethodTests
 			[Arguments(true, true, false, true, true)]
 			[Arguments(true, false, true, true, true)]
 			[Arguments(false, true, true, true, true)]
-			public async Task Callback_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1, bool isMatch2,
+			public async Task WhenAnyParameterDoesNotMatch_ShouldNotExecuteTheCallback(bool isMatch1, bool isMatch2,
 				bool isMatch3, bool isMatch4, bool isMatch5)
 			{
 				int callCount = 0;
@@ -1641,7 +1641,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1657,7 +1657,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
+			public async Task WithValues_WhenInvoked_ShouldPassTheArgumentsToTheCallback()
 			{
 				int callCount = 0;
 				int receivedValue1 = 0;
@@ -1696,7 +1696,7 @@ public sealed partial class SetupMethodTests
 			[Arguments(true, true, false, true, true)]
 			[Arguments(true, false, true, true, true)]
 			[Arguments(false, true, true, true, true)]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1,
+			public async Task WithValues_WhenAnyParameterDoesNotMatch_ShouldNotExecuteTheCallback(bool isMatch1,
 				bool isMatch2,
 				bool isMatch3, bool isMatch4, bool isMatch5)
 			{
@@ -1714,7 +1714,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WithValues_WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1833,7 +1833,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
+			public async Task Monitor_ShouldOnlyRecordValuesWhenAllParametersMatch()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1901,7 +1901,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenForOrInParallel_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupCallbackBuilder<string, int, int, int, int, int> setup =
@@ -1929,7 +1929,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupCallbackWhenBuilder<string, int, int, int, int, int> setup =
@@ -1954,7 +1954,7 @@ public sealed partial class SetupMethodTests
 		public class VoidMethodWith0ParametersTests
 		{
 			[Test]
-			public async Task Callback_ShouldExecuteWhenInvoked()
+			public async Task WhenInvoked_ShouldExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -1967,7 +1967,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -1981,7 +1981,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task For_InParallel_ShouldLimitMatches()
+			public async Task For_WithParallelCallback_ShouldLimitMatches()
 			{
 				List<int> callIndices = [];
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2154,7 +2154,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenForOrInParallel_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupCallbackBuilder setup =
@@ -2181,7 +2181,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupCallbackWhenBuilder setup =
@@ -2205,7 +2205,7 @@ public sealed partial class SetupMethodTests
 		public class VoidMethodWith1ParametersTests
 		{
 			[Test]
-			public async Task Callback_ShouldExecuteWhenInvoked()
+			public async Task WhenInvoked_ShouldExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2219,7 +2219,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2234,7 +2234,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Callback_ShouldNotExecuteWhenParameterDoesNotMatch()
+			public async Task WhenParameterDoesNotMatch_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2248,7 +2248,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
+			public async Task WithValue_WhenInvoked_ShouldPassTheArgumentToTheCallback()
 			{
 				int callCount = 0;
 				int receivedValue = 0;
@@ -2268,7 +2268,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WithValue_WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2283,7 +2283,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenParameterDoesNotMatch()
+			public async Task WithValue_WhenParameterDoesNotMatch_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2395,7 +2395,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
+			public async Task Monitor_ShouldOnlyRecordValuesWhenTheParameterMatches()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2448,7 +2448,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenForOrInParallel_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupCallbackBuilder<int> setup =
@@ -2476,7 +2476,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupCallbackWhenBuilder<int> setup =
@@ -2501,7 +2501,7 @@ public sealed partial class SetupMethodTests
 		public class VoidMethodWith2ParametersTests
 		{
 			[Test]
-			public async Task Callback_ShouldExecuteWhenInvoked()
+			public async Task WhenInvoked_ShouldExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2518,7 +2518,7 @@ public sealed partial class SetupMethodTests
 			[Arguments(false, false)]
 			[Arguments(true, false)]
 			[Arguments(false, true)]
-			public async Task Callback_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1, bool isMatch2)
+			public async Task WhenAnyParameterDoesNotMatch_ShouldNotExecuteTheCallback(bool isMatch1, bool isMatch2)
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2532,7 +2532,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2547,7 +2547,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
+			public async Task WithValues_WhenInvoked_ShouldPassTheArgumentsToTheCallback()
 			{
 				int callCount = 0;
 				int receivedValue1 = 0;
@@ -2573,7 +2573,7 @@ public sealed partial class SetupMethodTests
 			[Arguments(false, false)]
 			[Arguments(true, false)]
 			[Arguments(false, true)]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1,
+			public async Task WithValues_WhenAnyParameterDoesNotMatch_ShouldNotExecuteTheCallback(bool isMatch1,
 				bool isMatch2)
 			{
 				int callCount = 0;
@@ -2588,7 +2588,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WithValues_WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2701,7 +2701,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
+			public async Task Monitor_ShouldOnlyRecordValuesWhenAllParametersMatch()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2756,7 +2756,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenForOrInParallel_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupCallbackBuilder<int, int> setup =
@@ -2784,7 +2784,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupCallbackWhenBuilder<int, int> setup =
@@ -2809,7 +2809,7 @@ public sealed partial class SetupMethodTests
 		public class VoidMethodWith3ParametersTests
 		{
 			[Test]
-			public async Task Callback_ShouldExecuteWhenInvoked()
+			public async Task WhenInvoked_ShouldExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2827,7 +2827,7 @@ public sealed partial class SetupMethodTests
 			[Arguments(true, true, false)]
 			[Arguments(true, false, true)]
 			[Arguments(false, true, true)]
-			public async Task Callback_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1, bool isMatch2,
+			public async Task WhenAnyParameterDoesNotMatch_ShouldNotExecuteTheCallback(bool isMatch1, bool isMatch2,
 				bool isMatch3)
 			{
 				int callCount = 0;
@@ -2843,7 +2843,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -2858,7 +2858,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
+			public async Task WithValues_WhenInvoked_ShouldPassTheArgumentsToTheCallback()
 			{
 				int callCount = 0;
 				int receivedValue1 = 0;
@@ -2888,7 +2888,7 @@ public sealed partial class SetupMethodTests
 			[Arguments(true, true, false)]
 			[Arguments(true, false, true)]
 			[Arguments(false, true, true)]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1,
+			public async Task WithValues_WhenAnyParameterDoesNotMatch_ShouldNotExecuteTheCallback(bool isMatch1,
 				bool isMatch2,
 				bool isMatch3)
 			{
@@ -2905,7 +2905,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WithValues_WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3018,7 +3018,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
+			public async Task Monitor_ShouldOnlyRecordValuesWhenAllParametersMatch()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3076,7 +3076,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenForOrInParallel_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupCallbackBuilder<int, int, int> setup =
@@ -3104,7 +3104,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupCallbackWhenBuilder<int, int, int> setup =
@@ -3129,7 +3129,7 @@ public sealed partial class SetupMethodTests
 		public class VoidMethodWith4ParametersTests
 		{
 			[Test]
-			public async Task Callback_ShouldExecuteWhenInvoked()
+			public async Task WhenInvoked_ShouldExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3148,7 +3148,7 @@ public sealed partial class SetupMethodTests
 			[Arguments(true, true, false, true)]
 			[Arguments(true, false, true, true)]
 			[Arguments(false, true, true, true)]
-			public async Task Callback_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1, bool isMatch2,
+			public async Task WhenAnyParameterDoesNotMatch_ShouldNotExecuteTheCallback(bool isMatch1, bool isMatch2,
 				bool isMatch3, bool isMatch4)
 			{
 				int callCount = 0;
@@ -3164,7 +3164,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3179,7 +3179,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
+			public async Task WithValues_WhenInvoked_ShouldPassTheArgumentsToTheCallback()
 			{
 				int callCount = 0;
 				int receivedValue1 = 0;
@@ -3213,7 +3213,7 @@ public sealed partial class SetupMethodTests
 			[Arguments(true, true, false, true)]
 			[Arguments(true, false, true, true)]
 			[Arguments(false, true, true, true)]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1,
+			public async Task WithValues_WhenAnyParameterDoesNotMatch_ShouldNotExecuteTheCallback(bool isMatch1,
 				bool isMatch2,
 				bool isMatch3, bool isMatch4)
 			{
@@ -3230,7 +3230,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WithValues_WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3343,7 +3343,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
+			public async Task Monitor_ShouldOnlyRecordValuesWhenAllParametersMatch()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3405,7 +3405,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenForOrInParallel_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupCallbackBuilder<int, int, int, int> setup =
@@ -3433,7 +3433,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupCallbackWhenBuilder<int, int, int, int> setup =
@@ -3458,7 +3458,7 @@ public sealed partial class SetupMethodTests
 		public class VoidMethodWith5ParametersTests
 		{
 			[Test]
-			public async Task AnyParameters_Callback_ShouldExecuteWhenInvoked()
+			public async Task WithAnyParameters_WhenInvoked_ShouldExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3472,7 +3472,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task AnyParameters_CallbackWithValue_ShouldReceiveAllParameters()
+			public async Task WithAnyParametersAndValues_WhenInvoked_ShouldPassTheArgumentsToTheCallback()
 			{
 				int receivedValue1 = 0;
 				int receivedValue2 = 0;
@@ -3501,7 +3501,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Callback_ShouldExecuteWhenInvoked()
+			public async Task WhenInvoked_ShouldExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3522,7 +3522,7 @@ public sealed partial class SetupMethodTests
 			[Arguments(true, true, false, true, true)]
 			[Arguments(true, false, true, true, true)]
 			[Arguments(false, true, true, true, true)]
-			public async Task Callback_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1, bool isMatch2,
+			public async Task WhenAnyParameterDoesNotMatch_ShouldNotExecuteTheCallback(bool isMatch1, bool isMatch2,
 				bool isMatch3, bool isMatch4, bool isMatch5)
 			{
 				int callCount = 0;
@@ -3539,7 +3539,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Callback_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3555,7 +3555,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldExecuteWhenInvoked()
+			public async Task WithValues_WhenInvoked_ShouldPassTheArgumentsToTheCallback()
 			{
 				int callCount = 0;
 				int receivedValue1 = 0;
@@ -3594,7 +3594,7 @@ public sealed partial class SetupMethodTests
 			[Arguments(true, true, false, true, true)]
 			[Arguments(true, false, true, true, true)]
 			[Arguments(false, true, true, true, true)]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenAnyParameterDoesNotMatch(bool isMatch1,
+			public async Task WithValues_WhenAnyParameterDoesNotMatch_ShouldNotExecuteTheCallback(bool isMatch1,
 				bool isMatch2,
 				bool isMatch3, bool isMatch4, bool isMatch5)
 			{
@@ -3612,7 +3612,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task CallbackWithValue_ShouldNotExecuteWhenOtherMethodIsInvoked()
+			public async Task WithValues_WhenOtherMethodIsInvoked_ShouldNotExecuteTheCallback()
 			{
 				int callCount = 0;
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
@@ -3731,7 +3731,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task ParameterCallbacks_ShouldOnlyBeInvokedWhenAllMatch()
+			public async Task Monitor_ShouldOnlyRecordValuesWhenAllParametersMatch()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3799,7 +3799,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenForOrInParallel_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupCallbackBuilder<int, int, int, int, int> setup =
@@ -3827,7 +3827,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupCallbackWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupCallbackWhenBuilder<int, int, int, int, int> setup =

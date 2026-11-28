@@ -5,7 +5,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 	public sealed class ReturnsTaskTests
 	{
 		[Test]
-		public async Task ReturnsAsync_1Parameter_Callback_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With1ParameterAndCallback_ShouldReturnTheCallbackResult()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method1(It.IsAny<int>()).ReturnsAsync(() => 42);
@@ -16,7 +16,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_1Parameter_CallbackWithValue_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With1ParameterAndCallback_ShouldPassTheArgumentToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method1(It.IsAny<int>()).ReturnsAsync(v1 => v1 + 10);
@@ -27,7 +27,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_1Parameter_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With1Parameter_ShouldReturnTheConfiguredValue()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method1(It.IsAny<int>()).ReturnsAsync(42);
@@ -38,7 +38,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_1Parameter_ShouldSupportWhenAndFor()
+		public async Task ReturnsAsync_With1Parameter_ShouldSupportWhenAndOnly()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method1(It.IsAny<int>()).ReturnsAsync(42).When(i => i > 0).Only(1);
@@ -53,7 +53,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_2Parameters_Callback_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With2ParametersAndCallback_ShouldReturnTheCallbackResult()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method2(It.IsAny<int>(), It.IsAny<int>()).ReturnsAsync(() => 42);
@@ -64,7 +64,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_2Parameters_CallbackWithValues_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With2ParametersAndCallback_ShouldPassTheArgumentsToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method2(It.IsAny<int>(), It.IsAny<int>()).ReturnsAsync((v1, v2) => v1 + v2 + 10);
@@ -75,7 +75,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_2Parameters_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With2Parameters_ShouldReturnTheConfiguredValue()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method2(It.IsAny<int>(), It.IsAny<int>()).ReturnsAsync(42);
@@ -86,7 +86,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_2Parameters_ShouldSupportWhenAndFor()
+		public async Task ReturnsAsync_With2Parameters_ShouldSupportWhenAndOnly()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method2(It.IsAny<int>(), It.IsAny<int>()).ReturnsAsync(42).When(i => i > 0)
@@ -102,7 +102,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_3Parameters_Callback_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With3ParametersAndCallback_ShouldReturnTheCallbackResult()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method3(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()).ReturnsAsync(() => 42);
@@ -113,7 +113,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_3Parameters_CallbackWithValues_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With3ParametersAndCallback_ShouldPassTheArgumentsToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method3(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -125,7 +125,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_3Parameters_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With3Parameters_ShouldReturnTheConfiguredValue()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method3(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()).ReturnsAsync(42);
@@ -136,7 +136,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_3Parameters_ShouldSupportWhenAndFor()
+		public async Task ReturnsAsync_With3Parameters_ShouldSupportWhenAndOnly()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method3(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()).ReturnsAsync(() => 42)
@@ -152,7 +152,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_4Parameters_Callback_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With4ParametersAndCallback_ShouldReturnTheCallbackResult()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method4(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -164,7 +164,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_4Parameters_CallbackWithValues_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With4ParametersAndCallback_ShouldPassTheArgumentsToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method4(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -176,7 +176,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_4Parameters_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With4Parameters_ShouldReturnTheConfiguredValue()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method4(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -188,7 +188,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_4Parameters_ShouldSupportWhenAndFor()
+		public async Task ReturnsAsync_With4Parameters_ShouldSupportWhenAndOnly()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method4(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -204,7 +204,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_5Parameters_Callback_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With5ParametersAndCallback_ShouldReturnTheCallbackResult()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method5(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
@@ -217,7 +217,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_5Parameters_CallbackWithValues_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With5ParametersAndCallback_ShouldPassTheArgumentsToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method5(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
@@ -230,7 +230,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_5Parameters_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With5Parameters_ShouldReturnTheConfiguredValue()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method5(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
@@ -243,7 +243,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_5Parameters_ShouldSupportWhenAndFor()
+		public async Task ReturnsAsync_With5Parameters_ShouldSupportWhenAndOnly()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method5(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
@@ -260,7 +260,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_NoParameters_Callback_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With0ParametersAndCallback_ShouldReturnTheCallbackResult()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method0().ReturnsAsync(() => 42);
@@ -271,7 +271,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_NoParameters_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With0Parameters_ShouldReturnTheConfiguredValue()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method0().ReturnsAsync(42);
@@ -282,7 +282,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_NoParameters_ShouldSupportWhenAndFor()
+		public async Task ReturnsAsync_With0Parameters_ShouldSupportWhenAndOnly()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method0().ReturnsAsync(42).When(i => i > 0).Only(1);
@@ -297,7 +297,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_WithParameters_Callback_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_WithAnyParametersAndCallback_ShouldReturnTheCallbackResult()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method2(Match.AnyParameters()).ReturnsAsync(() => 42);
@@ -308,7 +308,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_WithParameters_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_WithAnyParameters_ShouldReturnTheConfiguredValue()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method2(Match.AnyParameters()).ReturnsAsync(42);
@@ -319,7 +319,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task Returns_TaskFactory_ShouldReturnPendingTaskAsIs()
+		public async Task Returns_WithTaskFactory_ShouldReturnThePendingTaskAsIs()
 		{
 			TaskCompletionSource<int> completionSource = new();
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
@@ -338,7 +338,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 	public sealed class ReturnsValueTaskTests
 	{
 		[Test]
-		public async Task ReturnsAsync_1Parameter_Callback_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With1ParameterAndCallback_ShouldReturnTheCallbackResult()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT1(It.IsAny<int>()).ReturnsAsync(() => 42);
@@ -349,7 +349,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_1Parameter_CallbackWithValue_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With1ParameterAndCallback_ShouldPassTheArgumentToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT1(It.IsAny<int>()).ReturnsAsync(v1 => v1 + 10);
@@ -360,7 +360,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_1Parameter_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With1Parameter_ShouldReturnTheConfiguredValue()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT1(It.IsAny<int>()).ReturnsAsync(42);
@@ -371,7 +371,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_1Parameter_ShouldSupportWhenAndFor()
+		public async Task ReturnsAsync_With1Parameter_ShouldSupportWhenAndOnly()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT1(It.IsAny<int>()).ReturnsAsync(42).When(i => i > 0).Only(1);
@@ -386,7 +386,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_2Parameters_Callback_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With2ParametersAndCallback_ShouldReturnTheCallbackResult()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT2(It.IsAny<int>(), It.IsAny<int>()).ReturnsAsync(() => 42);
@@ -397,7 +397,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_2Parameters_CallbackWithValues_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With2ParametersAndCallback_ShouldPassTheArgumentsToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT2(It.IsAny<int>(), It.IsAny<int>()).ReturnsAsync((v1, v2) => v1 + v2 + 10);
@@ -408,7 +408,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_2Parameters_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With2Parameters_ShouldReturnTheConfiguredValue()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT2(It.IsAny<int>(), It.IsAny<int>()).ReturnsAsync(42);
@@ -419,7 +419,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_2Parameters_ShouldSupportWhenAndFor()
+		public async Task ReturnsAsync_With2Parameters_ShouldSupportWhenAndOnly()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT2(It.IsAny<int>(), It.IsAny<int>()).ReturnsAsync(42).When(i => i > 0)
@@ -435,7 +435,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_3Parameters_Callback_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With3ParametersAndCallback_ShouldReturnTheCallbackResult()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT3(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()).ReturnsAsync(() => 42);
@@ -446,7 +446,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_3Parameters_CallbackWithValues_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With3ParametersAndCallback_ShouldPassTheArgumentsToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT3(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -458,7 +458,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_3Parameters_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With3Parameters_ShouldReturnTheConfiguredValue()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT3(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()).ReturnsAsync(42);
@@ -469,7 +469,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_3Parameters_ShouldSupportWhenAndFor()
+		public async Task ReturnsAsync_With3Parameters_ShouldSupportWhenAndOnly()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT3(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()).ReturnsAsync(() => 42)
@@ -485,7 +485,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_4Parameters_Callback_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With4ParametersAndCallback_ShouldReturnTheCallbackResult()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT4(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -497,7 +497,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_4Parameters_CallbackWithValues_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With4ParametersAndCallback_ShouldPassTheArgumentsToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT4(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -509,7 +509,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_4Parameters_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With4Parameters_ShouldReturnTheConfiguredValue()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT4(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -521,7 +521,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_4Parameters_ShouldSupportWhenAndFor()
+		public async Task ReturnsAsync_With4Parameters_ShouldSupportWhenAndOnly()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT4(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -537,7 +537,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_5Parameters_Callback_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With5ParametersAndCallback_ShouldReturnTheCallbackResult()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT5(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
@@ -550,7 +550,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_5Parameters_CallbackWithValues_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With5ParametersAndCallback_ShouldPassTheArgumentsToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT5(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
@@ -563,7 +563,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_5Parameters_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With5Parameters_ShouldReturnTheConfiguredValue()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT5(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
@@ -576,7 +576,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_5Parameters_ShouldSupportWhenAndFor()
+		public async Task ReturnsAsync_With5Parameters_ShouldSupportWhenAndOnly()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT5(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
@@ -593,7 +593,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_NoParameters_Callback_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With0ParametersAndCallback_ShouldReturnTheCallbackResult()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT0().ReturnsAsync(() => 42);
@@ -604,7 +604,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_NoParameters_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_With0Parameters_ShouldReturnTheConfiguredValue()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT0().ReturnsAsync(42);
@@ -615,7 +615,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_NoParameters_ShouldSupportWhenAndFor()
+		public async Task ReturnsAsync_With0Parameters_ShouldSupportWhenAndOnly()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT0().ReturnsAsync(42).When(i => i > 0).Only(1);
@@ -630,7 +630,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_WithParameters_Callback_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_WithAnyParametersAndCallback_ShouldReturnTheCallbackResult()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT2(Match.AnyParameters()).ReturnsAsync(() => 42);
@@ -641,7 +641,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ReturnsAsync_WithParameters_ReturnsConfiguredValue()
+		public async Task ReturnsAsync_WithAnyParameters_ShouldReturnTheConfiguredValue()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT2(Match.AnyParameters()).ReturnsAsync(42);
@@ -656,7 +656,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 	public sealed class ThrowsTaskTests
 	{
 		[Test]
-		public async Task ThrowsAsync_1Parameter_Callback_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With1ParameterAndCallback_ShouldThrowTheCallbackException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method1(It.IsAny<int>()).ThrowsAsync(() => new MyException("foo"));
@@ -667,7 +667,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_1Parameter_CallbackWithValue_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With1ParameterAndCallback_ShouldPassTheArgumentToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method1(It.IsAny<int>()).ThrowsAsync(v1 => new MyException($"foo-{v1}"));
@@ -678,7 +678,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_1Parameter_Exception_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With1Parameter_ShouldThrowTheConfiguredException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method1(It.IsAny<int>()).ThrowsAsync(new MyException("foo"));
@@ -689,7 +689,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_2Parameters_Callback_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With2ParametersAndCallback_ShouldThrowTheCallbackException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method2(It.IsAny<int>(), It.IsAny<int>()).ThrowsAsync(() => new MyException("foo"));
@@ -700,7 +700,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_2Parameters_CallbackWithValue_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With2ParametersAndCallback_ShouldPassTheArgumentsToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method2(It.IsAny<int>(), It.IsAny<int>())
@@ -712,7 +712,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_2Parameters_Exception_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With2Parameters_ShouldThrowTheConfiguredException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method2(It.IsAny<int>(), It.IsAny<int>()).ThrowsAsync(new MyException("foo"));
@@ -723,7 +723,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_3Parameters_Callback_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With3ParametersAndCallback_ShouldThrowTheCallbackException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method3(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -735,7 +735,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_3Parameters_CallbackWithValue_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With3ParametersAndCallback_ShouldPassTheArgumentsToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method3(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -747,7 +747,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_3Parameters_Exception_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With3Parameters_ShouldThrowTheConfiguredException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method3(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -759,7 +759,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_4Parameters_Callback_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With4ParametersAndCallback_ShouldThrowTheCallbackException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method4(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -771,7 +771,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_4Parameters_CallbackWithValue_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With4ParametersAndCallback_ShouldPassTheArgumentsToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method4(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -783,7 +783,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_4Parameters_Exception_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With4Parameters_ShouldThrowTheConfiguredException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method4(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -795,7 +795,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_5Parameters_Callback_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With5ParametersAndCallback_ShouldThrowTheCallbackException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method5(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
@@ -808,7 +808,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_5Parameters_CallbackWithValue_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With5ParametersAndCallback_ShouldPassTheArgumentsToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method5(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
@@ -821,7 +821,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_5Parameters_Exception_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With5Parameters_ShouldThrowTheConfiguredException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method5(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
@@ -834,7 +834,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_NoParameters_Callback_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With0ParametersAndCallback_ShouldThrowTheCallbackException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method0().ThrowsAsync(() => new MyException("foo"));
@@ -845,7 +845,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_NoParameters_Exception_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With0Parameters_ShouldThrowTheConfiguredException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.Method0().ThrowsAsync(new MyException("foo"));
@@ -860,7 +860,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 	public sealed class ThrowsValueTaskTests
 	{
 		[Test]
-		public async Task ThrowsAsync_1Parameter_Callback_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With1ParameterAndCallback_ShouldThrowTheCallbackException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT1(It.IsAny<int>()).ThrowsAsync(() => new MyException("foo"));
@@ -871,7 +871,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_1Parameter_CallbackWithValue_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With1ParameterAndCallback_ShouldPassTheArgumentToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT1(It.IsAny<int>()).ThrowsAsync(v1 => new MyException($"foo-{v1}"));
@@ -882,7 +882,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_1Parameter_Exception_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With1Parameter_ShouldThrowTheConfiguredException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT1(It.IsAny<int>()).ThrowsAsync(new MyException("foo"));
@@ -893,7 +893,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_2Parameters_Callback_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With2ParametersAndCallback_ShouldThrowTheCallbackException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT2(It.IsAny<int>(), It.IsAny<int>()).ThrowsAsync(() => new MyException("foo"));
@@ -904,7 +904,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_2Parameters_CallbackWithValue_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With2ParametersAndCallback_ShouldPassTheArgumentsToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT2(It.IsAny<int>(), It.IsAny<int>())
@@ -916,7 +916,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_2Parameters_Exception_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With2Parameters_ShouldThrowTheConfiguredException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT2(It.IsAny<int>(), It.IsAny<int>()).ThrowsAsync(new MyException("foo"));
@@ -927,7 +927,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_3Parameters_Callback_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With3ParametersAndCallback_ShouldThrowTheCallbackException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT3(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -939,7 +939,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_3Parameters_CallbackWithValue_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With3ParametersAndCallback_ShouldPassTheArgumentsToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT3(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -951,7 +951,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_3Parameters_Exception_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With3Parameters_ShouldThrowTheConfiguredException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT3(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -963,7 +963,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_4Parameters_Callback_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With4ParametersAndCallback_ShouldThrowTheCallbackException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT4(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -975,7 +975,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_4Parameters_CallbackWithValue_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With4ParametersAndCallback_ShouldPassTheArgumentsToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT4(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -987,7 +987,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_4Parameters_Exception_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With4Parameters_ShouldThrowTheConfiguredException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT4(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -999,7 +999,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_5Parameters_Callback_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With5ParametersAndCallback_ShouldThrowTheCallbackException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT5(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
@@ -1012,7 +1012,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_5Parameters_CallbackWithValue_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With5ParametersAndCallback_ShouldPassTheArgumentsToTheCallback()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT5(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
@@ -1025,7 +1025,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_5Parameters_Exception_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With5Parameters_ShouldThrowTheConfiguredException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT5(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
@@ -1038,7 +1038,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_NoParameters_Callback_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With0ParametersAndCallback_ShouldThrowTheCallbackException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT0().ThrowsAsync(() => new MyException("foo"));
@@ -1049,7 +1049,7 @@ public sealed class ReturnsThrowsAsyncExtensionsTests
 		}
 
 		[Test]
-		public async Task ThrowsAsync_NoParameters_Exception_ReturnsConfiguredValue()
+		public async Task ThrowsAsync_With0Parameters_ShouldThrowTheConfiguredException()
 		{
 			IReturnsAsyncExtensionsSetupTest sut = IReturnsAsyncExtensionsSetupTest.CreateMock();
 			sut.Mock.Setup.MethodVT0().ThrowsAsync(new MyException("foo"));

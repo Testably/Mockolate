@@ -11,7 +11,7 @@ public sealed partial class SetupMethodTests
 		public class ReturnMethodWith0ParametersTests
 		{
 			[Test]
-			public async Task Returns_AddedAfterTheSetupWasUsed_ShouldContinueTheSequence()
+			public async Task Returns_WhenAddedAfterTheSetupWasUsed_ShouldContinueTheSequence()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupReturnBuilder<string> setup = sut.Mock.Setup.Method0().Returns("a");
@@ -34,7 +34,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task For_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -49,7 +49,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task MixReturnsAndThrows_ShouldIterateThroughBoth()
+			public async Task WithReturnsAndThrows_ShouldIterateThroughBoth()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -68,7 +68,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task MultipleReturns_ShouldIterateThroughAllRegisteredValues()
+			public async Task Returns_WithMultipleValues_ShouldIterateThroughAllRegisteredValues()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -89,7 +89,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task Only_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -122,7 +122,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Callback_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldReturnTheCallbackResult()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -134,7 +134,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
+			public async Task For_ShouldRepeatEachValueTheSpecifiedNumberOfTimes()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -152,7 +152,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Forever_ShouldUseTheLastValueForever()
+			public async Task Forever_ShouldUseTheLastValueForever()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -171,7 +171,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task Only_ShouldLimitEachValueToTheSpecifiedNumberOfUses()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -189,7 +189,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_ShouldReturnExpectedValue()
+			public async Task Returns_ShouldReturnTheConfiguredValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -201,7 +201,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
+			public async Task When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -218,7 +218,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task For_WithWhen_ShouldLimitUsageToTheSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -239,7 +239,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_WithoutSetup_ShouldReturnDefault()
+			public async Task WithoutSetup_ShouldReturnDefault()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -249,7 +249,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task SetupWithoutReturn_ShouldUseBaseValue()
+			public async Task WithoutReturns_ShouldReturnTheBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
 				sut.Mock.Setup.Method0().Do(() => { });
@@ -260,7 +260,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task SetupWithReturn_ShouldReturnSetupValue()
+			public async Task Returns_ShouldReturnTheSetupValueInsteadOfTheBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
 				sut.Mock.Setup.Method0()
@@ -272,7 +272,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Callback_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldThrowTheCallbackException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -287,7 +287,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Generic_ShouldThrowException()
+			public async Task Throws_WithTypeArgument_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -317,7 +317,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IReturnMethodSetupReturnBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenOrFor_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupReturnBuilder<string> setup =
@@ -338,7 +338,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IReturnMethodSetupReturnWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupReturnWhenBuilder<string> setup =
@@ -364,7 +364,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task For_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -379,7 +379,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task MixReturnsAndThrows_ShouldIterateThroughBoth()
+			public async Task WithReturnsAndThrows_ShouldIterateThroughBoth()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -398,7 +398,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task MultipleReturns_ShouldIterateThroughAllRegisteredValues()
+			public async Task Returns_WithMultipleValues_ShouldIterateThroughAllRegisteredValues()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -419,7 +419,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task Only_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -434,7 +434,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Callback_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldReturnTheCallbackResult()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -446,7 +446,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_CallbackWithValue_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldPassTheArgumentToTheCallback()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -458,7 +458,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
+			public async Task For_ShouldRepeatEachValueTheSpecifiedNumberOfTimes()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -476,7 +476,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Forever_ShouldUseTheLastValueForever()
+			public async Task Forever_ShouldUseTheLastValueForever()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -495,7 +495,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task Only_ShouldLimitEachValueToTheSpecifiedNumberOfUses()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -513,7 +513,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_ShouldReturnExpectedValue()
+			public async Task Returns_ShouldReturnTheConfiguredValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -525,7 +525,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
+			public async Task When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -542,7 +542,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task For_WithWhen_ShouldLimitUsageToTheSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -563,7 +563,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_WithoutSetup_ShouldReturnDefault()
+			public async Task WithoutSetup_ShouldReturnDefault()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -573,7 +573,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task SetupWithoutReturn_ShouldUseBaseValue()
+			public async Task WithoutReturns_ShouldReturnTheBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
 				sut.Mock.Setup.Method1(It.IsAny<int>()).Do(() => { });
@@ -584,7 +584,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task SetupWithReturn_ShouldReturnSetupValue()
+			public async Task Returns_ShouldReturnTheSetupValueInsteadOfTheBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
 				sut.Mock.Setup.Method1(It.IsAny<int>())
@@ -596,7 +596,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Callback_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldThrowTheCallbackException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -612,7 +612,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithValue_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheArgumentToTheCallback()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -628,7 +628,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Generic_ShouldThrowException()
+			public async Task Throws_WithTypeArgument_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -660,7 +660,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WhenSetupWithNull_ShouldReturnDefaultValue()
+			public async Task Returns_WithNull_ShouldReturnNull()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -676,7 +676,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IReturnMethodSetupReturnBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenOrFor_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupReturnBuilder<string, int> setup =
@@ -697,7 +697,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IReturnMethodSetupReturnWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupReturnWhenBuilder<string, int> setup =
@@ -723,7 +723,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task For_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -738,7 +738,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task MixReturnsAndThrows_ShouldIterateThroughBoth()
+			public async Task WithReturnsAndThrows_ShouldIterateThroughBoth()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -757,7 +757,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task MultipleReturns_ShouldIterateThroughAllRegisteredValues()
+			public async Task Returns_WithMultipleValues_ShouldIterateThroughAllRegisteredValues()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -778,7 +778,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task Only_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -793,7 +793,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Callback_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldReturnTheCallbackResult()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -805,7 +805,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_CallbackWithValue_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldPassTheArgumentsToTheCallback()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -817,7 +817,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
+			public async Task For_ShouldRepeatEachValueTheSpecifiedNumberOfTimes()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -835,7 +835,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Forever_ShouldUseTheLastValueForever()
+			public async Task Forever_ShouldUseTheLastValueForever()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -854,7 +854,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task Only_ShouldLimitEachValueToTheSpecifiedNumberOfUses()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -872,7 +872,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_ShouldReturnExpectedValue()
+			public async Task Returns_ShouldReturnTheConfiguredValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -884,7 +884,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
+			public async Task When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -901,7 +901,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task For_WithWhen_ShouldLimitUsageToTheSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -922,7 +922,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_WithoutSetup_ShouldReturnDefault()
+			public async Task WithoutSetup_ShouldReturnDefault()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -932,7 +932,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task SetupWithoutReturn_ShouldUseBaseValue()
+			public async Task WithoutReturns_ShouldReturnTheBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
 				sut.Mock.Setup.Method2(It.IsAny<int>(), It.IsAny<int>()).Do(() => { });
@@ -943,7 +943,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task SetupWithReturn_ShouldReturnSetupValue()
+			public async Task Returns_ShouldReturnTheSetupValueInsteadOfTheBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
 				sut.Mock.Setup.Method2(It.IsAny<int>(), It.IsAny<int>())
@@ -955,7 +955,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Callback_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldThrowTheCallbackException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -971,7 +971,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithValue_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheArgumentsToTheCallback()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -987,7 +987,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Generic_ShouldThrowException()
+			public async Task Throws_WithTypeArgument_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1019,7 +1019,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WhenSetupWithNull_ShouldReturnDefaultValue()
+			public async Task Returns_WithNull_ShouldReturnNull()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1035,7 +1035,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IReturnMethodSetupReturnBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenOrFor_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupReturnBuilder<string, int, int> setup =
@@ -1057,7 +1057,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IReturnMethodSetupReturnWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupReturnWhenBuilder<string, int, int> setup =
@@ -1084,7 +1084,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task For_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1099,7 +1099,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task MixReturnsAndThrows_ShouldIterateThroughBoth()
+			public async Task WithReturnsAndThrows_ShouldIterateThroughBoth()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1118,7 +1118,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task MultipleReturns_ShouldIterateThroughAllRegisteredValues()
+			public async Task Returns_WithMultipleValues_ShouldIterateThroughAllRegisteredValues()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1139,7 +1139,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task Only_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1154,7 +1154,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Callback_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldReturnTheCallbackResult()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1167,7 +1167,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_CallbackWithValue_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldPassTheArgumentsToTheCallback()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1180,7 +1180,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
+			public async Task For_ShouldRepeatEachValueTheSpecifiedNumberOfTimes()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1198,7 +1198,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Forever_ShouldUseTheLastValueForever()
+			public async Task Forever_ShouldUseTheLastValueForever()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1217,7 +1217,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task Only_ShouldLimitEachValueToTheSpecifiedNumberOfUses()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1235,7 +1235,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_ShouldReturnExpectedValue()
+			public async Task Returns_ShouldReturnTheConfiguredValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1247,7 +1247,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
+			public async Task When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1264,7 +1264,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task For_WithWhen_ShouldLimitUsageToTheSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1285,7 +1285,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_WithoutSetup_ShouldReturnDefault()
+			public async Task WithoutSetup_ShouldReturnDefault()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1295,7 +1295,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task SetupWithoutReturn_ShouldUseBaseValue()
+			public async Task WithoutReturns_ShouldReturnTheBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
 				sut.Mock.Setup.Method3(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()).Do(() => { });
@@ -1306,7 +1306,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task SetupWithReturn_ShouldReturnSetupValue()
+			public async Task Returns_ShouldReturnTheSetupValueInsteadOfTheBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
 				sut.Mock.Setup.Method3(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -1318,7 +1318,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Callback_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldThrowTheCallbackException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1334,7 +1334,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithValue_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheArgumentsToTheCallback()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1350,7 +1350,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Generic_ShouldThrowException()
+			public async Task Throws_WithTypeArgument_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1382,7 +1382,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WhenSetupWithNull_ShouldReturnDefaultValue()
+			public async Task Returns_WithNull_ShouldReturnNull()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1398,7 +1398,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IReturnMethodSetupReturnBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenOrFor_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupReturnBuilder<string, int, int, int> setup =
@@ -1420,7 +1420,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IReturnMethodSetupReturnWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupReturnWhenBuilder<string, int, int, int> setup =
@@ -1447,7 +1447,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task For_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1462,7 +1462,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task MixReturnsAndThrows_ShouldIterateThroughBoth()
+			public async Task WithReturnsAndThrows_ShouldIterateThroughBoth()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1481,7 +1481,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task MultipleReturns_ShouldIterateThroughAllRegisteredValues()
+			public async Task Returns_WithMultipleValues_ShouldIterateThroughAllRegisteredValues()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1504,7 +1504,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task Only_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1519,7 +1519,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Callback_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldReturnTheCallbackResult()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1532,7 +1532,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_CallbackWithValue_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldPassTheArgumentsToTheCallback()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1545,7 +1545,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
+			public async Task For_ShouldRepeatEachValueTheSpecifiedNumberOfTimes()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1563,7 +1563,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Forever_ShouldUseTheLastValueForever()
+			public async Task Forever_ShouldUseTheLastValueForever()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1582,7 +1582,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task Only_ShouldLimitEachValueToTheSpecifiedNumberOfUses()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1600,7 +1600,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_ShouldReturnExpectedValue()
+			public async Task Returns_ShouldReturnTheConfiguredValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1613,7 +1613,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
+			public async Task When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1630,7 +1630,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task For_WithWhen_ShouldLimitUsageToTheSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1651,7 +1651,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_WithoutSetup_ShouldReturnDefault()
+			public async Task WithoutSetup_ShouldReturnDefault()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1661,7 +1661,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task SetupWithoutReturn_ShouldUseBaseValue()
+			public async Task WithoutReturns_ShouldReturnTheBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
 				sut.Mock.Setup.Method4(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -1673,7 +1673,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task SetupWithReturn_ShouldIgnoreBaseValue()
+			public async Task Returns_ShouldReturnTheSetupValueInsteadOfTheBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
 				sut.Mock.Setup.Method4(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())
@@ -1685,7 +1685,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Callback_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldThrowTheCallbackException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1701,7 +1701,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithValue_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheArgumentsToTheCallback()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1717,7 +1717,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Generic_ShouldThrowException()
+			public async Task Throws_WithTypeArgument_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1749,7 +1749,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WhenSetupWithNull_ShouldReturnDefaultValue()
+			public async Task Returns_WithNull_ShouldReturnNull()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -1765,7 +1765,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IReturnMethodSetupReturnBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenOrFor_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupReturnBuilder<string, int, int, int, int> setup =
@@ -1787,7 +1787,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IReturnMethodSetupReturnWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupReturnWhenBuilder<string, int, int, int, int> setup =
@@ -1814,7 +1814,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task For_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1830,7 +1830,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_AddedAfterTheSetupWasUsed_ShouldContinueTheSequence()
+			public async Task Returns_WhenAddedAfterTheSetupWasUsed_ShouldContinueTheSequence()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupReturnBuilder<string, int, int, int, int, int> setup = sut.Mock.Setup
@@ -1853,7 +1853,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task MixReturnsAndThrows_ShouldIterateThroughBoth()
+			public async Task WithReturnsAndThrows_ShouldIterateThroughBoth()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1873,7 +1873,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task MultipleReturns_ShouldIterateThroughAllRegisteredValues()
+			public async Task Returns_WithMultipleValues_ShouldIterateThroughAllRegisteredValues()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1897,7 +1897,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task Only_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1913,7 +1913,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Callback_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldReturnTheCallbackResult()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1927,7 +1927,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_CallbackWithValue_ShouldReturnExpectedValue()
+			public async Task Returns_WithCallback_ShouldPassTheArgumentsToTheCallback()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1941,7 +1941,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
+			public async Task For_ShouldRepeatEachValueTheSpecifiedNumberOfTimes()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1960,7 +1960,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Forever_ShouldUseTheLastValueForever()
+			public async Task Forever_ShouldUseTheLastValueForever()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1980,7 +1980,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task Only_ShouldLimitEachValueToTheSpecifiedNumberOfUses()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -1999,7 +1999,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_ShouldReturnExpectedValue()
+			public async Task Returns_ShouldReturnTheConfiguredValue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -2013,7 +2013,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
+			public async Task When_ShouldOnlyUseValueWhenPredicateIsTrue()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -2031,7 +2031,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task For_WithWhen_ShouldLimitUsageToTheSpecifiedNumber()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -2053,7 +2053,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_WithoutSetup_ShouldReturnDefault()
+			public async Task WithoutSetup_ShouldReturnDefault()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -2063,7 +2063,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task SetupWithoutReturn_ShouldUseBaseValue()
+			public async Task WithoutReturns_ShouldReturnTheBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
 				sut.Mock.Setup.Method5(
@@ -2076,7 +2076,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task SetupWithReturn_ShouldIgnoreBaseValue()
+			public async Task Returns_ShouldReturnTheSetupValueInsteadOfTheBaseValue()
 			{
 				ReturnMethodSetupTest sut = ReturnMethodSetupTest.CreateMock();
 				sut.Mock.Setup.Method5(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(),
@@ -2089,7 +2089,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Callback_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldThrowTheCallbackException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -2106,7 +2106,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithValue_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheArgumentsToTheCallback()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -2123,7 +2123,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Generic_ShouldThrowException()
+			public async Task Throws_WithTypeArgument_ShouldThrowException()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 
@@ -2157,7 +2157,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WhenSetupWithNull_ShouldReturnDefaultValue()
+			public async Task Returns_WithNull_ShouldReturnNull()
 			{
 				int callCount = 0;
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
@@ -2174,7 +2174,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IReturnMethodSetupReturnBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenOrFor_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupReturnBuilder<string, int, int, int, int, int> setup =
@@ -2197,7 +2197,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IReturnMethodSetupReturnWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IReturnMethodSetupTest sut = IReturnMethodSetupTest.CreateMock();
 				IReturnMethodSetupReturnWhenBuilder<string, int, int, int, int, int> setup =
@@ -2224,7 +2224,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task For_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2239,7 +2239,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task MixDoesNotThrowAndThrow_ShouldIterateThroughBoth()
+			public async Task WithDoesNotThrowAndThrows_ShouldIterateThroughBoth()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2262,7 +2262,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task Only_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2302,7 +2302,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
+			public async Task For_ShouldRepeatEachExceptionTheSpecifiedNumberOfTimes()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2328,7 +2328,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Forever_ShouldUseTheLastValueForever()
+			public async Task Forever_ShouldUseTheLastExceptionForever()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2355,7 +2355,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task Only_ShouldLimitEachExceptionToTheSpecifiedNumberOfUses()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2381,7 +2381,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
+			public async Task When_ShouldOnlyThrowWhenPredicateIsTrue()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2394,7 +2394,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task For_WithWhen_ShouldLimitUsageToTheSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2423,7 +2423,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Callback_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldThrowTheCallbackException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2438,7 +2438,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Generic_ShouldThrowException()
+			public async Task Throws_WithTypeArgument_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2468,7 +2468,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupReturnBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenOrFor_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupReturnBuilder setup =
@@ -2489,7 +2489,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupReturnWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupReturnWhenBuilder setup =
@@ -2515,7 +2515,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task For_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2530,7 +2530,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task MixDoesNotThrowAndThrow_ShouldIterateThroughBoth()
+			public async Task WithDoesNotThrowAndThrows_ShouldIterateThroughBoth()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2553,7 +2553,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task Only_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2568,7 +2568,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
+			public async Task For_ShouldRepeatEachExceptionTheSpecifiedNumberOfTimes()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2594,7 +2594,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Forever_ShouldUseTheLastValueForever()
+			public async Task Forever_ShouldUseTheLastExceptionForever()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2621,7 +2621,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task Only_ShouldLimitEachExceptionToTheSpecifiedNumberOfUses()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2647,7 +2647,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
+			public async Task When_ShouldOnlyThrowWhenPredicateIsTrue()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2660,7 +2660,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task For_WithWhen_ShouldLimitUsageToTheSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2689,7 +2689,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Callback_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldThrowTheCallbackException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2704,7 +2704,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithValue_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheArgumentToTheCallback()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2719,7 +2719,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Generic_ShouldThrowException()
+			public async Task Throws_WithTypeArgument_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2751,7 +2751,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupReturnBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenOrFor_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupReturnBuilder<int> setup =
@@ -2772,7 +2772,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupReturnWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupReturnWhenBuilder<int> setup =
@@ -2798,7 +2798,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task For_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2813,7 +2813,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task MixDoesNotThrowAndThrow_ShouldIterateThroughBoth()
+			public async Task WithDoesNotThrowAndThrows_ShouldIterateThroughBoth()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2836,7 +2836,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task Only_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2851,7 +2851,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
+			public async Task For_ShouldRepeatEachExceptionTheSpecifiedNumberOfTimes()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2877,7 +2877,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Forever_ShouldUseTheLastValueForever()
+			public async Task Forever_ShouldUseTheLastExceptionForever()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2904,7 +2904,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task Only_ShouldLimitEachExceptionToTheSpecifiedNumberOfUses()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2930,7 +2930,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
+			public async Task When_ShouldOnlyThrowWhenPredicateIsTrue()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2943,7 +2943,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task For_WithWhen_ShouldLimitUsageToTheSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2972,7 +2972,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Callback_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldThrowTheCallbackException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -2988,7 +2988,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithValue_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheArgumentsToTheCallback()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3004,7 +3004,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Generic_ShouldThrowException()
+			public async Task Throws_WithTypeArgument_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3036,7 +3036,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupReturnBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenOrFor_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupReturnBuilder<int, int> setup =
@@ -3058,7 +3058,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupReturnWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupReturnWhenBuilder<int, int> setup =
@@ -3085,7 +3085,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task For_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3100,7 +3100,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task MixDoesNotThrowAndThrow_ShouldIterateThroughBoth()
+			public async Task WithDoesNotThrowAndThrows_ShouldIterateThroughBoth()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3123,7 +3123,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task Only_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3138,7 +3138,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
+			public async Task For_ShouldRepeatEachExceptionTheSpecifiedNumberOfTimes()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3164,7 +3164,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Forever_ShouldUseTheLastValueForever()
+			public async Task Forever_ShouldUseTheLastExceptionForever()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3191,7 +3191,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task Only_ShouldLimitEachExceptionToTheSpecifiedNumberOfUses()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3217,7 +3217,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
+			public async Task When_ShouldOnlyThrowWhenPredicateIsTrue()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3230,7 +3230,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task For_WithWhen_ShouldLimitUsageToTheSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3259,7 +3259,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Callback_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldThrowTheCallbackException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3275,7 +3275,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithValue_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheArgumentsToTheCallback()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3291,7 +3291,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Generic_ShouldThrowException()
+			public async Task Throws_WithTypeArgument_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3323,7 +3323,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupReturnBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenOrFor_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupReturnBuilder<int, int, int> setup =
@@ -3345,7 +3345,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupReturnWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupReturnWhenBuilder<int, int, int> setup =
@@ -3372,7 +3372,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task For_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3387,7 +3387,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task MixDoesNotThrowAndThrow_ShouldIterateThroughBoth()
+			public async Task WithDoesNotThrowAndThrows_ShouldIterateThroughBoth()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3410,7 +3410,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task Only_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3425,7 +3425,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
+			public async Task For_ShouldRepeatEachExceptionTheSpecifiedNumberOfTimes()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3451,7 +3451,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Forever_ShouldUseTheLastValueForever()
+			public async Task Forever_ShouldUseTheLastExceptionForever()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3478,7 +3478,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task Only_ShouldLimitEachExceptionToTheSpecifiedNumberOfUses()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3504,7 +3504,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
+			public async Task When_ShouldOnlyThrowWhenPredicateIsTrue()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3517,7 +3517,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task For_WithWhen_ShouldLimitUsageToTheSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3546,7 +3546,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Callback_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldThrowTheCallbackException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3562,7 +3562,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithValue_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheArgumentsToTheCallback()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3578,7 +3578,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Generic_ShouldThrowException()
+			public async Task Throws_WithTypeArgument_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3610,7 +3610,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupReturnBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenOrFor_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupReturnBuilder<int, int, int, int> setup =
@@ -3632,7 +3632,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupReturnWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupReturnWhenBuilder<int, int, int, int> setup =
@@ -3659,7 +3659,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task For_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task For_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3675,7 +3675,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task MixDoesNotThrowAndThrow_ShouldIterateThroughBoth()
+			public async Task WithDoesNotThrowAndThrows_ShouldIterateThroughBoth()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3699,7 +3699,7 @@ public sealed partial class SetupMethodTests
 			[Test]
 			[Arguments(-2)]
 			[Arguments(0)]
-			public async Task Only_LessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
+			public async Task Only_WithTimesLessThanOne_ShouldThrowArgumentOutOfRangeException(int times)
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3715,7 +3715,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_For_ShouldRepeatUsage_ForTheSpecifiedNumber()
+			public async Task For_ShouldRepeatEachExceptionTheSpecifiedNumberOfTimes()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3742,7 +3742,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Forever_ShouldUseTheLastValueForever()
+			public async Task Forever_ShouldUseTheLastExceptionForever()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3770,7 +3770,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_Only_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task Only_ShouldLimitEachExceptionToTheSpecifiedNumberOfUses()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3797,7 +3797,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_When_ShouldOnlyUseValueWhenPredicateIsTrue()
+			public async Task When_ShouldOnlyThrowWhenPredicateIsTrue()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3811,7 +3811,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Returns_WhenFor_ShouldLimitUsage_ToSpecifiedNumber()
+			public async Task For_WithWhen_ShouldLimitUsageToTheSpecifiedNumber()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3841,7 +3841,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Callback_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldThrowTheCallbackException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3858,7 +3858,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_CallbackWithValue_ShouldThrowException()
+			public async Task Throws_WithCallback_ShouldPassTheArgumentsToTheCallback()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3875,7 +3875,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task Throws_Generic_ShouldThrowException()
+			public async Task Throws_WithTypeArgument_ShouldThrowException()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 
@@ -3909,7 +3909,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupReturnBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingWhenOrFor_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupReturnBuilder<int, int, int, int, int> setup =
@@ -3932,7 +3932,7 @@ public sealed partial class SetupMethodTests
 			}
 
 			[Test]
-			public async Task WithoutCallback_IVoidMethodSetupReturnWhenBuilder_ShouldNotThrow()
+			public async Task WithoutCallback_WhenCallingForOrOnly_ShouldNotThrow()
 			{
 				IVoidMethodSetupTest sut = IVoidMethodSetupTest.CreateMock();
 				IVoidMethodSetupReturnWhenBuilder<int, int, int, int, int> setup =

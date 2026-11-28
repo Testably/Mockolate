@@ -12,7 +12,7 @@ public sealed partial class SetupMethodTests
 	public sealed class WithLiteralValuesTests
 	{
 		[Test]
-		public async Task LiteralValues_Arity1_Return_MatchesValue()
+		public async Task ReturnMethod_With1Parameter_ShouldOnlyMatchTheLiteralValue()
 		{
 			ILiteralFusedService sut = ILiteralFusedService.CreateMock();
 			sut.Mock.Setup.Get1(1).Returns("one");
@@ -25,7 +25,7 @@ public sealed partial class SetupMethodTests
 		}
 
 		[Test]
-		public async Task LiteralValues_Arity1_Void_MatchesAndCounts()
+		public async Task VoidMethod_With1Parameter_ShouldMatchAndCountTheLiteralValue()
 		{
 			ILiteralFusedService sut = ILiteralFusedService.CreateMock();
 			int hits = 0;
@@ -40,7 +40,7 @@ public sealed partial class SetupMethodTests
 		}
 
 		[Test]
-		public async Task LiteralValues_Arity1_AnyParameters_MatchesEverything()
+		public async Task AnyParameters_WithReturnMethod_ShouldMatchEveryValue()
 		{
 			ILiteralFusedService sut = ILiteralFusedService.CreateMock();
 			sut.Mock.Setup.Get1(1).AnyParameters().Returns("any");
@@ -50,7 +50,7 @@ public sealed partial class SetupMethodTests
 		}
 
 		[Test]
-		public async Task LiteralValues_Arity1_EquivalentToItIs()
+		public async Task ReturnMethod_With1Parameter_ShouldBehaveLikeItIs()
 		{
 			ILiteralFusedService literal = ILiteralFusedService.CreateMock();
 			ILiteralFusedService matcher = ILiteralFusedService.CreateMock();
@@ -62,7 +62,7 @@ public sealed partial class SetupMethodTests
 		}
 
 		[Test]
-		public async Task LiteralValues_Arity2_Return_MatchesAllParameters()
+		public async Task ReturnMethod_With2Parameters_ShouldMatchAllParameters()
 		{
 			ILiteralFusedService sut = ILiteralFusedService.CreateMock();
 			sut.Mock.Setup.Get2(1, "a").Returns(11);
@@ -75,7 +75,7 @@ public sealed partial class SetupMethodTests
 		}
 
 		[Test]
-		public async Task LiteralValues_Arity2_Void_VerifiesByLiteralValues()
+		public async Task VoidMethod_With2Parameters_ShouldVerifyByLiteralValues()
 		{
 			ILiteralFusedService sut = ILiteralFusedService.CreateMock();
 			sut.Touch2(1, true);
@@ -88,7 +88,7 @@ public sealed partial class SetupMethodTests
 		}
 
 		[Test]
-		public async Task LiteralValues_Arity3_Return_MatchesAllParameters()
+		public async Task ReturnMethod_With3Parameters_ShouldMatchAllParameters()
 		{
 			ILiteralFusedService sut = ILiteralFusedService.CreateMock();
 			sut.Mock.Setup.Get3(1, "a", true).Returns(33);
@@ -100,7 +100,7 @@ public sealed partial class SetupMethodTests
 		}
 
 		[Test]
-		public async Task LiteralValues_Arity3_Void_AnyParameters()
+		public async Task AnyParameters_WithVoidMethod_ShouldMatchEveryValue()
 		{
 			ILiteralFusedService sut = ILiteralFusedService.CreateMock();
 			int hits = 0;
@@ -113,7 +113,7 @@ public sealed partial class SetupMethodTests
 		}
 
 		[Test]
-		public async Task LiteralValues_Arity4_Return_MatchesAllParameters()
+		public async Task ReturnMethod_With4Parameters_ShouldMatchAllParameters()
 		{
 			ILiteralFusedService sut = ILiteralFusedService.CreateMock();
 			sut.Mock.Setup.Get4(1, "a", true, 0.5).Returns(44);
@@ -125,7 +125,7 @@ public sealed partial class SetupMethodTests
 		}
 
 		[Test]
-		public async Task LiteralValues_Arity4_Void_EquivalentToMatcherSetup()
+		public async Task VoidMethod_With4Parameters_ShouldBehaveLikeItIs()
 		{
 			ILiteralFusedService literal = ILiteralFusedService.CreateMock();
 			ILiteralFusedService matcher = ILiteralFusedService.CreateMock();
@@ -143,7 +143,7 @@ public sealed partial class SetupMethodTests
 		}
 
 		[Test]
-		public async Task LiteralValues_ToString_UsesInvariantCulture()
+		public async Task ToString_ShouldUseInvariantCulture()
 		{
 			ILiteralFusedService sut = ILiteralFusedService.CreateMock();
 			sut.Mock.Setup.Get4(1, "a", true, 0.5).Returns(44);

@@ -7,7 +7,7 @@ public sealed partial class VerifyInvokedTests
 	public sealed class WithSpanTests
 	{
 		[Test]
-		public async Task Memory_WhenPredicateMatches_ShouldApplySetup()
+		public async Task Memory_WithPredicate_ShouldOnlyCountMatchingCalls()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 
@@ -19,7 +19,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task Memory_WithoutPredicate_ShouldApplyAllCalls()
+		public async Task Memory_WithoutPredicate_ShouldCountEveryMemoryCall()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 
@@ -31,7 +31,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task ReadOnlySpan_WhenPredicateMatches_ShouldApplySetup()
+		public async Task ReadOnlySpan_WithPredicate_ShouldOnlyCountMatchingCalls()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 
@@ -43,7 +43,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task ReadOnlySpan_WithoutPredicate_ShouldApplyAllCalls()
+		public async Task ReadOnlySpan_WithoutPredicate_ShouldCountEveryReadOnlySpanCall()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 
@@ -55,7 +55,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task Span_WhenPredicateMatches_ShouldApplySetup()
+		public async Task Span_WithPredicate_ShouldOnlyCountMatchingCalls()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 
@@ -67,7 +67,7 @@ public sealed partial class VerifyInvokedTests
 		}
 
 		[Test]
-		public async Task Span_WithoutPredicate_ShouldApplyAllCalls()
+		public async Task Span_WithoutPredicate_ShouldCountEverySpanCall()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 

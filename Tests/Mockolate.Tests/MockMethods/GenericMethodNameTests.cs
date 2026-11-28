@@ -57,7 +57,7 @@ public sealed class GenericMethodNameTests
 	}
 
 	[Test]
-	public async Task Interaction_OnGenericInterface_ShouldNameTheMethodWithTheTypeArgument()
+	public async Task Interaction_WithGenericInterface_ShouldNameTheMethodWithTheTypeArgument()
 	{
 		IGenericMethodsOf<string> sut = IGenericMethodsOf<string>.CreateMock();
 

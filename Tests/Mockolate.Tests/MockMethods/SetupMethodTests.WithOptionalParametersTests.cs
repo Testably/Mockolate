@@ -56,7 +56,7 @@ public sealed partial class SetupMethodTests
 		}
 
 		[Test]
-		public async Task WithObject_WithOmittedParameter_ShouldTreatMatchersAsMatchers()
+		public async Task ObjectParameter_WithOmittedParameter_ShouldTreatMatchersAsMatchers()
 		{
 			IOptionalMethodParameters sut = IOptionalMethodParameters.CreateMock();
 			sut.Mock.Setup.WithObject(It.IsAny<string>()).Returns(1);
@@ -125,7 +125,7 @@ public sealed partial class SetupMethodTests
 		}
 
 		[Test]
-		public async Task WithSibling_WithExplicitNull_ShouldStillMatchTheDeclaredDefault()
+		public async Task SiblingOverload_WithExplicitNull_ShouldStillMatchTheDeclaredDefault()
 		{
 			IOptionalMethodParameters sut = IOptionalMethodParameters.CreateMock();
 			sut.Mock.Setup.WithSibling(It.IsAny<int>(), null).Returns(1);

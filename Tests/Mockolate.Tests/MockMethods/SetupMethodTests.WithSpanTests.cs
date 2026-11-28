@@ -7,7 +7,7 @@ public sealed partial class SetupMethodTests
 	public sealed class WithSpanTests
 	{
 		[Test]
-		public async Task Memory_WhenPredicateDoesNotMatch_ShouldUseDefaultValue()
+		public async Task Memory_WhenPredicateDoesNotMatch_ShouldReturnTheBaseValue()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 			sut.Mock.Setup.MyMethod(It.Satisfies<Memory<int>>(v => v.Length == 2)).Returns(4);
@@ -29,7 +29,7 @@ public sealed partial class SetupMethodTests
 		}
 
 		[Test]
-		public async Task Memory_WithoutPredicate_ShouldMatchAnySpan()
+		public async Task Memory_WithoutPredicate_ShouldMatchAnyMemory()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 			sut.Mock.Setup.MyMethod(It.IsAny<Memory<int>>()).Returns(42);
@@ -40,7 +40,7 @@ public sealed partial class SetupMethodTests
 		}
 
 		[Test]
-		public async Task ReadOnlySpan_ReturnValueSetup_ShouldReturnExpectedSpan()
+		public async Task ReadOnlySpan_WithReturnValue_ShouldReturnExpectedSpan()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 			char[] expectedData = ['a', 'b', 'c',];
@@ -52,7 +52,7 @@ public sealed partial class SetupMethodTests
 		}
 
 		[Test]
-		public async Task ReadOnlySpan_WhenPredicateDoesNotMatch_ShouldUseDefaultValue()
+		public async Task ReadOnlySpan_WhenPredicateDoesNotMatch_ShouldReturnTheBaseValue()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 			sut.Mock.Setup.MyMethod(It.IsReadOnlySpan<int>(v => v.Length == 2)).Returns(4);
@@ -100,7 +100,7 @@ public sealed partial class SetupMethodTests
 		}
 
 		[Test]
-		public async Task Span_MultipleReturnValues_ShouldCycleThroughValues()
+		public async Task Span_WithMultipleReturnValues_ShouldCycleThroughValues()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 			int[] firstData = [1, 2,];
@@ -119,7 +119,7 @@ public sealed partial class SetupMethodTests
 		}
 
 		[Test]
-		public async Task Span_ReturnValueSetup_ShouldReturnExpectedSpan()
+		public async Task Span_WithReturnValue_ShouldReturnExpectedSpan()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 			int[] expectedData = [1, 2, 3,];
@@ -131,7 +131,7 @@ public sealed partial class SetupMethodTests
 		}
 
 		[Test]
-		public async Task Span_WhenPredicateDoesNotMatch_ShouldUseDefaultValue()
+		public async Task Span_WhenPredicateDoesNotMatch_ShouldReturnTheBaseValue()
 		{
 			SpanMock sut = SpanMock.CreateMock();
 			sut.Mock.Setup.MyMethod(It.IsSpan<int>(v => v.Length == 2)).Returns(4);
