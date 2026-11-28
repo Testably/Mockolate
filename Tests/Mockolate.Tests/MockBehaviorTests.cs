@@ -1,6 +1,6 @@
 using Mockolate.Internals;
+using Mockolate.TestHelpers;
 using Mockolate.Tests.GeneratorCoverage;
-using Mockolate.Tests.TestHelpers;
 
 namespace Mockolate.Tests;
 

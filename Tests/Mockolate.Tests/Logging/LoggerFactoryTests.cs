@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Mockolate.Exceptions;
 using Mockolate.Monitor;
-using Mockolate.Tests.TestHelpers;
+using Mockolate.TestHelpers;
 
 namespace Mockolate.Tests.Logging;
 

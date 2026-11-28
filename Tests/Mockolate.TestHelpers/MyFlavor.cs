@@ -1,4 +1,4 @@
-namespace Mockolate.Tests.TestHelpers;
+namespace Mockolate.TestHelpers;
 
 public enum MyFlavor
 {

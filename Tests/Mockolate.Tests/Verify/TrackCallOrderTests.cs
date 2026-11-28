@@ -2,7 +2,7 @@ using System.Threading;
 using aweXpect.Chronology;
 using Mockolate.Exceptions;
 using Mockolate.Monitor;
-using Mockolate.Tests.TestHelpers;
+using Mockolate.TestHelpers;
 using Mockolate.Verify;
 
 namespace Mockolate.Tests.Verify;
@@ -47,9 +47,9 @@ public sealed class TrackCallOrderTests
 
 		await That(Act).Throws<MockVerificationException>()
 			.WithMessage("""
-			             Expected that Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock invoked method Restock("Dark", 5), then Mockolate.Tests.TestHelpers.IChocolateDispenser mock invoked method Dispense("Dark", 1) in order, but Mockolate.Tests.TestHelpers.IChocolateDispenser mock invoked method Dispense("Dark", 1) too early.
+			             Expected that Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock invoked method Restock("Dark", 5), then Mockolate.TestHelpers.IChocolateDispenser mock invoked method Dispense("Dark", 1) in order, but Mockolate.TestHelpers.IChocolateDispenser mock invoked method Dispense("Dark", 1) too early.
 			             Recorded order:
-			               1. Mockolate.Tests.TestHelpers.IChocolateDispenser mock: invoke method Dispense("Dark", 1)
+			               1. Mockolate.TestHelpers.IChocolateDispenser mock: invoke method Dispense("Dark", 1)
 			               2. Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock: invoke method Restock("Dark", 5)
 			             """).IgnoringNewlineStyle();
 	}
@@ -71,7 +71,7 @@ public sealed class TrackCallOrderTests
 
 		await That(Act).Throws<MockVerificationException>()
 			.WithMessage("""
-			             Expected that Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock invoked method Restock("Dark", 5), then Mockolate.Tests.TestHelpers.IChocolateDispenser mock invoked method Dispense("Dark", 1) in order, but Mockolate.Tests.TestHelpers.IChocolateDispenser mock invoked method Dispense("Dark", 1) not at all.
+			             Expected that Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock invoked method Restock("Dark", 5), then Mockolate.TestHelpers.IChocolateDispenser mock invoked method Dispense("Dark", 1) in order, but Mockolate.TestHelpers.IChocolateDispenser mock invoked method Dispense("Dark", 1) not at all.
 			             Recorded order:
 			               1. Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock: invoke method Restock("Dark", 5)
 			             """).IgnoringNewlineStyle();
@@ -98,9 +98,9 @@ public sealed class TrackCallOrderTests
 
 		await That(Act).Throws<MockVerificationException>()
 			.WithMessage("""
-			             Expected that Mockolate.Tests.TestHelpers.IChocolateDispenser mock invoked method Dispense("Dark", 1), then Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock invoked method Restock(It.IsAny<string>(), It.IsAny<int>()) in order, but Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock invoked method Restock(It.IsAny<string>(), It.IsAny<int>()) not while the call order was tracked.
+			             Expected that Mockolate.TestHelpers.IChocolateDispenser mock invoked method Dispense("Dark", 1), then Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock invoked method Restock(It.IsAny<string>(), It.IsAny<int>()) in order, but Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock invoked method Restock(It.IsAny<string>(), It.IsAny<int>()) not while the call order was tracked.
 			             Recorded order:
-			               1. Mockolate.Tests.TestHelpers.IChocolateDispenser mock: invoke method Dispense("Dark", 1)
+			               1. Mockolate.TestHelpers.IChocolateDispenser mock: invoke method Dispense("Dark", 1)
 			             """).IgnoringNewlineStyle()
 			.Because("only the calls between TrackCallOrder and the disposal of its scope have an order");
 	}
@@ -122,7 +122,7 @@ public sealed class TrackCallOrderTests
 
 		await That(Act).Throws<MockVerificationException>()
 			.WithMessage("""
-			             Expected that Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock invoked method Restock("Dark", 5), then Mockolate.Tests.TestHelpers.IChocolateDispenser mock invoked method Dispense("Dark", 1) in order, but Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock invoked method Restock("Dark", 5) not while the call order was tracked. No calls were recorded while the call order was tracked.
+			             Expected that Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock invoked method Restock("Dark", 5), then Mockolate.TestHelpers.IChocolateDispenser mock invoked method Dispense("Dark", 1) in order, but Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock invoked method Restock("Dark", 5) not while the call order was tracked. No calls were recorded while the call order was tracked.
 			             """);
 	}
 
@@ -209,7 +209,7 @@ public sealed class TrackCallOrderTests
 		}
 
 		await That(Act).Throws<MockVerificationException>()
-			.WithMessage("*Mockolate.Tests.TestHelpers.ChocolateDispensedDelegate mock invoked*too early*").AsWildcard();
+			.WithMessage("*Mockolate.TestHelpers.ChocolateDispensedDelegate mock invoked*too early*").AsWildcard();
 	}
 
 	[Test]
@@ -228,7 +228,7 @@ public sealed class TrackCallOrderTests
 
 		await That(Act).Throws<MockException>()
 			.WithMessage(
-				"The call order of the Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock and the Mockolate.Tests.TestHelpers.IChocolateDispenser mock was not tracked. Call `TrackCallOrder` on one of the mocks with the others before the calls, e.g. `sut.Mock.TrackCallOrder(other.Mock)`.");
+				"The call order of the Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock and the Mockolate.TestHelpers.IChocolateDispenser mock was not tracked. Call `TrackCallOrder` on one of the mocks with the others before the calls, e.g. `sut.Mock.TrackCallOrder(other.Mock)`.");
 	}
 
 	[Test]
@@ -246,7 +246,7 @@ public sealed class TrackCallOrderTests
 
 		await That(Act).Throws<MockException>()
 			.WithMessage(
-				"The call order of the Mockolate.Tests.TestHelpers.IChocolateDispenser mock was not tracked. Call `TrackCallOrder` on one of the mocks with the others before the calls, e.g. `sut.Mock.TrackCallOrder(other.Mock)`.");
+				"The call order of the Mockolate.TestHelpers.IChocolateDispenser mock was not tracked. Call `TrackCallOrder` on one of the mocks with the others before the calls, e.g. `sut.Mock.TrackCallOrder(other.Mock)`.");
 	}
 
 	[Test]
@@ -292,7 +292,7 @@ public sealed class TrackCallOrderTests
 
 		await That(Act).Throws<MockException>()
 			.WithMessage(
-				"The call order of the Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock and the Mockolate.Tests.TestHelpers.IChocolateDispenser mock was not tracked in the same scope. A mock only keeps the call order of the latest scope that tracked it.");
+				"The call order of the Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock and the Mockolate.TestHelpers.IChocolateDispenser mock was not tracked in the same scope. A mock only keeps the call order of the latest scope that tracked it.");
 	}
 
 	[Test]
@@ -316,7 +316,7 @@ public sealed class TrackCallOrderTests
 
 		await That(Act).Throws<MockVerificationException>()
 			.WithMessage("""
-			             Expected that Mockolate.Tests.TestHelpers.IChocolateDispenser mock got property TotalDispensed, then Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock invoked method Restock("Dark", 5) in order, but Mockolate.Tests.TestHelpers.IChocolateDispenser mock got property TotalDispensed not while the call order was tracked.
+			             Expected that Mockolate.TestHelpers.IChocolateDispenser mock got property TotalDispensed, then Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock invoked method Restock("Dark", 5) in order, but Mockolate.TestHelpers.IChocolateDispenser mock got property TotalDispensed not while the call order was tracked.
 			             Recorded order:
 			               1. Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock: invoke method Restock("Dark", 5)
 			             """).IgnoringNewlineStyle()
@@ -340,10 +340,10 @@ public sealed class TrackCallOrderTests
 
 		await That(Act).Throws<MockVerificationException>()
 			.WithMessage("""
-			             Expected that Mockolate.Tests.TestHelpers.IChocolateDispenser mock #1 invoked method Dispense("Dark", 1), then Mockolate.Tests.TestHelpers.IChocolateDispenser mock #2 invoked method Dispense("Dark", 2) in order, but Mockolate.Tests.TestHelpers.IChocolateDispenser mock #2 invoked method Dispense("Dark", 2) too early.
+			             Expected that Mockolate.TestHelpers.IChocolateDispenser mock #1 invoked method Dispense("Dark", 1), then Mockolate.TestHelpers.IChocolateDispenser mock #2 invoked method Dispense("Dark", 2) in order, but Mockolate.TestHelpers.IChocolateDispenser mock #2 invoked method Dispense("Dark", 2) too early.
 			             Recorded order:
-			               1. Mockolate.Tests.TestHelpers.IChocolateDispenser mock #2: invoke method Dispense("Dark", 2)
-			               2. Mockolate.Tests.TestHelpers.IChocolateDispenser mock #1: invoke method Dispense("Dark", 1)
+			               1. Mockolate.TestHelpers.IChocolateDispenser mock #2: invoke method Dispense("Dark", 2)
+			               2. Mockolate.TestHelpers.IChocolateDispenser mock #1: invoke method Dispense("Dark", 1)
 			             """).IgnoringNewlineStyle();
 	}
 
@@ -368,7 +368,7 @@ public sealed class TrackCallOrderTests
 		}
 
 		await That(Act).Throws<MockVerificationException>()
-			.WithMessage("*but Mockolate.Tests.TestHelpers.IChocolateDispenser mock invoked method Dispense(\"Dark\", 1) too early.*").AsWildcard();
+			.WithMessage("*but Mockolate.TestHelpers.IChocolateDispenser mock invoked method Dispense(\"Dark\", 1) too early.*").AsWildcard();
 	}
 
 	[Test]
@@ -411,7 +411,7 @@ public sealed class TrackCallOrderTests
 
 		await That(Act).Throws<MockVerificationException>()
 			.WithMessage("""
-			             Expected that Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock invoked method Restock("Dark", 5), then Mockolate.Tests.TestHelpers.IChocolateDispenser mock invoked method Dispense("Dark", 1) in order, but it timed out after 00:00:00.0500000 waiting until Mockolate.Tests.TestHelpers.IChocolateDispenser mock invoked method Dispense("Dark", 1).
+			             Expected that Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock invoked method Restock("Dark", 5), then Mockolate.TestHelpers.IChocolateDispenser mock invoked method Dispense("Dark", 1) in order, but it timed out after 00:00:00.0500000 waiting until Mockolate.TestHelpers.IChocolateDispenser mock invoked method Dispense("Dark", 1).
 			             Recorded order:
 			               1. Mockolate.Tests.Verify.TrackCallOrderTests.IChocolateWarehouse mock: invoke method Restock("Dark", 5)
 			             """).IgnoringNewlineStyle();
@@ -432,7 +432,7 @@ public sealed class TrackCallOrderTests
 
 		await That(Act).Throws<MockException>()
 			.WithMessage(
-				"The call order of the Mockolate.Tests.TestHelpers.IChocolateDispenser mock and the Mockolate.Tests.TestHelpers.IChocolateDispenser mock was not tracked in the same scope. A mock only keeps the call order of the latest scope that tracked it.");
+				"The call order of the Mockolate.TestHelpers.IChocolateDispenser mock and the Mockolate.TestHelpers.IChocolateDispenser mock was not tracked in the same scope. A mock only keeps the call order of the latest scope that tracked it.");
 	}
 
 	[Test]

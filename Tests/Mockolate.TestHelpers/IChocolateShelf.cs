@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Mockolate.Tests.TestHelpers;
+namespace Mockolate.TestHelpers;
 
 public interface IChocolateShelfBase
 {

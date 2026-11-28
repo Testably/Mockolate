@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-namespace Mockolate.Tests.TestHelpers;
+namespace Mockolate.TestHelpers;
 
-internal interface IMyService
+public interface IMyService
 {
 	string this[int index] { get; set; }
 	string this[int index1, int index2] { get; set; }

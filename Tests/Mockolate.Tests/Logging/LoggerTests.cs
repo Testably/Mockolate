@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using Mockolate.Exceptions;
 using Mockolate.Monitor;
 using Mockolate.Setup;
-using Mockolate.Tests.TestHelpers;
+using Mockolate.TestHelpers;
 using Mockolate.Verify;
 
 namespace Mockolate.Tests.Logging;

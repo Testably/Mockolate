@@ -1,5 +1,5 @@
 using Mockolate.Parameters;
-using Mockolate.Tests.TestHelpers;
+using Mockolate.TestHelpers;
 
 namespace Mockolate.Tests;
 

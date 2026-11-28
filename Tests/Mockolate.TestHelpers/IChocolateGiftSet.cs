@@ -1,6 +1,6 @@
 using System;
 
-namespace Mockolate.Tests.TestHelpers;
+namespace Mockolate.TestHelpers;
 
 public interface IChocolateTray
 {
@@ -18,6 +18,8 @@ public interface IChocolateBox
 	int Count(string flavor);
 }
 
+#pragma warning disable S3444 // Interfaces should not simply inherit from base interfaces with colliding members
 public interface IChocolateGiftSet : IChocolateTray, IChocolateBox
 {
 }
+#pragma warning restore S3444

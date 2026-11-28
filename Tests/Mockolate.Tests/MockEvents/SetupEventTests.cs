@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Reflection;
-using Mockolate.Tests.TestHelpers;
+using Mockolate.TestHelpers;
 
 namespace Mockolate.Tests.MockEvents;
 
