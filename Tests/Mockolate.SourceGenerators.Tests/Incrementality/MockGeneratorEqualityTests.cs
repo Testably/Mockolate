@@ -47,7 +47,7 @@ public sealed class MockGeneratorEqualityTests
 		}
 	}
 
-	public sealed class ConstructorDependencyTests
+	public sealed class MockClassConstructorDependenciesTests
 	{
 		[Test]
 		public async Task Equals_WithEqualDependencies_IsTrue()

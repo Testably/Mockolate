@@ -4,7 +4,7 @@ using Mockolate.Tests.Mocks;
 
 namespace Mockolate.Tests.Scenarios;
 
-public sealed class ScenarioTests
+public sealed partial class ScenarioTests
 {
 	public sealed class InScenarioTests
 	{
@@ -722,7 +722,7 @@ public sealed class ScenarioTests
 		}
 	}
 
-	public sealed class ProtectedTests
+	public sealed class WithProtectedMembersTests
 	{
 		[Test]
 		public async Task InScenario_LambdaOverload_ShouldSupportSetupProtected()
