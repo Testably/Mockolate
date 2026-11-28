@@ -64,9 +64,9 @@ Async code is limited to waiting for verifications (`Within`, `WithCancellation`
 
 ### Where a test belongs
 
-- **Project:** decided by how the test reaches the code under test.
+- **Project:** decided by the code under test and how the test reaches it.
   - `Mockolate.Tests`: through a generated mock (`IChocolateDispenser.CreateMock()`, then setup, call and verify).
-  - `Mockolate.Internal.Tests`: by calling a library type directly, whether it is `public` or `internal` (`MockRegistry`, `Callbacks<T>`, the `*Records` types, `TypeFormatter`).
+  - `Mockolate.Internal.Tests`: by testing `internal` types and members or the `Mockolate.Internals` namespace directly (`MockRegistry`, `Callbacks<T>`, the `*Records` types, `TypeFormatter`), unless the test belongs to a user-facing feature (`MockDataSource`, the runtime of `[AutoMockArguments]`, is tested in `Mockolate.Tests` against the mocks generated there).
   - `Mockolate.SourceGenerators.Tests`: by running the generator on source text and asserting on the emitted code or the pipeline models.
   - The other projects have one purpose each, see [Project Structure](project-structure.md#test-projects).
 - **Shared types:** common domain types that several test projects use live in `Tests/Mockolate.TestHelpers`; shapes for generator special cases stay in `Mockolate.Tests/GeneratorCoverage`.
@@ -74,7 +74,7 @@ Async code is limited to waiting for verifications (`Within`, `WithCancellation`
   - `MockMethods/`, `MockProperties/`, `MockIndexers/`, `MockEvents/`, `MockDelegates/`: setup, verification and interactions of one member kind.
   - `Mocks/`: the `sut.Mock` surface that is not tied to a member kind (creation, `As<T>()`, wrapping, `ClearAllInteractions`, protected members).
   - `Parameters/`: `It`, `Match` and `ParameterArg`.
-  - `Verify/`, `Behavior/`, `AutoMocking/`, `Scenarios/`, `Monitor/`, `DataSources/`, `Web/`, `Logging/`, `RefStruct/`: the feature of the same name.
+  - `Verify/`, `Behavior/`, `AutoMocking/`, `Scenarios/`, `Monitor/`, `DataSources/`, `Web/`, `Logging/`, `RefStruct/`, `Exceptions/`, `Caching/`: the feature of the same name.
   - `GeneratorShapes/`: the runtime tests of the types in `GeneratorCoverage/`.
 - **Folders in `Mockolate.Internal.Tests`:** mirror `Source/Mockolate/` (`Interactions/`, `Internals/`, `Parameters/`, `Setup/`, `Verify/`, `Web/`, ...). A type with several test classes gets its own folder (`Registry/` for `MockRegistry`).
 - **Folders in `Mockolate.SourceGenerators.Tests`:** by what the test checks.

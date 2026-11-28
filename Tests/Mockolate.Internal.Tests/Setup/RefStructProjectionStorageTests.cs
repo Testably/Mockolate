@@ -2,7 +2,7 @@
 using Mockolate.Parameters;
 using Mockolate.Setup;
 
-namespace Mockolate.Internal.Tests;
+namespace Mockolate.Internal.Tests.Setup;
 
 /// <summary>
 ///     White-box tests for the projection-based storage on
